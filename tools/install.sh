@@ -31,7 +31,7 @@ hash git >/dev/null && /usr/bin/env git clone https://github.com/fuelingtheweb/f
 
 # Create a symlink to use fuelingtheweb.zsh-theme
 echo "\033[0;34mAdding fuelingtheweb theme to Oh My Zsh...\033[0m"
-ln -s ~/.fuelingtheweb/fuelingtheweb.zsh-theme ~/.oh-my-zsh/custom/fuelingtheweb.zsh-theme
+ln -s ~/.fuelingzsh/fuelingtheweb.zsh-theme ~/.oh-my-zsh/custom/fuelingtheweb.zsh-theme
 
 # Install Homebrew Packages
 # autojump, cmus, fasd, hub, lftp, mplayer, pianobar, rbenv, ruby-build, task, the_silver_searcher, tmux, vifm
