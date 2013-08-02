@@ -1,0 +1,7 @@
+[github]
+	user = username
+[ghi]
+	token = token
+[user]
+	name = Name
+	email = email
