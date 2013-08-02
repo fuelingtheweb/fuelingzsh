@@ -1,3 +1,6 @@
 [submodule "zprezto"]
 	path = zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "yadr"]
+	path = yadr
+	url = https://github.com/skwp/dotfiles.git
