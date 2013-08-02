@@ -58,15 +58,15 @@ fi
 export PATH=$PATH:~/Library/Ruby/Gems/1.8/bin:~/.rbenv/versions/1.9.3-p194/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
 source $fuelingzsh/options.zsh
 source $fuelingzsh/aliases.zsh  #alias reload
-source $fuelingzsh/yadr/colors.zsh
-source $fuelingzsh/yadr/fasd.zsh
-source $fuelingzsh/yadr/git.zsh
-source $fuelingzsh/yadr/key-bindings.zsh
-source $fuelingzsh/yadr/last-command.zsh
-source $fuelingzsh/yadr/noglob.zsh
-source $fuelingzsh/yadr/rm.zsh
-source $fuelingzsh/yadr/vi-mode.zsh
-source $fuelingzsh/yadr/zmv.zsh
+source $fuelingzsh/yadr/zsh/colors.zsh
+source $fuelingzsh/yadr/zsh/fasd.zsh
+source $fuelingzsh/yadr/zsh/git.zsh
+source $fuelingzsh/yadr/zsh/key-bindings.zsh
+source $fuelingzsh/yadr/zsh/last-command.zsh
+source $fuelingzsh/yadr/zsh/noglob.zsh
+source $fuelingzsh/yadr/zsh/rm.zsh
+source $fuelingzsh/yadr/zsh/vi-mode.zsh
+source $fuelingzsh/yadr/zsh/zmv.zsh
 unsetopt auto_pushd
 
 # Initialize rbenv
