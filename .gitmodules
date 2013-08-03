@@ -4,3 +4,6 @@
 [submodule "yadr"]
 	path = yadr
 	url = https://github.com/skwp/dotfiles.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
