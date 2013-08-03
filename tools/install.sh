@@ -156,13 +156,13 @@ ln -s ~/.fuelingzsh/zshrc ~/.zshrc
 ln -sf ~/.fuelingzsh/custom/pianobarconfig ~/.config/pianobar/config
 ln -sf ~/.fuelingzsh/pianobar/pianobar-notify.rb ~/.config/pianobar/pianobar-notify.rb
 
-# Adding vundle installer
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-vim +BundleInstall +qall
-
 echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
 chsh -s `which zsh`
 
 echo "\n\n \033[0;32mFueling Zsh is now installed.\033[0m"
 /usr/bin/env zsh
 source ~/.zshrc
+
+# Adding vundle installer
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+vim +BundleInstall +qall
