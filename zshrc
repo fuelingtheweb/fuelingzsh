@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/.fuelingzsh/oh-my-zsh
 
 # Path to fuelingzsh
 fuelingzsh=$HOME/.fuelingzsh
