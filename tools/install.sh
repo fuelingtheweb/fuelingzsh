@@ -26,7 +26,9 @@ hash git >/dev/null && /usr/bin/env git clone https://github.com/fuelingtheweb/f
 cd ~/.fuelingzsh
 git submodule update --init --recursive
 
-ln -s ~/.fuelingzsh/git/gitconfig ~/.gitconfig
+mkdir -p ~/.fuelingzsh/custom
+cp ~/.fuelingzsh/git/gitconfig ~/.fuelingzsh/custom/gitconfig
+ln -s ~/.fuelingzsh/custom/gitconfig ~/.gitconfig
 ln -s ~/.fuelingzsh/git/gitignore ~/.gitignore
 ln -s ~/.fuelingzsh/zshrc ~/.zshrc
 
