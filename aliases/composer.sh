@@ -1,0 +1,8 @@
+alias co='composer'
+alias csu='composer self-update'
+alias cr='composer require'
+alias crd='composer require --dev'
+alias cu='composer update'
+alias ci='composer install'
+alias cda='composer dump-autoload -o'
+alias crg='composer global require'

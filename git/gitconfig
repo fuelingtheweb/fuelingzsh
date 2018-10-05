@@ -1,15 +1,25 @@
 [color]
-  ui = true
+  ui = always
 [color "branch"]
   current = yellow reverse
   local = yellow
   remote = green
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-  meta = yellow bold
+  meta = yellow
   frag = magenta bold
+  commit = yellow bold
   old = red bold
-  new = green
+  new = green bold
+  whitespace = red reverse
 [alias]
+  # git patch > changes.patch
+  patch = !git --no-pager diff --no-color
+
   # add
   a = add                           # add
   chunkyadd = add --patch           # stage commits chunk by chunk
@@ -94,7 +104,7 @@
   # the usual default is to push all branches
   default = tracking
 [core]
-  autocrlf = false
+  autocrlf = input
   editor = vim
   excludesfile = ~/.gitignore
 [advice]
@@ -102,7 +112,7 @@
 [rerere]
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
-  enabled = true
+	enabled = true
 [include]
   path = ~/.fuelingzsh/custom/githubconfig
 [credential]
@@ -119,4 +129,25 @@
 [mergetool]
 	prompt = false
 [merge]
-	tool = Kaleidoscope
+
+[merge]
+	tool = sublime
+
+[mergetool "sublime"]
+	cmd = subl -n --wait \"$MERGED\"
+	trustExitCode = false
+
+[tag]
+	sort = version:refname
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff-so-fancy]
+  markEmptyLines = false
+  stripLeadingSymbols = true
+[pager]
+  diff = diff-so-fancy | less --tabs=4 -F --pattern '^(Date|added|deleted|modified): '
+  # diff = diff-so-fancy | less --tabs=4 -F
+  show = diff-so-fancy | less --tabs=4 -F

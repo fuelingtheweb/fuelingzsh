@@ -1,0 +1,5 @@
+alias cc='./vendor/bin/codecept'
+alias cept='vendor/bin/codecept run'
+alias ceptf='vendor/bin/codecept run functional'
+alias ccr='cc run'
+alias ccrsf='cc run --steps -f'
