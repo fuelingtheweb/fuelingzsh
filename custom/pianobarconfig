@@ -1,6 +1,0 @@
-user = username
-password = password
-audio_format = mp3-hifi
-autostart_station = stationId
-event_command = /Users/user/.config/pianobar/pianobar-notify.rb
-fifo = /Users/user/.config/pianobar/ctl
