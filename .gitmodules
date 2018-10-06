@@ -10,3 +10,6 @@
 [submodule "themes/powerlevel9k"]
 	path = themes/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
+[submodule "options/fonts/FiraCode"]
+	path = options/fonts/FiraCode
+	url = https://github.com/tonsky/FiraCode.git
