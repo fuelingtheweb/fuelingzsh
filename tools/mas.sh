@@ -10,9 +10,9 @@ mas signin --dialog "$appleid"
 # Mac App Store apps to install
 apps=(
     "Fantastical 2:975937182"
-    "Marked 2"
-    "Moom"
-    "Evernote"
+    "Marked 2:890031187"
+    "Moom:419330170"
+    "Evernote:406056744"
 )
 
 for app in "${apps[@]}"; do

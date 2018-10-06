@@ -34,6 +34,8 @@ formulas=(
     vim
     z
     mas
+    composer
+    yarn
 )
 
 for formula in "${formulas[@]}"; do
@@ -54,6 +56,13 @@ brew services start mysql
 
 casks=(
     iterm2
+    atom
+    sublime-text
+    sublime-merge
+    alfred
+    appcleaner
+    dash
+    hyperswitch
 )
 
 for cask in "${casks[@]}"; do
