@@ -6,14 +6,7 @@ fi
 
 xcode-select --install
 
-# Install Homebrew if it's not installed
-# URL: http://brew.sh
-# Homebrew is a package manager for OS X
-echo "\033[0;34mInstalling Homebrew...\033[0m"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-brew upgrade
-brew install ack bat circleci csvkit diff-so-fancy exa fasd fd fpp fzf git git-flow highlight httpie hub mysql ncdu nnn php prettyping sqlite terminal-notifier tesseract tldr vim z mas
+source ./brew.sh
 
 # Clone Fueling Zsh
 echo "\033[0;34mCloning Fueling Zsh...\033[0m"
@@ -31,6 +24,9 @@ cp ~/.fuelingzsh/git/gitconfig ~/.fuelingzsh/custom/gitconfig
 ln -s ~/.fuelingzsh/custom/gitconfig ~/.gitconfig
 ln -s ~/.fuelingzsh/git/gitignore ~/.gitignore
 ln -s ~/.fuelingzsh/zshrc ~/.zshrc
+ln -s ~/.fuelingzsh/plugins/zsh-autosuggestions ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-autosuggestions
+ln -s ~/.fuelingzsh/plugins/zsh-syntax-highlighting ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+ln -s ~/.fuelingzsh/themes/powerlevel9k ~/.fuelingzsh/oh-my-zsh/custom/themes/powerlevel9k
 
 source ./osx.sh
 source ./mas.sh
