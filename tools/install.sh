@@ -27,6 +27,7 @@ ln -s ~/.fuelingzsh/zshrc ~/.zshrc
 ln -s ~/.fuelingzsh/plugins/zsh-autosuggestions ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-autosuggestions
 ln -s ~/.fuelingzsh/plugins/zsh-syntax-highlighting ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 ln -s ~/.fuelingzsh/themes/powerlevel9k ~/.fuelingzsh/oh-my-zsh/custom/themes/powerlevel9k
+cp ~/.fuelingzsh/options/fonts/Droid+Sans+Mono+Awesome.ttf ~/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 
 source ./app-preferences.sh
 source ./osx.sh
