@@ -51,3 +51,16 @@ echo "=============================="
 /usr/local/opt/fzf/install --all --no-bash --no-fish
 
 brew services start mysql
+
+casks=(
+    iterm2
+)
+
+for cask in "${casks[@]}"; do
+    cask_name=$( echo "$cask" | awk '{print $1}' )
+    if brew cask list "$cask_name" > /dev/null 2>&1; then
+        echo "$cask_name already installed... skipping."
+    else
+        brew cask install "$cask"
+    fi
+done
