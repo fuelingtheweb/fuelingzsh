@@ -8,7 +8,6 @@ fi
 formulas=(
     ack
     bat
-    circleci
     csvkit
     diff-so-fancy
     exa
