@@ -31,3 +31,7 @@ chsh -s `which zsh`
 echo "\n\n \033[0;32mFueling Zsh is now installed.\033[0m"
 /usr/bin/env zsh
 source ~/.zshrc
+
+brew install zsh
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+echo 'Restart your terminal'
