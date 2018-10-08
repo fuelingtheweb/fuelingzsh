@@ -11,6 +11,7 @@ alias lz='laravel-zero'
 alias a='artisan'
 alias art='artisan'
 
+alias ah='artisan help'
 alias av='artisan --version'
 alias lds='artisan dump-server'
 alias dsk='artisan dusk'
