@@ -1,26 +1,31 @@
+#!/usr/bin/env bash
+
 # First, clone repo: git clone https://github.com/fuelingtheweb/fuelingzsh.git ~/.fuelingzsh
 
-TOOLS=~/.fuelingzsh/tools
+FUELINGZSH=$HOME/.fuelingzsh
+TOOLS=$FUELINGZSH/tools
 
 xcode-select --install
 
 source $TOOLS/brew.sh
 
 # Init and Update submodules
-cd ~/.fuelingzsh
+cd $FUELINGZSH
 git submodule update --init --recursive
 
-mkdir -p ~/.fuelingzsh/custom
-cp ~/.fuelingzsh/git/gitconfig ~/.fuelingzsh/custom/gitconfig
-ln -s ~/.fuelingzsh/custom/gitconfig ~/.gitconfig
-ln -s ~/.fuelingzsh/git/gitignore ~/.gitignore
-rm ~/.zshrc
-ln -s ~/.fuelingzsh/zshrc ~/.zshrc
-ln -s ~/.fuelingzsh/plugins/zsh-autosuggestions ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-autosuggestions
-ln -s ~/.fuelingzsh/plugins/zsh-syntax-highlighting ~/.fuelingzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-ln -s ~/.fuelingzsh/themes/powerlevel9k ~/.fuelingzsh/oh-my-zsh/custom/themes/powerlevel9k
-cp ~/.fuelingzsh/options/fonts/Droid+Sans+Mono+Awesome.ttf ~/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
-cp ~/.fuelingzsh/options/fonts/FiraCode/distr/ttf/* ~/Library/Fonts/
+mkdir -p $FUELINGZSH/custom
+cp $FUELINGZSH/git/gitconfig $FUELINGZSH/custom/gitconfig
+ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
+ln -s $FUELINGZSH/git/gitignore $HOME/.gitignore
+rm $HOME/.zshrc
+ln -s $FUELINGZSH/zshrc $HOME/.zshrc
+ln -s $FUELINGZSH/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions
+ln -s $FUELINGZSH/plugins/zsh-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+ln -s $FUELINGZSH/plugins/fast-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/fast-syntax-highlighting
+ln -s $FUELINGZSH/themes/powerlevel9k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel9k
+cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
+cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
+touch $HOME/.hushlogin
 
 source $TOOLS/app-preferences.sh
 source $TOOLS/osx.sh

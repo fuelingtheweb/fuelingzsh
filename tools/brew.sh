@@ -20,7 +20,7 @@ formulas=(
     highlight
     httpie
     hub
-    mysql
+    mysql@5.7
     ncdu
     nnn
     php
@@ -51,7 +51,8 @@ echo -e "\\n\\nRunning fzf install script..."
 echo "=============================="
 /usr/local/opt/fzf/install --all --no-bash --no-fish
 
-brew services start mysql
+brew services start mysql@5.7
+brew link mysql@5.7 --force
 
 casks=(
     iterm2

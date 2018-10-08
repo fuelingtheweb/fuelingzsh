@@ -3,6 +3,11 @@
 echo -e "\\n\\nSetting OS X settings"
 echo "=============================="
 
+# Prevent the dock icons from bouncing
+defaults write com.apple.dock no-bouncing -bool TRUE
+
+echo "=============================="
+
 # echo "Finder: show all filename extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
