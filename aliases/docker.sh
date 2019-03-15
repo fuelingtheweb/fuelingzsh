@@ -1,8 +1,8 @@
 # docker
-alias d='docker'
-alias dr='docker run'
-alias db='docker build'
-alias di='docker images'
+alias do='docker'
+alias dor='docker run'
+alias dob='docker build'
+alias doi='docker images'
 alias dps='docker ps'
 alias dpsa='docker ps -a'
 

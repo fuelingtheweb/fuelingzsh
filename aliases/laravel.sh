@@ -6,6 +6,9 @@ artisan() {
     fi
 }
 
+alias log:empty="echo '' > storage/logs/laravel.log"
+alias elf='log:empty'
+
 alias lv='laravel'
 alias lz='laravel-zero'
 alias a='artisan'

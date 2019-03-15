@@ -14,6 +14,7 @@ alias gc='git commit -m'
 alias gca='git commit -a -m'
 alias gpl='git pull'
 alias gps='git push'
+alias gpsnv='git push --no-verify'
 alias gcf='git checkout -f'
 alias gcam='git commit --amend'
 alias gcamn='git commit --amend --no-edit'
@@ -101,6 +102,7 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfrf='git flow release finish'
 alias gfi='git flow init'
+alias gfid='git flow init -d'
 
 alias gbsa='git for-each-ref --sort=committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"'
 alias gbsd='git for-each-ref --sort=-committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"'
@@ -116,6 +118,8 @@ alias gst='git stash'
 alias gstu='git stash -u'
 alias gstl='git stash list'
 alias gstc='git stash clear'
+alias gstsv='git stash save'
+alias gstsvu='git stash save -u'
 stash:pop() {
     if [ -f "$1" ]; then
         git stash pop stash@{"$1"}
@@ -189,14 +193,14 @@ is_in_git_repo() {
 }
 
 fgs() {
-  # "Nothing to see here, move along"
-  is_in_git_repo || return
+    # "Nothing to see here, move along"
+    is_in_git_repo || return
 
-  local cmd="${FZF_CTRL_T_COMMAND:-"command git status --porcelain"}"
+    local cmd="${FZF_CTRL_T_COMMAND:-"command git status --porcelain"}"
 
-  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf -m "$@" | while read -r item; do
-    atom $(printf '%q ' "$item" | cut -d " " -f 2)
-  done
+    eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf -m "$@" | while (read -r item) {
+        atom $(printf '%q ' "$item" | cut -d " " -f 2)
+    }
 }
 
 # fgm - merge git branch
@@ -210,3 +214,4 @@ fgm() {
 
 # ln -s /Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge /usr/local/bin/smerge
 alias sm='smerge'
+alias sm.='smerge .'

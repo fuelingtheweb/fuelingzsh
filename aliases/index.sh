@@ -4,7 +4,9 @@ source $ALIASES/file-editing.sh
 
 source $ALIASES/misc-dev.sh
 source $ALIASES/composer.sh
-source $ALIASES/docker.sh
+if type "$docker" > /dev/null; then
+    source $ALIASES/docker.sh
+fi
 source $ALIASES/ssh.sh
 source $ALIASES/editors.sh
 source $ALIASES/node.sh

@@ -7,3 +7,4 @@ function mdb () { mysql -uroot -e "create database $1" }
 function dropDatabase () { mysql -uroot -e "drop database $1" }
 function dumpDatabase () { mysqldump -u root $1 > ~/Downloads/$1.sql }
 function importDatabase () { mysql -u root $1 < ~/Downloads/$1.sql }
+alias db='mycli'

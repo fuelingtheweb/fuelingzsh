@@ -1,6 +1,6 @@
 # Xdebug
 alias xdebug:disable='echo "" > $(php --ini | grep xdebug)'
-alias xdebug:enable='cat $(php --ini | grep xdebug).back > $(php --ini | grep xdebug)'
+alias xdebug:enable='command cat $(php --ini | grep xdebug).back > $(php --ini | grep xdebug)'
 alias xdd='xdebug:disable'
 alias xde='xdebug:enable'
 
@@ -47,4 +47,4 @@ tdc() {
     xdebug:disable
 }
 
-alias tco='b ./tests/coverage/index.html'
+alias tco='br ./tests/coverage/index.html'
