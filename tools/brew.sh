@@ -20,12 +20,9 @@ formulas=(
     highlight
     httpie
     hub
-    mysql@5.7
     ncdu
     nnn
-    php
     prettyping
-    sqlite
     terminal-notifier
     tesseract
     tldr
@@ -33,6 +30,11 @@ formulas=(
     vim
     z
     mas
+    mycli
+    mysql@5.7
+    sqlite --with-json1
+    php --build-from-source
+    php-cs-fixer
     composer
     yarn
 )

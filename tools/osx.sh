@@ -6,6 +6,15 @@ echo "=============================="
 # Prevent the dock icons from bouncing
 defaults write com.apple.dock no-bouncing -bool TRUE
 
+# Screenshot location
+defaults write com.apple.screencapture location $HOME/Downloads
+
+# Add full path to title bar in Finder
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Disable Chrome swipe to go back
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
 echo "=============================="
 
 # echo "Finder: show all filename extensions"
