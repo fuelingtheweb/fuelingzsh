@@ -32,6 +32,7 @@ formulas=(
     mas
     mycli
     mysql@5.7
+    redis
     sqlite --with-json1
     php --build-from-source
     php-cs-fixer
