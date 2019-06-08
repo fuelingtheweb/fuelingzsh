@@ -13,14 +13,13 @@ source $TOOLS/brew.sh
 cd $FUELINGZSH
 git submodule update --init --recursive
 
-mkdir -p $FUELINGZSH/custom
-cp $FUELINGZSH/git/gitconfig $FUELINGZSH/custom/gitconfig
-ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
 ln -s $FUELINGZSH/git/gitignore $HOME/.gitignore
 rm $HOME/.zshrc
 ln -s $FUELINGZSH/zshrc $HOME/.zshrc
 ln -s $FUELINGZSH/dotfiles/my.cnf $HOME/.my.cnf
 ln -s $FUELINGZSH/dotfiles/myclirc $HOME/.myclirc
+ln -s $FUELINGZSH/dotfiles/npmrc $HOME/.npmrc
+ln -s $FUELINGZSH/dotfiles/phpmd.xml $HOME/.phpmd.xml
 ln -s $FUELINGZSH/dotfiles/bash_profile $HOME/.bash_profile
 ln -s $FUELINGZSH/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions
 ln -s $FUELINGZSH/plugins/zsh-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-syntax-highlighting

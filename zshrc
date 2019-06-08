@@ -22,3 +22,5 @@ source $ALIASES/index.sh
 if [[ -a $CUSTOM/localrc.sh ]]; then
     source $CUSTOM/localrc.sh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

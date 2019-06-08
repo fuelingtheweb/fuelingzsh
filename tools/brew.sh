@@ -36,6 +36,7 @@ formulas=(
     sqlite --with-json1
     php --build-from-source
     php-cs-fixer
+    phpmd
     composer
     yarn
 )
@@ -56,6 +57,7 @@ echo "=============================="
 
 brew services start mysql@5.7
 brew link mysql@5.7 --force
+brew services start redis
 
 casks=(
     iterm2
@@ -66,6 +68,7 @@ casks=(
     appcleaner
     dash
     hyperswitch
+    yakyak
 )
 
 for cask in "${casks[@]}"; do
