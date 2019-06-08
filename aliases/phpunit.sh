@@ -8,9 +8,9 @@ alias xde='xdebug:enable'
 t() {
     clear
     if [ -f vendor/bin/phpunit ]; then
-        vendor/bin/phpunit "$@"
+        vendor/bin/phpunit --stop-on-failure "$@"
     else
-        phpunit "$@"
+        phpunit --stop-on-failure "$@"
     fi
 }
 

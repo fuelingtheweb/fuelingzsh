@@ -26,6 +26,7 @@ alias akg='artisan key:generate'
 alias aqw='artisan queue:work'
 alias arl='artisan route:list'
 alias avp='artisan vendor:publish'
+alias aeg='artisan event:generate'
 
 # Database
 alias amg='artisan migrate'
@@ -42,7 +43,10 @@ alias amen='artisan make:enum'
 alias ame='artisan make:event'
 alias amexc='artisan make:exception'
 alias amexp='artisan make:export'
-alias amf='artisan make:factory'
+amf() {
+    NAME="${1}Factory"
+    artisan make:factory --model="$1" $NAME
+}
 alias amj='artisan make:job'
 alias aml='artisan make:listener'
 alias amma='artisan make:mail'
