@@ -29,8 +29,7 @@ alias gsh='git show'
 alias gshw='git show'
 alias gshow='git show'
 alias gi='st .gitignore'
-alias gcim='git ci -m'
-alias gci='git ci'
+alias gci='git check-ignore -v'
 alias gco='git co'
 alias gcp='git cp'
 alias gcpn='git cherry-pick -n'
@@ -123,35 +122,35 @@ alias gstc='git stash clear'
 alias gstsv='git stash save'
 alias gstsvu='git stash save -u'
 stash:pop() {
-    if [ -f "$1" ]; then
+    if [ "$1" ]; then
         git stash pop stash@{"$1"}
     else
         git stash pop
     fi
 }
 stash:apply() {
-    if [ -f "$1" ]; then
+    if [ "$1" ]; then
         git stash apply stash@{$1}
     else
         git stash apply
     fi
 }
 stash:show() {
-    if [ -f "$1" ]; then
+    if [ "$1" ]; then
         git stash show stash@{$1}
     else
         git stash show
     fi
 }
 stash:show-patch() {
-    if [ -f "$1" ]; then
+    if [ "$1" ]; then
         git stash show -p stash@{$1}
     else
         git stash show -p
     fi
 }
 stash:drop() {
-    if [ -f "$1" ]; then
+    if [ "$1" ]; then
         git stash drop stash@{$1}
     else
         git stash drop
