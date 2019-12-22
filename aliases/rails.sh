@@ -21,12 +21,12 @@ alias rrgmo='rails g model'
 alias rrgt='rails g task'
 
 # Ruby on Rails database tasks
-alias rrdc='rake db:create'
-alias rrdd='rake db:drop'
-alias rrdm='rake db:migrate'
-alias rrdr='rake db:reset'
-alias rrds='rake db:seed'
-alias rrdsu='rake db:setup'
+alias rrdc='rails db:create'
+alias rrdd='rails db:drop'
+alias rrdm='rails db:migrate'
+alias rrdr='rails db:reset'
+alias rrds='rails db:seed'
+alias rrdsu='rails db:setup'
 alias rrdrb='rails db:rollback'
 
 alias rrdrs='rails db:drop && rails db:create && rails db:migrate && rails db:seed'

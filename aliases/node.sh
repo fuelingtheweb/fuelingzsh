@@ -6,6 +6,15 @@ alias gp='gulp'
 alias gpw='gulp watch'
 alias gpp='gulp --production'
 
+# NVM
+alias nv='nvm'
+alias nvc='nvm current'
+alias nvl='nvm ls'
+alias nva='nvm alias'
+alias nvu='nvm use'
+alias nvi='nvm install'
+alias nvun='nvm uninstall'
+
 # NPM
 alias np='npm'
 alias npi='npm install'
@@ -40,3 +49,5 @@ alias yw='yarn run watch'
 alias yh='yarn run hot'
 alias yt='yarn run test'
 alias ytw='yarn run test:watch'
+alias ys='yarn serve'
+alias yb='yarn build'

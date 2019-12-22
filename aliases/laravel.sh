@@ -19,6 +19,7 @@ alias av='artisan --version'
 alias lds='artisan dump-server'
 alias dsk='artisan dusk'
 alias tnk='artisan tinker'
+alias as='artisan serve'
 
 # General
 alias acc='artisan cache:clear'

@@ -15,6 +15,7 @@ source $ALIASES/git.sh
 source $ALIASES/laravel.sh
 source $ALIASES/brew.sh
 source $ALIASES/fzf.sh
+source $ALIASES/rails.sh
 
 if [[ -a $ALIASES/custom/index.sh ]]; then
     source $ALIASES/custom/index.sh

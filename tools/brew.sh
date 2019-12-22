@@ -7,6 +7,7 @@ fi
 
 formulas=(
     ack
+    autojump
     bat
     csvkit
     diff-so-fancy
@@ -69,6 +70,16 @@ casks=(
     dash
     hyperswitch
     yakyak
+    shortcat
+    tableplus
+    betterzip
+    qlcolorcode
+    qlstephen
+    qlmarkdown
+    quicklook-json
+    quicklook-csv
+    qlimagesize
+    qlvideo
 )
 
 for cask in "${casks[@]}"; do
