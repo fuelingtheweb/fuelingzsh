@@ -14,6 +14,12 @@ function ipgdb () {
     # $1 = path/to/file, $2 = db name
     psql -f $1 $2 -U nathan -h localhost -W
 }
+function rpgdb () {
+    # $1 = path/to/file, $2 = db name
+    # psql -f $1 $2 -U nathan -h localhost -W
+    # pg_restore -h host -p port -d db_name archive_file.dump
+    pg_restore -d $2 $1
+}
 function dpgdb () {
     # $1 = db name
     pg_dump -U nathan -W -F t $1 > $HOME/Downloads/$1.tar

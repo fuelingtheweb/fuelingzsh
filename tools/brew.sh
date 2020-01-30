@@ -80,6 +80,7 @@ casks=(
     quicklook-csv
     qlimagesize
     qlvideo
+    cursorcerer
 )
 
 for cask in "${casks[@]}"; do

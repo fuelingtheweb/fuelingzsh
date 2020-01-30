@@ -30,7 +30,6 @@ alias gshw='git show'
 alias gshow='git show'
 alias gi='st .gitignore'
 alias gci='git check-ignore -v'
-alias gco='git co'
 alias gcp='git cp'
 alias gcpn='git cherry-pick -n'
 alias guns='git unstage'
@@ -76,7 +75,6 @@ alias gl="git log --date=short --decorate"
 
 alias deploy="git checkout master && git pull && git merge develop && git push && git checkout develop"
 
-alias gco='git checkout'
 alias gcom='git checkout master'
 alias gcod='git checkout develop'
 alias gcop='git checkout -'
@@ -162,17 +160,22 @@ alias gsts='stash:show'
 alias gstsp='stash:show-patch'
 alias gstd='stash:drop'
 
-# fco - checkout git branch
-fco() {
-  local branches branch
-  branches=$(git branch --no-color | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+# gco - checkout git branch
+unalias gco
+gco() {
+  if [ "$1" ]; then
+    git checkout "$1"
+  else
+    local branches branch
+    branches=$(git branch --no-color | grep -v HEAD) &&
+    branch=$(echo "$branches" |
+             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  fi
 }
 
 # fcoa - checkout git branch (including remote branches)
-fcoa() {
+gcoa() {
   local branches branch
   branches=$(git branch --all --no-color | grep -v HEAD) &&
   branch=$(echo "$branches" |
@@ -211,6 +214,16 @@ fgm() {
   branch=$(echo "$branches" |
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git merge $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+gpso() {
+    branch=$(echo -n $(git rev-parse --abbrev-ref HEAD))
+    git push --set-upstream origin "$branch"
+}
+
+gpsonv() {
+    branch=$(echo -n $(git rev-parse --abbrev-ref HEAD))
+    git push --set-upstream --no-verify origin "$branch"
 }
 
 # ln -s /Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge /usr/local/bin/smerge
