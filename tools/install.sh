@@ -21,6 +21,8 @@ ln -s $FUELINGZSH/dotfiles/myclirc $HOME/.myclirc
 ln -s $FUELINGZSH/dotfiles/npmrc $HOME/.npmrc
 ln -s $FUELINGZSH/dotfiles/phpmd.xml $HOME/.phpmd.xml
 ln -s $FUELINGZSH/dotfiles/bash_profile $HOME/.bash_profile
+ln -s $FUELINGZSH/dotfiles/karabiner.edn $HOME/.config/karabiner.edn
+ln -s $FUELINGZSH/dotfiles/.hammerspoon $HOME/.hammerspoon
 ln -s $FUELINGZSH/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions
 ln -s $FUELINGZSH/plugins/zsh-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 ln -s $FUELINGZSH/plugins/fast-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/fast-syntax-highlighting
