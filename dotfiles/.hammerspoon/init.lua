@@ -48,6 +48,14 @@ function openDiscordChannel(name)
     end)
 end
 
+function openNotionPage(name)
+    hs.eventtap.keyStroke({'cmd'}, 'P')
+    hs.eventtap.keyStrokes(name)
+    hs.timer.doAfter(0.1, function()
+        hs.eventtap.keyStroke({}, 'return')
+    end)
+end
+
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
     app = hs.application.frontmostApplication()
     bundle = app:bundleID()
@@ -223,15 +231,25 @@ hs.urlevent.bind('copyTextArea', function()
     hs.eventtap.keyStroke({}, 'Right')
 end)
 
+hs.urlevent.bind('appModeT', function()
+    if appIs(notion) then
+        openNotionPage('tasks')
+    end
+end)
+
 hs.urlevent.bind('appModeS', function()
     if appIs(discord) then
         openDiscordChannel('swift-bunny')
+    elseif appIs(notion) then
+        openNotionPage('swift bunny')
     end
 end)
 
 hs.urlevent.bind('appModeA', function()
     if appIs(discord) then
         openDiscordChannel('shattered-plains')
+    elseif appIs(notion) then
+        openNotionPage('home')
     end
 end)
 
@@ -271,8 +289,7 @@ hs.loadSpoon('ReloadConfiguration')
 spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()
 
-hs.application.launchOrFocusByBundleID('com.manytricks.Moom')
-app = hs.application.frontmostApplication()
-app:kill()
-hs.execute('defaults import com.manytricks.Moom ~/.fuelingzsh/options/apps/moom/com.manytricks.Moom.plist')
-hs.application.launchOrFocusByBundleID('com.manytricks.Moom')
+if hs.application.get('com.manytricks.Moom') == nil then
+    hs.execute('defaults import com.manytricks.Moom ~/.fuelingzsh/options/apps/moom/com.manytricks.Moom.plist')
+    hs.application.launchOrFocusByBundleID('com.manytricks.Moom')
+end
