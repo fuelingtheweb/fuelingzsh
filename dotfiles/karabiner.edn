@@ -71,15 +71,15 @@
                 [:i :!!i] ; Inbox
                 [:o :!!o] ; Witch (Only apps with open windows)
                 [:p :!Cv]
-                [:open_bracket :!!open_bracket]
-                [:close_bracket :!!close_bracket] ; Command pallete
+                [:open_bracket [:hs "openAnything"]]
+                [:close_bracket [:hs "commandPalette"]] ; Command palette
                 [:backslash :!Oescape] ; Escape Hyperswitch
                 [:f :!Oescape] ; Escape Hyperswitch to avoid opening app in fullscreen
                 [:h [:hs "hyperH"]] ; Navigate to previous page
                 [:j :!SCopen_bracket] ; Move to previous tab
                 [:k :!SCclose_bracket] ; Move to next tab
                 [:l [:hs "hyperL"]] ; Navigate to next page
-                [:semicolon :!!semicolon] ; Alfred Commands
+                [:semicolon ["osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \".\"'"]] ; Alfred Commands
                 [:quote :!Otab] ; Hyperswitch (All Windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
@@ -166,16 +166,17 @@
             :des "Launch apps in comma mode"
             :rules [:comma-mode
                 [:t :!!t] ; iTerm
-                [:r [:launch "Atom.app"]]
-                [:e [:launch "Sublime\\ Text.app"]]
+                [:r [:hs "app?id=atom"]]
+                [:e [:hs "app?id=sublime"]]
                 ; w
                 ; q
-                [:g [:launch "Google\\ Chrome.app"]]
+                [:g [:hs "app?id=chrome"]]
                 [:f [:launch "Notion.app"]]
                 [:d [:launch "Discord.app"]]
                 [:s [:launch "Spotify.app"]]
                 [:a :!OCc] ; Fantastical
                 [:b [:launch "Finder.app"]]
+                [:b [:hs "app?id=finder"]]
                 [:v [:launch "TablePlus.app"]]
                 [:c [:launch "Sublime\\ Merge.app"]]
                 [:x [:launch "Postman.app"]]
@@ -185,7 +186,7 @@
         {
             :des "Launch commands in semicolon mode"
             :rules [:semicolon-mode
-                [:t :!SOCt] ; New Tab
+                [:t [:hs "newTab"]] ; New Tab
                 [:r :!Cr] ; Reload
                 ; e
                 [:w [:hs "closeWindow"]]
@@ -194,7 +195,7 @@
                 [:g :!!g] ; Google Search
                 [:f :!Cf]
                 [:d [:hs "done"]]
-                [:s :!!s] ; Save
+                [:s [:hs "save"]] ; Save
                 [:a :!Ca] ; Select All
                 [:caps_lock :!SOCtab] ; Dismiss notifications
                 [:b :!Cd] ; Save Bookmark (Chrome)
@@ -263,6 +264,8 @@
                 [:period [:hyphen :!Speriod]] ; ->
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
+                [:i :!SOi] ; Atom: Cursor History: Previous
+                [:o :!To] ; Atom: Cursor History: Next
             ]
         }
         {

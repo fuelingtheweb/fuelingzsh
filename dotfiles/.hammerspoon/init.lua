@@ -1,3 +1,4 @@
+apps = {}
 atom = 'com.github.atom'
 chrome = 'com.google.Chrome'
 discord = 'com.hnc.Discord'
@@ -7,7 +8,24 @@ notion = 'notion.id'
 preview = 'com.apple.Preview'
 spotify = 'com.spotify.client'
 sublime = 'com.sublimetext.3'
+sublimeMerge = 'com.sublimemerge'
+tableplus = 'com.tinyapp.TablePlus'
 teams = 'com.microsoft.teams'
+apps['atom'] = atom
+apps['chrome'] = chrome
+apps['finder'] = finder
+apps['sublime'] = sublime
+
+ultrawide = 'LG ULTRAWIDE'
+macbookScreen = 'Color LCD'
+
+function isDisplay(name)
+    return hs.screen.primaryScreen():name() == name
+end
+
+function isMacbookDisplay()
+    return isDisplay(macbookScreen)
+end
 
 function appIs(bundle)
     return hs.application.frontmostApplication():bundleID() == bundle
@@ -64,7 +82,7 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
 end)
 
 hs.screen.watcher.new(function()
-    if hs.screen.primaryScreen():name() == 'LG ULTRAWIDE' then
+    if isDisplay(ultrawide) then
         hs.audiodevice.findOutputByName('Built-in Output'):setDefaultOutputDevice()
     end
 end):start()
@@ -79,7 +97,11 @@ windowsForCreatedHook:subscribe(wf.windowCreated, function ()
     elseif appIs(discord) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'H')
     elseif appIs(teams) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
+        if isMacbookDisplay() then
+            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'F')
+        else
+            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
+        end
     elseif appIs(finder) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'J')
     end
@@ -184,6 +206,50 @@ hs.urlevent.bind('done', function()
     end
 end)
 
+hs.urlevent.bind('save', function()
+    if appIs(chrome) then
+        -- Save to Raindrop
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 's')
+    elseif appIs(iterm) then
+        -- Save from Vim
+        hs.eventtap.keyStroke({'shift'}, ';')
+        hs.eventtap.keyStroke({}, 'x')
+        hs.eventtap.keyStroke({}, 'return')
+    else
+        hs.eventtap.keyStroke({'cmd'}, 's')
+    end
+end)
+
+hs.urlevent.bind('newTab', function()
+    if appIs(sublime) or appIs(atom) then
+        hs.eventtap.keyStroke({'cmd'}, 'n')
+    else
+        hs.eventtap.keyStroke({'cmd'}, 't')
+    end
+end)
+
+hs.urlevent.bind('openAnything', function()
+    if appIs(notion) or appIs(atom) or appIs(sublime) or appIs(sublimeMerge) or appIs(tableplus) then
+        hs.eventtap.keyStroke({'cmd'}, 'p')
+    elseif appIs(finder) then
+        hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "open "')
+    elseif appIs(discord) then
+        hs.eventtap.keyStroke({'cmd'}, 'k')
+    elseif appIs(spotify) then
+        hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "spotifious "')
+    elseif appIs(teams) then
+        hs.eventtap.keyStroke({'cmd'}, 'e')
+    end
+end)
+
+hs.urlevent.bind('commandPalette', function()
+    if appIs(atom) or appIs(sublime) or appIs(sublimeMerge) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
+    else
+        hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to run trigger "search" in workflow "com.tedwise.menubarsearch"')
+    end
+end)
+
 hs.urlevent.bind('cancelOrDelete', function()
     text = getSelectedText()
     if appIs(finder) and text == 'finderFileSelected' then
@@ -256,6 +322,42 @@ end)
 hs.urlevent.bind('appModeC', function()
     if appIs(discord) then
         openDiscordChannel('palantí')
+    end
+end)
+
+function windowCount(app)
+    count = 0
+    for k,v in pairs(app:visibleWindows()) do
+        if (appIs(preview) or appIs(finder)) and v:title() == '' then
+        else
+            count = count + 1
+        end
+    end
+
+    return count
+end
+
+function hasWindows(app)
+    return windowCount(app) > 0
+end
+
+function multipleWindows(app)
+    return windowCount(app) > 1
+end
+
+hs.urlevent.bind('app', function(eventName, params)
+    bundle = apps[params.id]
+    app = hs.application.frontmostApplication()
+    isActive = app:bundleID() == bundle
+
+    if not isActive and not hasWindows(hs.application.get(bundle)) then
+        hs.application.open(bundle)
+    elseif not isActive then
+        hs.application.get(bundle):activate()
+    elseif multipleWindows(app) then
+        hs.eventtap.keyStroke({'ctrl'}, 'tab')
+    elseif not hasWindows(app) then
+        hs.application.open(bundle)
     end
 end)
 
