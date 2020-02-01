@@ -236,7 +236,7 @@ hs.urlevent.bind('openAnything', function()
     elseif appIs(discord) then
         hs.eventtap.keyStroke({'cmd'}, 'k')
     elseif appIs(spotify) then
-        hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "spotifious "')
+        hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to run trigger ".spot_mini" in workflow "com.vdesabou.spotify.mini.player"')
     elseif appIs(teams) then
         hs.eventtap.keyStroke({'cmd'}, 'e')
     end
@@ -270,7 +270,7 @@ hs.urlevent.bind('hyperY', function()
     if text then
         -- Already in clipboard, do not reset
     elseif appIs(spotify) then
-        hs.osascript.applescriptFromFile([[
+        hs.osascript.applescript([[
             tell application "Spotify"
                 set theTrack to name of the current track
                 set theArtist to artist of the current track
@@ -289,6 +289,22 @@ hs.urlevent.bind('hyperY', function()
     elseif appIs(chrome) then
         hs.eventtap.keyStrokes('yy')
     end
+end)
+
+hs.urlevent.bind('dismissNotifications', function()
+    hs.osascript.applescript([[
+        tell application "System Events"
+            tell process "Notification Center"
+                set theseWindows to every window whose subrole is "AXNotificationCenterAlert" or subrole is "AXNotificationCenterBanner"
+                repeat with i from 1 to number of items in theseWindows
+                    set this_item to item i of theseWindows
+                    try
+                        click button 1 of this_item
+                    end try
+                end repeat
+            end tell
+        end tell
+    ]])
 end)
 
 hs.urlevent.bind('copyTextArea', function()
@@ -358,6 +374,16 @@ hs.urlevent.bind('app', function(eventName, params)
         hs.eventtap.keyStroke({'ctrl'}, 'tab')
     elseif not hasWindows(app) then
         hs.application.open(bundle)
+    end
+end)
+
+hs.urlevent.bind('shortcat', function()
+    bundle = 'com.sproutcube.Shortcat'
+
+    if hs.application.get(bundle) == nil then
+        hs.application.open(bundle)
+    else
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'space')
     end
 end)
 

@@ -84,7 +84,7 @@
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
-                [:comma :!!x] ; Shortcat
+                [:comma [:hs "shortcat"]] ; Shortcat
                 [:period :!STOperiod] ; Alfred Terminal
                 [:slash :!Ttab] ; Hyperswitch (Current App)
                 ; [:##slash :!!f]
@@ -197,7 +197,7 @@
                 [:d [:hs "done"]]
                 [:s [:hs "save"]] ; Save
                 [:a :!Ca] ; Select All
-                [:caps_lock :!SOCtab] ; Dismiss notifications
+                [:caps_lock [:hs "dismissNotifications"]] ; Dismiss notifications
                 [:b :!Cd] ; Save Bookmark (Chrome)
                 [:v :!SCz] ; Redo
                 [:c :!!k] ; Hide cursor
