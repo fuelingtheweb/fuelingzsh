@@ -76,8 +76,8 @@
                 [:backslash :!Oescape] ; Escape Hyperswitch
                 [:f :!Oescape] ; Escape Hyperswitch to avoid opening app in fullscreen
                 [:h [:hs "hyperH"]] ; Navigate to previous page
-                [:j :!SCopen_bracket] ; Move to previous tab
-                [:k :!SCclose_bracket] ; Move to next tab
+                [:j [:hs "previousTab"]]
+                [:k [:hs "nextTab"]]
                 [:l [:hs "hyperL"]] ; Navigate to next page
                 [:semicolon ["osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \".\"'"]] ; Alfred Commands
                 [:quote :!Otab] ; Hyperswitch (All Windows)
@@ -264,7 +264,7 @@
                 [:period [:hyphen :!Speriod]] ; ->
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
-                [:i :!SOi] ; Atom: Cursor History: Previous
+                [:i [:hs "codeModeI"]]
                 [:o :!To] ; Atom: Cursor History: Next
             ]
         }
@@ -272,9 +272,11 @@
             :des "App mode"
             :rules [:app-mode
                 [:t [:hs "appModeT"]]
+                [:d [:hs "appModeD"]]
                 [:s [:hs "appModeS"]]
                 [:a [:hs "appModeA"]]
                 [:c [:hs "appModeC"]]
+                [:h [:hs "appModeH"]]
             ]
         }
     ]

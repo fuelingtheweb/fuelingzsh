@@ -69,7 +69,7 @@ end
 function openNotionPage(name)
     hs.eventtap.keyStroke({'cmd'}, 'P')
     hs.eventtap.keyStrokes(name)
-    hs.timer.doAfter(0.1, function()
+    hs.timer.doAfter(0.3, function()
         hs.eventtap.keyStroke({}, 'return')
     end)
 end
@@ -228,6 +228,22 @@ hs.urlevent.bind('newTab', function()
     end
 end)
 
+hs.urlevent.bind('previousTab', function()
+    if appIs(tableplus) then
+        hs.eventtap.keyStroke({'cmd'}, '[')
+    else
+        hs.eventtap.keyStroke({'shift', 'cmd'}, '[')
+    end
+end)
+
+hs.urlevent.bind('nextTab', function()
+    if appIs(tableplus) then
+        hs.eventtap.keyStroke({'cmd'}, ']')
+    else
+        hs.eventtap.keyStroke({'shift', 'cmd'}, ']')
+    end
+end)
+
 hs.urlevent.bind('openAnything', function()
     if appIs(notion) or appIs(atom) or appIs(sublime) or appIs(sublimeMerge) or appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, 'p')
@@ -239,6 +255,8 @@ hs.urlevent.bind('openAnything', function()
         hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to run trigger ".spot_mini" in workflow "com.vdesabou.spotify.mini.player"')
     elseif appIs(teams) then
         hs.eventtap.keyStroke({'cmd'}, 'e')
+    elseif appIs(chrome) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
     end
 end)
 
@@ -313,9 +331,25 @@ hs.urlevent.bind('copyTextArea', function()
     hs.eventtap.keyStroke({}, 'Right')
 end)
 
+hs.urlevent.bind('codeModeI', function()
+    if appIs(atom) then
+        -- Dev Tools: Console
+        hs.eventtap.keyStroke({'shift', 'alt'}, 'I')
+    elseif appIs(chrome) then
+         -- Atom: Cursor History: Previous
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'I')
+    end
+end)
+
 hs.urlevent.bind('appModeT', function()
     if appIs(notion) then
         openNotionPage('tasks')
+    end
+end)
+
+hs.urlevent.bind('appModeD', function()
+    if appIs(notion) then
+        openNotionPage('home')
     end
 end)
 
@@ -331,13 +365,21 @@ hs.urlevent.bind('appModeA', function()
     if appIs(discord) then
         openDiscordChannel('shattered-plains')
     elseif appIs(notion) then
-        openNotionPage('home')
+        openNotionPage('discuss with andrew')
     end
 end)
 
 hs.urlevent.bind('appModeC', function()
     if appIs(discord) then
         openDiscordChannel('palantí')
+    elseif appIs(notion) then
+        openNotionPage('discuss with chris')
+    end
+end)
+
+hs.urlevent.bind('appModeH', function()
+    if appIs(notion) then
+        openNotionPage('hobbies + tasks')
     end
 end)
 
