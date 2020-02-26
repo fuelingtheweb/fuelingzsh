@@ -13,9 +13,28 @@
 ;; ## | optional any
 
 {
+    ; :simlayer-threshold 250
+    :profiles {
+        :Default {
+            :default true
+            :sim 250 ;; simultaneous_threshold_milliseconds (def: 50)
+            ;; keys need to be pressed within this threshold to be considered simultaneous
+            :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
+            ;; basically it means time after which the key press is count delayed
+            :alone 1000 ;; to_if_alone_timeout_milliseconds (def: 1000)
+            ;; hold for 995s and single tap registered; hold for 1005s and seen as modifier
+            :held 500 ;; to_if_held_down_threshold_milliseconds (def: 500)
+            ;; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
+        }
+    }
     :templates {
         :launch "open -a %s"
         :hs "open -g hammerspoon://%s"
+        :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
+        :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
+        :sublime "/usr/local/bin/subl \"%s\""
+        :atom "/usr/local/bin/atom \"%s\""
+        :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
     }
     :layers {
         :hyper-mode {:key :caps_lock :alone {:key :escape}}
@@ -23,18 +42,40 @@
     :simlayers {
         :vi-mode {:key :d}
         :vi-visual-mode {:key :v}
-        :comma-mode {:key :comma}
-        :semicolon-mode {:key :semicolon}
+        :launch-mode {:key :comma}
+        :command-mode {:key :semicolon}
         :quote-mode {:key :quote}
         :spacebar-mode {:key :spacebar}
-        :z-mode {:key :z}
-        :m-mode {:key :m}
+        :general-mode {:key :f}
+        :media-mode {:key :m}
         :google-mode {:key :g}
         :code-mode {:key :c}
-        :app-mode {:key :l}
+        :snippet-mode {:key :s}
+        :php-mode {:key :p}
+        :test-mode {:key :t}
+        :app-mode {:key :i}
+        :search-mode {:key :slash}
+        :open-mode {:key :o}
+        :atom-mode {:key :a}
     }
-    :simlayer-threshold 250
     :main [
+        ;; each manipulator has a description and multiple rules
+
+        ;;{:des "..."                               ;; -> description
+        ;; :rules[
+        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 1
+        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 2
+        ;; ]}
+        ;;
+        ;; <from> can be keywords defined in froms or keycodes without `{:not-from true}`
+        ;; <to> can be keywords defined in tos, keycodes without `{:not-to true}` or strings (shell script)
+        ;; <conditions> can be keywords defined in layers, devices, applications
+        ;; <other options> {:other {:parameters {:to_delayed_action_delay_milliseconds 100 :basic.to_if_alone_timeout_milliseconds 500 :basic.to_if_held_down_threshold_milliseconds 250}} }
+
+        ;; if simplified modifier is used in <to>, optional(#) definition will be ignored.
+
+        ;; (custom variables) & modifiers -> Advanced
+        ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
         {
             :des "Use right command for sticky vi and vi visual modes"
             :rules [
@@ -49,46 +90,38 @@
         {
             :des "Misc"
             :rules [
-                [:right_option {:mkey {:x 1536}}] ; Move Mouse
-                [:fn {:pkey :button1}]
+                [:right_option [:hs "media-showVideoBar"]]
+                [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
+                [:!TCf :escape] ; Escape Hyperswitch
             ]
         }
         {
-            :des "Manipulate Lines"
-            :rules [
-                [:!Cj [:hs "!Cj"]] ; Move line down / autocomplete on iTerm
-                [:!Ck [:hs "!Ck"]] ; Move line up
-                [:!Cm :!STOdown_arrow] ; Multiple cursors down
-                [:!Ci :!STOup_arrow] ; Multiple cursors up
-            ]
-        }
-        {
-            :des "Hyper Mode"
+            :des "Hyper Mode (Key: Caps Lock)"
             :rules [:hyper-mode
                 [:hyphen :!!hyphen] ; Witch (All)
-                [:y [:hs "hyperY"]]
-                [:u [:hs "copyTextArea"]]
+                [:y [:hs "hyper-copy"]]
+                [:u [:hs "hyper-copyTextArea"]]
                 [:i :!!i] ; Inbox
                 [:o :!!o] ; Witch (Only apps with open windows)
                 [:p :!Cv]
-                [:open_bracket [:hs "openAnything"]]
-                [:close_bracket [:hs "commandPalette"]] ; Command palette
-                [:backslash :!Oescape] ; Escape Hyperswitch
-                [:f :!Oescape] ; Escape Hyperswitch to avoid opening app in fullscreen
-                [:h [:hs "hyperH"]] ; Navigate to previous page
-                [:j [:hs "previousTab"]]
-                [:k [:hs "nextTab"]]
-                [:l [:hs "hyperL"]] ; Navigate to next page
-                [:semicolon ["osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \".\"'"]] ; Alfred Commands
-                [:quote :!Otab] ; Hyperswitch (All Windows)
+                [:open_bracket [:hs "hyper-openAnything"]]
+                [:close_bracket [:hs "hyper-commandPalette"]] ; Command palette
+                ; [:backslash :!Cescape] ; Escape yperswitch
+                [:f :!Cescape] ; Escape Hyperswitch to avoid opening app in fullscreen
+                [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
+                [:j [:hs "hyper-previousTab"]]
+                [:k [:hs "hyper-nextTab"]]
+                [:l [:hs "hyper-nextPage"]] ; Navigate to next page
+                [:semicolon [:alfredsearch "."]] ; Alfred Commands
+                [:quote :!Ctab] ; Hyperswitch (All Windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
-                [:comma [:hs "shortcat"]] ; Shortcat
+                [:comma [:hs "hyper-shortcat"]] ; Shortcat
                 [:period :!STOperiod] ; Alfred Terminal
                 [:slash :!Ttab] ; Hyperswitch (Current App)
                 ; [:##slash :!!f]
-                ; b, \
+                ; b, \, spacebar
             ]
         }
         {
@@ -103,7 +136,7 @@
             ]
         }
         {
-            :des   "Sticky vi mode"
+            :des   "Sticky Vi Mode (Press right command once)"
             :rules [:sticky-vi-mode
                 [:##j :down_arrow]
                 [:##k :up_arrow]
@@ -115,10 +148,12 @@
                 [:##4 :!Cright_arrow]
                 [:##a :!Cright_arrow]
                 [:##i :!Cleft_arrow]
+                [:##n :!Cdown_arrow]
+                [:##u :!Cup_arrow]
             ]
         }
         {
-            :des   "vi mode [d as trigger key]"
+            :des   "Vi Mode (Key: D)"
             :rules [:vi-mode
                 [:##j :down_arrow]
                 [:##k :up_arrow]
@@ -130,10 +165,12 @@
                 [:##4 :!Cright_arrow]
                 [:##a :!Cright_arrow]
                 [:##i :!Cleft_arrow]
+                [:##n :!Cdown_arrow]
+                [:##u :!Cup_arrow]
             ]
         }
         {
-            :des   "Sticky Vi Visual Mode"
+            :des   "Sticky Vi Visual Mode (Press right command twice)"
             :rules [:sticky-vi-visual-mode
                 [:##j :!Sdown_arrow]
                 [:##k :!Sup_arrow]
@@ -148,35 +185,37 @@
             ]
         }
         {
-            :des   "Vi Visual Mode"
+            :des   "Vi Visual Mode (Key: V)"
             :rules [:vi-visual-mode
                 [:##j :!Sdown_arrow]
                 [:##k :!Sup_arrow]
                 [:##h :!Sleft_arrow]
                 [:##l :!Sright_arrow]
                 [:##b :!SOleft_arrow]
-                [:##e :!SOright_arrow]
+                [:##w :!SOright_arrow]
                 [:##0 :!SCleft_arrow]
                 [:##4 :!SCright_arrow]
+                [:##a :!SCright_arrow]
+                [:##i :!SCleft_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
             ]
         }
         {
-            :des "Launch apps in comma mode"
-            :rules [:comma-mode
+            :des "Launch Mode (Key: ,)"
+            :rules [:launch-mode
                 [:t :!!t] ; iTerm
-                [:r [:hs "app?id=atom"]]
-                [:e [:hs "app?id=sublime"]]
-                ; w
+                [:r [:hs "launch-app?id=atom"]]
+                [:e [:hs "launch-app?id=sublime"]]
+                [:w [:launch "Tinkerwell.app"]]
                 ; q
-                [:g [:hs "app?id=chrome"]]
+                [:g [:hs "launch-app?id=chrome"]]
                 [:f [:launch "Notion.app"]]
                 [:d [:launch "Discord.app"]]
                 [:s [:launch "Spotify.app"]]
                 [:a :!OCc] ; Fantastical
                 [:b [:launch "Finder.app"]]
-                [:b [:hs "app?id=finder"]]
+                [:b [:hs "launch-app?id=finder"]]
                 [:v [:launch "TablePlus.app"]]
                 [:c [:launch "Sublime\\ Merge.app"]]
                 [:x [:launch "Postman.app"]]
@@ -184,38 +223,36 @@
             ]
         }
         {
-            :des "Launch commands in semicolon mode"
-            :rules [:semicolon-mode
-                [:t [:hs "newTab"]] ; New Tab
-                [:r :!Cr] ; Reload
-                ; e
-                [:w [:hs "closeWindow"]]
+            :des "Command Mode (Key: ;)"
+            :rules [:command-mode
+                [:t [:hs "command-newTab"]] ; New Tab
+                [:r [:hs "command-reload"]]
+                [:e :!SCe] ; Edit with
+                [:w [:hs "command-closeWindow"]]
                 [:q :!Cq] ; Quit
                 [:tab :!Stab] ; Shift Tab
-                [:g :!!g] ; Google Search
-                [:f :!Cf]
-                [:d [:hs "done"]]
-                [:s [:hs "save"]] ; Save
+                ; g
+                [:f [:hs "command-find"]]
+                [:d [:hs "command-done"]]
+                [:s [:hs "command-save"]] ; Save
                 [:a :!Ca] ; Select All
-                [:caps_lock [:hs "dismissNotifications"]] ; Dismiss notifications
+                [:caps_lock [:hs "command-dismissNotifications"]] ; Dismiss notifications
                 [:b :!Cd] ; Save Bookmark (Chrome)
-                [:v :!SCz] ; Redo
+                [:v :!SCv] ; Paste without formatting via Alfred
                 [:c :!!k] ; Hide cursor
-                [:x [:hs "cancelOrDelete"]] ; Control C
-                [:z :!Cz] ; Undo
+                [:x [:hs "command-cancelOrDelete"]] ; Control C
+                [:z :delete_or_backspace]
                 [:m :!!z] ; Spotify
             ]
         }
         {
-            :des "Launch commands in quote mode"
+            :des "Quote Mode (Key: ')"
             :rules [:quote-mode
-                [:w :!SCw] ; Close all windows
-                [:e :!SCe] ; Edit with
-                ; [:spacebar [:hs "quote-spacebar"]]
+                [:w [:hs "misc-closeAllWindows"]]
             ]
         }
         {
-            :des "Spacebar mode"
+            :des "Spacebar Mode (Key: Spacebar)"
             :rules [:spacebar-mode
                 [:m :!!m] ; Moom
                 [:d :!TOCd] ; Moom: Move to other display
@@ -230,53 +267,169 @@
                 [:o :!TOCo] ; Moom: Move to top right
                 [:n :!TOCn] ; Moom: Move to bottom left
                 [:period :!TOCperiod] ; Moom: Move to bottom right
+                [:i :!TOCi] ; Moom: Move to Middle
                 [:c :!STC4] ; Screenshot to clipboard
                 [:s :!SC4] ; Screenshot to filesystem
+                [:r :!SCz] ; Redo
+                [:z :!Cz] ; Undo
             ]
         }
         {
-            :des "Z mode"
-            :rules [:z-mode
-                [:h [:hs "scrollInNotion"]]
-                [:j :page_down]
-                [:k :page_up]
-                [:semicolon :!Cbackslash]
-                [:n :!SCn]
+            :des "General Mode (Key: F)"
+            :rules [:general-mode
+                [:h [:hs "misc-scroll"]]
+                [:j [:hs "misc-focusPrevious"]]
+                [:k [:hs "misc-focusNext"]]
+                [:l :!!l] ; Lastpass
+                [:semicolon [:hs "misc-toggleSidebar"]]
+                [:n :!SCn] ; New window
+                [:i :hyphen] ; -
+                [:o :keypad_plus] ; +
+                [:u :!Shyphen] ; _
+                [:quote :equal_sign] ; =
+                [:open_bracket :!S9] ; (
+                [:close_bracket :!S0] ; )
+                [:m :!S8] ; Multiply: *
+                [:p :!S5] ; %
+                [:y :!S7] ; &
+                [:a :!S2] ; @
+                [:period [:hyphen :!Speriod]] ; ->
             ]
         }
         {
-            :des "M mode"
-            :rules [:m-mode
+            :des "Media Mode (Key: M)"
+            :rules [:media-mode
                 [:s :!SCm] ; Mute in Discord and Teams
                 [:d :!SCd] ; Deafen in Discord
+                [:a :!Tleft_arrow] ; Funimation: Start of video / previous video
+                [:g :!Tright_arrow] ; Funimation: Next video
+                [:v [:hs "media-focus"]]
+                [:f [:hs "media-fullscreen"]]
+                [:comma [:hs "media-back"]]
+                [:period [:hs "media-forward"]]
             ]
         }
         {
-            :des "Google mode"
+            :des "Google Mode (Key: G)"
             :rules [:google-mode
-                [:h ["osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"history\" in workflow \"com.thomasupton.chrome-history\"'"]]
-                [:m :!Ow] ; Dismiss downloads bar in Chrome
+                [:h [:alfred "history" "com.thomasupton.chrome-history"]]
+                [:return_or_enter :!Ow] ; Chrome: Dismiss downloads bar
+                [:m [:alfredsearch "bm "]] ; Google bookmarks
+                [:i [:chrome "https://inbox.google.com"]]
+                [:p :!SCm] ; Chrome: Show profiles list
             ]
         }
         {
-            :des "Code mode"
+            :des "Code Mode (Key: C)"
             :rules [:code-mode
-                [:period [:hyphen :!Speriod]] ; ->
-                [:comma :!Ocomma] ; Atom: Toggle comma at end of line
+                [:d :!OCi] ; Chrome: Toggle Dev Tools
+
+                [:y [:spacebar :!S7 :!S7 :spacebar]] ; &&
+                [:u :!TOu] ; Atom: Add use statement
+                [:i :!STOup_arrow] ; Multiple cursors up
+                [:p [:spacebar :!Sbackslash :!Sbackslash :spacebar]] ; &&
+
+                [:j [:hs "code-moveDown"]] ; Move line down / autocomplete on iTerm
+                [:k [:hs "code-moveUp"]] ; Move line up
+                [:l :!OCdown_arrow] ; Atom: Go to definition
                 [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
-                [:i [:hs "codeModeI"]]
-                [:o :!To] ; Atom: Cursor History: Next
+                [:quote [:spacebar :equal_sign :spacebar]] ; =
+                [:return_or_enter [:r :e :t :u :r :n :spacebar]] ; -> return
+
+                [:b [:hs "code-toggleBoolean"]]
+                [:n :!S1] ; !
+                [:m :!STOdown_arrow] ; Multiple cursors down
+                [:comma :!Ocomma] ; Atom: Toggle comma at end of line
+                [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
             ]
         }
         {
-            :des "App mode"
+            :des "App Mode (Key: I)"
             :rules [:app-mode
-                [:t [:hs "appModeT"]]
-                [:d [:hs "appModeD"]]
-                [:s [:hs "appModeS"]]
-                [:a [:hs "appModeA"]]
-                [:c [:hs "appModeC"]]
-                [:h [:hs "appModeH"]]
+                [:t [:hs "app-run?key=T"]]
+                ; r
+                [:e [:hs "app-run?key=E"]]
+                ; w
+                ; q
+                [:g [:hs "app-run?key=G"]]
+                ; f
+                [:d [:hs "app-run?key=D"]]
+                [:s [:hs "app-run?key=S"]]
+                [:a [:hs "app-run?key=A"]]
+                [:b [:hs "app-run?key=B"]]
+                ; v
+                [:c [:hs "app-run?key=C"]]
+                ; x
+                ; z
+                [:h [:hs "app-run?key=H"]]
+                [:m [:hs "app-run?key=M"]]
+                [:0 :!OC0] ; Notion: Create text
+                [:1 :!OC1] ; Notion: Create H1 heading
+                [:2 :!OC2] ; Notion: Create H2 heading
+                [:3 :!OC3] ; Notion: Create H3 heading
+                [:4 :!OC4] ; Notion: Create to-do checkbox
+                [:5 :!OC5] ; Notion: Create bulleted list
+                [:6 :!OC6] ; Notion: Create numbered list
+                [:7 :!OC7] ; Notion: Create toggle list
+                [:8 :!OC8] ; Notion: Create code block
+            ]
+        }
+        {
+            :des "Search Mode (Key: /)"
+            :rules [:search-mode
+                [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
+                [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
+                [:s :!Cr] ; Search for symbol
+            ]
+        }
+        {
+            :des "Open Mode (Key: O)"
+            :rules [:open-mode
+                [:spacebar [:alfredsearch "open "]] ; Search files
+                [:k [:sublime "~/.config/karabiner.edn"]]
+                [:h [:sublime "~/.hammerspoon"]]
+                [:a [:sublime "~/.fuelingzsh/aliases"]]
+                [:z [:sublime "~/.fuelingzsh"]]
+                [:r [:alfredsearch ".ap "]] ; Atom projects
+                [:d "open ~/Downloads"]
+                [:m [:hs "custom-openModeM"]]
+                [:e [:hs "custom-openModeE"]]
+                [:g [:hs "misc-openSublimeMerge"]]
+            ]
+        }
+        {
+            :des "Snippet Mode (Key: S)"
+            :rules [:snippet-mode
+                [:l [:c :o :n :s :o :l :e :period :l :o :g :!S9 :!S0 :left_arrow]] ; -> console.log()
+                [:quote [:spacebar :equal_sign :!Speriod :spacebar]] ; -> =>
+                [:f [:slash :c :o :n :s :o :l :e :period :l :o :g :!S9 :return_or_enter]] ; -> search console.log( in file
+                [:d [:d :d :return_or_enter]] ; dd()
+                [:t [:t :t :return_or_enter]] ; -> $this-> or this.
+            ]
+        }
+        {
+            :des "PHP Mode (Key: P)"
+            :rules [:php-mode
+                [:v :!S4] ; -> $
+                [:c [:n :e :w :c :l :a :s :s :return_or_enter]] ; Atom: New class from snippet
+                [:s [:t :s :t :return_or_enter]] ; Atom: New test method from snippet
+            ]
+        }
+        {
+            :des "Test Mode (Key: T)"
+            :rules [:test-mode
+                [:l :!TOCt] ; Atom PHPUnit: Test All
+                [:k :!OCt] ; Atom PHPUnit: Test Class
+                [:m :!TOt] ; Atom PHPUnit: Test Method
+            ]
+        }
+        {
+            :des "Atom Mode (Key: A)"
+            :rules [:atom-mode
+                [:o :!OCo] ; Atom: New File
+                [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
+                [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
+                [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
             ]
         }
     ]
