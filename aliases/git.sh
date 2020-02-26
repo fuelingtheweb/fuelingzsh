@@ -161,7 +161,6 @@ alias gstsp='stash:show-patch'
 alias gstd='stash:drop'
 
 # gco - checkout git branch
-unalias gco
 gco() {
   if [ "$1" ]; then
     git checkout "$1"
@@ -229,3 +228,6 @@ gpsonv() {
 # ln -s /Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge /usr/local/bin/smerge
 alias sm='smerge'
 alias sm.='smerge .'
+
+# From git plugin
+alias gcl='git clone --recurse-submodules'

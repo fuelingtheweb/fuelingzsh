@@ -40,6 +40,7 @@ formulas=(
     phpmd
     composer
     yarn
+    yqrashawn/goku/goku
 )
 
 for formula in "${formulas[@]}"; do
@@ -81,6 +82,7 @@ casks=(
     qlimagesize
     qlvideo
     cursorcerer
+    hammerspoon
 )
 
 for cask in "${casks[@]}"; do

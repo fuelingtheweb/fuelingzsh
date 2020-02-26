@@ -48,6 +48,7 @@ amf() {
     NAME="${1}Factory"
     artisan make:factory --model="$1" $NAME
 }
+alias ami='artisan make:import'
 alias amj='artisan make:job'
 alias aml='artisan make:listener'
 alias amma='artisan make:mail'

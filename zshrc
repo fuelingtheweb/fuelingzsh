@@ -7,7 +7,7 @@ CUSTOM=$FUELINGZSH/custom
 source $OPTIONS/iterm.sh
 source $OPTIONS/powerline.sh
 ZSH_THEME="powerlevel9k/powerlevel9k"
-plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search vagrant osx laravel5 history-substring-search git npm zsh-autosuggestions z fast-syntax-highlighting)
+plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search vagrant osx laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 export VISUAL=subl
