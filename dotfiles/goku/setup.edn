@@ -1,0 +1,45 @@
+    ; :simlayer-threshold 250
+    :profiles {
+        :Default {
+            :default true
+            :sim 250 ;; simultaneous_threshold_milliseconds (def: 50)
+            ;; keys need to be pressed within this threshold to be considered simultaneous
+            :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
+            ;; basically it means time after which the key press is count delayed
+            :alone 1000 ;; to_if_alone_timeout_milliseconds (def: 1000)
+            ;; hold for 995s and single tap registered; hold for 1005s and seen as modifier
+            :held 500 ;; to_if_held_down_threshold_milliseconds (def: 500)
+            ;; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
+        }
+    }
+    :templates {
+        :launch "open -a %s"
+        :hs "open -g hammerspoon://%s"
+        :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
+        :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
+        :sublime "/usr/local/bin/subl \"%s\""
+        :atom "/usr/local/bin/atom \"%s\""
+        :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
+    }
+    :layers {
+        :hyper-mode {:key :caps_lock :alone {:key :escape}}
+    }
+    :simlayers {
+        :vi-mode {:key :d}
+        :vi-visual-mode {:key :v}
+        :launch-mode {:key :comma}
+        :command-mode {:key :semicolon}
+        :quote-mode {:key :quote}
+        :spacebar-mode {:key :spacebar}
+        :general-mode {:key :f}
+        :media-mode {:key :m}
+        :google-mode {:key :g}
+        :code-mode {:key :c}
+        :snippet-mode {:key :s}
+        :php-mode {:key :p}
+        :test-mode {:key :t}
+        :app-mode {:key :i}
+        :search-mode {:key :slash}
+        :open-mode {:key :o}
+        :atom-mode {:key :a}
+    }

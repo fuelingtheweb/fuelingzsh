@@ -1,82 +1,3 @@
-
-;; !  | means mandatory
-;; #  | means optional
-;; C  | left_command
-;; T  | left_control
-;; O  | left_option
-;; S  | left_shift
-;; F  | fn
-;; Q  | right_command
-;; W  | right_control
-;; E  | right_option
-;; R  | right_shift
-;; !! | mandatory command + control + option + shift (hyper)
-;; ## | optional any
-
-{
-    ; :simlayer-threshold 250
-    :profiles {
-        :Default {
-            :default true
-            :sim 250 ;; simultaneous_threshold_milliseconds (def: 50)
-            ;; keys need to be pressed within this threshold to be considered simultaneous
-            :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
-            ;; basically it means time after which the key press is count delayed
-            :alone 1000 ;; to_if_alone_timeout_milliseconds (def: 1000)
-            ;; hold for 995s and single tap registered; hold for 1005s and seen as modifier
-            :held 500 ;; to_if_held_down_threshold_milliseconds (def: 500)
-            ;; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
-        }
-    }
-    :templates {
-        :launch "open -a %s"
-        :hs "open -g hammerspoon://%s"
-        :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
-        :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
-        :sublime "/usr/local/bin/subl \"%s\""
-        :atom "/usr/local/bin/atom \"%s\""
-        :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
-    }
-    :layers {
-        :hyper-mode {:key :caps_lock :alone {:key :escape}}
-    }
-    :simlayers {
-        :vi-mode {:key :d}
-        :vi-visual-mode {:key :v}
-        :launch-mode {:key :comma}
-        :command-mode {:key :semicolon}
-        :quote-mode {:key :quote}
-        :spacebar-mode {:key :spacebar}
-        :general-mode {:key :f}
-        :media-mode {:key :m}
-        :google-mode {:key :g}
-        :code-mode {:key :c}
-        :snippet-mode {:key :s}
-        :php-mode {:key :p}
-        :test-mode {:key :t}
-        :app-mode {:key :i}
-        :search-mode {:key :slash}
-        :open-mode {:key :o}
-        :atom-mode {:key :a}
-    }
-    :main [
-        ;; each manipulator has a description and multiple rules
-
-        ;;{:des "..."                               ;; -> description
-        ;; :rules[
-        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 1
-        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 2
-        ;; ]}
-        ;;
-        ;; <from> can be keywords defined in froms or keycodes without {:not-from true}
-        ;; <to> can be keywords defined in tos, keycodes without {:not-to true} or strings (shell script)
-        ;; <conditions> can be keywords defined in layers, devices, applications
-        ;; <other options> {:other {:parameters {:to_delayed_action_delay_milliseconds 100 :basic.to_if_alone_timeout_milliseconds 500 :basic.to_if_held_down_threshold_milliseconds 250}} }
-
-        ;; if simplified modifier is used in <to>, optional(#) definition will be ignored.
-
-        ;; (custom variables) & modifiers -> Advanced
-        ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
         {
             :des "Misc Testing"
             :rules [
@@ -141,9 +62,9 @@
                 [:b [:launch "Finder.app"]]
                 [:b [:hs "launch-app?id=finder"]]
                 [:v [:launch "TablePlus.app"]]
-                [:c [:launch "Sublime\\ Merge.app"]]
+                [:c [:launch "Sublime\\\ Merge.app"]]
                 [:x [:launch "Postman.app"]]
-                [:z [:launch "Microsoft\\ Teams.app"]]
+                [:z [:launch "Microsoft\\\ Teams.app"]]
             ]
         }
         {
@@ -356,83 +277,3 @@
                 [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
             ]
         }
-        {
-            :des "Use right command for sticky vi and vi visual modes"
-            :rules [
-                [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
-                [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
-                :sticky-vi-mode
-                [:right_command ["sticky-vi-mode" 0]]
-                :sticky-vi-visual-mode
-                [:right_command ["sticky-vi-visual-mode" 0]]
-            ]
-        }
-        {
-            :des   "Sticky Vi Mode (Press right command once)"
-            :rules [:sticky-vi-mode
-                [:##j :down_arrow]
-                [:##k :up_arrow]
-                [:##h :left_arrow]
-                [:##l :right_arrow]
-                [:##b :!Oleft_arrow]
-                [:##w :!Oright_arrow]
-                [:##0 :!Cleft_arrow]
-                [:##4 :!Cright_arrow]
-                [:##a :!Cright_arrow]
-                [:##i :!Cleft_arrow]
-                [:##n :!Cdown_arrow]
-                [:##u :!Cup_arrow]
-            ]
-        }
-        {
-            :des   "Vi Mode (Key: D)"
-            :rules [:vi-mode
-                [:##j :down_arrow]
-                [:##k :up_arrow]
-                [:##h :left_arrow]
-                [:##l :right_arrow]
-                [:##b :!Oleft_arrow]
-                [:##w :!Oright_arrow]
-                [:##0 :!Cleft_arrow]
-                [:##4 :!Cright_arrow]
-                [:##a :!Cright_arrow]
-                [:##i :!Cleft_arrow]
-                [:##n :!Cdown_arrow]
-                [:##u :!Cup_arrow]
-            ]
-        }
-        {
-            :des   "Sticky Vi Visual Mode (Press right command twice)"
-            :rules [:sticky-vi-visual-mode
-                [:##j :!Sdown_arrow]
-                [:##k :!Sup_arrow]
-                [:##h :!Sleft_arrow]
-                [:##l :!Sright_arrow]
-                [:##b :!SOleft_arrow]
-                [:##e :!SOright_arrow]
-                [:##0 :!SCleft_arrow]
-                [:##4 :!SCright_arrow]
-                [:##open_bracket :!SOup_arrow]
-                [:##close_bracket :!SOdown_arrow]
-            ]
-        }
-        {
-            :des   "Vi Visual Mode (Key: V)"
-            :rules [:vi-visual-mode
-                [:##j :!Sdown_arrow]
-                [:##k :!Sup_arrow]
-                [:##h :!Sleft_arrow]
-                [:##l :!Sright_arrow]
-                [:##b :!SOleft_arrow]
-                [:##w :!SOright_arrow]
-                [:##0 :!SCleft_arrow]
-                [:##4 :!SCright_arrow]
-                [:##a :!SCright_arrow]
-                [:##i :!SCleft_arrow]
-                [:##open_bracket :!SOup_arrow]
-                [:##close_bracket :!SOdown_arrow]
-            ]
-        }
-    ]
-}
-

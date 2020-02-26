@@ -1,0 +1,77 @@
+        {
+            :des "Use right command for sticky vi and vi visual modes"
+            :rules [
+                [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
+                [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
+                :sticky-vi-mode
+                [:right_command ["sticky-vi-mode" 0]]
+                :sticky-vi-visual-mode
+                [:right_command ["sticky-vi-visual-mode" 0]]
+            ]
+        }
+        {
+            :des   "Sticky Vi Mode (Press right command once)"
+            :rules [:sticky-vi-mode
+                [:##j :down_arrow]
+                [:##k :up_arrow]
+                [:##h :left_arrow]
+                [:##l :right_arrow]
+                [:##b :!Oleft_arrow]
+                [:##w :!Oright_arrow]
+                [:##0 :!Cleft_arrow]
+                [:##4 :!Cright_arrow]
+                [:##a :!Cright_arrow]
+                [:##i :!Cleft_arrow]
+                [:##n :!Cdown_arrow]
+                [:##u :!Cup_arrow]
+            ]
+        }
+        {
+            :des   "Vi Mode (Key: D)"
+            :rules [:vi-mode
+                [:##j :down_arrow]
+                [:##k :up_arrow]
+                [:##h :left_arrow]
+                [:##l :right_arrow]
+                [:##b :!Oleft_arrow]
+                [:##w :!Oright_arrow]
+                [:##0 :!Cleft_arrow]
+                [:##4 :!Cright_arrow]
+                [:##a :!Cright_arrow]
+                [:##i :!Cleft_arrow]
+                [:##n :!Cdown_arrow]
+                [:##u :!Cup_arrow]
+            ]
+        }
+        {
+            :des   "Sticky Vi Visual Mode (Press right command twice)"
+            :rules [:sticky-vi-visual-mode
+                [:##j :!Sdown_arrow]
+                [:##k :!Sup_arrow]
+                [:##h :!Sleft_arrow]
+                [:##l :!Sright_arrow]
+                [:##b :!SOleft_arrow]
+                [:##e :!SOright_arrow]
+                [:##0 :!SCleft_arrow]
+                [:##4 :!SCright_arrow]
+                [:##open_bracket :!SOup_arrow]
+                [:##close_bracket :!SOdown_arrow]
+            ]
+        }
+        {
+            :des   "Vi Visual Mode (Key: V)"
+            :rules [:vi-visual-mode
+                [:##j :!Sdown_arrow]
+                [:##k :!Sup_arrow]
+                [:##h :!Sleft_arrow]
+                [:##l :!Sright_arrow]
+                [:##b :!SOleft_arrow]
+                [:##w :!SOright_arrow]
+                [:##0 :!SCleft_arrow]
+                [:##4 :!SCright_arrow]
+                [:##a :!SCright_arrow]
+                [:##i :!SCleft_arrow]
+                [:##open_bracket :!SOup_arrow]
+                [:##close_bracket :!SOdown_arrow]
+            ]
+        }
