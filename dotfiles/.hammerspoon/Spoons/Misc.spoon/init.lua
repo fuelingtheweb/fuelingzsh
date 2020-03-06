@@ -52,14 +52,29 @@ hs.urlevent.bind('misc-toggleSidebar', function()
     end
 end)
 
-hs.urlevent.bind('misc-openSublimeMerge', function()
-    if appIs(atom) then
-        path = currentTitle():match('~%S+')
+hs.urlevent.bind('misc-openInSublimeMerge', function()
+    path = currentTitle():match('~%S+')
 
-        if path then
-            hs.execute('/usr/local/bin/smerge "' .. path .. '"')
-        end
+    if path then
+        hs.execute('/usr/local/bin/smerge "' .. path .. '"')
     end
+end)
+
+hs.urlevent.bind('misc-openInAtom', function()
+    if appIs(iterm) then
+        typeAndEnter('atom .')
+    else
+        triggerAlfredWorkflow('projects', 'com.alfredapp.mdeboer.atom')
+    end
+end)
+
+hs.urlevent.bind('misc-openInChrome', function()
+    customOpenInChrome()
+end)
+
+hs.urlevent.bind('misc-surround', function()
+    hs.eventtap.keyStroke({'cmd'}, 'C')
+    triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')
 end)
 
 return obj

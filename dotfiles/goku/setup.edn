@@ -36,10 +36,13 @@
         :google-mode {:key :g}
         :code-mode {:key :c}
         :snippet-mode {:key :s}
-        :php-mode {:key :p}
         :test-mode {:key :t}
         :app-mode {:key :i}
         :search-mode {:key :slash}
         :open-mode {:key :o}
         :atom-mode {:key :a}
+        :copy-mode {:key :y}
+        :paste-mode {:key :p}
+        :change-mode {:key :open_bracket}
+        :destroy-mode {:key :close_bracket}
     }

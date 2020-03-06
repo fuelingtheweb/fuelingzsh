@@ -7,7 +7,6 @@ hs.urlevent.bind('code-moveDown', function()
         hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'J')
     elseif appIs(notion) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'Down')
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'Down')
     elseif appIs(atom) or appIs(sublime) then
         -- Atom, Sublime: Move line down
         hs.eventtap.keyStroke({'ctrl', 'cmd'}, 'Down')

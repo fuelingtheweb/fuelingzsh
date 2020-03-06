@@ -89,8 +89,8 @@ hs.urlevent.bind('hyper-previousTab', function()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, '[')
     elseif appIs(teams) then
-        -- Teams: Move to previous conversation
-        hs.eventtap.keyStroke({'alt'}, 'Up')
+        -- Teams: Move to next conversation
+        hs.eventtap.keyStroke({'alt'}, 'Down')
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, '[')
     end
@@ -100,8 +100,8 @@ hs.urlevent.bind('hyper-nextTab', function()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, ']')
     elseif appIs(teams) then
-        -- Teams: Move to next conversation
-        hs.eventtap.keyStroke({'alt'}, 'Down')
+        -- Teams: Move to previous conversation
+        hs.eventtap.keyStroke({'alt'}, 'Up')
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, ']')
     end
@@ -128,6 +128,16 @@ hs.urlevent.bind('hyper-shortcat', function()
         hs.application.open(bundle)
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'space')
+    end
+end)
+
+hs.urlevent.bind('hyper-jumpTo', function()
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'shift'}, 'return')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, '.')
+    else
+        hs.eventtap.keyStroke({'ctrl'}, 'space')
     end
 end)
 

@@ -5,6 +5,7 @@ hs.loadSpoon('HyperMode')
 hs.loadSpoon('CommandMode')
 hs.loadSpoon('LaunchMode')
 hs.loadSpoon('CodeMode')
+hs.loadSpoon('SnippetMode')
 hs.loadSpoon('MediaMode')
 hs.loadSpoon('Misc')
 
@@ -15,6 +16,7 @@ spoon.MouseCircle.color = {hex = '#367f71'}
 spoon.MouseCircle:bindHotkeys({show = {{'ctrl', 'alt', 'cmd'}, 'M'}})
 
 hs.loadSpoon('ReloadConfiguration')
+spoon.ReloadConfiguration.watch_paths = {hs.configdir, hs.configdir .. '/Spoons/Custom.spoon'}
 spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()
 

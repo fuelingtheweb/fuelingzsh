@@ -2,7 +2,7 @@ local obj = {}
 obj.__index = obj
 
 hs.urlevent.bind('command-newTab', function()
-    if appIs(sublime) or appIs(atom) then
+    if appIncludes({sublime, atom, finder}) then
         hs.eventtap.keyStroke({'cmd'}, 'n')
     else
         hs.eventtap.keyStroke({'cmd'}, 't')
@@ -12,6 +12,8 @@ end)
 hs.urlevent.bind('command-reload', function()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r')
+    elseif appIs(postman) then
+        hs.eventtap.keyStroke({'cmd'}, 'return')
     else
         hs.eventtap.keyStroke({'cmd'}, 'r')
     end
@@ -80,7 +82,7 @@ end)
 
 hs.urlevent.bind('command-cancelOrDelete', function()
     text = getSelectedText()
-    if appIs(atom) then
+    if appIncludes({atom, sublime}) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'delete')
     elseif appIs(finder) and text == 'finderFileSelected' then
         hs.eventtap.keyStroke({'cmd'}, 'delete')

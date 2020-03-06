@@ -54,8 +54,18 @@ function startsWith(needle, haystack)
     return haystack:sub(1, #needle) == needle
 end
 
+function titleContains(needle)
+    return stringContains(needle, currentTitle())
+end
+
 function stringContains(needle, haystack)
     return string.find(haystack, needle)
+end
+
+function showChooser(callback, choices)
+    hs.chooser.new(function(item)
+        callback(item['subText'])
+    end):choices(choices):show()
 end
 
 function openDiscordChannel(name)
@@ -74,7 +84,11 @@ function openNotionPage(name)
     end)
 end
 
-function openInAtom(name)
+function openInChrome(url)
+    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default"')
+end
+
+function triggerInAtom(name)
     hs.eventtap.keyStroke({'shift', 'cmd'}, 'P')
     hs.eventtap.keyStrokes(name)
     hs.timer.doAfter(0.3, function()
@@ -85,6 +99,11 @@ end
 function typeAndEnter(string)
     hs.eventtap.keyStrokes(string)
     hs.eventtap.keyStroke({}, 'return')
+end
+
+function typeAndTab(string)
+    hs.eventtap.keyStrokes(string)
+    hs.eventtap.keyStroke({}, 'tab')
 end
 
 function triggerAlfredSearch(search)

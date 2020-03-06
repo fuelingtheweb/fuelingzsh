@@ -52,12 +52,15 @@
         :google-mode {:key :g}
         :code-mode {:key :c}
         :snippet-mode {:key :s}
-        :php-mode {:key :p}
         :test-mode {:key :t}
         :app-mode {:key :i}
         :search-mode {:key :slash}
         :open-mode {:key :o}
         :atom-mode {:key :a}
+        :copy-mode {:key :y}
+        :paste-mode {:key :p}
+        :change-mode {:key :open_bracket}
+        :destroy-mode {:key :close_bracket}
     }
     :main [
         ;; each manipulator has a description and multiple rules
@@ -93,7 +96,7 @@
                 [:u [:hs "hyper-copyTextArea"]]
                 [:i :!!i] ; Inbox
                 [:o :!!o] ; Witch (Only apps with open windows)
-                [:p :!Cv]
+                [:p :!Cv] ; Paste
                 [:open_bracket [:hs "hyper-openAnything"]]
                 [:close_bracket [:hs "hyper-commandPalette"]] ; Command palette
                 ; [:backslash :!Cescape] ; Escape yperswitch
@@ -107,7 +110,7 @@
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
-                [:comma [:hs "hyper-shortcat"]] ; Shortcat
+                [:comma [:hs "hyper-jumpTo"]]
                 [:period :!STOperiod] ; Alfred Terminal
                 [:slash :!Ttab] ; Hyperswitch (Current App)
                 ; [:##slash :!!f]
@@ -138,7 +141,6 @@
                 [:d [:launch "Discord.app"]]
                 [:s [:launch "Spotify.app"]]
                 [:a :!OCc] ; Fantastical
-                [:b [:launch "Finder.app"]]
                 [:b [:hs "launch-app?id=finder"]]
                 [:v [:launch "TablePlus.app"]]
                 [:c [:launch "Sublime\\ Merge.app"]]
@@ -173,6 +175,11 @@
             :des "Quote Mode (Key: ')"
             :rules [:quote-mode
                 [:w [:hs "misc-closeAllWindows"]]
+                [:s :!TOCs] ; Vimac: Enable Scroll
+                [:b :!STCb] ; Bartender: Show
+                [:a :!OCbackslash] ; Alfred: Action File
+                [:x :!Odelete_or_backspace] ; Delete word
+                [:d :!OCd] ; Toggle dock visibility
             ]
         }
         {
@@ -201,12 +208,14 @@
         {
             :des "General Mode (Key: F)"
             :rules [:general-mode
-                [:h [:hs "misc-scroll"]]
+                [:e :!S1] ; !
+                [:h :!Sgrave_accent_and_tilde] ; ~
+                ; [:h [:hs "misc-scroll"]]
                 [:j [:hs "misc-focusPrevious"]]
                 [:k [:hs "misc-focusNext"]]
                 [:l :!!l] ; Lastpass
                 [:semicolon [:hs "misc-toggleSidebar"]]
-                [:n :!SCn] ; New window
+                [:n :!SCn] ; New window / folder
                 [:i :hyphen] ; -
                 [:o :keypad_plus] ; +
                 [:u :!Shyphen] ; _
@@ -218,6 +227,10 @@
                 [:y :!S7] ; &
                 [:a :!S2] ; @
                 [:period [:hyphen :!Speriod]] ; ->
+                [:comma :!Ccomma] ; Settings
+                [:slash :!Cslash] ; Comment
+                [:s [:hs "misc-surround"]]
+                [:d :!S4] ; -> $
             ]
         }
         {
@@ -261,10 +274,11 @@
                 [:return_or_enter [:r :e :t :u :r :n :spacebar]] ; -> return
 
                 [:b [:hs "code-toggleBoolean"]]
-                [:n :!S1] ; !
+                ; n
                 [:m :!STOdown_arrow] ; Multiple cursors down
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
+                [:slash :!Tm] ; Atom: Go to matching bracket
             ]
         }
         {
@@ -284,7 +298,7 @@
                 ; v
                 [:c [:hs "app-run?key=C"]]
                 ; x
-                ; z
+                [:z [:hs "app-run?key=Z"]]
                 [:h [:hs "app-run?key=H"]]
                 [:m [:hs "app-run?key=M"]]
                 [:0 :!OC0] ; Notion: Create text
@@ -314,37 +328,44 @@
                 [:h [:sublime "~/.hammerspoon"]]
                 [:a [:sublime "~/.fuelingzsh/aliases"]]
                 [:z [:sublime "~/.fuelingzsh"]]
-                [:r [:alfredsearch ".ap "]] ; Atom projects
+                [:r [:hs "misc-openInAtom"]]
                 [:d "open ~/Downloads"]
                 [:m [:hs "custom-openModeM"]]
                 [:e [:hs "custom-openModeE"]]
-                [:g [:hs "misc-openSublimeMerge"]]
+                [:g [:hs "misc-openInChrome"]]
+                [:c [:hs "misc-openInSublimeMerge"]]
+                [:t [:hs "custom-openModeT"]]
+                [:s [:hs "custom-openModeS"]]
             ]
         }
         {
             :des "Snippet Mode (Key: S)"
             :rules [:snippet-mode
-                [:l [:c :o :n :s :o :l :e :period :l :o :g :!S9 :!S0 :left_arrow]] ; -> console.log()
-                [:quote [:spacebar :equal_sign :!Speriod :spacebar]] ; -> =>
+                [:e [:hs "snippet?name=elseif"]]
+                ; r
+                [:t [:hs "snippet?name=this"]]
+                [:d [:hs "snippet?name=dd"]]
                 [:f [:slash :c :o :n :s :o :l :e :period :l :o :g :!S9 :return_or_enter]] ; -> search console.log( in file
-                [:d [:d :d :return_or_enter]] ; dd()
-                [:t [:t :t :return_or_enter]] ; -> $this-> or this.
+                ; g, v
+                ; y, u
+                [:i [:hs "snippet?name=if"]]
+                ; o, p, [, ]
+                ; h, j, k
+                [:l [:hs "snippet?name=log"]]
+                ; ;, ', return
+                [:b [:f :a :l :s :e]]
+                [:n [:hs "snippet?name=af"]]
+                [:m [:hs "snippet-method"]]
+                ; ,, ., /
             ]
         }
         {
-            :des "PHP Mode (Key: P)"
-            :rules [:php-mode
-                [:v :!S4] ; -> $
-                [:c [:n :e :w :c :l :a :s :s :return_or_enter]] ; Atom: New class from snippet
-                [:s [:t :s :t :return_or_enter]] ; Atom: New test method from snippet
-            ]
-        }
-        {
-            :des "Test Mode (Key: T)"
+            :des "Test Mode (Key: T)" ; To mode?
             :rules [:test-mode
                 [:l :!TOCt] ; Atom PHPUnit: Test All
                 [:k :!OCt] ; Atom PHPUnit: Test Class
                 [:m :!TOt] ; Atom PHPUnit: Test Method
+                [:s [:slash :s :c :r :i :p :t :return_or_enter]] ; Search for script
             ]
         }
         {
@@ -354,6 +375,62 @@
                 [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
                 [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
                 [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
+            ]
+        }
+        {
+            :des "Copy Mode (Key: Y)"
+            :rules [:copy-mode
+                [:w [:escape :y :i :w]]; w -> word
+                [:t [:escape :y :i :t]]; t -> tag
+                [:s [:escape :y :i :quote]]; s -> single quotes
+                [:d [:escape :y :i :!Squote]]; d -> double quotes
+                [:z [:escape :y :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:f [:escape :y :i :!S9]]; f -> parenthesis
+                [:c [:escape :y :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :y :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :y :!S4]] ; Copy to end of line
+            ]
+        }
+        {
+            :des "Paste Mode (Key: P)"
+            :rules [:paste-mode
+                [:v [:escape :!Sv :p]]; v -> line
+                [:w [:escape :v :i :w :p]]; w -> word
+                [:t [:escape :v :i :t :p]]; t -> tag
+                [:s [:escape :v :i :quote :p]]; s -> single quotes
+                [:d [:escape :v :i :!Squote :p]]; d -> double quotes
+                [:z [:escape :v :i :!Ograve_accent_and_tilde :p]]; z -> back ticks
+                [:f [:escape :v :i :!S9 :p]]; f -> parenthesis
+                [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
+                [:b [:escape :v :i :open_bracket :p]]; b -> brackets
+                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.misc"]]
+            ]
+        }
+        {
+            :des "Change Mode (Key: [)"
+            :rules [:change-mode
+                [:w [:escape :c :i :w]]; w -> word
+                [:t [:escape :c :i :t]]; t -> tag
+                [:s [:escape :c :i :quote]]; s -> single quotes
+                [:d [:escape :c :i :!Squote]]; d -> double quotes
+                [:z [:escape :c :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:f [:escape :c :i :!S9]]; f -> parenthesis
+                [:c [:escape :c :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :c :i :open_bracket]]; b -> brackets
+            ]
+        }
+        {
+            :des "Destroy Mode (Key: ])"
+            :rules [:destroy-mode
+                [:w [:escape :d :i :w]]; w -> word
+                [:t [:escape :d :i :t]]; t -> tag
+                [:s [:escape :d :i :quote]]; s -> single quotes
+                [:d [:escape :d :i :!Squote]]; d -> double quotes
+                [:z [:escape :d :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:f [:escape :d :i :!S9]]; f -> parenthesis
+                [:c [:escape :d :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :d :i :open_bracket]]; b -> brackets
             ]
         }
         {
