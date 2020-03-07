@@ -254,6 +254,7 @@
                 [:c [:hs "misc-openInSublimeMerge"]]
                 [:t [:hs "custom-openModeT"]]
                 [:s [:hs "custom-openModeS"]]
+                [:b [:hs "misc-openInFinder"]]
             ]
         }
         {

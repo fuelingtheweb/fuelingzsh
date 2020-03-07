@@ -28,6 +28,6 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
 end)
 
 if hs.application.get('com.manytricks.Moom') == nil then
-    hs.execute('defaults import com.manytricks.Moom ~/.fuelingzsh/options/apps/moom/com.manytricks.Moom.plist')
+    hs.execute('defaults import com.manytricks.Moom ~/.fuelingzsh/options/com.manytricks.Moom.plist')
     hs.application.launchOrFocusByBundleID('com.manytricks.Moom')
 end

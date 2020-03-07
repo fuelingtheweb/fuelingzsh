@@ -31,7 +31,6 @@ cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Dro
 cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
 touch $HOME/.hushlogin
 
-source $TOOLS/app-preferences.sh
 source $TOOLS/osx.sh
 
 echo "\033[0;34mTime to change your default shell to zsh!\033[0m"

@@ -72,6 +72,12 @@ hs.urlevent.bind('misc-openInChrome', function()
     customOpenInChrome()
 end)
 
+hs.urlevent.bind('misc-openInFinder', function()
+    if appIs(iterm) then
+        typeAndEnter('o.')
+    end
+end)
+
 hs.urlevent.bind('misc-surround', function()
     hs.eventtap.keyStroke({'cmd'}, 'C')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')
