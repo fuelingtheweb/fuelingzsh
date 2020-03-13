@@ -31,7 +31,7 @@ hs.urlevent.bind('media-focus', function()
             hs.eventtap.keyStrokes('gf')
         elseif stringContains('Disney Plus', title) then
             hs.eventtap.keyStroke({}, 'tab')
-        elseif stringContains('Laracasts', title) or stringContains('VueSchool', title) then
+        else
             center = hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():fullFrame())
             hs.eventtap.leftClick(center)
             hs.eventtap.leftClick(center)
@@ -48,6 +48,10 @@ hs.urlevent.bind('media-fullscreen', function()
             hs.eventtap.keyStroke({}, 'f')
         end
     end
+end)
+
+hs.urlevent.bind('media-updateAudioDevice', function()
+    hs.audiodevice.findOutputByName('Built-in Output'):setDefaultOutputDevice()
 end)
 
 function videoBack()

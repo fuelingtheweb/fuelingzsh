@@ -43,6 +43,8 @@
         :atom-mode {:key :a}
         :copy-mode {:key :y}
         :paste-mode {:key :p}
-        :change-mode {:key :open_bracket}
-        :destroy-mode {:key :close_bracket}
+        :change-mode {:key :n}
+        :destroy-mode {:key :open_bracket}
+        :select-until-mode {:key :u}
+        :tab-mode {:key :tab}
     }

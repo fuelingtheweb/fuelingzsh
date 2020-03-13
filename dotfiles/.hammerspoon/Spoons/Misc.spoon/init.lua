@@ -83,4 +83,30 @@ hs.urlevent.bind('misc-surround', function()
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')
 end)
 
+hs.urlevent.bind('moveTabLeft', function()
+    if appIs(chrome) then
+        -- Vimium
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('th')
+    elseif appIs(atom) then
+        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'h')
+    elseif appIs(sublime) then
+        -- https://packagecontrol.io/packages/MoveTab
+        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'left')
+    end
+end)
+
+hs.urlevent.bind('moveTabRight', function()
+    if appIs(chrome) then
+        -- Vimium
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('tl')
+    elseif appIs(atom) then
+        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'l')
+    elseif appIs(sublime) then
+        -- https://packagecontrol.io/packages/MoveTab
+        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'right')
+    end
+end)
+
 return obj

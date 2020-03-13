@@ -14,6 +14,10 @@ allwindows:rejectApp('Hammerspoon'):rejectApp('Alfred'):rejectApp('Shortcat')
 hs.window.animationDuration = 0
 
 windowsForCreatedHook:subscribe(wf.windowCreated, function (window)
+    if window:subrole() == 'AXDialog' then
+        return
+    end
+
     if appIncludes({sublime, notion, atom, chrome}) then
         window:maximize()
     elseif appIs(discord) then

@@ -34,12 +34,13 @@
                 [:##h :left_arrow]
                 [:##l :right_arrow]
                 [:##b :!Oleft_arrow]
+                [:##n :!Oleft_arrow]
                 [:##w :!Oright_arrow]
                 [:##0 :!Cleft_arrow]
                 [:##4 :!Cright_arrow]
                 [:##a :!Cright_arrow]
                 [:##i :!Cleft_arrow]
-                [:##n :!Cdown_arrow]
+                [:##m :!Cdown_arrow]
                 [:##u :!Cup_arrow]
             ]
         }
@@ -66,6 +67,7 @@
                 [:##h :!Sleft_arrow]
                 [:##l :!Sright_arrow]
                 [:##b :!SOleft_arrow]
+                [:##n :!SOleft_arrow]
                 [:##w :!SOright_arrow]
                 [:##0 :!SCleft_arrow]
                 [:##4 :!SCright_arrow]
@@ -73,5 +75,6 @@
                 [:##i :!SCleft_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
+                [:d :!OCi] ; Chrome: Toggle Dev Tools
             ]
         }

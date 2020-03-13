@@ -59,8 +59,10 @@
         :atom-mode {:key :a}
         :copy-mode {:key :y}
         :paste-mode {:key :p}
-        :change-mode {:key :open_bracket}
-        :destroy-mode {:key :close_bracket}
+        :change-mode {:key :n}
+        :destroy-mode {:key :open_bracket}
+        :select-until-mode {:key :u}
+        :tab-mode {:key :tab}
     }
     :main [
         ;; each manipulator has a description and multiple rules
@@ -81,7 +83,7 @@
         ;; (custom variables) & modifiers -> Advanced
         ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
         {
-            :des "Misc Testing"
+            :des "Misc"
             :rules [
                 [:right_option [:hs "media-showVideoBar"]]
                 [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
@@ -236,6 +238,7 @@
         {
             :des "Media Mode (Key: M)"
             :rules [:media-mode
+                [:r [:hs "media-updateAudioDevice"]]
                 [:s :!SCm] ; Mute in Discord and Teams
                 [:d :!SCd] ; Deafen in Discord
                 [:a :!Tleft_arrow] ; Funimation: Start of video / previous video
@@ -262,20 +265,22 @@
                 [:d :!OCi] ; Chrome: Toggle Dev Tools
 
                 [:y [:spacebar :!S7 :!S7 :spacebar]] ; &&
-                [:u :!TOu] ; Atom: Add use statement
+                [:u [:hs "code-u"]]
                 [:i :!STOup_arrow] ; Multiple cursors up
-                [:p [:spacebar :!Sbackslash :!Sbackslash :spacebar]] ; &&
+                [:o [:hs "code-o"]]
+                [:p [:hs "code-p"]]
 
+                [:h [:hs "code-h"]]
                 [:j [:hs "code-moveDown"]] ; Move line down / autocomplete on iTerm
                 [:k [:hs "code-moveUp"]] ; Move line up
-                [:l :!OCdown_arrow] ; Atom: Go to definition
+                [:l [:hs "code-l"]]
                 [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
                 [:quote [:spacebar :equal_sign :spacebar]] ; =
                 [:return_or_enter [:r :e :t :u :r :n :spacebar]] ; -> return
 
                 [:b [:hs "code-toggleBoolean"]]
                 ; n
-                [:m :!STOdown_arrow] ; Multiple cursors down
+                [:m [:hs "code-m"]]
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
                 [:slash :!Tm] ; Atom: Go to matching bracket
@@ -318,6 +323,7 @@
                 [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
                 [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
                 [:s :!Cr] ; Search for symbol
+                [:t :!Cb] ; Atom: Toggle Buffer Finder
             ]
         }
         {
@@ -350,7 +356,9 @@
                 ; g, v
                 ; y, u
                 [:i [:hs "snippet?name=if"]]
-                ; o, p, [, ]
+                ; o
+                [:p [:hs "snippet?name=property"]]
+                ; [, ]
                 ; h, j, k
                 [:l [:hs "snippet?name=log"]]
                 ; ;, ', return
@@ -379,6 +387,15 @@
             ]
         }
         {
+            :des "Tab Mode (Key: tab)"
+            :rules [:tab-mode
+                [:h [:hs "moveTabLeft"]] ; Move tab to the left
+                [:l [:hs "moveTabRight"]] ; Move tab to the right
+                [:i [:!C1]] ; Go to first tab
+                [:o [:!C9]] ; Go to last tab
+            ]
+        }
+        {
             :des "Copy Mode (Key: Y)"
             :rules [:copy-mode
                 [:w [:escape :y :i :w]]; w -> word
@@ -390,13 +407,15 @@
                 [:c [:escape :y :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :y :i :open_bracket]]; b -> brackets
 
-                [:a [:escape :y :!S4]] ; Copy to end of line
+                [:a [:escape :y :!S4]] ; To end of line
+                [:i [:escape :!SCleft_arrow :y]] ; To beginning of line
+                [:v [:escape :y :y]]; v -> line
+                [:x [:escape :y :l]]; v -> character
             ]
         }
         {
             :des "Paste Mode (Key: P)"
             :rules [:paste-mode
-                [:v [:escape :!Sv :p]]; v -> line
                 [:w [:escape :v :i :w :p]]; w -> word
                 [:t [:escape :v :i :t :p]]; t -> tag
                 [:s [:escape :v :i :quote :p]]; s -> single quotes
@@ -405,11 +424,17 @@
                 [:f [:escape :v :i :!S9 :p]]; f -> parenthesis
                 [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
                 [:b [:escape :v :i :open_bracket :p]]; b -> brackets
+
+                [:a [:escape :v :!S4 :p]] ; To end of line
+                [:i [:escape :!SCleft_arrow :p]] ; To beginning of line
+                [:v [:escape :!Sv :p]]; v -> line
+                [:x [:escape :v :p]]; x -> character
+
                 [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.misc"]]
             ]
         }
         {
-            :des "Change Mode (Key: [)"
+            :des "Change Mode (Key: n)"
             :rules [:change-mode
                 [:w [:escape :c :i :w]]; w -> word
                 [:t [:escape :c :i :t]]; t -> tag
@@ -419,10 +444,15 @@
                 [:f [:escape :c :i :!S9]]; f -> parenthesis
                 [:c [:escape :c :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :c :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :!Sc]] ; To end of line
+                [:i [:escape :!SCleft_arrow :c]] ; To beginning of line
+                [:v [:escape :c :c]]; v -> line
+                [:x [:escape :v :c]]; x -> character
             ]
         }
         {
-            :des "Destroy Mode (Key: ])"
+            :des "Destroy Mode (Key: [)"
             :rules [:destroy-mode
                 [:w [:escape :d :i :w]]; w -> word
                 [:t [:escape :d :i :t]]; t -> tag
@@ -432,6 +462,31 @@
                 [:f [:escape :d :i :!S9]]; f -> parenthesis
                 [:c [:escape :d :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :d :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :!Sd]] ; To end of line
+                [:i [:escape :!SCleft_arrow :d]] ; To beginning of line
+                [:v [:escape :d :d]]; v -> line
+                [:x [:escape :x]]; x -> character
+            ]
+        }
+        {
+            :des "Select Until Mode (Key: u)"
+            :rules [:select-until-mode
+                [:e [:escape :v :e]]; w -> end of word
+
+                [:w [:escape :v :w]]; w -> next word
+                [:s [:escape :v :t :quote]]; s -> single quotes
+                [:d [:escape :v :t :!Squote]]; d -> double quotes
+                [:z [:escape :v :t :!Ograve_accent_and_tilde]]; z -> back ticks
+
+                [:f [:escape :v :t :!S9]]; f -> opening parenthesis
+                [:g [:escape :v :t :!S0]]; g -> closing parenthesis
+                [:x [:escape :v :t :!Sopen_bracket]]; x -> opening braces
+                [:c [:escape :v :t :!Sclose_bracket]]; c -> closing braces
+                [:v [:escape :v :t :open_bracket]]; v -> opening brackets
+                [:b [:escape :v :t :close_bracket]]; b -> closing brackets
+
+                [:t [:!Sv :!Sopen_bracket]] ; Previous block
             ]
         }
         {
@@ -470,12 +525,13 @@
                 [:##h :left_arrow]
                 [:##l :right_arrow]
                 [:##b :!Oleft_arrow]
+                [:##n :!Oleft_arrow]
                 [:##w :!Oright_arrow]
                 [:##0 :!Cleft_arrow]
                 [:##4 :!Cright_arrow]
                 [:##a :!Cright_arrow]
                 [:##i :!Cleft_arrow]
-                [:##n :!Cdown_arrow]
+                [:##m :!Cdown_arrow]
                 [:##u :!Cup_arrow]
             ]
         }
@@ -502,6 +558,7 @@
                 [:##h :!Sleft_arrow]
                 [:##l :!Sright_arrow]
                 [:##b :!SOleft_arrow]
+                [:##n :!SOleft_arrow]
                 [:##w :!SOright_arrow]
                 [:##0 :!SCleft_arrow]
                 [:##4 :!SCright_arrow]
@@ -509,6 +566,7 @@
                 [:##i :!SCleft_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
+                [:d :!OCi] ; Chrome: Toggle Dev Tools
             ]
         }
     ]

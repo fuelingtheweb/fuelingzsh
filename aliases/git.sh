@@ -34,7 +34,6 @@ alias gcp='git cp'
 alias gcpn='git cherry-pick -n'
 alias guns='git unstage'
 alias gunc='git uncommit'
-alias gm='git merge'
 alias gms='git merge --squash'
 alias gam='git amend --reset-author'
 alias grv='git remote -v'
@@ -206,13 +205,17 @@ fgs() {
     }
 }
 
-# fgm - merge git branch
-fgm() {
-  local branches branch
-  branches=$(git branch --no-color | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git merge $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+# gm - merge git branch
+gm() {
+  if [ "$1" ]; then
+    git merge "$1"
+  else
+    local branches branch
+    branches=$(git branch --no-color | grep -v HEAD) &&
+    branch=$(echo "$branches" |
+             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    git merge $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  fi
 }
 
 gpso() {

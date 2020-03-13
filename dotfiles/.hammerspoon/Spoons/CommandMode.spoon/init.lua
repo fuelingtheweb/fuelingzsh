@@ -14,6 +14,10 @@ hs.urlevent.bind('command-reload', function()
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(postman) then
         hs.eventtap.keyStroke({'cmd'}, 'return')
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'ctrl'}, 'c')
+        hs.eventtap.keyStroke({}, 'up')
+        hs.eventtap.keyStroke({}, 'return')
     else
         hs.eventtap.keyStroke({'cmd'}, 'r')
     end
