@@ -96,6 +96,7 @@ casks=(
     karabiner-elements
     hazel
     witch
+    postman
 )
 
 for cask in "${casks[@]}"; do
