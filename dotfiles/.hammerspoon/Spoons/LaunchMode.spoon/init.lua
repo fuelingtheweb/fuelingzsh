@@ -6,15 +6,35 @@ hs.urlevent.bind('launch-app', function(eventName, params)
     app = hs.application.frontmostApplication()
     isActive = app:bundleID() == bundle
 
-    if not isActive and not hasWindows(hs.application.get(bundle)) then
+    if params.id == 'iterm' then
+        launchIterm()
+    elseif not isActive and not hasWindows(hs.application.get(bundle)) then
         hs.application.open(bundle)
     elseif not isActive then
         hs.application.get(bundle):activate()
     elseif multipleWindows(app) then
-        hs.eventtap.keyStroke({'ctrl'}, 'tab')
+        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'W')
     elseif not hasWindows(app) then
         hs.application.open(bundle)
     end
 end)
+
+function launchIterm(bundle)
+    bundle = apps['iterm']
+    app = hs.application.get(bundle)
+
+    if app and app:isRunning() then
+        triggerItermShortcut()
+    else
+        hs.application.open(bundle)
+        hs.timer.doAfter(1, function()
+            triggerItermShortcut()
+        end)
+    end
+end
+
+function triggerItermShortcut()
+    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'T')
+end
 
 return obj

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+PROJECTPATH="."
+MESSAGE="Initial commit"
+QUIET=false
+DEVELOP=false
+AUTH=false
+NODE=true
+CODEEDITOR="/usr/local/bin/atom"
+BROWSER=""
+LINK=false
+SECURE=false
+FRONTEND="vue"
+CREATE_DATABASE=true
+DB_USERNAME="root"
+DB_PASSWORD=""

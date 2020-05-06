@@ -19,8 +19,11 @@ apps['atom'] = atom
 apps['chrome'] = chrome
 apps['finder'] = finder
 apps['sublime'] = sublime
+apps['iterm'] = iterm
 
 ultrawide = 'LG ULTRAWIDE'
 macbookScreen = 'Color LCD'
+
+log = hs.logger.new('ftw-log','debug')
 
 return obj

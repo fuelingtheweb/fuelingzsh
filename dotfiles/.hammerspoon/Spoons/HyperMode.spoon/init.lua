@@ -34,6 +34,12 @@ hs.urlevent.bind('hyper-copy', function()
     end
 end)
 
+hs.urlevent.bind('hyper-open', function()
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
+    end
+end)
+
 hs.urlevent.bind('hyper-copyTextArea', function()
     if appIs(notion) then
         hs.eventtap.keyStroke({'cmd'}, 'A')
@@ -80,6 +86,8 @@ hs.urlevent.bind('hyper-previousPage', function()
     elseif appIs(atom) then
          -- Atom: Cursor History: Previous
         hs.eventtap.keyStroke({'shift', 'alt'}, 'I')
+    elseif appIs(iterm) then
+        typeAndEnter('cdp')
     else
         hs.eventtap.keyStroke({'cmd'}, '[')
     end
@@ -88,8 +96,8 @@ end)
 hs.urlevent.bind('hyper-previousTab', function()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, '[')
-    elseif appIs(teams) then
-        -- Teams: Move to next conversation
+    elseif appIncludes({teams, discord}) then
+        -- Teams: Move to next conversation / channel
         hs.eventtap.keyStroke({'alt'}, 'Down')
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, '[')
@@ -99,8 +107,8 @@ end)
 hs.urlevent.bind('hyper-nextTab', function()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, ']')
-    elseif appIs(teams) then
-        -- Teams: Move to previous conversation
+    elseif appIncludes({teams, discord}) then
+        -- Teams: Move to previous conversation / channel
         hs.eventtap.keyStroke({'alt'}, 'Up')
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, ']')

@@ -9,7 +9,7 @@ hs.urlevent.bind('media-showVideoBar', function()
         hs.eventtap.keyStroke({}, 'pad6')
         hs.mouse.setAbsolutePosition({x = 1900, y = 300})
         hs.eventtap.keyStroke({}, 'pad6')
-    elseif stringContains('TV', currentTitle()) then
+    elseif stringContains('TV', currentTitle()) or stringContains('Disney', currentTitle()) then
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
         hs.eventtap.keyStroke({}, 'pad6')
         hs.timer.doAfter(0.8, function()
@@ -29,7 +29,7 @@ hs.urlevent.bind('media-focus', function()
         title = currentTitle()
         if stringContains('Funimation', title) then
             hs.eventtap.keyStrokes('gf')
-        elseif stringContains('Disney Plus', title) then
+        elseif stringContains('Disney', title) then
             hs.eventtap.keyStroke({}, 'tab')
         else
             center = hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():fullFrame())

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+echo "Installing Composer dependencies"
+composer require --dev \
+    ahuggins/open-on-make \
+    sven/artisan-view \
+    barryvdh/laravel-debugbar \
+    beyondcode/laravel-dump-server \
+    beyondcode/laravel-query-detector \
+    codedungeon/phpunit-result-printer \
+    friendsofphp/php-cs-fixer
+
+echo "Installing Node dependencies"
+rm package-lock.json
+yarn add --dev \
+    git://github.com/fuelingtheweb/plugin-php.git \
+    eslint \
+    eslint-config-airbnb \
+    eslint-config-prettier \
+    eslint-import-resolver-webpack \
+    eslint-plugin-html \
+    eslint-plugin-import \
+    eslint-plugin-jest \
+    eslint-plugin-jsx-a11y \
+    eslint-plugin-prettier \
+    eslint-plugin-react \
+    eslint-plugin-vue \
+    husky \
+    lint-staged \
+    git://github.com/fuelingtheweb/prettier.git
+
+echo "Linking site"
+valet link "local.$PROJECTNAME"
+open "http://local.$PROJECTNAME.test"
+
+echo "Copying default files"
+cp ~/.lambo/includes/root/.* $PROJECTPATH
+cp -R ~/.lambo/includes/root/* $PROJECTPATH
+cp ~/.lambo/includes/app/helpers.php $PROJECTPATH/app
+
+echo "Committing to Git"
+git add .
+git commit -am "Initialize dependencies and add default files"
+
+echo "Copying files to integrate prior to committing"
+cp -R ~/.lambo/includes/integrate $PROJECTPATH

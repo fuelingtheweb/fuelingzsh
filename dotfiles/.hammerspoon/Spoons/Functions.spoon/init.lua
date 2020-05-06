@@ -88,9 +88,33 @@ function openInChrome(url)
     hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default"')
 end
 
+function openInChromeIncognito(url)
+    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
+end
+
+function runGoogleSearch(query)
+    openInChromeIncognito(getUrlForQuery(query))
+end
+
+function getUrlForQuery(query)
+    if startsWith('http', query) then
+        return query
+    end
+
+    return 'https://www.google.com/search?q=' .. query
+end
+
 function triggerInAtom(name)
     hs.eventtap.keyStroke({'shift', 'cmd'}, 'P')
     hs.eventtap.keyStrokes(name)
+    hs.timer.doAfter(0.3, function()
+        hs.eventtap.keyStroke({}, 'return')
+    end)
+end
+
+function goToFileInAtom(file)
+    hs.eventtap.keyStroke({'cmd'}, 'T')
+    hs.eventtap.keyStrokes(file)
     hs.timer.doAfter(0.3, function()
         hs.eventtap.keyStroke({}, 'return')
     end)

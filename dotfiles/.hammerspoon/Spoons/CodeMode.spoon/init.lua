@@ -84,4 +84,12 @@ hs.urlevent.bind('code-u', function()
     end
 end)
 
+hs.urlevent.bind('code-return', function()
+    if appIs(iterm) then
+        customServeSite()
+    else
+        hs.eventtap.keyStrokes('return ')
+    end
+end)
+
 return obj

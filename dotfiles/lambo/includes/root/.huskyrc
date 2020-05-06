@@ -1,0 +1,7 @@
+{
+    "hooks": {
+        "pre-commit": "lint-staged",
+        "pre-push": "./vendor/bin/phpunit --configuration=./phpunit.xml",
+        "post-merge": "./bin/run-post-merge.sh"
+    }
+}

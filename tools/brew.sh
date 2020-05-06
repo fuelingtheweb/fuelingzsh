@@ -33,14 +33,19 @@ formulas=(
     mas
     mycli
     mysql@5.7
+    postgresql
+    pgcli
     redis
     sqlite --with-json1
-    php --build-from-source
+    php@7.3 --build-from-source
     php-cs-fixer
     phpmd
     composer
     yarn
     yqrashawn/goku/goku
+    mackup
+    nvm
+    # wp-cli
 )
 
 for formula in "${formulas[@]}"; do
@@ -59,6 +64,7 @@ echo "=============================="
 
 brew services start mysql@5.7
 brew link mysql@5.7 --force
+brew services start postgresql
 brew services start redis
 
 casks=(
@@ -70,8 +76,6 @@ casks=(
     appcleaner
     dash
     hyperswitch
-    yakyak
-    shortcat
     tableplus
     betterzip
     qlcolorcode
@@ -83,6 +87,15 @@ casks=(
     qlvideo
     cursorcerer
     hammerspoon
+    kaleidoscope
+    microsoft-teams
+    vlc
+    bartender
+    choosy
+    discord
+    karabiner-elements
+    hazel
+    witch
 )
 
 for cask in "${casks[@]}"; do

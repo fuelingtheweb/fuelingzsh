@@ -3,36 +3,31 @@
             :rules [
                 [:right_option [:hs "media-showVideoBar"]]
                 [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
-                [:!TCf :escape] ; Escape Hyperswitch
+                [:!TCf :escape] ; Escape
             ]
         }
         {
             :des "Hyper Mode (Key: Caps Lock)"
             :rules [:hyper-mode
-                [:hyphen :!!hyphen] ; Witch (All)
                 [:y [:hs "hyper-copy"]]
                 [:u [:hs "hyper-copyTextArea"]]
                 [:i :!!i] ; Inbox
-                [:o :!!o] ; Witch (Only apps with open windows)
+                [:o [:hs "hyper-open"]]
                 [:p :!Cv] ; Paste
                 [:open_bracket [:hs "hyper-openAnything"]]
                 [:close_bracket [:hs "hyper-commandPalette"]] ; Command palette
-                ; [:backslash :!Cescape] ; Escape yperswitch
-                [:f :!Cescape] ; Escape Hyperswitch to avoid opening app in fullscreen
                 [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon [:alfredsearch "."]] ; Alfred Commands
-                [:quote :!Ctab] ; Hyperswitch (All Windows)
+                [:semicolon :f3] ; Witch (All)
+                [:quote :!!o] ; Witch (Only apps with open windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
                 [:comma [:hs "hyper-jumpTo"]]
-                [:period :!STOperiod] ; Alfred Terminal
-                [:slash :!Ttab] ; Hyperswitch (Current App)
-                ; [:##slash :!!f]
-                ; b, \, spacebar
+                [:slash :!!hyphen] ; Witch (All)
+                ; semicolon, period, slash, b, \, spacebar, backslash
             ]
         }
         {
@@ -49,7 +44,7 @@
         {
             :des "Launch Mode (Key: ,)"
             :rules [:launch-mode
-                [:t :!!t] ; iTerm
+                [:t [:hs "launch-app?id=iterm"]]
                 [:r [:hs "launch-app?id=atom"]]
                 [:e [:hs "launch-app?id=sublime"]]
                 [:w [:launch "Tinkerwell.app"]]
@@ -69,23 +64,26 @@
         {
             :des "Command Mode (Key: ;)"
             :rules [:command-mode
-                [:t [:hs "command-newTab"]] ; New Tab
-                [:r [:hs "command-reload"]]
-                [:e :!SCe] ; Edit with
-                [:w [:hs "command-closeWindow"]]
-                [:q :!Cq] ; Quit
                 [:tab :!Stab] ; Shift Tab
-                ; g
-                [:f [:hs "command-find"]]
-                [:d [:hs "command-done"]]
-                [:s [:hs "command-save"]] ; Save
-                [:a :!Ca] ; Select All
+                [:q :!Cq] ; Quit
+                [:w [:hs "command-closeWindow"]]
+                [:e :!SCe] ; Edit with
+                [:r [:hs "command-reload"]]
+                [:t [:hs "command-newTab"]] ; New Tab
+
                 [:caps_lock [:hs "command-dismissNotifications"]] ; Dismiss notifications
+                [:a :!Ca] ; Select All
+                [:s [:hs "command-save"]] ; Save
+                [:d [:hs "command-done"]]
+                [:f [:hs "command-find"]]
+                [:g :!SCh] ; Atom: Toggle Git Palette
+
+                [:z :delete_or_backspace]
+                [:x [:hs "command-cancelOrDelete"]] ; Control C
+                [:c :!!k] ; Hide cursor
                 [:b :!Cd] ; Save Bookmark (Chrome)
                 [:v :!SCv] ; Paste without formatting via Alfred
-                [:c :!!k] ; Hide cursor
-                [:x [:hs "command-cancelOrDelete"]] ; Control C
-                [:z :delete_or_backspace]
+
                 [:m :!!z] ; Spotify
             ]
         }
@@ -96,8 +94,10 @@
                 [:s :!TOCs] ; Vimac: Enable Scroll
                 [:b :!STCb] ; Bartender: Show
                 [:a :!OCbackslash] ; Alfred: Action File
-                [:x :!Odelete_or_backspace] ; Delete word
+                [:x [:hs "deleteWord"]]
+                [:z :delete_or_backspace] ; Delete character
                 [:d :!OCd] ; Toggle dock visibility
+                [:caps_lock [:alfred "commands" "com.fuelingtheweb.commands"]]
             ]
         }
         {
@@ -128,7 +128,6 @@
             :rules [:general-mode
                 [:e :!S1] ; !
                 [:h :!Sgrave_accent_and_tilde] ; ~
-                ; [:h [:hs "misc-scroll"]]
                 [:j [:hs "misc-focusPrevious"]]
                 [:k [:hs "misc-focusNext"]]
                 [:l :!!l] ; Lastpass
@@ -154,6 +153,7 @@
         {
             :des "Media Mode (Key: M)"
             :rules [:media-mode
+                [:z [:alfredsearch "Sound"]]
                 [:r [:hs "media-updateAudioDevice"]]
                 [:s :!SCm] ; Mute in Discord and Teams
                 [:d :!SCd] ; Deafen in Discord
@@ -173,6 +173,7 @@
                 [:m [:alfredsearch "bm "]] ; Google bookmarks
                 [:i [:chrome "https://inbox.google.com"]]
                 [:p :!SCm] ; Chrome: Show profiles list
+                [:quote [:hs "google-openAndReload"]]
             ]
         }
         {
@@ -192,7 +193,7 @@
                 [:l [:hs "code-l"]]
                 [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
                 [:quote [:spacebar :equal_sign :spacebar]] ; =
-                [:return_or_enter [:r :e :t :u :r :n :spacebar]] ; -> return
+                [:return_or_enter [:hs "code-return"]]
 
                 [:b [:hs "code-toggleBoolean"]]
                 ; n
@@ -208,7 +209,7 @@
                 [:t [:hs "app-run?key=T"]]
                 ; r
                 [:e [:hs "app-run?key=E"]]
-                ; w
+                [:w [:hs "app-run?key=W"]]
                 ; q
                 [:g [:hs "app-run?key=G"]]
                 ; f
@@ -218,7 +219,7 @@
                 [:b [:hs "app-run?key=B"]]
                 ; v
                 [:c [:hs "app-run?key=C"]]
-                ; x
+                [:x [:hs "app-run?key=X"]]
                 [:z [:hs "app-run?key=Z"]]
                 [:h [:hs "app-run?key=H"]]
                 [:m [:hs "app-run?key=M"]]
@@ -239,7 +240,10 @@
                 [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
                 [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
                 [:s :!Cr] ; Search for symbol
-                [:t :!Cb] ; Atom: Toggle Buffer Finder
+                [:w :!!w] ; Witch: Search apps windows
+                [:a :!!a] ; Witch: Search all windows
+                [:t [:hs "searchTabs"]]
+                [:c [:slash :!Scomma :!Scomma :!Scomma :!Scomma :!Scomma :return_or_enter]] ; Search for conflicts
             ]
         }
         {
@@ -256,6 +260,7 @@
                 [:e [:hs "custom-openModeE"]]
                 [:g [:hs "misc-openInChrome"]]
                 [:c [:hs "misc-openInSublimeMerge"]]
+                [:x [:hs "custom-openModeX"]]
                 [:t [:hs "custom-openModeT"]]
                 [:s [:hs "custom-openModeS"]]
                 [:b [:hs "misc-openInFinder"]]
@@ -296,16 +301,24 @@
         {
             :des "Atom Mode (Key: A)"
             :rules [:atom-mode
-                [:o :!OCo] ; Atom: New File
-                [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
-                [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
-                [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
+                ; [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
+                ; [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
+                ; [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
+                ; Tab mode
+                [:j [:!TCj]] ; Atom: Move to next symbol
+                [:k [:!TCk]] ; Atom: Move to previous symbol
+                [:n :!Oz] ; Alfred
+                [:m :!Oc] ; Alfred Clipboard
+                [:semicolon [:!Ctab :escape]] ; Hyperswitch (Next)
+                [:quote [:!Ttab :escape]] ; Hyperswitch (Next in Current App)
             ]
         }
         {
             :des "Tab Mode (Key: tab)"
-            :rules [:tab-mode
+            :rules [:atom-mode
                 [:h [:hs "moveTabLeft"]] ; Move tab to the left
+                ; [:j [:hs "hyper-previousTab"]]
+                ; [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "moveTabRight"]] ; Move tab to the right
                 [:i [:!C1]] ; Go to first tab
                 [:o [:!C9]] ; Go to last tab
@@ -314,6 +327,8 @@
         {
             :des "Copy Mode (Key: Y)"
             :rules [:copy-mode
+                [:e [:escape :y :e]]; w -> end of word
+
                 [:w [:escape :y :i :w]]; w -> word
                 [:t [:escape :y :i :t]]; t -> tag
                 [:s [:escape :y :i :quote]]; s -> single quotes
@@ -327,11 +342,15 @@
                 [:i [:escape :!SCleft_arrow :y]] ; To beginning of line
                 [:v [:escape :y :y]]; v -> line
                 [:x [:escape :y :l]]; v -> character
+
+                [:caps_lock [:hs "misc-copyAll"]]
             ]
         }
         {
             :des "Paste Mode (Key: P)"
             :rules [:paste-mode
+                [:e [:escape :v :e :p]]; w -> end of word
+
                 [:w [:escape :v :i :w :p]]; w -> word
                 [:t [:escape :v :i :t :p]]; t -> tag
                 [:s [:escape :v :i :quote :p]]; s -> single quotes
@@ -352,6 +371,8 @@
         {
             :des "Change Mode (Key: n)"
             :rules [:change-mode
+                [:e [:escape :c :e]]; w -> end of word
+
                 [:w [:escape :c :i :w]]; w -> word
                 [:t [:escape :c :i :t]]; t -> tag
                 [:s [:escape :c :i :quote]]; s -> single quotes
@@ -370,6 +391,8 @@
         {
             :des "Destroy Mode (Key: [)"
             :rules [:destroy-mode
+                [:e [:escape :d :e]]; w -> end of word
+
                 [:w [:escape :d :i :w]]; w -> word
                 [:t [:escape :d :i :t]]; t -> tag
                 [:s [:escape :d :i :quote]]; s -> single quotes
@@ -383,6 +406,26 @@
                 [:i [:escape :!SCleft_arrow :d]] ; To beginning of line
                 [:v [:escape :d :d]]; v -> line
                 [:x [:escape :x]]; x -> character
+            ]
+        }
+        {
+            :des "Select Mode (Key: ])"
+            :rules [:select-mode
+                [:e [:escape :v :e]]; w -> end of word
+
+                [:w [:escape :v :i :w]]; w -> word
+                [:t [:escape :v :i :t]]; t -> tag
+                [:s [:escape :v :i :quote]]; s -> single quotes
+                [:d [:escape :v :i :!Squote]]; d -> double quotes
+                [:z [:escape :v :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:f [:escape :v :i :!S9]]; f -> parenthesis
+                [:c [:escape :v :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :v :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :!Sd]] ; To end of line
+                [:i [:escape :!SCleft_arrow]] ; To beginning of line
+                [:v [:escape :!Sv]]; v -> line
+                [:x [:escape :v]]; x -> character
             ]
         }
         {
@@ -403,5 +446,14 @@
                 [:b [:escape :v :t :close_bracket]]; b -> closing brackets
 
                 [:t [:!Sv :!Sopen_bracket]] ; Previous block
+            ]
+        }
+        {
+            :des "Period Mode (Key: period)"
+            :rules [:period-mode
+                [:v [:escape :y :y :p]] ; Duplicate line
+                [:s [:alfredsearch "sleep"]] ; Alfred: Sleep
+                [:q [:alfredsearch "shutdown"]] ; Alfred: Shut Down
+                [:r [:hs "misc-saveAndReload"]]
             ]
         }

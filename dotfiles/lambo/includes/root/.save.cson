@@ -1,0 +1,1 @@
+"**/*.php": "yarn run prettier ${path} --write --parser=php --plugin=./node_modules/@prettier/plugin-php"

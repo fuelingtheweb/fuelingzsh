@@ -13,22 +13,13 @@ hs.urlevent.bind('misc-closeAllWindows', function()
     end
 end)
 
-hs.urlevent.bind('misc-scroll', function()
-    if appIs(notion) then
-        hs.eventtap.keyStroke({}, 'down')
-        hs.eventtap.keyStroke({}, 'down')
-        hs.eventtap.keyStroke({}, 'down')
-        hs.eventtap.keyStroke({}, 'down')
-    else
-        hs.eventtap.keyStroke({}, 'pagedown')
-    end
-end)
-
 hs.urlevent.bind('misc-focusPrevious', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt',}, 'up')
     elseif appIs(sublime) then
         hs.eventtap.keyStrokes(':oh')
+    elseif appIs(atom) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'h')
     else
         hs.eventtap.keyStroke({'cmd'}, '[')
     end
@@ -39,6 +30,8 @@ hs.urlevent.bind('misc-focusNext', function()
         hs.eventtap.keyStroke({'alt',}, 'down')
     elseif appIs(sublime) then
         hs.eventtap.keyStrokes(':ol')
+    elseif appIs(atom) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'l')
     else
         hs.eventtap.keyStroke({'cmd'}, ']')
     end
@@ -69,12 +62,25 @@ hs.urlevent.bind('misc-openInAtom', function()
 end)
 
 hs.urlevent.bind('misc-openInChrome', function()
-    customOpenInChrome()
+    text = getSelectedText()
+    if not appIncludes({atom, sublime}) and text then
+        runGoogleSearch(text)
+    elseif appIs(chrome) then
+        hs.eventtap.keyStrokes('yy')
+        openInChrome(getSelectedText())
+    else
+        customOpenInChrome()
+    end
 end)
 
 hs.urlevent.bind('misc-openInFinder', function()
     if appIs(iterm) then
         typeAndEnter('o.')
+    else
+        path = currentTitle():match('~%S+')
+        if path then
+            hs.execute('open ' .. path)
+        end
     end
 end)
 
@@ -107,6 +113,44 @@ hs.urlevent.bind('moveTabRight', function()
         -- https://packagecontrol.io/packages/MoveTab
         hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'right')
     end
+end)
+
+hs.urlevent.bind('deleteWord', function()
+    if appIs(iterm) then
+        hs.eventtap.keyStroke({'ctrl'}, 'w')
+    else
+        hs.eventtap.keyStroke({'alt'}, 'delete')
+    end
+end)
+
+hs.urlevent.bind('searchTabs', function()
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'cmd'}, 'b')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'alt', 'shift'}, 'p')
+    elseif appIs(chrome) then
+        hs.eventtap.keyStrokes('T')
+    else
+        -- Witch: Search tabs
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd', 'shift'}, 'b')
+    end
+end)
+
+hs.urlevent.bind('misc-copyAll', function()
+    hs.eventtap.keyStroke({'cmd'}, 'A')
+    hs.eventtap.keyStroke({'cmd'}, 'C')
+    hs.eventtap.keyStroke({}, 'Right')
+end)
+
+hs.urlevent.bind('google-openAndReload', function()
+    hs.application.get(apps['chrome']):activate()
+    hs.eventtap.keyStroke({'cmd'}, 'R')
+end)
+
+hs.urlevent.bind('misc-saveAndReload', function()
+    hs.eventtap.keyStroke({'cmd'}, 'S')
+    hs.application.get(apps['chrome']):activate()
+    hs.eventtap.keyStroke({'cmd'}, 'R')
 end)
 
 return obj

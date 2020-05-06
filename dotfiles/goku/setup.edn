@@ -2,7 +2,7 @@
     :profiles {
         :Default {
             :default true
-            :sim 250 ;; simultaneous_threshold_milliseconds (def: 50)
+            :sim 100 ;; simultaneous_threshold_milliseconds (def: 50)
             ;; keys need to be pressed within this threshold to be considered simultaneous
             :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
             ;; basically it means time after which the key press is count delayed
@@ -45,6 +45,8 @@
         :paste-mode {:key :p}
         :change-mode {:key :n}
         :destroy-mode {:key :open_bracket}
+        :select-mode {:key :close_bracket}
         :select-until-mode {:key :u}
         :tab-mode {:key :tab}
+        :period-mode {:key :period}
     }

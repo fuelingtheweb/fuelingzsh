@@ -1,0 +1,41 @@
+{
+    "scripts": {
+        "prettier": "prettier",
+        "lint": "eslint resources/assets/**/*.{js,vue}",
+        "lintcss": "prettier resources/**/*.scss --debug-check",
+        "lintphp": "prettier {app,config,database,resources,routes,tests}/**/*.php --debug-check --parser=php --plugin=./node_modules/@prettier/plugin-php",
+        "lint:fix": "yarn run lint --fix",
+        "lintcss:fix": "prettier resources/**/*.scss --write",
+        "lintphp:fix": "prettier {app,config,database,resources,routes,tests}/**/*.php --write --parser=php --plugin=./node_modules/@prettier/plugin-php",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "eslint-check": "eslint --print-config . | eslint-config-prettier-check"
+    },
+    "lint-staged": {
+        "resources/assets/**/*.{js,vue}": "eslint",
+        "*.scss": "prettier --debug-check",
+        "*.php": "prettier --debug-check --parser=php --plugin=./node_modules/@prettier/plugin-php"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "vue"
+        ],
+        "transform": {
+            "^.+\\.js$": "babel-jest",
+            ".*\\.(vue)$": "vue-jest"
+        },
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/resources/js/$1"
+        },
+        "testRegex": "/resources/js/tests/.*\\.(test|spec)\\.js$",
+        "setupFiles": [
+            "<rootDir>/node_modules/regenerator-runtime/runtime"
+        ]
+    }
+}
