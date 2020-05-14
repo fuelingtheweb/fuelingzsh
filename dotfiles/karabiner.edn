@@ -106,7 +106,7 @@
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon :f3] ; Witch (All)
+                [:semicolon :f3] ; Mac: Show windows
                 [:quote :!!o] ; Witch (Only apps with open windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
@@ -326,7 +326,7 @@
                 [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
                 [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
                 [:s :!Cr] ; Search for symbol
-                [:w :!!w] ; Witch: Search apps windows
+                [:w :!!e] ; Witch: Search apps windows
                 [:a :!!a] ; Witch: Search all windows
                 [:t [:hs "searchTabs"]]
                 [:c [:slash :!Scomma :!Scomma :!Scomma :!Scomma :!Scomma :return_or_enter]] ; Search for conflicts
@@ -543,17 +543,17 @@
                 [:r [:hs "misc-saveAndReload"]]
             ]
         }
-        {
-            :des "Use right command for sticky vi and vi visual modes"
-            :rules [
-                [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
-                [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
-                :sticky-vi-mode
-                [:right_command ["sticky-vi-mode" 0]]
-                :sticky-vi-visual-mode
-                [:right_command ["sticky-vi-visual-mode" 0]]
-            ]
-        }
+        ; {
+        ;     :des "Use right command for sticky vi and vi visual modes"
+        ;     :rules [
+        ;         [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
+        ;         [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
+        ;         :sticky-vi-mode
+        ;         [:right_command ["sticky-vi-mode" 0]]
+        ;         :sticky-vi-visual-mode
+        ;         [:right_command ["sticky-vi-visual-mode" 0]]
+        ;     ]
+        ; }
         {
             :des   "Sticky Vi Mode (Press right command once)"
             :rules [:sticky-vi-mode

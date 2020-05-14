@@ -40,6 +40,9 @@ end)
 hs.urlevent.bind('misc-toggleSidebar', function()
     if appIs(finder) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 's')
+    elseif appIs(sublimeMerge) then
+        hs.eventtap.keyStroke({'cmd'}, 'K')
+        hs.eventtap.keyStroke({'cmd'}, 'B')
     else
         hs.eventtap.keyStroke({'cmd'}, '\\')
     end

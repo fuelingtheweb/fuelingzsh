@@ -65,7 +65,9 @@ echo "=============================="
 brew services start mysql@5.7
 brew link mysql@5.7 --force
 brew services start postgresql
+createdb `whoami`
 brew services start redis
+brew link php@7.3 --force
 
 casks=(
     iterm2
@@ -97,6 +99,7 @@ casks=(
     hazel
     witch
     postman
+    notion
 )
 
 for cask in "${casks[@]}"; do

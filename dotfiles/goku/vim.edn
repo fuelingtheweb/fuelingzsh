@@ -1,14 +1,14 @@
-        {
-            :des "Use right command for sticky vi and vi visual modes"
-            :rules [
-                [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
-                [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
-                :sticky-vi-mode
-                [:right_command ["sticky-vi-mode" 0]]
-                :sticky-vi-visual-mode
-                [:right_command ["sticky-vi-visual-mode" 0]]
-            ]
-        }
+        ; {
+        ;     :des "Use right command for sticky vi and vi visual modes"
+        ;     :rules [
+        ;         [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
+        ;         [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
+        ;         :sticky-vi-mode
+        ;         [:right_command ["sticky-vi-mode" 0]]
+        ;         :sticky-vi-visual-mode
+        ;         [:right_command ["sticky-vi-visual-mode" 0]]
+        ;     ]
+        ; }
         {
             :des   "Sticky Vi Mode (Press right command once)"
             :rules [:sticky-vi-mode

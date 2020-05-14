@@ -37,6 +37,8 @@ end)
 hs.urlevent.bind('hyper-open', function()
     if appIs(atom) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'N')
     end
 end)
 

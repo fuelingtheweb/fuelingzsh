@@ -3,6 +3,7 @@ FUELINGZSH=$HOME/.fuelingzsh
 OPTIONS=$FUELINGZSH/options
 ALIASES=$FUELINGZSH/aliases
 CUSTOM=$FUELINGZSH/custom
+ZSH_DISABLE_COMPFIX="true"
 
 source $OPTIONS/iterm.sh
 source $OPTIONS/powerline.sh

@@ -2,17 +2,14 @@
 
 # Automatically install purchased apps from the Mac App Store
 
-mas signout
-
-read -r -t 60 -p "What is yout Apple ID?: " appleid
-mas signin --dialog "$appleid"
-
 # Mac App Store apps to install
 apps=(
-    "Fantastical 2:975937182"
+    "Fantastical:975937182"
     "Marked 2:890031187"
     "Moom:419330170"
     "Evernote:406056744"
+    "Amphetamine:937984704"
+    "White Noise:415139197"
 )
 
 for app in "${apps[@]}"; do
