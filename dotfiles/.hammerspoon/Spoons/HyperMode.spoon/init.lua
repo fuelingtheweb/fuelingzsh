@@ -39,6 +39,10 @@ hs.urlevent.bind('hyper-open', function()
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'N')
+    elseif appIs(chrome) then
+        hs.eventtap.keyStroke({'shift'}, 'O')
+    else
+        hs.eventtap.keyStroke({'cmd'}, 'O')
     end
 end)
 

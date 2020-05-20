@@ -1,4 +1,4 @@
-alias git='hub'
+# alias git='hub'
 alias gbd='git branch -d'
 alias gbD='git branch -D'
 alias gbl='git branch --list'
@@ -105,11 +105,7 @@ alias gfid='git flow init -d'
 alias gbsa='git for-each-ref --sort=committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"'
 alias gbsd='git for-each-ref --sort=-committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"'
 
-# GitHub
-alias gh='git browse --'
-alias ghi='git browse -- issues'
-alias ghp='git browse -- pulls'
-alias ghw='git browse -- wiki'
+alias go='git open'
 
 # Stash
 alias gst='git stash'

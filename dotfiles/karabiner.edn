@@ -212,28 +212,32 @@
         {
             :des "General Mode (Key: F)"
             :rules [:general-mode
-                [:e :!S1] ; !
+                [:y :!S7] ; &
+                [:u :!Shyphen] ; _
+                [:i :hyphen] ; -
+                [:o :keypad_plus] ; +
+                [:p :!S5] ; %
+                [:open_bracket :!S9] ; (
+                [:close_bracket :!S0] ; )
+
                 [:h :!Sgrave_accent_and_tilde] ; ~
                 [:j [:hs "misc-focusPrevious"]]
                 [:k [:hs "misc-focusNext"]]
                 [:l :!!l] ; Lastpass
                 [:semicolon [:hs "misc-toggleSidebar"]]
-                [:n :!SCn] ; New window / folder
-                [:i :hyphen] ; -
-                [:o :keypad_plus] ; +
-                [:u :!Shyphen] ; _
                 [:quote :equal_sign] ; =
-                [:open_bracket :!S9] ; (
-                [:close_bracket :!S0] ; )
+                ; return
+
+                [:n :!SCn] ; New window / folder
                 [:m :!S8] ; Multiply: *
-                [:p :!S5] ; %
-                [:y :!S7] ; &
-                [:a :!S2] ; @
-                [:period [:hyphen :!Speriod]] ; ->
                 [:comma :!Ccomma] ; Settings
+                [:period [:hyphen :!Speriod]] ; ->
                 [:slash :!Cslash] ; Comment
-                [:s [:hs "misc-surround"]]
+
+                [:e :!S1] ; !
                 [:d :!S4] ; -> $
+                [:s [:hs "misc-surround"]]
+                [:a :!S2] ; @
             ]
         }
         {
@@ -282,7 +286,7 @@
                 [:return_or_enter [:hs "code-return"]]
 
                 [:b [:hs "code-toggleBoolean"]]
-                ; n
+                [:n :!Ograve_accent_and_tilde] ; `
                 [:m [:hs "code-m"]]
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
