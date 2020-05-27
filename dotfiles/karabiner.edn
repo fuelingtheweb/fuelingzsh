@@ -276,6 +276,8 @@
                 [:i :!STOup_arrow] ; Multiple cursors up
                 [:o [:hs "code-o"]]
                 [:p [:hs "code-p"]]
+                [:open_bracket :!OCopen_bracket] ; Atom: Fold row
+                [:close_bracket :!OCclose_bracket] ; Atom: Unfold row
 
                 [:h [:hs "code-h"]]
                 [:j [:hs "code-moveDown"]] ; Move line down / autocomplete on iTerm
@@ -399,7 +401,7 @@
                 [:k [:!TCk]] ; Atom: Move to previous symbol
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
-                [:semicolon [:!Ctab :escape]] ; Hyperswitch (Next)
+                [:semicolon [:!Ctab :!Cescape]] ; Hyperswitch (Next)
                 [:quote [:!Ttab :escape]] ; Hyperswitch (Next in Current App)
             ]
         }

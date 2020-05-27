@@ -9,21 +9,30 @@ alias nah='git reset --hard; git clean -df;'
 alias gs='git status -sb'
 alias ga='git add'
 alias gaa='git add -A'
-alias gcmt='git commit'
-alias gc='git commit -m'
-alias gca='git commit -a -m'
 alias gpl='git pull'
 alias gps='git push'
 alias gpsnv='git push --no-verify'
 alias gcf='git checkout -f'
-alias gcam='git commit --amend'
-alias gcamn='git commit --amend --no-edit'
 alias gmd='git merge develop'
 alias gmm='git merge master'
 alias grm='git rebase master'
 alias grd='git rebase develop'
 alias grc='git rebase --continue'
 alias gin='git init'
+
+# Commit
+git:commit() {
+    if [ "$1" ]; then
+        git commit -m "$1"
+    else
+        git commit
+    fi
+}
+alias gc='git:commit'
+alias gca='git commit -a -m'
+alias gcam='git commit --amend'
+alias gcamn='git commit --amend --no-edit'
+alias gunc='git uncommit'
 
 alias gsh='git show'
 alias gshw='git show'
@@ -33,7 +42,6 @@ alias gci='git check-ignore -v'
 alias gcp='git cp'
 alias gcpn='git cherry-pick -n'
 alias guns='git unstage'
-alias gunc='git uncommit'
 alias gms='git merge --squash'
 alias gam='git amend --reset-author'
 alias grv='git remote -v'
