@@ -13,6 +13,6 @@
 [submodule "options/fonts/FiraCode"]
 	path = options/fonts/FiraCode
 	url = https://github.com/tonsky/FiraCode.git
-[submodule "/Users/nathan/.fuelingzsh/plugins/fast-syntax-highlighting"]
+[submodule "plugins/fast-syntax-highlighting"]
 	path = plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma/fast-syntax-highlighting.git

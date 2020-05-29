@@ -1,5 +1,5 @@
 function fileContents() {
-    cat "$HOME/.fuelingzsh/dotfiles/goku/$1.edn"
+    cat "$HOME/.fuelingzsh/karabiner/goku/$1.edn"
 }
 SETUP_EDN=$(fileContents 'setup')
 VIM_EDN=$(fileContents 'vim')
@@ -43,6 +43,6 @@ $MAIN_EDN
 $VIM_EDN
     ]
 }
-" > $HOME/.fuelingzsh/dotfiles/karabiner.edn
+" > $HOME/.fuelingzsh/karabiner/karabiner.edn
 
 echo 'Success!'

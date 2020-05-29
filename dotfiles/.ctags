@@ -200,3 +200,26 @@
 --regex-latex=/\\section\*\{([^}]*)\}/\1/s,section/
 --regex-latex=/\\subsection\*\{([^}]*)\}/\1/t,subsection/
 --regex-latex=/\\subsubsection\*\{([^}]*)\}/\1/u,subsubsection/
+
+--langdef=Vue
+--langmap=Vue:.vue
+--regex-Vue=/(,|(;|^)[ \t]*(var|let|([A-Za-z_$][A-Za-z0-9_$.]*\.)*))[ \t]*([A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/\5/,function/
+--regex-Vue=/function[ \t]+([A-Za-z0-9_$]+)[ \t]*\([^)]*\)/\1/,function/
+--regex-Vue=/(,|^|\*\/)[ \t]*([A-Za-z_$][A-Za-z0-9_$]+)[ \t]*:[ \t]*function[ \t]*\(/\2/,function/
+--regex-Vue=/(,|^|\*\/)[ \t]*(static[ \t]+)?(while|if|for|function|switch|with|([A-Za-z_$][A-Za-z0-9_$]+))[ \t]*\(.*\)[ \t]*\{/\2\4/,function/
+--regex-Vue=/(,|^|\*\/)[ \t]*get[ \t]+([A-Za-z_$][A-Za-z0-9_$]+)[ \t]*\([ \t]*\)[ \t]*\{/get \2/,function/
+--regex-Vue=/(,|^|\*\/)[ \t]*set[ \t]+([A-Za-z_$][A-Za-z0-9_$]+)[ \t]*\([ \t]*([A-Za-z_$][A-Za-z0-9_$]+)?[ \t]*\)[ \t]*\{/set \2/,function/
+--regex-Vue=/(,|^|\*\/)[ \t]*async[ \t]+([A-Za-z_$][A-Za-z0-9_$]+)[ \t]*\([ \t]*([A-Za-z_$].+)?[ \t]*\)[ \t]*\{/\2/,function/
+--regex-Vue=/class[ \t]+([A-Za-z0-9._$]+)[ \t]*/\1/c,class/
+--regex-Vue=/^[ \t]*describe\("([^"]+)"[ \t]*,/\1/f,function/
+--regex-Vue=/^[ \t]*describe\('([^']+)'[ \t]*,/\1/f,function/
+--regex-Vue=/^[ \t]*it\("([^"]+)"[ \t]*,/\1/f,function/
+--regex-Vue=/^[ \t]*it\('([^']+)'[ \t]*,/\1/f,function/
+--regex-Vue=/^[ \t]*f+describe\('([^']+)'[ \t]*,/focused: \1/f,function/
+--regex-Vue=/^[ \t]*f+describe\("([^"]+)"[ \t]*,/focused: \1/f,function/
+--regex-Vue=/^[ \t]*f+it\('([^']+)'[ \t]*,/focused: \1/f,function/
+--regex-Vue=/^[ \t]*f+it\("([^"]+)"[ \t]*,/focused: \1/f,function/
+--regex-Vue=/^[ \t]*xdescribe\('([^']+)'[ \t]*,/disabled: \1/f,function/
+--regex-Vue=/^[ \t]*xdescribe\("([^"]+)"[ \t]*,/disabled: \1/f,function/
+--regex-Vue=/^[ \t]*xit\('([^']+)'[ \t]*,/disabled: \1/f,function/
+--regex-Vue=/^[ \t]*xit\("([^"]+)"[ \t]*,/disabled: \1/f,function/

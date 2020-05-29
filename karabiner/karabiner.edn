@@ -402,7 +402,7 @@
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
                 [:semicolon [:!Ctab :!Cescape]] ; Hyperswitch (Next)
-                [:quote [:!Ttab :escape]] ; Hyperswitch (Next in Current App)
+                [:quote [:!Ttab :!Cescape]] ; Hyperswitch (Next in Current App)
             ]
         }
         {
