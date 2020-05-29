@@ -11,10 +11,8 @@ Feel free to use any or all of these customizations for your command line.
 
 I also use a lot of packages from Homebrew.
 
-Feel free to use the install script, but note that it was built for Mac OS X, and XCode as well as XCode's Command Line Tools need to be installed. I also highly recommend looking through the install script and reading my comments.
-
-Alternatively, you can download and customize the install script yourself before running it.
+Note that the install script is highly customized for my setup.
 
 ### Install via curl
 
-curl -L https://raw.github.com/fuelingtheweb/fuelingzsh/master/tools/install.sh | sh
+curl -L https://raw.github.com/fuelingtheweb/fuelingzsh/master/CleanInstall/install.sh | sh
