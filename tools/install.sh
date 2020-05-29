@@ -27,12 +27,12 @@ ln -s $FUELINGZSH/dotfiles/.mackup $HOME/.mackup
 ln -s $FUELINGZSH/dotfiles/.mackup.cfg $HOME/.mackup.cfg
 
 ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn
-ln -s $FUELINGZSH/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions
-ln -s $FUELINGZSH/plugins/zsh-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-ln -s $FUELINGZSH/plugins/fast-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/fast-syntax-highlighting
-ln -s $FUELINGZSH/themes/powerlevel9k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel9k
+ln -s $FUELINGZSH/options/oh-my-zsh/themes/powerlevel9k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel9k
 cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
+ln -s $FUELINGZSH/options/oh-my-zsh/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions
+ln -s $FUELINGZSH/options/oh-my-zsh/plugins/zsh-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+ln -s $FUELINGZSH/options/oh-my-zsh/plugins/fast-syntax-highlighting $FUELINGZSH/oh-my-zsh/custom/plugins/fast-syntax-highlighting
 touch $HOME/.hushlogin
 
 source $TOOLS/osx.sh

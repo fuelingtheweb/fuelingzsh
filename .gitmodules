@@ -2,17 +2,17 @@
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "themes/powerlevel9k"]
-	path = options/themes/powerlevel9k
+	path = options/oh-my-zsh/themes/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
 [submodule "options/fonts/FiraCode"]
 	path = options/fonts/FiraCode
 	url = https://github.com/tonsky/FiraCode.git
 [submodule "plugins/fast-syntax-highlighting"]
-	path = options/plugins/fast-syntax-highlighting
+	path = options/oh-my-zsh/plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma/fast-syntax-highlighting.git
 [submodule "plugins/zsh-autosuggestions"]
-	path = options/plugins/zsh-autosuggestions
+	path = options/oh-my-zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "plugins/zsh-syntax-highlighting"]
-	path = options/plugins/zsh-syntax-highlighting
+	path = options/oh-my-zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
