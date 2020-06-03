@@ -342,7 +342,7 @@
             :des "Open Mode (Key: O)"
             :rules [:open-mode
                 [:spacebar [:alfredsearch "open "]] ; Search files
-                [:k [:sublime "~/.fuelingzsh/dotfiles/goku/main.edn"]]
+                [:k [:sublime "~/.fuelingzsh/karabiner/goku/main.edn"]]
                 [:h [:sublime "~/.hammerspoon"]]
                 [:a [:sublime "~/.fuelingzsh/aliases"]]
                 [:z [:sublime "~/.fuelingzsh"]]
