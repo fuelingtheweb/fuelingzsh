@@ -238,6 +238,7 @@
                 [:d :!S4] ; -> $
                 [:s [:hs "misc-surround"]]
                 [:a :!S2] ; @
+                [:q :!S3] ; #
             ]
         }
         {
@@ -302,7 +303,7 @@
                 ; r
                 [:e [:hs "app-run?key=E"]]
                 [:w [:hs "app-run?key=W"]]
-                ; q
+                [:q [:hs "app-run?key=Q"]]
                 [:g [:hs "app-run?key=G"]]
                 ; f
                 [:d [:hs "app-run?key=D"]]
@@ -425,7 +426,7 @@
                 [:t [:escape :y :i :t]]; t -> tag
                 [:s [:escape :y :i :quote]]; s -> single quotes
                 [:d [:escape :y :i :!Squote]]; d -> double quotes
-                [:z [:escape :y :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:z [:escape :y :i :z]]; z -> back ticks
                 [:f [:escape :y :i :!S9]]; f -> parenthesis
                 [:c [:escape :y :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :y :i :open_bracket]]; b -> brackets
@@ -447,7 +448,7 @@
                 [:t [:escape :v :i :t :p]]; t -> tag
                 [:s [:escape :v :i :quote :p]]; s -> single quotes
                 [:d [:escape :v :i :!Squote :p]]; d -> double quotes
-                [:z [:escape :v :i :!Ograve_accent_and_tilde :p]]; z -> back ticks
+                [:z [:escape :v :i :z :p]]; z -> back ticks
                 [:f [:escape :v :i :!S9 :p]]; f -> parenthesis
                 [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
                 [:b [:escape :v :i :open_bracket :p]]; b -> brackets
@@ -469,7 +470,7 @@
                 [:t [:escape :c :i :t]]; t -> tag
                 [:s [:escape :c :i :quote]]; s -> single quotes
                 [:d [:escape :c :i :!Squote]]; d -> double quotes
-                [:z [:escape :c :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:z [:escape :c :i :z]]; z -> back ticks
                 [:f [:escape :c :i :!S9]]; f -> parenthesis
                 [:c [:escape :c :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :c :i :open_bracket]]; b -> brackets
@@ -489,7 +490,7 @@
                 [:t [:escape :d :i :t]]; t -> tag
                 [:s [:escape :d :i :quote]]; s -> single quotes
                 [:d [:escape :d :i :!Squote]]; d -> double quotes
-                [:z [:escape :d :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:z [:escape :d :i :z]]; z -> back ticks
                 [:f [:escape :d :i :!S9]]; f -> parenthesis
                 [:c [:escape :d :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :d :i :open_bracket]]; b -> brackets
@@ -509,7 +510,7 @@
                 [:t [:escape :v :i :t]]; t -> tag
                 [:s [:escape :v :i :quote]]; s -> single quotes
                 [:d [:escape :v :i :!Squote]]; d -> double quotes
-                [:z [:escape :v :i :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:z [:escape :v :i :z]]; z -> back ticks
                 [:f [:escape :v :i :!S9]]; f -> parenthesis
                 [:c [:escape :v :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :v :i :open_bracket]]; b -> brackets
