@@ -1,5 +1,7 @@
-success 'Installing Node versions.'
+info 'Installing Node versions.'
 nvm install 12.4.0
+info 'If unsuccessful. Quit, run nvm install 12.4.0, and rerun.'
+pause
 
 success 'Installing Node packages.'
 yarn global add git-open

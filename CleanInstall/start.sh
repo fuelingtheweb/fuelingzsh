@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 cleanInstall=$HOME/.fuelingzsh/CleanInstall
 source $cleanInstall/src/variables.sh

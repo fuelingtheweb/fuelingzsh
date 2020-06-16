@@ -2,7 +2,7 @@
 
 if test ! "$( which brew )"; then
     echo "Installing homebrew"
-    ruby -e "$( curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install )"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 formulas=(
@@ -45,6 +45,7 @@ formulas=(
     yqrashawn/goku/goku
     mackup
     nvm
+    zsh
     # wp-cli
 )
 

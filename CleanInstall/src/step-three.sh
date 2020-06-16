@@ -9,6 +9,13 @@ mas list
 
 copyLicense 'alfred'
 info 'Register Alfred and sync settings. License copied.'
+info 'Manually set additional settings:'
+info '- General -> Alfred Hotkey: Option+Z'
+info '- Features -> Default Results -> Search Scope: Uncheck both options and empty folder list.'
+info '- Features -> Web Bookmarks: Google Chrome Bookmarks'
+info '- Features -> Clipboard History: Keep Plain Text, Images, and File Lists'
+info '- Features -> Snippets: Automatically expand snippets by keyword'
+info '- Appearance: Select FTW Material Dark'
 pause
 
 copyLicense 'sublime-text'
@@ -35,13 +42,59 @@ mackup restore
 success 'Linking custom dotfiles.'
 ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
 
+info 'Open Karabiner.'
+pause
+
+info 'Open Hammerspoon.'
+pause
+
+info 'Open Hyperswitch.'
+info 'Run Hyperswitch in the background'
+pause
+
+info 'Open Fantastical'
+pause
+
+info 'Open Cursorcerer'
+pause
+
+info 'Open Hazel'
+pause
+
+info 'Enable Witch.'
+pause
+
 info 'Open Atom.'
 pause
 
 info 'Open Sublime.'
+info '- Hide minimap.'
+echo '"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",' | pbcopy
+info '- Update color scheme (copied):'
+info '"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",'
+pause
+
+info 'Install Vimac: https://vimacapp.com/'
+info 'Open Vimac'
 pause
 
 info 'Update Preferences: System.'
+info '- Trackpad -> Scroll & Zoom: Disable Scroll direction: Natural'
+info '- Trackpad -> Point & Click: Enable Tap to click'
+info '- Accessibility -> Pointer Control -> Mouse & Trackpad -> Trackpad Options...: Enable Dragging'
+info '- Accessibility -> Display: Reduce transparency'
+info '- Keyboard -> Input Sources: Disable show input menu in menu bar'
+info '- Displays: Disable show mirroring options in menu bar when available'
+info '- Desktop & Screen Saver: Select wallpaper'
+info '- Users & Groups -> Login Items: Add Vimac'
+info '- Users & Groups -> Login Items: Add EnableMouseKeys'
+pause
+
+info 'Open Bartender'
+info '- Always show: Wi-Fi, Battery, Clock, Fantastical'
+info '- Show: Location Menu'
+info '- Always hide: Notification Center, Spotlight'
+info '- Hide: Amphetamine, Time Machine, Vimac, Dropbox'
 pause
 
 copyLicense 'sublime-merge'
@@ -57,4 +110,8 @@ info 'Register Choosy. License copied.'
 pause
 
 info 'Add other licenses: Dash.'
+pause
+
+info 'Open Chrome.'
+info '- Hide extensions in Chrome menu.'
 pause

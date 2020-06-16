@@ -14,20 +14,30 @@ source $src/brew.sh
 cd $FUELINGZSH
 git submodule update --init --recursive
 
-ln -s $FUELINGZSH/dotfiles/.gitignore $HOME/.gitignore
-ln -s $FUELINGZSH/dotfiles/.zshrc $HOME/.zshrc
-ln -s $FUELINGZSH/dotfiles/.my.cnf $HOME/.my.cnf
-ln -s $FUELINGZSH/dotfiles/.myclirc $HOME/.myclirc
-ln -s $FUELINGZSH/dotfiles/.npmrc $HOME/.npmrc
-ln -s $FUELINGZSH/dotfiles/.phpmd.xml $HOME/.phpmd.xml
-ln -s $FUELINGZSH/dotfiles/.bash_profile $HOME/.bash_profile
-ln -s $FUELINGZSH/dotfiles/.hammerspoon $HOME/.hammerspoon
-ln -s $FUELINGZSH/dotfiles/.lambo $HOME/.lambo
-ln -s $FUELINGZSH/dotfiles/.ctags $HOME/.ctags
-ln -s $FUELINGZSH/dotfiles/.mackup $HOME/.mackup
-ln -s $FUELINGZSH/dotfiles/.mackup.cfg $HOME/.mackup.cfg
+dotfiles=(
+    .gitignore
+    .zshrc
+    .my.cnf
+    .myclirc
+    .npmrc
+    .phpmd.xml
+    .bash_profile
+    .hammerspoon
+    .lambo
+    .ctags
+    .mackup
+    .mackup.cfg
+)
 
+for file in "${dotfiles[@]}"; do
+    trash "$HOME/$file"
+    ln -s "$FUELINGZSH/dotfiles/$file" "$HOME/$file"
+done
+
+trash $HOME/.config/karabiner.edn
 ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn
+trash $HOME/.warprc
+ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
 ln -s $FUELINGZSH/options/oh-my-zsh/themes/powerlevel9k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel9k
 cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
@@ -45,6 +55,5 @@ echo "\n\n \033[0;32mFueling Zsh is now installed.\033[0m"
 /usr/bin/env zsh
 source ~/.zshrc
 
-brew install zsh
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 echo 'Restart your terminal'
