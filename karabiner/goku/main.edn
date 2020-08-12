@@ -20,7 +20,7 @@
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon :f3] ; Mac: Show windows
+                [:semicolon :mission_control] ; Mac: Show windows
                 [:quote :!!o] ; Witch (Only apps with open windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred

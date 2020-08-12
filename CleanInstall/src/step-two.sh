@@ -1,7 +1,7 @@
 success 'Installing FuelingZsh.'
 
 xcode-select --install
-info 'Proceed when xcode dev tools are installed.'
+info 'Proceed when xcode command line tools are installed.'
 pause
 
 info 'If unsuccessful, restart Terminal and skip to step two after enabling xcode.'
@@ -38,7 +38,7 @@ trash $HOME/.config/karabiner.edn
 ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn
 trash $HOME/.warprc
 ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
-ln -s $FUELINGZSH/options/oh-my-zsh/themes/powerlevel9k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel9k
+ln -s $FUELINGZSH/options/oh-my-zsh/themes/powerlevel10k $FUELINGZSH/oh-my-zsh/custom/themes/powerlevel10k
 cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
 ln -s $FUELINGZSH/options/oh-my-zsh/plugins/zsh-autosuggestions $FUELINGZSH/oh-my-zsh/custom/plugins/zsh-autosuggestions

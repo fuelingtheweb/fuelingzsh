@@ -81,9 +81,11 @@ pause
 info 'Update Preferences: System.'
 info '- Trackpad -> Scroll & Zoom: Disable Scroll direction: Natural'
 info '- Trackpad -> Point & Click: Enable Tap to click'
+info '- Trackpad -> Point & Click: Increase Tracking speed to 70%'
 info '- Accessibility -> Pointer Control -> Mouse & Trackpad -> Trackpad Options...: Enable Dragging'
 info '- Accessibility -> Display: Reduce transparency'
 info '- Keyboard -> Input Sources: Disable show input menu in menu bar'
+info '- Keyboard -> Touch Bar shows: Expanded Control Strip'
 info '- Displays: Disable show mirroring options in menu bar when available'
 info '- Desktop & Screen Saver: Select wallpaper'
 info '- Users & Groups -> Login Items: Add Vimac'
@@ -113,5 +115,6 @@ info 'Add other licenses: Dash.'
 pause
 
 info 'Open Chrome.'
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "https://google.com" --profile-directory="Default"
 info '- Hide extensions in Chrome menu.'
 pause

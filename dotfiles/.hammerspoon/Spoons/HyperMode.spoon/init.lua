@@ -3,9 +3,7 @@ obj.__index = obj
 
 hs.urlevent.bind('hyper-copy', function()
     text = getSelectedText(true)
-    if text then
-        -- Already in clipboard, do not reset
-    elseif appIs(spotify) then
+    if appIs(spotify) then
         hs.osascript.applescript([[
             tell application "Spotify"
                 set theTrack to name of the current track
@@ -22,6 +20,8 @@ hs.urlevent.bind('hyper-copy', function()
             set theString to theTrack & " by " & theArtist & ": " & realurl
             set the clipboard to theString
         ]])
+    elseif text then
+        -- Already in clipboard, do not reset
     elseif appIs(chrome) then
         if stringContains('Chrome Web Store', currentTitle()) then
             hs.eventtap.keyStroke({'cmd'}, 'L');

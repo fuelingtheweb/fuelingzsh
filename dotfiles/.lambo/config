@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECTPATH="."
-MESSAGE="Initial commit"
+MESSAGE="Install Laravel"
 QUIET=false
 DEVELOP=false
 AUTH=false

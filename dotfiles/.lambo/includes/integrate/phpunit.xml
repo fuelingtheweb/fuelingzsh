@@ -29,8 +29,6 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="ENGAGE_API_URL" value=""/>
-        <env name="GEOCODIO_KEY" value=""/>
         <env name="AUDITING_ENABLED" value="false"/>
         <env name="AUDITING_CONSOLE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>

@@ -22,12 +22,12 @@ windowsForCreatedHook:subscribe(wf.windowCreated, function (window)
         window:maximize()
     elseif appIs(discord) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'H')
-    elseif appIs(teams) then
-        if isMacbookDisplay() then
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'F')
-        else
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
-        end
+    -- elseif appIs(teams) then
+    --     if isMacbookDisplay() then
+    --         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'F')
+    --     else
+    --         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
+    --     end
     elseif appIs(finder) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'J')
     end
