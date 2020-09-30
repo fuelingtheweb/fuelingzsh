@@ -37,7 +37,7 @@ formulas=(
     pgcli
     redis
     sqlite --with-json1
-    php@7.3 --build-from-source
+    php@7.4 --build-from-source
     php-cs-fixer
     phpmd
     composer
@@ -68,7 +68,7 @@ brew link mysql@5.7 --force
 brew services start postgresql
 createdb `whoami`
 brew services start redis
-brew link php@7.3 --force
+brew link php@7.4 --force
 
 casks=(
     iterm2

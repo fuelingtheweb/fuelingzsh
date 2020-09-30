@@ -9,7 +9,9 @@ function mdb () { mysql -uroot -e "create database $1" }
 function mdbp () { createdb $1 }
 function dropDatabase () { mysql -uroot -e "drop database $1" }
 function dumpDatabase () { mysqldump -u root $1 > ~/Downloads/$1.sql }
-function importDatabase () { mysql -u root $1 < ~/Downloads/$1.sql }
+function db:import () { mysql -u root $1 < ~/Downloads/$1.sql }
+function db:import:dump () { mysql -u root $1 < ~/Downloads/$1.dump }
+function db:import:pg () { psql -f ~/Downloads/$1.sql $1 -U nathan -h localhost -W }
 alias db='mycli'
 function ipgdb () {
     # $1 = path/to/file, $2 = db name

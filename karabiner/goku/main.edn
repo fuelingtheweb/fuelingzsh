@@ -48,7 +48,7 @@
                 [:r [:hs "launch-app?id=atom"]]
                 [:e [:hs "launch-app?id=sublime"]]
                 [:w [:launch "Tinkerwell.app"]]
-                ; q
+                [:q [:launch "Kaleidoscope.app"]]
                 [:g [:hs "launch-app?id=chrome"]]
                 [:f [:launch "Notion.app"]]
                 [:d [:launch "Discord.app"]]
@@ -175,10 +175,11 @@
             :rules [:google-mode
                 [:h [:alfred "history" "com.thomasupton.chrome-history"]]
                 [:return_or_enter :!Ow] ; Chrome: Dismiss downloads bar
-                [:m [:alfredsearch "bm "]] ; Google bookmarks
+                [:m [:alfredsearch "gm: "]] ; Google bookmarks
                 [:i [:chrome "https://inbox.google.com"]]
                 [:p :!SCm] ; Chrome: Show profiles list
                 [:quote [:hs "google-openAndReload"]]
+                [:o [:hs "google-toggleIncognito"]]
             ]
         }
         {
@@ -214,12 +215,12 @@
             :des "App Mode (Key: I)"
             :rules [:app-mode
                 [:t [:hs "app-run?key=T"]]
-                ; r
+                [:r [:hs "app-run?key=R"]]
                 [:e [:hs "app-run?key=E"]]
                 [:w [:hs "app-run?key=W"]]
                 [:q [:hs "app-run?key=Q"]]
                 [:g [:hs "app-run?key=G"]]
-                ; f
+                [:f [:hs "app-run?key=F"]]
                 [:d [:hs "app-run?key=D"]]
                 [:s [:hs "app-run?key=S"]]
                 [:a [:hs "app-run?key=A"]]
@@ -263,14 +264,18 @@
                 [:z [:sublime "~/.fuelingzsh"]]
                 [:r [:hs "misc-openInAtom"]]
                 [:d "open ~/Downloads"]
-                [:m [:hs "custom-openModeM"]]
-                [:e [:hs "custom-openModeE"]]
                 [:g [:hs "misc-openInChrome"]]
+                [:v [:hs "misc-openInTablePlus"]]
                 [:c [:hs "misc-openInSublimeMerge"]]
-                [:x [:hs "custom-openModeX"]]
-                [:t [:hs "custom-openModeT"]]
-                [:s [:hs "custom-openModeS"]]
                 [:b [:hs "misc-openInFinder"]]
+                [:b [:hs "custom-open?key=B"]]
+                [:f [:hs "custom-open?key=F"]]
+                [:r [:hs "custom-open?key=R"]]
+                [:s [:hs "custom-open?key=S"]]
+                [:m [:hs "custom-open?key=M"]]
+                [:e [:hs "custom-open?key=E"]]
+                [:x [:hs "custom-open?key=X"]]
+                [:t [:hs "custom-open?key=T"]]
             ]
         }
         {
@@ -308,9 +313,9 @@
         {
             :des "Atom Mode (Key: A)"
             :rules [:atom-mode
-                ; [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
-                ; [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
-                ; [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
+                [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
+                [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
+                [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
                 ; Tab mode
                 [:j [:!TCj]] ; Atom: Move to next symbol
                 [:k [:!TCk]] ; Atom: Move to previous symbol
@@ -367,7 +372,7 @@
                 [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
                 [:b [:escape :v :i :open_bracket :p]]; b -> brackets
 
-                [:a [:escape :v :!S4 :p]] ; To end of line
+                [:a [:escape :v :!SCright_arrow :p]] ; To end of line
                 [:i [:escape :!SCleft_arrow :p]] ; To beginning of line
                 [:v [:escape :!Sv :p]]; v -> line
                 [:x [:escape :v :p]]; x -> character

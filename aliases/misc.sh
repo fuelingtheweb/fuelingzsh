@@ -33,7 +33,7 @@ alias gz='tar -zcvf' # Zippin
 alias ka9='killall -9'
 alias k9='kill -9'
 alias kp='kill -9'
-alias pwdc='pwd | pbcopy'
+alias pwdc="pwd | tr -d '\n' | pbcopy && echo 'pwd copied to clipboard'"
 # alias duc='du -hc -d=1 *'
 alias o='open'
 alias o.='open .'

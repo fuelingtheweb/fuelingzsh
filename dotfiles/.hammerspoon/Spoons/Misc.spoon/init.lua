@@ -76,6 +76,10 @@ hs.urlevent.bind('misc-openInChrome', function()
     end
 end)
 
+hs.urlevent.bind('misc-openInTablePlus', function()
+    customOpenInTablePlus()
+end)
+
 hs.urlevent.bind('misc-openInFinder', function()
     if appIs(iterm) then
         typeAndEnter('o.')
@@ -148,6 +152,25 @@ end)
 hs.urlevent.bind('google-openAndReload', function()
     hs.application.get(apps['chrome']):activate()
     hs.eventtap.keyStroke({'cmd'}, 'R')
+end)
+
+hs.urlevent.bind('google-toggleIncognito', function()
+    if customUpdateChromeUrl() then
+        return;
+    end
+
+    hs.osascript.applescript([[
+        tell application "Google Chrome"
+            set theUrl to URL of active tab of front window
+            set theMode to mode of front window
+        end tell
+
+        if theMode is equal to "normal" then
+            do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --incognito --profile-directory='Default' " & quoted form of theUrl
+        else
+            do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
+        end if
+    ]])
 end)
 
 hs.urlevent.bind('misc-saveAndReload', function()

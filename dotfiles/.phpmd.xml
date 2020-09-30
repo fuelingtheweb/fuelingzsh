@@ -12,6 +12,7 @@
 
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess" />
+        <exclude name="IfStatementAssignment" />
     </rule>
     <rule ref="rulesets/codesize.xml">
         <exclude name="ExcessivePublicCount" />

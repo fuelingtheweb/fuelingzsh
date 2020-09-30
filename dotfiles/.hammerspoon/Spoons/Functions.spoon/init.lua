@@ -50,6 +50,16 @@ function getSelectedText(copying)
     return text
 end
 
+function copyChromeUrl()
+    hs.osascript.applescript([[
+        tell application "Google Chrome"
+            set theUrl to URL of active tab of front window
+        end tell
+
+        set the clipboard to theUrl
+    ]])
+end
+
 function startsWith(needle, haystack)
     return haystack:sub(1, #needle) == needle
 end
@@ -90,6 +100,16 @@ end
 
 function openInChromeIncognito(url)
     hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
+end
+
+function openInTablePlus(url)
+    hs.execute('open "' .. url .. '"')
+end
+
+function openInIterm(path)
+    launchIterm(function()
+        hs.execute('open -a iTerm "' .. path .. '"')
+    end)
 end
 
 function runGoogleSearch(query)
@@ -177,6 +197,116 @@ end
 
 function multipleWindows(app)
     return windowCount(app) > 1
+end
+
+function toggleAppStatic()
+    output = hs.execute('/Users/nathan/Development/FuelingTheWeb/bin/toggle-app-static.sh')
+    hs.notify.new({title = 'Env Variable Updated', informativeText = output}):send()
+end
+
+appFunctions = {
+    notion = 'openNotionPage';
+    discord = 'openDiscordChannel';
+    iterm = 'typeAndEnter';
+    atom = 'triggerInAtom';
+    sublime = 'triggerInAtom';
+    {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'};
+}
+
+function triggerAppShortcut(shortcut)
+    success = false
+
+    for key, value in pairs(appFunctions) do
+        app = key
+        func = value
+        shortcutKey = key
+        if type(value) == 'table' then
+            app = value['app']
+            func = value['func']
+            shortcutKey = value['key']
+        end
+
+        if appIs(_G[app]) and shortcut[shortcutKey] then
+            if type(shortcut[shortcutKey]) == 'function' then
+                shortcut[shortcutKey]()
+            else
+                _G[func](shortcut[shortcutKey])
+            end
+            success = true
+            break
+        end
+    end
+
+    if not success then
+        return 'else'
+    end
+end
+
+openInAppFunctions = {
+    atom = 'openInAtom',
+    chrome = 'openInChrome',
+    tableplus = 'openInTablePlus',
+    iterm = 'openInIterm',
+    parent = 'openParentProject',
+}
+
+function triggerOpenProject(project)
+    if not project['all'] then
+        return
+    end
+
+    for key, value in pairs(openInAppFunctions) do
+        app = key
+        func = value
+
+        if project[app] and has_value(project['all'], app) then
+            if type(project[app]) == 'function' then
+                project[app]()
+            elseif type(project[app]) == 'table' then
+                for key, value in pairs(project[app]) do
+                    _G[func](value)
+                end
+            else
+                _G[func](project[app])
+            end
+        end
+    end
+end
+
+function openParentProject(parent)
+    if projects[parent]['open']['all'] then
+        triggerOpenProject(projects[parent]['open'])
+    end
+end
+
+function customOpenInChrome()
+    opened = false
+    for key, value in pairs(projects) do
+        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
+            openInChrome(value['open']['chrome'])
+            opened = true
+        end
+        if opened then
+            break
+        end
+    end
+end
+
+function customOpenInTablePlus()
+    opened = false
+    for key, value in pairs(projects) do
+        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
+            openInTablePlus(value['open']['tableplus'])
+            opened = true
+        end
+        if opened then
+            break
+        end
+    end
+
+    if not opened then
+        triggerAlfredWorkflow('tableplus', 'com.chrisrenga.tableplus')
+    end
 end
 
 return obj

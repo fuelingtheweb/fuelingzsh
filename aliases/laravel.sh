@@ -8,6 +8,10 @@ artisan() {
 
 alias log:empty="echo '' > storage/logs/laravel.log"
 alias elf='log:empty'
+alias cpe='cp .env.example .env'
+alias er='envoy run'
+alias edy='envoy run deploy'
+alias ers='envoy run reseed'
 
 alias lv='laravel'
 alias lz='laravel-zero'
@@ -23,9 +27,11 @@ alias as='artisan serve'
 
 # General
 alias acc='artisan cache:clear'
+alias avc='artisan view:clear'
 alias akg='artisan key:generate'
 alias aqw='artisan queue:work'
-alias arl='artisan route:list'
+alias arla='artisan route:list'
+alias arl='artisan route:list --columns=method,uri,name,action'
 alias avp='artisan vendor:publish'
 alias aeg='artisan event:generate'
 
@@ -39,6 +45,7 @@ alias adbs='artisan db:seed'
 
 # Make
 alias amcmd='artisan make:command'
+alias amcom='artisan make:component'
 alias amc='artisan make:controller'
 alias amen='artisan make:enum'
 alias ame='artisan make:event'

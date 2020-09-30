@@ -23,14 +23,7 @@ hs.urlevent.bind('hyper-copy', function()
     elseif text then
         -- Already in clipboard, do not reset
     elseif appIs(chrome) then
-        if stringContains('Chrome Web Store', currentTitle()) then
-            hs.eventtap.keyStroke({'cmd'}, 'L');
-            hs.eventtap.keyStroke({'cmd'}, 'C');
-            hs.eventtap.keyStrokes('javascript:(function(){})();');
-            hs.eventtap.keyStroke({}, 'return');
-        else
-            hs.eventtap.keyStrokes('yy')
-        end
+        copyChromeUrl()
     end
 end)
 

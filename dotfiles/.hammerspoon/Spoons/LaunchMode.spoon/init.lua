@@ -19,22 +19,26 @@ hs.urlevent.bind('launch-app', function(eventName, params)
     end
 end)
 
-function launchIterm(bundle)
+function launchIterm(callback)
     bundle = apps['iterm']
     app = hs.application.get(bundle)
 
     if app and app:isRunning() then
-        triggerItermShortcut()
+        triggerItermShortcut(callback)
     else
         hs.application.open(bundle)
         hs.timer.doAfter(1, function()
-            triggerItermShortcut()
+            triggerItermShortcut(callback)
         end)
     end
 end
 
-function triggerItermShortcut()
+function triggerItermShortcut(callback)
     hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'T')
+
+    if callback then
+        callback()
+    end
 end
 
 return obj
