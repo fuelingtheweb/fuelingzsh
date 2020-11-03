@@ -354,7 +354,7 @@
                 [:v [:hs "misc-openInTablePlus"]]
                 [:c [:hs "misc-openInSublimeMerge"]]
                 [:b [:hs "misc-openInFinder"]]
-                [:b [:hs "custom-open?key=B"]]
+                ; [:b [:hs "custom-open?key=B"]]
                 [:f [:hs "custom-open?key=F"]]
                 [:r [:hs "custom-open?key=R"]]
                 [:s [:hs "custom-open?key=S"]]
@@ -362,6 +362,7 @@
                 [:e [:hs "custom-open?key=E"]]
                 [:x [:hs "custom-open?key=X"]]
                 [:t [:hs "custom-open?key=T"]]
+                [:y [:hs "custom-open?key=Y"]]
             ]
         }
         {
@@ -463,7 +464,7 @@
                 [:v [:escape :!Sv :p]]; v -> line
                 [:x [:escape :v :p]]; x -> character
 
-                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.misc"]]
+                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.old"]]
             ]
         }
         {

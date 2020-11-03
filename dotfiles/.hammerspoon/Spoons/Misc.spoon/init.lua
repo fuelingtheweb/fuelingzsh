@@ -49,6 +49,10 @@ hs.urlevent.bind('misc-toggleSidebar', function()
 end)
 
 hs.urlevent.bind('misc-openInSublimeMerge', function()
+    if appIs(iterm) then
+        return typeAndEnter('smerge .')
+    end
+
     path = currentTitle():match('~%S+')
 
     if path then
@@ -85,8 +89,13 @@ hs.urlevent.bind('misc-openInFinder', function()
         typeAndEnter('o.')
     else
         path = currentTitle():match('~%S+')
-        if path then
+        if not path then
+           return;
+        end
+        if appIs(atom) then
             hs.execute('open ' .. path)
+        else
+            hs.execute('open -R ' .. path)
         end
     end
 end)

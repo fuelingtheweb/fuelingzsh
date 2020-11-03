@@ -15,29 +15,29 @@ hs.window.animationDuration = 0
 
 openWindows = {}
 
-windowsForCreatedHook:subscribe(wf.windowCreated, function (window)
-    if window:subrole() == 'AXDialog' or has_value(openWindows, window:id()) then
-        return
-    end
+-- windowsForCreatedHook:subscribe(wf.windowCreated, function (window)
+--     if window:subrole() == 'AXDialog' or has_value(openWindows, window:id()) then
+--         return
+--     end
 
-    if appIncludes({sublime, notion, atom, chrome}) then
-        window:maximize()
-    elseif appIs(discord) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'H')
-    elseif appIs(teams) then
-        if isMacbookDisplay() then
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'F')
-        else
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
-        end
-    elseif appIs(finder) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'J')
-    end
+--     if appIncludes({sublime, notion, atom, chrome}) then
+--         window:maximize()
+--     elseif appIs(discord) then
+--         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'H')
+--     elseif appIs(teams) then
+--         if isMacbookDisplay() then
+--             hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'F')
+--         else
+--             hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'L')
+--         end
+--     elseif appIs(finder) then
+--         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'J')
+--     end
 
-    if appIncludes({sublime, notion, atom, chrome, discord, teams, finder}) then
-        table.insert(openWindows, window:id())
-    end
-end)
+--     if appIncludes({sublime, notion, atom, chrome, discord, teams, finder}) then
+--         table.insert(openWindows, window:id())
+--     end
+-- end)
 
 allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
     app = hs.application.frontmostApplication()

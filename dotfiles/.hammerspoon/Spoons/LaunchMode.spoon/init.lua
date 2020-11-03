@@ -9,7 +9,9 @@ hs.urlevent.bind('launch-app', function(eventName, params)
     if params.id == 'iterm' then
         launchIterm()
     elseif not isActive and not hasWindows(hs.application.get(bundle)) then
-        hs.application.open(bundle)
+        if params.id ~= 'atom' then
+            hs.application.open(bundle)
+        end
     elseif not isActive then
         hs.application.get(bundle):activate()
     elseif multipleWindows(app) then
