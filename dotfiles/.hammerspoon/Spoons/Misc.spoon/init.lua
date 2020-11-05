@@ -73,7 +73,7 @@ hs.urlevent.bind('misc-openInChrome', function()
     if not appIncludes({atom, sublime}) and text then
         runGoogleSearch(text)
     elseif appIs(chrome) then
-        hs.eventtap.keyStrokes('yy')
+        copyChromeUrl()
         openInChrome(getSelectedText())
     else
         customOpenInChrome()

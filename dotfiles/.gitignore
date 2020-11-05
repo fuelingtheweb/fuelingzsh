@@ -20,8 +20,8 @@ Desktop.ini
 # Tags      taken from: https://github.com/github/gitignore/blob/master/Global/Tags.gitignore
 # ----------------------------------------------------------------------------------------------
 # Ignore tags created by etags and ctags
-TAGS
-tags
+#TAGS
+#tags
 .tags
 .tags_swap
 
