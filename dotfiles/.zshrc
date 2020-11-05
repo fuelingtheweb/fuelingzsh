@@ -6,8 +6,15 @@ CUSTOM=$FUELINGZSH/custom
 ZSH_DISABLE_COMPFIX="true"
 
 source $OPTIONS/iterm.sh
-source $OPTIONS/powerline.sh
-ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search vagrant osx laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
@@ -33,5 +40,5 @@ export NVM_DIR="$HOME/.nvm"
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+# To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
+source $OPTIONS/p10k.zsh
