@@ -133,7 +133,7 @@
                 [:t [:hs "launch-app?id=iterm"]]
                 [:r [:hs "launch-app?id=atom"]]
                 [:e [:hs "launch-app?id=sublime"]]
-                [:w [:launch "Tinkerwell.app"]]
+                [:w [:launch "Transmit.app"]]
                 [:q [:launch "Kaleidoscope.app"]]
                 [:g [:hs "launch-app?id=chrome"]]
                 [:f [:launch "Notion.app"]]
@@ -363,6 +363,7 @@
                 [:x [:hs "custom-open?key=X"]]
                 [:t [:hs "custom-open?key=T"]]
                 [:y [:hs "custom-open?key=Y"]]
+                [:q [:hs "custom-open?key=Q"]]
             ]
         }
         {

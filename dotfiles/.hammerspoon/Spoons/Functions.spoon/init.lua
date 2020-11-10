@@ -280,33 +280,90 @@ function openParentProject(parent)
 end
 
 function customOpenInChrome()
-    opened = false
-    for key, value in pairs(projects) do
-        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
-            openInChrome(value['open']['chrome'])
-            opened = true
-        end
-        if opened then
-            break
-        end
-    end
+    openUrlForProject(projects)
 end
 
 function customOpenInTablePlus()
-    opened = false
-    for key, value in pairs(projects) do
-        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
-            openInTablePlus(value['open']['tableplus'])
-            opened = true
-        end
-        if opened then
-            break
-        end
-    end
+    opened = openDatabaseForProject(projects)
 
     if not opened then
         triggerAlfredWorkflow('tableplus', 'com.chrisrenga.tableplus')
     end
+end
+
+function openDatabaseForProject(projects, path)
+    path = path or 'Development'
+    -- log.d(path)
+    -- log.d(currentTitle())
+    opened = false
+    for key, value in pairs(projects) do
+        if opened then
+            break
+        end
+
+        projectPath = value['path'] and path .. '/' .. value['path'] or path .. '/' .. key
+
+        if value['open'] and titleContains(projectPath) then
+            if value['open']['tableplus'] then
+                openInTablePlus(value['open']['tableplus'])
+            else
+                database = projectPath:gsub('Development/', ''):gsub('/', '_'):lower()
+                name = projectPath:gsub('Development/', '')
+                openInTablePlus('mysql://root@127.0.0.1/' .. database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
+            end
+            opened = true
+        elseif type(value) == 'table' then
+            opened = openDatabaseForProject(value, projectPath)
+        end
+
+        if opened then
+            break
+        end
+    end
+
+    return opened
+end
+
+function openUrlForProject(projects, path)
+    path = path or 'Development'
+    -- log.d(path)
+    -- log.d(currentTitle())
+    opened = false
+    for key, value in pairs(projects) do
+        if opened then
+            break
+        end
+
+        projectPath = value['path'] and path .. '/' .. value['path'] or path .. '/' .. key
+
+        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
+            openInChrome(value['open']['chrome'])
+            opened = true
+        end
+        if value['open'] and titleContains(projectPath) then
+            if value['open']['url'] then
+                openInChrome(value['open']['url'])
+            end
+            opened = true
+        elseif type(value) == 'table' then
+            opened = openUrlForProject(value, projectPath)
+        end
+
+        if opened then
+            break
+        end
+    end
+
+    return opened
+end
+
+function getNested(table, keys)
+    value = table
+    for key in string.gmatch(keys, '[^%.]+') do
+        value = value[key]
+    end
+
+    return value
 end
 
 return obj

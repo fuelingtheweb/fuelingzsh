@@ -49,6 +49,9 @@ hs.urlevent.bind('command-done', function()
     elseif appIs(sublime) then
         -- Edit with: Done
         hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
+    elseif appIs(transmit) then
+        -- Disconnect from server
+        hs.eventtap.keyStroke({'cmd'}, 'e')
     else
         hs.eventtap.keyStroke({'cmd'}, 'return')
     end

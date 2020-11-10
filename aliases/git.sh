@@ -20,6 +20,7 @@ alias grm='git rebase master'
 alias grd='git rebase develop'
 alias grc='git rebase --continue'
 alias gin='git init'
+alias cdu='cd $(git rev-parse --show-toplevel)'
 
 # Commit
 git:commit() {

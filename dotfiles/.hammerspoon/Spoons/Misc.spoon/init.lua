@@ -20,6 +20,8 @@ hs.urlevent.bind('misc-focusPrevious', function()
         hs.eventtap.keyStrokes(':oh')
     elseif appIs(atom) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'h')
+    elseif appIs(transmit) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'left')
     else
         hs.eventtap.keyStroke({'cmd'}, '[')
     end
@@ -32,6 +34,8 @@ hs.urlevent.bind('misc-focusNext', function()
         hs.eventtap.keyStrokes(':ol')
     elseif appIs(atom) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'l')
+    elseif appIs(transmit) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'right')
     else
         hs.eventtap.keyStroke({'cmd'}, ']')
     end

@@ -15,6 +15,7 @@ sublime = 'com.sublimetext.3'
 sublimeMerge = 'com.sublimemerge'
 tableplus = 'com.tinyapp.TablePlus'
 teams = 'com.microsoft.teams'
+transmit = 'com.panic.Transmit'
 apps['atom'] = atom
 apps['chrome'] = chrome
 apps['finder'] = finder
