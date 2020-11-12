@@ -65,7 +65,7 @@ function startsWith(needle, haystack)
 end
 
 function titleContains(needle)
-    return stringContains(needle, currentTitle())
+    return stringContains(needle:gsub('-', '%%-'), currentTitle())
 end
 
 function stringContains(needle, haystack)
@@ -326,27 +326,46 @@ end
 
 function openUrlForProject(projects, path)
     path = path or 'Development'
-    -- log.d(path)
-    -- log.d(currentTitle())
     opened = false
     for key, value in pairs(projects) do
         if opened then
             break
         end
 
-        projectPath = value['path'] and path .. '/' .. value['path'] or path .. '/' .. key
+        projectPath = value.path and path .. '/' .. value.path or path .. '/' .. key
 
-        if not opened and value['open'] and value['path'] and titleContains(value['path']) then
-            openInChrome(value['open']['chrome'])
-            opened = true
-        end
         if value['open'] and titleContains(projectPath) then
             if value['open']['url'] then
-                openInChrome(value['open']['url'])
+                openInChrome(value.open.url)
             end
             opened = true
         elseif type(value) == 'table' then
             opened = openUrlForProject(value, projectPath)
+        end
+
+        if opened then
+            break
+        end
+    end
+
+    return opened
+end
+
+function serveProject(projects, path)
+    path = path or 'Development'
+    opened = false
+    for key, value in pairs(projects) do
+        if opened then
+            break
+        end
+
+        projectPath = value.path and path .. '/' .. value.path or path .. '/' .. key
+
+        if value['serve'] and titleContains(projectPath) then
+            typeAndEnter(value.serve)
+            opened = true
+        elseif type(value) == 'table' then
+            opened = serveProject(value, projectPath)
         end
 
         if opened then

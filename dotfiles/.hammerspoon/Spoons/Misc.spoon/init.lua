@@ -192,4 +192,9 @@ hs.urlevent.bind('misc-saveAndReload', function()
     hs.eventtap.keyStroke({'cmd'}, 'R')
 end)
 
+hs.urlevent.bind('misc-uppercase', function()
+    hs.eventtap.keyStroke({'shift', 'alt'}, 'left')
+    hs.eventtap.keyStrokes(getSelectedText():upper())
+end)
+
 return obj

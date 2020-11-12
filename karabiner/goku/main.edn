@@ -316,7 +316,8 @@
             :des "Atom Mode (Key: A)"
             :rules [:atom-mode
                 [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
-                [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
+                [:u [:hs "misc-uppercase"]]
+                ; [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
                 [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
                 ; Tab mode
                 [:j [:!TCj]] ; Atom: Move to next symbol

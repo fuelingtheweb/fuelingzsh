@@ -43,6 +43,11 @@ phpmd:run() {
 alias pmd='phpmd:run'
 alias pmdo='br ./phpmd.html'
 
+# Valet
 alias va='valet'
 alias val='valet link'
 alias vals='valet links'
+alias vau='valet unlink'
+alias vas='valet secure'
+alias var='valet restart'
+alias vao='valet open'
