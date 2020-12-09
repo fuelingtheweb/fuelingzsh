@@ -21,6 +21,7 @@ dotfiles=(
     .myclirc
     .npmrc
     .phpmd.xml
+    .php_cs
     .bash_profile
     .hammerspoon
     .lambo

@@ -7,6 +7,7 @@ hs.loadSpoon('LaunchMode')
 hs.loadSpoon('CodeMode')
 hs.loadSpoon('SnippetMode')
 hs.loadSpoon('MediaMode')
+hs.loadSpoon('WindowManager')
 hs.loadSpoon('Misc')
 
 hs.loadSpoon('Custom')
@@ -26,8 +27,3 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
     hs.pasteboard.setContents(bundle)
     hs.notify.new({title = 'App Bundle Copied', informativeText = bundle}):send()
 end)
-
-if hs.application.get('com.manytricks.Moom') == nil then
-    hs.execute('defaults import com.manytricks.Moom ~/.fuelingzsh/options/com.manytricks.Moom.plist')
-    hs.application.launchOrFocusByBundleID('com.manytricks.Moom')
-end

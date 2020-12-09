@@ -78,7 +78,6 @@ casks=(
     alfred
     appcleaner
     dash
-    hyperswitch
     tableplus
     betterzip
     qlcolorcode

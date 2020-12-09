@@ -2,7 +2,11 @@ local obj = {}
 obj.__index = obj
 
 function snippet(name)
-    typeAndTab('snippet-' .. name)
+    if appIs(sublime) then
+        typeAndTab('snippet-' .. name)
+    else
+        typeAndEnter('snippet-' .. name)
+    end
 end
 
 hs.urlevent.bind('snippet-method', function()

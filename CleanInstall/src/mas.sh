@@ -6,7 +6,6 @@
 apps=(
     "Fantastical:975937182"
     "Marked 2:890031187"
-    "Moom:419330170"
     "Amphetamine:937984704"
     "White Noise:415139197"
 )

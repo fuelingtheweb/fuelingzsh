@@ -385,4 +385,10 @@ function getNested(table, keys)
     return value
 end
 
+function each(table, callback)
+    for key, value in pairs(table) do
+        callback(value, key)
+    end
+end
+
 return obj

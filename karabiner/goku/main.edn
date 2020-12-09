@@ -103,20 +103,20 @@
         {
             :des "Spacebar Mode (Key: Spacebar)"
             :rules [:spacebar-mode
-                [:m :!!m] ; Moom
-                [:d :!TOCd] ; Moom: Move to other display
-                [:f :!TOCf] ; Moom: Fullscreen
-                [:return_or_enter :!TOCreturn_or_enter] ; Moom: Reset
-                [:tab :!TOCtab] ; Moom: Center
-                [:h :!TOCh] ; Moom: Move half screen left
-                [:j :!TOCj] ; Moom: Move half screen bottom
-                [:k :!TOCk] ; Moom: Move half screen top
-                [:l :!TOCl] ; Moom: Move half screen right
-                [:u :!TOCu] ; Moom: Move to top left
-                [:o :!TOCo] ; Moom: Move to top right
-                [:n :!TOCn] ; Moom: Move to bottom left
-                [:period :!TOCperiod] ; Moom: Move to bottom right
-                [:i :!TOCi] ; Moom: Move to Middle
+                [:m [:hs "window-showGrid"]]
+                [:d [:hs "window-moveToNextDisplay"]]
+                [:f [:hs "window-move?to=maximize"]]
+                [:return_or_enter [:hs "window-reset"]]
+                [:tab [:hs "window-moveToCenter"]]
+                [:h [:hs "window-move?to=leftHalf"]]
+                [:j [:hs "window-move?to=bottomHalf"]]
+                [:k [:hs "window-move?to=topHalf"]]
+                [:l [:hs "window-move?to=rightHalf"]]
+                [:u [:hs "window-move?to=topLeft"]]
+                [:o [:hs "window-move?to=topRight"]]
+                [:n [:hs "window-move?to=bottomLeft"]]
+                [:period [:hs "window-move?to=bottomRight"]]
+                [:i [:hs "window-moveToMiddle"]]
                 [:c :!STC4] ; Screenshot to clipboard
                 [:s :!SC4] ; Screenshot to filesystem
                 [:r :!SCz] ; Redo
@@ -180,6 +180,8 @@
                 [:p :!SCm] ; Chrome: Show profiles list
                 [:quote [:hs "google-openAndReload"]]
                 [:o [:hs "google-toggleIncognito"]]
+                [:open_bracket :!TOCg] ; Chrome: Group Tab
+                [:period :!SCd] ; Chrome: Toggle dev tools docking
             ]
         }
         {
@@ -293,7 +295,8 @@
                 [:i [:hs "snippet?name=if"]]
                 ; o
                 [:p [:hs "snippet?name=property"]]
-                ; [, ]
+                [:open_bracket [:hs "snippet?name=echo"]]
+                ; ]
                 ; h, j, k
                 [:l [:hs "snippet?name=log"]]
                 ; ;, ', return
@@ -324,13 +327,13 @@
                 [:k [:!TCk]] ; Atom: Move to previous symbol
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
-                [:semicolon [:!Ctab :!Cescape]] ; Hyperswitch (Next)
-                [:quote [:!Ttab :!Cescape]] ; Hyperswitch (Next in Current App)
+                [:semicolon [:hs "window-next"]]
+                [:quote [:hs "window-nextInCurrentApp"]]
             ]
         }
         {
             :des "Tab Mode (Key: tab)"
-            :rules [:atom-mode
+            :rules [:tab-mode
                 [:h [:hs "moveTabLeft"]] ; Move tab to the left
                 ; [:j [:hs "hyper-previousTab"]]
                 ; [:k [:hs "hyper-nextTab"]]

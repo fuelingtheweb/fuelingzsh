@@ -1,4 +1,4 @@
-info 'Install Mac Apps: Fantastical, Marked 2, Moom, Amphetamine, Gemini 2, White Noise.'
+info 'Install Mac Apps: Fantastical, Marked 2, Amphetamine, Gemini 2, White Noise.'
 info 'Sign into the app store to attempt automatic install.'
 open -a 'App Store.app'
 pause
@@ -46,10 +46,6 @@ info 'Open Karabiner.'
 pause
 
 info 'Open Hammerspoon.'
-pause
-
-info 'Open Hyperswitch.'
-info 'Run Hyperswitch in the background'
 pause
 
 info 'Open Fantastical'

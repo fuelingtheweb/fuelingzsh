@@ -93,6 +93,8 @@ hs.urlevent.bind('command-cancelOrDelete', function()
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'delete')
     elseif appIs(finder) and text == 'finderFileSelected' then
         hs.eventtap.keyStroke({'cmd'}, 'delete')
+    elseif appIs(transmit) then
+        hs.eventtap.keyStroke({'cmd'}, 'delete')
     elseif text then
         hs.eventtap.keyStroke({}, 'delete')
     elseif appIs(chrome) and stringContains('Fueling the Web Mail', currentTitle()) then
