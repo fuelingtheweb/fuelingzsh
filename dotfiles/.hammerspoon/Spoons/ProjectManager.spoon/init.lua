@@ -119,4 +119,90 @@ function ProjectManager:setAlfredJson()
         :close()
 end
 
+function ProjectManager.current()
+    current = nil
+
+    each(ProjectManager.sites, function(site)
+        if titleContains(site.attributes.path) then
+            current = site
+        end
+    end)
+
+    if current then
+        return current
+    end
+
+    return {attributes = {}}
+end
+
+function ProjectManager.openUrlForCurrent()
+    site = ProjectManager.current()
+
+    if site.attributes.url then
+        return openInChrome(site.attributes.url)
+    end
+end
+
+function ProjectManager.serveCurrent()
+    site = ProjectManager.current()
+
+    if site.attributes.serve then
+        return typeAndEnter(site.attributes.serve)
+    end
+end
+
+function ProjectManager.openDatabaseForCurrent()
+    site = ProjectManager.current()
+
+    if site.attributes.name then
+        if site.attributes.database then
+            openInTablePlus(site.attributes.database)
+        else
+            database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
+            name = site.attributes.path:gsub('Development/', '')
+            openInTablePlus('mysql://root@127.0.0.1/' .. database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
+        end
+
+        return true
+    end
+end
+
+function ProjectManager.getByPath(path)
+    site = nil
+    each(ProjectManager.sites, function(s)
+        if s.attributes.path == path then
+            site = s
+        end
+    end)
+
+    if site then
+        return site
+    end
+
+    return {attributes = {}}
+end
+
+function ProjectManager.getByShortcutKey(key)
+    site = nil
+    each(ProjectManager.sites, function(s)
+        if s.attributes.shortcutKey == key then
+            site = s
+        end
+    end)
+
+    if site then
+        return site
+    end
+
+    return {attributes = {}}
+end
+
+function Site:open()
+    if self.attributes.path then
+        openInAtom('~/' .. self.attributes.path)
+        openInChrome(self.attributes.url)
+        openInIterm('/Users/nathan/' .. self.attributes.path)
+    end
+end
+
 return ProjectManager

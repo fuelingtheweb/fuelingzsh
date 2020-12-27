@@ -204,18 +204,15 @@ function toggleAppStatic()
     hs.notify.new({title = 'Env Variable Updated', informativeText = output}):send()
 end
 
-openInAppFunctions = {
-    atom = 'openInAtom',
-    chrome = 'openInChrome',
-    tableplus = 'openInTablePlus',
-    iterm = 'openInIterm',
-    parent = 'openParentProject',
-}
+-- openInAppFunctions = {
+--     atom = 'openInAtom',
+--     chrome = 'openInChrome',
+--     tableplus = 'openInTablePlus',
+--     iterm = 'openInIterm',
+--     parent = 'openParentProject',
+-- }
 
-function triggerOpenProject(site)
-    openInAtom('~/' .. site.attributes.path)
-    openInChrome(site.attributes.url)
-    openInIterm('/Users/nathan/' .. site.attributes.path)
+-- function triggerOpenProject(site)
     -- if not project['all'] then
     --     return
     -- end
@@ -236,52 +233,18 @@ function triggerOpenProject(site)
     --         end
     --     end
     -- end
-end
+-- end
 
-function openParentProject(parent)
-    if projects[parent]['open']['all'] then
-        triggerOpenProject(projects[parent]['open'])
-    end
-end
+-- function openParentProject(parent)
+--     if projects[parent]['open']['all'] then
+--         triggerOpenProject(projects[parent]['open'])
+--     end
+-- end
 
 function customOpenInTablePlus()
-    opened = openDatabaseForProject()
-
-    if not opened then
+    if not ProjectManager:openDatabaseForCurrent() then
         triggerAlfredWorkflow('tableplus', 'com.chrisrenga.tableplus')
     end
-end
-
-function openDatabaseForProject()
-    each(ProjectManager.sites, function(site)
-        if titleContains(site.attributes.path) then
-            if site.attributes.database then
-                openInTablePlus(site.attributes.database)
-            else
-                database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
-                name = site.attributes.path:gsub('Development/', '')
-                openInTablePlus('mysql://root@127.0.0.1/' .. database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
-            end
-
-            return true
-        end
-    end)
-end
-
-function openUrlForProject()
-    each(ProjectManager.sites, function(site)
-        if site.attributes.url and titleContains(site.attributes.path) then
-            return openInChrome(site.attributes.url)
-        end
-    end)
-end
-
-function serveProject()
-    each(ProjectManager.sites, function(site)
-        if site.attributes.serve and titleContains(site.attributes.path) then
-            return typeAndEnter(site.attributes.serve)
-        end
-    end)
 end
 
 function getNested(table, keys)

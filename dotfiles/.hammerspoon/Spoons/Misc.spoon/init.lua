@@ -80,7 +80,7 @@ hs.urlevent.bind('misc-openInChrome', function()
         copyChromeUrl()
         openInChrome(getSelectedText())
     else
-        openUrlForProject()
+        ProjectManager.openUrlForCurrent()
     end
 end)
 
