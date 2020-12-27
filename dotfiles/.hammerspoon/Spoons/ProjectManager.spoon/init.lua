@@ -1,0 +1,122 @@
+luna = require 'lunajson'
+
+local ProjectManager = {}
+ProjectManager.__index = ProjectManager
+ProjectManager.sites = {}
+
+local Site = {}
+function Site:name(name, project)
+    o = {
+        attributes = {
+            name = name,
+            path = project.attributes.path .. '/' .. name,
+        }
+    }
+    setmetatable(o, self)
+    self.__index = self
+
+    table.insert(ProjectManager.sites, o)
+
+    return o
+end
+function Site:path(path)
+    self.attributes.path = 'Development/' .. path
+
+    return self
+end
+function Site:log()
+    log.d('Logging Site: ', self.attributes.path)
+
+    return self
+end
+function Site:url(url)
+    self.attributes.url = url
+
+    return self
+end
+function Site:serve(serve)
+    self.attributes.serve = serve
+
+    return self
+end
+function Site:database(database)
+    self.attributes.database = database
+
+    return self
+end
+function Site:shortcut(key, mapping)
+    Shortcuts:add(key, mapping)
+    self.attributes.shortcutKey = key
+
+    return self
+end
+
+local Project = {}
+function Project:name(name, client)
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+
+    self.attributes = {
+        name = name,
+        path = client.attributes.path .. '/' .. name,
+    }
+
+    return o
+end
+function Project:site(name)
+    return Site:name(name, self)
+end
+function Project:addSite(name, callback)
+    callback(self:site(name))
+
+    return self
+end
+
+local Client = {}
+function Client:name(name)
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+
+    self.attributes = {
+        name = name,
+        path = 'Development/' .. name,
+    }
+
+    return o
+end
+function Client:shortcut(key, mapping)
+    Shortcuts:add(key, mapping)
+
+    return self
+end
+function Client:project(name)
+    return Project:name(name, self)
+end
+function Client:addProject(name, callback)
+    callback(self:project(name))
+
+    return self
+end
+
+ProjectManager.Client = Client
+
+function ProjectManager:setAlfredJson()
+    local items = {}
+    each(ProjectManager.sites, function(site)
+        table.insert(items, {
+            uid = site.attributes.path:gsub('/', '.'),
+            title = site.attributes.path:gsub('Development/', ''):gsub('/', ' > '):gsub('-', ' '),
+            subtitle = '~/' .. site.attributes.path,
+            arg = site.attributes.path,
+            autocomplete = site.attributes.path:gsub('/', ' > '),
+        })
+    end)
+
+    io.open('/Users/nathan/.fuelingzsh/custom/projects.json', 'w')
+        :write(luna.encode({items = items}))
+        :close()
+end
+
+return ProjectManager

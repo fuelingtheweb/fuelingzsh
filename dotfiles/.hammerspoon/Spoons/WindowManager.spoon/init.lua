@@ -27,7 +27,7 @@ hs.urlevent.bind('window-moveToCenter', function(listener, params)
 end)
 
 hs.urlevent.bind('window-moveToNextDisplay', function(listener, params)
-    hs.grid.set(hs.window.focusedWindow(), windowPositions.full)
+    hs.grid.set(hs.window.focusedWindow(), '0,0 12x4')
     hs.window.focusedWindow():moveToScreen(hs.screen.mainScreen():next())
 end)
 

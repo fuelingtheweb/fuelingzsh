@@ -86,7 +86,7 @@ end)
 
 hs.urlevent.bind('code-return', function()
     if appIs(iterm) then
-        customServeSite()
+        serveProject()
     else
         hs.eventtap.keyStrokes('return ')
     end

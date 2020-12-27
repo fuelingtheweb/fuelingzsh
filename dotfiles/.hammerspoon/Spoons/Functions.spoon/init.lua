@@ -204,44 +204,6 @@ function toggleAppStatic()
     hs.notify.new({title = 'Env Variable Updated', informativeText = output}):send()
 end
 
-appFunctions = {
-    notion = 'openNotionPage';
-    discord = 'openDiscordChannel';
-    iterm = 'typeAndEnter';
-    atom = 'triggerInAtom';
-    sublime = 'triggerInAtom';
-    {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'};
-}
-
-function triggerAppShortcut(shortcut)
-    success = false
-
-    for key, value in pairs(appFunctions) do
-        app = key
-        func = value
-        shortcutKey = key
-        if type(value) == 'table' then
-            app = value['app']
-            func = value['func']
-            shortcutKey = value['key']
-        end
-
-        if appIs(_G[app]) and shortcut[shortcutKey] then
-            if type(shortcut[shortcutKey]) == 'function' then
-                shortcut[shortcutKey]()
-            else
-                _G[func](shortcut[shortcutKey])
-            end
-            success = true
-            break
-        end
-    end
-
-    if not success then
-        return 'else'
-    end
-end
-
 openInAppFunctions = {
     atom = 'openInAtom',
     chrome = 'openInChrome',
@@ -250,27 +212,30 @@ openInAppFunctions = {
     parent = 'openParentProject',
 }
 
-function triggerOpenProject(project)
-    if not project['all'] then
-        return
-    end
+function triggerOpenProject(site)
+    openInAtom('~/' .. site.attributes.path)
+    openInChrome(site.attributes.url)
+    openInIterm('/Users/nathan/' .. site.attributes.path)
+    -- if not project['all'] then
+    --     return
+    -- end
 
-    for key, value in pairs(openInAppFunctions) do
-        app = key
-        func = value
+    -- for key, value in pairs(openInAppFunctions) do
+    --     app = key
+    --     func = value
 
-        if project[app] and has_value(project['all'], app) then
-            if type(project[app]) == 'function' then
-                project[app]()
-            elseif type(project[app]) == 'table' then
-                for key, value in pairs(project[app]) do
-                    _G[func](value)
-                end
-            else
-                _G[func](project[app])
-            end
-        end
-    end
+    --     if project[app] and has_value(project['all'], app) then
+    --         if type(project[app]) == 'function' then
+    --             project[app]()
+    --         elseif type(project[app]) == 'table' then
+    --             for key, value in pairs(project[app]) do
+    --                 _G[func](value)
+    --             end
+    --         else
+    --             _G[func](project[app])
+    --         end
+    --     end
+    -- end
 end
 
 function openParentProject(parent)
@@ -279,101 +244,44 @@ function openParentProject(parent)
     end
 end
 
-function customOpenInChrome()
-    openUrlForProject(projects)
-end
-
 function customOpenInTablePlus()
-    opened = openDatabaseForProject(projects)
+    opened = openDatabaseForProject()
 
     if not opened then
         triggerAlfredWorkflow('tableplus', 'com.chrisrenga.tableplus')
     end
 end
 
-function openDatabaseForProject(projects, path)
-    path = path or 'Development'
-    -- log.d(path)
-    -- log.d(currentTitle())
-    opened = false
-    for key, value in pairs(projects) do
-        if opened then
-            break
-        end
-
-        projectPath = value['path'] and path .. '/' .. value['path'] or path .. '/' .. key
-
-        if value['open'] and titleContains(projectPath) then
-            if value['open']['tableplus'] then
-                openInTablePlus(value['open']['tableplus'])
+function openDatabaseForProject()
+    each(ProjectManager.sites, function(site)
+        if titleContains(site.attributes.path) then
+            if site.attributes.database then
+                openInTablePlus(site.attributes.database)
             else
-                database = projectPath:gsub('Development/', ''):gsub('/', '_'):lower()
-                name = projectPath:gsub('Development/', '')
+                database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
+                name = site.attributes.path:gsub('Development/', '')
                 openInTablePlus('mysql://root@127.0.0.1/' .. database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
             end
-            opened = true
-        elseif type(value) == 'table' then
-            opened = openDatabaseForProject(value, projectPath)
-        end
 
-        if opened then
-            break
+            return true
         end
-    end
-
-    return opened
+    end)
 end
 
-function openUrlForProject(projects, path)
-    path = path or 'Development'
-    opened = false
-    for key, value in pairs(projects) do
-        if opened then
-            break
+function openUrlForProject()
+    each(ProjectManager.sites, function(site)
+        if site.attributes.url and titleContains(site.attributes.path) then
+            return openInChrome(site.attributes.url)
         end
-
-        projectPath = value.path and path .. '/' .. value.path or path .. '/' .. key
-
-        if value['open'] and titleContains(projectPath) then
-            if value['open']['url'] then
-                openInChrome(value.open.url)
-            end
-            opened = true
-        elseif type(value) == 'table' then
-            opened = openUrlForProject(value, projectPath)
-        end
-
-        if opened then
-            break
-        end
-    end
-
-    return opened
+    end)
 end
 
-function serveProject(projects, path)
-    path = path or 'Development'
-    opened = false
-    for key, value in pairs(projects) do
-        if opened then
-            break
+function serveProject()
+    each(ProjectManager.sites, function(site)
+        if site.attributes.serve and titleContains(site.attributes.path) then
+            return typeAndEnter(site.attributes.serve)
         end
-
-        projectPath = value.path and path .. '/' .. value.path or path .. '/' .. key
-
-        if value['serve'] and titleContains(projectPath) then
-            typeAndEnter(value.serve)
-            opened = true
-        elseif type(value) == 'table' then
-            opened = serveProject(value, projectPath)
-        end
-
-        if opened then
-            break
-        end
-    end
-
-    return opened
+    end)
 end
 
 function getNested(table, keys)

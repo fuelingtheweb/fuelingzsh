@@ -68,7 +68,7 @@ hs.urlevent.bind('misc-openInAtom', function()
     if appIs(iterm) then
         typeAndEnter('atom .')
     else
-        triggerAlfredWorkflow('projects', 'com.alfredapp.mdeboer.atom')
+        triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
     end
 end)
 
@@ -80,7 +80,7 @@ hs.urlevent.bind('misc-openInChrome', function()
         copyChromeUrl()
         openInChrome(getSelectedText())
     else
-        customOpenInChrome()
+        openUrlForProject()
     end
 end)
 
@@ -193,8 +193,14 @@ hs.urlevent.bind('misc-saveAndReload', function()
 end)
 
 hs.urlevent.bind('misc-uppercase', function()
-    hs.eventtap.keyStroke({'shift', 'alt'}, 'left')
-    hs.eventtap.keyStrokes(getSelectedText():upper())
+    hs.eventtap.keyStroke({'shift', 'alt'}, 'left', 0)
+    hs.eventtap.keyStrokes(getSelectedText():upper(), 0)
+end)
+
+hs.urlevent.bind('misc-moveMouseToOtherScreen', function()
+    hs.mouse.setAbsolutePosition(
+        hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():next():fullFrame())
+    )
 end)
 
 return obj

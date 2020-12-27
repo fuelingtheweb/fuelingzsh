@@ -5,7 +5,10 @@ if test ! "$( which brew )"; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
+brew tap federico-terzi/espanso
+
 formulas=(
+    espanso
     ack
     autojump
     bat
@@ -46,7 +49,9 @@ formulas=(
     mackup
     nvm
     zsh
-    # wp-cli
+    wp-cli
+    lua
+    luarocks
 )
 
 for formula in "${formulas[@]}"; do
