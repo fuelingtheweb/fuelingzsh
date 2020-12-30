@@ -156,7 +156,12 @@ function ProjectManager.openDatabaseForCurrent()
 
     if site.attributes.name then
         if site.attributes.database then
-            openInTablePlus(site.attributes.database)
+            if type(site.attributes.database) == 'table' then
+                name = site.attributes.path:gsub('Development/', '')
+                openInTablePlus('mysql://root@127.0.0.1/' .. site.attributes.database.name .. '?statusColor=686B6F&enviroment=local&name=' .. name)
+            else
+                openInTablePlus(site.attributes.database)
+            end
         else
             database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
             name = site.attributes.path:gsub('Development/', '')

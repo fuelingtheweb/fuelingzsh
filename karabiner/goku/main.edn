@@ -348,6 +348,7 @@
             :des "Copy Mode (Key: Y)"
             :rules [:copy-mode
                 [:e [:escape :y :e]]; w -> end of word
+                [:r [:!!y :!!r]]; Atom: Copy project relative path
 
                 [:w [:escape :y :i :w]]; w -> word
                 [:t [:escape :y :i :t]]; t -> tag

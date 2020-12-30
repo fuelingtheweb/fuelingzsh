@@ -247,15 +247,6 @@ function customOpenInTablePlus()
     end
 end
 
-function getNested(table, keys)
-    value = table
-    for key in string.gmatch(keys, '[^%.]+') do
-        value = value[key]
-    end
-
-    return value
-end
-
 function each(table, callback)
     for key, value in pairs(table) do
         callback(value, key)
