@@ -54,9 +54,6 @@ pause
 info 'Open Cursorcerer'
 pause
 
-info 'Open Hazel'
-pause
-
 info 'Enable Witch.'
 pause
 

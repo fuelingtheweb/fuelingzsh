@@ -1,5 +1,3 @@
-luna = require 'lunajson'
-
 local ProjectManager = {}
 ProjectManager.__index = ProjectManager
 ProjectManager.sites = {}
@@ -114,9 +112,7 @@ function ProjectManager:setAlfredJson()
         })
     end)
 
-    io.open('/Users/nathan/.fuelingzsh/custom/projects.json', 'w')
-        :write(luna.encode({items = items}))
-        :close()
+    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/projects.json', false, true)
 end
 
 function ProjectManager.current()

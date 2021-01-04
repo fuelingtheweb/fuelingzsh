@@ -50,8 +50,6 @@ formulas=(
     nvm
     zsh
     wp-cli
-    lua
-    luarocks
 )
 
 for formula in "${formulas[@]}"; do
@@ -82,12 +80,8 @@ casks=(
     sublime-merge
     alfred
     appcleaner
-    dash
     tableplus
     betterzip
-    qlcolorcode
-    qlstephen
-    qlmarkdown
     quicklook-json
     quicklook-csv
     qlimagesize
@@ -95,15 +89,12 @@ casks=(
     cursorcerer
     hammerspoon
     kaleidoscope
-    microsoft-teams
     vlc
     bartender
     choosy
     discord
     karabiner-elements
-    hazel
     witch
-    postman
     notion
 )
 

@@ -1,5 +1,3 @@
-luna = require 'lunajson'
-
 local AlfredCommands = {}
 AlfredCommands.__index = AlfredCommands
 AlfredCommands.all = {}
@@ -31,9 +29,7 @@ function AlfredCommands:setAlfredJson()
         })
     end)
 
-    io.open('/Users/nathan/.fuelingzsh/custom/alfred-commands.json', 'w')
-        :write(luna.encode({items = items}))
-        :close()
+    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/alfred-commands.json', false, true)
 end
 
 function AlfredCommands:trigger(key)

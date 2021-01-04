@@ -12,6 +12,15 @@ function db:export () { mysqldump -u root $1 > ~/Downloads/$1.sql }
 function db:import () { mysql -u root $1 < ~/Downloads/$1.sql }
 function db:import:dump () { mysql -u root $1 < ~/Downloads/$1.dump }
 function pg:import () { psql -f ~/Downloads/$1.sql $1 -U nathan -h localhost -W }
+function db:dump-all () {
+    cd ~/Downloads
+    for DB in $(mysql -e 'show databases' -s --skip-column-names); do
+        echo $DB
+        if [ $DB != 'information_schema' ] && [ $DB != 'performance_schema' ]; then
+            mysqldump $DB > "$DB.sql";
+        fi
+    done
+}
 alias db='mycli'
 alias dbc='db:create'
 alias dbi='db:import'
