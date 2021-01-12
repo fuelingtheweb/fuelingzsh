@@ -34,6 +34,7 @@ ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/custom $FUELINGZSH/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/aliases/custom $FUELINGZSH/aliases/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/Spoons/Custom.spoon $FUELINGZSH/dotfiles/.hammerspoon/Spoons/Custom.spoon
 trash $HOME/.config/karabiner.edn
+mkdir $HOME/.config
 ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn
 trash $HOME/.warprc
 ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
@@ -48,7 +49,22 @@ touch $HOME/.hushlogin
 
 ln -s $HOME/Dropbox/Ftw/Mackup/Library/Preferences/com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
 
+espanso register
 espanso start
+
+goku
+
+info 'Open Karabiner.'
+open -a 'Karabiner-Elements.app'
+info 'Confirm profile is named Default.'
+pause
+
+info 'Open Hammerspoon.'
+open -a 'Hammerspoon.app'
+pause
+
+info 'Confirm Karabiner and Hammerspoon are working.'
+pause
 
 source $src/osx.sh
 

@@ -33,6 +33,10 @@ copyLicense() {
     echo -n $(cat $FUELINGZSH/custom/licenses/$1.txt) | pbcopy
 }
 
+copyLicenseNoTrim() {
+    cat $FUELINGZSH/custom/licenses/$1.txt | pbcopy
+}
+
 runStepIf() {
     read "REPLY?$2 "
     if [[ $REPLY =~ ^[Yy]$ ]]

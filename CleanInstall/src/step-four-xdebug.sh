@@ -6,6 +6,7 @@ pause
 
 info 'What is the path to php conf.d folder? See path above. php --ini.'
 read confPath
+info 'Saving xdebug.ini files.'
 cp $FUELINGZSH/options/php/xdebug.ini $confPath/xdebug.ini.back
 echo "" > $confPath/xdebug.ini
 pause

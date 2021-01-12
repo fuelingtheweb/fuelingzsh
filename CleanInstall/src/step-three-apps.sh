@@ -1,3 +1,12 @@
+info 'Confirm Tap to Click is working.'
+open -a 'System Preferences.app'
+info '- Trackpad -> Point & Click: Enable Tap to click'
+pause
+
+info '- Add Google Internet account.'
+info '- Remove iCloud syncing.'
+pause
+
 info 'Install Mac Apps: Fantastical, Marked 2, Amphetamine, Gemini 2, White Noise.'
 info 'Sign into the app store to attempt automatic install.'
 open -a 'App Store.app'
@@ -19,7 +28,7 @@ info '- Features -> Snippets: Automatically expand snippets by keyword'
 info '- Appearance: Select FTW Material Dark'
 pause
 
-copyLicense 'sublime-text'
+copyLicenseNoTrim 'sublime-text'
 open https://packagecontrol.io/installation
 open -a 'Sublime Text.app'
 info 'Open Sublime Text, register, and install Package Control. License copied.'
@@ -43,14 +52,6 @@ mackup restore
 
 success 'Linking custom dotfiles.'
 ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
-
-info 'Open Karabiner.'
-open -a 'Karabiner-Elements.app'
-pause
-
-info 'Open Hammerspoon.'
-open -a 'Hammerspoon.app'
-pause
 
 info 'Open Fantastical'
 open -a 'Fantastical.app'
@@ -88,7 +89,7 @@ info 'Update Preferences: System.'
 open -a 'System Preferences.app'
 info '- Trackpad -> Scroll & Zoom: Disable Scroll direction: Natural'
 info '- Trackpad -> Point & Click: Enable Tap to click'
-info '- Trackpad -> Point & Click: Increase Tracking speed to 70%'
+info '- Trackpad -> Point & Click: Increase Tracking speed to 70%%'
 info '- Accessibility -> Pointer Control -> Mouse & Trackpad -> Trackpad Options...: Enable Dragging'
 info '- Accessibility -> Display: Reduce transparency'
 info '- Keyboard -> Input Sources: Disable show input menu in menu bar'
@@ -97,8 +98,6 @@ info '- Displays: Disable show mirroring options in menu bar when available'
 info '- Desktop & Screen Saver: Select wallpaper'
 info '- Users & Groups -> Login Items: Add Vimac'
 info '- Users & Groups -> Login Items: Add EnableMouseKeys'
-info '- Add Google Internet account.'
-info '- Remove iCloud syncing.'
 info '- Dock & Menu Bar -> Battery: Show Percentage'
 info '- Dock & Menu Bar -> Clock: Disable Show the day of the week'
 info '- Dock & Menu Bar -> Clock: Disable Show date'
@@ -113,7 +112,7 @@ info '- Always hide: Notification Center, Spotlight'
 info '- Hide: Amphetamine, Time Machine, Vimac, Dropbox'
 pause
 
-copyLicense 'sublime-merge'
+copyLicenseNoTrim 'sublime-merge'
 open -a 'Sublime Merge.app'
 info 'Register Sublime Merge. License copied.'
 pause
