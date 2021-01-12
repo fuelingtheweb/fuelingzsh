@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-if test ! "$( which brew )"; then
-    echo "Installing homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
+success "Installing Homebrew"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew tap federico-terzi/espanso
 
@@ -39,7 +37,7 @@ formulas=(
     postgresql
     pgcli
     redis
-    sqlite --with-json1
+    sqlite
     php@7.4 --build-from-source
     php-cs-fixer
     phpmd
@@ -96,13 +94,14 @@ casks=(
     karabiner-elements
     witch
     notion
+    transmit
 )
 
 for cask in "${casks[@]}"; do
     cask_name=$( echo "$cask" | awk '{print $1}' )
-    if brew cask list "$cask_name" > /dev/null 2>&1; then
+    if brew list --cask "$cask_name" > /dev/null 2>&1; then
         echo "$cask_name already installed... skipping."
     else
-        brew cask install "$cask"
+        brew install --cask "$cask"
     fi
 done

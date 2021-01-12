@@ -48,3 +48,4 @@ alias ydl='youtube-dl'
 alias ke='st ~/.config/karabiner.edn'
 alias kc='goku'
 alias kcw='gokuw'
+alias cleaninstall="$FUELINGZSH/CleanInstall/start.sh"

@@ -30,7 +30,7 @@ infoWithBreaks() {
 }
 
 copyLicense() {
-    cat $FUELINGZSH/custom/licenses/$1.txt | pbcopy
+    echo -n $(cat $FUELINGZSH/custom/licenses/$1.txt) | pbcopy
 }
 
 runStepIf() {

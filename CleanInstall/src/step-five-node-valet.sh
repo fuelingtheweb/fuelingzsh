@@ -1,6 +1,7 @@
 info 'Installing Node versions.'
 nvm install 12.4.0
-info 'If unsuccessful. Quit, run nvm install 12.4.0, and rerun.'
+echo 'nvm install 12.4.0' | pbcopy
+info 'If unsuccessful. Quit, run nvm install 12.4.0 (copied) in a new tab, and continue.'
 pause
 
 success 'Installing Node packages.'
@@ -11,3 +12,4 @@ success 'Installing Laravel installer and Laravel Valet.'
 composer global require laravel/installer
 composer global require laravel/valet
 valet install
+valet trust
