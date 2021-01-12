@@ -48,6 +48,8 @@ touch $HOME/.hushlogin
 
 ln -s $HOME/Dropbox/Ftw/Mackup/Library/Preferences/com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
 
+espanso start
+
 source $src/osx.sh
 
 success 'Changing default shell to zsh. Restart computer, open iTerm, and run cleaninstall.'
