@@ -89,12 +89,12 @@ casks=(
     kaleidoscope
     vlc
     bartender
-    choosy
     discord
     karabiner-elements
     witch
     notion
     transmit
+    tinkerwell
 )
 
 for cask in "${casks[@]}"; do

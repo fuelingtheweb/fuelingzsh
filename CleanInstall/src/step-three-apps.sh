@@ -122,9 +122,9 @@ open -a 'TablePlus.app'
 info 'Register TablePlus. License copied.'
 pause
 
-copyLicense 'choosy'
-open -a 'Choosy.app'
-info 'Register Choosy. License copied.'
+copyLicense 'tinkerwell'
+open -a 'Tinkerwell.app'
+info 'Register Tinkerwell. License copied.'
 pause
 
 info 'Add other licenses: Dash.'

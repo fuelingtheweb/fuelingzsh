@@ -52,58 +52,6 @@ hs.urlevent.bind('misc-toggleSidebar', function()
     end
 end)
 
-hs.urlevent.bind('misc-openInSublimeMerge', function()
-    if appIs(iterm) then
-        return typeAndEnter('smerge .')
-    end
-
-    path = currentTitle():match('~%S+')
-
-    if path then
-        hs.execute('/usr/local/bin/smerge "' .. path .. '"')
-    end
-end)
-
-hs.urlevent.bind('misc-openInAtom', function()
-    if appIs(iterm) then
-        typeAndEnter('atom .')
-    else
-        triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
-    end
-end)
-
-hs.urlevent.bind('misc-openInChrome', function()
-    text = getSelectedText()
-    if not appIncludes({atom, sublime}) and text then
-        runGoogleSearch(text)
-    elseif appIs(chrome) then
-        copyChromeUrl()
-        openInChrome(getSelectedText())
-    else
-        ProjectManager.openUrlForCurrent()
-    end
-end)
-
-hs.urlevent.bind('misc-openInTablePlus', function()
-    customOpenInTablePlus()
-end)
-
-hs.urlevent.bind('misc-openInFinder', function()
-    if appIs(iterm) then
-        typeAndEnter('o.')
-    else
-        path = currentTitle():match('~%S+')
-        if not path then
-           return;
-        end
-        if appIs(atom) then
-            hs.execute('open ' .. path)
-        else
-            hs.execute('open -R ' .. path)
-        end
-    end
-end)
-
 hs.urlevent.bind('misc-surround', function()
     hs.eventtap.keyStroke({'cmd'}, 'C')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')

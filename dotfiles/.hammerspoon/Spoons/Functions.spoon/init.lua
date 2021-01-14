@@ -253,4 +253,8 @@ function each(table, callback)
     end
 end
 
+function executeFromFuelingZsh(command)
+    return hs.execute('~/.fuelingzsh/bin/' .. command)
+end
+
 return obj

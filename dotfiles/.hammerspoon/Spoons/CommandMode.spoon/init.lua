@@ -72,19 +72,25 @@ hs.urlevent.bind('command-save', function()
 end)
 
 hs.urlevent.bind('command-dismissNotifications', function()
+    app = hs.application.frontmostApplication()
     hs.osascript.applescript([[
+        activate application "NotificationCenter"
         tell application "System Events"
             tell process "Notification Center"
-                set theseWindows to every window whose subrole is "AXNotificationCenterAlert" or subrole is "AXNotificationCenterBanner"
-                repeat with i from 1 to number of items in theseWindows
-                    set this_item to item i of theseWindows
-                    try
-                        click button 1 of this_item
-                    end try
+                set theWindow to group 1 of UI element 1 of scroll area 1 of window "Notification Center"
+                click theWindow
+                set theActions to actions of theWindow
+                repeat with theAction in theActions
+                    if description of theAction is "Close" then
+                        tell theWindow
+                            perform theAction
+                        end tell
+                    end if
                 end repeat
             end tell
         end tell
     ]])
+    app:activate()
 end)
 
 hs.urlevent.bind('command-cancelOrDelete', function()
