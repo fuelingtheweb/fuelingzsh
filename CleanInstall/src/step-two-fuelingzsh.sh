@@ -8,9 +8,9 @@ git clone git@github.com:zdharma/fast-syntax-highlighting.git $OHMYZSH/custom/pl
 git clone git@github.com:zsh-users/zsh-autosuggestions.git $OHMYZSH/custom/plugins/zsh-autosuggestions
 git clone git@github.com:zsh-users/zsh-syntax-highlighting.git $OHMYZSH/custom/plugins/zsh-syntax-highlighting
 
-# Init and Update submodules
-cd $FUELINGZSH
-git submodule update --init --recursive
+git clone git@github.com:tonsky/FiraCode.git $HOME/FiraCode
+cp $HOME/FiraCode/distr/ttf/* $HOME/Library/Fonts/
+rm -rf $HOME/FiraCode
 
 dotfiles=(
     .gitignore
@@ -46,7 +46,6 @@ trash $HOME/.warprc
 ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
 ln -s $FUELINGZSH/custom/espanso $HOME/Library/Preferences/espanso
 cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
-cp $FUELINGZSH/options/fonts/FiraCode/distr/ttf/* $HOME/Library/Fonts/
 touch $HOME/.hushlogin
 
 ln -s $HOME/Dropbox/Ftw/Mackup/Library/Preferences/com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
