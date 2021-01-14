@@ -1,4 +1,5 @@
 FUELINGZSH=$HOME/.fuelingzsh
+OHMYZSH=$HOME/.ohmyzsh
 src=$cleanInstall/src
 custom=$FUELINGZSH/custom
 backups=$HOME/Documents/Backups

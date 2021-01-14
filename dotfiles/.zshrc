@@ -1,4 +1,4 @@
-ZSH=$HOME/.fuelingzsh/oh-my-zsh
+ZSH=$HOME/.ohmyzsh
 FUELINGZSH=$HOME/.fuelingzsh
 OPTIONS=$FUELINGZSH/options
 ALIASES=$FUELINGZSH/aliases
