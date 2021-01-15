@@ -76,7 +76,7 @@ hs.urlevent.bind('window-searchAll', function(eventName, params)
         :rejectApp('Notion')
         :getWindows(hs.window.filter.sortByFocusedLast)
 
-    if count(windows) < 1 then
+    if countTable(windows) < 1 then
         return
     end
 
@@ -104,7 +104,7 @@ end)
 hs.urlevent.bind('window-searchInCurrentApp', function(eventName, params)
     windows = hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast)
 
-    if count(windows) < 1 then
+    if countTable(windows) < 1 then
         return
     end
 

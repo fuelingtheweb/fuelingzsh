@@ -191,7 +191,7 @@ function windowCount(app)
     return count
 end
 
-function count(table)
+function countTable(table)
     if not table then
         return 0
     end
