@@ -67,4 +67,70 @@ hs.urlevent.bind('window-nextInCurrentApp', function()
     end
 end)
 
+hs.urlevent.bind('window-searchAll', function(eventName, params)
+    windows = hs.window.filter.default
+        :rejectApp('Sublime Text')
+        :rejectApp('Finder')
+        :rejectApp('Google Chrome')
+        :rejectApp('Sublime Merge')
+        :rejectApp('Notion')
+        :getWindows(hs.window.filter.sortByFocusedLast)
+
+    if count(windows) < 1 then
+        return
+    end
+
+    local items = {}
+    each(windows, function(window)
+        app = window:application()
+        iconPath = '~/.fuelingzsh/custom/' .. app:name() .. '.png'
+        hs.image.imageFromAppBundle(app:bundleID()):saveToFile(iconPath)
+        table.insert(items, {
+            uid = window:id(),
+            title = window:title(),
+            match = app:name() .. ' ' .. window:title(),
+            arg = window:id(),
+            icon = {
+                path = iconPath,
+            },
+        })
+    end)
+
+    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/windows.json', false, true)
+
+    triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
+end)
+
+hs.urlevent.bind('window-searchInCurrentApp', function(eventName, params)
+    windows = hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast)
+
+    if count(windows) < 1 then
+        return
+    end
+
+    local items = {}
+    each(windows, function(window)
+        app = window:application()
+        iconPath = '~/.fuelingzsh/custom/' .. app:name() .. '.png'
+        hs.image.imageFromAppBundle(app:bundleID()):saveToFile(iconPath)
+        table.insert(items, {
+            uid = window:id(),
+            title = window:title(),
+            match = app:name() .. ' ' .. window:title(),
+            arg = window:id(),
+            icon = {
+                path = iconPath,
+            },
+        })
+    end)
+
+    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/windows.json', false, true)
+
+    triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
+end)
+
+hs.urlevent.bind('window-focus', function(eventName, params)
+    hs.window(tonumber(params.id)):focus()
+end)
+
 return obj

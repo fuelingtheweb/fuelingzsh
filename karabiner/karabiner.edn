@@ -107,12 +107,10 @@
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
                 [:semicolon :mission_control] ; Mac: Show windows
-                [:quote :!!o] ; Witch (Only apps with open windows)
                 [:return_or_enter :caps_lock]
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
                 [:comma [:hs "hyper-jumpTo"]]
-                [:slash :!!hyphen] ; Witch (All)
                 ; semicolon, period, slash, b, \, spacebar, backslash
             ]
         }
@@ -232,7 +230,7 @@
 
                 [:n :!SCn] ; New window / folder
                 [:m :!S8] ; Multiply: *
-                [:comma :!Ccomma] ; Settings
+                [:comma [:hs "misc-appSettings"]]
                 [:period [:hyphen :!Speriod]] ; ->
                 [:slash :!Cslash] ; Comment
 
@@ -338,8 +336,8 @@
                 [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
                 [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
                 [:s :!Cr] ; Search for symbol
-                [:w :!!e] ; Witch: Search apps windows
-                [:a :!!a] ; Witch: Search all windows
+                [:w [:hs "window-searchInCurrentApp"]]
+                [:a [:hs "window-searchAll"]]
                 [:t [:hs "searchTabs"]]
                 [:c [:slash :!Scomma :!Scomma :!Scomma :!Scomma :!Scomma :return_or_enter]] ; Search for conflicts
             ]

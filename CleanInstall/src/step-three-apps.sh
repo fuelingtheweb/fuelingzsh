@@ -61,10 +61,6 @@ info 'Open Cursorcerer'
 open '/Users/nathan/Library/PreferencePanes/Cursorcerer.prefPane'
 pause
 
-info 'Enable Witch.'
-open '/Users/nathan/Library/PreferencePanes/Witch.prefPane'
-pause
-
 info 'Open Atom.'
 open -a 'Atom.app'
 pause

@@ -91,7 +91,6 @@ casks=(
     bartender
     discord
     karabiner-elements
-    witch
     notion
     transmit
     tinkerwell

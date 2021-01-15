@@ -191,6 +191,19 @@ function windowCount(app)
     return count
 end
 
+function count(table)
+    if not table then
+        return 0
+    end
+
+    local count = 0
+    each(table, function ()
+        count = count + 1
+    end)
+
+    return count
+end
+
 function hasWindows(app)
     return windowCount(app) > 0
 end

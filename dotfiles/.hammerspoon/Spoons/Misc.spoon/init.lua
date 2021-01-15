@@ -98,9 +98,6 @@ hs.urlevent.bind('searchTabs', function()
         hs.eventtap.keyStroke({'alt', 'shift'}, 'p')
     elseif appIs(chrome) then
         hs.eventtap.keyStrokes('T')
-    else
-        -- Witch: Search tabs
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd', 'shift'}, 'b')
     end
 end)
 
@@ -149,6 +146,18 @@ hs.urlevent.bind('misc-moveMouseToOtherScreen', function()
     hs.mouse.setAbsolutePosition(
         hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():next():fullFrame())
     )
+end)
+
+hs.urlevent.bind('misc-appSettings', function()
+    if hs.application.find('com.runningwithcrayons.Alfred'):isHidden() then
+        hs.eventtap.keyStroke({'cmd'}, ',')
+    else
+        app = hs.application.open('com.runningwithcrayons.Alfred-Preferences')
+        hs.timer.doAfter(1, function()
+            app:hide()
+            app:activate()
+        end)
+    end
 end)
 
 return obj
