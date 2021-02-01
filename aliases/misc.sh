@@ -49,3 +49,5 @@ alias ke='st ~/.config/karabiner.edn'
 alias kc='goku'
 alias kcw='gokuw'
 alias cleaninstall="$FUELINGZSH/CleanInstall/start.sh"
+alias pdf:combine="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=merged.pdf"
+alias pdf:compress="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/screen -sOutputFile=small.pdf" # ebook | screen

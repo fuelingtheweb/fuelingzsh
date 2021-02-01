@@ -142,7 +142,7 @@
                 [:v [:launch "TablePlus.app"]]
                 [:c [:launch "Sublime\\ Merge.app"]]
                 [:x [:launch "Tinkerwell.app"]]
-                [:z [:launch "Microsoft\\ Teams.app"]]
+                [:z [:launch "zoom.us.app"]]
             ]
         }
         {

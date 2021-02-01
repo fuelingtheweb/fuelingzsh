@@ -1,0 +1,75 @@
+#! /bin/bash
+
+# $ cd ~/Documents/reMarkable
+# New from template or new from existing editable
+#     $ sips -s format pdf Default/checklist.png --out Editable/checklist.pdf
+#     $ cp Editable/checklist-clean.pdf Editable/new-checklist.pdf
+# Optional for multiple versions:
+#     Add Markup via Preview
+#     $ for i in {2..7}; do cp Editable/daily-january.pdf Editable/daily-$i.pdf; done
+#     Combine pdfs in Preview
+# Add Markup via Preview
+# Export as pdf from Preview into Tools/Exported
+# Convert exported pdf images to pbm via Convert for reMarkable file action
+# $ create-rm-templates
+# Move files to reMarkable via Transmit
+# Update templates.json
+# $ ssh root@remarkable
+# $ systemctl restart xochitl
+
+remarkablePath=/Users/nathan/Documents/reMarkable
+toolsPath=$remarkablePath/Tools
+convertedPath=$toolsPath/Converted
+finalPath=$toolsPath/Final
+months=(jan feb mar apr may jun jul aug sep oct nov dec)
+
+echo 'Renaming pbm files for month...'
+for file in $convertedPath/daily-*.pbm; do mv "$file" ${file// /-}; done
+for month in "${months[@]}"; do
+    i=1
+    for file in `command ls $convertedPath/daily-$month*.pbm | sort -V`; do
+        if [[ -f "$file" ]]; then
+            echo $convertedPath/daily-$month-$i.pbm
+            mv "$file" $convertedPath/daily-$month-$i.pbm
+            let i=i+1
+        fi
+    done
+done
+
+echo 'Renaming pbm files to add week days...'
+for file in $convertedPath/daily-*-1.pbm; do mv $file ${file//-1/-mon}; done
+for file in $convertedPath/daily-*-2.pbm; do mv $file ${file//-2/-tue}; done
+for file in $convertedPath/daily-*-3.pbm; do mv $file ${file//-3/-wed}; done
+for file in $convertedPath/daily-*-4.pbm; do mv $file ${file//-4/-thu}; done
+for file in $convertedPath/daily-*-5.pbm; do mv $file ${file//-5/-fri}; done
+for file in $convertedPath/daily-*-6.pbm; do mv $file ${file//-6/-sat}; done
+for file in $convertedPath/daily-*-7.pbm; do mv $file ${file//-7/-sun}; done
+
+echo 'Cropping pbm files...'
+sips -s dpiHeight 72 -s dpiWidth 72 --cropToHeightWidth 2420 1814 $convertedPath/*.pbm --out $finalPath
+
+echo 'Sizing down pbm files...'
+sips -z 1872 1404 $finalPath/*.pbm --out $finalPath
+
+echo "Generating svg files..."
+for file in $finalPath/*.pbm; do
+    if [[ -f "$file" ]]; then
+        echo "Generating svg file for $file..."
+        potrace -s "$file"
+    fi
+done
+
+echo 'Generating png files...'
+sips -s dpiHeight 72 -s dpiWidth 72 -s format png $finalPath/*.pbm --out $finalPath
+
+echo 'Optimizing png files...'
+for file in $finalPath/*.png; do
+    if [[ -f "$file" ]]; then
+        echo "Optimizing png for $file..."
+        /Applications/ImageOptim.app/Contents/MacOS/ImageOptim "$file"
+    fi
+done
+
+echo 'Cleaning up...'
+trash $finalPath/*.pbm
+trash $convertedPath/*.pbm

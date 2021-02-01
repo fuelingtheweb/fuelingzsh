@@ -12,5 +12,6 @@ success 'Installing Laravel installer and Laravel Valet.'
 composer global require laravel/installer
 composer global require laravel/valet
 composer global require laravel/envoy
+composer global require tightenco/tlint
 valet install
 valet trust

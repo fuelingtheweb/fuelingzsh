@@ -1,4 +1,3 @@
-# alias git='hub'
 alias gbd='git branch -d'
 alias gbD='git branch -D'
 alias gbl='git branch --list'
@@ -15,8 +14,8 @@ alias gps='git push'
 alias gpsnv='git push --no-verify'
 alias gcf='git checkout -f'
 alias gmd='git merge develop'
-alias gmm='git merge master'
-alias grm='git rebase master'
+alias gmm='git merge $(git:master-branch)'
+alias grm='git rebase $(git:master-branch)'
 alias grd='git rebase develop'
 alias grc='git rebase --continue'
 alias gin='git init'
@@ -41,7 +40,7 @@ alias gshw='git show'
 alias gshow='git show'
 alias gi='st .gitignore'
 alias gci='git check-ignore -v'
-alias gcp='git cp'
+alias gcp='git cherry-pick'
 alias gcpn='git cherry-pick -n'
 alias guns='git unstage'
 alias gms='git merge --squash'
@@ -55,20 +54,16 @@ alias gra='git rebase --abort'
 alias ggrc='git rebase --continue'
 alias gbi='git rebase --interactive'
 alias gma='git merge --abort'
-# alias gl='git l'
-alias glg='git l'
-alias glog='git l'
+alias glg='git log --graph --date=short'
 alias gf='git fetch'
 alias gfch='git fetch'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gds='git diff --staged'
-#alias gbd='git b -D -w'
 alias gdc='git diff --cached -w'
 alias gpub='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias gtr='grb track'
 alias gplr='git pull --rebase'
-alias gnb='git nb' # new branch aka checkout -b
 alias grs='git reset'
 alias grsh='git reset --hard'
 alias gcln='git clean'
@@ -77,15 +72,19 @@ alias gclndfx='git clean -dfx'
 alias gsm='git submodule'
 alias gsmi='git submodule init'
 alias gsmu='git submodule update'
-#alias gt='git t'
 alias gbg='git bisect good'
 alias gbb='git bisect bad'
 alias gitlog="git log --oneline --all --graph --decorate"
 alias gl="git log --date=short --decorate"
 
-alias deploy="git checkout master && git pull && git merge develop && git push && git checkout develop"
+deploy() {
+    git checkout $(git:master-branch)
+    git pull
+    git merge develop
+    git push
+    git checkout develop
+}
 
-alias gcom='git checkout master'
 alias gcod='git checkout develop'
 alias gcop='git checkout -'
 alias gb='git branch -v'
@@ -94,7 +93,6 @@ alias gt='git tag'
 alias gtt='git tag | tail'
 alias gpst='git push origin --tags'
 alias gtc='echo -n $(git tag | tail -1) | pbcopy'
-alias gbc='echo -n $(git rev-parse --abbrev-ref HEAD) | pbcopy'
 alias gau='git add -u'
 
 alias gcob='git checkout -b'
@@ -225,11 +223,6 @@ gm() {
   fi
 }
 
-gpso() {
-    branch=$(echo -n $(git rev-parse --abbrev-ref HEAD))
-    git push --set-upstream origin "$branch"
-}
-
 gpsonv() {
     branch=$(echo -n $(git rev-parse --abbrev-ref HEAD))
     git push --set-upstream --no-verify origin "$branch"
@@ -241,3 +234,93 @@ alias sm.='smerge .'
 
 # From git plugin
 alias gcl='git clone --recurse-submodules'
+
+alias git:unstage="git reset HEAD" # remove files from index (tracking)
+alias git:uncommit="git reset --soft HEAD^" # go back before last commit, with files in uncommitted state
+
+# --------------------
+
+alias gbc='git:current-branch | pbcopy'
+alias gbr='git:branch-rename'
+alias gum='git:update-master'
+alias gmu='git:checkout-master && git pull'
+alias gcom='git:checkout-master'
+alias gpr='git:pull-request'
+alias gdsc='git:description'
+alias gpso='git:push-set-upstream'
+
+function git:branch-rename() {
+    local branchName=$1
+    if [[ -z $branchName ]]; then
+        branchName="ntm/$(git:current-branch)"
+    fi
+
+    git branch -m $branchName
+}
+
+function git:pull-request() {
+    local branchName=$(git:current-branch)
+    if [[ $branchName != $'ntm/'* ]]; then
+        echo 'Prepend branch name with ntm/ before proceeding.'
+        return
+    fi
+
+    git:push-set-upstream
+
+    if [ $? -eq 0 ]; then
+        git:description
+        githubUrl=`git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
+        prUrl="$githubUrl/compare/$(git:master-branch)...$(git:current-branch)?expand=1"
+        open $prUrl;
+    else
+        echo 'failed to push commits and open a pull request.';
+    fi
+}
+
+function git:description() {
+    git log --no-merges --reverse --pretty=format:'- %s' $(git:master-branch).. | pbcopy
+}
+
+function git:push-set-upstream() {
+    git push --set-upstream origin $(git:current-branch)
+}
+
+function git:current-branch() {
+    echo -n $(git rev-parse --abbrev-ref HEAD)
+}
+
+function git:update-master() {
+    local branch=$(git:current-branch)
+    git:checkout-master
+    git pull
+    git checkout $branch
+}
+
+function git:checkout-master() {
+    git checkout $(git:master-branch)
+}
+
+function git:master-branch() {
+    if [[ $(git:branch-exists 'main') == 1 && $(git:branch-exists 'master') == 0 ]]; then
+        echo 'main'
+    else
+        echo 'master'
+    fi
+}
+
+function git:branch-exists() {
+    local branch=${1}
+    local existed_in_local=$(git branch --list ${branch})
+
+    if [[ -z ${existed_in_local} ]]; then
+        echo 0
+    else
+        echo 1
+    fi
+}
+
+alias tl='lint:tlint'
+function lint:tlint() {
+    git status --porcelain | grep '??' | cut -f2 -d' ' | xargs -L1 ~/.fuelingzsh/bin/tlint-run.sh
+    git status --porcelain | grep ' M ' | cut -f3 -d' ' | xargs -L1 ~/.fuelingzsh/bin/tlint-run.sh
+}

@@ -45,7 +45,7 @@ function windowCreated(window)
     end
 end
 
-windowsForCreatedHook:subscribe(wf.windowCreated, windowCreated)
+-- windowsForCreatedHook:subscribe(wf.windowCreated, windowCreated)
 
 allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
     app = hs.application.frontmostApplication()
