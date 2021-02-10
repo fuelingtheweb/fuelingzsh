@@ -44,11 +44,10 @@ hs.urlevent.bind('command-find', function()
 end)
 
 hs.urlevent.bind('command-done', function()
-    if appIs(notion) then
-        hs.eventtap.keyStroke({'cmd'}, 'return')
-    elseif appIs(sublime) then
+    if appIs(sublime) then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'd')
         -- Edit with: Done
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
+        -- hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(transmit) then
         -- Disconnect from server
         hs.eventtap.keyStroke({'cmd'}, 'e')

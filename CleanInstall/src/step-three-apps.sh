@@ -90,6 +90,7 @@ info '- Accessibility -> Pointer Control -> Mouse & Trackpad -> Trackpad Options
 info '- Accessibility -> Display: Reduce transparency'
 info '- Keyboard -> Input Sources: Disable show input menu in menu bar'
 info '- Keyboard -> Touch Bar shows: Expanded Control Strip'
+info '- Keyboard: Remove Siri from touch bar'
 info '- Displays: Disable show mirroring options in menu bar when available'
 info '- Desktop & Screen Saver: Select wallpaper'
 info '- Users & Groups -> Login Items: Add Vimac'
@@ -98,6 +99,9 @@ info '- Dock & Menu Bar -> Battery: Show Percentage'
 info '- Dock & Menu Bar -> Clock: Disable Show the day of the week'
 info '- Dock & Menu Bar -> Clock: Disable Show date'
 info '- Remove widgets.'
+info '- Sound -> Sound Effects: Disable Play sound on startup'
+info '- Sound -> Sound Effects: Disable Play user interface sound effects'
+info '- Update Finder Settings: Sidebar, View options, Toolbar'
 pause
 
 info 'Open Bartender'

@@ -14,7 +14,7 @@
     }
     :templates {
         :launch "open -a %s"
-        :hs "open -g hammerspoon://%s"
+        :hs "open -g 'hammerspoon://%s'"
         :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
         :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
         :sublime "/usr/local/bin/subl \"%s\""
@@ -40,7 +40,7 @@
         :app-mode {:key :i}
         :search-mode {:key :slash}
         :open-mode {:key :o}
-        :atom-mode {:key :a}
+        :case-mode {:key :a}
         :copy-mode {:key :y}
         :paste-mode {:key :p}
         :change-mode {:key :n}

@@ -30,7 +30,7 @@
     }
     :templates {
         :launch "open -a %s"
-        :hs "open -g hammerspoon://%s"
+        :hs "open -g 'hammerspoon://%s'"
         :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
         :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
         :sublime "/usr/local/bin/subl \"%s\""
@@ -56,7 +56,7 @@
         :app-mode {:key :i}
         :search-mode {:key :slash}
         :open-mode {:key :o}
-        :atom-mode {:key :a}
+        :case-mode {:key :a}
         :copy-mode {:key :y}
         :paste-mode {:key :p}
         :change-mode {:key :n}
@@ -143,6 +143,7 @@
                 [:c [:launch "Sublime\\ Merge.app"]]
                 [:x [:launch "Tinkerwell.app"]]
                 [:z [:launch "zoom.us.app"]]
+                [:spacebar [:hs "window-bringAllToFront"]]
             ]
         }
         {
@@ -186,7 +187,7 @@
             ]
         }
         {
-            :des "Spacebar Mode (Key: Spacebar)"
+            :des "Window Mode (Key: Spacebar)"
             :rules [:spacebar-mode
                 [:g [:hs "window-showGrid"]]
                 [:d [:hs "window-moveToNextDisplay"]]
@@ -207,6 +208,8 @@
                 [:r :!SCz] ; Redo
                 [:z :!Cz] ; Undo
                 [:m [:hs "misc-moveMouseToOtherScreen"]]
+                [:semicolon [:hs "window-next"]]
+                [:quote [:hs "window-nextInCurrentApp"]]
             ]
         }
         {
@@ -323,7 +326,7 @@
                 [:1 :!OC1] ; Notion: Create H1 heading
                 [:2 :!OC2] ; Notion: Create H2 heading
                 [:3 :!OC3] ; Notion: Create H3 heading
-                [:4 :!OC4] ; Notion: Create to-do checkbox
+                [:4 [:hs "shortcut-trigger?key=4"]]
                 [:5 :!OC5] ; Notion: Create bulleted list
                 [:6 :!OC6] ; Notion: Create numbered list
                 [:7 :!OC7] ; Notion: Create toggle list
@@ -401,19 +404,26 @@
             ]
         }
         {
-            :des "Atom Mode (Key: A)"
-            :rules [:atom-mode
-                [:l [:escape :v :b :g :!Ss :e]] ; Atom: Convert string to snake case
-                [:u [:hs "misc-uppercase"]]
-                ; [:u [:escape :v :b :g :!Su :e]] ; Atom: Convert string to upper case
-                [:i [:escape :v :b :g :!Ss :e :v :b :g :!Su :e]] ; Atom: Convert string to constant
+            :des "Case Mode (Key: A)"
+            :rules [:case-mode
                 ; Tab mode
-                [:j [:!TCj]] ; Atom: Move to next symbol
-                [:k [:!TCk]] ; Atom: Move to previous symbol
-                [:n :!Oz] ; Alfred
-                [:m :!Oc] ; Alfred Clipboard
-                [:semicolon [:hs "window-next"]]
-                [:quote [:hs "window-nextInCurrentApp"]]
+                ; [:j [:!TCj]] ; Atom: Move to next symbol
+                ; [:k [:!TCk]] ; Atom: Move to previous symbol
+
+                [:y [:hs "changeCase?to=upperFirst&key=y"]]
+                [:u [:hs "changeCase?to=upper&key=u"]]
+                [:i [:hs "changeCase?to=constant&key=i"]]
+                [:o [:hs "changeCase?to=kebab&key=o"]]
+                [:p [:hs "changeCase?to=pascal&key=p"]]
+
+                [:h [:hs "changeCase?to=title&key=h"]]
+                [:j [:hs "changeCase?to=sentence&key=j"]]
+                [:k [:hs "changeCase?to=snake&key=k"]]
+                [:l [:hs "changeCase?to=lower&key=l"]]
+
+                [:m [:hs "changeCase?to=camel&key=m"]]
+                [:period [:hs "changeCase?to=dot&key=."]]
+                [:slash [:hs "changeCase?to=path&key=/"]]
             ]
         }
         {
@@ -549,7 +559,7 @@
                 [:v [:escape :v :t :open_bracket]]; v -> opening brackets
                 [:b [:escape :v :t :close_bracket]]; b -> closing brackets
 
-                [:t [:!Sv :!Sopen_bracket]] ; Previous block
+                [:t [:!STCopen_bracket]] ; Previous block
             ]
         }
         {
@@ -607,6 +617,8 @@
                 [:##u :!Cup_arrow]
                 [:##comma :page_up]
                 [:##period :page_down]
+                [:##open_bracket :!Si]
+                [:##close_bracket :!Sa]
             ]
         }
         {

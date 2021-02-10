@@ -103,12 +103,24 @@ ProjectManager.Client = Client
 function ProjectManager:setAlfredJson()
     local items = {}
     each(ProjectManager.sites, function(site)
+        local fullPath = '~/' .. site.attributes.path
         table.insert(items, {
             uid = site.attributes.path:gsub('/', '.'),
             title = site.attributes.path:gsub('Development/', ''):gsub('/', ' > '):gsub('-', ' '),
-            subtitle = '~/' .. site.attributes.path,
+            subtitle = fullPath,
             arg = site.attributes.path,
             autocomplete = site.attributes.path:gsub('/', ' > '),
+            text = {
+                copy = fullPath,
+                largetype = fullPath,
+            },
+            mods = {
+                cmd = {
+                    valid = true,
+                    arg = site.attributes.path,
+                    subtitle = site.attributes.url,
+                },
+            }
         })
     end)
 
@@ -196,6 +208,12 @@ function ProjectManager.getByShortcutKey(key)
     end
 
     return {attributes = {}}
+end
+
+function Site:openInChrome()
+    if self.attributes.path then
+        openInChrome(self.attributes.url)
+    end
 end
 
 function Site:open()

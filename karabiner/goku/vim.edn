@@ -44,6 +44,8 @@
                 [:##u :!Cup_arrow]
                 [:##comma :page_up]
                 [:##period :page_down]
+                [:##open_bracket :!Si]
+                [:##close_bracket :!Sa]
             ]
         }
         {

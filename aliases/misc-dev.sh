@@ -60,3 +60,6 @@ alias vau='valet unlink'
 alias vas='valet secure'
 alias var='valet restart'
 alias vao='valet open'
+
+alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias ipc='ip | pbcopy'

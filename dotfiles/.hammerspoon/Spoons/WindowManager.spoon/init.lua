@@ -114,4 +114,8 @@ hs.urlevent.bind('window-focus', function(eventName, params)
     hs.window(tonumber(params.id)):focus()
 end)
 
+hs.urlevent.bind('window-bringAllToFront', function(eventName, params)
+    hs.application.frontmostApplication():activate(true)
+end)
+
 return WindowManager

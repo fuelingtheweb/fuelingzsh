@@ -94,6 +94,7 @@ casks=(
     notion
     transmit
     tinkerwell
+    spotify
 )
 
 for cask in "${casks[@]}"; do

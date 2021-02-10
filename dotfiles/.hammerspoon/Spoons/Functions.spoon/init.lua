@@ -154,8 +154,14 @@ function triggerAlfredSearch(search)
     hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search ..' "')
 end
 
-function triggerAlfredWorkflow(trigger, workflow)
-    hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to run trigger "' .. trigger .. '" in workflow "' .. workflow .. '"')
+function triggerAlfredWorkflow(trigger, workflow, argument)
+    local script = 'tell application id "com.runningwithcrayons.Alfred" to run trigger "' .. trigger .. '" in workflow "' .. workflow .. '"'
+
+    if argument then
+        script = script .. ' with argument "' .. argument .. '"'
+    end
+
+    hs.osascript.applescript(script)
 end
 
 function openInAtom(path)
@@ -268,6 +274,10 @@ end
 
 function executeFromFuelingZsh(command)
     return hs.execute('~/.fuelingzsh/bin/' .. command)
+end
+
+function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
 return obj

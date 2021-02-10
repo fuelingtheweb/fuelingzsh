@@ -1,0 +1,15 @@
+{
+  "name": "change-case",
+  "version": "1.0.0",
+  "main": "./bin/index.js",
+  "bin": {
+    "change-case": "./bin/index.js"
+  },
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "lower-case": "^2.0.2",
+    "title-case": "^3.0.3",
+    "upper-case": "^2.0.2",
+    "upper-case-first": "^2.0.2"
+  }
+}
