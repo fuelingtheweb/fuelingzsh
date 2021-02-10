@@ -25,28 +25,42 @@
         :hyper-mode {:key :caps_lock :alone {:key :escape}}
     }
     :simlayers {
-        :vi-mode {:key :d}
-        :vi-visual-mode {:key :v}
-        :launch-mode {:key :comma}
-        :command-mode {:key :semicolon}
-        :quote-mode {:key :quote}
-        :spacebar-mode {:key :spacebar}
-        :general-mode {:key :f}
-        :media-mode {:key :m}
-        :google-mode {:key :g}
-        :code-mode {:key :c}
-        :snippet-mode {:key :s}
-        :test-mode {:key :t}
-        :app-mode {:key :i}
-        :search-mode {:key :slash}
-        :open-mode {:key :o}
-        :case-mode {:key :a}
-        :copy-mode {:key :y}
-        :paste-mode {:key :p}
-        :change-mode {:key :n}
-        :destroy-mode {:key :open_bracket}
-        :select-mode {:key :close_bracket}
-        :select-until-mode {:key :u}
         :tab-mode {:key :tab}
-        :period-mode {:key :period}
+        ; q
+        ; w
+        ; e
+        ; r
+        :test-mode {:key :t}
+
+        :yank-mode {:key :y}
+        :select-until-mode {:key :u}
+        :select-inside-mode {:key :i}
+        :open-mode {:key :o}
+        :paste-mode {:key :p}
+        :destroy-mode {:key :open_bracket}
+        ; ]
+
+        :case-mode {:key :a}
+        :snippet-mode {:key :s}
+        :vi-mode {:key :d}
+        :general-mode {:key :f}
+        :google-mode {:key :g}
+
+        :command-mode {:key :semicolon}
+        :app-mode {:key :quote}
+        ; return
+
+        ; z
+        ; x
+        :code-mode {:key :c}
+        :vi-visual-mode {:key :v}
+        ; b
+
+        :change-mode {:key :n}
+        :media-mode {:key :m}
+        :launch-mode {:key :comma}
+        :execute-mode {:key :period}
+        :search-mode {:key :slash}
+
+        :window-mode {:key :spacebar}
     }

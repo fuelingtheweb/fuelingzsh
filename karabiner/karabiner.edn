@@ -41,30 +41,44 @@
         :hyper-mode {:key :caps_lock :alone {:key :escape}}
     }
     :simlayers {
-        :vi-mode {:key :d}
-        :vi-visual-mode {:key :v}
-        :launch-mode {:key :comma}
-        :command-mode {:key :semicolon}
-        :quote-mode {:key :quote}
-        :spacebar-mode {:key :spacebar}
-        :general-mode {:key :f}
-        :media-mode {:key :m}
-        :google-mode {:key :g}
-        :code-mode {:key :c}
-        :snippet-mode {:key :s}
-        :test-mode {:key :t}
-        :app-mode {:key :i}
-        :search-mode {:key :slash}
-        :open-mode {:key :o}
-        :case-mode {:key :a}
-        :copy-mode {:key :y}
-        :paste-mode {:key :p}
-        :change-mode {:key :n}
-        :destroy-mode {:key :open_bracket}
-        :select-mode {:key :close_bracket}
-        :select-until-mode {:key :u}
         :tab-mode {:key :tab}
-        :period-mode {:key :period}
+        ; q
+        ; w
+        ; e
+        ; r
+        :test-mode {:key :t}
+
+        :yank-mode {:key :y}
+        :select-until-mode {:key :u}
+        :select-inside-mode {:key :i}
+        :open-mode {:key :o}
+        :paste-mode {:key :p}
+        :destroy-mode {:key :open_bracket}
+        ; ]
+
+        :case-mode {:key :a}
+        :snippet-mode {:key :s}
+        :vi-mode {:key :d}
+        :general-mode {:key :f}
+        :google-mode {:key :g}
+
+        :command-mode {:key :semicolon}
+        :app-mode {:key :quote}
+        ; return
+
+        ; z
+        ; x
+        :code-mode {:key :c}
+        :vi-visual-mode {:key :v}
+        ; b
+
+        :change-mode {:key :n}
+        :media-mode {:key :m}
+        :launch-mode {:key :comma}
+        :execute-mode {:key :period}
+        :search-mode {:key :slash}
+
+        :window-mode {:key :spacebar}
     }
     :main [
         ;; each manipulator has a description and multiple rules
@@ -173,22 +187,8 @@
             ]
         }
         {
-            :des "Quote Mode (Key: ')"
-            :rules [:quote-mode
-                [:w [:hs "misc-closeAllWindows"]]
-                [:s :!TOCs] ; Vimac: Enable Scroll
-                [:b :!STCb] ; Bartender: Show
-                [:a :!OCbackslash] ; Alfred: Action File
-                [:x [:hs "deleteWord"]]
-                [:z :delete_or_backspace] ; Delete character
-                [:d :!OCd] ; Toggle dock visibility
-                [:caps_lock [:alfred "commands" "com.fuelingtheweb.commands"]]
-                [:r :!SCr] ; Chrome: Hard refresh
-            ]
-        }
-        {
             :des "Window Mode (Key: Spacebar)"
-            :rules [:spacebar-mode
+            :rules [:window-mode
                 [:g [:hs "window-showGrid"]]
                 [:d [:hs "window-moveToNextDisplay"]]
                 [:f [:hs "window-move?to=maximize"]]
@@ -303,7 +303,7 @@
             ]
         }
         {
-            :des "App Mode (Key: I)"
+            :des "App Mode (Key: ')"
             :rules [:app-mode
                 [:t [:hs "shortcut-trigger?key=T"]]
                 [:r [:hs "shortcut-trigger?key=R"]]
@@ -361,7 +361,7 @@
                 [:b [:hs "open-inFinder"]]
                 [:f [:hs "custom-open?key=F"]]
                 [:r [:hs "custom-open?key=R"]]
-                [:s [:sublime "~/.fuelingzsh/custom/espanso"]]
+                [:s [:sublime "~/.fuelingzsh/custom/espanso/default.yml"]]
                 [:m [:hs "custom-open?key=M"]]
                 [:e [:hs "custom-open?key=E"]]
                 [:x [:hs "open-inTinkerwell"]]
@@ -400,13 +400,11 @@
                 [:l :!TOCt] ; Atom PHPUnit: Test All
                 [:k :!OCt] ; Atom PHPUnit: Test Class
                 [:m :!TOt] ; Atom PHPUnit: Test Method
-                [:s [:slash :s :c :r :i :p :t :return_or_enter]] ; Search for script
             ]
         }
         {
             :des "Case Mode (Key: A)"
             :rules [:case-mode
-                ; Tab mode
                 ; [:j [:!TCj]] ; Atom: Move to next symbol
                 ; [:k [:!TCk]] ; Atom: Move to previous symbol
 
@@ -435,11 +433,12 @@
                 [:l [:hs "moveTabRight"]] ; Move tab to the right
                 [:i [:!C1]] ; Go to first tab
                 [:o [:!C9]] ; Go to last tab
+                [:close_bracket [:hs "tab-moveToNewWindow"]]
             ]
         }
         {
-            :des "Copy Mode (Key: Y)"
-            :rules [:copy-mode
+            :des "Yank Mode (Key: Y)"
+            :rules [:yank-mode
                 [:e [:escape :y :e]]; w -> end of word
                 [:r [:!!y :!!r]]; Atom: Copy project relative path
 
@@ -523,8 +522,8 @@
             ]
         }
         {
-            :des "Select Mode (Key: ])"
-            :rules [:select-mode
+            :des "Select Inside Mode (Key: i)"
+            :rules [:select-inside-mode
                 [:e [:escape :v :e]]; w -> end of word
 
                 [:w [:escape :v :i :w]]; w -> word
@@ -536,8 +535,6 @@
                 [:c [:escape :v :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :v :i :open_bracket]]; b -> brackets
 
-                [:a [:escape :!Sd]] ; To end of line
-                [:i [:escape :!SCleft_arrow]] ; To beginning of line
                 [:v [:escape :!Sv]]; v -> line
                 [:x [:escape :v]]; x -> character
             ]
@@ -559,16 +556,28 @@
                 [:v [:escape :v :t :open_bracket]]; v -> opening brackets
                 [:b [:escape :v :t :close_bracket]]; b -> closing brackets
 
+                [:a [:escape :!SCright_arrow]] ; To end of line
+                [:i [:escape :!SCleft_arrow]] ; To beginning of line
                 [:t [:!STCopen_bracket]] ; Previous block
             ]
         }
         {
-            :des "Period Mode (Key: period)"
-            :rules [:period-mode
+            :des "Execute Mode (Key: period)"
+            :rules [:execute-mode
                 [:v [:escape :y :y :p]] ; Duplicate line
-                [:s [:alfredsearch "sleep"]] ; Alfred: Sleep
-                [:q [:alfredsearch "shutdown"]] ; Alfred: Shut Down
-                [:r [:hs "misc-saveAndReload"]]
+                [:q [:alfredsearch "sleep"]] ; Alfred: Sleep
+                ; [:q [:alfredsearch "shutdown"]] ; Alfred: Shut Down
+                [:g [:hs "misc-saveAndReload"]]
+
+                [:w [:hs "misc-closeAllWindows"]]
+                [:s :!TOCs] ; Vimac: Enable Scroll
+                [:b :!STCb] ; Bartender: Show
+                [:a :!OCbackslash] ; Alfred: Action File
+                [:x [:hs "deleteWord"]]
+                [:z :delete_or_backspace] ; Delete character
+                [:d :!OCd] ; Toggle dock visibility
+                [:caps_lock [:alfred "commands" "com.fuelingtheweb.commands"]]
+                [:r :!SCr] ; Chrome: Hard refresh
             ]
         }
         ; {

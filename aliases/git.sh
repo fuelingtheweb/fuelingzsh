@@ -1,5 +1,3 @@
-alias gbd='git branch -d'
-alias gbD='git branch -D'
 alias gbl='git branch --list'
 function gbdg () { git branch --list $1 | xargs git branch -d }
 alias gcnf='git config'
@@ -186,12 +184,19 @@ gcoa() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-# fbd - delete git branch
-fbd() {
+# Delete git branch
+gbd() {
   local branches branch
   branches=$(git branch -vv --no-color) &&
   branch=$(echo "$branches" | fzf +m) &&
   git branch -d $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+gbD() {
+  local branches branch
+  branches=$(git branch -vv --no-color) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git branch -D $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
 # fgst - pick files from `git status -s`

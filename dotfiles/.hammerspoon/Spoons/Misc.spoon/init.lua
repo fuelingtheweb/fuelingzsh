@@ -172,4 +172,15 @@ hs.urlevent.bind('misc-appSettings', function()
     end
 end)
 
+hs.urlevent.bind('tab-moveToNewWindow', function()
+    if appIs(sublime) then
+        hs.eventtap.keyStroke({'cmd'}, 'A')
+        hs.eventtap.keyStroke({'cmd'}, 'C')
+        hs.eventtap.keyStroke({'cmd'}, 'W')
+        hs.eventtap.keyStroke({}, 'space')
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
+        hs.eventtap.keyStroke({}, 'P')
+    end
+end)
+
 return obj

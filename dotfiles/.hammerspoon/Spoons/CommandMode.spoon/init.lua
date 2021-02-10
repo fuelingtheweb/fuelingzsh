@@ -2,7 +2,12 @@ local obj = {}
 obj.__index = obj
 
 hs.urlevent.bind('command-newTab', function()
-    if appIncludes({sublime, atom, finder}) then
+    if appIncludes({sublime, atom}) then
+        hs.eventtap.keyStroke({'cmd'}, 'n')
+        hs.eventtap.keyStroke({}, 'i')
+        hs.eventtap.keyStroke({}, 'return')
+        hs.eventtap.keyStroke({}, 'up')
+    elseif appIs(finder) then
         hs.eventtap.keyStroke({'cmd'}, 'n')
     else
         hs.eventtap.keyStroke({'cmd'}, 't')
