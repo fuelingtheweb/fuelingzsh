@@ -538,10 +538,10 @@
         {
             :des "Yank Mode (Key: Y)"
             :rules [:yank-mode
-                [:e [:escape :y :e]]; w -> end of word
-                [:r [:!!y :!!r]]; Atom: Copy project relative path
+                [:e [:hs "yank-toEndOfWord"]]
+                [:r [:hs "yank-relativeFilePath"]]
 
-                [:w [:escape :y :i :w]]; w -> word
+                [:w [:hs "yank-word"]]
                 [:t [:escape :y :i :t]]; t -> tag
                 [:s [:escape :y :i :quote]]; s -> single quotes
                 [:d [:escape :y :i :!Squote]]; d -> double quotes
@@ -550,20 +550,20 @@
                 [:c [:escape :y :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :y :i :open_bracket]]; b -> brackets
 
-                [:a [:escape :y :!S4]] ; To end of line
-                [:i [:escape :!SCleft_arrow :y]] ; To beginning of line
-                [:v [:escape :y :y]]; v -> line
-                [:x [:escape :y :l]]; v -> character
+                [:a [:hs "yank-toEndOfLine"]]
+                [:i [:hs "yank-toBeginningOfLine"]]
+                [:v [:hs "yank-line"]]
+                [:x [:hs "yank-character"]]
 
-                [:caps_lock [:hs "misc-copyAll"]]
+                [:caps_lock [:hs "yank-all"]]
             ]
         }
         {
             :des "Paste Mode (Key: P)"
             :rules [:paste-mode
-                [:e [:escape :v :e :p]]; w -> end of word
+                [:e [:hs "paste-toEndOfWord"]]
 
-                [:w [:escape :v :i :w :p]]; w -> word
+                [:w [:hs "paste-word"]]
                 [:t [:escape :v :i :t :p]]; t -> tag
                 [:s [:escape :v :i :quote :p]]; s -> single quotes
                 [:d [:escape :v :i :!Squote :p]]; d -> double quotes
@@ -572,10 +572,10 @@
                 [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
                 [:b [:escape :v :i :open_bracket :p]]; b -> brackets
 
-                [:a [:escape :v :!SCright_arrow :p]] ; To end of line
-                [:i [:escape :!SCleft_arrow :p]] ; To beginning of line
-                [:v [:escape :!Sv :p]]; v -> line
-                [:x [:escape :v :p]]; x -> character
+                [:a [:hs "paste-toEndOfLine"]]
+                [:i [:hs "paste-toBeginningOfLine"]]
+                [:v [:hs "paste-line"]]
+                [:x [:hs "paste-character"]]
 
                 [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.old"]]
             ]
@@ -583,9 +583,9 @@
         {
             :des "Change Mode (Key: n)"
             :rules [:change-mode
-                [:e [:escape :c :e]]; w -> end of word
+                [:e [:hs "change-toEndOfWord"]]
 
-                [:w [:escape :c :i :w]]; w -> word
+                [:w [:hs "change-word"]]
                 [:t [:escape :c :i :t]]; t -> tag
                 [:s [:escape :c :i :quote]]; s -> single quotes
                 [:d [:escape :c :i :!Squote]]; d -> double quotes
@@ -594,16 +594,16 @@
                 [:c [:escape :c :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :c :i :open_bracket]]; b -> brackets
 
-                [:a [:escape :!Sc]] ; To end of line
-                [:i [:escape :!SCleft_arrow :c]] ; To beginning of line
-                [:v [:escape :c :c]]; v -> line
-                [:x [:escape :v :c]]; x -> character
+                [:a [:hs "change-toEndOfLine"]]
+                [:i [:hs "change-toBeginningOfLine"]]
+                [:v [:hs "change-line"]]
+                [:x [:hs "change-character"]]
             ]
         }
         {
             :des "Destroy Mode (Key: [)"
             :rules [:destroy-mode
-                [:e [:escape :d :e]]; w -> end of word
+                [:e [:hs "destroy-toEndOfWord"]]
 
                 [:w [:hs "destroy-word"]]
                 [:t [:escape :d :i :t]]; t -> tag
@@ -614,9 +614,9 @@
                 [:c [:escape :d :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :d :i :open_bracket]]; b -> brackets
 
-                [:a [:escape :!Sd]] ; To end of line
-                [:i [:escape :!SCleft_arrow :d]] ; To beginning of line
-                [:v [:escape :d :d]]; v -> line
+                [:a [:hs "destroy-toEndOfLine"]]
+                [:i [:hs "destroy-toBeginningOfLine"]]
+                [:v [:hs "destroy-line"]]
                 [:x [:hs "destroy-character"]]
                 [:spacebar :delete_or_backspace]
             ]
@@ -624,9 +624,7 @@
         {
             :des "Select Inside Mode (Key: i)"
             :rules [:select-inside-mode
-                [:e [:escape :v :e]]; w -> end of word
-
-                [:w [:escape :v :i :w]]; w -> word
+                [:w [:hs "select-inside-word"]]
                 [:t [:escape :v :i :t]]; t -> tag
                 [:s [:escape :v :i :quote]]; s -> single quotes
                 [:d [:escape :v :i :!Squote]]; d -> double quotes
@@ -635,16 +633,16 @@
                 [:c [:escape :v :i :!Sopen_bracket]]; c -> braces
                 [:b [:escape :v :i :open_bracket]]; b -> brackets
 
-                [:v [:escape :!Sv]]; v -> line
-                [:x [:escape :v]]; x -> character
+                [:v [:hs "select-inside-line"]]
+                [:x [:hs "select-inside-character"]]
             ]
         }
         {
             :des "Select Until Mode (Key: u)"
             :rules [:select-until-mode
-                [:e [:escape :v :e]]; w -> end of word
+                [:e [:hs "select-until-endOfWord"]]
 
-                [:w [:escape :v :w]]; w -> next word
+                [:w [:hs "select-until-next-word"]]
                 [:s [:escape :v :t :quote]]; s -> single quotes
                 [:d [:escape :v :t :!Squote]]; d -> double quotes
                 [:z [:escape :v :t :!Ograve_accent_and_tilde]]; z -> back ticks
@@ -673,8 +671,8 @@
                     {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
 
-                [:a [:escape :!SCright_arrow]] ; To end of line
-                [:i [:escape :!SCleft_arrow]] ; To beginning of line
+                [:a [:hs "select-until-endOfLine"]]
+                [:i [:hs "select-until-beginningOfLine"]]
                 [:t [:!!v :!Sopen_bracket]] ; Previous block
             ]
         }
