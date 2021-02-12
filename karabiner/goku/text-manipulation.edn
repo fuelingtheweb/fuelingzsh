@@ -1,0 +1,215 @@
+        {
+            :des "Dialog Case Mode (Key: Z)"
+            :rules [:dialog-case-mode
+                [:y [:hs "dialogCase?to=upperFirst"]]
+                [:u [:hs "dialogCase?to=upper"]]
+                [:i [:hs "dialogCase?to=constant"]]
+                [:o [:hs "dialogCase?to=kebab"]]
+                [:p [:hs "dialogCase?to=pascal"]]
+
+                [:h [:hs "dialogCase?to=title"]]
+                [:j [:hs "dialogCase?to=sentence"]]
+                [:k [:hs "dialogCase?to=snake"]]
+                [:l [:hs "dialogCase?to=lower"]]
+
+                [:m [:hs "dialogCase?to=camel"]]
+                [:period [:hs "dialogCase?to=dot"]]
+                [:slash [:hs "dialogCase?to=path"]]
+            ]
+        }
+        {
+            :des "Case Mode (Key: A)"
+            :rules [:case-mode
+                [:y [:hs "changeCase?to=upperFirst&key=y"]]
+                [:u [:hs "changeCase?to=upper&key=u"]]
+                [:i [:hs "changeCase?to=constant&key=i"]]
+                [:o [:hs "changeCase?to=kebab&key=o"]]
+                [:p [:hs "changeCase?to=pascal&key=p"]]
+
+                [:h [:hs "changeCase?to=title&key=h"]]
+                [:j [:hs "changeCase?to=sentence&key=j"]]
+                [:k [:hs "changeCase?to=snake&key=k"]]
+                [:l [:hs "changeCase?to=lower&key=l"]]
+
+                [:m [:hs "changeCase?to=camel&key=m"]]
+                [:period [:hs "changeCase?to=dot&key=."]]
+                [:slash [:hs "changeCase?to=path&key=/"]]
+            ]
+        }
+        {
+            :des "Yank Mode (Key: Y)"
+            :rules [:yank-mode
+                [:e [:escape :y :e]]; w -> end of word
+                [:r [:!!y :!!r]]; Atom: Copy project relative path
+
+                [:w [:escape :y :i :w]]; w -> word
+                [:t [:escape :y :i :t]]; t -> tag
+                [:s [:escape :y :i :quote]]; s -> single quotes
+                [:d [:escape :y :i :!Squote]]; d -> double quotes
+                [:z [:escape :y :i :z]]; z -> back ticks
+                [:f [:escape :y :i :!S9]]; f -> parenthesis
+                [:c [:escape :y :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :y :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :y :!S4]] ; To end of line
+                [:i [:escape :!SCleft_arrow :y]] ; To beginning of line
+                [:v [:escape :y :y]]; v -> line
+                [:x [:escape :y :l]]; v -> character
+
+                [:caps_lock [:hs "misc-copyAll"]]
+            ]
+        }
+        {
+            :des "Paste Mode (Key: P)"
+            :rules [:paste-mode
+                [:e [:escape :v :e :p]]; w -> end of word
+
+                [:w [:escape :v :i :w :p]]; w -> word
+                [:t [:escape :v :i :t :p]]; t -> tag
+                [:s [:escape :v :i :quote :p]]; s -> single quotes
+                [:d [:escape :v :i :!Squote :p]]; d -> double quotes
+                [:z [:escape :v :i :z :p]]; z -> back ticks
+                [:f [:escape :v :i :!S9 :p]]; f -> parenthesis
+                [:c [:escape :v :i :!Sopen_bracket :p]]; c -> braces
+                [:b [:escape :v :i :open_bracket :p]]; b -> brackets
+
+                [:a [:escape :v :!SCright_arrow :p]] ; To end of line
+                [:i [:escape :!SCleft_arrow :p]] ; To beginning of line
+                [:v [:escape :!Sv :p]]; v -> line
+                [:x [:escape :v :p]]; x -> character
+
+                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.old"]]
+            ]
+        }
+        {
+            :des "Change Mode (Key: n)"
+            :rules [:change-mode
+                [:e [:escape :c :e]]; w -> end of word
+
+                [:w [:escape :c :i :w]]; w -> word
+                [:t [:escape :c :i :t]]; t -> tag
+                [:s [:escape :c :i :quote]]; s -> single quotes
+                [:d [:escape :c :i :!Squote]]; d -> double quotes
+                [:z [:escape :c :i :z]]; z -> back ticks
+                [:f [:escape :c :i :!S9]]; f -> parenthesis
+                [:c [:escape :c :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :c :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :!Sc]] ; To end of line
+                [:i [:escape :!SCleft_arrow :c]] ; To beginning of line
+                [:v [:escape :c :c]]; v -> line
+                [:x [:escape :v :c]]; x -> character
+            ]
+        }
+        {
+            :des "Destroy Mode (Key: [)"
+            :rules [:destroy-mode
+                [:e [:escape :d :e]]; w -> end of word
+
+                [:w [:hs "destroy-word"]]
+                [:t [:escape :d :i :t]]; t -> tag
+                [:s [:escape :d :i :quote]]; s -> single quotes
+                [:d [:escape :d :i :!Squote]]; d -> double quotes
+                [:z [:escape :d :i :z]]; z -> back ticks
+                [:f [:escape :d :i :!S9]]; f -> parenthesis
+                [:c [:escape :d :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :d :i :open_bracket]]; b -> brackets
+
+                [:a [:escape :!Sd]] ; To end of line
+                [:i [:escape :!SCleft_arrow :d]] ; To beginning of line
+                [:v [:escape :d :d]]; v -> line
+                [:x [:hs "destroy-character"]]
+                [:spacebar :delete_or_backspace]
+            ]
+        }
+        {
+            :des "Select Inside Mode (Key: i)"
+            :rules [:select-inside-mode
+                [:e [:escape :v :e]]; w -> end of word
+
+                [:w [:escape :v :i :w]]; w -> word
+                [:t [:escape :v :i :t]]; t -> tag
+                [:s [:escape :v :i :quote]]; s -> single quotes
+                [:d [:escape :v :i :!Squote]]; d -> double quotes
+                [:z [:escape :v :i :z]]; z -> back ticks
+                [:f [:escape :v :i :!S9]]; f -> parenthesis
+                [:c [:escape :v :i :!Sopen_bracket]]; c -> braces
+                [:b [:escape :v :i :open_bracket]]; b -> brackets
+
+                [:v [:escape :!Sv]]; v -> line
+                [:x [:escape :v]]; x -> character
+            ]
+        }
+        {
+            :des "Select Until Mode (Key: u)"
+            :rules [:select-until-mode
+                [:e [:escape :v :e]]; w -> end of word
+
+                [:w [:escape :v :w]]; w -> next word
+                [:s [:escape :v :t :quote]]; s -> single quotes
+                [:d [:escape :v :t :!Squote]]; d -> double quotes
+                [:z [:escape :v :t :!Ograve_accent_and_tilde]]; z -> back ticks
+
+                ; opening / closing parenthesis
+                [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:f
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing braces
+                [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:c
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing brackets
+                [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:b
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                [:a [:escape :!SCright_arrow]] ; To end of line
+                [:i [:escape :!SCleft_arrow]] ; To beginning of line
+                [:t [:!!v :!Sopen_bracket]] ; Previous block
+            ]
+        }
+        {
+            :des "Jump to Mode (Key: return)"
+            :rules [:jump-to-mode
+                [:s [:escape :f :quote]]; s -> single quotes
+                [:d [:escape :f :!Squote]]; d -> double quotes
+                [:z [:escape :f :!Ograve_accent_and_tilde]]; z -> back ticks
+
+                ; opening / closing parenthesis
+                [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:f
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing braces
+                [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:c
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing brackets
+                [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:b
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                [:t [:escape :!Sopen_bracket]] ; Previous block
+            ]
+        }

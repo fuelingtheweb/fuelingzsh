@@ -4,6 +4,7 @@ function fileContents() {
 SETUP_EDN=$(fileContents 'setup')
 LAYERS_EDN=$(fileContents 'layers')
 VIM_EDN=$(fileContents 'vim')
+TEXT_MANIPULATION_EDN=$(fileContents 'text-manipulation')
 MAIN_EDN=$(fileContents 'main')
 echo "
 ;; !  | means mandatory
@@ -42,6 +43,7 @@ $LAYERS_EDN
         ;; (custom variables) & modifiers -> Advanced
         ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
 $MAIN_EDN
+$TEXT_MANIPULATION_EDN
 $VIM_EDN
     ]
 }
