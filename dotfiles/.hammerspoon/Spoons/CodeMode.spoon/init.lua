@@ -88,7 +88,7 @@ hs.urlevent.bind('code-return', function()
     if appIs(iterm) then
         ProjectManager.serveCurrent()
     else
-        hs.eventtap.keyStrokes('return ')
+        hs.eventtap.keyStrokes('return')
     end
 end)
 

@@ -95,10 +95,12 @@ end
 hs.urlevent.bind('window-searchAll', function(eventName, params)
     windows = hs.window.filter.default
         :rejectApp('Sublime Text')
+        :rejectApp('Atom')
         :rejectApp('Finder')
         :rejectApp('Google Chrome')
         :rejectApp('Sublime Merge')
         :rejectApp('Notion')
+        :rejectApp('Spotify')
         :getWindows(hs.window.filter.sortByFocusedLast)
 
     WindowManager.loadWindowsInAlfred(windows, 1)

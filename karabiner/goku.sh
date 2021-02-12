@@ -2,6 +2,7 @@ function fileContents() {
     cat "$HOME/.fuelingzsh/karabiner/goku/$1.edn"
 }
 SETUP_EDN=$(fileContents 'setup')
+LAYERS_EDN=$(fileContents 'layers')
 VIM_EDN=$(fileContents 'vim')
 MAIN_EDN=$(fileContents 'main')
 echo "
@@ -21,6 +22,7 @@ echo "
 
 {
 $SETUP_EDN
+$LAYERS_EDN
     :main [
         ;; each manipulator has a description and multiple rules
 

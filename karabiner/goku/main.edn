@@ -11,21 +11,27 @@
             :rules [:hyper-mode
                 [:y [:hs "hyper-copy"]]
                 [:u [:hs "hyper-copyTextArea"]]
-                [:i :!!i] ; Inbox
+                ; i
                 [:o [:hs "hyper-open"]]
                 [:p :!Cv] ; Paste
                 [:open_bracket [:hs "hyper-openAnything"]]
                 [:close_bracket [:hs "hyper-commandPalette"]] ; Command palette
+
                 [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
                 [:semicolon :mission_control] ; Mac: Show windows
+                ; '
                 [:return_or_enter :caps_lock]
+
                 [:n :!Oz] ; Alfred
                 [:m :!Oc] ; Alfred Clipboard
                 [:comma [:hs "hyper-jumpTo"]]
-                ; semicolon, period, slash, b, \, spacebar, backslash
+                ; .
+                ; /
+
+                ; spacebar
             ]
         }
         {
@@ -42,21 +48,26 @@
         {
             :des "Launch Mode (Key: ,)"
             :rules [:launch-mode
-                [:t [:hs "launch-app?id=iterm"]]
-                [:r [:hs "launch-app?id=atom"]]
-                [:e [:hs "launch-app?id=sublime"]]
-                [:w [:launch "Transmit.app"]]
+                ; tab
                 [:q [:launch "Kaleidoscope.app"]]
-                [:g [:hs "launch-app?id=chrome"]]
-                [:f [:launch "Notion.app"]]
-                [:d [:launch "Discord.app"]]
-                [:s [:launch "Spotify.app"]]
+                [:w [:launch "Transmit.app"]]
+                [:e [:hs "launch-app?id=sublime"]]
+                [:r [:hs "launch-app?id=atom"]]
+                [:t [:hs "launch-app?id=iterm"]]
+
+                ; caps
                 [:a :!OCc] ; Fantastical
-                [:b [:hs "launch-app?id=finder"]]
-                [:v [:launch "TablePlus.app"]]
-                [:c [:launch "Sublime\\\ Merge.app"]]
-                [:x [:launch "Tinkerwell.app"]]
+                [:s [:launch "Spotify.app"]]
+                [:d [:launch "Discord.app"]]
+                [:f [:launch "Notion.app"]]
+                [:g [:hs "launch-app?id=chrome"]]
+
                 [:z [:launch "zoom.us.app"]]
+                [:x [:launch "Tinkerwell.app"]]
+                [:c [:launch "Sublime\\\ Merge.app"]]
+                [:v [:launch "TablePlus.app"]]
+                [:b [:hs "launch-app?id=finder"]]
+
                 [:spacebar [:hs "window-bringAllToFront"]]
             ]
         }
@@ -65,51 +76,93 @@
             :rules [:command-mode
                 [:tab :!Stab] ; Shift Tab
                 [:q :!Cq] ; Quit
-                [:w [:hs "command-closeWindow"]]
-                [:e :!SCe] ; Edit with
-                [:r [:hs "command-reload"]]
-                [:t [:hs "command-newTab"]] ; New Tab
 
-                [:caps_lock [:hs "command-dismissNotifications"]] ; Dismiss notifications
+                ; Close window or close all windows
+                [:w [[:hs "misc-closeAllWindows"] ["pending" 0]] ["pending" 1]]
+                [:w
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "command-closeWindow"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
+                ; e
+
+                ; Reload or Chrome hard refresh
+                [:r [:!SCr ["pending" 0]] ["pending" 1]]
+                [:r
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "command-reload"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
+                ; t
+
+                [:caps_lock [:alfred "commands" "com.fuelingtheweb.commands"]]
                 [:a :!Ca] ; Select All
-                [:s [:hs "command-save"]] ; Save
+
+                ; Save or Save and reload Chrome
+                [:s [[:hs "misc-saveAndReload"] ["pending" 0]] ["pending" 1]]
+                [:s
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "command-save"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
                 [:d [:hs "command-done"]]
                 [:f [:hs "command-find"]]
                 [:g :!SCh] ; Atom: Toggle Git Palette
 
-                [:z :delete_or_backspace]
+                [:z [:alfredsearch "sleep"]] ; Alfred: Sleep
                 [:x [:hs "command-cancelOrDelete"]] ; Control C
-                [:c :!!k] ; Hide cursor
+                ; c
+                [:v [:escape :y :y :p]] ; Duplicate line
                 [:b :!Cd] ; Save Bookmark (Chrome)
-                [:v :!SCv] ; Paste without formatting via Alfred
-
-                [:m :!!z] ; Spotify
             ]
         }
         {
             :des "Window Mode (Key: Spacebar)"
             :rules [:window-mode
-                [:g [:hs "window-showGrid"]]
+                [:tab [:hs "window-moveToCenter"]]
+                ; q
+                ; w
+                ; e
+                ; r
+                ; t
+
+                ; y
+                [:u [:hs "window-move?to=topLeft"]]
+                [:i [:hs "window-moveToMiddle"]]
+                [:o [:hs "window-move?to=topRight"]]
+                [:p [:hs "misc-appSettings"]]
+                ; [
+                ; ]
+
+                ; caps
+                ; a
+                ; s
                 [:d [:hs "window-moveToNextDisplay"]]
                 [:f [:hs "window-move?to=maximize"]]
-                [:return_or_enter [:hs "window-reset"]]
-                [:tab [:hs "window-moveToCenter"]]
+                [:g [:hs "window-showGrid"]]
+
                 [:h [:hs "window-move?to=leftHalf"]]
                 [:j [:hs "window-move?to=bottomHalf"]]
                 [:k [:hs "window-move?to=topHalf"]]
                 [:l [:hs "window-move?to=rightHalf"]]
-                [:u [:hs "window-move?to=topLeft"]]
-                [:o [:hs "window-move?to=topRight"]]
-                [:n [:hs "window-move?to=bottomLeft"]]
-                [:period [:hs "window-move?to=bottomRight"]]
-                [:i [:hs "window-moveToMiddle"]]
-                [:c :!STC4] ; Screenshot to clipboard
-                [:s :!SC4] ; Screenshot to filesystem
-                [:r :!SCz] ; Redo
-                [:z :!Cz] ; Undo
-                [:m [:hs "misc-moveMouseToOtherScreen"]]
                 [:semicolon [:hs "window-next"]]
                 [:quote [:hs "window-nextInCurrentApp"]]
+                [:return_or_enter [:hs "window-reset"]]
+
+                ; z
+                ; x
+                ; c
+                ; v
+                [:b [:hs "misc-toggleSidebar"]]
+
+                [:n [:hs "window-move?to=bottomLeft"]]
+                [:m [:hs "misc-moveMouseToOtherScreen"]]
+                [:comma [:hs "window-move?to=bottomRight"]]
+                ; .
+                ; /
             ]
         }
         {
@@ -127,21 +180,23 @@
                 [:j [:hs "misc-focusPrevious"]]
                 [:k [:hs "misc-focusNext"]]
                 [:l :!!l] ; Lastpass
-                [:semicolon [:hs "misc-toggleSidebar"]]
+                ; ;
                 [:quote :equal_sign] ; =
                 ; return
 
-                [:n :!SCn] ; New window / folder
+                ; n
                 [:m :!S8] ; Multiply: *
-                [:comma [:hs "misc-appSettings"]]
+                ; ,
                 [:period [:hyphen :!Speriod]] ; ->
-                [:slash :!Cslash] ; Comment
+                ; /
 
-                [:e :!S1] ; !
-                [:d :!S4] ; -> $
-                [:s [:hs "misc-surround"]]
-                [:a :!S2] ; @
                 [:q :!S3] ; #
+                ; w
+                [:e :!S1] ; !
+
+                [:a :!S2] ; @
+                ; s
+                [:d :!S4] ; -> $
             ]
         }
         {
@@ -200,10 +255,12 @@
                 [:comma :!Ocomma] ; Atom: Toggle comma at end of line
                 [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
                 [:slash :!Tm] ; Atom: Go to matching bracket
+
+                [:spacebar :!Cslash] ; Comment
             ]
         }
         {
-            :des "App Mode (Key: ')"
+            :des "App Mode (Key: .)"
             :rules [:app-mode
                 [:t [:hs "shortcut-trigger?key=T"]]
                 [:r [:hs "shortcut-trigger?key=R"]]
@@ -236,19 +293,21 @@
         {
             :des "Search Mode (Key: /)"
             :rules [:search-mode
-                [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
-                [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
-                [:s :!Cr] ; Search for symbol
                 [:w [:hs "window-searchInCurrentApp"]]
-                [:a [:hs "window-searchAll"]]
                 [:t [:hs "searchTabs"]]
+
+                [:a [:hs "window-searchAll"]]
+                [:s :!Cr] ; Search for symbol
+                [:f [:alfredsearch "open "]] ; Search files
+                [:g [:alfred "google" "com.akikoz.alfred.websearchsuggest"]]
+
+                [:z [:alfred "amazon" "com.akikoz.alfred.websearchsuggest"]]
                 [:c [:slash :!Scomma :!Scomma :!Scomma :!Scomma :!Scomma :return_or_enter]] ; Search for conflicts
             ]
         }
         {
             :des "Open Mode (Key: O)"
             :rules [:open-mode
-                [:spacebar [:alfredsearch "open "]] ; Search files
                 [:k [:sublime "~/.fuelingzsh/karabiner/goku/main.edn"]]
                 [:h [:sublime "~/.hammerspoon"]]
                 [:a [:sublime "~/.fuelingzsh/aliases"]]
@@ -277,8 +336,7 @@
                 ; r
                 [:t [:hs "snippet?name=this"]]
                 [:d [:hs "snippet?name=dd"]]
-                [:f [:slash :c :o :n :s :o :l :e :period :l :o :g :!S9 :return_or_enter]] ; -> search console.log( in file
-                ; g, v
+                ; f, g, v
                 ; y, u
                 [:i [:hs "snippet?name=if"]]
                 ; o
@@ -288,7 +346,6 @@
                 ; h, j, k
                 [:l [:hs "snippet?name=log"]]
                 ; ;, ', return
-                [:b [:f :a :l :s :e]]
                 [:n [:hs "snippet?name=af"]]
                 [:m [:hs "snippet-method"]]
                 ; ,, ., /
@@ -303,11 +360,27 @@
             ]
         }
         {
+            :des "Dialog Case Mode (Key: Z)"
+            :rules [:dialog-case-mode
+                [:y [:hs "dialogCase?to=upperFirst"]]
+                [:u [:hs "dialogCase?to=upper"]]
+                [:i [:hs "dialogCase?to=constant"]]
+                [:o [:hs "dialogCase?to=kebab"]]
+                [:p [:hs "dialogCase?to=pascal"]]
+
+                [:h [:hs "dialogCase?to=title"]]
+                [:j [:hs "dialogCase?to=sentence"]]
+                [:k [:hs "dialogCase?to=snake"]]
+                [:l [:hs "dialogCase?to=lower"]]
+
+                [:m [:hs "dialogCase?to=camel"]]
+                [:period [:hs "dialogCase?to=dot"]]
+                [:slash [:hs "dialogCase?to=path"]]
+            ]
+        }
+        {
             :des "Case Mode (Key: A)"
             :rules [:case-mode
-                ; [:j [:!TCj]] ; Atom: Move to next symbol
-                ; [:k [:!TCk]] ; Atom: Move to previous symbol
-
                 [:y [:hs "changeCase?to=upperFirst&key=y"]]
                 [:u [:hs "changeCase?to=upper&key=u"]]
                 [:i [:hs "changeCase?to=constant&key=i"]]
@@ -327,13 +400,14 @@
         {
             :des "Tab Mode (Key: tab)"
             :rules [:tab-mode
-                [:h [:hs "moveTabLeft"]] ; Move tab to the left
-                ; [:j [:hs "hyper-previousTab"]]
-                ; [:k [:hs "hyper-nextTab"]]
-                [:l [:hs "moveTabRight"]] ; Move tab to the right
                 [:i [:!C1]] ; Go to first tab
                 [:o [:!C9]] ; Go to last tab
                 [:close_bracket [:hs "tab-moveToNewWindow"]]
+
+                [:h [:hs "moveTabLeft"]]
+                [:l [:hs "moveTabRight"]]
+
+                [:n [:hs "command-newTab"]]
             ]
         }
         {
@@ -406,7 +480,7 @@
             :rules [:destroy-mode
                 [:e [:escape :d :e]]; w -> end of word
 
-                [:w [:escape :d :i :w]]; w -> word
+                [:w [:hs "destroy-word"]]
                 [:t [:escape :d :i :t]]; t -> tag
                 [:s [:escape :d :i :quote]]; s -> single quotes
                 [:d [:escape :d :i :!Squote]]; d -> double quotes
@@ -418,7 +492,8 @@
                 [:a [:escape :!Sd]] ; To end of line
                 [:i [:escape :!SCleft_arrow :d]] ; To beginning of line
                 [:v [:escape :d :d]]; v -> line
-                [:x [:escape :x]]; x -> character
+                [:x [:hs "destroy-character"]]
+                [:spacebar :delete_or_backspace]
             ]
         }
         {
@@ -449,34 +524,91 @@
                 [:d [:escape :v :t :!Squote]]; d -> double quotes
                 [:z [:escape :v :t :!Ograve_accent_and_tilde]]; z -> back ticks
 
-                [:f [:escape :v :t :!S9]]; f -> opening parenthesis
-                [:g [:escape :v :t :!S0]]; g -> closing parenthesis
-                [:x [:escape :v :t :!Sopen_bracket]]; x -> opening braces
-                [:c [:escape :v :t :!Sclose_bracket]]; c -> closing braces
-                [:v [:escape :v :t :open_bracket]]; v -> opening brackets
-                [:b [:escape :v :t :close_bracket]]; b -> closing brackets
+                ; opening / closing parenthesis
+                [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:f
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing braces
+                [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:c
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing brackets
+                [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:b
+                    [:escape :v :t ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
 
                 [:a [:escape :!SCright_arrow]] ; To end of line
                 [:i [:escape :!SCleft_arrow]] ; To beginning of line
-                [:t [:!STCopen_bracket]] ; Previous block
+                [:t [:!!v :!Sopen_bracket]] ; Previous block
             ]
         }
         {
-            :des "Execute Mode (Key: period)"
-            :rules [:execute-mode
-                [:v [:escape :y :y :p]] ; Duplicate line
-                [:q [:alfredsearch "sleep"]] ; Alfred: Sleep
-                ; [:q [:alfredsearch "shutdown"]] ; Alfred: Shut Down
-                [:g [:hs "misc-saveAndReload"]]
+            :des "Jump to Mode (Key: return)"
+            :rules [:jump-to-mode
+                [:s [:escape :f :quote]]; s -> single quotes
+                [:d [:escape :f :!Squote]]; d -> double quotes
+                [:z [:escape :f :!Ograve_accent_and_tilde]]; z -> back ticks
 
-                [:w [:hs "misc-closeAllWindows"]]
-                [:s :!TOCs] ; Vimac: Enable Scroll
-                [:b :!STCb] ; Bartender: Show
+                ; opening / closing parenthesis
+                [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:f
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing braces
+                [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:c
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                ; opening / closing brackets
+                [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:b
+                    [:escape :f ["bracket-pending" 1]]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
+                [:t [:escape :!Sopen_bracket]] ; Previous block
+            ]
+        }
+        {
+            :des "Extended Command Mode (Key: ')"
+            :rules [:extended-command-mode
+                ; q
+                [:w [:hs "misc-surround"]]
+                ; e
+                [:r :!SCz] ; Redo
+                ; t
+
+                [:caps_lock [:hs "command-dismissNotifications"]] ; Dismiss notifications
                 [:a :!OCbackslash] ; Alfred: Action File
-                [:x [:hs "deleteWord"]]
-                [:z :delete_or_backspace] ; Delete character
+                [:s :!SC4] ; Screenshot to filesystem
                 [:d :!OCd] ; Toggle dock visibility
-                [:caps_lock [:alfred "commands" "com.fuelingtheweb.commands"]]
-                [:r :!SCr] ; Chrome: Hard refresh
+                [:f [:!SCbackslash]] ; Atom: Reveal active file in tree view
+                ; g
+
+                [:z :!Cz] ; Undo
+                ; x
+                [:c :!STC4] ; Screenshot to clipboard
+                [:v :!TOCs] ; Vimac: Enable Scroll
+                [:b :!STCb] ; Bartender: Show
+
+                [:n :!SCn] ; New window / folder
             ]
         }

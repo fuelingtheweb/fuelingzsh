@@ -1,3 +1,4 @@
+alias g='git'
 alias gbl='git branch --list'
 function gbdg () { git branch --list $1 | xargs git branch -d }
 alias gcnf='git config'

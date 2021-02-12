@@ -83,14 +83,6 @@ hs.urlevent.bind('moveTabRight', function()
     end
 end)
 
-hs.urlevent.bind('deleteWord', function()
-    if appIs(iterm) then
-        hs.eventtap.keyStroke({'ctrl'}, 'w')
-    else
-        hs.eventtap.keyStroke({'alt'}, 'delete')
-    end
-end)
-
 hs.urlevent.bind('searchTabs', function()
     if appIs(atom) then
         hs.eventtap.keyStroke({'cmd'}, 'b')
@@ -137,6 +129,15 @@ hs.urlevent.bind('misc-saveAndReload', function()
     hs.eventtap.keyStroke({'cmd'}, 'R')
 end)
 
+hs.urlevent.bind('dialogCase', function(eventName, params)
+    triggerAlfredWorkflow('case-dialog', 'com.fuelingtheweb.commands', params.to)
+end)
+
+hs.urlevent.bind('changeCaseAndConvert', function(eventName, params)
+    result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. params.to .. '" "' .. params.text .. '"'))
+    hs.eventtap.keyStrokes(result, 0)
+end)
+
 hs.urlevent.bind('changeCase', function(eventName, params)
     if appIncludes({atom, sublime}) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'c', 0)
@@ -180,6 +181,26 @@ hs.urlevent.bind('tab-moveToNewWindow', function()
         hs.eventtap.keyStroke({}, 'space')
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
         hs.eventtap.keyStroke({}, 'P')
+    end
+end)
+
+hs.urlevent.bind('destroy-word', function()
+    if appIncludes({sublime, atom}) then
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('diw')
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'ctrl'}, 'w')
+    else
+        hs.eventtap.keyStroke({'alt'}, 'delete')
+    end
+end)
+
+hs.urlevent.bind('destroy-character', function()
+    if appIncludes({sublime, atom}) then
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('x')
+    else
+        hs.eventtap.keyStroke({}, 'delete')
     end
 end)
 
