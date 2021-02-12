@@ -178,7 +178,7 @@
                 [:q :!Cq] ; Quit
 
                 ; Close window or close all windows
-                [:w [[:hs "misc-closeAllWindows"] ["pending" 0]] ["pending" 1]]
+                [:w [[:hs "command-closeAllWindows"] ["pending" 0]] ["pending" 1]]
                 [:w
                     ["pending" 1]
                     ["pending" 0]
@@ -201,7 +201,7 @@
                 [:a :!Ca] ; Select All
 
                 ; Save or Save and reload Chrome
-                [:s [[:hs "misc-saveAndReload"] ["pending" 0]] ["pending" 1]]
+                [:s [[:hs "command-saveAndReload"] ["pending" 0]] ["pending" 1]]
                 [:s
                     ["pending" 1]
                     ["pending" 0]
@@ -233,7 +233,7 @@
                 [:u [:hs "window-move?to=topLeft"]]
                 [:i [:hs "window-moveToMiddle"]]
                 [:o [:hs "window-move?to=topRight"]]
-                [:p [:hs "misc-appSettings"]]
+                [:p [:hs "window-appSettings"]]
                 ; [
                 ; ]
 
@@ -256,7 +256,7 @@
                 ; x
                 ; c
                 ; v
-                [:b [:hs "misc-toggleSidebar"]]
+                [:b [:hs "window-toggleSidebar"]]
 
                 [:n [:hs "window-move?to=bottomLeft"]]
                 [:m [:hs "misc-moveMouseToOtherScreen"]]
@@ -277,8 +277,8 @@
                 [:close_bracket :!S0] ; )
 
                 [:h :!Sgrave_accent_and_tilde] ; ~
-                [:j [:hs "misc-focusPrevious"]]
-                [:k [:hs "misc-focusNext"]]
+                [:j [:hs "general-focusPrevious"]]
+                [:k [:hs "general-focusNext"]]
                 [:l :!!l] ; Lastpass
                 ; ;
                 [:quote :equal_sign] ; =
@@ -394,7 +394,7 @@
             :des "Search Mode (Key: /)"
             :rules [:search-mode
                 [:w [:hs "window-searchInCurrentApp"]]
-                [:t [:hs "searchTabs"]]
+                [:t [:hs "search-tabs"]]
 
                 [:a [:hs "window-searchAll"]]
                 [:s :!Cr] ; Search for symbol
@@ -466,17 +466,17 @@
                 [:o [:!C9]] ; Go to last tab
                 [:close_bracket [:hs "tab-moveToNewWindow"]]
 
-                [:h [:hs "moveTabLeft"]]
-                [:l [:hs "moveTabRight"]]
+                [:h [:hs "tab-moveLeft"]]
+                [:l [:hs "tab-moveRight"]]
 
-                [:n [:hs "command-newTab"]]
+                [:n [:hs "tab-new"]]
             ]
         }
         {
             :des "Extended Command Mode (Key: ')"
             :rules [:extended-command-mode
                 ; q
-                [:w [:hs "misc-surround"]]
+                [:w [:hs "command-surroundText"]]
                 ; e
                 [:r :!SCz] ; Redo
                 ; t

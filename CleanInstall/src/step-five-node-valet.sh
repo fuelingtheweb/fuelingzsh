@@ -18,3 +18,13 @@ composer global require laravel/envoy
 composer global require tightenco/tlint
 valet install
 valet trust
+
+# https://dev.to/albarin/how-to-easily-add-co-authors-to-you-commits-2ch6#option2
+# https://github.com/findmypast-oss/git-mob
+ # npm i -g git-mob
+ # st .git-coauthors
+ # git config --global init.templatedir '~/.git-templates'
+ # chmod +x ~/.git-templates/hooks/prepare-commit-msg
+ # cd ~/Development/Tighten/TBH/www
+ # git init
+ # git mob --installTemplate && touch .git/.gitmessage

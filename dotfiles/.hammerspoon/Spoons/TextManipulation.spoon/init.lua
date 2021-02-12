@@ -1,5 +1,5 @@
-local obj = {}
-obj.__index = obj
+local TextManipulation = {}
+TextManipulation.__index = TextManipulation
 
 hs.urlevent.bind('dialogCase', function(eventName, params)
     triggerAlfredWorkflow('case-dialog', 'com.fuelingtheweb.commands', params.to)
@@ -363,4 +363,4 @@ hs.urlevent.bind('select-until-beginningOfLine', function()
     end
 end)
 
-return obj
+return TextManipulation

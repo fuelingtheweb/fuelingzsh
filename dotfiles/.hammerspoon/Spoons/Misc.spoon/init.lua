@@ -1,7 +1,7 @@
 local obj = {}
 obj.__index = obj
 
-hs.urlevent.bind('misc-closeAllWindows', function()
+hs.urlevent.bind('command-closeAllWindows', function()
     hs.eventtap.keyStroke({'shift', 'cmd'}, 'W')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
@@ -13,7 +13,7 @@ hs.urlevent.bind('misc-closeAllWindows', function()
     end
 end)
 
-hs.urlevent.bind('misc-focusPrevious', function()
+hs.urlevent.bind('general-focusPrevious', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt',}, 'up')
     elseif appIs(sublime) then
@@ -27,7 +27,7 @@ hs.urlevent.bind('misc-focusPrevious', function()
     end
 end)
 
-hs.urlevent.bind('misc-focusNext', function()
+hs.urlevent.bind('general-focusNext', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt',}, 'down')
     elseif appIs(sublime) then
@@ -41,7 +41,7 @@ hs.urlevent.bind('misc-focusNext', function()
     end
 end)
 
-hs.urlevent.bind('misc-toggleSidebar', function()
+hs.urlevent.bind('window-toggleSidebar', function()
     if appIs(finder) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 's')
     elseif appIs(sublimeMerge) then
@@ -52,38 +52,12 @@ hs.urlevent.bind('misc-toggleSidebar', function()
     end
 end)
 
-hs.urlevent.bind('misc-surround', function()
+hs.urlevent.bind('command-surroundText', function()
     hs.eventtap.keyStroke({'cmd'}, 'C')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')
 end)
 
-hs.urlevent.bind('moveTabLeft', function()
-    if appIs(chrome) then
-        -- Vimium
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('th')
-    elseif appIs(atom) then
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'h')
-    elseif appIs(sublime) then
-        -- https://packagecontrol.io/packages/MoveTab
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'left')
-    end
-end)
-
-hs.urlevent.bind('moveTabRight', function()
-    if appIs(chrome) then
-        -- Vimium
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('tl')
-    elseif appIs(atom) then
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'l')
-    elseif appIs(sublime) then
-        -- https://packagecontrol.io/packages/MoveTab
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'right')
-    end
-end)
-
-hs.urlevent.bind('searchTabs', function()
+hs.urlevent.bind('search-tabs', function()
     if appIs(atom) then
         hs.eventtap.keyStroke({'cmd'}, 'b')
     elseif appIs(sublime) then
@@ -117,7 +91,7 @@ hs.urlevent.bind('google-toggleIncognito', function()
     ]])
 end)
 
-hs.urlevent.bind('misc-saveAndReload', function()
+hs.urlevent.bind('command-saveAndReload', function()
     hs.eventtap.keyStroke({'cmd'}, 'S')
     hs.application.get(apps['chrome']):activate()
     hs.eventtap.keyStroke({'cmd'}, 'R')
@@ -129,7 +103,7 @@ hs.urlevent.bind('misc-moveMouseToOtherScreen', function()
     )
 end)
 
-hs.urlevent.bind('misc-appSettings', function()
+hs.urlevent.bind('window-appSettings', function()
     if hs.application.find('com.runningwithcrayons.Alfred'):isHidden() then
         hs.eventtap.keyStroke({'cmd'}, ',')
     else
@@ -138,17 +112,6 @@ hs.urlevent.bind('misc-appSettings', function()
             app:hide()
             app:activate()
         end)
-    end
-end)
-
-hs.urlevent.bind('tab-moveToNewWindow', function()
-    if appIs(sublime) then
-        hs.eventtap.keyStroke({'cmd'}, 'A')
-        hs.eventtap.keyStroke({'cmd'}, 'C')
-        hs.eventtap.keyStroke({'cmd'}, 'W')
-        hs.eventtap.keyStroke({}, 'space')
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
-        hs.eventtap.keyStroke({}, 'P')
     end
 end)
 
