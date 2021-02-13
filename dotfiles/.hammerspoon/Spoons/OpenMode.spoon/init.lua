@@ -65,4 +65,9 @@ hs.urlevent.bind('open-inTinkerwell', function()
     end
 end)
 
+hs.urlevent.bind('open-karabiner', function()
+    openInSublime('~/.fuelingzsh/karabiner/goku')
+    openInSublime('~/.fuelingzsh/karabiner/goku/main.edn')
+end)
+
 return obj

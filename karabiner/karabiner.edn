@@ -43,7 +43,7 @@
     :simlayers {
         :tab-mode {:key :tab}
         ; q
-        ; w
+        :pane-mode {:key :w}
         ; e
         ; r
         :test-mode {:key :t}
@@ -155,7 +155,7 @@
                 [:r [:hs "launch-app?id=atom"]]
                 [:t [:hs "launch-app?id=iterm"]]
 
-                ; caps
+                [:caps_lock [:launch "Dash.app"]]
                 [:a :!OCc] ; Fantastical
                 [:s [:hs "launch-app?id=spotify"]]
                 [:d [:launch "Discord.app"]]
@@ -216,7 +216,7 @@
                 [:x [:hs "command-cancelOrDelete"]] ; Control C
                 ; c
                 [:v [:escape :y :y :p]] ; Duplicate line
-                [:b :!Cd] ; Save Bookmark (Chrome)
+                ; b
             ]
         }
         {
@@ -277,14 +277,14 @@
                 [:close_bracket :!S0] ; )
 
                 [:h :!Sgrave_accent_and_tilde] ; ~
-                [:j [:hs "general-focusPrevious"]]
-                [:k [:hs "general-focusNext"]]
-                [:l :!!l] ; Lastpass
+                ; j
+                ; k
+                ; l
                 ; ;
                 [:quote :equal_sign] ; =
                 ; return
 
-                ; n
+                [:n [:!Ograve_accent_and_tilde :spacebar]] ; `
                 [:m :!S8] ; Multiply: *
                 ; ,
                 [:period [:hyphen :!Speriod]] ; ->
@@ -317,46 +317,58 @@
         {
             :des "Google Mode (Key: G)"
             :rules [:google-mode
-                [:h [:alfred "history" "com.thomasupton.chrome-history"]]
-                [:return_or_enter :!Ow] ; Chrome: Dismiss downloads bar
-                [:m [:alfredsearch "gm: "]] ; Google bookmarks
+                [:y [:hs "custom-open?key=Y"]]
+                ; u
                 [:i [:chrome "https://inbox.google.com"]]
-                [:p :!SCm] ; Chrome: Show profiles list
-                [:quote [:hs "google-openAndReload"]]
                 [:o [:hs "google-toggleIncognito"]]
+                [:p :!SCm] ; Chrome: Show profiles list
                 [:open_bracket :!TOCg] ; Chrome: Group Tab
-                [:period :!SCd] ; Chrome: Toggle dev tools docking
+                ; ]
+
+                [:h [:alfred "history" "com.thomasupton.chrome-history"]]
+                ; j
+                ; k
+                [:l :!!l] ; Lastpass
+                ; ;
+                [:quote [:hs "google-openAndReload"]]
+                [:return_or_enter :!Ow] ; Chrome: Dismiss downloads bar
+
+                [:n :!Cd] ; Chrome: Save Bookmark
+                [:m [:alfred "bookmarks" "com.chrome.bookmarks"]] ; Google bookmarks
+                ; ,
+                [:comma :!OCi] ; Chrome: Toggle Dev Tools
+                [:period :!SCd] ; Chrome: Toggle Dev Tools docking
+                ; /
             ]
         }
         {
             :des "Code Mode (Key: C)"
             :rules [:code-mode
-                [:d :!OCi] ; Chrome: Toggle Dev Tools
+                [:y [:hs "code?key=y"]]
+                [:u [:hs "code?key=u"]]
+                [:i [:hs "code?key=i"]]
+                [:o [:hs "code?key=o"]]
+                [:p [:hs "code?key=p"]]
+                [:open_bracket [:hs "code?key=open_bracket"]]
+                [:close_bracket [:hs "code?key=close_bracket"]]
 
-                [:y [:spacebar :!S7 :!S7 :spacebar]] ; &&
-                [:u [:hs "code-u"]]
-                [:i :!STOup_arrow] ; Multiple cursors up
-                [:o [:hs "code-o"]]
-                [:p [:hs "code-p"]]
-                [:open_bracket :!OCopen_bracket] ; Atom: Fold row
-                [:close_bracket :!OCclose_bracket] ; Atom: Unfold row
+                [:h [:hs "code?key=h"]]
+                [:j [:hs "code?key=j"]]
+                [:k [:hs "code?key=k"]]
+                [:l [:hs "code?key=l"]]
+                [:semicolon [:hs "code?key=semicolon"]]
+                [:quote [:hs "code?key=quote"]]
+                [:return_or_enter [:hs "code?key=return_or_enter"]]
 
-                [:h [:hs "code-h"]]
-                [:j [:hs "code-moveDown"]] ; Move line down / autocomplete on iTerm
-                [:k [:hs "code-moveUp"]] ; Move line up
-                [:l [:hs "code-l"]]
-                [:semicolon :!Osemicolon] ; Atom: Toggle semicolon at end of line
-                [:quote [:spacebar :equal_sign :spacebar]] ; =
-                [:return_or_enter [:hs "code-return"]]
+                [:b [:hs "code?key=b"]]
 
-                [:b [:hs "code-toggleBoolean"]]
-                [:n :!Ograve_accent_and_tilde] ; `
-                [:m [:hs "code-m"]]
-                [:comma :!Ocomma] ; Atom: Toggle comma at end of line
-                [:period [:spacebar :equal_sign :!Speriod :spacebar]] ; =>
-                [:slash :!Tm] ; Atom: Go to matching bracket
+                [:n [:hs "code?key=n"]]
+                [:m [:hs "code?key=m"]]
+                [:comma [:hs "code?key=comma"]]
+                [:period [:hs "code?key=period"]]
+                [:slash [:hs "code?key=slash"]]
 
-                [:spacebar :!Cslash] ; Comment
+                [:spacebar [:hs "code?key=spacebar"]]
             ]
         }
         {
@@ -408,7 +420,7 @@
         {
             :des "Open Mode (Key: O)"
             :rules [:open-mode
-                [:k [:sublime "~/.fuelingzsh/karabiner/goku/main.edn"]]
+                [:k [:hs "open-karabiner"]]
                 [:h [:sublime "~/.hammerspoon"]]
                 [:a [:sublime "~/.fuelingzsh/aliases"]]
                 [:z [:sublime "~/.fuelingzsh"]]
@@ -470,6 +482,15 @@
                 [:l [:hs "tab-moveRight"]]
 
                 [:n [:hs "tab-new"]]
+            ]
+        }
+        {
+            :des "Pane Mode (Key: w)"
+            :rules [:pane-mode
+                [:open_bracket [:hs "pane-destroy"]]
+                [:j [:hs "pane-focusPrevious"]]
+                [:k [:hs "pane-focusNext"]]
+                [:l :!Cd] ; iTerm: Split Right
             ]
         }
         {
@@ -793,7 +814,6 @@
                 [:##i :!SCleft_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
-                [:d :!OCi] ; Chrome: Toggle Dev Tools
             ]
         }
     ]

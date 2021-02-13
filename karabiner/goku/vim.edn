@@ -79,6 +79,5 @@
                 [:##i :!SCleft_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
-                [:d :!OCi] ; Chrome: Toggle Dev Tools
             ]
         }

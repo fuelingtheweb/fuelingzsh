@@ -13,7 +13,15 @@ hs.urlevent.bind('command-closeAllWindows', function()
     end
 end)
 
-hs.urlevent.bind('general-focusPrevious', function()
+hs.urlevent.bind('pane-destroy', function()
+    if appIs(sublime) then
+        hs.eventtap.keyStrokes(':ods')
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'cmd',}, 'w')
+    end
+end)
+
+hs.urlevent.bind('pane-focusPrevious', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt',}, 'up')
     elseif appIs(sublime) then
@@ -27,7 +35,7 @@ hs.urlevent.bind('general-focusPrevious', function()
     end
 end)
 
-hs.urlevent.bind('general-focusNext', function()
+hs.urlevent.bind('pane-focusNext', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt',}, 'down')
     elseif appIs(sublime) then
@@ -104,14 +112,10 @@ hs.urlevent.bind('misc-moveMouseToOtherScreen', function()
 end)
 
 hs.urlevent.bind('window-appSettings', function()
-    if hs.application.find('com.runningwithcrayons.Alfred'):isHidden() then
-        hs.eventtap.keyStroke({'cmd'}, ',')
+    if isAlfredVisible() then
+        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     else
-        app = hs.application.open('com.runningwithcrayons.Alfred-Preferences')
-        hs.timer.doAfter(1, function()
-            app:hide()
-            app:activate()
-        end)
+        hs.eventtap.keyStroke({'cmd'}, ',')
     end
 end)
 

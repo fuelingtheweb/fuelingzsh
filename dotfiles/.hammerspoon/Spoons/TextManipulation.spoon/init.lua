@@ -24,7 +24,7 @@ TextManipulation.modal.exited = function()
 end
 
 function TextManipulation.canManipulateWithVim()
-    return TextManipulation.vimEnabled and appIncludes({atom, sublime})
+    return TextManipulation.vimEnabled and not isAlfredVisible() and appIncludes({atom, sublime})
 end
 
 hs.urlevent.bind('text-disableVim', function(eventName, params)

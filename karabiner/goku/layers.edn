@@ -4,7 +4,7 @@
     :simlayers {
         :tab-mode {:key :tab}
         ; q
-        ; w
+        :pane-mode {:key :w}
         ; e
         ; r
         :test-mode {:key :t}

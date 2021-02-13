@@ -27,6 +27,10 @@ function appIs(bundle)
     return hs.application.frontmostApplication():bundleID() == bundle
 end
 
+function isAlfredVisible()
+    return hs.application.find('com.runningwithcrayons.Alfred'):isFrontmost()
+end
+
 function getSelectedText(copying)
     original = hs.pasteboard.getContents()
     hs.pasteboard.clearContents()
@@ -162,6 +166,10 @@ function triggerAlfredWorkflow(trigger, workflow, argument)
     end
 
     hs.osascript.applescript(script)
+end
+
+function openInSublime(path)
+    hs.execute('/usr/local/bin/subl "' .. path .. '"')
 end
 
 function openInAtom(path)

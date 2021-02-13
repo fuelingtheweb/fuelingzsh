@@ -95,6 +95,8 @@ casks=(
     transmit
     tinkerwell
     spotify
+    dash
+    beardedspice
 )
 
 for cask in "${casks[@]}"; do
