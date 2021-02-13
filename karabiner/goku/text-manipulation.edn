@@ -1,39 +1,39 @@
         {
             :des "Dialog Case Mode (Key: Z)"
             :rules [:dialog-case-mode
-                [:y [:hs "dialogCase?to=upperFirst"]]
-                [:u [:hs "dialogCase?to=upper"]]
-                [:i [:hs "dialogCase?to=constant"]]
-                [:o [:hs "dialogCase?to=kebab"]]
-                [:p [:hs "dialogCase?to=pascal"]]
+                [:y [:hs "case-dialog?to=upperFirst"]]
+                [:u [:hs "case-dialog?to=upper"]]
+                [:i [:hs "case-dialog?to=constant"]]
+                [:o [:hs "case-dialog?to=kebab"]]
+                [:p [:hs "case-dialog?to=pascal"]]
 
-                [:h [:hs "dialogCase?to=title"]]
-                [:j [:hs "dialogCase?to=sentence"]]
-                [:k [:hs "dialogCase?to=snake"]]
-                [:l [:hs "dialogCase?to=lower"]]
+                [:h [:hs "case-dialog?to=title"]]
+                [:j [:hs "case-dialog?to=sentence"]]
+                [:k [:hs "case-dialog?to=snake"]]
+                [:l [:hs "case-dialog?to=lower"]]
 
-                [:m [:hs "dialogCase?to=camel"]]
-                [:period [:hs "dialogCase?to=dot"]]
-                [:slash [:hs "dialogCase?to=path"]]
+                [:m [:hs "case-dialog?to=camel"]]
+                [:period [:hs "case-dialog?to=dot"]]
+                [:slash [:hs "case-dialog?to=path"]]
             ]
         }
         {
             :des "Case Mode (Key: A)"
             :rules [:case-mode
-                [:y [:hs "changeCase?to=upperFirst&key=y"]]
-                [:u [:hs "changeCase?to=upper&key=u"]]
-                [:i [:hs "changeCase?to=constant&key=i"]]
-                [:o [:hs "changeCase?to=kebab&key=o"]]
-                [:p [:hs "changeCase?to=pascal&key=p"]]
+                [:y [:hs "case-change?to=upperFirst&key=y"]]
+                [:u [:hs "case-change?to=upper&key=u"]]
+                [:i [:hs "case-change?to=constant&key=i"]]
+                [:o [:hs "case-change?to=kebab&key=o"]]
+                [:p [:hs "case-change?to=pascal&key=p"]]
 
-                [:h [:hs "changeCase?to=title&key=h"]]
-                [:j [:hs "changeCase?to=sentence&key=j"]]
-                [:k [:hs "changeCase?to=snake&key=k"]]
-                [:l [:hs "changeCase?to=lower&key=l"]]
+                [:h [:hs "case-change?to=title&key=h"]]
+                [:j [:hs "case-change?to=sentence&key=j"]]
+                [:k [:hs "case-change?to=snake&key=k"]]
+                [:l [:hs "case-change?to=lower&key=l"]]
 
-                [:m [:hs "changeCase?to=camel&key=m"]]
-                [:period [:hs "changeCase?to=dot&key=."]]
-                [:slash [:hs "changeCase?to=path&key=/"]]
+                [:m [:hs "case-change?to=camel&key=m"]]
+                [:period [:hs "case-change?to=dot&key=."]]
+                [:slash [:hs "case-change?to=path&key=/"]]
             ]
         }
         {

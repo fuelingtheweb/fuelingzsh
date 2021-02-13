@@ -9,7 +9,7 @@ hs.loadSpoon('CodeMode')
 hs.loadSpoon('SnippetMode')
 hs.loadSpoon('MediaMode')
 hs.loadSpoon('WindowManager')
-hs.loadSpoon('TextManipulation')
+TextManipulation = hs.loadSpoon('TextManipulation')
 hs.loadSpoon('TabMode')
 hs.loadSpoon('Misc')
 
