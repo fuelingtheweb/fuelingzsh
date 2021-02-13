@@ -99,6 +99,8 @@
                 [:i [:hs "change-toBeginningOfLine"]]
                 [:v [:hs "change-line"]]
                 [:x [:hs "change-character"]]
+
+                [:caps_lock [:hs "text-disableVim"]]
             ]
         }
         {
@@ -144,14 +146,14 @@
                 [:e [:hs "select-until-endOfWord"]]
 
                 [:w [:hs "select-until-next-word"]]
-                [:s [:escape :v :t :quote]]; s -> single quotes
-                [:d [:escape :v :t :!Squote]]; d -> double quotes
-                [:z [:escape :v :t :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:s [:v :t :quote]]; s -> single quotes
+                [:d [:v :t :!Squote]]; d -> double quotes
+                [:z [:v :t :!Ograve_accent_and_tilde]]; z -> back ticks
 
                 ; opening / closing parenthesis
                 [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:f
-                    [:escape :v :t ["bracket-pending" 1]]
+                    [:v :t ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
@@ -159,7 +161,7 @@
                 ; opening / closing braces
                 [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:c
-                    [:escape :v :t ["bracket-pending" 1]]
+                    [:v :t ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
@@ -167,27 +169,27 @@
                 ; opening / closing brackets
                 [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:b
-                    [:escape :v :t ["bracket-pending" 1]]
+                    [:v :t ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
 
                 [:a [:hs "select-until-endOfLine"]]
                 [:i [:hs "select-until-beginningOfLine"]]
-                [:t [:!!v :!Sopen_bracket]] ; Previous block
+                [:t [:hs "select-until-previousBlock"]]
             ]
         }
         {
             :des "Jump to Mode (Key: return)"
             :rules [:jump-to-mode
-                [:s [:escape :f :quote]]; s -> single quotes
-                [:d [:escape :f :!Squote]]; d -> double quotes
-                [:z [:escape :f :!Ograve_accent_and_tilde]]; z -> back ticks
+                [:s [:f :quote]]; s -> single quotes
+                [:d [:f :!Squote]]; d -> double quotes
+                [:z [:f :!Ograve_accent_and_tilde]]; z -> back ticks
 
                 ; opening / closing parenthesis
                 [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:f
-                    [:escape :f ["bracket-pending" 1]]
+                    [:f ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
@@ -195,7 +197,7 @@
                 ; opening / closing braces
                 [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:c
-                    [:escape :f ["bracket-pending" 1]]
+                    [:f ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
@@ -203,11 +205,11 @@
                 ; opening / closing brackets
                 [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
                 [:b
-                    [:escape :f ["bracket-pending" 1]]
+                    [:f ["bracket-pending" 1]]
                     ["bracket-pending" 0]
                     {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
                 ]
 
-                [:t [:escape :!Sopen_bracket]] ; Previous block
+                [:t [:!Sopen_bracket]] ; Previous block
             ]
         }

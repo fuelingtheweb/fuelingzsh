@@ -21,7 +21,7 @@
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon :mission_control] ; Mac: Show windows
+                ; ;
                 ; '
                 [:return_or_enter :caps_lock]
 
@@ -57,7 +57,7 @@
 
                 ; caps
                 [:a :!OCc] ; Fantastical
-                [:s [:launch "Spotify.app"]]
+                [:s [:hs "launch-app?id=spotify"]]
                 [:d [:launch "Discord.app"]]
                 [:f [:launch "Notion.app"]]
                 [:g [:hs "launch-app?id=chrome"]]
@@ -135,9 +135,9 @@
                 [:o [:hs "window-move?to=topRight"]]
                 [:p [:hs "window-appSettings"]]
                 ; [
-                ; ]
+                [:close_bracket [:hs "window-moveTotopRightSmall"]]
 
-                ; caps
+                [:caps_lock :mission_control] ; Mac: Show all windows
                 ; a
                 ; s
                 [:d [:hs "window-moveToNextDisplay"]]
@@ -204,7 +204,7 @@
             :rules [:media-mode
                 [:z [:alfredsearch "Sound"]]
                 [:r [:hs "media-updateAudioDevice"]]
-                [:s :!SCm] ; Mute in Discord and Teams
+                [:s :!!z] ; Alfred: Spotify
                 [:d :!SCd] ; Deafen in Discord
                 [:a :!Tleft_arrow] ; Funimation: Start of video / previous video
                 [:g :!Tright_arrow] ; Funimation: Next video

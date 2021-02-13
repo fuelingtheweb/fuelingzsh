@@ -8,6 +8,8 @@ hs.urlevent.bind('launch-app', function(eventName, params)
 
     if params.id == 'iterm' then
         launchIterm()
+    elseif params.id == 'spotify' then
+        launchSpotify()
     elseif not isActive and not hasWindows(hs.application.get(bundle)) then
         if params.id ~= 'atom' then
             hs.application.open(bundle)
@@ -40,6 +42,16 @@ function triggerItermShortcut(callback)
 
     if callback then
         callback()
+    end
+end
+
+function launchSpotify()
+    app = hs.application.get(spotify)
+
+    if app and app:isRunning() then
+        app:activate()
+    else
+        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/2dMv6aYJXDoDA10nBPOvFN?si=EpPYjSQuSvKX92e4gJBf1Q')
     end
 end
 
