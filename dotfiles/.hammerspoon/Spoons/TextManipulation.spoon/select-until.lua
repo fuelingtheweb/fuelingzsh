@@ -19,6 +19,22 @@ hs.urlevent.bind('select-until-nextWord', function()
     end
 end)
 
+hs.urlevent.bind('select-until-single-quote', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'v', 0)
+        hs.eventtap.keyStroke({}, 't', 0)
+
+        if vim.mode ~= 'insert' then
+            hs.timer.doAfter(0.1, function()
+                hs.eventtap.keyStroke({}, "'", 0)
+            end)
+        else
+            hs.eventtap.keyStroke({}, "'", 0)
+        end
+    end
+end)
+
 hs.urlevent.bind('select-until-endOfLine', function()
     if TextManipulation.canManipulateWithVim() then
         hs.eventtap.keyStroke({}, 'escape', 0)

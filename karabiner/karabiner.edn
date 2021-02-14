@@ -620,7 +620,8 @@
                 [:v [:hs "change-line"]]
                 [:x [:hs "change-character"]]
 
-                [:caps_lock [:hs "text-disableVim"]]
+                [:caps_lock :!SCv] ; Global Vim Mode
+                ; [:caps_lock [:hs "text-disableVim"]]
             ]
         }
         {
@@ -666,7 +667,7 @@
                 [:e [:hs "select-until-endOfWord"]]
 
                 [:w [:hs "select-until-next-word"]]
-                [:s [:v :t :quote]]; s -> single quotes
+                [:s [:hs "select-until-single-quote"]]
                 [:d [:v :t :!Squote]]; d -> double quotes
                 [:z [:v :t :!Ograve_accent_and_tilde]]; z -> back ticks
 

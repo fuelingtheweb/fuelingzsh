@@ -55,10 +55,8 @@ end)
 
 hs.urlevent.bind('change-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-    else
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt'}, 'a', 0)
     end
+
+    hs.eventtap.keyStroke({}, 'delete', 0)
 end)

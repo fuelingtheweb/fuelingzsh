@@ -13,6 +13,11 @@ TextManipulation = hs.loadSpoon('TextManipulation')
 hs.loadSpoon('TabMode')
 hs.loadSpoon('Misc')
 
+VimMode = hs.loadSpoon('VimMode')
+vim = VimMode:new()
+
+vim:bindHotKeys({enter = {{'cmd', 'shift'}, 'v'}})
+
 hs.loadSpoon('Custom')
 
 hs.loadSpoon('MouseCircle')

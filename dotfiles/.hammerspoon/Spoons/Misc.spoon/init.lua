@@ -71,7 +71,7 @@ hs.urlevent.bind('search-tabs', function()
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({'alt', 'shift'}, 'p')
     elseif appIs(chrome) then
-        hs.eventtap.keyStrokes('T')
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'm')
     end
 end)
 
