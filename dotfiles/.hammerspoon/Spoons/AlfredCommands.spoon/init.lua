@@ -2,7 +2,7 @@ local AlfredCommands = {}
 AlfredCommands.__index = AlfredCommands
 AlfredCommands.all = {}
 
-function AlfredCommands:add(key, name, handler)
+function AlfredCommands:add(key, name, icon, handler)
     if self.all[key] then
         log.d('Command conflict for: ', k)
         hs.notify.new({title = 'Command conflict for: ' .. k}):send()
@@ -12,6 +12,7 @@ function AlfredCommands:add(key, name, handler)
 
     self.all[key] = {
         name = name,
+        icon = icon,
         handler = handler,
     }
 
@@ -21,11 +22,21 @@ end
 function AlfredCommands:setAlfredJson()
     local items = {}
     each(AlfredCommands.all, function(command, key)
+        iconPath = '~/Dropbox/Ftw/Alfred/Alfred.alfredpreferences/workflows/user.workflow.7CF5F8CA-70CF-4DDF-8543-642E861FCF88/'
+        icon = 'icon.png'
+
+        if command.icon then
+            icon = command.icon
+        end
+
         table.insert(items, {
             uid = key,
             title = command.name,
             arg = key,
             autocomplete = command.name,
+            icon = {
+                path = iconPath .. icon,
+            },
         })
     end)
 

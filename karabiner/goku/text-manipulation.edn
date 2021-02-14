@@ -78,7 +78,7 @@
                 [:v [:hs "paste-line"]]
                 [:x [:hs "paste-character"]]
 
-                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.old"]]
+                [:caps_lock [:alfred "paste:strip" "com.fuelingtheweb.commands"]]
             ]
         }
         {

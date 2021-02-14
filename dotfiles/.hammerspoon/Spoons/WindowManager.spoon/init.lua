@@ -71,7 +71,7 @@ hs.urlevent.bind('window-nextInCurrentApp', function()
 end)
 
 function WindowManager.loadWindowsInAlfred(windows, minimum)
-    if countTable(windows) < minimum then
+    if not windows or countTable(windows) < minimum then
         return
     end
 

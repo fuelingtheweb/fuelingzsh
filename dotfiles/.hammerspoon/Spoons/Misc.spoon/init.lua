@@ -62,7 +62,7 @@ end)
 
 hs.urlevent.bind('command-surroundText', function()
     hs.eventtap.keyStroke({'cmd'}, 'C')
-    triggerAlfredWorkflow('surround', 'com.fuelingtheweb.surround')
+    triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
 end)
 
 hs.urlevent.bind('search-tabs', function()
