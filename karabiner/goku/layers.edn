@@ -4,9 +4,9 @@
     :simlayers {
         :tab-mode {:key :tab}
         ; q
-        :pane-mode {:key :w}
+        ; w
         ; e
-        ; r
+        :pane-mode {:key :r}
         :test-mode {:key :t}
 
         :yank-mode {:key :y}

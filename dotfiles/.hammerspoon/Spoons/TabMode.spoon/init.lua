@@ -11,6 +11,8 @@ hs.urlevent.bind('tab-moveLeft', function()
     elseif appIs(sublime) then
         -- https://packagecontrol.io/packages/MoveTab
         hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'left')
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left')
     end
 end)
 
@@ -24,6 +26,8 @@ hs.urlevent.bind('tab-moveRight', function()
     elseif appIs(sublime) then
         -- https://packagecontrol.io/packages/MoveTab
         hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'right')
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right')
     end
 end)
 
@@ -35,6 +39,8 @@ hs.urlevent.bind('tab-moveToNewWindow', function()
         hs.eventtap.keyStroke({}, 'space')
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
         hs.eventtap.keyStroke({}, 'P')
+    elseif appIs(chrome) then
+        hs.eventtap.keyStroke({'shift'}, 'W')
     end
 end)
 
@@ -48,6 +54,51 @@ hs.urlevent.bind('tab-new', function()
         hs.eventtap.keyStroke({'cmd'}, 'n')
     else
         hs.eventtap.keyStroke({'cmd'}, 't')
+    end
+end)
+
+hs.urlevent.bind('tab-closeAllToLeft', function()
+    if appIs(chrome) then
+        hs.eventtap.keyStrokes('txh')
+    elseif appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({}, 'x', 0)
+        hs.eventtap.keyStroke({}, 'h', 0)
+
+        if appIs(sublime) then
+            hs.eventtap.keyStrokes('Close Tabs to Left')
+            hs.eventtap.keyStroke({}, 'return', 0)
+        end
+    end
+end)
+
+hs.urlevent.bind('tab-closeAllToRight', function()
+    if appIs(chrome) then
+        hs.eventtap.keyStrokes('txl')
+    elseif appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({}, 'x', 0)
+        hs.eventtap.keyStroke({}, 'l', 0)
+
+        if appIs(sublime) then
+            hs.eventtap.keyStrokes('Close Tabs to Right')
+            hs.eventtap.keyStroke({}, 'return', 0)
+        end
+    end
+end)
+
+hs.urlevent.bind('tab-closeAllOthers', function()
+    if appIs(chrome) then
+        hs.eventtap.keyStrokes('tx;')
+    elseif appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({}, 'x', 0)
+        hs.eventtap.keyStroke({}, ';', 0)
+
+        if appIs(sublime) then
+            hs.eventtap.keyStrokes('Close Other Tabs')
+            hs.eventtap.keyStroke({}, 'return', 0)
+        end
     end
 end)
 

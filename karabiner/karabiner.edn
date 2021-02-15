@@ -43,9 +43,9 @@
     :simlayers {
         :tab-mode {:key :tab}
         ; q
-        :pane-mode {:key :w}
+        ; w
         ; e
-        ; r
+        :pane-mode {:key :r}
         :test-mode {:key :t}
 
         :yank-mode {:key :y}
@@ -482,15 +482,21 @@
                 [:l [:hs "tab-moveRight"]]
 
                 [:n [:hs "tab-new"]]
+                [:comma [:hs "tab-closeAllToLeft"]]
+                [:period [:hs "tab-closeAllToRight"]]
+                [:slash [:hs "tab-closeAllOthers"]]
             ]
         }
         {
-            :des "Pane Mode (Key: w)"
+            :des "Pane Mode (Key: r)"
             :rules [:pane-mode
                 [:open_bracket [:hs "pane-destroy"]]
                 [:j [:hs "pane-focusPrevious"]]
                 [:k [:hs "pane-focusNext"]]
-                [:l :!Cd] ; iTerm: Split Right
+                [:l [:hs "pane-splitRight"]]
+
+                [:m [:hs "pane-splitBottom"]]
+                [:semicolon [:hs "pane-toggleZoom"]]
             ]
         }
         {

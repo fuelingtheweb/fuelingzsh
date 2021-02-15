@@ -25,13 +25,13 @@ hs.urlevent.bind('select-until-single-quote', function()
         hs.eventtap.keyStroke({}, 'v', 0)
         hs.eventtap.keyStroke({}, 't', 0)
 
-        if vim.mode ~= 'insert' then
-            hs.timer.doAfter(0.1, function()
-                hs.eventtap.keyStroke({}, "'", 0)
-            end)
-        else
+        -- if vim.mode ~= 'insert' then
+        --     hs.timer.doAfter(0.1, function()
+        --         hs.eventtap.keyStroke({}, "'", 0)
+        --     end)
+        -- else
             hs.eventtap.keyStroke({}, "'", 0)
-        end
+        -- end
     end
 end)
 

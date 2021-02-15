@@ -14,20 +14,53 @@ hs.urlevent.bind('command-closeAllWindows', function()
 end)
 
 hs.urlevent.bind('pane-destroy', function()
-    if appIs(sublime) then
-        hs.eventtap.keyStrokes(':ods')
+    if appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'd', 0)
+        hs.eventtap.keyStroke({}, 's', 0)
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'cmd',}, 'w')
+        hs.eventtap.keyStroke({'cmd'}, 'w', 0)
+    end
+end)
+
+hs.urlevent.bind('pane-splitRight', function()
+    if appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'c', 0)
+        hs.eventtap.keyStroke({}, 'l', 0)
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'cmd'}, 'd', 0)
+    end
+end)
+
+hs.urlevent.bind('pane-splitBottom', function()
+    if appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'c', 0)
+        hs.eventtap.keyStroke({}, 'j', 0)
+    end
+end)
+
+hs.urlevent.bind('pane-toggleZoom', function()
+    if appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'z', 0)
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'return', 0)
     end
 end)
 
 hs.urlevent.bind('pane-focusPrevious', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt',}, 'up')
-    elseif appIs(sublime) then
-        hs.eventtap.keyStrokes(':oh')
-    elseif appIs(atom) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'h')
+        hs.eventtap.keyStroke({'alt'}, 'up')
+    elseif appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'h', 0)
     elseif appIs(transmit) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'left')
     else
@@ -37,11 +70,11 @@ end)
 
 hs.urlevent.bind('pane-focusNext', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt',}, 'down')
-    elseif appIs(sublime) then
-        hs.eventtap.keyStrokes(':ol')
-    elseif appIs(atom) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'l')
+        hs.eventtap.keyStroke({'alt'}, 'down')
+    elseif appIncludes({atom, sublime}) then
+        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({}, 'o', 0)
+        hs.eventtap.keyStroke({}, 'l', 0)
     elseif appIs(transmit) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'right')
     else
