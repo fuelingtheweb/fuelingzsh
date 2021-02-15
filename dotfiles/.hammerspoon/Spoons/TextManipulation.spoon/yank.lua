@@ -86,3 +86,13 @@ hs.urlevent.bind('yank-all', function()
     hs.eventtap.keyStroke({'cmd'}, 'c')
     hs.eventtap.keyStroke({}, 'Right', 0)
 end)
+
+hs.urlevent.bind('yank-viewPath', function()
+    hs.eventtap.keyStroke({}, 'escape', 0)
+    hs.eventtap.keyStroke({}, 'y', 0)
+    hs.eventtap.keyStroke({}, 'i', 0)
+    hs.eventtap.keyStroke({}, "'")
+
+    result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
+    hs.pasteboard.setContents(result)
+end)

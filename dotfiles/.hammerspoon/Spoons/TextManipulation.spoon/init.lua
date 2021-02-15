@@ -32,7 +32,8 @@ function TextManipulation.canManipulateWithVim()
         return true
     end
 
-    return vim.mode ~= 'insert'
+    return false
+    -- return vim.mode ~= 'insert'
 end
 
 hs.urlevent.bind('text-disableVim', function(eventName, params)

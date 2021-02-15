@@ -57,6 +57,7 @@
                 [:x [:hs "yank-character"]]
 
                 [:caps_lock [:hs "yank-all"]]
+                [:q [:hs "yank-viewPath"]]
             ]
         }
         {
@@ -100,8 +101,8 @@
                 [:v [:hs "change-line"]]
                 [:x [:hs "change-character"]]
 
-                [:caps_lock :!SCv] ; Global Vim Mode
-                ; [:caps_lock [:hs "text-disableVim"]]
+                ; [:caps_lock :!SCv] ; Global Vim Mode
+                [:caps_lock [:hs "text-disableVim"]]
             ]
         }
         {
