@@ -61,7 +61,7 @@ hs.urlevent.bind('tab-closeAllToLeft', function()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('txh')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'tab', 0)
         hs.eventtap.keyStroke({}, 'x', 0)
         hs.eventtap.keyStroke({}, 'h', 0)
 
@@ -76,7 +76,7 @@ hs.urlevent.bind('tab-closeAllToRight', function()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('txl')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'tab', 0)
         hs.eventtap.keyStroke({}, 'x', 0)
         hs.eventtap.keyStroke({}, 'l', 0)
 
@@ -91,7 +91,7 @@ hs.urlevent.bind('tab-closeAllOthers', function()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('tx;')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({}, 't', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'tab', 0)
         hs.eventtap.keyStroke({}, 'x', 0)
         hs.eventtap.keyStroke({}, ';', 0)
 

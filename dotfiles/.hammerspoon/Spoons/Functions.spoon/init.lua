@@ -9,6 +9,10 @@ function isMacbookDisplay()
     return isDisplay(macbookScreen)
 end
 
+function inCodeEditor()
+    return appIncludes({atom, sublime})
+end
+
 function appIncludes(bundles)
     return has_value(bundles, hs.application.frontmostApplication():bundleID())
 end

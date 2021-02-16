@@ -29,6 +29,8 @@ Code.lookup = {
         if appIs(iterm) then
             -- Git: Checkout
             typeAndEnter('gco')
+        else
+            hs.eventtap.keyStrokes(' != ')
         end
     end,
 
@@ -59,6 +61,8 @@ Code.lookup = {
         if appIs(iterm) then
             -- Git: Status
             typeAndEnter('gs')
+        else
+            hs.eventtap.keyStrokes(' == ')
         end
     end,
 
@@ -122,6 +126,7 @@ Code.lookup = {
         if appIs(sublime) then
             hs.eventtap.keyStroke({'alt', 'cmd'}, 'x')
         elseif appIs(atom) then
+            -- Toggle Boolean
             hs.eventtap.keyStroke({}, '-')
         end
     end,

@@ -172,7 +172,7 @@
                 [:u :!Shyphen] ; _
                 [:i :hyphen] ; -
                 [:o :keypad_plus] ; +
-                [:p :!S5] ; %
+                [:p :!Sbackslash] ; |
                 [:open_bracket :!S9] ; (
                 [:close_bracket :!S0] ; )
 
@@ -186,7 +186,7 @@
 
                 [:n [:!Ograve_accent_and_tilde :spacebar]] ; `
                 [:m :!S8] ; Multiply: *
-                ; ,
+                [:comma :!S5] ; %
                 [:period [:hyphen :!Speriod]] ; ->
                 ; /
 
@@ -230,12 +230,12 @@
                 ; k
                 [:l :!!l] ; Lastpass
                 ; ;
+                [:semicolon :!SCm] ; Chrome: Tab Manager
                 [:quote [:hs "google-openAndReload"]]
                 [:return_or_enter :!Ow] ; Chrome: Dismiss downloads bar
 
                 [:n :!Cd] ; Chrome: Save Bookmark
                 [:m [:alfred "bookmarks" "com.chrome.bookmarks"]] ; Google bookmarks
-                ; ,
                 [:comma :!OCi] ; Chrome: Toggle Dev Tools
                 [:period :!SCd] ; Chrome: Toggle Dev Tools docking
                 ; /
@@ -346,7 +346,7 @@
             :rules [:snippet-mode
                 [:e [:hs "snippet?name=elseif"]]
                 ; r
-                [:t [:hs "snippet?name=this"]]
+                [:t [:hs "snippet-this"]]
                 [:d [:hs "snippet?name=dd"]]
                 ; f, g, v
                 ; y, u
@@ -359,7 +359,15 @@
                 [:l [:hs "snippet?name=log"]]
                 ; ;, ', return
                 [:n [:hs "snippet?name=af"]]
-                [:m [:hs "snippet-method"]]
+
+                ; Snippet: Method
+                [:m [[:hs "snippet-mode-method"] ["pending" 0]] ["pending" 1]]
+                [:m
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "snippet-method"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
                 ; ,, ., /
             ]
         }
@@ -376,6 +384,7 @@
             :rules [:tab-mode
                 [:i [:!C1]] ; Go to first tab
                 [:o [:!C9]] ; Go to last tab
+                [:p [:t :p]] ; Chrome: Pin Tab
                 [:close_bracket [:hs "tab-moveToNewWindow"]]
 
                 [:h [:hs "tab-moveLeft"]]

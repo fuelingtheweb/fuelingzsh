@@ -84,7 +84,14 @@ end)
 hs.urlevent.bind('yank-all', function()
     hs.eventtap.keyStroke({'cmd'}, 'A', 0)
     hs.eventtap.keyStroke({'cmd'}, 'c')
-    hs.eventtap.keyStroke({}, 'Right', 0)
+
+    if inCodeEditor() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'g', 0)
+        hs.eventtap.keyStroke({}, 'g', 0)
+    else
+        hs.eventtap.keyStroke({}, 'Right', 0)
+    end
 end)
 
 hs.urlevent.bind('yank-viewPath', function()

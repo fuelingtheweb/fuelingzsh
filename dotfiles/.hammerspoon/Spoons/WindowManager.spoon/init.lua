@@ -18,7 +18,7 @@ hs.urlevent.bind('window-showGrid', function(listener, params)
 end)
 
 hs.urlevent.bind('window-moveTotopRightSmall', function(listener, params)
-    hs.grid.set(hs.window.focusedWindow(), '10,0 2x1')
+    hs.grid.set(hs.window.focusedWindow(), '9,0 3x1')
 end)
 
 hs.urlevent.bind('window-moveToMiddle', function(listener, params)

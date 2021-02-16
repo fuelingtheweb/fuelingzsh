@@ -15,7 +15,7 @@ end)
 
 hs.urlevent.bind('pane-destroy', function()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'd', 0)
         hs.eventtap.keyStroke({}, 's', 0)
@@ -26,7 +26,7 @@ end)
 
 hs.urlevent.bind('pane-splitRight', function()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'l', 0)
@@ -37,7 +37,7 @@ end)
 
 hs.urlevent.bind('pane-splitBottom', function()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'j', 0)
@@ -46,7 +46,7 @@ end)
 
 hs.urlevent.bind('pane-toggleZoom', function()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'z', 0)
     elseif appIs(iterm) then
@@ -58,7 +58,7 @@ hs.urlevent.bind('pane-focusPrevious', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt'}, 'up')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'h', 0)
     elseif appIs(transmit) then
@@ -72,7 +72,7 @@ hs.urlevent.bind('pane-focusNext', function()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         hs.eventtap.keyStroke({'alt'}, 'down')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift'}, ';', 0)
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
         hs.eventtap.keyStroke({}, 'o', 0)
         hs.eventtap.keyStroke({}, 'l', 0)
     elseif appIs(transmit) then
@@ -104,7 +104,7 @@ hs.urlevent.bind('search-tabs', function()
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({'alt', 'shift'}, 'p')
     elseif appIs(chrome) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'm')
+        hs.eventtap.keyStroke({'shift'}, 't')
     end
 end)
 
@@ -130,12 +130,6 @@ hs.urlevent.bind('google-toggleIncognito', function()
             do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
         end if
     ]])
-end)
-
-hs.urlevent.bind('command-saveAndReload', function()
-    hs.eventtap.keyStroke({'cmd'}, 'S')
-    hs.application.get(apps['chrome']):activate()
-    hs.eventtap.keyStroke({'cmd'}, 'R')
 end)
 
 hs.urlevent.bind('misc-moveMouseToOtherScreen', function()

@@ -15,6 +15,9 @@ hs.urlevent.bind('change-word', function()
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'i', 0)
         hs.eventtap.keyStroke({}, 'w', 0)
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('ciw')
     else
         hs.eventtap.keyStroke({'alt'}, 'delete', 0)
     end
@@ -46,6 +49,9 @@ hs.urlevent.bind('change-line', function()
         hs.eventtap.keyStroke({}, 'escape', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
+    elseif appIs(iterm) then
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('cc')
     else
         hs.eventtap.keyStroke({'cmd'}, 'left', 0)
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)

@@ -43,6 +43,9 @@ hs.urlevent.bind('command-done', function()
     elseif appIs(transmit) then
         -- Disconnect from server
         hs.eventtap.keyStroke({'cmd'}, 'e')
+    elseif appIs(sublimeMerge) then
+        -- Stage file
+        hs.eventtap.keyStroke({'shift'}, 'return')
     else
         hs.eventtap.keyStroke({'cmd'}, 'return')
     end
@@ -60,6 +63,13 @@ hs.urlevent.bind('command-save', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 's')
     end
+end)
+
+hs.urlevent.bind('command-saveAndReload', function()
+    hs.eventtap.keyStroke({}, 'escape')
+    hs.eventtap.keyStroke({'cmd'}, 'S')
+    hs.application.get(apps['chrome']):activate()
+    hs.eventtap.keyStroke({'cmd'}, 'R')
 end)
 
 hs.urlevent.bind('command-dismissNotifications', function()
