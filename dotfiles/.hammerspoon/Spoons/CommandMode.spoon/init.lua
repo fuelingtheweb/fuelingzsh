@@ -35,11 +35,20 @@ hs.urlevent.bind('command-find', function()
     end
 end)
 
+hs.urlevent.bind('command-edit', function(name, params)
+    if params.done then
+        -- Edit with: Done
+        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
+    else
+        -- Edit with
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'e')
+    end
+end)
+
 hs.urlevent.bind('command-done', function()
     if appIs(sublime) then
+        -- Plain Tasks: Complete
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'd')
-        -- Edit with: Done
-        -- hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(transmit) then
         -- Disconnect from server
         hs.eventtap.keyStroke({'cmd'}, 'e')
@@ -112,6 +121,18 @@ hs.urlevent.bind('command-cancelOrDelete', function()
         hs.eventtap.keyStroke({'ctrl'}, 'C')
     else
         hs.eventtap.keyStroke({}, 'delete')
+    end
+end)
+
+hs.urlevent.bind('command-duplicate', function()
+    if appIs(finder) then
+        hs.eventtap.keyStroke({'cmd'}, 'd')
+    elseif appIs(chrome) then
+        -- Vimium
+        hs.eventtap.keyStroke({}, 'escape')
+        hs.eventtap.keyStrokes('yt')
+    elseif inCodeEditor() then
+        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'd')
     end
 end)
 

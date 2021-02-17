@@ -156,7 +156,15 @@
                 [:t [:hs "launch-app?id=iterm"]]
 
                 [:caps_lock [:launch "Dash.app"]]
-                [:a :!OCc] ; Fantastical
+
+                ; Fanstastical or Alfred Preferences
+                [:a [[:hs "launch-app?id=alfred-preferences"] ["pending" 0]] ["pending" 1]]
+                [:a
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [:!OCc ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
                 [:s [:hs "launch-app?id=spotify"]]
                 [:d [:launch "Discord.app"]]
                 [:f [:launch "Notion.app"]]
@@ -185,7 +193,13 @@
                     {:delayed {:invoked [[:hs "command-closeWindow"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
                 ]
 
-                ; e
+                ; Edit With
+                [:e [[:hs "command-edit?done=1"] ["pending" 0]] ["pending" 1]]
+                [:e
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "command-edit"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
 
                 ; Reload or Chrome hard refresh
                 [:r [:!SCr ["pending" 0]] ["pending" 1]]
@@ -420,25 +434,32 @@
         {
             :des "Open Mode (Key: O)"
             :rules [:open-mode
-                [:k [:hs "open-karabiner"]]
-                [:h [:sublime "~/.hammerspoon"]]
-                [:a [:sublime "~/.fuelingzsh/aliases"]]
-                [:z [:sublime "~/.fuelingzsh"]]
-                [:r [:hs "open-inAtom"]]
-                [:d "open ~/Downloads"]
-                [:g [:hs "open-inChrome"]]
-                [:v [:hs "open-inTablePlus"]]
-                [:c [:hs "open-inSublimeMerge"]]
-                [:b [:hs "open-inFinder"]]
-                [:f [:hs "custom-open?key=F"]]
-                [:r [:hs "custom-open?key=R"]]
-                [:s [:sublime "~/.fuelingzsh/custom/espanso/default.yml"]]
-                [:m [:hs "custom-open?key=M"]]
-                [:e [:hs "custom-open?key=E"]]
-                [:x [:hs "open-inTinkerwell"]]
-                [:t [:hs "custom-open?key=T"]]
-                [:y [:hs "custom-open?key=Y"]]
+                ; tab
                 [:q [:hs "custom-open?key=Q"]]
+                [:w [:hs "custom-open?key=W"]]
+                [:e [:hs "custom-open?key=E"]]
+                [:r [:hs "open-inAtom"]]
+                [:t [:hs "custom-open?key=T"]]
+
+                [:y [:hs "custom-open?key=Y"]]
+
+                ; caps
+                [:a [:sublime "~/.fuelingzsh/aliases"]]
+                [:s [:sublime "~/.fuelingzsh/custom/espanso/default.yml"]]
+                [:d "open ~/Downloads"]
+                [:f [:hs "custom-open?key=F"]]
+                [:g [:hs "open-inChrome"]]
+
+                [:h [:sublime "~/.hammerspoon"]]
+                [:k [:hs "open-karabiner"]]
+
+                [:z [:sublime "~/.fuelingzsh"]]
+                [:x [:hs "open-inTinkerwell"]]
+                [:c [:hs "open-inSublimeMerge"]]
+                [:v [:hs "open-inTablePlus"]]
+                [:b [:hs "open-inFinder"]]
+
+                [:m [:hs "custom-open?key=M"]]
             ]
         }
         {
@@ -520,9 +541,9 @@
                 [:caps_lock [:hs "command-dismissNotifications"]] ; Dismiss notifications
                 [:a :!OCbackslash] ; Alfred: Action File
                 [:s :!SC4] ; Screenshot to filesystem
-                [:d :!OCd] ; Toggle dock visibility
+                [:d [:hs "command-duplicate"]]
                 [:f [:!SCbackslash]] ; Atom: Reveal active file in tree view
-                ; g
+                [:g :!OCd] ; Toggle dock visibility
 
                 [:z :!Cz] ; Undo
                 ; x

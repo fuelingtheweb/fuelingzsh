@@ -10,6 +10,8 @@ hs.urlevent.bind('launch-app', function(eventName, params)
         launchIterm()
     elseif params.id == 'spotify' then
         launchSpotify()
+    elseif params.id == 'alfred-preferences' then
+        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     elseif not isActive and not hasWindows(hs.application.get(bundle)) then
         if params.id ~= 'atom' then
             hs.application.open(bundle)

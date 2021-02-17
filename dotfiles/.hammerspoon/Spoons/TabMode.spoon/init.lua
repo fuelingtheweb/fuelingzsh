@@ -46,14 +46,14 @@ end)
 
 hs.urlevent.bind('tab-new', function()
     if appIncludes({sublime, atom}) then
-        hs.eventtap.keyStroke({'cmd'}, 'n')
-        hs.eventtap.keyStroke({}, 'i')
-        hs.eventtap.keyStroke({}, 'return')
-        hs.eventtap.keyStroke({}, 'up')
+        hs.eventtap.keyStroke({'cmd'}, 'n', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'return', 0)
+        hs.eventtap.keyStroke({}, 'up', 0)
     elseif appIs(finder) then
-        hs.eventtap.keyStroke({'cmd'}, 'n')
+        hs.eventtap.keyStroke({'cmd'}, 'n', 0)
     else
-        hs.eventtap.keyStroke({'cmd'}, 't')
+        hs.eventtap.keyStroke({'cmd'}, 't', 0)
     end
 end)
 
