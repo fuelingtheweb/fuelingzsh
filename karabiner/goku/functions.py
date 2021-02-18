@@ -1,13 +1,11 @@
 from string import Template
 
-def compileTemplate(simlayers):
+def compileTemplate(hyperMode, simlayers):
     print(
         Template(fileContents('template')).substitute({
+            'hyperMode': hyperMode,
             'simlayers': simlayers.definitions(),
             'rulesets': simlayers.rulesets(),
-            'main': fileContents('main').strip(),
-            'textManipulation': fileContents('text-manipulation').strip(),
-            'vim': fileContents('vim').strip(),
         })
     )
 

@@ -74,12 +74,17 @@ allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
 end)
 
 gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function (paths)
-    if has_value(paths, '/Users/nathan/.fuelingzsh/karabiner/goku/functions.pyc') then
-        return
-    end
+    shouldRun = true
+    each(paths, function(path)
+        if stringContains('.pyc', path) then
+            shouldRun = false
+        end
+    end)
 
-    output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
-    hs.notify.new({title = 'Goku Config', informativeText = output}):send()
+    if shouldRun then
+        output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
+        hs.notify.new({title = 'Goku Config', informativeText = output}):send()
+    end
 end):start()
 karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function ()
     output = hs.execute('/usr/local/bin/goku')
