@@ -393,23 +393,6 @@
             ]
         }
         {
-            :des "Tab Mode (Key: tab)"
-            :rules [:tab-mode
-                [:i [:!C1]] ; Go to first tab
-                [:o [:!C9]] ; Go to last tab
-                [:p [:t :p]] ; Chrome: Pin Tab
-                [:close_bracket [:hs "tab-moveToNewWindow"]]
-
-                [:h [:hs "tab-moveLeft"]]
-                [:l [:hs "tab-moveRight"]]
-
-                [:n [:hs "tab-new"]]
-                [:comma [:hs "tab-closeAllToLeft"]]
-                [:period [:hs "tab-closeAllToRight"]]
-                [:slash [:hs "tab-closeAllOthers"]]
-            ]
-        }
-        {
             :des "Pane Mode (Key: r)"
             :rules [:pane-mode
                 [:open_bracket [:hs "pane-destroy"]]

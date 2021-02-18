@@ -34,7 +34,13 @@
         :sublime "/usr/local/bin/subl \"%s\""
         :atom "/usr/local/bin/atom \"%s\""
         :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
-    }$setup
+    }
+    :layers {
+        :hyper-mode {:key :caps_lock :alone {:key :escape}}
+    }
+    :simlayers {
+$simlayers
+    }
     :main [
         ;; each manipulator has a description and multiple rules
 
