@@ -72,7 +72,7 @@
 
                 [:z [:launch "zoom.us.app"]]
                 [:x [:launch "Tinkerwell.app"]]
-                [:c [:launch "Sublime\\\ Merge.app"]]
+                [:c [:launch "Sublime\\ Merge.app"]]
                 [:v [:launch "TablePlus.app"]]
                 [:b [:hs "launch-app?id=finder"]]
 
@@ -390,14 +390,6 @@
                 ]
 
                 ; ,, ., /
-            ]
-        }
-        {
-            :des "Test Mode (Key: T)" ; To mode?
-            :rules [:test-mode
-                [:l :!TOCt] ; Atom PHPUnit: Test All
-                [:k :!OCt] ; Atom PHPUnit: Test Class
-                [:m :!TOt] ; Atom PHPUnit: Test Method
             ]
         }
         {

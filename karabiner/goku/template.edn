@@ -1,0 +1,61 @@
+;; !  | means mandatory
+;; #  | means optional
+;; C  | left_command
+;; T  | left_control
+;; O  | left_option
+;; S  | left_shift
+;; F  | fn
+;; Q  | right_command
+;; W  | right_control
+;; E  | right_option
+;; R  | right_shift
+;; !! | mandatory command + control + option + shift (hyper)
+;; ## | optional any
+{
+    ; :simlayer-threshold 250
+    :profiles {
+        :Default {
+            :default true
+            :sim 100 ;; simultaneous_threshold_milliseconds (def: 50)
+            ;; keys need to be pressed within this threshold to be considered simultaneous
+            :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
+            ;; basically it means time after which the key press is count delayed
+            :alone 1000 ;; to_if_alone_timeout_milliseconds (def: 1000)
+            ;; hold for 995s and single tap registered; hold for 1005s and seen as modifier
+            :held 500 ;; to_if_held_down_threshold_milliseconds (def: 500)
+            ;; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
+        }
+    }
+    :templates {
+        :launch "open -a %s"
+        :hs "open -g 'hammerspoon://%s'"
+        :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
+        :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
+        :sublime "/usr/local/bin/subl \"%s\""
+        :atom "/usr/local/bin/atom \"%s\""
+        :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
+    }$setup
+    :main [
+        ;; each manipulator has a description and multiple rules
+
+        ;;{:des "..."                               ;; -> description
+        ;; :rules[
+        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 1
+        ;;          [<from>  <to>  <conditions> <other options>]    ;; -> rule 2
+        ;; ]}
+        ;;
+        ;; <from> can be keywords defined in froms or keycodes without {:not-from true}
+        ;; <to> can be keywords defined in tos, keycodes without {:not-to true} or strings (shell script)
+        ;; <conditions> can be keywords defined in layers, devices, applications
+        ;; <other options> {:other {:parameters {:to_delayed_action_delay_milliseconds 100 :basic.to_if_alone_timeout_milliseconds 500 :basic.to_if_held_down_threshold_milliseconds 250}} }
+
+        ;; if simplified modifier is used in <to>, optional(#) definition will be ignored.
+
+        ;; (custom variables) & modifiers -> Advanced
+        ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
+        $main
+        $textManipulation
+        $vim
+$rulesets
+    ]
+}

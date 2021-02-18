@@ -2,3 +2,4 @@ custom
 aliases/custom
 CleanInstall/custom
 dotfiles/.hammerspoon/Spoons/Custom.spoon
+*.pyc
