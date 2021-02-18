@@ -38,7 +38,7 @@
                 [:##w :!Oright_arrow]
                 [:##0 :!Cleft_arrow]
                 [:##4 :!Cright_arrow]
-                [:##a [:hs "vi-mode?key=a"]]
+                [:##a [:hs "handle-karabiner?layer=ViMode&key=a"]]
                 [:##i :!Cleft_arrow]
                 [:##m :!Cdown_arrow]
                 [:##u :!Cup_arrow]

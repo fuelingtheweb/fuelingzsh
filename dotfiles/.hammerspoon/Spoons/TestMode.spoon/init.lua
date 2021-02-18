@@ -27,10 +27,4 @@ TestMode.lookup = {
     end,
 }
 
-hs.urlevent.bind('test-mode', function(eventName, params)
-    if TestMode.lookup[params.key] then
-        TestMode.lookup[params.key]()
-    end
-end)
-
 return TestMode

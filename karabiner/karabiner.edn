@@ -44,7 +44,7 @@
         ; w
         ; e
         :pane-mode {:key :r}
-        :test-mode {:key :t}
+        :TestMode {:key :t}
 
         :yank-mode {:key :y}
         :select-until-mode {:key :u}
@@ -801,7 +801,7 @@
                 [:##w :!Oright_arrow]
                 [:##0 :!Cleft_arrow]
                 [:##4 :!Cright_arrow]
-                [:##a [:hs "vi-mode?key=a"]]
+                [:##a [:hs "handle-karabiner?layer=ViMode&key=a"]]
                 [:##i :!Cleft_arrow]
                 [:##m :!Cdown_arrow]
                 [:##u :!Cup_arrow]
@@ -846,10 +846,10 @@
         }
         {
             :des "Test Mode (Key: T)"
-            :rules [:test-mode
-                [:l [:hs "handle-karabiner?layer=test-mode&key=l"]]
-                [:k [:hs "handle-karabiner?layer=test-mode&key=k"]]
-                [:m [:hs "handle-karabiner?layer=test-mode&key=m"]]
+            :rules [:TestMode
+                [:l [:hs "handle-karabiner?layer=TestMode&key=l"]]
+                [:k [:hs "handle-karabiner?layer=TestMode&key=k"]]
+                [:m [:hs "handle-karabiner?layer=TestMode&key=m"]]
             ]
         }
     ]

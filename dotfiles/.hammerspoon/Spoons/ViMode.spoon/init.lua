@@ -12,10 +12,4 @@ ViMode.lookup = {
     end,
 }
 
-hs.urlevent.bind('vi-mode', function(eventName, params)
-    if ViMode.lookup[params.key] then
-        ViMode.lookup[params.key]()
-    end
-end)
-
 return ViMode

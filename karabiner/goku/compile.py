@@ -14,7 +14,7 @@ compileTemplate(
 + availableSimlayer('w')
 + availableSimlayer('e')
 + simlayer('', 'pane-mode', 'r')
-+ simlayer('Test Mode (Key: T)', 'test-mode', 't')
++ simlayer('Test Mode (Key: T)', 'TestMode', 't')
 + "\n"
 + simlayer('', 'yank-mode', 'y')
 + simlayer('', 'select-until-mode', 'u')
@@ -48,5 +48,5 @@ compileTemplate(
 + "\n"
 + simlayer('', 'window-mode', 'spacebar')
 + """    }""",
-ruleset('test-mode', 'l,k,m')
+ruleset('TestMode', 'l,k,m')
 )
