@@ -11,6 +11,7 @@ hs.loadSpoon('MediaMode')
 hs.loadSpoon('WindowManager')
 TextManipulation = hs.loadSpoon('TextManipulation')
 hs.loadSpoon('TabMode')
+hs.loadSpoon('ViMode')
 hs.loadSpoon('Misc')
 
 -- VimMode = hs.loadSpoon('VimMode')
