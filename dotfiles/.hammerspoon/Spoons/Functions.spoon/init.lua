@@ -150,7 +150,7 @@ end
 
 function typeAndEnter(string)
     hs.eventtap.keyStrokes(string)
-    hs.eventtap.keyStroke({}, 'return')
+    hs.eventtap.keyStroke({}, 'return', 0)
 end
 
 function typeAndTab(string)

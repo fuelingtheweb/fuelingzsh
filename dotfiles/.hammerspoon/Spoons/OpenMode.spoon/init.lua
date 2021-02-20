@@ -67,7 +67,7 @@ end)
 
 hs.urlevent.bind('open-karabiner', function()
     openInSublime('~/.fuelingzsh/karabiner/goku')
-    openInSublime('~/.fuelingzsh/karabiner/goku/main.edn')
+    openInSublime('~/.fuelingzsh/karabiner/goku/compile.py')
 end)
 
 return obj

@@ -20,19 +20,33 @@ hs.urlevent.bind('select-until-nextWord', function()
 end)
 
 hs.urlevent.bind('select-until-single-quote', function()
-    if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 't', 0)
-
-        -- if vim.mode ~= 'insert' then
-        --     hs.timer.doAfter(0.1, function()
-        --         hs.eventtap.keyStroke({}, "'", 0)
-        --     end)
-        -- else
-            hs.eventtap.keyStroke({}, "'", 0)
-        -- end
+    if not TextManipulation.canManipulateWithVim() then
+        return
     end
+
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
+        hs.eventtap.keyStroke({}, 'l', 0)
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
+    end
+
+    hs.eventtap.keyStroke({}, 't', 0)
+    hs.eventtap.keyStroke({}, "'", 0)
+end)
+
+hs.urlevent.bind('select-until-previous-single-quote', function()
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
+
+    if inCodeEditor() then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
+        hs.eventtap.keyStroke({}, 'h', 0)
+    end
+
+    hs.eventtap.keyStroke({'shift'}, 't', 0)
+    hs.eventtap.keyStroke({}, "'", 0)
 end)
 
 hs.urlevent.bind('select-until-endOfLine', function()

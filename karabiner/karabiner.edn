@@ -54,7 +54,7 @@
         ; ]
         :case-mode {:key :a}
         :snippet-mode {:key :s}
-        :vi-mode {:key :d}
+        :ViMode {:key :d}
         :general-mode {:key :f}
         :google-mode {:key :g}
         :command-mode {:key :semicolon}
@@ -63,7 +63,7 @@
         :dialog-case-mode {:key :z}
         ; x
         :code-mode {:key :c}
-        :vi-visual-mode {:key :v}
+        :ViVisualMode {:key :v}
         ; b
         :change-mode {:key :n}
         :media-mode {:key :m}
@@ -249,7 +249,15 @@
                 [:e [:hs "select-until-endOfWord"]]
 
                 [:w [:hs "select-until-next-word"]]
-                [:s [:hs "select-until-single-quote"]]
+
+                ; Single Quote
+                [:s [[:hs "select-until-previous-single-quote"] ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:s
+                    ["bracket-pending" 1]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [[:hs "select-until-single-quote"] ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
                 [:d [:v :t :!Squote]]; d -> double quotes
                 [:z [:v :t :!Ograve_accent_and_tilde]]; z -> back ticks
 
@@ -423,24 +431,21 @@
         }
         {
             :des "Vi Mode (Key: D)"
-            :rules [:vi-mode
+            :rules [:ViMode
+                [:##y :!Cup_arrow] ; Top of page
+                [:##u :page_up]
+                [:##i [:hs "handle-karabiner?layer=ViMode&key=i"]]
+                [:##o [:hs "handle-karabiner?layer=ViMode&key=o"]]
+                [:##h :left_arrow]
                 [:##j :down_arrow]
                 [:##k :up_arrow]
-                [:##h :left_arrow]
                 [:##l :right_arrow]
-                [:##b :!Oleft_arrow]
-                [:##n :!Oleft_arrow]
-                [:##w :!Oright_arrow]
-                [:##0 :!Cleft_arrow]
-                [:##4 :!Cright_arrow]
-                [:##a [:hs "handle-karabiner?layer=ViMode&key=a"]]
-                [:##i :!Cleft_arrow]
-                [:##m :!Cdown_arrow]
-                [:##u :!Cup_arrow]
-                [:##comma :page_up]
-                [:##period :page_down]
-                [:##open_bracket :!Si]
-                [:##close_bracket :!Sa]
+                [:##semicolon [:hs "handle-karabiner?layer=ViMode&key=semicolon"]]
+                [:##quote [:hs "handle-karabiner?layer=ViMode&key=quote"]]
+                [:##n :!Cdown_arrow] ; Bottom of page
+                [:##m :page_down]
+                [:##period :!Oright_arrow] ; Previous word
+                [:##comma :!Oleft_arrow] ; Next word
             ]
         }
         {
@@ -668,20 +673,19 @@
         }
         {
             :des "Vi Visual Mode (Key: V)"
-            :rules [:vi-visual-mode
-                [:##j :!Sdown_arrow]
-                [:##k :!Sup_arrow]
-                [:##h :!Sleft_arrow]
-                [:##l :!Sright_arrow]
-                [:##b :!SOleft_arrow]
-                [:##n :!SOleft_arrow]
-                [:##w :!SOright_arrow]
-                [:##0 :!SCleft_arrow]
-                [:##4 :!SCright_arrow]
-                [:##a :!SCright_arrow]
+            :rules [:ViVisualMode
+                [:##y :!SCup_arrow] ; Top of page
                 [:##i :!SCleft_arrow]
+                [:##o :!SCright_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
+                [:##h :!Sleft_arrow]
+                [:##j :!Sdown_arrow]
+                [:##k :!Sup_arrow]
+                [:##l :!Sright_arrow]
+                [:##n :!SCdown_arrow] ; Bottom of page
+                [:##period :!SOright_arrow] ; Previous word
+                [:##comma :!SOleft_arrow] ; Next word
             ]
         }
         {

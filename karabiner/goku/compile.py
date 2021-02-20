@@ -87,7 +87,15 @@ simlayers.new('Select Until Mode (Key: u)', 'select-until-mode', 'u', """
                 [:e [:hs "select-until-endOfWord"]]
 
                 [:w [:hs "select-until-next-word"]]
-                [:s [:hs "select-until-single-quote"]]
+
+                ; Single Quote
+                [:s [[:hs "select-until-previous-single-quote"] ["bracket-pending" 0]] ["bracket-pending" 1]]
+                [:s
+                    ["bracket-pending" 1]
+                    ["bracket-pending" 0]
+                    {:delayed {:invoked [[:hs "select-until-single-quote"] ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
+                ]
+
                 [:d [:v :t :!Squote]]; d -> double quotes
                 [:z [:v :t :!Ograve_accent_and_tilde]]; z -> back ticks
 
@@ -242,24 +250,21 @@ simlayers.new('Snippet Mode (Key: S)', 'snippet-mode', 's', """
 
                 ; ,, ., /
 """)
-simlayers.new('Vi Mode (Key: D)', 'vi-mode', 'd', """
+simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', """
+                [:##y :!Cup_arrow] ; Top of page
+                [:##u :page_up]
+                [:##i [:hs "handle-karabiner?layer=ViMode&key=i"]]
+                [:##o [:hs "handle-karabiner?layer=ViMode&key=o"]]
+                [:##h :left_arrow]
                 [:##j :down_arrow]
                 [:##k :up_arrow]
-                [:##h :left_arrow]
                 [:##l :right_arrow]
-                [:##b :!Oleft_arrow]
-                [:##n :!Oleft_arrow]
-                [:##w :!Oright_arrow]
-                [:##0 :!Cleft_arrow]
-                [:##4 :!Cright_arrow]
-                [:##a [:hs "handle-karabiner?layer=ViMode&key=a"]]
-                [:##i :!Cleft_arrow]
-                [:##m :!Cdown_arrow]
-                [:##u :!Cup_arrow]
-                [:##comma :page_up]
-                [:##period :page_down]
-                [:##open_bracket :!Si]
-                [:##close_bracket :!Sa]
+                [:##semicolon [:hs "handle-karabiner?layer=ViMode&key=semicolon"]]
+                [:##quote [:hs "handle-karabiner?layer=ViMode&key=quote"]]
+                [:##n :!Cdown_arrow] ; Bottom of page
+                [:##m :page_down]
+                [:##period :!Oright_arrow] ; Previous word
+                [:##comma :!Oleft_arrow] ; Next word
 """)
 simlayers.new('General Mode (Key: F)', 'general-mode', 'f', """
                 [:y :!S7] ; &
@@ -466,20 +471,19 @@ simlayers.new('Code Mode (Key: C)', 'code-mode', 'c', """
 
                 [:spacebar [:hs "code?key=spacebar"]]
 """)
-simlayers.new('Vi Visual Mode (Key: V)', 'vi-visual-mode', 'v', """
-                [:##j :!Sdown_arrow]
-                [:##k :!Sup_arrow]
-                [:##h :!Sleft_arrow]
-                [:##l :!Sright_arrow]
-                [:##b :!SOleft_arrow]
-                [:##n :!SOleft_arrow]
-                [:##w :!SOright_arrow]
-                [:##0 :!SCleft_arrow]
-                [:##4 :!SCright_arrow]
-                [:##a :!SCright_arrow]
+simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', """
+                [:##y :!SCup_arrow] ; Top of page
                 [:##i :!SCleft_arrow]
+                [:##o :!SCright_arrow]
                 [:##open_bracket :!SOup_arrow]
                 [:##close_bracket :!SOdown_arrow]
+                [:##h :!Sleft_arrow]
+                [:##j :!Sdown_arrow]
+                [:##k :!Sup_arrow]
+                [:##l :!Sright_arrow]
+                [:##n :!SCdown_arrow] ; Bottom of page
+                [:##period :!SOright_arrow] ; Previous word
+                [:##comma :!SOleft_arrow] ; Next word
 """)
 simlayers.available('b')
 
