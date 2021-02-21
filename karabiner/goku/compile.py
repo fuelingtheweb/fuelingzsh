@@ -88,40 +88,15 @@ simlayers.new('Select Until Mode (Key: u)', 'select-until-mode', 'u', """
 
                 [:w [:hs "select-until-next-word"]]
 
-                ; Single Quote
-                [:s [[:hs "select-until-previous-single-quote"] ["bracket-pending" 0]] ["bracket-pending" 1]]
-                [:s
-                    ["bracket-pending" 1]
-                    ["bracket-pending" 0]
-                    {:delayed {:invoked [[:hs "select-until-single-quote"] ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
-                ]
+                [:s [:hs "select-until-single-quote"]]
+                [:d [:hs "select-until-double-quote"]]
+                [:z [:hs "select-until-back-tick"]]
 
-                [:d [:v :t :!Squote]]; d -> double quotes
-                [:z [:v :t :!Ograve_accent_and_tilde]]; z -> back ticks
-
-                ; opening / closing parenthesis
-                [:f [:!S0 ["bracket-pending" 0]] ["bracket-pending" 1]]
-                [:f
-                    [:v :t ["bracket-pending" 1]]
-                    ["bracket-pending" 0]
-                    {:delayed {:invoked [:!S9 ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
-                ]
-
-                ; opening / closing braces
-                [:c [:!Sclose_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
-                [:c
-                    [:v :t ["bracket-pending" 1]]
-                    ["bracket-pending" 0]
-                    {:delayed {:invoked [:!Sopen_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
-                ]
-
-                ; opening / closing brackets
-                [:b [:close_bracket ["bracket-pending" 0]] ["bracket-pending" 1]]
-                [:b
-                    [:v :t ["bracket-pending" 1]]
-                    ["bracket-pending" 0]
-                    {:delayed {:invoked [:open_bracket ["bracket-pending" 0]] :canceled ["bracket-pending" 0]} :params {:delay 150}}
-                ]
+                [:caps_lock [:hs "select-until-mode"]]
+                [:left_shift [:hs "select-until-mode-backward"]]
+                [:f [:hs "select-until-parenthesis"]]
+                [:c [:hs "select-until-braces"]]
+                [:b [:hs "select-until-brackets"]]
 
                 [:a [:hs "select-until-endOfLine"]]
                 [:i [:hs "select-until-beginningOfLine"]]
