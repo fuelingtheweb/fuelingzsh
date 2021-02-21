@@ -57,4 +57,63 @@ function launchSpotify()
     end
 end
 
+hs.loadSpoon('ModalMgr')
+modalKey = 'LaunchAppModal'
+
+spoon.ModalMgr:new(modalKey)
+modal = spoon.ModalMgr.modal_list[modalKey]
+
+modal:bind('', 'escape', nil, function()
+    spoon.ModalMgr:deactivate({modalKey})
+end)
+
+appToLaunch = nil
+
+modal.entered = function()
+    appToLaunch = 1
+    restartTimer()
+end
+
+modal.exited = function()
+    appToLaunch = nil
+    timer:stop()
+end
+
+appMap = {
+    [1] = 'de.beyondco.tinkerwell',
+    [2] = 'de.beyondco.invoker',
+    [3] = 'de.beyondco.helo',
+}
+
+function launchApp()
+    hs.application.open(appMap[appToLaunch])
+    spoon.ModalMgr:deactivateAll()
+end
+
+function restartTimer()
+    timer:stop()
+    timer:start()
+end
+
+timer = hs.timer.new(0.2, function()
+    launchApp()
+end)
+
+hs.urlevent.bind('launch-beyond-code-app', function(eventName, params)
+    if not appToLaunch then
+        spoon.ModalMgr:deactivateAll()
+        spoon.ModalMgr:activate({modalKey}, '#FFFFFF', false)
+    else
+        if appToLaunch < 3 then
+            appToLaunch = appToLaunch + 1
+        end
+
+        if appToLaunch == 3 then
+            launchApp()
+        else
+            restartTimer()
+        end
+    end
+end)
+
 return obj

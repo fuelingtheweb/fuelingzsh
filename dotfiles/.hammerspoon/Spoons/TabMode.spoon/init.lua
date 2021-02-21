@@ -31,6 +31,14 @@ hs.urlevent.bind('tab-moveRight', function()
     end
 end)
 
+hs.urlevent.bind('tab-closeCurrent', function()
+    closeWindow()
+end)
+
+hs.urlevent.bind('tab-restore', function()
+    hs.eventtap.keyStroke({'shift', 'cmd'}, 'T')
+end)
+
 hs.urlevent.bind('tab-moveToNewWindow', function()
     if appIs(sublime) then
         hs.eventtap.keyStroke({'cmd'}, 'A')
@@ -97,6 +105,21 @@ hs.urlevent.bind('tab-closeAllOthers', function()
 
         if appIs(sublime) then
             hs.eventtap.keyStrokes('Close Other Tabs')
+            hs.eventtap.keyStroke({}, 'return', 0)
+        end
+    end
+end)
+
+hs.urlevent.bind('tab-closeAll', function()
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'x', 0)
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'tab', 0)
+        hs.eventtap.keyStroke({}, 'x', 0)
+        hs.eventtap.keyStroke({}, ';', 0)
+
+        if appIs(sublime) then
+            hs.eventtap.keyStrokes('Close All Tabs')
             hs.eventtap.keyStroke({}, 'return', 0)
         end
     end

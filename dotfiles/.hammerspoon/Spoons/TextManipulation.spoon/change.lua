@@ -15,7 +15,7 @@ hs.urlevent.bind('change-word', function()
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'i', 0)
         hs.eventtap.keyStroke({}, 'w', 0)
-    elseif appIs(iterm) then
+    elseif appIs(iterm) and not isAlfredVisible() then
         hs.eventtap.keyStroke({}, 'escape')
         hs.eventtap.keyStrokes('ciw')
     else
@@ -49,7 +49,7 @@ hs.urlevent.bind('change-line', function()
         hs.eventtap.keyStroke({}, 'escape', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
         hs.eventtap.keyStroke({}, 'c', 0)
-    elseif appIs(iterm) then
+    elseif appIs(iterm) and not isAlfredVisible() then
         hs.eventtap.keyStroke({}, 'escape')
         hs.eventtap.keyStrokes('cc')
     else

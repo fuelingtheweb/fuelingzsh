@@ -105,6 +105,8 @@ hs.urlevent.bind('window-searchAll', function(eventName, params)
         :rejectApp('Sublime Merge')
         :rejectApp('Notion')
         :rejectApp('Spotify')
+        :rejectApp('Invoker')
+        :rejectApp('Dash')
         :getWindows(hs.window.filter.sortByFocusedLast)
 
     WindowManager.loadWindowsInAlfred(windows, 1)

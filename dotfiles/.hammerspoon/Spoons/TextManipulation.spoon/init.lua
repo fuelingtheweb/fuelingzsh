@@ -11,8 +11,14 @@ spoon.ModalMgr:new(TextManipulation.modalKey)
 TextManipulation.modal = spoon.ModalMgr.modal_list[TextManipulation.modalKey]
 
 TextManipulation.modal:bind('', 'escape', nil, function()
-    hs.eventtap.keyStroke({}, 'escape', 0)
     spoon.ModalMgr:deactivate({TextManipulation.modalKey})
+    hs.eventtap.keyStroke({}, 'escape', 0)
+end)
+TextManipulation.modal:bind('', 'return', nil, function()
+    if inCodeEditor() then
+        spoon.ModalMgr:deactivate({TextManipulation.modalKey})
+        hs.eventtap.keyStroke({}, 'return', 0)
+    end
 end)
 TextManipulation.modal.entered = function()
     TextManipulation.vimEnabled = false
@@ -24,11 +30,11 @@ TextManipulation.modal.exited = function()
 end
 
 function TextManipulation.canManipulateWithVim()
-    if not TextManipulation.vimEnabled then
+    if not TextManipulation.vimEnabled or isAlfredVisible() then
         return false
     end
 
-    if appIncludes({atom, sublime}) and not isAlfredVisible() then
+    if appIncludes({atom, sublime}) then
         return true
     end
 
@@ -36,9 +42,13 @@ function TextManipulation.canManipulateWithVim()
     -- return vim.mode ~= 'insert'
 end
 
-hs.urlevent.bind('text-disableVim', function(eventName, params)
+function TextManipulation.disableVim()
     spoon.ModalMgr:deactivateAll()
     spoon.ModalMgr:activate({TextManipulation.modalKey}, '#FFFFFF', false)
+end
+
+hs.urlevent.bind('text-disableVim', function(eventName, params)
+    TextManipulation.disableVim()
 end)
 
 dofile(TextManipulation.spoonPath .. '/case.lua')

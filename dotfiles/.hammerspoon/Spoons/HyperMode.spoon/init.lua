@@ -28,14 +28,32 @@ hs.urlevent.bind('hyper-copy', function()
 end)
 
 hs.urlevent.bind('hyper-open', function()
-    if appIs(atom) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
-    elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'N')
+    if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
+        hs.eventtap.keyStroke({'cmd'}, 'p')
+
+        if inCodeEditor() then
+            TextManipulation.disableVim()
+        end
+    elseif appIs(discord) then
+        hs.eventtap.keyStroke({'cmd'}, 'k')
+    elseif appIs(spotify) then
+        triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
     elseif appIs(chrome) then
         hs.eventtap.keyStroke({'shift'}, 'O')
     else
         hs.eventtap.keyStroke({'cmd'}, 'O')
+    end
+end)
+
+hs.urlevent.bind('hyper-new', function()
+    if appIs(atom) then
+        TextManipulation.disableVim()
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
+    elseif appIs(sublime) then
+        TextManipulation.disableVim()
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 'N')
+    else
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
     end
 end)
 
@@ -51,26 +69,13 @@ hs.urlevent.bind('hyper-copyTextArea', function()
     end
 end)
 
-hs.urlevent.bind('hyper-openAnything', function()
-    if appIs(notion) or appIs(atom) or appIs(sublime) or appIs(sublimeMerge) or appIs(tableplus) then
-        hs.eventtap.keyStroke({'cmd'}, 'p')
-    elseif appIs(finder) then
-        triggerAlfredSearch('open')
-    elseif appIs(discord) then
-        hs.eventtap.keyStroke({'cmd'}, 'k')
-    elseif appIs(spotify) then
-        triggerAlfredWorkflow('.spot_mini', 'com.vdesabou.spotify.mini.player')
-    elseif appIs(teams) then
-        hs.eventtap.keyStroke({'cmd'}, 'e')
-    elseif appIs(chrome) then
-        -- For dev tools
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
-    end
-end)
-
 hs.urlevent.bind('hyper-commandPalette', function()
-    if appIs(atom) or appIs(sublime) or appIs(sublimeMerge) then
+    if appIncludes({atom, sublime, sublimeMerge}) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
+
+        if inCodeEditor() then
+            TextManipulation.disableVim()
+        end
     else
         triggerAlfredWorkflow('search', 'com.tedwise.menubarsearch')
     end
@@ -85,6 +90,8 @@ hs.urlevent.bind('hyper-previousPage', function()
     elseif appIs(atom) then
          -- Atom: Cursor History: Previous
         hs.eventtap.keyStroke({'shift', 'alt'}, 'I')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'ctrl'}, '-')
     elseif appIs(iterm) then
         typeAndEnter('cdp')
     else
@@ -123,6 +130,8 @@ hs.urlevent.bind('hyper-nextPage', function()
     elseif appIs(atom) then
          -- Atom: Cursor History: Next
         hs.eventtap.keyStroke({'ctrl'}, 'O')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'ctrl', 'shift'}, '-')
     else
         hs.eventtap.keyStroke({'cmd'}, ']')
     end

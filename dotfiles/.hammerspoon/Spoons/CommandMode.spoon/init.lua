@@ -3,33 +3,38 @@ obj.__index = obj
 
 hs.urlevent.bind('command-reload', function()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r')
+        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r', 0)
     elseif appIs(postman) then
-        hs.eventtap.keyStroke({'cmd'}, 'return')
+        hs.eventtap.keyStroke({'cmd'}, 'return', 0)
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'ctrl'}, 'c')
-        hs.eventtap.keyStroke({}, 'up')
-        hs.eventtap.keyStroke({}, 'return')
+        -- Run last command
+        hs.eventtap.keyStroke({}, 'up', 0)
+        hs.eventtap.keyStroke({}, 'return', 0)
     else
-        hs.eventtap.keyStroke({'cmd'}, 'r')
+        hs.eventtap.keyStroke({'cmd'}, 'r', 0)
+    end
+end)
+
+hs.urlevent.bind('command-reloadSecondary', function()
+    if appIs(chrome) then
+        -- Hard refresh
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'r', 0)
+    elseif appIs(iterm) then
+        -- Reload running command
+        hs.eventtap.keyStroke({'ctrl'}, 'c', 0)
+        hs.eventtap.keyStroke({}, 'up', 0)
+        hs.eventtap.keyStroke({}, 'return', 0)
     end
 end)
 
 hs.urlevent.bind('command-closeWindow', function()
-    hs.eventtap.keyStroke({'cmd'}, 'W')
-    if appIs(chrome) then
-        hs.timer.doAfter(1, function()
-            app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then
-                app:hide()
-            end
-        end)
-    end
+    closeWindow()
 end)
 
 hs.urlevent.bind('command-find', function()
-    if appIncludes({atom, sublime}) then
+    if inCodeEditor() then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'f')
+        TextManipulation.disableVim()
     else
         hs.eventtap.keyStroke({'cmd'}, 'f')
     end

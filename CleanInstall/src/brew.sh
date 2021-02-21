@@ -97,6 +97,7 @@ casks=(
     spotify
     dash
     beardedspice
+    helo
 )
 
 for cask in "${casks[@]}"; do

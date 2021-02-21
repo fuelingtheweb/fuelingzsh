@@ -292,4 +292,16 @@ function trim(s)
     return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
+function closeWindow()
+    hs.eventtap.keyStroke({'cmd'}, 'W')
+    if appIs(chrome) then
+        hs.timer.doAfter(1, function()
+            app = hs.application.frontmostApplication()
+            if next(app:visibleWindows()) == nil then
+                app:hide()
+            end
+        end)
+    end
+end
+
 return obj

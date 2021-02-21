@@ -12,19 +12,19 @@ hyperMode = """
                 ; i
                 [:o [:hs "hyper-open"]]
                 [:p :!Cv] ; Paste
-                [:open_bracket [:hs "hyper-openAnything"]]
-                [:close_bracket [:hs "hyper-commandPalette"]] ; Command palette
+                [:open_bracket [:hs "hyper-commandPalette"]]
+                ; ]
 
                 [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
                 [:j [:hs "hyper-previousTab"]]
                 [:k [:hs "hyper-nextTab"]]
                 [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                ; ;
-                ; '
+                [:semicolon :!Oz] ; Alfred
+                [:quote :!Oc] ; Alfred Clipboard
                 [:return_or_enter :caps_lock]
 
-                [:n :!Oz] ; Alfred
-                [:m :!Oc] ; Alfred Clipboard
+                [:n [:hs "hyper-new"]]
+                ; m
                 [:comma [:hs "hyper-jumpTo"]]
                 ; .
                 ; /
@@ -38,15 +38,18 @@ simlayers.new('Tab Mode (Key: tab)', 'tab-mode', 'tab', """
                 [:i [:!C1]] ; Go to first tab
                 [:o [:!C9]] ; Go to last tab
                 [:p [:t :p]] ; Chrome: Pin Tab
+                [:open_bracket [:hs "tab-closeCurrent"]]
                 [:close_bracket [:hs "tab-moveToNewWindow"]]
 
                 [:h [:hs "tab-moveLeft"]]
                 [:l [:hs "tab-moveRight"]]
+                [:return_or_enter [:hs "tab-restore"]]
 
                 [:n [:hs "tab-new"]]
                 [:comma [:hs "tab-closeAllToLeft"]]
                 [:period [:hs "tab-closeAllToRight"]]
                 [:slash [:hs "tab-closeAllOthers"]]
+                [:right_shift [:hs "tab-closeAll"]]
 """)
 simlayers.available('q')
 simlayers.available('w')
@@ -318,7 +321,7 @@ simlayers.new('Command Mode (Key: ;)', 'command-mode', 'semicolon', """
                 ]
 
                 ; Reload or Chrome hard refresh
-                [:r [:!SCr ["pending" 0]] ["pending" 1]]
+                [:r [[:hs "command-reloadSecondary"] ["pending" 0]] ["pending" 1]]
                 [:r
                     ["pending" 1]
                     ["pending" 0]
@@ -518,7 +521,7 @@ simlayers.new('Launch Mode (Key: ,)', 'launch-mode', 'comma', """
                 [:g [:hs "launch-app?id=chrome"]]
 
                 [:z [:launch "zoom.us.app"]]
-                [:x [:launch "Tinkerwell.app"]]
+                [:x [:hs "launch-beyond-code-app"]]
                 [:c [:launch "Sublime Merge.app"]]
                 [:v [:launch "TablePlus.app"]]
                 [:b [:hs "launch-app?id=finder"]]
@@ -554,6 +557,7 @@ simlayers.new('App Mode (Key: .)', 'app-mode', 'period', """
                 [:8 :!OC8] ; Notion: Create code block
 """)
 simlayers.new('Search Mode (Key: /)', 'search-mode', 'slash', """
+                [:caps_lock [:hs "search-default"]]
                 [:w [:hs "window-searchInCurrentApp"]]
                 [:t [:hs "search-tabs"]]
 

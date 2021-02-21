@@ -127,6 +127,17 @@ open -a 'Tinkerwell.app'
 info 'Register Tinkerwell. License copied.'
 pause
 
+copyLicense 'invoker'
+open https://beyondco.de/licenses/invoker
+info 'Install Invoker: https://beyondco.de/licenses/invoker'
+info 'Register Invoker. License copied.'
+pause
+
+copyLicense 'helo'
+open -a 'HELO.app'
+info 'Register Helo. License copied.'
+pause
+
 info 'Add other licenses: Dash.'
 pause
 

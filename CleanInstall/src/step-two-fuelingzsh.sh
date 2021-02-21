@@ -26,6 +26,7 @@ dotfiles=(
     .ctags
     .mackup
     .mackup.cfg
+    .prettierrc
 )
 
 for file in "${dotfiles[@]}"; do
