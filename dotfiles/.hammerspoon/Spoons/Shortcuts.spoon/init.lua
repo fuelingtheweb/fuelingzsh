@@ -68,7 +68,11 @@ function Shortcuts:trigger(key)
     end
 
     if not success then
-        return 'else'
+        if shortcut['default'] then
+            shortcut['default']()
+        else
+            return 'else'
+        end
     end
 end
 

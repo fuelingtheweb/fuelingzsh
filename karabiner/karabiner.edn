@@ -735,7 +735,14 @@
                 [:f [:launch "Notion.app"]]
                 [:g [:hs "launch-app?id=chrome"]]
 
-                [:z [:launch "zoom.us.app"]]
+                ; Zoom or Screen
+                [:z [[:launch "Screen.app"] ["pending" 0]] ["pending" 1]]
+                [:z
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:launch "zoom.us.app"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
                 [:x [:hs "launch-beyond-code-app"]]
                 [:c [:launch "Sublime Merge.app"]]
                 [:v [:launch "TablePlus.app"]]
