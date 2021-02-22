@@ -62,7 +62,7 @@
         :jump-to-mode {:key :return_or_enter}
         :dialog-case-mode {:key :z}
         ; x
-        :code-mode {:key :c}
+        :CodeMode {:key :c}
         :ViVisualMode {:key :v}
         ; b
         :change-mode {:key :n}
@@ -627,32 +627,28 @@
         }
         {
             :des "Code Mode (Key: C)"
-            :rules [:code-mode
-                [:y [:hs "code?key=y"]]
-                [:u [:hs "code?key=u"]]
-                [:i [:hs "code?key=i"]]
-                [:o [:hs "code?key=o"]]
-                [:p [:hs "code?key=p"]]
-                [:open_bracket [:hs "code?key=open_bracket"]]
-                [:close_bracket [:hs "code?key=close_bracket"]]
-
-                [:h [:hs "code?key=h"]]
-                [:j [:hs "code?key=j"]]
-                [:k [:hs "code?key=k"]]
-                [:l [:hs "code?key=l"]]
-                [:semicolon [:hs "code?key=semicolon"]]
-                [:quote [:hs "code?key=quote"]]
-                [:return_or_enter [:hs "code?key=return_or_enter"]]
-
-                [:b [:hs "code?key=b"]]
-
-                [:n [:hs "code?key=n"]]
-                [:m [:hs "code?key=m"]]
-                [:comma [:hs "code?key=comma"]]
-                [:period [:hs "code?key=period"]]
-                [:slash [:hs "code?key=slash"]]
-
-                [:spacebar [:hs "code?key=spacebar"]]
+            :rules [:CodeMode
+                [:y [:hs "handle-karabiner?layer=CodeMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=CodeMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=CodeMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=CodeMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=CodeMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=CodeMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=CodeMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=CodeMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=CodeMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=CodeMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=CodeMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=CodeMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=CodeMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=CodeMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=CodeMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=CodeMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=CodeMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=CodeMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=CodeMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=CodeMode&key=slash"]]
+                [:spacebar [:hs "handle-karabiner?layer=CodeMode&key=spacebar"]]
             ]
         }
         {

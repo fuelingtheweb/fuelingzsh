@@ -422,33 +422,7 @@ simlayers.new('Dialog Case Mode (Key: Z)', 'dialog-case-mode', 'z', """
                 [:slash [:hs "case-dialog?to=path"]]
 """)
 simlayers.available('x')
-simlayers.new('Code Mode (Key: C)', 'code-mode', 'c', """
-                [:y [:hs "code?key=y"]]
-                [:u [:hs "code?key=u"]]
-                [:i [:hs "code?key=i"]]
-                [:o [:hs "code?key=o"]]
-                [:p [:hs "code?key=p"]]
-                [:open_bracket [:hs "code?key=open_bracket"]]
-                [:close_bracket [:hs "code?key=close_bracket"]]
-
-                [:h [:hs "code?key=h"]]
-                [:j [:hs "code?key=j"]]
-                [:k [:hs "code?key=k"]]
-                [:l [:hs "code?key=l"]]
-                [:semicolon [:hs "code?key=semicolon"]]
-                [:quote [:hs "code?key=quote"]]
-                [:return_or_enter [:hs "code?key=return_or_enter"]]
-
-                [:b [:hs "code?key=b"]]
-
-                [:n [:hs "code?key=n"]]
-                [:m [:hs "code?key=m"]]
-                [:comma [:hs "code?key=comma"]]
-                [:period [:hs "code?key=period"]]
-                [:slash [:hs "code?key=slash"]]
-
-                [:spacebar [:hs "code?key=spacebar"]]
-""")
+simlayers.usesHandler('Code Mode (Key: C)', 'CodeMode', 'c', 'y,u,i,o,p,open_bracket,close_bracket,h,j,k,l,semicolon,quote,return_or_enter,b,n,m,comma,period,slash,spacebar')
 simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', """
                 [:##y :!SCup_arrow] ; Top of page
                 [:##i :!SCleft_arrow]
