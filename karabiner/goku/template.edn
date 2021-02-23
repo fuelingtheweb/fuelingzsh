@@ -36,7 +36,7 @@
         :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
     }
     :layers {
-        :hyper-mode {:key :caps_lock :alone {:key :escape}}
+        :HyperMode {:key :caps_lock :alone {:key :escape}}
     }
     :simlayers {
 $simlayers
@@ -127,7 +127,6 @@ $simlayers
                 [:!Creturn_or_enter {:pkey :button2}]
             ]
         }
-        $hyperMode
 $rulesets
     ]
 }

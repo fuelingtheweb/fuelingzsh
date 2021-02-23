@@ -13,86 +13,6 @@ hs.urlevent.bind('command-closeAllWindows', function()
     end
 end)
 
-hs.urlevent.bind('pane-destroy', function()
-    if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 's', 0)
-    elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'cmd'}, 'w', 0)
-    end
-end)
-
-hs.urlevent.bind('pane-splitRight', function()
-    if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'l', 0)
-    elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'cmd'}, 'd', 0)
-    end
-end)
-
-hs.urlevent.bind('pane-splitBottom', function()
-    if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'j', 0)
-    end
-end)
-
-hs.urlevent.bind('pane-toggleZoom', function()
-    if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'z', 0)
-    elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'return', 0)
-    end
-end)
-
-hs.urlevent.bind('pane-focusPrevious', function()
-    if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt'}, 'up')
-    elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'h', 0)
-    elseif appIs(transmit) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'left')
-    else
-        hs.eventtap.keyStroke({'cmd'}, '[')
-    end
-end)
-
-hs.urlevent.bind('pane-focusNext', function()
-    if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt'}, 'down')
-    elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'l', 0)
-    elseif appIs(transmit) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'right')
-    else
-        hs.eventtap.keyStroke({'cmd'}, ']')
-    end
-end)
-
-hs.urlevent.bind('window-toggleSidebar', function()
-    if appIs(finder) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 's')
-    elseif appIs(sublimeMerge) then
-        hs.eventtap.keyStroke({'cmd'}, 'K')
-        hs.eventtap.keyStroke({'cmd'}, 'B')
-    else
-        hs.eventtap.keyStroke({'cmd'}, '\\')
-    end
-end)
-
 hs.urlevent.bind('command-surroundText', function()
     hs.eventtap.keyStroke({'cmd'}, 'C')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
@@ -137,20 +57,6 @@ hs.urlevent.bind('google-toggleIncognito', function()
             do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
         end if
     ]])
-end)
-
-hs.urlevent.bind('misc-moveMouseToOtherScreen', function()
-    hs.mouse.setAbsolutePosition(
-        hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():next():fullFrame())
-    )
-end)
-
-hs.urlevent.bind('window-appSettings', function()
-    if isAlfredVisible() then
-        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
-    else
-        hs.eventtap.keyStroke({'cmd'}, ',')
-    end
 end)
 
 hs.urlevent.bind('misc-optionPressedOnce', function()

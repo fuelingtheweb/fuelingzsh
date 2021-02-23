@@ -3,66 +3,13 @@ from Simlayers import *
 
 simlayers = Simlayers()
 
-hyperMode = """
-        {
-            :des "Hyper Mode (Key: Caps Lock)"
-            :rules [:hyper-mode
-                [:y [:hs "hyper-copy"]]
-                [:u [:hs "hyper-copyTextArea"]]
-                ; i
-                [:o [:hs "hyper-open"]]
-                [:p :!Cv] ; Paste
-                [:open_bracket [:hs "hyper-commandPalette"]]
-                ; ]
+simlayers.primary('Hyper Mode (Key: Caps Lock)', 'HyperMode', 'caps_lock', 'all-right')
 
-                [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
-                [:j [:hs "hyper-previousTab"]]
-                [:k [:hs "hyper-nextTab"]]
-                [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon :!Oz] ; Alfred
-                [:quote :!Oc] ; Alfred Clipboard
-                [:return_or_enter :caps_lock]
-
-                [:n [:hs "hyper-new"]]
-                ; m
-                [:comma [:hs "hyper-jumpTo"]]
-                ; .
-                ; /
-
-                ; spacebar
-            ]
-        }
-"""
-
-simlayers.new('Tab Mode (Key: tab)', 'tab-mode', 'tab', """
-                [:i [:!C1]] ; Go to first tab
-                [:o [:!C9]] ; Go to last tab
-                [:p [:t :p]] ; Chrome: Pin Tab
-                [:open_bracket [:hs "tab-closeCurrent"]]
-                [:close_bracket [:hs "tab-moveToNewWindow"]]
-
-                [:h [:hs "tab-moveLeft"]]
-                [:l [:hs "tab-moveRight"]]
-                [:return_or_enter [:hs "tab-restore"]]
-
-                [:n [:hs "tab-new"]]
-                [:comma [:hs "tab-closeAllToLeft"]]
-                [:period [:hs "tab-closeAllToRight"]]
-                [:slash [:hs "tab-closeAllOthers"]]
-                [:right_shift [:hs "tab-closeAll"]]
-""")
+simlayers.usesHandler('Tab Mode (Key: tab)', 'TabMode', 'tab', 'all-right')
 simlayers.available('q')
 simlayers.available('w')
 simlayers.available('e')
-simlayers.new('Pane Mode (Key: r)', 'pane-mode', 'r', """
-                [:open_bracket [:hs "pane-destroy"]]
-                [:j [:hs "pane-focusPrevious"]]
-                [:k [:hs "pane-focusNext"]]
-                [:l [:hs "pane-splitRight"]]
-
-                [:m [:hs "pane-splitBottom"]]
-                [:semicolon [:hs "pane-toggleZoom"]]
-""")
+simlayers.usesHandler('Pane Mode (Key: r)', 'PaneMode', 'r', 'all-right')
 simlayers.usesHandler('Test Mode (Key: T)', 'TestMode', 't', 'l,k,m')
 
 simlayers.new('Yank Mode (Key: Y)', 'yank-mode', 'y', """
@@ -86,25 +33,7 @@ simlayers.new('Yank Mode (Key: Y)', 'yank-mode', 'y', """
                 [:caps_lock [:hs "yank-all"]]
                 [:q [:hs "yank-viewPath"]]
 """)
-simlayers.new('Select Until Mode (Key: u)', 'select-until-mode', 'u', """
-                [:e [:hs "select-until-endOfWord"]]
-
-                [:w [:hs "select-until-next-word"]]
-
-                [:s [:hs "select-until-single-quote"]]
-                [:d [:hs "select-until-double-quote"]]
-                [:z [:hs "select-until-back-tick"]]
-
-                [:caps_lock [:hs "select-until-mode"]]
-                [:left_shift [:hs "select-until-mode-backward"]]
-                [:f [:hs "select-until-parenthesis"]]
-                [:c [:hs "select-until-braces"]]
-                [:b [:hs "select-until-brackets"]]
-
-                [:a [:hs "select-until-endOfLine"]]
-                [:i [:hs "select-until-beginningOfLine"]]
-                [:t [:hs "select-until-previousBlock"]]
-""")
+simlayers.usesHandler('Select Until Mode (Key: u)', 'SelectUntilMode', 'u', 'all-left')
 simlayers.new('Select Inside Mode (Key: i)', 'select-inside-mode', 'i', """
                 [:w [:hs "select-inside-word"]]
                 [:t [:escape :v :i :t]]; t -> tag
@@ -185,22 +114,7 @@ simlayers.new('Destroy Mode (Key: [)', 'destroy-mode', 'open_bracket', """
 """)
 simlayers.available(']')
 
-simlayers.new('Case Mode (Key: A)', 'case-mode', 'a', """
-                [:y [:hs "case-change?to=upperFirst&key=y"]]
-                [:u [:hs "case-change?to=upper&key=u"]]
-                [:i [:hs "case-change?to=constant&key=i"]]
-                [:o [:hs "case-change?to=kebab&key=o"]]
-                [:p [:hs "case-change?to=pascal&key=p"]]
-
-                [:h [:hs "case-change?to=title&key=h"]]
-                [:j [:hs "case-change?to=sentence&key=j"]]
-                [:k [:hs "case-change?to=snake&key=k"]]
-                [:l [:hs "case-change?to=lower&key=l"]]
-
-                [:m [:hs "case-change?to=camel&key=m"]]
-                [:period [:hs "case-change?to=dot&key=."]]
-                [:slash [:hs "case-change?to=path&key=/"]]
-""")
+simlayers.usesHandler('Case Mode (Key: A)', 'CaseMode', 'a', 'all-right')
 simlayers.new('Snippet Mode (Key: S)', 'snippet-mode', 's', """
                 [:e [:hs "snippet?name=elseif"]]
                 ; r
@@ -244,37 +158,7 @@ simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', """
                 [:##period :!Oright_arrow] ; Previous word
                 [:##comma :!Oleft_arrow] ; Next word
 """)
-simlayers.new('General Mode (Key: F)', 'general-mode', 'f', """
-                [:y :!S7] ; &
-                [:u :!Shyphen] ; _
-                [:i :hyphen] ; -
-                [:o :keypad_plus] ; +
-                [:p :!Sbackslash] ; |
-                [:open_bracket :!S9] ; (
-                [:close_bracket :!S0] ; )
-
-                [:h :!Sgrave_accent_and_tilde] ; ~
-                ; j
-                ; k
-                ; l
-                ; ;
-                [:quote :equal_sign] ; =
-                ; return
-
-                [:n [:!Ograve_accent_and_tilde :spacebar]] ; `
-                [:m :!S8] ; Multiply: *
-                [:comma :!S5] ; %
-                [:period [:hyphen :!Speriod]] ; ->
-                ; /
-
-                [:q :!S3] ; #
-                ; w
-                [:e :!S1] ; !
-
-                [:a :!S2] ; @
-                ; s
-                [:d :!S4] ; -> $
-""")
+simlayers.usesHandler('General Mode (Key: F)', 'GeneralMode', 'f', 'all')
 simlayers.new('Google Mode (Key: G)', 'google-mode', 'g', """
                 [:y [:hs "custom-open?key=Y"]]
                 ; u
@@ -405,24 +289,10 @@ simlayers.new('Jump to Mode (Key: return)', 'jump-to-mode', 'return_or_enter', "
                 [:t [:!Sopen_bracket]] ; Previous block
 """)
 
-simlayers.new('Dialog Case Mode (Key: Z)', 'dialog-case-mode', 'z', """
-                [:y [:hs "case-dialog?to=upperFirst"]]
-                [:u [:hs "case-dialog?to=upper"]]
-                [:i [:hs "case-dialog?to=constant"]]
-                [:o [:hs "case-dialog?to=kebab"]]
-                [:p [:hs "case-dialog?to=pascal"]]
 
-                [:h [:hs "case-dialog?to=title"]]
-                [:j [:hs "case-dialog?to=sentence"]]
-                [:k [:hs "case-dialog?to=snake"]]
-                [:l [:hs "case-dialog?to=lower"]]
-
-                [:m [:hs "case-dialog?to=camel"]]
-                [:period [:hs "case-dialog?to=dot"]]
-                [:slash [:hs "case-dialog?to=path"]]
-""")
+simlayers.usesHandler('Dialog Case Mode (Key: Z)', 'CaseDialog', 'z', 'all-right')
 simlayers.available('x')
-simlayers.usesHandler('Code Mode (Key: C)', 'CodeMode', 'c', 'y,u,i,o,p,open_bracket,close_bracket,h,j,k,l,semicolon,quote,return_or_enter,b,n,m,comma,period,slash,spacebar')
+simlayers.usesHandler('Code Mode (Key: C)', 'CodeMode', 'c', 'all-right')
 simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', """
                 [:##y :!SCup_arrow] ; Top of page
                 [:##i :!SCleft_arrow]
@@ -509,34 +379,7 @@ simlayers.new('Launch Mode (Key: ,)', 'launch-mode', 'comma', """
 
                 [:spacebar [:hs "window-bringAllToFront"]]
 """)
-simlayers.new('App Mode (Key: .)', 'app-mode', 'period', """
-                [:t [:hs "shortcut-trigger?key=T"]]
-                [:r [:hs "shortcut-trigger?key=R"]]
-                [:e [:hs "shortcut-trigger?key=E"]]
-                [:w [:hs "shortcut-trigger?key=W"]]
-                [:q [:hs "shortcut-trigger?key=Q"]]
-                [:g [:hs "shortcut-trigger?key=G"]]
-                [:f [:hs "shortcut-trigger?key=F"]]
-                [:d [:hs "shortcut-trigger?key=D"]]
-                [:s [:hs "shortcut-trigger?key=S"]]
-                [:a [:hs "shortcut-trigger?key=A"]]
-                [:b [:hs "shortcut-trigger?key=B"]]
-                ; v
-                [:c [:hs "shortcut-trigger?key=C"]]
-                [:x [:hs "shortcut-trigger?key=X"]]
-                [:z [:hs "shortcut-trigger?key=Z"]]
-                [:h [:hs "shortcut-trigger?key=H"]]
-                [:m [:hs "shortcut-trigger?key=M"]]
-                [:0 :!OC0] ; Notion: Create text
-                [:1 :!OC1] ; Notion: Create H1 heading
-                [:2 :!OC2] ; Notion: Create H2 heading
-                [:3 :!OC3] ; Notion: Create H3 heading
-                [:4 [:hs "shortcut-trigger?key=4"]]
-                [:5 :!OC5] ; Notion: Create bulleted list
-                [:6 :!OC6] ; Notion: Create numbered list
-                [:7 :!OC7] ; Notion: Create toggle list
-                [:8 :!OC8] ; Notion: Create code block
-""")
+simlayers.usesHandler('App Mode (Key: .)', 'AppMode', 'period', 'all')
 simlayers.new('Search Mode (Key: /)', 'search-mode', 'slash', """
                 [:caps_lock [:hs "search-default"]]
                 [:w [:hs "window-searchInCurrentApp"]]
@@ -551,48 +394,6 @@ simlayers.new('Search Mode (Key: /)', 'search-mode', 'slash', """
                 [:c [:slash :!Scomma :!Scomma :!Scomma :!Scomma :!Scomma :return_or_enter]] ; Search for conflicts
 """)
 
-simlayers.new('Window Mode (Key: Spacebar)', 'window-mode', 'spacebar', """
-                [:tab [:hs "window-moveToCenter"]]
-                ; q
-                ; w
-                ; e
-                ; r
-                ; t
+simlayers.usesHandler('Window Mode (Key: Spacebar)', 'WindowManager', 'spacebar', 'all')
 
-                ; y
-                [:u [:hs "window-move?to=topLeft"]]
-                [:i [:hs "window-moveToMiddle"]]
-                [:o [:hs "window-move?to=topRight"]]
-                [:p [:hs "window-appSettings"]]
-                ; [
-                [:close_bracket [:hs "window-moveTotopRightSmall"]]
-
-                [:caps_lock :mission_control] ; Mac: Show all windows
-                ; a
-                ; s
-                [:d [:hs "window-moveToNextDisplay"]]
-                [:f [:hs "window-move?to=maximize"]]
-                [:g [:hs "window-showGrid"]]
-
-                [:h [:hs "window-move?to=leftHalf"]]
-                [:j [:hs "window-move?to=bottomHalf"]]
-                [:k [:hs "window-move?to=topHalf"]]
-                [:l [:hs "window-move?to=rightHalf"]]
-                [:semicolon [:hs "window-next"]]
-                [:quote [:hs "window-nextInCurrentApp"]]
-                [:return_or_enter [:hs "window-reset"]]
-
-                ; z
-                ; x
-                ; c
-                ; v
-                [:b [:hs "window-toggleSidebar"]]
-
-                [:n [:hs "window-move?to=bottomLeft"]]
-                [:m [:hs "misc-moveMouseToOtherScreen"]]
-                [:comma [:hs "window-move?to=bottomRight"]]
-                ; .
-                ; /
-""")
-
-compileTemplate(hyperMode, simlayers)
+compileTemplate(simlayers)

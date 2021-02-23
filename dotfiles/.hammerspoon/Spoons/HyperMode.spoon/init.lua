@@ -1,7 +1,86 @@
-local obj = {}
-obj.__index = obj
+local HyperMode = {}
+HyperMode.__index = HyperMode
 
-hs.urlevent.bind('hyper-copy', function()
+function HyperMode.y()
+    HyperMode.copy()
+end
+
+function HyperMode.u()
+    HyperMode.copyTextArea()
+end
+
+function HyperMode.i()
+end
+
+function HyperMode.o()
+    HyperMode.open()
+end
+
+function HyperMode.p()
+    HyperMode.paste()
+end
+
+function HyperMode.open_bracket()
+    HyperMode.commandPalette()
+end
+
+function HyperMode.close_bracket()
+end
+
+function HyperMode.h()
+    HyperMode.previousPage()
+end
+
+function HyperMode.j()
+    HyperMode.previousTab()
+end
+
+function HyperMode.k()
+    HyperMode.nextTab()
+end
+
+function HyperMode.l()
+    HyperMode.nextPage()
+end
+
+function HyperMode.semicolon()
+    -- Alfred
+    hs.eventtap.keyStroke({'alt'}, 'z')
+end
+
+function HyperMode.quote()
+    -- Alfred Clipboard
+    hs.eventtap.keyStroke({'alt'}, 'c')
+end
+
+function HyperMode.return_or_enter()
+    hs.eventtap.keyStroke({}, 'caps_lock')
+end
+
+function HyperMode.n()
+    HyperMode.new()
+end
+
+function HyperMode.m()
+end
+
+function HyperMode.comma()
+    HyperMode.jumpTo()
+end
+
+function HyperMode.period()
+end
+
+function HyperMode.slash()
+end
+
+function HyperMode.right_shift()
+end
+
+function HyperMode.spacebar()
+end
+
+function HyperMode.copy()
     text = getSelectedText(true)
     if appIs(spotify) then
         hs.osascript.applescript([[
@@ -25,9 +104,9 @@ hs.urlevent.bind('hyper-copy', function()
     elseif appIs(chrome) then
         copyChromeUrl()
     end
-end)
+end
 
-hs.urlevent.bind('hyper-open', function()
+function HyperMode.open()
     if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
         hs.eventtap.keyStroke({'cmd'}, 'p')
 
@@ -43,9 +122,9 @@ hs.urlevent.bind('hyper-open', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 'O')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-new', function()
+function HyperMode.new()
     if appIs(atom) then
         TextManipulation.disableVim()
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
@@ -55,9 +134,9 @@ hs.urlevent.bind('hyper-new', function()
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-copyTextArea', function()
+function HyperMode.copyTextArea()
     if appIs(notion) then
         hs.eventtap.keyStroke({'cmd'}, 'A')
         hs.eventtap.keyStroke({'cmd'}, 'C')
@@ -67,9 +146,9 @@ hs.urlevent.bind('hyper-copyTextArea', function()
         hs.eventtap.keyStroke({'cmd'}, 'C')
         hs.eventtap.keyStroke({}, 'Right')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-commandPalette', function()
+function HyperMode.commandPalette()
     if appIncludes({atom, sublime, sublimeMerge}) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
 
@@ -79,9 +158,9 @@ hs.urlevent.bind('hyper-commandPalette', function()
     else
         triggerAlfredWorkflow('search', 'com.tedwise.menubarsearch')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-previousPage', function()
+function HyperMode.previousPage()
     if appIs(spotify) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'Left')
     elseif appIs(discord) then
@@ -97,9 +176,9 @@ hs.urlevent.bind('hyper-previousPage', function()
     else
         hs.eventtap.keyStroke({'cmd'}, '[')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-previousTab', function()
+function HyperMode.previousTab()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, '[')
     elseif appIncludes({teams, discord}) then
@@ -108,9 +187,9 @@ hs.urlevent.bind('hyper-previousTab', function()
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, '[')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-nextTab', function()
+function HyperMode.nextTab()
     if appIs(tableplus) then
         hs.eventtap.keyStroke({'cmd'}, ']')
     elseif appIncludes({teams, discord}) then
@@ -119,9 +198,9 @@ hs.urlevent.bind('hyper-nextTab', function()
     else
         hs.eventtap.keyStroke({'shift', 'cmd'}, ']')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-nextPage', function()
+function HyperMode.nextPage()
     if appIs(spotify) then
         hs.eventtap.keyStroke({'alt', 'cmd'}, 'Right')
     elseif appIs(iterm) then
@@ -135,19 +214,9 @@ hs.urlevent.bind('hyper-nextPage', function()
     else
         hs.eventtap.keyStroke({'cmd'}, ']')
     end
-end)
+end
 
-hs.urlevent.bind('hyper-shortcat', function()
-    bundle = 'com.sproutcube.Shortcat'
-
-    if hs.application.get(bundle) == nil then
-        hs.application.open(bundle)
-    else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'space')
-    end
-end)
-
-hs.urlevent.bind('hyper-jumpTo', function()
+function HyperMode.jumpTo()
     if appIs(atom) then
         hs.eventtap.keyStroke({'shift'}, 'return')
     elseif appIs(sublime) then
@@ -155,6 +224,14 @@ hs.urlevent.bind('hyper-jumpTo', function()
     else
         hs.eventtap.keyStroke({'ctrl'}, 'space')
     end
-end)
+end
 
-return obj
+function HyperMode.paste()
+    hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+
+    if titleContains('Slack | ') then
+        hs.eventtap.keyStroke({'shift', 'cmd'}, 'f', 0)
+    end
+end
+
+return HyperMode

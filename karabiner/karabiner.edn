@@ -36,31 +36,31 @@
         :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
     }
     :layers {
-        :hyper-mode {:key :caps_lock :alone {:key :escape}}
+        :HyperMode {:key :caps_lock :alone {:key :escape}}
     }
     :simlayers {
-        :tab-mode {:key :tab}
+        :TabMode {:key :tab}
         ; q
         ; w
         ; e
-        :pane-mode {:key :r}
+        :PaneMode {:key :r}
         :TestMode {:key :t}
         :yank-mode {:key :y}
-        :select-until-mode {:key :u}
+        :SelectUntilMode {:key :u}
         :select-inside-mode {:key :i}
         :open-mode {:key :o}
         :paste-mode {:key :p}
         :destroy-mode {:key :open_bracket}
         ; ]
-        :case-mode {:key :a}
+        :CaseMode {:key :a}
         :snippet-mode {:key :s}
         :ViMode {:key :d}
-        :general-mode {:key :f}
+        :GeneralMode {:key :f}
         :google-mode {:key :g}
         :command-mode {:key :semicolon}
         :extended-command-mode {:key :quote}
         :jump-to-mode {:key :return_or_enter}
-        :dialog-case-mode {:key :z}
+        :CaseDialog {:key :z}
         ; x
         :CodeMode {:key :c}
         :ViVisualMode {:key :v}
@@ -68,9 +68,9 @@
         :change-mode {:key :n}
         :media-mode {:key :m}
         :launch-mode {:key :comma}
-        :app-mode {:key :period}
+        :AppMode {:key :period}
         :search-mode {:key :slash}
-        :window-mode {:key :spacebar}
+        :WindowManager {:key :spacebar}
     }
     :main [
         ;; each manipulator has a description and multiple rules
@@ -158,66 +158,85 @@
                 [:!Creturn_or_enter {:pkey :button2}]
             ]
         }
-        
         {
             :des "Hyper Mode (Key: Caps Lock)"
-            :rules [:hyper-mode
-                [:y [:hs "hyper-copy"]]
-                [:u [:hs "hyper-copyTextArea"]]
-                ; i
-                [:o [:hs "hyper-open"]]
-                [:p :!Cv] ; Paste
-                [:open_bracket [:hs "hyper-commandPalette"]]
-                ; ]
-
-                [:h [:hs "hyper-previousPage"]] ; Navigate to previous page
-                [:j [:hs "hyper-previousTab"]]
-                [:k [:hs "hyper-nextTab"]]
-                [:l [:hs "hyper-nextPage"]] ; Navigate to next page
-                [:semicolon :!Oz] ; Alfred
-                [:quote :!Oc] ; Alfred Clipboard
-                [:return_or_enter :caps_lock]
-
-                [:n [:hs "hyper-new"]]
-                ; m
-                [:comma [:hs "hyper-jumpTo"]]
-                ; .
-                ; /
-
-                ; spacebar
+            :rules [:HyperMode
+                [:y [:hs "handle-karabiner?layer=HyperMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=HyperMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=HyperMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=HyperMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=HyperMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=HyperMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=HyperMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=HyperMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=HyperMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=HyperMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=HyperMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=HyperMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=HyperMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=HyperMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=HyperMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=HyperMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=HyperMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=HyperMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=HyperMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=HyperMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=HyperMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=HyperMode&key=spacebar"]]
             ]
         }
-
         {
             :des "Tab Mode (Key: tab)"
-            :rules [:tab-mode
-                [:i [:!C1]] ; Go to first tab
-                [:o [:!C9]] ; Go to last tab
-                [:p [:t :p]] ; Chrome: Pin Tab
-                [:open_bracket [:hs "tab-closeCurrent"]]
-                [:close_bracket [:hs "tab-moveToNewWindow"]]
-
-                [:h [:hs "tab-moveLeft"]]
-                [:l [:hs "tab-moveRight"]]
-                [:return_or_enter [:hs "tab-restore"]]
-
-                [:n [:hs "tab-new"]]
-                [:comma [:hs "tab-closeAllToLeft"]]
-                [:period [:hs "tab-closeAllToRight"]]
-                [:slash [:hs "tab-closeAllOthers"]]
-                [:right_shift [:hs "tab-closeAll"]]
+            :rules [:TabMode
+                [:y [:hs "handle-karabiner?layer=TabMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=TabMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=TabMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=TabMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=TabMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=TabMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=TabMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=TabMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=TabMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=TabMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=TabMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=TabMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=TabMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=TabMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=TabMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=TabMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=TabMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=TabMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=TabMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=TabMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=TabMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=TabMode&key=spacebar"]]
             ]
         }
         {
             :des "Pane Mode (Key: r)"
-            :rules [:pane-mode
-                [:open_bracket [:hs "pane-destroy"]]
-                [:j [:hs "pane-focusPrevious"]]
-                [:k [:hs "pane-focusNext"]]
-                [:l [:hs "pane-splitRight"]]
-
-                [:m [:hs "pane-splitBottom"]]
-                [:semicolon [:hs "pane-toggleZoom"]]
+            :rules [:PaneMode
+                [:y [:hs "handle-karabiner?layer=PaneMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=PaneMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=PaneMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=PaneMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=PaneMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=PaneMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=PaneMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=PaneMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=PaneMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=PaneMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=PaneMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=PaneMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=PaneMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=PaneMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=PaneMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=PaneMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=PaneMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=PaneMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=PaneMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=PaneMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=PaneMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=PaneMode&key=spacebar"]]
             ]
         }
         {
@@ -254,24 +273,26 @@
         }
         {
             :des "Select Until Mode (Key: u)"
-            :rules [:select-until-mode
-                [:e [:hs "select-until-endOfWord"]]
-
-                [:w [:hs "select-until-next-word"]]
-
-                [:s [:hs "select-until-single-quote"]]
-                [:d [:hs "select-until-double-quote"]]
-                [:z [:hs "select-until-back-tick"]]
-
-                [:caps_lock [:hs "select-until-mode"]]
-                [:left_shift [:hs "select-until-mode-backward"]]
-                [:f [:hs "select-until-parenthesis"]]
-                [:c [:hs "select-until-braces"]]
-                [:b [:hs "select-until-brackets"]]
-
-                [:a [:hs "select-until-endOfLine"]]
-                [:i [:hs "select-until-beginningOfLine"]]
-                [:t [:hs "select-until-previousBlock"]]
+            :rules [:SelectUntilMode
+                [:tab [:hs "handle-karabiner?layer=SelectUntilMode&key=tab"]]
+                [:q [:hs "handle-karabiner?layer=SelectUntilMode&key=q"]]
+                [:w [:hs "handle-karabiner?layer=SelectUntilMode&key=w"]]
+                [:e [:hs "handle-karabiner?layer=SelectUntilMode&key=e"]]
+                [:r [:hs "handle-karabiner?layer=SelectUntilMode&key=r"]]
+                [:t [:hs "handle-karabiner?layer=SelectUntilMode&key=t"]]
+                [:caps_lock [:hs "handle-karabiner?layer=SelectUntilMode&key=caps_lock"]]
+                [:a [:hs "handle-karabiner?layer=SelectUntilMode&key=a"]]
+                [:s [:hs "handle-karabiner?layer=SelectUntilMode&key=s"]]
+                [:d [:hs "handle-karabiner?layer=SelectUntilMode&key=d"]]
+                [:f [:hs "handle-karabiner?layer=SelectUntilMode&key=f"]]
+                [:g [:hs "handle-karabiner?layer=SelectUntilMode&key=g"]]
+                [:left_shift [:hs "handle-karabiner?layer=SelectUntilMode&key=left_shift"]]
+                [:z [:hs "handle-karabiner?layer=SelectUntilMode&key=z"]]
+                [:x [:hs "handle-karabiner?layer=SelectUntilMode&key=x"]]
+                [:c [:hs "handle-karabiner?layer=SelectUntilMode&key=c"]]
+                [:v [:hs "handle-karabiner?layer=SelectUntilMode&key=v"]]
+                [:b [:hs "handle-karabiner?layer=SelectUntilMode&key=b"]]
+                [:spacebar [:hs "handle-karabiner?layer=SelectUntilMode&key=spacebar"]]
             ]
         }
         {
@@ -366,21 +387,29 @@
         }
         {
             :des "Case Mode (Key: A)"
-            :rules [:case-mode
-                [:y [:hs "case-change?to=upperFirst&key=y"]]
-                [:u [:hs "case-change?to=upper&key=u"]]
-                [:i [:hs "case-change?to=constant&key=i"]]
-                [:o [:hs "case-change?to=kebab&key=o"]]
-                [:p [:hs "case-change?to=pascal&key=p"]]
-
-                [:h [:hs "case-change?to=title&key=h"]]
-                [:j [:hs "case-change?to=sentence&key=j"]]
-                [:k [:hs "case-change?to=snake&key=k"]]
-                [:l [:hs "case-change?to=lower&key=l"]]
-
-                [:m [:hs "case-change?to=camel&key=m"]]
-                [:period [:hs "case-change?to=dot&key=."]]
-                [:slash [:hs "case-change?to=path&key=/"]]
+            :rules [:CaseMode
+                [:y [:hs "handle-karabiner?layer=CaseMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=CaseMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=CaseMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=CaseMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=CaseMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=CaseMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=CaseMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=CaseMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=CaseMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=CaseMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=CaseMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=CaseMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=CaseMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=CaseMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=CaseMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=CaseMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=CaseMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=CaseMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=CaseMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=CaseMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=CaseMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=CaseMode&key=spacebar"]]
             ]
         }
         {
@@ -434,36 +463,45 @@
         }
         {
             :des "General Mode (Key: F)"
-            :rules [:general-mode
-                [:y :!S7] ; &
-                [:u :!Shyphen] ; _
-                [:i :hyphen] ; -
-                [:o :keypad_plus] ; +
-                [:p :!Sbackslash] ; |
-                [:open_bracket :!S9] ; (
-                [:close_bracket :!S0] ; )
-
-                [:h :!Sgrave_accent_and_tilde] ; ~
-                ; j
-                ; k
-                ; l
-                ; ;
-                [:quote :equal_sign] ; =
-                ; return
-
-                [:n [:!Ograve_accent_and_tilde :spacebar]] ; `
-                [:m :!S8] ; Multiply: *
-                [:comma :!S5] ; %
-                [:period [:hyphen :!Speriod]] ; ->
-                ; /
-
-                [:q :!S3] ; #
-                ; w
-                [:e :!S1] ; !
-
-                [:a :!S2] ; @
-                ; s
-                [:d :!S4] ; -> $
+            :rules [:GeneralMode
+                [:tab [:hs "handle-karabiner?layer=GeneralMode&key=tab"]]
+                [:q [:hs "handle-karabiner?layer=GeneralMode&key=q"]]
+                [:w [:hs "handle-karabiner?layer=GeneralMode&key=w"]]
+                [:e [:hs "handle-karabiner?layer=GeneralMode&key=e"]]
+                [:r [:hs "handle-karabiner?layer=GeneralMode&key=r"]]
+                [:t [:hs "handle-karabiner?layer=GeneralMode&key=t"]]
+                [:y [:hs "handle-karabiner?layer=GeneralMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=GeneralMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=GeneralMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=GeneralMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=GeneralMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=GeneralMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=GeneralMode&key=close_bracket"]]
+                [:caps_lock [:hs "handle-karabiner?layer=GeneralMode&key=caps_lock"]]
+                [:a [:hs "handle-karabiner?layer=GeneralMode&key=a"]]
+                [:s [:hs "handle-karabiner?layer=GeneralMode&key=s"]]
+                [:d [:hs "handle-karabiner?layer=GeneralMode&key=d"]]
+                [:g [:hs "handle-karabiner?layer=GeneralMode&key=g"]]
+                [:h [:hs "handle-karabiner?layer=GeneralMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=GeneralMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=GeneralMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=GeneralMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=GeneralMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=GeneralMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=GeneralMode&key=return_or_enter"]]
+                [:left_shift [:hs "handle-karabiner?layer=GeneralMode&key=left_shift"]]
+                [:z [:hs "handle-karabiner?layer=GeneralMode&key=z"]]
+                [:x [:hs "handle-karabiner?layer=GeneralMode&key=x"]]
+                [:c [:hs "handle-karabiner?layer=GeneralMode&key=c"]]
+                [:v [:hs "handle-karabiner?layer=GeneralMode&key=v"]]
+                [:b [:hs "handle-karabiner?layer=GeneralMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=GeneralMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=GeneralMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=GeneralMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=GeneralMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=GeneralMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=GeneralMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=GeneralMode&key=spacebar"]]
             ]
         }
         {
@@ -608,21 +646,29 @@
         }
         {
             :des "Dialog Case Mode (Key: Z)"
-            :rules [:dialog-case-mode
-                [:y [:hs "case-dialog?to=upperFirst"]]
-                [:u [:hs "case-dialog?to=upper"]]
-                [:i [:hs "case-dialog?to=constant"]]
-                [:o [:hs "case-dialog?to=kebab"]]
-                [:p [:hs "case-dialog?to=pascal"]]
-
-                [:h [:hs "case-dialog?to=title"]]
-                [:j [:hs "case-dialog?to=sentence"]]
-                [:k [:hs "case-dialog?to=snake"]]
-                [:l [:hs "case-dialog?to=lower"]]
-
-                [:m [:hs "case-dialog?to=camel"]]
-                [:period [:hs "case-dialog?to=dot"]]
-                [:slash [:hs "case-dialog?to=path"]]
+            :rules [:CaseDialog
+                [:y [:hs "handle-karabiner?layer=CaseDialog&key=y"]]
+                [:u [:hs "handle-karabiner?layer=CaseDialog&key=u"]]
+                [:i [:hs "handle-karabiner?layer=CaseDialog&key=i"]]
+                [:o [:hs "handle-karabiner?layer=CaseDialog&key=o"]]
+                [:p [:hs "handle-karabiner?layer=CaseDialog&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=CaseDialog&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=CaseDialog&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=CaseDialog&key=h"]]
+                [:j [:hs "handle-karabiner?layer=CaseDialog&key=j"]]
+                [:k [:hs "handle-karabiner?layer=CaseDialog&key=k"]]
+                [:l [:hs "handle-karabiner?layer=CaseDialog&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=CaseDialog&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=CaseDialog&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=CaseDialog&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=CaseDialog&key=b"]]
+                [:n [:hs "handle-karabiner?layer=CaseDialog&key=n"]]
+                [:m [:hs "handle-karabiner?layer=CaseDialog&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=CaseDialog&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=CaseDialog&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=CaseDialog&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=CaseDialog&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=CaseDialog&key=spacebar"]]
             ]
         }
         {
@@ -648,6 +694,7 @@
                 [:comma [:hs "handle-karabiner?layer=CodeMode&key=comma"]]
                 [:period [:hs "handle-karabiner?layer=CodeMode&key=period"]]
                 [:slash [:hs "handle-karabiner?layer=CodeMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=CodeMode&key=right_shift"]]
                 [:spacebar [:hs "handle-karabiner?layer=CodeMode&key=spacebar"]]
             ]
         }
@@ -749,33 +796,45 @@
         }
         {
             :des "App Mode (Key: .)"
-            :rules [:app-mode
-                [:t [:hs "shortcut-trigger?key=T"]]
-                [:r [:hs "shortcut-trigger?key=R"]]
-                [:e [:hs "shortcut-trigger?key=E"]]
-                [:w [:hs "shortcut-trigger?key=W"]]
-                [:q [:hs "shortcut-trigger?key=Q"]]
-                [:g [:hs "shortcut-trigger?key=G"]]
-                [:f [:hs "shortcut-trigger?key=F"]]
-                [:d [:hs "shortcut-trigger?key=D"]]
-                [:s [:hs "shortcut-trigger?key=S"]]
-                [:a [:hs "shortcut-trigger?key=A"]]
-                [:b [:hs "shortcut-trigger?key=B"]]
-                ; v
-                [:c [:hs "shortcut-trigger?key=C"]]
-                [:x [:hs "shortcut-trigger?key=X"]]
-                [:z [:hs "shortcut-trigger?key=Z"]]
-                [:h [:hs "shortcut-trigger?key=H"]]
-                [:m [:hs "shortcut-trigger?key=M"]]
-                [:0 :!OC0] ; Notion: Create text
-                [:1 :!OC1] ; Notion: Create H1 heading
-                [:2 :!OC2] ; Notion: Create H2 heading
-                [:3 :!OC3] ; Notion: Create H3 heading
-                [:4 [:hs "shortcut-trigger?key=4"]]
-                [:5 :!OC5] ; Notion: Create bulleted list
-                [:6 :!OC6] ; Notion: Create numbered list
-                [:7 :!OC7] ; Notion: Create toggle list
-                [:8 :!OC8] ; Notion: Create code block
+            :rules [:AppMode
+                [:tab [:hs "handle-karabiner?layer=AppMode&key=tab"]]
+                [:q [:hs "handle-karabiner?layer=AppMode&key=q"]]
+                [:w [:hs "handle-karabiner?layer=AppMode&key=w"]]
+                [:e [:hs "handle-karabiner?layer=AppMode&key=e"]]
+                [:r [:hs "handle-karabiner?layer=AppMode&key=r"]]
+                [:t [:hs "handle-karabiner?layer=AppMode&key=t"]]
+                [:y [:hs "handle-karabiner?layer=AppMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=AppMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=AppMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=AppMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=AppMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=AppMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=AppMode&key=close_bracket"]]
+                [:caps_lock [:hs "handle-karabiner?layer=AppMode&key=caps_lock"]]
+                [:a [:hs "handle-karabiner?layer=AppMode&key=a"]]
+                [:s [:hs "handle-karabiner?layer=AppMode&key=s"]]
+                [:d [:hs "handle-karabiner?layer=AppMode&key=d"]]
+                [:f [:hs "handle-karabiner?layer=AppMode&key=f"]]
+                [:g [:hs "handle-karabiner?layer=AppMode&key=g"]]
+                [:h [:hs "handle-karabiner?layer=AppMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=AppMode&key=j"]]
+                [:k [:hs "handle-karabiner?layer=AppMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=AppMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=AppMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=AppMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=AppMode&key=return_or_enter"]]
+                [:left_shift [:hs "handle-karabiner?layer=AppMode&key=left_shift"]]
+                [:z [:hs "handle-karabiner?layer=AppMode&key=z"]]
+                [:x [:hs "handle-karabiner?layer=AppMode&key=x"]]
+                [:c [:hs "handle-karabiner?layer=AppMode&key=c"]]
+                [:v [:hs "handle-karabiner?layer=AppMode&key=v"]]
+                [:b [:hs "handle-karabiner?layer=AppMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=AppMode&key=n"]]
+                [:m [:hs "handle-karabiner?layer=AppMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=AppMode&key=comma"]]
+                [:slash [:hs "handle-karabiner?layer=AppMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=AppMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=AppMode&key=spacebar"]]
             ]
         }
         {
@@ -796,48 +855,45 @@
         }
         {
             :des "Window Mode (Key: Spacebar)"
-            :rules [:window-mode
-                [:tab [:hs "window-moveToCenter"]]
-                ; q
-                ; w
-                ; e
-                ; r
-                ; t
-
-                ; y
-                [:u [:hs "window-move?to=topLeft"]]
-                [:i [:hs "window-moveToMiddle"]]
-                [:o [:hs "window-move?to=topRight"]]
-                [:p [:hs "window-appSettings"]]
-                ; [
-                [:close_bracket [:hs "window-moveTotopRightSmall"]]
-
-                [:caps_lock :mission_control] ; Mac: Show all windows
-                ; a
-                ; s
-                [:d [:hs "window-moveToNextDisplay"]]
-                [:f [:hs "window-move?to=maximize"]]
-                [:g [:hs "window-showGrid"]]
-
-                [:h [:hs "window-move?to=leftHalf"]]
-                [:j [:hs "window-move?to=bottomHalf"]]
-                [:k [:hs "window-move?to=topHalf"]]
-                [:l [:hs "window-move?to=rightHalf"]]
-                [:semicolon [:hs "window-next"]]
-                [:quote [:hs "window-nextInCurrentApp"]]
-                [:return_or_enter [:hs "window-reset"]]
-
-                ; z
-                ; x
-                ; c
-                ; v
-                [:b [:hs "window-toggleSidebar"]]
-
-                [:n [:hs "window-move?to=bottomLeft"]]
-                [:m [:hs "misc-moveMouseToOtherScreen"]]
-                [:comma [:hs "window-move?to=bottomRight"]]
-                ; .
-                ; /
+            :rules [:WindowManager
+                [:tab [:hs "handle-karabiner?layer=WindowManager&key=tab"]]
+                [:q [:hs "handle-karabiner?layer=WindowManager&key=q"]]
+                [:w [:hs "handle-karabiner?layer=WindowManager&key=w"]]
+                [:e [:hs "handle-karabiner?layer=WindowManager&key=e"]]
+                [:r [:hs "handle-karabiner?layer=WindowManager&key=r"]]
+                [:t [:hs "handle-karabiner?layer=WindowManager&key=t"]]
+                [:y [:hs "handle-karabiner?layer=WindowManager&key=y"]]
+                [:u [:hs "handle-karabiner?layer=WindowManager&key=u"]]
+                [:i [:hs "handle-karabiner?layer=WindowManager&key=i"]]
+                [:o [:hs "handle-karabiner?layer=WindowManager&key=o"]]
+                [:p [:hs "handle-karabiner?layer=WindowManager&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=WindowManager&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=WindowManager&key=close_bracket"]]
+                [:caps_lock [:hs "handle-karabiner?layer=WindowManager&key=caps_lock"]]
+                [:a [:hs "handle-karabiner?layer=WindowManager&key=a"]]
+                [:s [:hs "handle-karabiner?layer=WindowManager&key=s"]]
+                [:d [:hs "handle-karabiner?layer=WindowManager&key=d"]]
+                [:f [:hs "handle-karabiner?layer=WindowManager&key=f"]]
+                [:g [:hs "handle-karabiner?layer=WindowManager&key=g"]]
+                [:h [:hs "handle-karabiner?layer=WindowManager&key=h"]]
+                [:j [:hs "handle-karabiner?layer=WindowManager&key=j"]]
+                [:k [:hs "handle-karabiner?layer=WindowManager&key=k"]]
+                [:l [:hs "handle-karabiner?layer=WindowManager&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=WindowManager&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=WindowManager&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=WindowManager&key=return_or_enter"]]
+                [:left_shift [:hs "handle-karabiner?layer=WindowManager&key=left_shift"]]
+                [:z [:hs "handle-karabiner?layer=WindowManager&key=z"]]
+                [:x [:hs "handle-karabiner?layer=WindowManager&key=x"]]
+                [:c [:hs "handle-karabiner?layer=WindowManager&key=c"]]
+                [:v [:hs "handle-karabiner?layer=WindowManager&key=v"]]
+                [:b [:hs "handle-karabiner?layer=WindowManager&key=b"]]
+                [:n [:hs "handle-karabiner?layer=WindowManager&key=n"]]
+                [:m [:hs "handle-karabiner?layer=WindowManager&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=WindowManager&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=WindowManager&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=WindowManager&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=WindowManager&key=right_shift"]]
             ]
         }
     ]

@@ -1,9 +1,8 @@
 from string import Template
 
-def compileTemplate(hyperMode, simlayers):
+def compileTemplate(simlayers):
     print(
         Template(fileContents('template')).substitute({
-            'hyperMode': hyperMode,
             'simlayers': simlayers.definitions(),
             'rulesets': simlayers.rulesets(),
         })

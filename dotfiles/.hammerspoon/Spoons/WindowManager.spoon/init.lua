@@ -1,5 +1,145 @@
 local WindowManager = {}
 WindowManager.__index = WindowManager
+
+function WindowManager.tab()
+    WindowManager.moveToCenter()
+end
+
+function WindowManager.q()
+end
+
+function WindowManager.w()
+end
+
+function WindowManager.e()
+end
+
+function WindowManager.r()
+end
+
+function WindowManager.t()
+end
+
+function WindowManager.y()
+end
+
+function WindowManager.u()
+    WindowManager.moveTo('topLeft')
+end
+
+function WindowManager.i()
+    WindowManager.moveToMiddle()
+end
+
+function WindowManager.o()
+    WindowManager.moveTo('topRight')
+end
+
+function WindowManager.p()
+    WindowManager.appSettings()
+end
+
+function WindowManager.open_bracket()
+end
+
+function WindowManager.close_bracket()
+    WindowManager.moveTotopRightSmall()
+end
+
+function WindowManager.caps_lock()
+    -- Mission Control
+    hs.eventtap.keyStroke({'fn', 'ctrl'}, 'up', 0)
+end
+
+function WindowManager.a()
+end
+
+function WindowManager.s()
+end
+
+function WindowManager.d()
+    WindowManager.moveToNextDisplay()
+end
+
+function WindowManager.f()
+    WindowManager.moveTo('maximize')
+end
+
+function WindowManager.g()
+    WindowManager.showGrid()
+end
+
+function WindowManager.h()
+    WindowManager.moveTo('leftHalf')
+end
+
+function WindowManager.j()
+    WindowManager.moveTo('bottomHalf')
+end
+
+function WindowManager.k()
+    WindowManager.moveTo('topHalf')
+end
+
+function WindowManager.l()
+    WindowManager.moveTo('rightHalf')
+end
+
+function WindowManager.semicolon()
+    WindowManager.next()
+end
+
+function WindowManager.quote()
+    WindowManager.nextInCurrentApp()
+end
+
+function WindowManager.return_or_enter()
+    WindowManager.reset()
+end
+
+function WindowManager.left_shift()
+end
+
+function WindowManager.z()
+end
+
+function WindowManager.x()
+end
+
+function WindowManager.c()
+end
+
+function WindowManager.v()
+end
+
+function WindowManager.b()
+    WindowManager.toggleSidebar()
+end
+
+function WindowManager.n()
+    WindowManager.moveTo('bottomLeft')
+end
+
+function WindowManager.m()
+    WindowManager.moveMouseToOtherScreen()
+end
+
+function WindowManager.comma()
+    WindowManager.moveTo('bottomRight')
+end
+
+function WindowManager.period()
+end
+
+function WindowManager.slash()
+end
+
+function WindowManager.right_shift()
+end
+
+function WindowManager.spacebar()
+end
+
 WindowManager.HalfsAndThirds = hs.loadSpoon('WindowHalfsAndThirds')
 
 hs.grid.setGrid('12x4')
@@ -9,36 +149,36 @@ hs.window.animationDuration = 0
 hs.grid.ui.textSize = 100
 hs.grid.ui.showExtraKeys = false
 
-hs.urlevent.bind('window-move', function(listener, params)
-    WindowManager.HalfsAndThirds[params.to]()
-end)
+function WindowManager.moveTo(position)
+    WindowManager.HalfsAndThirds[position]()
+end
 
-hs.urlevent.bind('window-showGrid', function(listener, params)
+function WindowManager.showGrid()
     hs.grid.toggleShow()
-end)
+end
 
-hs.urlevent.bind('window-moveTotopRightSmall', function(listener, params)
+function WindowManager.moveTotopRightSmall()
     hs.grid.set(hs.window.focusedWindow(), '9,0 3x1')
-end)
+end
 
-hs.urlevent.bind('window-moveToMiddle', function(listener, params)
+function WindowManager.moveToMiddle()
     hs.grid.set(hs.window.focusedWindow(), '2,0 8x4')
-end)
+end
 
-hs.urlevent.bind('window-moveToCenter', function(listener, params)
+function WindowManager.moveToCenter()
     WindowManager.HalfsAndThirds.center()
-end)
+end
 
-hs.urlevent.bind('window-moveToNextDisplay', function(listener, params)
+function WindowManager.moveToNextDisplay()
     hs.grid.set(hs.window.focusedWindow(), '0,0 12x4')
     hs.window.focusedWindow():moveToScreen(hs.screen.mainScreen():next())
-end)
+end
 
-hs.urlevent.bind('window-reset', function(listener, params)
+function WindowManager.reset()
     WindowManager.HalfsAndThirds.undo()
-end)
+end
 
-hs.urlevent.bind('window-next', function()
+function WindowManager.next()
     local windows = hs.window.orderedWindows()
     if not windows[2] then
         return
@@ -51,9 +191,9 @@ hs.urlevent.bind('window-next', function()
     else
         nextWin:focus()
     end
-end)
+end
 
-hs.urlevent.bind('window-nextInCurrentApp', function()
+function WindowManager.nextInCurrentApp()
     local app = hs.application.frontmostApplication()
     local windows = app:allWindows()
 
@@ -68,7 +208,7 @@ hs.urlevent.bind('window-nextInCurrentApp', function()
     else
         nextWin:focus()
     end
-end)
+end
 
 function WindowManager.loadWindowsInAlfred(windows, minimum)
     if not windows or countTable(windows) < minimum then
@@ -96,7 +236,7 @@ function WindowManager.loadWindowsInAlfred(windows, minimum)
     triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
 end
 
-hs.urlevent.bind('window-searchAll', function(eventName, params)
+function WindowManager.searchAll()
     windows = hs.window.filter.default
         :rejectApp('Sublime Text')
         :rejectApp('Atom')
@@ -110,20 +250,45 @@ hs.urlevent.bind('window-searchAll', function(eventName, params)
         :getWindows(hs.window.filter.sortByFocusedLast)
 
     WindowManager.loadWindowsInAlfred(windows, 1)
-end)
+end
 
-hs.urlevent.bind('window-searchInCurrentApp', function(eventName, params)
+function WindowManager.searchInCurrentApp()
     windows = hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast)
 
     WindowManager.loadWindowsInAlfred(windows, 2)
-end)
+end
 
-hs.urlevent.bind('window-focus', function(eventName, params)
-    hs.window(tonumber(params.id)):focus()
-end)
+function WindowManager.focus(id)
+    hs.window(tonumber(id)):focus()
+end
 
-hs.urlevent.bind('window-bringAllToFront', function(eventName, params)
+function WindowManager.bringAllToFront()
     hs.application.frontmostApplication():activate(true)
-end)
+end
+
+function WindowManager.appSettings()
+    if isAlfredVisible() then
+        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
+    else
+        hs.eventtap.keyStroke({'cmd'}, ',')
+    end
+end
+
+function WindowManager.moveMouseToOtherScreen()
+    hs.mouse.setAbsolutePosition(
+        hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():next():fullFrame())
+    )
+end
+
+function WindowManager.toggleSidebar()
+    if appIs(finder) then
+        hs.eventtap.keyStroke({'alt', 'cmd'}, 's')
+    elseif appIs(sublimeMerge) then
+        hs.eventtap.keyStroke({'cmd'}, 'K')
+        hs.eventtap.keyStroke({'cmd'}, 'B')
+    else
+        hs.eventtap.keyStroke({'cmd'}, '\\')
+    end
+end
 
 return WindowManager

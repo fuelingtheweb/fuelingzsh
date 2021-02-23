@@ -1,7 +1,87 @@
-local obj = {}
-obj.__index = obj
+local TabMode = {}
+TabMode.__index = TabMode
 
-hs.urlevent.bind('tab-moveLeft', function()
+function TabMode.y()
+end
+
+function TabMode.u()
+end
+
+function TabMode.i()
+    -- Go to first tab
+    hs.eventtap.keyStroke({'cmd'}, '1')
+end
+
+function TabMode.o()
+    -- Go to last tab
+    hs.eventtap.keyStroke({'cmd'}, '9')
+end
+
+function TabMode.p()
+    -- Chrome: Pin Tab
+    hs.eventtap.keyStroke({}, 't', 0)
+    hs.eventtap.keyStroke({}, 'p', 0)
+end
+
+function TabMode.open_bracket()
+    TabMode.closeCurrent()
+end
+
+function TabMode.close_bracket()
+    TabMode.moveToNewWindow()
+end
+
+function TabMode.h()
+    TabMode.moveLeft()
+end
+
+function TabMode.j()
+end
+
+function TabMode.k()
+end
+
+function TabMode.l()
+    TabMode.moveRight()
+end
+
+function TabMode.semicolon()
+end
+
+function TabMode.quote()
+end
+
+function TabMode.return_or_enter()
+    TabMode.restore()
+end
+
+function TabMode.n()
+    TabMode.new()
+end
+
+function TabMode.m()
+end
+
+function TabMode.comma()
+    TabMode.closeAllToLeft()
+end
+
+function TabMode.period()
+    TabMode.closeAllToRight()
+end
+
+function TabMode.slash()
+    TabMode.closeAllOthers()
+end
+
+function TabMode.right_shift()
+    TabMode.closeAll()
+end
+
+function TabMode.spacebar()
+end
+
+function TabMode.moveLeft()
     if appIs(chrome) then
         -- Vimium
         hs.eventtap.keyStroke({}, 'escape')
@@ -14,9 +94,9 @@ hs.urlevent.bind('tab-moveLeft', function()
     elseif appIs(iterm) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'left')
     end
-end)
+end
 
-hs.urlevent.bind('tab-moveRight', function()
+function TabMode.moveRight()
     if appIs(chrome) then
         -- Vimium
         hs.eventtap.keyStroke({}, 'escape')
@@ -29,17 +109,17 @@ hs.urlevent.bind('tab-moveRight', function()
     elseif appIs(iterm) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'right')
     end
-end)
+end
 
-hs.urlevent.bind('tab-closeCurrent', function()
+function TabMode.closeCurrent()
     closeWindow()
-end)
+end
 
-hs.urlevent.bind('tab-restore', function()
+function TabMode.restore()
     hs.eventtap.keyStroke({'shift', 'cmd'}, 'T')
-end)
+end
 
-hs.urlevent.bind('tab-moveToNewWindow', function()
+function TabMode.moveToNewWindow()
     if appIs(sublime) then
         hs.eventtap.keyStroke({'cmd'}, 'A')
         hs.eventtap.keyStroke({'cmd'}, 'C')
@@ -50,9 +130,9 @@ hs.urlevent.bind('tab-moveToNewWindow', function()
     elseif appIs(chrome) then
         hs.eventtap.keyStroke({'shift'}, 'W')
     end
-end)
+end
 
-hs.urlevent.bind('tab-new', function()
+function TabMode.new()
     if appIncludes({sublime, atom}) then
         hs.eventtap.keyStroke({'cmd'}, 'n', 0)
         hs.eventtap.keyStroke({}, 'i', 0)
@@ -63,9 +143,9 @@ hs.urlevent.bind('tab-new', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 't', 0)
     end
-end)
+end
 
-hs.urlevent.bind('tab-closeAllToLeft', function()
+function TabMode.closeAllToLeft()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('txh')
     elseif appIncludes({atom, sublime}) then
@@ -78,9 +158,9 @@ hs.urlevent.bind('tab-closeAllToLeft', function()
             hs.eventtap.keyStroke({}, 'return', 0)
         end
     end
-end)
+end
 
-hs.urlevent.bind('tab-closeAllToRight', function()
+function TabMode.closeAllToRight()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('txl')
     elseif appIncludes({atom, sublime}) then
@@ -93,9 +173,9 @@ hs.urlevent.bind('tab-closeAllToRight', function()
             hs.eventtap.keyStroke({}, 'return', 0)
         end
     end
-end)
+end
 
-hs.urlevent.bind('tab-closeAllOthers', function()
+function TabMode.closeAllOthers()
     if appIs(chrome) then
         hs.eventtap.keyStrokes('tx;')
     elseif appIncludes({atom, sublime}) then
@@ -108,9 +188,9 @@ hs.urlevent.bind('tab-closeAllOthers', function()
             hs.eventtap.keyStroke({}, 'return', 0)
         end
     end
-end)
+end
 
-hs.urlevent.bind('tab-closeAll', function()
+function TabMode.closeAll()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'x', 0)
     elseif appIs(sublime) then
@@ -123,6 +203,6 @@ hs.urlevent.bind('tab-closeAll', function()
             hs.eventtap.keyStroke({}, 'return', 0)
         end
     end
-end)
+end
 
-return obj
+return TabMode
