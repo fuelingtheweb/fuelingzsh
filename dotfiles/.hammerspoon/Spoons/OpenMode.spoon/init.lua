@@ -1,7 +1,47 @@
-local obj = {}
-obj.__index = obj
+local OpenMode = {}
+OpenMode.__index = OpenMode
 
-hs.urlevent.bind('open-inSublimeMerge', function()
+function OpenMode.a()
+    openInSublime('~/.fuelingzsh/aliases')
+end
+
+function OpenMode.s()
+    openInSublime('~/.fuelingzsh/custom/espanso/default.yml')
+end
+
+function OpenMode.d()
+    hs.execute('open ~/Downloads')
+end
+
+function OpenMode.h()
+    openInSublime('~/.hammerspoon')
+end
+
+function OpenMode.z()
+    openInSublime('~/.fuelingzsh')
+end
+
+OpenMode.lookup = {
+    r = 'inAtom',
+    g = 'inChrome',
+    k = 'karabiner',
+    x = 'inTinkerwell',
+    c = 'inSublimeMerge',
+    v = 'inTablePlus',
+    b = 'inFinder',
+}
+
+function OpenMode.handle(key)
+    if OpenMode[key] then
+        OpenMode[key]()
+    elseif OpenMode.lookup[key] then
+        OpenMode[OpenMode.lookup[key]]()
+    else
+        hs.execute("open -g 'hammerspoon://custom-open?key=" .. key:upper() .. "'")
+    end
+end
+
+function OpenMode.inSublimeMerge()
     if appIs(iterm) then
         return typeAndEnter('smerge .')
     end
@@ -11,17 +51,17 @@ hs.urlevent.bind('open-inSublimeMerge', function()
     if path then
         hs.execute('/usr/local/bin/smerge "' .. path .. '"')
     end
-end)
+end
 
-hs.urlevent.bind('open-inAtom', function()
+function OpenMode.inAtom()
     if appIs(iterm) then
         typeAndEnter('atom .')
     else
         triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
     end
-end)
+end
 
-hs.urlevent.bind('open-inChrome', function()
+function OpenMode.inChrome()
     text = getSelectedText()
     if not appIncludes({atom, sublime}) and text then
         runGoogleSearch(text)
@@ -31,13 +71,13 @@ hs.urlevent.bind('open-inChrome', function()
     else
         ProjectManager.openUrlForCurrent()
     end
-end)
+end
 
-hs.urlevent.bind('open-inTablePlus', function()
+function OpenMode.inTablePlus()
     customOpenInTablePlus()
-end)
+end
 
-hs.urlevent.bind('open-inFinder', function()
+function OpenMode.inFinder()
     if appIs(iterm) then
         typeAndEnter('o.')
     else
@@ -51,9 +91,9 @@ hs.urlevent.bind('open-inFinder', function()
             hs.execute('open -R ' .. path)
         end
     end
-end)
+end
 
-hs.urlevent.bind('open-inTinkerwell', function()
+function OpenMode.inTinkerwell()
     if appIs(iterm) then
         return typeAndEnter('tinkerwell .')
     end
@@ -63,11 +103,11 @@ hs.urlevent.bind('open-inTinkerwell', function()
     if path then
         executeFromFuelingZsh('tinkerwell "' .. path .. '"')
     end
-end)
+end
 
-hs.urlevent.bind('open-karabiner', function()
+function OpenMode.karabiner()
     openInSublime('~/.fuelingzsh/karabiner/goku')
     openInSublime('~/.fuelingzsh/karabiner/goku/compile.py')
-end)
+end
 
-return obj
+return OpenMode

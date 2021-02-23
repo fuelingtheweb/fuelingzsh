@@ -1,25 +1,74 @@
-local Snippet = {}
-Snippet.__index = Snippet
+local SnippetMode = {}
+SnippetMode.__index = Snippet
+
+SnippetMode.timer = nil
+
+function SnippetMode.pending(firstCallback, secondCallback)
+    if not SnippetMode.timer or not SnippetMode.timer:running() then
+        SnippetMode.timer = hs.timer.doAfter(0.2, function()
+            firstCallback()
+        end)
+    else
+        if SnippetMode.timer and SnippetMode.timer:running() then
+            SnippetMode.timer:stop()
+        end
+
+        secondCallback()
+    end
+end
+
+function SnippetMode.t()
+    SnippetMode.this()
+end
+
+function SnippetMode.t()
+    SnippetMode.pending(
+        SnippetMode.method,
+        SnippetMode.methodMode
+    )
+end
+
+SnippetMode.lookup = {
+     e = 'elseif',
+     d = 'dd',
+     i = 'if',
+     p = 'property',
+     open_bracket = 'echo',
+     l = 'log',
+     n = 'af',
+}
+
+function SnippetMode.handle(key)
+    if not appIncludes({atom, sublime}) then
+        return
+    end
+
+    if SnippetMode[key] then
+        SnippetMode[key]()
+    elseif SnippetMode.lookup[key] then
+        SnippetMode.snippet(SnippetMode.lookup[key])
+    end
+end
 
 hs.loadSpoon('ModalMgr')
-Snippet.mode = nil
-Snippet.menuBar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar();
-Snippet.modalKey = 'SnippetMethod'
+SnippetMode.mode = nil
+SnippetMode.menuBar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar();
+SnippetMode.modalKey = 'SnippetMethod'
 
-spoon.ModalMgr:new(Snippet.modalKey)
-Snippet.modal = spoon.ModalMgr.modal_list[Snippet.modalKey]
+spoon.ModalMgr:new(SnippetMode.modalKey)
+SnippetMode.modal = spoon.ModalMgr.modal_list[SnippetMode.modalKey]
 
-Snippet.modal:bind('', 'escape', nil, function()
+SnippetMode.modal:bind('', 'escape', nil, function()
     hs.eventtap.keyStroke({}, 'escape', 0)
-    spoon.ModalMgr:deactivate({Snippet.modalKey})
+    spoon.ModalMgr:deactivate({SnippetMode.modalKey})
 end)
-Snippet.modal.entered = function()
-    Snippet.mode = 'method'
-    Snippet.menuBar:setTitle('Snippet: Method')
+SnippetMode.modal.entered = function()
+    SnippetMode.mode = 'method'
+    SnippetMode.menuBar:setTitle('Snippet: Method')
 end
-Snippet.modal.exited = function()
-    Snippet.mode = nil
-    Snippet.menuBar:setTitle('')
+SnippetMode.modal.exited = function()
+    SnippetMode.mode = nil
+    SnippetMode.menuBar:setTitle('')
 end
 
 methodSnippets = {
@@ -40,18 +89,18 @@ methodSnippets = {
 }
 
 each(methodSnippets, function(item)
-    Snippet.modal:bind('', item.key, nil, function()
+    SnippetMode.modal:bind('', item.key, nil, function()
         snippet('method-' .. item.method)
-        spoon.ModalMgr:deactivate({Snippet.modalKey})
+        spoon.ModalMgr:deactivate({SnippetMode.modalKey})
     end)
 end)
 
-hs.urlevent.bind('snippet-mode-method', function(eventName, params)
+function SnippetMode.methodMode()
     spoon.ModalMgr:deactivateAll()
-    spoon.ModalMgr:activate({Snippet.modalKey}, '#FFFFFF', false)
-end)
+    spoon.ModalMgr:activate({SnippetMode.modalKey}, '#FFFFFF', false)
+end
 
-function snippet(name)
+function SnippetMode.snippet(name)
     if appIs(sublime) then
         typeAndTab('snippet-' .. name)
     else
@@ -59,15 +108,15 @@ function snippet(name)
     end
 end
 
-hs.urlevent.bind('snippet-method', function()
+function SnippetMode.method()
     if appIs(atom) and titleContains('Test.php') then
         snippet('method-test')
     elseif appIncludes({atom, sublime}) then
         snippet('method')
     end
-end)
+end
 
-hs.urlevent.bind('snippet-this', function()
+function SnippetMode.this()
     if appIs(atom) then
         hs.eventtap.keyStroke({'shift', 'ctrl'}, 'c')
 
@@ -79,12 +128,6 @@ hs.urlevent.bind('snippet-this', function()
     if appIncludes({atom, sublime}) then
         snippet('this')
     end
-end)
+end
 
-hs.urlevent.bind('snippet', function(eventName, params)
-    if appIncludes({atom, sublime}) then
-        snippet(params.name)
-    end
-end)
-
-return Snippet
+return SnippetMode

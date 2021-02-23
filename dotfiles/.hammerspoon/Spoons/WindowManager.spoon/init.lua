@@ -210,62 +210,6 @@ function WindowManager.nextInCurrentApp()
     end
 end
 
-function WindowManager.loadWindowsInAlfred(windows, minimum)
-    if not windows or countTable(windows) < minimum then
-        return
-    end
-
-    local items = {}
-    each(windows, function(window)
-        app = window:application()
-        iconPath = '~/.fuelingzsh/custom/' .. app:name() .. '.png'
-        hs.image.imageFromAppBundle(app:bundleID()):saveToFile(iconPath)
-        table.insert(items, {
-            uid = window:id(),
-            title = window:title(),
-            match = app:name() .. ' ' .. window:title(),
-            arg = window:id(),
-            icon = {
-                path = iconPath,
-            },
-        })
-    end)
-
-    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/windows.json', false, true)
-
-    triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
-end
-
-function WindowManager.searchAll()
-    windows = hs.window.filter.default
-        :rejectApp('Sublime Text')
-        :rejectApp('Atom')
-        :rejectApp('Finder')
-        :rejectApp('Google Chrome')
-        :rejectApp('Sublime Merge')
-        :rejectApp('Notion')
-        :rejectApp('Spotify')
-        :rejectApp('Invoker')
-        :rejectApp('Dash')
-        :getWindows(hs.window.filter.sortByFocusedLast)
-
-    WindowManager.loadWindowsInAlfred(windows, 1)
-end
-
-function WindowManager.searchInCurrentApp()
-    windows = hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast)
-
-    WindowManager.loadWindowsInAlfred(windows, 2)
-end
-
-function WindowManager.focus(id)
-    hs.window(tonumber(id)):focus()
-end
-
-function WindowManager.bringAllToFront()
-    hs.application.frontmostApplication():activate(true)
-end
-
 function WindowManager.appSettings()
     if isAlfredVisible() then
         hs.application.open('com.runningwithcrayons.Alfred-Preferences')

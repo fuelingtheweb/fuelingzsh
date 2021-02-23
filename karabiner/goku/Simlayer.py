@@ -1,15 +1,27 @@
 class Simlayer:
-    def __init__(self, title, name, modifier, keys = '', static = True, primary = False, available = False):
+    def __init__(self, title, name, modifier, keys = ''):
         self.title = title
         self.name = name
         self.modifier = modifier
         self.keys = keys
-        self.static = static
-        self.primary = primary
-        self.available = available
+        self.primary = False
+        self.available = False
+
+    def setAsPrimary(self):
+        self.primary = True
+
+        return self
+
+    def setAsAvailable(self):
+        self.available = True
+
+        return self
 
     def isNotPrimary(self):
         return not self.primary
+
+    def isStatic(self):
+        return self.modifier in ['d', 'v']
 
     def definition(self):
         if self.available:
@@ -25,7 +37,7 @@ class Simlayer:
 
         rules = ''
 
-        if self.static:
+        if self.isStatic():
             rules = keys.strip()
         else:
             if keys == 'all':
@@ -50,8 +62,4 @@ class Simlayer:
 
     def indent(self, count):
         return '    ' * count
-
-    @classmethod
-    def available(cls, key):
-        return cls('', '', key, '', True, False, True)
 

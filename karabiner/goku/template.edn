@@ -27,13 +27,7 @@
         }
     }
     :templates {
-        :launch "open -a '%s'"
         :hs "open -g 'hammerspoon://%s'"
-        :alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\"'"
-        :alfredsearch "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to search \"%s\"'"
-        :sublime "/usr/local/bin/subl \"%s\""
-        :atom "/usr/local/bin/atom \"%s\""
-        :chrome "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"%s\" --profile-directory=\"Default\""
     }
     :layers {
         :HyperMode {:key :caps_lock :alone {:key :escape}}

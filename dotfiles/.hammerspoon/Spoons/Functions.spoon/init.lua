@@ -159,7 +159,7 @@ function typeAndTab(string)
 end
 
 function triggerAlfredSearch(search)
-    hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search ..' "')
+    hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search ..'"')
 end
 
 function triggerAlfredWorkflow(trigger, workflow, argument)

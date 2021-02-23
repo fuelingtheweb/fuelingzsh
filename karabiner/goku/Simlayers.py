@@ -3,17 +3,20 @@ from Simlayer import *
 class Simlayers:
     all = []
 
-    def new(self, title, name, modifier, keys = '', static = True, primary = False):
-        self.all.append(Simlayer(title, name, modifier, keys, static, primary))
+    def new(self, title, name, modifier, keys = ''):
+        self.all.append(
+            Simlayer(title, name, modifier, keys)
+        )
 
-    def primary(self, title, name, modifier, keys = '', static = False, primary = True):
-        self.all.append(Simlayer(title, name, modifier, keys, static, primary))
-
-    def usesHandler(self, title, name, modifier, keys = '', static = False, primary = False):
-        self.all.append(Simlayer(title, name, modifier, keys, static, primary))
+    def primary(self, title, name, modifier, keys = ''):
+        self.all.append(
+            Simlayer(title, name, modifier, keys).setAsPrimary()
+        )
 
     def available(self, modifier):
-        self.all.append(Simlayer.available(modifier))
+        self.all.append(
+            Simlayer('', '', modifier, '').setAsAvailable()
+        )
 
     def definitions(self):
         return '\n'.join(map(Simlayer.definition, filter(Simlayer.isNotPrimary, self.all)))

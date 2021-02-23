@@ -2,6 +2,16 @@ local TextManipulation = {}
 TextManipulation.__index = TextManipulation
 TextManipulation.spoonPath = '/Users/nathan/.hammerspoon/Spoons/TextManipulation.spoon'
 
+TextManipulation.wrapperKeyLookup = {
+    t = {mods = {}, key = 't'}, -- t -> tag
+    s = {mods = {}, key = "'"}, -- s -> single quotes
+    d = {mods = {'shift'}, key = "'"}, -- d -> double quotes
+    z = {mods = {}, key = 'z'}, -- z -> back ticks
+    f = {mods = {'shift'}, key = '9'}, -- f -> parenthesis
+    c = {mods = {'shift'}, key = '['}, -- c -> braces
+    b = {mods = {}, key = '['}, -- b -> brackets
+}
+
 hs.loadSpoon('ModalMgr')
 TextManipulation.vimEnabled = true
 TextManipulation.menuBar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar();
@@ -50,13 +60,5 @@ end
 hs.urlevent.bind('text-disableVim', function(eventName, params)
     TextManipulation.disableVim()
 end)
-
-dofile(TextManipulation.spoonPath .. '/case.lua')
-dofile(TextManipulation.spoonPath .. '/yank.lua')
-dofile(TextManipulation.spoonPath .. '/paste.lua')
-dofile(TextManipulation.spoonPath .. '/change.lua')
-dofile(TextManipulation.spoonPath .. '/destroy.lua')
-dofile(TextManipulation.spoonPath .. '/select-until.lua')
-dofile(TextManipulation.spoonPath .. '/select-inside.lua')
 
 return TextManipulation

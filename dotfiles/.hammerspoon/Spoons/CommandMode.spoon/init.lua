@@ -1,7 +1,118 @@
-local obj = {}
-obj.__index = obj
+local CommandMode = {}
+CommandMode.__index = CommandMode
 
-hs.urlevent.bind('command-reload', function()
+CommandMode.timer = nil
+
+function CommandMode.pending(firstCallback, secondCallback)
+    if not CommandMode.timer or not CommandMode.timer:running() then
+        CommandMode.timer = hs.timer.doAfter(0.2, function()
+            firstCallback()
+        end)
+    else
+        if CommandMode.timer and CommandMode.timer:running() then
+            CommandMode.timer:stop()
+        end
+
+        secondCallback()
+    end
+end
+
+function CommandMode.tab()
+    -- Shift tab
+    hs.eventtap.keyStroke({'shift'}, 'tab')
+end
+
+function CommandMode.q()
+    -- Quit
+    hs.eventtap.keyStroke({'cmd'}, 'q')
+end
+
+function CommandMode.w()
+    CommandMode.pending(
+        CommandMode.closeWindow,
+        CommandMode.closeAllWindows
+    )
+end
+
+function CommandMode.e()
+    -- Edit With
+    CommandMode.pending(
+        CommandMode.edit,
+        CommandMode.finishEdit
+    )
+end
+
+function CommandMode.r()
+    -- Reload or Chrome hard refresh
+    CommandMode.pending(
+        CommandMode.reload,
+        CommandMode.reloadSecondary
+    )
+end
+
+function CommandMode.t()
+end
+
+function CommandMode.caps_lock()
+    triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
+end
+
+function CommandMode.a()
+    -- Select All
+    hs.eventtap.keyStroke({'cmd'}, 'a')
+end
+
+function CommandMode.s()
+    -- Save or Save and reload Chrome
+    CommandMode.pending(
+        CommandMode.save,
+        CommandMode.saveAndReload
+    )
+end
+
+function CommandMode.d()
+    CommandMode.done()
+end
+
+function CommandMode.f()
+    CommandMode.find()
+end
+
+function CommandMode.g()
+    -- Atom: Toggle Git Palette
+    hs.eventtap.keyStroke({'shift', 'cmd'}, 'h')
+end
+
+function CommandMode.left_shift()
+end
+
+function CommandMode.z()
+    -- Alfred: Sleep
+    triggerAlfredSearch('sleep')
+end
+
+function CommandMode.x()
+    CommandMode.cancelOrDelete()
+end
+
+function CommandMode.c()
+end
+
+function CommandMode.v()
+    -- Duplicate line
+    hs.eventtap.keyStroke({}, 'escape', 0)
+    hs.eventtap.keyStroke({}, 'y', 0)
+    hs.eventtap.keyStroke({}, 'y', 0)
+    hs.eventtap.keyStroke({}, 'p', 0)
+end
+
+function CommandMode.b()
+end
+
+function CommandMode.spacebar()
+end
+
+function CommandMode.reload()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r', 0)
     elseif appIs(postman) then
@@ -13,9 +124,9 @@ hs.urlevent.bind('command-reload', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 'r', 0)
     end
-end)
+end
 
-hs.urlevent.bind('command-reloadSecondary', function()
+function CommandMode.reloadSecondary()
     if appIs(chrome) then
         -- Hard refresh
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'r', 0)
@@ -25,32 +136,32 @@ hs.urlevent.bind('command-reloadSecondary', function()
         hs.eventtap.keyStroke({}, 'up', 0)
         hs.eventtap.keyStroke({}, 'return', 0)
     end
-end)
+end
 
-hs.urlevent.bind('command-closeWindow', function()
+function CommandMode.closeWindow()
     closeWindow()
-end)
+end
 
-hs.urlevent.bind('command-find', function()
+function CommandMode.find()
     if inCodeEditor() then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'f')
         TextManipulation.disableVim()
     else
         hs.eventtap.keyStroke({'cmd'}, 'f')
     end
-end)
+end
 
-hs.urlevent.bind('command-edit', function(name, params)
-    if params.done then
-        -- Edit with: Done
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
-    else
-        -- Edit with
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'e')
-    end
-end)
+function CommandMode.edit()
+    -- Edit with
+    hs.eventtap.keyStroke({'shift', 'cmd'}, 'e')
+end
 
-hs.urlevent.bind('command-done', function()
+function CommandMode.finishEdit()
+    -- Edit with: Done
+    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
+end
+
+function CommandMode.done()
     if appIs(sublime) then
         -- Plain Tasks: Complete
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'd')
@@ -63,9 +174,9 @@ hs.urlevent.bind('command-done', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 'return')
     end
-end)
+end
 
-hs.urlevent.bind('command-save', function()
+function CommandMode.save()
     if appIs(chrome) then
         -- Save to Raindrop
         hs.eventtap.keyStroke({'shift', 'cmd'}, 's')
@@ -77,40 +188,16 @@ hs.urlevent.bind('command-save', function()
     else
         hs.eventtap.keyStroke({'cmd'}, 's')
     end
-end)
+end
 
-hs.urlevent.bind('command-saveAndReload', function()
+function CommandMode.saveAndReload()
     hs.eventtap.keyStroke({}, 'escape')
     hs.eventtap.keyStroke({'cmd'}, 'S')
     hs.application.get(apps['chrome']):activate()
     hs.eventtap.keyStroke({'cmd'}, 'R')
-end)
+end
 
-hs.urlevent.bind('command-dismissNotifications', function()
-    app = hs.application.frontmostApplication()
-    each({1,2,3}, function ()
-        hs.osascript.applescript([[
-            activate application "NotificationCenter"
-            tell application "System Events"
-                tell process "Notification Center"
-                    set theWindow to group 1 of UI element 1 of scroll area 1 of window "Notification Center"
-                    click theWindow
-                    set theActions to actions of theWindow
-                    repeat with theAction in theActions
-                        if description of theAction is "Close" then
-                            tell theWindow
-                                perform theAction
-                            end tell
-                        end if
-                    end repeat
-                end tell
-            end tell
-        ]])
-    end)
-    app:activate()
-end)
-
-hs.urlevent.bind('command-cancelOrDelete', function()
+function CommandMode.cancelOrDelete()
     text = getSelectedText()
     if appIncludes({atom, sublime}) then
         hs.eventtap.keyStroke({'shift', 'cmd'}, 'delete')
@@ -127,18 +214,18 @@ hs.urlevent.bind('command-cancelOrDelete', function()
     else
         hs.eventtap.keyStroke({}, 'delete')
     end
-end)
+end
 
-hs.urlevent.bind('command-duplicate', function()
-    if appIs(finder) then
-        hs.eventtap.keyStroke({'cmd'}, 'd')
-    elseif appIs(chrome) then
-        -- Vimium
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('yt')
-    elseif inCodeEditor() then
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'd')
+function CommandMode.closeAllWindows()
+    hs.eventtap.keyStroke({'shift', 'cmd'}, 'W')
+    if appIs(chrome) then
+        hs.timer.doAfter(1, function()
+            app = hs.application.frontmostApplication()
+            if next(app:visibleWindows()) == nil then
+                app:hide()
+            end
+        end)
     end
-end)
+end
 
-return obj
+return CommandMode

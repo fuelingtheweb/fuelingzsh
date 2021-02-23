@@ -1,3 +1,30 @@
+local ChangeMode = {}
+ChangeMode.__index = ChangeMode
+
+ChangeMode.lookup = {
+    e = 'toEndOfWord',
+    w = 'word',
+    a = 'toEndOfLine',
+    i = 'toBeginningOfLine',
+    v = 'line',
+    x = 'character',
+}
+
+function ChangeMode.handle(key)
+    if key == 'caps_lock' then
+        hs.execute("open -g 'hammerspoon://text-disableVim'")
+    elseif ChangeMode.lookup[key] then
+        hs.execute("open -g 'hammerspoon://change-" .. ChangeMode.lookup[key] .. "'")
+    elseif TextManipulation.wrapperKeyLookup[key] then
+        keystroke = TextManipulation.wrapperKeyLookup[key]
+
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'c', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+    end
+end
+
 hs.urlevent.bind('change-toEndOfWord', function()
     if TextManipulation.canManipulateWithVim() then
         hs.eventtap.keyStroke({}, 'escape', 0)
@@ -66,3 +93,5 @@ hs.urlevent.bind('change-character', function()
 
     hs.eventtap.keyStroke({}, 'delete', 0)
 end)
+
+return ChangeMode

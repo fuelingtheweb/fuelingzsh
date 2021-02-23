@@ -1,3 +1,31 @@
+local YankMode = {}
+YankMode.__index = YankMode
+
+YankMode.lookup = {
+    e = 'toEndOfWord',
+    r = 'relativeFilePath',
+    w = 'word',
+    a = 'toEndOfLine',
+    i = 'toBeginningOfLine',
+    v = 'line',
+    x = 'character',
+    caps_lock = 'all',
+    q = 'viewPath',
+}
+
+function YankMode.handle(key)
+    if YankMode.lookup[key] then
+        hs.execute("open -g 'hammerspoon://yank-" .. YankMode.lookup[key] .. "'")
+    elseif TextManipulation.wrapperKeyLookup[key] then
+        keystroke = TextManipulation.wrapperKeyLookup[key]
+
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'y', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+    end
+end
+
 hs.urlevent.bind('yank-toEndOfWord', function()
     if TextManipulation.canManipulateWithVim() then
         hs.eventtap.keyStroke({}, 'escape', 0)
@@ -103,3 +131,5 @@ hs.urlevent.bind('yank-viewPath', function()
     result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
     hs.pasteboard.setContents(result)
 end)
+
+return YankMode
