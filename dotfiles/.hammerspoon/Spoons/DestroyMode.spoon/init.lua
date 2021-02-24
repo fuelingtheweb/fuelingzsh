@@ -26,14 +26,28 @@ function DestroyMode.handle(key)
 end
 
 hs.urlevent.bind('destroy-toEndOfWord', function()
-    if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'e', 0)
-    else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
-    end
+    Pending.run({
+        function()
+            if TextManipulation.canManipulateWithVim() then
+                hs.eventtap.keyStroke({}, 'escape', 0)
+                hs.eventtap.keyStroke({}, 'd', 0)
+                hs.eventtap.keyStroke({}, 'e', 0)
+            else
+                hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
+                hs.eventtap.keyStroke({}, 'delete', 0)
+            end
+        end,
+        function()
+            if TextManipulation.canManipulateWithVim() then
+                hs.eventtap.keyStroke({}, 'escape', 0)
+                hs.eventtap.keyStroke({}, 'd', 0)
+                hs.eventtap.keyStroke({'shift'}, 'e', 0)
+            else
+                hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
+                hs.eventtap.keyStroke({}, 'delete', 0)
+            end
+        end,
+    })
 end)
 
 hs.urlevent.bind('destroy-word', function()

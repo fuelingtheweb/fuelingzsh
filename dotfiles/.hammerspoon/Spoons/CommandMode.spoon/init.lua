@@ -1,22 +1,6 @@
 local CommandMode = {}
 CommandMode.__index = CommandMode
 
-CommandMode.timer = nil
-
-function CommandMode.pending(firstCallback, secondCallback)
-    if not CommandMode.timer or not CommandMode.timer:running() then
-        CommandMode.timer = hs.timer.doAfter(0.2, function()
-            firstCallback()
-        end)
-    else
-        if CommandMode.timer and CommandMode.timer:running() then
-            CommandMode.timer:stop()
-        end
-
-        secondCallback()
-    end
-end
-
 function CommandMode.tab()
     -- Shift tab
     hs.eventtap.keyStroke({'shift'}, 'tab')
@@ -28,26 +12,26 @@ function CommandMode.q()
 end
 
 function CommandMode.w()
-    CommandMode.pending(
+    Pending.run({
         CommandMode.closeWindow,
-        CommandMode.closeAllWindows
-    )
+        CommandMode.closeAllWindows,
+    })
 end
 
 function CommandMode.e()
     -- Edit With
-    CommandMode.pending(
+    Pending.run({
         CommandMode.edit,
-        CommandMode.finishEdit
-    )
+        CommandMode.finishEdit,
+    })
 end
 
 function CommandMode.r()
     -- Reload or Chrome hard refresh
-    CommandMode.pending(
+    Pending.run({
         CommandMode.reload,
-        CommandMode.reloadSecondary
-    )
+        CommandMode.reloadSecondary,
+    })
 end
 
 function CommandMode.t()
@@ -64,10 +48,10 @@ end
 
 function CommandMode.s()
     -- Save or Save and reload Chrome
-    CommandMode.pending(
+    Pending.run({
         CommandMode.save,
-        CommandMode.saveAndReload
-    )
+        CommandMode.saveAndReload,
+    })
 end
 
 function CommandMode.d()

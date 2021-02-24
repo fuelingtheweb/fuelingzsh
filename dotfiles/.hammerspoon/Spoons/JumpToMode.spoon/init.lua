@@ -1,22 +1,6 @@
 local JumpToMode = {}
 JumpToMode.__index = JumpToMode
 
-JumpToMode.timer = nil
-
-function JumpToMode.pending(firstCallback, secondCallback)
-    if not JumpToMode.timer or not JumpToMode.timer:running() then
-        JumpToMode.timer = hs.timer.doAfter(0.2, function()
-            firstCallback()
-        end)
-    else
-        if JumpToMode.timer and JumpToMode.timer:running() then
-            JumpToMode.timer:stop()
-        end
-
-        secondCallback()
-    end
-end
-
 JumpToMode.lookup = {
     s = {mods = {}, key = "'"}, -- s -> single quotes
     d = {mods = {'shift'}, key = "'"}, -- d -> double quotes
@@ -41,14 +25,14 @@ function JumpToMode.handle(key)
         hs.eventtap.keyStroke({'shift'}, '[', 0)
     elseif has_value({'f', 'c', 'b'}, key) then
         local keystrokes = JumpToMode.lookup[key]
-        JumpToMode.pending(
+        Pending.run({
             function()
                 JumpToMode.to(keystrokes[1])
             end,
             function()
                 JumpToMode.to(keystrokes[2])
-            end
-        )
+            end,
+        })
     elseif JumpToMode.lookup[key] then
         JumpToMode.to(JumpToMode.lookup[key])
     end

@@ -236,9 +236,28 @@
         {
             :des "Test Mode (Key: T)"
             :rules [:TestMode
-                [:l [:hs "handle-karabiner?layer=TestMode&key=l"]]
+                [:y [:hs "handle-karabiner?layer=TestMode&key=y"]]
+                [:u [:hs "handle-karabiner?layer=TestMode&key=u"]]
+                [:i [:hs "handle-karabiner?layer=TestMode&key=i"]]
+                [:o [:hs "handle-karabiner?layer=TestMode&key=o"]]
+                [:p [:hs "handle-karabiner?layer=TestMode&key=p"]]
+                [:open_bracket [:hs "handle-karabiner?layer=TestMode&key=open_bracket"]]
+                [:close_bracket [:hs "handle-karabiner?layer=TestMode&key=close_bracket"]]
+                [:h [:hs "handle-karabiner?layer=TestMode&key=h"]]
+                [:j [:hs "handle-karabiner?layer=TestMode&key=j"]]
                 [:k [:hs "handle-karabiner?layer=TestMode&key=k"]]
+                [:l [:hs "handle-karabiner?layer=TestMode&key=l"]]
+                [:semicolon [:hs "handle-karabiner?layer=TestMode&key=semicolon"]]
+                [:quote [:hs "handle-karabiner?layer=TestMode&key=quote"]]
+                [:return_or_enter [:hs "handle-karabiner?layer=TestMode&key=return_or_enter"]]
+                [:b [:hs "handle-karabiner?layer=TestMode&key=b"]]
+                [:n [:hs "handle-karabiner?layer=TestMode&key=n"]]
                 [:m [:hs "handle-karabiner?layer=TestMode&key=m"]]
+                [:comma [:hs "handle-karabiner?layer=TestMode&key=comma"]]
+                [:period [:hs "handle-karabiner?layer=TestMode&key=period"]]
+                [:slash [:hs "handle-karabiner?layer=TestMode&key=slash"]]
+                [:right_shift [:hs "handle-karabiner?layer=TestMode&key=right_shift"]]
+                [:spacebar [:hs "handle-karabiner?layer=TestMode&key=spacebar"]]
             ]
         }
         {
@@ -316,6 +335,16 @@
         {
             :des "Open Mode (Key: O)"
             :rules [:OpenMode
+                [:1 [:hs "handle-karabiner?layer=OpenMode&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=OpenMode&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=OpenMode&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=OpenMode&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=OpenMode&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=OpenMode&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=OpenMode&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=OpenMode&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=OpenMode&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=OpenMode&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=OpenMode&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=OpenMode&key=q"]]
                 [:w [:hs "handle-karabiner?layer=OpenMode&key=w"]]
@@ -434,6 +463,16 @@
         {
             :des "Snippet Mode (Key: S)"
             :rules [:SnippetMode
+                [:1 [:hs "handle-karabiner?layer=SnippetMode&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=SnippetMode&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=SnippetMode&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=SnippetMode&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=SnippetMode&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=SnippetMode&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=SnippetMode&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=SnippetMode&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=SnippetMode&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=SnippetMode&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=SnippetMode&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=SnippetMode&key=q"]]
                 [:w [:hs "handle-karabiner?layer=SnippetMode&key=w"]]
@@ -496,6 +535,16 @@
         {
             :des "General Mode (Key: F)"
             :rules [:GeneralMode
+                [:1 [:hs "handle-karabiner?layer=GeneralMode&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=GeneralMode&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=GeneralMode&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=GeneralMode&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=GeneralMode&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=GeneralMode&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=GeneralMode&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=GeneralMode&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=GeneralMode&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=GeneralMode&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=GeneralMode&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=GeneralMode&key=q"]]
                 [:w [:hs "handle-karabiner?layer=GeneralMode&key=w"]]
@@ -733,6 +782,16 @@
         {
             :des "Media Mode (Key: M)"
             :rules [:MediaMode
+                [:1 [:hs "handle-karabiner?layer=MediaMode&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=MediaMode&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=MediaMode&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=MediaMode&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=MediaMode&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=MediaMode&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=MediaMode&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=MediaMode&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=MediaMode&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=MediaMode&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=MediaMode&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=MediaMode&key=q"]]
                 [:w [:hs "handle-karabiner?layer=MediaMode&key=w"]]
@@ -800,6 +859,16 @@
         {
             :des "App Mode (Key: .)"
             :rules [:AppMode
+                [:1 [:hs "handle-karabiner?layer=AppMode&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=AppMode&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=AppMode&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=AppMode&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=AppMode&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=AppMode&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=AppMode&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=AppMode&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=AppMode&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=AppMode&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=AppMode&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=AppMode&key=q"]]
                 [:w [:hs "handle-karabiner?layer=AppMode&key=w"]]
@@ -867,6 +936,16 @@
         {
             :des "Window Mode (Key: Spacebar)"
             :rules [:WindowManager
+                [:1 [:hs "handle-karabiner?layer=WindowManager&key=1"]]
+                [:2 [:hs "handle-karabiner?layer=WindowManager&key=2"]]
+                [:3 [:hs "handle-karabiner?layer=WindowManager&key=3"]]
+                [:4 [:hs "handle-karabiner?layer=WindowManager&key=4"]]
+                [:5 [:hs "handle-karabiner?layer=WindowManager&key=5"]]
+                [:6 [:hs "handle-karabiner?layer=WindowManager&key=6"]]
+                [:7 [:hs "handle-karabiner?layer=WindowManager&key=7"]]
+                [:8 [:hs "handle-karabiner?layer=WindowManager&key=8"]]
+                [:9 [:hs "handle-karabiner?layer=WindowManager&key=9"]]
+                [:0 [:hs "handle-karabiner?layer=WindowManager&key=0"]]
                 [:tab [:hs "handle-karabiner?layer=WindowManager&key=tab"]]
                 [:q [:hs "handle-karabiner?layer=WindowManager&key=q"]]
                 [:w [:hs "handle-karabiner?layer=WindowManager&key=w"]]

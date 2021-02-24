@@ -1,31 +1,15 @@
 local SnippetMode = {}
-SnippetMode.__index = Snippet
-
-SnippetMode.timer = nil
-
-function SnippetMode.pending(firstCallback, secondCallback)
-    if not SnippetMode.timer or not SnippetMode.timer:running() then
-        SnippetMode.timer = hs.timer.doAfter(0.2, function()
-            firstCallback()
-        end)
-    else
-        if SnippetMode.timer and SnippetMode.timer:running() then
-            SnippetMode.timer:stop()
-        end
-
-        secondCallback()
-    end
-end
+SnippetMode.__index = SnippetMode
 
 function SnippetMode.t()
     SnippetMode.this()
 end
 
-function SnippetMode.t()
-    SnippetMode.pending(
+function SnippetMode.m()
+    Pending.run({
         SnippetMode.method,
-        SnippetMode.methodMode
-    )
+        SnippetMode.methodMode,
+    })
 end
 
 SnippetMode.lookup = {
@@ -90,7 +74,7 @@ methodSnippets = {
 
 each(methodSnippets, function(item)
     SnippetMode.modal:bind('', item.key, nil, function()
-        snippet('method-' .. item.method)
+        SnippetMode.snippet('method-' .. item.method)
         spoon.ModalMgr:deactivate({SnippetMode.modalKey})
     end)
 end)
@@ -110,9 +94,9 @@ end
 
 function SnippetMode.method()
     if appIs(atom) and titleContains('Test.php') then
-        snippet('method-test')
+        SnippetMode.snippet('method-test')
     elseif appIncludes({atom, sublime}) then
-        snippet('method')
+        SnippetMode.snippet('method')
     end
 end
 
@@ -126,7 +110,7 @@ function SnippetMode.this()
     end
 
     if appIncludes({atom, sublime}) then
-        snippet('this')
+        SnippetMode.snippet('this')
     end
 end
 

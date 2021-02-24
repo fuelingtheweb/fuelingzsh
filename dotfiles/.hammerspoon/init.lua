@@ -1,5 +1,6 @@
 hs.loadSpoon('Variables')
 hs.loadSpoon('Functions')
+Pending = hs.loadSpoon('Pending')
 hs.loadSpoon('Watchers')
 TextManipulation = hs.loadSpoon('TextManipulation')
 hs.loadSpoon('Misc')

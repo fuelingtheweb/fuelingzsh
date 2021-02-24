@@ -17,15 +17,17 @@ end
 
 function CodeMode.i()
     -- Multiple cursors up
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt'}, 'up')
+    if appIs(atom) then
+        hs.eventtap.keyStroke({'shift', 'ctrl'}, 'up')
+    elseif appIs(sublime) then
+        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt'}, 'up')
+    end
 end
 
 function CodeMode.o()
     if appIs(iterm) then
         -- Git: Checkout
         typeAndEnter('gco')
-    else
-        hs.eventtap.keyStrokes(' != ')
     end
 end
 
@@ -52,8 +54,6 @@ function CodeMode.h()
     if appIs(iterm) then
         -- Git: Status
         typeAndEnter('gs')
-    else
-        hs.eventtap.keyStrokes(' == ')
     end
 end
 
@@ -95,7 +95,21 @@ function CodeMode.semicolon()
 end
 
 function CodeMode.quote()
-    hs.eventtap.keyStrokes(' = ')
+    Pending.run({
+        function()
+            hs.eventtap.keyStrokes(' = ')
+        end,
+        function()
+            hs.eventtap.keyStrokes(' == ')
+        end,
+        function()
+            if titleContains('.lua') then
+                hs.eventtap.keyStrokes(' ~= ')
+            else
+                hs.eventtap.keyStrokes(' != ')
+            end
+        end,
+    })
 end
 
 function CodeMode.return_or_enter()

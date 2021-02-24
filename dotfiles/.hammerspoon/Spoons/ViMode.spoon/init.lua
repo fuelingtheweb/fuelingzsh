@@ -1,34 +1,18 @@
 local ViMode = {}
 ViMode.__index = ViMode
 
-ViMode.timer = nil
-
-function ViMode.pending(firstCallback, secondCallback)
-    if not ViMode.timer or not ViMode.timer:running() then
-        ViMode.timer = hs.timer.doAfter(0.2, function()
-            firstCallback()
-        end)
-    else
-        if ViMode.timer and ViMode.timer:running() then
-            ViMode.timer:stop()
-        end
-
-        secondCallback()
-    end
-end
-
 function ViMode.i()
-    ViMode.pending(
+    Pending.run({
         ViMode.moveCursorToFirstCharacterOfLine,
-        ViMode.moveCursorAndInsertAtFirstCharacterOfLine
-    )
+        ViMode.moveCursorAndInsertAtFirstCharacterOfLine,
+    })
 end
 
 function ViMode.o()
-    ViMode.pending(
+    Pending.run({
         ViMode.moveCursorToEndOfLine,
-        ViMode.moveCursorAndAppendAtEndOfLine
-    )
+        ViMode.moveCursorAndAppendAtEndOfLine,
+    })
 end
 
 function ViMode.semicolon()

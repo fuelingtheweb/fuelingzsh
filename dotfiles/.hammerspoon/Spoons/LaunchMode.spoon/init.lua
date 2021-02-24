@@ -1,48 +1,41 @@
 local LaunchMode = {}
 LaunchMode.__index = LaunchMode
 
-LaunchMode.timer = nil
-
-function LaunchMode.pending(firstCallback, secondCallback)
-    if not LaunchMode.timer or not LaunchMode.timer:running() then
-        LaunchMode.timer = hs.timer.doAfter(0.2, function()
-            firstCallback()
-        end)
-    else
-        if LaunchMode.timer and LaunchMode.timer:running() then
-            LaunchMode.timer:stop()
-        end
-
-        secondCallback()
-    end
-end
-
 function LaunchMode.a()
-    -- Fanstastical or Alfred Preferences
-    LaunchMode.pending(
+    Pending.run({
         function()
+            -- Fantastical
             hs.eventtap.keyStroke({'alt', 'cmd'}, 'c')
         end,
         function()
             hs.execute("open -g 'hammerspoon://launch-app?id=alfred-preferences'")
-        end
-    )
+        end,
+    })
 end
 
 function LaunchMode.z()
-    -- Zoom or Screen
-    LaunchMode.pending(
+    Pending.run({
         function()
             hs.execute("open -a 'zoom.us.app'")
         end,
         function()
             hs.execute("open -a 'Screen.app'")
-        end
-    )
+        end,
+    })
 end
 
 function LaunchMode.x()
-    hs.execute("open -g 'hammerspoon://launch-beyond-code-app'")
+    Pending.run({
+        function()
+            hs.application.open('de.beyondco.tinkerwell')
+        end,
+        function()
+            hs.application.open('de.beyondco.invoker')
+        end,
+        function()
+            hs.application.open('de.beyondco.helo')
+        end,
+    })
 end
 
 function LaunchMode.spacebar()
@@ -135,64 +128,5 @@ function launchSpotify()
         hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/2dMv6aYJXDoDA10nBPOvFN?si=EpPYjSQuSvKX92e4gJBf1Q')
     end
 end
-
-hs.loadSpoon('ModalMgr')
-modalKey = 'LaunchAppModal'
-
-spoon.ModalMgr:new(modalKey)
-modal = spoon.ModalMgr.modal_list[modalKey]
-
-modal:bind('', 'escape', nil, function()
-    spoon.ModalMgr:deactivate({modalKey})
-end)
-
-appToLaunch = nil
-
-modal.entered = function()
-    appToLaunch = 1
-    restartTimer()
-end
-
-modal.exited = function()
-    appToLaunch = nil
-    timer:stop()
-end
-
-appMap = {
-    [1] = 'de.beyondco.tinkerwell',
-    [2] = 'de.beyondco.invoker',
-    [3] = 'de.beyondco.helo',
-}
-
-function launchApp()
-    hs.application.open(appMap[appToLaunch])
-    spoon.ModalMgr:deactivateAll()
-end
-
-function restartTimer()
-    timer:stop()
-    timer:start()
-end
-
-timer = hs.timer.new(0.2, function()
-    launchApp()
-end)
-
-hs.urlevent.bind('launch-beyond-code-app', function(eventName, params)
-    if not appToLaunch then
-        spoon.ModalMgr:deactivateAll()
-        spoon.ModalMgr:activate({modalKey}, '#FFFFFF', false)
-    else
-        if appToLaunch < 3 then
-            appToLaunch = appToLaunch + 1
-        end
-
-        if appToLaunch == 3 then
-            launchApp()
-        else
-            restartTimer()
-        end
-    end
-end)
 
 return LaunchMode

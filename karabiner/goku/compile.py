@@ -10,7 +10,7 @@ simlayers.available('q')
 simlayers.available('w')
 simlayers.available('e')
 simlayers.new('Pane Mode (Key: r)', 'PaneMode', 'r', 'all-right')
-simlayers.new('Test Mode (Key: T)', 'TestMode', 't', 'l,k,m')
+simlayers.new('Test Mode (Key: T)', 'TestMode', 't', 'all-right')
 
 simlayers.new('Yank Mode (Key: Y)', 'YankMode', 'y', 'all-left')
 simlayers.new('Select Until Mode (Key: u)', 'SelectUntilMode', 'u', 'all-left')
