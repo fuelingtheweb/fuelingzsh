@@ -49,9 +49,24 @@ function LaunchMode.x()
     })
 end
 
-function LaunchMode.spacebar()
+function LaunchMode.left_shift()
     -- Bring all windows to front
     hs.application.frontmostApplication():activate(true)
+end
+
+hs.hints.titleMaxSize = 35
+hs.hints.showTitleThresh = 20
+hs.hints.fontSize = 20
+hs.hints.iconAlpha = 1
+
+function LaunchMode.tab()
+    hs.hints.style = nil
+    hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
+end
+
+function LaunchMode.spacebar()
+    hs.hints.style = 'vimperator'
+    hs.hints.windowHints()
 end
 
 LaunchMode.lookup = {
