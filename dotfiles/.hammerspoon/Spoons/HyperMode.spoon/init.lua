@@ -44,13 +44,11 @@ function HyperMode.l()
 end
 
 function HyperMode.semicolon()
-    -- Alfred
-    hs.eventtap.keyStroke({'alt'}, 'z')
+    HyperMode.enableScrolling()
 end
 
 function HyperMode.quote()
-    -- Alfred Clipboard
-    hs.eventtap.keyStroke({'alt'}, 'c')
+    HyperMode.jumpTo()
 end
 
 function HyperMode.return_or_enter()
@@ -62,10 +60,13 @@ function HyperMode.n()
 end
 
 function HyperMode.m()
+    -- Alfred Clipboard
+    hs.eventtap.keyStroke({'alt'}, 'c')
 end
 
 function HyperMode.comma()
-    HyperMode.jumpTo()
+    -- Alfred
+    hs.eventtap.keyStroke({'alt'}, 'z')
 end
 
 function HyperMode.period()
@@ -224,6 +225,11 @@ function HyperMode.jumpTo()
     else
         hs.eventtap.keyStroke({'ctrl'}, 'space')
     end
+end
+
+function HyperMode.enableScrolling()
+    -- Vimac: Enable Scroll
+    hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
 function HyperMode.paste()

@@ -67,8 +67,6 @@ function ExtendedCommandMode.c()
 end
 
 function ExtendedCommandMode.v()
-    -- Vimac: Enable Scroll
-    hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
 function ExtendedCommandMode.b()
