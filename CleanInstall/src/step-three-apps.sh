@@ -138,6 +138,11 @@ open -a 'HELO.app'
 info 'Register Helo. License copied.'
 pause
 
+copyLicense 'ray'
+open -a 'Ray.app'
+info 'Register Ray. License copied.'
+pause
+
 info 'Add other licenses: Dash.'
 pause
 

@@ -13,6 +13,17 @@ function LaunchMode.a()
     })
 end
 
+function LaunchMode.d()
+    Pending.run({
+        function()
+            hs.execute("open -a 'Discord.app'")
+        end,
+        function()
+            hs.execute("open -a 'Ray.app'")
+        end,
+    })
+end
+
 function LaunchMode.z()
     Pending.run({
         function()
@@ -51,7 +62,6 @@ LaunchMode.lookup = {
     t = {type = 'hs', app = 'iterm'},
     caps_lock = {type = 'open', app = 'Dash.app'},
     s = {type = 'hs', app = 'spotify'},
-    d = {type = 'open', app = 'Discord.app'},
     f = {type = 'open', app = 'Notion.app'},
     g = {type = 'hs', app = 'chrome'},
     c = {type = 'open', app = 'Sublime Merge.app'},

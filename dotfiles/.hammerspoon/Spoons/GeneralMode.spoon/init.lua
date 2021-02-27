@@ -69,7 +69,8 @@ function GeneralMode.n()
 end
 
 function GeneralMode.m()
-    hs.eventtap.keyStrokes('*')
+    -- *
+    hs.eventtap.keyStroke({'shift'}, '8')
 end
 
 function GeneralMode.comma()

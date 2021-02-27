@@ -22,6 +22,7 @@ function OpenMode.z()
 end
 
 OpenMode.lookup = {
+    e = 'inSublime',
     r = 'inAtom',
     g = 'inChrome',
     k = 'karabiner',
@@ -50,6 +51,20 @@ function OpenMode.inSublimeMerge()
 
     if path then
         hs.execute('/usr/local/bin/smerge "' .. path .. '"')
+    end
+end
+
+function OpenMode.inSublime()
+    if appIs(iterm) then
+        typeAndEnter('st.')
+    else
+        path = currentTitle():match('~%S+')
+
+        if not path then
+           return;
+        end
+
+        openInSublime(path)
     end
 end
 

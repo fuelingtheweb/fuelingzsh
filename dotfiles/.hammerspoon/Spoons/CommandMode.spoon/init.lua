@@ -152,9 +152,6 @@ function CommandMode.done()
     elseif appIs(transmit) then
         -- Disconnect from server
         hs.eventtap.keyStroke({'cmd'}, 'e')
-    elseif appIs(sublimeMerge) then
-        -- Stage file
-        hs.eventtap.keyStroke({'shift'}, 'return')
     else
         hs.eventtap.keyStroke({'cmd'}, 'return')
     end

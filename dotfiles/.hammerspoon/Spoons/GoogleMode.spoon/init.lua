@@ -93,13 +93,13 @@ end
 
 function GoogleMode.toggleIncognito()
     if customUpdateChromeUrl() then
-        return;
+        return
     end
 
     hs.osascript.applescript([[
         tell application "Google Chrome"
             set theUrl to URL of active tab of front window
-            set theMode to GoogleMode of front window
+            set theMode to Mode of front window
         end tell
 
         if theMode is equal to "normal" then

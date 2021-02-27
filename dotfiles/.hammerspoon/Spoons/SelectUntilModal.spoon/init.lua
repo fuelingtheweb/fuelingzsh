@@ -1,5 +1,5 @@
 local SelectUntilModal = {}
-SelectUntilModal.__index = SelectUntilModalModal
+SelectUntilModal.__index = SelectUntilModal
 
 hs.loadSpoon('ModalMgr')
 

@@ -17,6 +17,7 @@ composer global require laravel/installer
 composer global require laravel/valet
 composer global require laravel/envoy
 composer global require tightenco/tlint
+composer global require permafrost-dev/ray-cli
 valet install
 valet trust
 

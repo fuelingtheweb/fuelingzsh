@@ -61,7 +61,7 @@ local keys = {
     {key = '[', action = 'destroy'},
 }
 
-function triggerDirectionIfSet()
+function SelectUntilMode.triggerDirectionIfSet()
     if not SelectUntilModal.direction then
         return
     end
@@ -78,19 +78,19 @@ local actions = {
     singleQuote = function()
         SelectUntilModal:enter(SelectUntilModal.direction, "'")
 
-        triggerDirectionIfSet()
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
         SelectUntilModal:enter(SelectUntilModal.direction, '"')
 
-        triggerDirectionIfSet()
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     backTick = function()
         SelectUntilModal:enter(SelectUntilModal.direction, "`")
 
-        triggerDirectionIfSet()
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
@@ -100,7 +100,7 @@ local actions = {
             SelectUntilModal.pendingKey = nil
             SelectUntilModal:enter(SelectUntilModal.direction, ")")
 
-            triggerDirectionIfSet()
+            SelectUntilMode.triggerDirectionIfSet()
         else
             SelectUntilModal.pending = true
             SelectUntilModal.pendingKey = "("
@@ -115,7 +115,7 @@ local actions = {
             SelectUntilModal.pendingKey = nil
             SelectUntilModal:enter(SelectUntilModal.direction, "}")
 
-            triggerDirectionIfSet()
+            SelectUntilMode.triggerDirectionIfSet()
         else
             SelectUntilModal.pending = true
             SelectUntilModal.pendingKey = "{"
@@ -130,7 +130,7 @@ local actions = {
             SelectUntilModal.pendingKey = nil
             SelectUntilModal:enter(SelectUntilModal.direction, "]")
 
-            triggerDirectionIfSet()
+            SelectUntilMode.triggerDirectionIfSet()
         else
             SelectUntilModal.pending = true
             SelectUntilModal.pendingKey = "["
@@ -250,7 +250,7 @@ local timer = hs.timer.new(0.2, function()
     SelectUntilModal.pending = false
     SelectUntilModal:enter(SelectUntilModal.direction, SelectUntilModal.pendingKey)
 
-    triggerDirectionIfSet()
+    SelectUntilMode.triggerDirectionIfSet()
 end)
 
 SelectUntilModal:init(keys, actions, keyMap, timer)

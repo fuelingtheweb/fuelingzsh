@@ -98,6 +98,7 @@ casks=(
     dash
     beardedspice
     helo
+    ray
 )
 
 for cask in "${casks[@]}"; do
