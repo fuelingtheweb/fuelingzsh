@@ -4,6 +4,7 @@ Ray = hs.loadSpoon('Ray')
 Pending = hs.loadSpoon('Pending')
 hs.loadSpoon('Watchers')
 TextManipulation = hs.loadSpoon('TextManipulation')
+Artisan = hs.loadSpoon('Artisan')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 

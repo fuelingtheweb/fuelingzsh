@@ -38,7 +38,6 @@ alias aeg='artisan event:generate'
 # Database
 alias amg='artisan migrate'
 alias amgfr='artisan migrate:fresh'
-alias amgrf='artisan migrate:refresh'
 alias amgrb='artisan migrate:rollback'
 alias amgfs='artisan migrate:fresh --seed'
 alias adbs='artisan db:seed'

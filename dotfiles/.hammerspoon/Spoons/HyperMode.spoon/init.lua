@@ -70,6 +70,7 @@ function HyperMode.comma()
 end
 
 function HyperMode.period()
+    Artisan.start()
 end
 
 function HyperMode.slash()
