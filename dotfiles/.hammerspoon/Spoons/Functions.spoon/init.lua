@@ -304,18 +304,4 @@ function closeWindow()
     end
 end
 
-Ray = {}
-
-function ray(value)
-    if not value then
-        return Ray
-    end
-
-    hs.execute('PATH=/usr/local/bin:$PATH; /Users/nathan/.composer/vendor/bin/ray "' .. value .. '"')
-end
-
-function Ray.newScreen(name)
-    hs.execute('PATH=/usr/local/bin:$PATH; /Users/nathan/.composer/vendor/bin/ray -s "' .. (name or '') .. '"')
-end
-
 return obj

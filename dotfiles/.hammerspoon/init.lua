@@ -1,5 +1,6 @@
 hs.loadSpoon('Variables')
 hs.loadSpoon('Functions')
+Ray = hs.loadSpoon('Ray')
 Pending = hs.loadSpoon('Pending')
 hs.loadSpoon('Watchers')
 TextManipulation = hs.loadSpoon('TextManipulation')
