@@ -22,7 +22,7 @@ function Artisan.setup()
         file:write(output)
         file:close()
         hs.execute(
-            table.concat({'/usr/local/bin/php', Artisan.path, 'output:routes'}, ' ')
+            table.concat({'/usr/local/bin/php', '/Users/nathan/Development/FuelingTheWeb/cli/cli', 'output:routes'}, ' ')
         )
     end})
 
@@ -45,7 +45,7 @@ function Artisan.setup()
     Artisan.add('make:factory --model={$1} {$1}Factory', {alias = 'mf', args = 'name', description = 'Create a new model factory'})
     Artisan.add('make:job', {alias = 'mj', args = 'name', description = 'Create a new job class'})
     Artisan.add('make:listener', {alias = 'mls', args = 'name', description = 'Create a new event listener class'})
-    Artisan.add('make:livewire', {alias = 'ml', args = 'name', description = 'Create a new Livewire component'})
+    Artisan.add('make:livewire', {alias = 'mlw', args = 'name', description = 'Create a new Livewire component'})
     Artisan.add('make:mail', {alias = 'mma', args = 'name', description = 'Create a new email class'})
     Artisan.add('make:middleware', {alias = 'mmi', args = 'name', description = 'Create a new middleware class'})
     Artisan.add('make:migration', {alias = 'mmg', args = 'name', description = 'Create a new migration file'})
@@ -61,6 +61,15 @@ function Artisan.setup()
     Artisan.add('make:seeder {$1}Seeder', {alias = 'ms', args = 'name', description = 'Create a new seeder class'})
     Artisan.add('make:test {$1}Test', {alias = 'mt', args = 'name', description = 'Create a new test class'})
     Artisan.add('make:test --unit {$1}Test', {alias = 'mtu', args = 'name', description = 'Create a new test class'})
+    Artisan.add('make:view', {alias = 'mv', args = 'name', description = 'Create a new view', callback = function(params)
+        Artisan.openNewFiles(function()
+            name = Artisan.convertTo('path', params.name)
+            hs.pasteboard.setContents(Artisan.convertTo('dot', name))
+            filePath = Artisan.mainPath .. '/resources/views/' .. name .. '.blade.php'
+            filePath = filePath:gsub('~', '/Users/nathan')
+            output = hs.execute('mkdir -p "$(dirname "' .. filePath .. '")" && touch "' .. filePath .. '"')
+        end)
+    end})
 
     Artisan.loadAlfredJson()
 end
@@ -160,14 +169,14 @@ hs.urlevent.bind('artisan', function(eventName, params)
     print(Artisan.command)
     command = Artisan.commands[Artisan.command]
 
+    if command.args then
+        return triggerAlfredWorkflow('artisan-command', 'com.fuelingtheweb.commands', command.name)
+    end
+
     if command.callback then
         Artisan.showNewScreen()
 
         return command.callback()
-    end
-
-    if command.args then
-        return triggerAlfredWorkflow('artisan-command', 'com.fuelingtheweb.commands', params.command .. ' - Name')
     end
 
     Artisan.showNewScreen()
@@ -175,38 +184,59 @@ hs.urlevent.bind('artisan', function(eventName, params)
 end)
 
 hs.urlevent.bind('artisan-command', function(eventName, params)
+    command = Artisan.commands[Artisan.command]
+
+    if command.callback then
+        return command.callback({name = params.name})
+    end
+
+    Artisan.openNewFiles(function()
+        converter = 'pascal'
+        if stringContains('migration', Artisan.command) then
+            converter = 'snake'
+        end
+
+        parts = hs.fnutils.map(hs.fnutils.split(params.name, '/'), function(text)
+            return Artisan.convertTo(converter, text)
+        end)
+        name = table.concat(parts, '/')
+        hs.pasteboard.setContents(name)
+
+        if stringContains('{$1}', Artisan.command) then
+            Artisan.command = Artisan.command:gsub('{$1}', name)
+        else
+            Artisan.command = Artisan.command .. ' ' .. name
+        end
+
+        Artisan.showNewScreen()
+        Artisan.run(true)
+    end)
+end)
+
+function Artisan.openNewFiles(callback)
     if Artisan.watcher then
         Artisan.watcher:stop()
     end
 
     Artisan.watcher = hs.pathwatcher.new(Artisan.mainPath .. '/', function (paths)
         each(paths, function(path)
-            openInAtom(path)
+            hs.execute('/usr/local/bin/atom -a "' .. path .. '"')
         end)
-    end)
 
-    converter = 'pascal'
-    if stringContains('migration', Artisan.command) then
-        converter = 'snake'
-    end
+        hs.application.get(atom):activate()
+        hs.eventtap.keyStroke({'cmd'}, 's')
+    end):start()
 
-    name = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. params.name .. '"'))
-
-    if stringContains('{$1}', Artisan.command) then
-        Artisan.command = Artisan.command:gsub('{$1}', name)
-    else
-        Artisan.command = Artisan.command .. ' ' .. name
-    end
-
-    Artisan.watcher:start()
-
-    Artisan.showNewScreen()
-    Artisan.run(true)
+    callback()
 
     hs.timer.doAfter(0.5, function()
         Artisan.watcher:stop()
     end)
-end)
+end
+
+function Artisan.convertTo(converter, text)
+    return trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"'))
+end
 
 Artisan.setup()
 

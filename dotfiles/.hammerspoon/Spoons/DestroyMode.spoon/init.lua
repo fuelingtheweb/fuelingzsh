@@ -3,6 +3,7 @@ DestroyMode.__index = DestroyMode
 
 DestroyMode.lookup = {
     e = 'toEndOfWord',
+    q = 'subword',
     w = 'word',
     a = 'toEndOfLine',
     i = 'toBeginningOfLine',
@@ -51,6 +52,15 @@ hs.urlevent.bind('destroy-toEndOfWord', function()
             end
         end,
     })
+end)
+
+hs.urlevent.bind('destroy-subword', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'd', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'q', 0)
+    end
 end)
 
 hs.urlevent.bind('destroy-word', function()

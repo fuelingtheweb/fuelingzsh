@@ -3,6 +3,7 @@ ChangeMode.__index = ChangeMode
 
 ChangeMode.lookup = {
     e = 'toEndOfWord',
+    q = 'subword',
     w = 'word',
     a = 'toEndOfLine',
     i = 'toBeginningOfLine',
@@ -33,6 +34,15 @@ hs.urlevent.bind('change-toEndOfWord', function()
     else
         hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
         hs.eventtap.keyStroke({}, 'delete', 0)
+    end
+end)
+
+hs.urlevent.bind('change-subword', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'c', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'q', 0)
     end
 end)
 

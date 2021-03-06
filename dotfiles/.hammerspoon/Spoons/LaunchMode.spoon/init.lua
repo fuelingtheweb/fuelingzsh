@@ -1,6 +1,21 @@
 local LaunchMode = {}
 LaunchMode.__index = LaunchMode
 
+hs.hints.titleMaxSize = 20
+hs.hints.showTitleThresh = 20
+hs.hints.fontSize = 20
+hs.hints.iconAlpha = 1
+
+function LaunchMode.tab()
+    hs.hints.style = nil
+    hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
+end
+
+function LaunchMode.caps_lock()
+    hs.hints.style = 'vimperator'
+    hs.hints.windowHints()
+end
+
 function LaunchMode.a()
     Pending.run({
         function()
@@ -49,24 +64,9 @@ function LaunchMode.x()
     })
 end
 
-function LaunchMode.left_shift()
+function LaunchMode.spacebar()
     -- Bring all windows to front
     hs.application.frontmostApplication():activate(true)
-end
-
-hs.hints.titleMaxSize = 35
-hs.hints.showTitleThresh = 20
-hs.hints.fontSize = 20
-hs.hints.iconAlpha = 1
-
-function LaunchMode.tab()
-    hs.hints.style = nil
-    hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
-end
-
-function LaunchMode.spacebar()
-    hs.hints.style = 'vimperator'
-    hs.hints.windowHints()
 end
 
 LaunchMode.lookup = {
@@ -75,10 +75,10 @@ LaunchMode.lookup = {
     e = {type = 'hs', app = 'sublime'},
     r = {type = 'hs', app = 'atom'},
     t = {type = 'hs', app = 'iterm'},
-    caps_lock = {type = 'open', app = 'Dash.app'},
     s = {type = 'hs', app = 'spotify'},
     f = {type = 'open', app = 'Notion.app'},
     g = {type = 'hs', app = 'chrome'},
+    left_shift = {type = 'open', app = 'Dash.app'},
     c = {type = 'open', app = 'Sublime Merge.app'},
     v = {type = 'open', app = 'TablePlus.app'},
     b = {type = 'hs', app = 'finder'},

@@ -2,6 +2,7 @@ local SelectInsideMode = {}
 SelectInsideMode.__index = SelectInsideMode
 
 SelectInsideMode.lookup = {
+    q = 'subword',
     w = 'word',
     v = 'line',
     x = 'character',
@@ -19,6 +20,15 @@ function SelectInsideMode.handle(key)
         hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
     end
 end
+
+hs.urlevent.bind('select-inside-subword', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'v', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'q', 0)
+    end
+end)
 
 hs.urlevent.bind('select-inside-word', function()
     if TextManipulation.canManipulateWithVim() then

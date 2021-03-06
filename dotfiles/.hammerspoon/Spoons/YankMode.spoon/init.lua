@@ -4,6 +4,7 @@ YankMode.__index = YankMode
 YankMode.lookup = {
     e = 'toEndOfWord',
     r = 'relativeFilePath',
+    q = 'subword',
     w = 'word',
     a = 'toEndOfLine',
     i = 'toBeginningOfLine',
@@ -44,6 +45,15 @@ hs.urlevent.bind('yank-relativeFilePath', function()
         hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'r', 0)
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y', 0)
+    end
+end)
+
+hs.urlevent.bind('yank-subword', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'y', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'q', 0)
     end
 end)
 

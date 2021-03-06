@@ -3,6 +3,7 @@ PasteMode.__index = PasteMode
 
 PasteMode.lookup = {
     e = 'toEndOfWord',
+    q = 'subword',
     w = 'word',
     a = 'toEndOfLine',
     i = 'toBeginningOfLine',
@@ -35,6 +36,16 @@ hs.urlevent.bind('paste-toEndOfWord', function()
     else
         hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
         hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+    end
+end)
+
+hs.urlevent.bind('paste-subword', function()
+    if TextManipulation.canManipulateWithVim() then
+        hs.eventtap.keyStroke({}, 'escape', 0)
+        hs.eventtap.keyStroke({}, 'v', 0)
+        hs.eventtap.keyStroke({}, 'i', 0)
+        hs.eventtap.keyStroke({}, 'q', 0)
+        hs.eventtap.keyStroke({}, 'p', 0)
     end
 end)
 
