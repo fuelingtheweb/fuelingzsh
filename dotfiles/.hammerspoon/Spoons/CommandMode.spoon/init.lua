@@ -46,73 +46,35 @@ function CommandMode.a()
     hs.eventtap.keyStroke({'cmd'}, 'a')
 end
 
-hs.loadSpoon('ModalMgr')
-SaveModal = {}
-SaveModal.active = false
-SaveModal.modalKey = 'SaveModal'
-
-spoon.ModalMgr:new(SaveModal.modalKey)
-SaveModal.modal = spoon.ModalMgr.modal_list[SaveModal.modalKey]
-
-SaveModal.modal:bind('', 'escape', nil, function()
-    spoon.ModalMgr:deactivate({SaveModal.modalKey})
-    hs.eventtap.keyStroke({}, 'escape', 0)
-end)
-SaveModal.modal.entered = function()
-    SaveModal.active = true
-end
-SaveModal.modal.exited = function()
-    SaveModal.active = false
-end
-
-SaveModal.actions = {
-    {key = 'j', method = 'saveAndGoToPreviousTab'},
-    {key = 'k', method = 'saveAndGoToNextTab'},
-    {key = ';', method = 'saveAndGoToNextWindow'},
-}
-
-function CommandMode.saveAndGoToPreviousTab()
-    CommandMode.save()
-    HyperMode.previousTab()
-end
-
-function CommandMode.saveAndGoToNextTab()
-    CommandMode.save()
-    HyperMode.nextTab()
-end
-
-function CommandMode.saveAndGoToNextWindow()
-    CommandMode.save()
-    WindowManager.next()
-end
-
-each(SaveModal.actions, function(item)
-    SaveModal.modal:bind('', item.key, nil, function()
-        CommandMode[item.method]()
-        spoon.ModalMgr:deactivate({SaveModal.modalKey})
-    end)
-end)
-
-function SaveModal.exit()
-    spoon.ModalMgr:deactivateAll()
-end
-
-function SaveModal.enter()
-    spoon.ModalMgr:deactivateAll()
-    spoon.ModalMgr:activate({SaveModal.modalKey}, '#FFFFFF', false)
-end
+Modal.add({
+    key = 'CommandMode:save',
+    shortcuts = {
+        ['j'] = function()
+            CommandMode.save()
+            HyperMode.previousTab()
+        end,
+        ['k'] = function()
+            CommandMode.save()
+            HyperMode.nextTab()
+        end,
+        [';'] = function()
+            CommandMode.save()
+            WindowManager.next()
+        end,
+    },
+})
 
 function CommandMode.s()
-    SaveModal.enter()
+    Modal.enter('CommandMode:save')
 
     -- Save or Save and reload Chrome
     Pending.run({
         function()
-            SaveModal.exit()
+            Modal.exit()
             CommandMode.save()
         end,
         function()
-            SaveModal.exit()
+            Modal.exit()
             CommandMode.saveAndReload()
         end,
     })

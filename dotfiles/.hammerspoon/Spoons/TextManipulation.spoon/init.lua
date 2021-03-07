@@ -12,32 +12,26 @@ TextManipulation.wrapperKeyLookup = {
     b = {mods = {}, key = '['}, -- b -> brackets
 }
 
-hs.loadSpoon('ModalMgr')
 TextManipulation.vimEnabled = true
-TextManipulation.menuBar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar();
-TextManipulation.modalKey = 'DisabledVimTextManipulation'
 
-spoon.ModalMgr:new(TextManipulation.modalKey)
-TextManipulation.modal = spoon.ModalMgr.modal_list[TextManipulation.modalKey]
-
-TextManipulation.modal:bind('', 'escape', nil, function()
-    spoon.ModalMgr:deactivate({TextManipulation.modalKey})
-    hs.eventtap.keyStroke({}, 'escape', 0)
-end)
-TextManipulation.modal:bind('', 'return', nil, function()
-    if inCodeEditor() then
-        spoon.ModalMgr:deactivate({TextManipulation.modalKey})
-        hs.eventtap.keyStroke({}, 'return', 0)
-    end
-end)
-TextManipulation.modal.entered = function()
-    TextManipulation.vimEnabled = false
-    TextManipulation.menuBar:setTitle('Vim Text Manipulation Disabled')
-end
-TextManipulation.modal.exited = function()
-    TextManipulation.vimEnabled = true
-    TextManipulation.menuBar:setTitle('')
-end
+Modal.addWithMenubar({
+    key = 'TextManipulation:vimDisabled',
+    title = 'Vim Text Manipulation Disabled',
+    shortcuts = {
+        ['return'] = function()
+            if inCodeEditor() then
+                Modal.exit()
+                hs.eventtap.keyStroke({}, 'return', 0)
+            end
+        end
+    },
+    entered = function()
+        TextManipulation.vimEnabled = false
+    end,
+    exited = function()
+        TextManipulation.vimEnabled = true
+    end,
+})
 
 function TextManipulation.canManipulateWithVim()
     if not TextManipulation.vimEnabled or isAlfredVisible() then
@@ -53,8 +47,7 @@ function TextManipulation.canManipulateWithVim()
 end
 
 function TextManipulation.disableVim()
-    spoon.ModalMgr:deactivateAll()
-    spoon.ModalMgr:activate({TextManipulation.modalKey}, '#FFFFFF', false)
+    Modal.enter('TextManipulation:vimDisabled')
 end
 
 hs.urlevent.bind('text-disableVim', function(eventName, params)

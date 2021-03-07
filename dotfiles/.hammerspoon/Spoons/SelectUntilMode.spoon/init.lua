@@ -44,108 +44,130 @@ hs.urlevent.bind('select-until-nextWord', function()
     end
 end)
 
-SelectUntilModal = hs.loadSpoon('SelectUntilModal')
+SelectUntilMode.direction = nil
+SelectUntilMode.key = nil
 
-local keys = {
-    {key = "s", action = 'singleQuote'},
-    {key = "d", action = 'doubleQuote'},
-    {key = "z", action = 'backTick'},
-    {key = "f", action = 'parenthesis'},
-    {key = "c", action = 'braces'},
-    {key = "b", action = 'brackets'},
-    {key = ',', action = 'backward'},
-    {key = ';', action = 'forward'},
-    {key = 'n', action = 'change'},
-    {key = 'y', action = 'yank'},
-    {key = 'p', action = 'paste'},
-    {key = '[', action = 'destroy'},
-}
+Modal.addWithMenubar({
+    key = 'SelectUntilMode',
+    title = function()
+        return 'Select Until: ' .. (SelectUntilMode.direction or '') .. ' ' .. (SelectUntilMode.key or '')
+    end,
+    shortcuts = {
+        items = {
+            {key = "s", action = 'singleQuote'},
+            {key = "d", action = 'doubleQuote'},
+            {key = "z", action = 'backTick'},
+            {key = "f", action = 'parenthesis'},
+            {key = "c", action = 'braces'},
+            {key = "b", action = 'brackets'},
+            {key = ',', action = 'backward'},
+            {key = ';', action = 'forward'},
+            {key = 'n', action = 'change'},
+            {key = 'y', action = 'yank'},
+            {key = 'p', action = 'paste'},
+            {key = '[', action = 'destroy'},
+        },
+        callback = function(item)
+            SelectUntilMode.actions[item.action]()
+        end,
+    },
+    exited = function()
+        SelectUntilMode.direction = nil
+        SelectUntilMode.key = nil
+    end,
+})
 
 function SelectUntilMode.triggerDirectionIfSet()
-    if not SelectUntilModal.direction then
+    if not SelectUntilMode.direction then
         return
     end
 
-    if SelectUntilModal.direction == 'F' then
+    if SelectUntilMode.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
-    SelectUntilModal.actions[action]()
+    SelectUntilMode.actions[action]()
 end
 
-local actions = {
+function SelectUntilMode.enterModal(direction, key)
+    SelectUntilMode.direction = direction or nil
+    SelectUntilMode.key = key or nil
+    Modal.enter('SelectUntilMode')
+end
+
+SelectUntilMode.actions = {
     singleQuote = function()
-        SelectUntilModal:enter(SelectUntilModal.direction, "'")
+        SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
 
         SelectUntilMode.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
-        SelectUntilModal:enter(SelectUntilModal.direction, '"')
+        SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
 
         SelectUntilMode.triggerDirectionIfSet()
     end,
 
     backTick = function()
-        SelectUntilModal:enter(SelectUntilModal.direction, "`")
+        SelectUntilMode.enterModal(SelectUntilMode.direction, "`")
 
         SelectUntilMode.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
-        if SelectUntilModal.pending then
-            SelectUntilModal.timer:stop()
-            SelectUntilModal.pending = false
-            SelectUntilModal.pendingKey = nil
-            SelectUntilModal:enter(SelectUntilModal.direction, ")")
+        Pending.run({
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "(")
 
-            SelectUntilMode.triggerDirectionIfSet()
-        else
-            SelectUntilModal.pending = true
-            SelectUntilModal.pendingKey = "("
-            SelectUntilModal.timer:start()
-        end
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, ")")
+
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+        })
     end,
 
     braces = function()
-        if SelectUntilModal.pending then
-            SelectUntilModal.timer:stop()
-            SelectUntilModal.pending = false
-            SelectUntilModal.pendingKey = nil
-            SelectUntilModal:enter(SelectUntilModal.direction, "}")
+        Pending.run({
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "{")
 
-            SelectUntilMode.triggerDirectionIfSet()
-        else
-            SelectUntilModal.pending = true
-            SelectUntilModal.pendingKey = "{"
-            SelectUntilModal.timer:start()
-        end
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "}")
+
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+        })
     end,
 
     brackets = function()
-        if SelectUntilModal.pending then
-            SelectUntilModal.timer:stop()
-            SelectUntilModal.pending = false
-            SelectUntilModal.pendingKey = nil
-            SelectUntilModal:enter(SelectUntilModal.direction, "]")
+        Pending.run({
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "[")
 
-            SelectUntilMode.triggerDirectionIfSet()
-        else
-            SelectUntilModal.pending = true
-            SelectUntilModal.pendingKey = "["
-            SelectUntilModal.timer:start()
-        end
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "]")
+
+                SelectUntilMode.triggerDirectionIfSet()
+            end
+        })
     end,
 
     backward = function()
         if not TextManipulation.canManipulateWithVim() then
-            return spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+            return Modal.exit()
         end
 
-        SelectUntilModal:enter('B', SelectUntilModal.key)
+        SelectUntilMode.enterModal('B', SelectUntilMode.key)
 
-        if not SelectUntilModal.key then
+        if not SelectUntilMode.key then
             return
         end
 
@@ -156,17 +178,17 @@ local actions = {
 
         hs.eventtap.keyStroke({'shift'}, 'f', 0)
 
-        SelectUntilModal.keymap[SelectUntilModal.key]()
+        SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
 
     forward = function()
         if not TextManipulation.canManipulateWithVim() then
-            return spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+            return Modal.exit()
         end
 
-        SelectUntilModal:enter('F', SelectUntilModal.key)
+        SelectUntilMode.enterModal('F', SelectUntilMode.key)
 
-        if not SelectUntilModal.key then
+        if not SelectUntilMode.key then
             return
         end
 
@@ -179,11 +201,11 @@ local actions = {
 
         hs.eventtap.keyStroke({}, 't', 0)
 
-        SelectUntilModal.keymap[SelectUntilModal.key]()
+        SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
 
     change = function()
-        spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+        Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
             hs.eventtap.keyStroke({}, 'c', 0)
@@ -191,7 +213,7 @@ local actions = {
     end,
 
     yank = function()
-        spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+        Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
             hs.eventtap.keyStroke({}, 'y', 0)
@@ -199,7 +221,7 @@ local actions = {
     end,
 
     paste = function()
-        spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+        Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
             hs.eventtap.keyStroke({}, 'p', 0)
@@ -207,7 +229,7 @@ local actions = {
     end,
 
     destroy = function()
-        spoon.ModalMgr:deactivate({SelectUntilModal.modalKey})
+        Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
             hs.eventtap.keyStroke({}, 'd', 0)
@@ -215,7 +237,7 @@ local actions = {
     end,
 }
 
-local keyMap = {
+SelectUntilMode.keymap = {
     ["'"] = function()
         hs.eventtap.keyStroke({}, "'", 0)
     end,
@@ -245,53 +267,42 @@ local keyMap = {
     end,
 }
 
-local timer = hs.timer.new(0.2, function()
-    SelectUntilModal.timer:stop()
-    SelectUntilModal.pending = false
-    SelectUntilModal:enter(SelectUntilModal.direction, SelectUntilModal.pendingKey)
-
-    SelectUntilMode.triggerDirectionIfSet()
-end)
-
-SelectUntilModal:init(keys, actions, keyMap, timer)
-SelectUntilModal:start()
-
 hs.urlevent.bind('select-until-mode', function()
-    SelectUntilModal:enter()
+    SelectUntilMode.enterModal()
 end)
 
 hs.urlevent.bind('select-until-mode-backward', function()
-    SelectUntilModal:enter('B')
+    SelectUntilMode.enterModal('B')
 end)
 
 hs.urlevent.bind('select-until-single-quote', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.singleQuote()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.singleQuote()
 end)
 
 hs.urlevent.bind('select-until-double-quote', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.doubleQuote()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.doubleQuote()
 end)
 
 hs.urlevent.bind('select-until-back-tick', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.backTick()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.backTick()
 end)
 
 hs.urlevent.bind('select-until-parenthesis', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.parenthesis()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.parenthesis()
 end)
 
 hs.urlevent.bind('select-until-braces', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.braces()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.braces()
 end)
 
 hs.urlevent.bind('select-until-brackets', function()
-    SelectUntilModal:enter('F')
-    SelectUntilModal.actions.brackets()
+    SelectUntilMode.enterModal('F')
+    SelectUntilMode.actions.brackets()
 end)
 
 hs.urlevent.bind('select-until-endOfLine', function()

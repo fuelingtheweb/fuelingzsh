@@ -118,88 +118,107 @@ hs.urlevent.bind('destroy-character', function()
     end
 end)
 
-DestroyModal = hs.loadSpoon('DestroyModal')
+DestroyMode.direction = nil
+DestroyMode.key = nil
 
-local keys = {
-    {key = ',', action = 'backward'},
-    {key = ';', action = 'forward'},
-    {key = 'v', action = 'line'},
-}
+Modal.addWithMenubar({
+    key = 'DestroyMode',
+    title = function()
+        return 'Destroy: ' .. (DestroyMode.direction or '') .. ' ' .. (DestroyMode.key or '')
+    end,
+    shortcuts = {
+        items = {
+            {key = ',', action = 'backward'},
+            {key = ';', action = 'forward'},
+            {key = 'v', action = 'line'},
+        },
+        callback = function(item)
+            DestroyMode.actions[item.action]()
+        end,
+    },
+    exited = function()
+        DestroyMode.direction = nil
+        DestroyMode.key = nil
+    end,
+})
 
 function DestroyMode.triggerDirectionIfSet()
-    if not DestroyModal.direction then
+    if not DestroyMode.direction then
         return
     end
 
-    if DestroyModal.direction == 'F' then
+    if DestroyMode.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
-    DestroyModal.actions[action]()
+    DestroyMode.actions[action]()
 end
 
-local actions = {
+function DestroyMode.enterModal(direction, key)
+    DestroyMode.direction = direction or nil
+    DestroyMode.key = key or nil
+    Modal.enter('DestroyMode')
+end
+
+DestroyMode.actions = {
     backward = function()
         if not TextManipulation.canManipulateWithVim() then
-            return spoon.ModalMgr:deactivate({DestroyModal.modalKey})
+            return Modal.exit()
         end
 
-        DestroyModal:enter('B', DestroyModal.key)
+        DestroyMode.enterModal('B', DestroyMode.key)
 
-        if not DestroyModal.key then
+        if not DestroyMode.key then
             return
         end
 
         if inCodeEditor() then
-            DestroyModal.keymap[DestroyModal.key]()
+            DestroyMode.keymap[DestroyMode.key]()
             hs.eventtap.keyStroke({}, 'k', 0)
         end
     end,
 
     forward = function()
         if not TextManipulation.canManipulateWithVim() then
-            return spoon.ModalMgr:deactivate({DestroyModal.modalKey})
+            return Modal.exit()
         end
 
-        DestroyModal:enter('F', DestroyModal.key)
+        DestroyMode.enterModal('F', DestroyMode.key)
 
-        if not DestroyModal.key then
+        if not DestroyMode.key then
             return
         end
 
         if inCodeEditor() then
-            DestroyModal.keymap[DestroyModal.key]()
+            DestroyMode.keymap[DestroyMode.key]()
         end
     end,
 
     line = function()
-        DestroyModal:enter(DestroyModal.direction, "v")
+        DestroyMode.enterModal(DestroyMode.direction, "v")
 
         DestroyMode.triggerDirectionIfSet()
     end,
 }
 
-local keyMap = {
+DestroyMode.keymap = {
     ['v'] = function()
         hs.eventtap.keyStroke({}, 'd', 0)
         hs.eventtap.keyStroke({}, 'd', 0)
     end,
 }
 
-DestroyModal:init(keys, actions, keyMap)
-DestroyModal:start()
-
 hs.urlevent.bind('destroy-mode-forward', function()
-    DestroyModal:enter('F')
+    DestroyMode.enterModal('F')
 end)
 
 hs.urlevent.bind('destroy-mode', function()
-    DestroyModal:enter()
+    DestroyMode.enterModal()
 end)
 
 hs.urlevent.bind('destroy-mode-backward', function()
-    DestroyModal:enter('B')
+    DestroyMode.enterModal('B')
 end)
 
 return DestroyMode

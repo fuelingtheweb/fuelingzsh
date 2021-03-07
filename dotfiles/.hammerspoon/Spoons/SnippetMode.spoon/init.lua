@@ -1,6 +1,33 @@
 local SnippetMode = {}
 SnippetMode.__index = SnippetMode
 
+Modal.addWithMenubar({
+    key = 'SnippetMode:method',
+    title = 'Snippet: Method',
+    shortcuts = {
+        items = {
+            {key = 'n', method = 'construct'},
+            {key = 'i', method = 'index'},
+            {key = 'c', method = 'create'},
+            {key = 's', method = 'store'},
+            {key = 'h', method = 'show'},
+            {key = 'e', method = 'edit'},
+            {key = 'u', method = 'update'},
+            {key = 'd', method = 'destroy'},
+            {key = 'g', method = 'getter'},
+            {key = 'q', method = 'scope'},
+            {key = 't', method = 'test-setup'},
+            {key = 'o', method = 'protected'},
+            {key = 'v', method = 'private'},
+            {key = ';', method = 'static'},
+        },
+        callback = function(item)
+            SnippetMode.snippet('method-' .. item.method)
+            Modal.exit()
+        end,
+    },
+})
+
 function SnippetMode.t()
     SnippetMode.this()
 end
@@ -8,7 +35,9 @@ end
 function SnippetMode.m()
     Pending.run({
         SnippetMode.method,
-        SnippetMode.methodMode,
+        function()
+            Modal.enter('SnippetMode:method')
+        end,
     })
 end
 
@@ -32,56 +61,6 @@ function SnippetMode.handle(key)
     elseif SnippetMode.lookup[key] then
         SnippetMode.snippet(SnippetMode.lookup[key])
     end
-end
-
-hs.loadSpoon('ModalMgr')
-SnippetMode.mode = nil
-SnippetMode.menuBar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar();
-SnippetMode.modalKey = 'SnippetMethod'
-
-spoon.ModalMgr:new(SnippetMode.modalKey)
-SnippetMode.modal = spoon.ModalMgr.modal_list[SnippetMode.modalKey]
-
-SnippetMode.modal:bind('', 'escape', nil, function()
-    hs.eventtap.keyStroke({}, 'escape', 0)
-    spoon.ModalMgr:deactivate({SnippetMode.modalKey})
-end)
-SnippetMode.modal.entered = function()
-    SnippetMode.mode = 'method'
-    SnippetMode.menuBar:setTitle('Snippet: Method')
-end
-SnippetMode.modal.exited = function()
-    SnippetMode.mode = nil
-    SnippetMode.menuBar:setTitle('')
-end
-
-methodSnippets = {
-    {key = 'n', method = 'construct'},
-    {key = 'i', method = 'index'},
-    {key = 'c', method = 'create'},
-    {key = 's', method = 'store'},
-    {key = 'h', method = 'show'},
-    {key = 'e', method = 'edit'},
-    {key = 'u', method = 'update'},
-    {key = 'd', method = 'destroy'},
-    {key = 'g', method = 'getter'},
-    {key = 'q', method = 'scope'},
-    {key = 't', method = 'test-setup'},
-    {key = 'o', method = 'protected'},
-    {key = 'v', method = 'private'},
-    {key = ';', method = 'static'},
-}
-
-each(methodSnippets, function(item)
-    SnippetMode.modal:bind('', item.key, nil, function()
-        SnippetMode.snippet('method-' .. item.method)
-        spoon.ModalMgr:deactivate({SnippetMode.modalKey})
-    end)
-end)
-
-function SnippetMode.methodMode()
-    spoon.ModalMgr:deactivateAll()
-    spoon.ModalMgr:activate({SnippetMode.modalKey}, '#FFFFFF', false)
 end
 
 function SnippetMode.snippet(name)
