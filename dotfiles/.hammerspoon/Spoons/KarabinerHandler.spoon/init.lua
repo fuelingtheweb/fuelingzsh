@@ -1,38 +1,42 @@
 local KarabinerHandler = {}
 KarabinerHandler.__index = KarabinerHandler
 
-local ModeLookup = {
-    ['HyperMode'] = hs.loadSpoon('HyperMode'),
-    ['TabMode'] = hs.loadSpoon('TabMode'),
-    ['PaneMode'] = hs.loadSpoon('PaneMode'),
-    ['TestMode'] = hs.loadSpoon('TestMode'),
-    ['YankMode'] = hs.loadSpoon('YankMode'),
-    ['SelectUntilMode'] = hs.loadSpoon('SelectUntilMode'),
-    ['SelectInsideMode'] = hs.loadSpoon('SelectInsideMode'),
-    ['OpenMode'] = hs.loadSpoon('OpenMode'),
-    ['PasteMode'] = hs.loadSpoon('PasteMode'),
-    ['DestroyMode'] = hs.loadSpoon('DestroyMode'),
-    ['CaseMode'] = hs.loadSpoon('CaseMode'),
-    ['SnippetMode'] = hs.loadSpoon('SnippetMode'),
-    ['GeneralMode'] = hs.loadSpoon('GeneralMode'),
-    ['GoogleMode'] = hs.loadSpoon('GoogleMode'),
-    ['ViMode'] = hs.loadSpoon('ViMode'),
-    ['CommandMode'] = hs.loadSpoon('CommandMode'),
-    ['ExtendedCommandMode'] = hs.loadSpoon('ExtendedCommandMode'),
-    ['JumpToMode'] = hs.loadSpoon('JumpToMode'),
-    ['CaseDialog'] = hs.loadSpoon('CaseDialog'),
-    ['CodeMode'] = hs.loadSpoon('CodeMode'),
-    ['ViVisualMode'] = hs.loadSpoon('ViVisualMode'),
-    ['ChangeMode'] = hs.loadSpoon('ChangeMode'),
-    ['MediaMode'] = hs.loadSpoon('MediaMode'),
-    ['LaunchMode'] = hs.loadSpoon('LaunchMode'),
-    ['AppMode'] = hs.loadSpoon('AppMode'),
-    ['SearchMode'] = hs.loadSpoon('SearchMode'),
-    ['WindowManager'] = hs.loadSpoon('WindowManager'),
+KarabinerHandler.modes = {
+    'HyperMode',
+    'TabMode',
+    'PaneMode',
+    'TestMode',
+    'YankMode',
+    'SelectUntilMode',
+    'SelectInsideMode',
+    'OpenMode',
+    'PasteMode',
+    'DestroyMode',
+    'CaseMode',
+    'SnippetMode',
+    'GeneralMode',
+    'GoogleMode',
+    'ViMode',
+    'CommandMode',
+    'ExtendedCommandMode',
+    'JumpToMode',
+    'CaseDialog',
+    'CodeMode',
+    'ViVisualMode',
+    'ChangeMode',
+    'MediaMode',
+    'LaunchMode',
+    'AppMode',
+    'SearchMode',
+    'WindowManager',
 }
 
+each(KarabinerHandler.modes, function(mode)
+    spoon[mode] = hs.loadSpoon('Modes/' .. mode)
+end)
+
 hs.urlevent.bind('handle-karabiner', function(eventName, params)
-    local Mode = ModeLookup[params.layer]
+    local Mode = spoon[params.layer]
 
     if Mode[params.key] then
         return Mode[params.key]()
