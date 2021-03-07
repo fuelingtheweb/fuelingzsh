@@ -3,9 +3,9 @@ from Simlayer import *
 class Simlayers:
     all = []
 
-    def new(self, title, name, modifier, keys = ''):
+    def new(self, title, name, modifier, keys = '', custom = ''):
         self.all.append(
-            Simlayer(title, name, modifier, keys)
+            Simlayer(title, name, modifier, keys, custom)
         )
 
     def primary(self, title, name, modifier, keys = ''):

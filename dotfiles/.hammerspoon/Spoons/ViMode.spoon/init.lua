@@ -1,33 +1,37 @@
 local ViMode = {}
 ViMode.__index = ViMode
 
+function ViMode.y()
+    ViMode.moveToTopOfPage()
+end
+
 function ViMode.i()
     Pending.run({
-        ViMode.moveCursorToFirstCharacterOfLine,
-        ViMode.moveCursorAndInsertAtFirstCharacterOfLine,
+        ViMode.moveToFirstCharacterOfLine,
+        ViMode.moveAndInsertAtFirstCharacterOfLine,
     })
 end
 
 function ViMode.o()
     Pending.run({
-        ViMode.moveCursorToEndOfLine,
-        ViMode.moveCursorAndAppendAtEndOfLine,
+        ViMode.moveToEndOfLine,
+        ViMode.moveAndAppendAtEndOfLine,
     })
 end
 
-function ViMode.semicolon()
-    ViMode.moveCursorAndInsertAtFirstCharacterOfLine()
+function ViMode.n()
+    ViMode.moveToBottomOfPage()
 end
 
-function ViMode.quote()
-    ViMode.moveCursorAndAppendAtEndOfLine()
+function ViMode.moveToTopOfPage()
+    hs.eventtap.keyStroke({'cmd'}, 'up', 0)
 end
 
-function ViMode.moveCursorToFirstCharacterOfLine()
+function ViMode.moveToFirstCharacterOfLine()
     hs.eventtap.keyStroke({'cmd'}, 'left', 0)
 end
 
-function ViMode.moveCursorToEndOfLine()
+function ViMode.moveToEndOfLine()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, '4', 0)
     else
@@ -35,26 +39,30 @@ function ViMode.moveCursorToEndOfLine()
     end
 end
 
-function ViMode.moveCursorAndInsertAtFirstCharacterOfLine()
+function ViMode.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'i', 0)
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({}, 'escape', 0)
         hs.eventtap.keyStroke({'shift'}, 'i', 0)
     else
-        ViMode.moveCursorToFirstCharacterOfLine()
+        ViMode.moveToFirstCharacterOfLine()
     end
 end
 
-function ViMode.moveCursorAndAppendAtEndOfLine()
+function ViMode.moveAndAppendAtEndOfLine()
     if appIs(atom) then
         hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'o', 0)
     elseif appIs(sublime) then
         hs.eventtap.keyStroke({}, 'escape', 0)
         hs.eventtap.keyStroke({'shift'}, 'a', 0)
     else
-        ViMode.moveCursorToEndOfLine()
+        ViMode.moveToEndOfLine()
     end
+end
+
+function ViMode.moveToBottomOfPage()
+    hs.eventtap.keyStroke({'cmd'}, 'down', 0)
 end
 
 return ViMode

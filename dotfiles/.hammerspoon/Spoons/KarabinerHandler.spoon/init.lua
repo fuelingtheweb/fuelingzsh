@@ -22,6 +22,7 @@ local ModeLookup = {
     ['JumpToMode'] = hs.loadSpoon('JumpToMode'),
     ['CaseDialog'] = hs.loadSpoon('CaseDialog'),
     ['CodeMode'] = hs.loadSpoon('CodeMode'),
+    ['ViVisualMode'] = hs.loadSpoon('ViVisualMode'),
     ['ChangeMode'] = hs.loadSpoon('ChangeMode'),
     ['MediaMode'] = hs.loadSpoon('MediaMode'),
     ['LaunchMode'] = hs.loadSpoon('LaunchMode'),
