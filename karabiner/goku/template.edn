@@ -53,20 +53,6 @@ $simlayers
 
         ;; (custom variables) & modifiers -> Advanced
         ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
-        {
-            :des "Misc"
-            :rules [
-                [:right_option [[:hs "misc-optionPressedTwice"] ["pending" 0]] ["pending" 1]]
-                [:right_option
-                    ["pending" 1]
-                    ["pending" 0]
-                    {:delayed {:invoked [[:hs "misc-optionPressedOnce"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
-                ]
-
-                [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
-                [:!TCf :escape] ; Escape
-            ]
-        }
 $rulesets
     ]
 }

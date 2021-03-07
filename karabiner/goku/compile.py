@@ -1,4 +1,4 @@
-from functions import *
+from functions import compileTemplate
 from Simlayers import *
 
 simlayers = Simlayers()
@@ -62,4 +62,19 @@ simlayers.new('Search Mode (Key: /)', 'SearchMode', 'slash', 'all-left')
 
 simlayers.new('Window Mode (Key: Spacebar)', 'WindowManager', 'spacebar', 'all')
 
-compileTemplate(simlayers)
+compileTemplate(simlayers, """
+        {
+            :des "Misc"
+            :rules [
+                [:right_option [[:hs "misc-optionPressedTwice"] ["pending" 0]] ["pending" 1]]
+                [:right_option
+                    ["pending" 1]
+                    ["pending" 0]
+                    {:delayed {:invoked [[:hs "misc-optionPressedOnce"] ["pending" 0]] :canceled ["pending" 0]} :params {:delay 150}}
+                ]
+
+                [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
+                [:!TCf :escape] ; Escape
+            ]
+        }
+""")

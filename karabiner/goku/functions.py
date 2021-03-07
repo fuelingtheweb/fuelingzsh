@@ -1,10 +1,10 @@
 from string import Template
 
-def compileTemplate(simlayers):
+def compileTemplate(simlayers, miscRulesets):
     print(
         Template(fileContents('template')).substitute({
             'simlayers': simlayers.definitions(),
-            'rulesets': simlayers.rulesets(),
+            'rulesets': miscRulesets + simlayers.rulesets(),
         })
     )
 

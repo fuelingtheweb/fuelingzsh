@@ -85,10 +85,14 @@ gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/go
         output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
         hs.notify.new({title = 'Goku Config', informativeText = output}):send()
     end
-end):start()
+end)
+
 karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function ()
     output = hs.execute('/usr/local/bin/goku')
     hs.notify.new({title = 'Karabiner Config', informativeText = output}):send()
-end):start()
+end)
+
+gokuWatcher:start()
+karabinerWatcher:start()
 
 return obj
