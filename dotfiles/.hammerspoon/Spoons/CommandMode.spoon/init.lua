@@ -51,15 +51,15 @@ Modal.add({
     shortcuts = {
         ['j'] = function()
             CommandMode.save()
-            HyperMode.previousTab()
+            spoon.HyperMode.previousTab()
         end,
         ['k'] = function()
             CommandMode.save()
-            HyperMode.nextTab()
+            spoon.HyperMode.nextTab()
         end,
         [';'] = function()
             CommandMode.save()
-            WindowManager.next()
+            spoon.WindowManager.next()
         end,
     },
 })

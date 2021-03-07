@@ -6,8 +6,6 @@ Modal = hs.loadSpoon('Modal')
 hs.loadSpoon('Watchers')
 TextManipulation = hs.loadSpoon('TextManipulation')
 Artisan = hs.loadSpoon('Artisan')
-HyperMode = hs.loadSpoon('HyperMode')
-WindowManager = hs.loadSpoon('WindowManager')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 

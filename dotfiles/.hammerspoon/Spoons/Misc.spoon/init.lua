@@ -3,9 +3,9 @@ obj.__index = obj
 
 hs.urlevent.bind('misc-optionPressedOnce', function()
     if appIs(spotify) then
-        hs.execute('open -g "hammerspoon://window-next"')
+        spoon.WindowManager.next()
     else
-        hs.execute('open -g "hammerspoon://media-showVideoBar"')
+        spoon.MediaMode.showVideoBar()
     end
 end)
 
