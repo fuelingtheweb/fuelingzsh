@@ -11,11 +11,11 @@ hs.loadSpoon('KarabinerHandler')
 
 hs.loadSpoon('Custom')
 
-hs.loadSpoon('MouseCircle')
+spoon.MouseCircle = hs.loadSpoon('vendor/MouseCircle')
 spoon.MouseCircle.color = {hex = '#367f71'}
 spoon.MouseCircle:bindHotkeys({show = {{'ctrl', 'alt', 'cmd'}, 'M'}})
 
-hs.loadSpoon('ReloadConfiguration')
+spoon.ReloadConfiguration = hs.loadSpoon('vendor/ReloadConfiguration')
 spoon.ReloadConfiguration.watch_paths = {hs.configdir, hs.configdir .. '/Spoons/Custom.spoon'}
 spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()

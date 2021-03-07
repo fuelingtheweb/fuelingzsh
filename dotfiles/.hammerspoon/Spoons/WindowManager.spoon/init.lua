@@ -140,7 +140,7 @@ end
 function WindowManager.spacebar()
 end
 
-WindowManager.HalfsAndThirds = hs.loadSpoon('WindowHalfsAndThirds')
+WindowManager.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
 hs.grid.setGrid('12x4')
 hs.grid.setMargins({x=0, y=0})

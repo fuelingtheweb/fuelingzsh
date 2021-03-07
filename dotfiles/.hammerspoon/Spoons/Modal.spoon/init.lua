@@ -1,7 +1,7 @@
 local Modal = {}
 Modal.__index = Modal
 
-hs.loadSpoon('ModalMgr')
+spoon.ModalMgr = hs.loadSpoon('vendor/ModalMgr')
 
 Modal.modals = {}
 
