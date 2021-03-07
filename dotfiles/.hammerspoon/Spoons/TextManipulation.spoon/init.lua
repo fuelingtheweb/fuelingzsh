@@ -43,7 +43,6 @@ function TextManipulation.canManipulateWithVim()
     end
 
     return false
-    -- return vim.mode ~= 'insert'
 end
 
 function TextManipulation.disableVim()

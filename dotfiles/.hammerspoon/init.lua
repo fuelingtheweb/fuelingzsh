@@ -9,11 +9,6 @@ Artisan = hs.loadSpoon('Artisan')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 
--- VimMode = hs.loadSpoon('VimMode')
--- vim = VimMode:new()
-
--- vim:bindHotKeys({enter = {{'cmd', 'shift'}, 'v'}})
-
 hs.loadSpoon('Custom')
 
 hs.loadSpoon('MouseCircle')
