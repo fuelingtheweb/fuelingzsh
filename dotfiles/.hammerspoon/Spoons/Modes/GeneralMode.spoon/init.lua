@@ -2,47 +2,47 @@ local GeneralMode = {}
 GeneralMode.__index = GeneralMode
 
 function GeneralMode.e()
-    hs.eventtap.keyStrokes('!')
+    insertText('!')
 end
 
 function GeneralMode.y()
-    hs.eventtap.keyStrokes('&')
+    insertText('&')
 end
 
 function GeneralMode.u()
-    hs.eventtap.keyStrokes('_')
+    insertText('_')
 end
 
 function GeneralMode.i()
-    hs.eventtap.keyStrokes('-')
+    insertText('-')
 end
 
 function GeneralMode.o()
-    hs.eventtap.keyStrokes('+')
+    insertText('+')
 end
 
 function GeneralMode.p()
-    hs.eventtap.keyStrokes('|')
+    insertText('|')
 end
 
 function GeneralMode.open_bracket()
-    hs.eventtap.keyStrokes('(')
+    insertText('(')
 end
 
 function GeneralMode.close_bracket()
-    hs.eventtap.keyStrokes(')')
+    insertText(')')
 end
 
 function GeneralMode.a()
-    hs.eventtap.keyStrokes('@')
+    insertText('@')
 end
 
 function GeneralMode.d()
-    hs.eventtap.keyStrokes('$')
+    insertText('$')
 end
 
 function GeneralMode.h()
-    hs.eventtap.keyStrokes('#')
+    insertText('#')
 end
 
 function GeneralMode.j()
@@ -58,31 +58,31 @@ function GeneralMode.semicolon()
 end
 
 function GeneralMode.quote()
-    hs.eventtap.keyStrokes('=')
+    insertText('=')
 end
 
 function GeneralMode.return_or_enter()
 end
 
 function GeneralMode.n()
-    hs.eventtap.keyStrokes('`')
+    insertText('`')
 end
 
 function GeneralMode.m()
     -- *
-    hs.eventtap.keyStroke({'shift'}, '8')
+    fastKeyStroke({'shift'}, '8')
 end
 
 function GeneralMode.comma()
-    hs.eventtap.keyStrokes('%')
+    insertText('%')
 end
 
 function GeneralMode.period()
-    hs.eventtap.keyStrokes('->')
+    insertText('->')
 end
 
 function GeneralMode.slash()
-    hs.eventtap.keyStrokes('~')
+    insertText('~')
 end
 
 function GeneralMode.right_shift()

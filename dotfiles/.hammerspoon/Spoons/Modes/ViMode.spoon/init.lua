@@ -24,27 +24,27 @@ function ViMode.n()
 end
 
 function ViMode.moveToTopOfPage()
-    hs.eventtap.keyStroke({'cmd'}, 'up', 0)
+    fastKeyStroke({'cmd'}, 'up')
 end
 
 function ViMode.moveToFirstCharacterOfLine()
-    hs.eventtap.keyStroke({'cmd'}, 'left', 0)
+    fastKeyStroke({'cmd'}, 'left')
 end
 
 function ViMode.moveToEndOfLine()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, '4', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, '4')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'right', 0)
+        fastKeyStroke({'cmd'}, 'right')
     end
 end
 
 function ViMode.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'i', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'i')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'i', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'i')
     else
         ViMode.moveToFirstCharacterOfLine()
     end
@@ -52,17 +52,17 @@ end
 
 function ViMode.moveAndAppendAtEndOfLine()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'o', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'o')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'a', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'a')
     else
         ViMode.moveToEndOfLine()
     end
 end
 
 function ViMode.moveToBottomOfPage()
-    hs.eventtap.keyStroke({'cmd'}, 'down', 0)
+    fastKeyStroke({'cmd'}, 'down')
 end
 
 return ViMode

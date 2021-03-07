@@ -224,7 +224,7 @@ function Artisan.openNewFiles(callback)
         end)
 
         hs.application.get(atom):activate()
-        hs.eventtap.keyStroke({'cmd'}, 's')
+        fastKeyStroke({'cmd'}, 's')
     end):start()
 
     callback()

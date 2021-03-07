@@ -18,19 +18,19 @@ function ViVisualMode.n()
 end
 
 function ViVisualMode.selectToTopOfPage()
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'up', 0)
+    fastKeyStroke({'shift', 'cmd'}, 'up')
 end
 
 function ViVisualMode.selectToFirstCharacterOfLine()
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
+    fastKeyStroke({'shift', 'cmd'}, 'left')
 end
 
 function ViVisualMode.selectToEndOfLine()
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
+    fastKeyStroke({'shift', 'cmd'}, 'right')
 end
 
 function ViVisualMode.selectToBottomOfPage()
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'down', 0)
+    fastKeyStroke({'shift', 'cmd'}, 'down')
 end
 
 return ViVisualMode

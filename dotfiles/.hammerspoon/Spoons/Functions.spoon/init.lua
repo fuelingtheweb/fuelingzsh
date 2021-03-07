@@ -38,7 +38,7 @@ end
 function getSelectedText(copying)
     original = hs.pasteboard.getContents()
     hs.pasteboard.clearContents()
-    hs.eventtap.keyStroke({'cmd'}, 'C')
+    keyStroke({'cmd'}, 'C')
     text = hs.pasteboard.getContents()
     finderFileSelected = false
     for k,v in pairs(hs.pasteboard.contentTypes()) do
@@ -87,18 +87,18 @@ function showChooser(callback, choices)
 end
 
 function openDiscordChannel(name)
-    hs.eventtap.keyStroke({'cmd'}, 'K')
-    hs.eventtap.keyStrokes(name)
+    fastKeyStroke({'cmd'}, 'K')
+    insertText(name)
     hs.timer.doAfter(0.1, function()
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke('return')
     end)
 end
 
 function openNotionPage(name)
-    hs.eventtap.keyStroke({'cmd'}, 'P')
-    hs.eventtap.keyStrokes(name)
+    fastKeyStroke({'cmd'}, 'P')
+    insertText(name)
     hs.timer.doAfter(0.3, function()
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke('return')
     end)
 end
 
@@ -133,29 +133,29 @@ function getUrlForQuery(query)
 end
 
 function triggerInAtom(name)
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'P')
-    hs.eventtap.keyStrokes(name)
+    fastKeyStroke({'shift', 'cmd'}, 'P')
+    insertText(name)
     hs.timer.doAfter(0.3, function()
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke('return')
     end)
 end
 
 function goToFileInAtom(file)
-    hs.eventtap.keyStroke({'cmd'}, 'T')
-    hs.eventtap.keyStrokes(file)
+    fastKeyStroke({'cmd'}, 'T')
+    insertText(file)
     hs.timer.doAfter(0.3, function()
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke('return')
     end)
 end
 
 function typeAndEnter(string)
-    hs.eventtap.keyStrokes(string)
-    hs.eventtap.keyStroke({}, 'return', 0)
+    insertText(string)
+    fastKeyStroke('return')
 end
 
 function typeAndTab(string)
-    hs.eventtap.keyStrokes(string)
-    hs.eventtap.keyStroke({}, 'tab')
+    insertText(string)
+    fastKeyStroke('tab')
 end
 
 function triggerAlfredSearch(search)
@@ -293,7 +293,7 @@ function trim(s)
 end
 
 function closeWindow()
-    hs.eventtap.keyStroke({'cmd'}, 'W')
+    fastKeyStroke({'cmd'}, 'W')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
@@ -302,6 +302,23 @@ function closeWindow()
             end
         end)
     end
+end
+
+function fastKeyStroke(modifiers, key)
+    keyStroke(modifiers, key, 0)
+end
+
+function keyStroke(modifiers, key, delay)
+    if type(modifiers) == 'string' then
+        key = modifiers
+        modifiers = {}
+    end
+
+    hs.eventtap.keyStroke(modifiers, key, delay)
+end
+
+function insertText(text)
+    hs.eventtap.keyStrokes(text)
 end
 
 return obj

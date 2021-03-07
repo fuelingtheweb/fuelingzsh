@@ -22,7 +22,7 @@ JumpToMode.lookup = {
 function JumpToMode.handle(key)
     if key == 't' then
         -- Previous block
-        hs.eventtap.keyStroke({'shift'}, '[', 0)
+        fastKeyStroke({'shift'}, '[')
     elseif has_value({'f', 'c', 'b'}, key) then
         local keystrokes = JumpToMode.lookup[key]
         Pending.run({
@@ -39,8 +39,8 @@ function JumpToMode.handle(key)
 end
 
 function JumpToMode.to(keystroke)
-    hs.eventtap.keyStroke({}, 'f', 0)
-    hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+    fastKeyStroke('f')
+    fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
 return JumpToMode

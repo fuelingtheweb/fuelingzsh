@@ -20,7 +20,7 @@ Modal.addWithMenubar({
         ['return'] = function()
             if inCodeEditor() then
                 Modal.exit()
-                hs.eventtap.keyStroke({}, 'return', 0)
+                fastKeyStroke('return')
             end
         end
     },

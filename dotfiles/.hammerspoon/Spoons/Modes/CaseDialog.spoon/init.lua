@@ -25,7 +25,7 @@ end
 hs.urlevent.bind('case-changeFromAlfred', function(eventName, params)
     result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. params.to .. '" "' .. params.text .. '"'))
     hs.pasteboard.setContents(result)
-    hs.eventtap.keyStrokes(result)
+    insertText(result)
 end)
 
 return CaseDialog

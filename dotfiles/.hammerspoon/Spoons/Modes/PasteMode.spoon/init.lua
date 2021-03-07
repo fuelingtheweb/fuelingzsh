@@ -19,92 +19,92 @@ function PasteMode.handle(key)
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke(keystroke.mods, keystroke.key)
+        fastKeyStroke('p')
     end
 end
 
 hs.urlevent.bind('paste-toEndOfWord', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'e', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('e')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'shift', 'alt'}, 'right')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 
 hs.urlevent.bind('paste-subword', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'q', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke('q')
+        fastKeyStroke('p')
     end
 end)
 
 hs.urlevent.bind('paste-word', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'shift', 'alt'}, 'left')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 
 hs.urlevent.bind('paste-toEndOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 
 hs.urlevent.bind('paste-toBeginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 
 hs.urlevent.bind('paste-line', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'v')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'cmd'}, 'left')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 
 hs.urlevent.bind('paste-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'p', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('p')
     else
-        hs.eventtap.keyStroke({'shift'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+        fastKeyStroke({'shift'}, 'left')
+        fastKeyStroke({'cmd'}, 'v')
     end
 end)
 

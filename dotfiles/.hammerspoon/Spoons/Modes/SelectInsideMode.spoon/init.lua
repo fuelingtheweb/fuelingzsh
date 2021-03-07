@@ -14,49 +14,49 @@ function SelectInsideMode.handle(key)
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke(keystroke.mods, keystroke.key)
     end
 end
 
 hs.urlevent.bind('select-inside-subword', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'q', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke('q')
     end
 end)
 
 hs.urlevent.bind('select-inside-word', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'left', 0)
+        fastKeyStroke({'shift', 'alt'}, 'left')
     end
 end)
 
 hs.urlevent.bind('select-inside-line', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'v', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'v')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
+        fastKeyStroke({'cmd'}, 'left')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
     end
 end)
 
 hs.urlevent.bind('select-inside-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
     else
-        hs.eventtap.keyStroke({'shift'}, 'left', 0)
+        fastKeyStroke({'shift'}, 'left')
     end
 end)
 

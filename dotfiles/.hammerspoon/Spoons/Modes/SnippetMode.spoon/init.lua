@@ -81,10 +81,10 @@ end
 
 function SnippetMode.this()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'shift', 'ctrl'}, 'c')
+        fastKeyStroke({'shift', 'ctrl'}, 'c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then
-            return hs.eventtap.keyStrokes('$table->')
+            return insertText('$table->')
         end
     end
 

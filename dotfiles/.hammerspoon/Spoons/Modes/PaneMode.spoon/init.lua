@@ -72,70 +72,70 @@ end
 
 function PaneMode.destroy()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 's', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('d')
+        fastKeyStroke('s')
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'cmd'}, 'w', 0)
+        fastKeyStroke({'cmd'}, 'w')
     end
 end
 
 function PaneMode.splitRight()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'l', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('c')
+        fastKeyStroke('l')
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'cmd'}, 'd', 0)
+        fastKeyStroke({'cmd'}, 'd')
     end
 end
 
 function PaneMode.splitBottom()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'j', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('c')
+        fastKeyStroke('j')
     end
 end
 
 function PaneMode.toggleZoom()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'z', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('z')
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'return', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'return')
     end
 end
 
 function PaneMode.focusPrevious()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt'}, 'up')
+        fastKeyStroke({'alt'}, 'up')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'h', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('h')
     elseif appIs(transmit) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'left')
+        fastKeyStroke({'alt', 'cmd'}, 'left')
     else
-        hs.eventtap.keyStroke({'cmd'}, '[')
+        fastKeyStroke({'cmd'}, '[')
     end
 end
 
 function PaneMode.focusNext()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        hs.eventtap.keyStroke({'alt'}, 'down')
+        fastKeyStroke({'alt'}, 'down')
     elseif appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'p', 0)
-        hs.eventtap.keyStroke({}, 'o', 0)
-        hs.eventtap.keyStroke({}, 'l', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastKeyStroke('o')
+        fastKeyStroke('l')
     elseif appIs(transmit) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'right')
+        fastKeyStroke({'alt', 'cmd'}, 'right')
     else
-        hs.eventtap.keyStroke({'cmd'}, ']')
+        fastKeyStroke({'cmd'}, ']')
     end
 end
 

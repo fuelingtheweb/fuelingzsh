@@ -20,123 +20,123 @@ function YankMode.handle(key)
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('i')
+        fastKeyStroke(keystroke.mods, keystroke.key)
     end
 end
 
 hs.urlevent.bind('yank-toEndOfWord', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'e', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('e')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'left', 0)
+        fastKeyStroke({'shift', 'alt'}, 'right')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('left')
     end
 end)
 
 hs.urlevent.bind('yank-relativeFilePath', function()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y', 0)
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'r', 0)
+        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
+        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y', 0)
+        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
     end
 end)
 
 hs.urlevent.bind('yank-subword', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'q', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('i')
+        fastKeyStroke('q')
     end
 end)
 
 hs.urlevent.bind('yank-word', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'right', 0)
+        fastKeyStroke({'shift', 'alt'}, 'left')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     end
 end)
 
 hs.urlevent.bind('yank-toEndOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({'shift'}, '4', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke({'shift'}, '4')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'left', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('left')
     end
 end)
 
 hs.urlevent.bind('yank-toBeginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('y')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'right', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     end
 end)
 
 hs.urlevent.bind('yank-line', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('y')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'right', 0)
+        fastKeyStroke({'cmd'}, 'left')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     end
 end)
 
 hs.urlevent.bind('yank-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'y', 0)
-        hs.eventtap.keyStroke({}, 'l', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('l')
     else
-        hs.eventtap.keyStroke({'shift'}, 'left', 0)
-        hs.eventtap.keyStroke({'cmd'}, 'c')
-        hs.eventtap.keyStroke({}, 'right', 0)
+        fastKeyStroke({'shift'}, 'left')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     end
 end)
 
 hs.urlevent.bind('yank-all', function()
-    hs.eventtap.keyStroke({'cmd'}, 'A', 0)
-    hs.eventtap.keyStroke({'cmd'}, 'c')
+    fastKeyStroke({'cmd'}, 'a')
+    fastKeyStroke({'cmd'}, 'c')
 
     if inCodeEditor() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'g', 0)
-        hs.eventtap.keyStroke({}, 'g', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('g')
+        fastKeyStroke('g')
     else
-        hs.eventtap.keyStroke({}, 'Right', 0)
+        fastKeyStroke('right')
     end
 end)
 
 hs.urlevent.bind('yank-viewPath', function()
-    hs.eventtap.keyStroke({}, 'escape', 0)
-    hs.eventtap.keyStroke({}, 'y', 0)
-    hs.eventtap.keyStroke({}, 'i', 0)
-    hs.eventtap.keyStroke({}, "'")
+    fastKeyStroke('escape')
+    fastKeyStroke('y')
+    fastKeyStroke('i')
+    fastKeyStroke("'")
 
     result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
     hs.pasteboard.setContents(result)

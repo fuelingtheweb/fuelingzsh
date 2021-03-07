@@ -3,12 +3,12 @@ CommandMode.__index = CommandMode
 
 function CommandMode.tab()
     -- Shift tab
-    hs.eventtap.keyStroke({'shift'}, 'tab')
+    fastKeyStroke({'shift'}, 'tab')
 end
 
 function CommandMode.q()
     -- Quit
-    hs.eventtap.keyStroke({'cmd'}, 'q')
+    fastKeyStroke({'cmd'}, 'q')
 end
 
 function CommandMode.w()
@@ -43,7 +43,7 @@ end
 
 function CommandMode.a()
     -- Select All
-    hs.eventtap.keyStroke({'cmd'}, 'a')
+    fastKeyStroke({'cmd'}, 'a')
 end
 
 Modal.add({
@@ -90,7 +90,7 @@ end
 
 function CommandMode.g()
     -- Atom: Toggle Git Palette
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'h')
+    fastKeyStroke({'shift', 'cmd'}, 'h')
 end
 
 function CommandMode.left_shift()
@@ -110,10 +110,10 @@ end
 
 function CommandMode.v()
     -- Duplicate line
-    hs.eventtap.keyStroke({}, 'escape', 0)
-    hs.eventtap.keyStroke({}, 'y', 0)
-    hs.eventtap.keyStroke({}, 'y', 0)
-    hs.eventtap.keyStroke({}, 'p', 0)
+    fastKeyStroke('escape')
+    fastKeyStroke('y')
+    fastKeyStroke('y')
+    fastKeyStroke('p')
 end
 
 function CommandMode.b()
@@ -124,27 +124,27 @@ end
 
 function CommandMode.reload()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'r', 0)
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(postman) then
-        hs.eventtap.keyStroke({'cmd'}, 'return', 0)
+        fastKeyStroke({'cmd'}, 'return')
     elseif appIs(iterm) then
         -- Run last command
-        hs.eventtap.keyStroke({}, 'up', 0)
-        hs.eventtap.keyStroke({}, 'return', 0)
+        fastKeyStroke('up')
+        fastKeyStroke('return')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'r', 0)
+        fastKeyStroke({'cmd'}, 'r')
     end
 end
 
 function CommandMode.reloadSecondary()
     if appIs(chrome) then
         -- Hard refresh
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'r', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'r')
     elseif appIs(iterm) then
         -- Reload running command
-        hs.eventtap.keyStroke({'ctrl'}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'up', 0)
-        hs.eventtap.keyStroke({}, 'return', 0)
+        fastKeyStroke({'ctrl'}, 'c')
+        fastKeyStroke('up')
+        fastKeyStroke('return')
     end
 end
 
@@ -154,77 +154,77 @@ end
 
 function CommandMode.find()
     if inCodeEditor() then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'f')
+        fastKeyStroke({'shift', 'cmd'}, 'f')
         TextManipulation.disableVim()
     else
-        hs.eventtap.keyStroke({'cmd'}, 'f')
+        fastKeyStroke({'cmd'}, 'f')
     end
 end
 
 function CommandMode.edit()
     -- Edit with
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'e')
+    fastKeyStroke({'shift', 'cmd'}, 'e')
 end
 
 function CommandMode.finishEdit()
     -- Edit with: Done
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
+    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
 end
 
 function CommandMode.done()
     if appIs(sublime) then
         -- Plain Tasks: Complete
-        hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(transmit) then
         -- Disconnect from server
-        hs.eventtap.keyStroke({'cmd'}, 'e')
+        fastKeyStroke({'cmd'}, 'e')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'return')
+        fastKeyStroke({'cmd'}, 'return')
     end
 end
 
 function CommandMode.save()
     if appIs(chrome) then
         -- Save to Raindrop
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 's')
+        fastKeyStroke({'shift', 'cmd'}, 's')
     elseif appIs(iterm) then
         -- Save from Vim
-        hs.eventtap.keyStroke({'shift'}, ';')
-        hs.eventtap.keyStroke({}, 'x')
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke({'shift'}, ';')
+        fastKeyStroke('x')
+        fastKeyStroke('return')
     else
-        hs.eventtap.keyStroke({'cmd'}, 's')
+        fastKeyStroke({'cmd'}, 's')
     end
 end
 
 function CommandMode.saveAndReload()
-    hs.eventtap.keyStroke({}, 'escape')
-    hs.eventtap.keyStroke({'cmd'}, 'S')
+    fastKeyStroke('escape')
+    fastKeyStroke({'cmd'}, 's')
     hs.application.get(apps['chrome']):activate()
-    hs.eventtap.keyStroke({'cmd'}, 'R')
+    fastKeyStroke({'cmd'}, 'r')
 end
 
 function CommandMode.cancelOrDelete()
     text = getSelectedText()
     if appIncludes({atom, sublime}) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'delete')
+        fastKeyStroke({'shift', 'cmd'}, 'delete')
     elseif appIs(finder) and text == 'finderFileSelected' then
-        hs.eventtap.keyStroke({'cmd'}, 'delete')
+        fastKeyStroke({'cmd'}, 'delete')
     elseif appIs(transmit) then
-        hs.eventtap.keyStroke({'cmd'}, 'delete')
+        fastKeyStroke({'cmd'}, 'delete')
     elseif text then
-        hs.eventtap.keyStroke({}, 'delete')
+        fastKeyStroke('delete')
     elseif appIs(chrome) and stringContains('Fueling the Web Mail', currentTitle()) then
-        hs.eventtap.keyStroke({'shift'}, '3')
+        fastKeyStroke({'shift'}, '3')
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'ctrl'}, 'C')
+        fastKeyStroke({'ctrl'}, 'c')
     else
-        hs.eventtap.keyStroke({}, 'delete')
+        fastKeyStroke('delete')
     end
 end
 
 function CommandMode.closeAllWindows()
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'W')
+    fastKeyStroke({'shift', 'cmd'}, 'w')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()

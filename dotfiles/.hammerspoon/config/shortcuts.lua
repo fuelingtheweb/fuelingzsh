@@ -28,121 +28,121 @@ Shortcuts
     })
     :add('D', {
         notion = function()
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '2')
-            hs.eventtap.keyStroke({'shift'}, '2')
+            fastKeyStroke({'alt', 'cmd'}, '2')
+            fastKeyStroke({'shift'}, '2')
         end,
         iterm = 'wd d',
     })
     :add('0', {
         notion = function()
             -- Notion: Create text
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '0')
+            fastKeyStroke({'alt', 'cmd'}, '0')
         end,
     })
     :add('1', {
         notion = function()
             -- Notion: Create H1 heading
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '1')
+            fastKeyStroke({'alt', 'cmd'}, '1')
         end,
         sublime = function()
-            hs.eventtap.keyStroke({}, 'escape', 0)
-            hs.eventtap.keyStroke({'shift'}, 'i', 0)
-            hs.eventtap.keyStrokes('# ')
+            fastKeyStroke('escape')
+            fastKeyStroke({'shift'}, 'i')
+            insertText('# ')
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('# ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('# ')
         end,
     })
     :add('2', {
         notion = function()
             -- Notion: Create H2 heading
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '2')
+            fastKeyStroke({'alt', 'cmd'}, '2')
         end,
         sublime = function()
-            hs.eventtap.keyStroke({}, 'escape', 0)
-            hs.eventtap.keyStroke({'shift'}, 'i', 0)
-            hs.eventtap.keyStrokes('## ')
+            fastKeyStroke('escape')
+            fastKeyStroke({'shift'}, 'i')
+            insertText('## ')
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('## ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('## ')
         end,
     })
     :add('3', {
         notion = function()
             -- Notion: Create H3 heading
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '3')
+            fastKeyStroke({'alt', 'cmd'}, '3')
         end,
         sublime = function()
-            hs.eventtap.keyStroke({}, 'escape', 0)
-            hs.eventtap.keyStroke({'shift'}, 'i', 0)
-            hs.eventtap.keyStrokes('### ')
+            fastKeyStroke('escape')
+            fastKeyStroke({'shift'}, 'i')
+            insertText('### ')
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('### ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('### ')
         end,
     })
     :add('4', {
         notion = function()
             -- Notion: Create to-do checkbox
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '4')
+            fastKeyStroke({'alt', 'cmd'}, '4')
         end,
         sublime = function()
             if titleContains('.todo') then
                 -- Sublime: Create to-do checkbox
-                hs.eventtap.keyStroke({'cmd'}, 'i')
+                fastKeyStroke({'cmd'}, 'i')
             else
-                hs.eventtap.keyStroke({}, 'escape', 0)
-                hs.eventtap.keyStroke({'shift'}, 'i', 0)
-                hs.eventtap.keyStrokes('- ')
+                fastKeyStroke({}, 'escape')
+                fastKeyStroke({'shift'}, 'i')
+                insertText('- ')
             end
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('- ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('- ')
         end,
     })
     :add('5', {
         notion = function()
             -- Notion: Create bulleted list
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '5')
+            fastKeyStroke({'alt', 'cmd'}, '5')
         end,
         sublime = function()
-            hs.eventtap.keyStroke({}, 'escape', 0)
-            hs.eventtap.keyStroke({'shift'}, 'i', 0)
-            hs.eventtap.keyStrokes('- ')
+            fastKeyStroke('escape')
+            fastKeyStroke({'shift'}, 'i')
+            insertText('- ')
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('- ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('- ')
         end,
     })
     :add('6', {
         notion = function()
             -- Notion: Create numbered list
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '6')
+            fastKeyStroke({'alt', 'cmd'}, '6')
         end,
         sublime = function()
-            hs.eventtap.keyStroke({}, 'escape', 0)
-            hs.eventtap.keyStroke({'shift'}, 'i', 0)
-            hs.eventtap.keyStrokes('1. ')
+            fastKeyStroke({}, 'escape')
+            fastKeyStroke({'shift'}, 'i')
+            insertText('1. ')
         end,
         default = function()
-            hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-            hs.eventtap.keyStrokes('1. ')
+            fastKeyStroke({'cmd'}, 'left')
+            insertText('1. ')
         end,
     })
     :add('7', {
         notion = function()
             -- Notion: Create toggle list
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '7')
+            fastKeyStroke({'alt', 'cmd'}, '7')
         end,
     })
     :add('8', {
         notion = function()
             -- Notion: Create code block
-            hs.eventtap.keyStroke({'alt', 'cmd'}, '8')
+            fastKeyStroke({'alt', 'cmd'}, '8')
         end,
     })

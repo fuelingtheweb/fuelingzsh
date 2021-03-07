@@ -2,7 +2,7 @@ local CodeMode = {}
 CodeMode.__index = CodeMode
 
 function CodeMode.y()
-    hs.eventtap.keyStrokes(' && ')
+    insertText(' && ')
 end
 
 function CodeMode.u()
@@ -11,16 +11,16 @@ function CodeMode.u()
         typeAndEnter('nah')
     else
         -- Atom: Add use statement
-        hs.eventtap.keyStroke({'ctrl', 'alt'}, 'u')
+        fastKeyStroke({'ctrl', 'alt'}, 'u')
     end
 end
 
 function CodeMode.i()
     -- Multiple cursors up
     if appIs(atom) then
-        hs.eventtap.keyStroke({'shift', 'ctrl'}, 'up')
+        fastKeyStroke({'shift', 'ctrl'}, 'up')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt'}, 'up')
+        fastKeyStroke({'shift', 'ctrl', 'alt'}, 'up')
     end
 end
 
@@ -36,18 +36,18 @@ function CodeMode.p()
         -- Git: Push
         typeAndEnter('gps')
     else
-        hs.eventtap.keyStrokes(' || ')
+        insertText(' || ')
     end
 end
 
 function CodeMode.open_bracket()
     -- Fold
-    hs.eventtap.keyStroke({'alt', 'cmd'}, '[')
+    fastKeyStroke({'alt', 'cmd'}, '[')
 end
 
 function CodeMode.close_bracket()
     -- Unfold
-    hs.eventtap.keyStroke({'alt', 'cmd'}, ']')
+    fastKeyStroke({'alt', 'cmd'}, ']')
 end
 
 function CodeMode.h()
@@ -60,22 +60,22 @@ end
 function CodeMode.j()
     if appIs(iterm) then
         -- iTerm: Autocomplete next word
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'J')
+        fastKeyStroke({'shift', 'alt', 'cmd'}, 'j')
     elseif appIs(notion) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'Down')
+        fastKeyStroke({'shift', 'cmd'}, 'down')
     elseif appIs(atom) or appIs(sublime) then
         -- Atom, Sublime: Move line down
-        hs.eventtap.keyStroke({'ctrl', 'cmd'}, 'Down')
+        fastKeyStroke({'ctrl', 'cmd'}, 'down')
     end
 end
 
 function CodeMode.k()
     if appIs(notion) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'Up')
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'Up')
+        fastKeyStroke({'shift', 'cmd'}, 'up')
+        fastKeyStroke({'shift', 'cmd'}, 'up')
     elseif appIs(atom) or appIs(sublime) then
         -- Atom, Sublime: Move line up
-        hs.eventtap.keyStroke({'ctrl', 'cmd'}, 'Up')
+        fastKeyStroke({'ctrl', 'cmd'}, 'up')
     end
 end
 
@@ -85,28 +85,28 @@ function CodeMode.l()
         typeAndEnter('gpl')
     else
         -- Atom: Go to definition
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'down')
+        fastKeyStroke({'alt', 'cmd'}, 'down')
     end
 end
 
 function CodeMode.semicolon()
     -- Atom: Toggle semicolon at end of line
-    hs.eventtap.keyStroke({'alt'}, ';')
+    fastKeyStroke({'alt'}, ';')
 end
 
 function CodeMode.quote()
     Pending.run({
         function()
-            hs.eventtap.keyStrokes(' = ')
+            insertText(' = ')
         end,
         function()
-            hs.eventtap.keyStrokes(' == ')
+            insertText(' == ')
         end,
         function()
             if titleContains('.lua') then
-                hs.eventtap.keyStrokes(' ~= ')
+                insertText(' ~= ')
             else
-                hs.eventtap.keyStrokes(' != ')
+                insertText(' != ')
             end
         end,
     })
@@ -116,22 +116,22 @@ function CodeMode.return_or_enter()
     if appIs(iterm) then
         ProjectManager.serveCurrent()
     else
-        hs.eventtap.keyStrokes('return')
+        insertText('return')
     end
 end
 
 function CodeMode.b()
     if appIs(sublime) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'x')
+        fastKeyStroke({'alt', 'cmd'}, 'x')
     elseif appIs(atom) then
         -- Toggle Boolean
-        hs.eventtap.keyStroke({}, '-')
+        fastKeyStroke('-')
     end
 end
 
 function CodeMode.n()
     -- Select next word
-    hs.eventtap.keyStroke({'cmd'}, 'd')
+    fastKeyStroke({'cmd'}, 'd')
 end
 
 function CodeMode.m()
@@ -140,27 +140,27 @@ function CodeMode.m()
         typeAndEnter('gm')
     else
         -- Multiple cursors down
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt'}, 'down')
+        fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
     end
 end
 
 function CodeMode.comma()
     -- Atom: Toggle comma at end of line
-    hs.eventtap.keyStroke({'alt'}, ',')
+    fastKeyStroke({'alt'}, ',')
 end
 
 function CodeMode.period()
-    hs.eventtap.keyStrokes(' => ')
+    insertText(' => ')
 end
 
 function CodeMode.slash()
     -- Atom: Go to matching bracket
-    hs.eventtap.keyStroke({'ctrl'}, 'm')
+    fastKeyStroke({'ctrl'}, 'm')
 end
 
 function CodeMode.spacebar()
     -- Comment
-    hs.eventtap.keyStroke({'cmd'}, '/')
+    fastKeyStroke({'cmd'}, '/')
 end
 
 return CodeMode

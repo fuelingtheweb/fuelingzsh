@@ -18,12 +18,12 @@ end
 
 function GoogleMode.p()
     -- Chrome: Show profiles list
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'm')
+    fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
 function GoogleMode.open_bracket()
     -- Chrome: Group Tab
-    hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'g')
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g')
 end
 
 function GoogleMode.close_bracket()
@@ -41,12 +41,12 @@ end
 
 function GoogleMode.l()
     -- Lastpass
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'l')
+    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'l')
 end
 
 function GoogleMode.semicolon()
     -- Chrome: Tab Manager
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'm')
+    fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
 function GoogleMode.quote()
@@ -55,12 +55,12 @@ end
 
 function GoogleMode.return_or_enter()
     -- Chrome: Dismiss downloads bar
-    hs.eventtap.keyStroke({'alt'}, 'w')
+    fastKeyStroke({'alt'}, 'w')
 end
 
 function GoogleMode.n()
     -- Chrome: Save Bookmark
-    hs.eventtap.keyStroke({'cmd'}, 'd')
+    fastKeyStroke({'cmd'}, 'd')
 end
 
 function GoogleMode.m()
@@ -69,12 +69,12 @@ end
 
 function GoogleMode.comma()
     -- Chrome: Toggle Dev Tools
-    hs.eventtap.keyStroke({'alt', 'cmd'}, 'i')
+    fastKeyStroke({'alt', 'cmd'}, 'i')
 end
 
 function GoogleMode.period()
     -- Chrome: Toggle Dev Tools docking
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'd')
+    fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
 function GoogleMode.slash()
@@ -88,7 +88,7 @@ end
 
 function GoogleMode.openAndReload()
     hs.application.get(apps['chrome']):activate()
-    hs.eventtap.keyStroke({'cmd'}, 'R')
+    fastKeyStroke({'cmd'}, 'R')
 end
 
 function GoogleMode.toggleIncognito()

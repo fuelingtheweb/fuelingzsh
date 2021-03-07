@@ -52,7 +52,7 @@ function HyperMode.quote()
 end
 
 function HyperMode.return_or_enter()
-    hs.eventtap.keyStroke({}, 'caps_lock')
+    fastKeyStroke('caps_lock')
 end
 
 function HyperMode.n()
@@ -61,12 +61,12 @@ end
 
 function HyperMode.m()
     -- Alfred Clipboard
-    hs.eventtap.keyStroke({'alt'}, 'c')
+    fastKeyStroke({'alt'}, 'c')
 end
 
 function HyperMode.comma()
     -- Alfred
-    hs.eventtap.keyStroke({'alt'}, 'z')
+    fastKeyStroke({'alt'}, 'z')
 end
 
 function HyperMode.period()
@@ -110,49 +110,49 @@ end
 
 function HyperMode.open()
     if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
-        hs.eventtap.keyStroke({'cmd'}, 'p')
+        fastKeyStroke({'cmd'}, 'p')
 
         if inCodeEditor() then
             TextManipulation.disableVim()
         end
     elseif appIs(discord) then
-        hs.eventtap.keyStroke({'cmd'}, 'k')
+        fastKeyStroke({'cmd'}, 'k')
     elseif appIs(spotify) then
         triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
     elseif appIs(chrome) then
-        hs.eventtap.keyStroke({'shift'}, 'O')
+        fastKeyStroke({'shift'}, 'o')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'O')
+        fastKeyStroke({'cmd'}, 'o')
     end
 end
 
 function HyperMode.new()
     if appIs(atom) then
         TextManipulation.disableVim()
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'O')
+        fastKeyStroke({'alt', 'cmd'}, 'o')
     elseif appIs(sublime) then
         TextManipulation.disableVim()
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'N')
+        fastKeyStroke({'alt', 'cmd'}, 'n')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'N')
+        fastKeyStroke({'shift', 'cmd'}, 'n')
     end
 end
 
 function HyperMode.copyTextArea()
     if appIs(notion) then
-        hs.eventtap.keyStroke({'cmd'}, 'A')
-        hs.eventtap.keyStroke({'cmd'}, 'C')
-        hs.eventtap.keyStroke({}, 'Right')
+        fastKeyStroke({'cmd'}, 'a')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'Up')
-        hs.eventtap.keyStroke({'cmd'}, 'C')
-        hs.eventtap.keyStroke({}, 'Right')
+        fastKeyStroke({'shift', 'cmd'}, 'up')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
     end
 end
 
 function HyperMode.commandPalette()
     if appIncludes({atom, sublime, sublimeMerge}) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'p')
+        fastKeyStroke({'shift', 'cmd'}, 'p')
 
         if inCodeEditor() then
             TextManipulation.disableVim()
@@ -164,80 +164,80 @@ end
 
 function HyperMode.previousPage()
     if appIs(spotify) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'Left')
+        fastKeyStroke({'alt', 'cmd'}, 'left')
     elseif appIs(discord) then
-        hs.eventtap.keyStroke({'cmd'}, 'K')
-        hs.eventtap.keyStroke({}, 'return')
+        fastKeyStroke({'cmd'}, 'k')
+        fastKeyStroke('return')
     elseif appIs(atom) then
          -- Atom: Cursor History: Previous
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'I')
+        fastKeyStroke({'shift', 'alt'}, 'i')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'ctrl'}, '-')
+        fastKeyStroke({'ctrl'}, '-')
     elseif appIs(iterm) then
         typeAndEnter('cdp')
     else
-        hs.eventtap.keyStroke({'cmd'}, '[')
+        fastKeyStroke({'cmd'}, '[')
     end
 end
 
 function HyperMode.previousTab()
     if appIs(tableplus) then
-        hs.eventtap.keyStroke({'cmd'}, '[')
+        fastKeyStroke({'cmd'}, '[')
     elseif appIncludes({teams, discord}) then
         -- Teams: Move to next conversation / channel
-        hs.eventtap.keyStroke({'alt'}, 'Down')
+        fastKeyStroke({'alt'}, 'down')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, '[')
+        fastKeyStroke({'shift', 'cmd'}, '[')
     end
 end
 
 function HyperMode.nextTab()
     if appIs(tableplus) then
-        hs.eventtap.keyStroke({'cmd'}, ']')
+        fastKeyStroke({'cmd'}, ']')
     elseif appIncludes({teams, discord}) then
         -- Teams: Move to previous conversation / channel
-        hs.eventtap.keyStroke({'alt'}, 'Up')
+        fastKeyStroke({'alt'}, 'up')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, ']')
+        fastKeyStroke({'shift', 'cmd'}, ']')
     end
 end
 
 function HyperMode.nextPage()
     if appIs(spotify) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 'Right')
+        fastKeyStroke({'alt', 'cmd'}, 'right')
     elseif appIs(iterm) then
         -- Autocomplete to the end of the line
-        hs.eventtap.keyStroke({'cmd'}, 'L')
+        fastKeyStroke({'cmd'}, 'l')
     elseif appIs(atom) then
          -- Atom: Cursor History: Next
-        hs.eventtap.keyStroke({'ctrl'}, 'O')
+        fastKeyStroke({'ctrl'}, 'o')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'ctrl', 'shift'}, '-')
+        fastKeyStroke({'ctrl', 'shift'}, '-')
     else
-        hs.eventtap.keyStroke({'cmd'}, ']')
+        fastKeyStroke({'cmd'}, ']')
     end
 end
 
 function HyperMode.jumpTo()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'shift'}, 'return')
+        fastKeyStroke({'shift'}, 'return')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, '.')
+        fastKeyStroke({'shift', 'cmd'}, '.')
     else
-        hs.eventtap.keyStroke({'ctrl'}, 'space')
+        fastKeyStroke({'ctrl'}, 'space')
     end
 end
 
 function HyperMode.enableScrolling()
     -- Vimac: Enable Scroll
-    hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 's')
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
 function HyperMode.paste()
-    hs.eventtap.keyStroke({'cmd'}, 'v', 0)
+    fastKeyStroke({'cmd'}, 'v')
 
     if titleContains('Slack | ') then
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'f', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'f')
     end
 end
 

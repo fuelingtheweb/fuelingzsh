@@ -20,7 +20,7 @@ function LaunchMode.a()
     Pending.run({
         function()
             -- Fantastical
-            hs.eventtap.keyStroke({'alt', 'cmd'}, 'c')
+            fastKeyStroke({'alt', 'cmd'}, 'c')
         end,
         function()
             hs.execute("open -g 'hammerspoon://launch-app?id=alfred-preferences'")
@@ -116,7 +116,7 @@ hs.urlevent.bind('launch-app', function(eventName, params)
     elseif not isActive then
         hs.application.get(bundle):activate()
     elseif multipleWindows(app) then
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'W')
+        spoon.SearchMode.windowsInCurrentApp()
     elseif not hasWindows(app) then
         hs.application.open(bundle)
     end
@@ -137,7 +137,7 @@ function launchIterm(callback)
 end
 
 function triggerItermShortcut(callback)
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'T')
+    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 't')
 
     if callback then
         callback()

@@ -46,7 +46,7 @@ end
 
 function MediaMode.a()
     -- Funimation: Start of video / previous video
-    hs.eventtap.keyStroke({'ctrl'}, 'left')
+    fastKeyStroke({'ctrl'}, 'left')
 end
 
 function MediaMode.s()
@@ -55,7 +55,7 @@ end
 
 function MediaMode.d()
     -- Deafen in Discord
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'd')
+    fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
 function MediaMode.f()
@@ -64,7 +64,7 @@ end
 
 function MediaMode.g()
     -- Funimation: Next video
-    hs.eventtap.keyStroke({'ctrl'}, 'right')
+    fastKeyStroke({'ctrl'}, 'right')
 end
 
 function MediaMode.h()
@@ -136,21 +136,21 @@ function MediaMode.showVideoBar()
     -- original = hs.mouse.getAbsolutePosition()
     if stringContains('Prime Video', currentTitle()) then
         hs.mouse.setAbsolutePosition({x = 1900, y = 900})
-        hs.eventtap.keyStroke({}, 'pad6')
+        fastKeyStroke('pad6')
         hs.mouse.setAbsolutePosition({x = 1900, y = 300})
-        hs.eventtap.keyStroke({}, 'pad6')
+        fastKeyStroke('pad6')
     elseif stringContains('TV', currentTitle()) or stringContains('Disney', currentTitle()) then
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
-        hs.eventtap.keyStroke({}, 'pad6')
+        fastKeyStroke('pad6')
         hs.timer.doAfter(0.8, function()
             hs.mouse.setAbsolutePosition({x = 160, y = 300})
-            hs.eventtap.keyStroke({}, 'pad6')
+            fastKeyStroke('pad6')
         end)
     else
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
-        hs.eventtap.keyStroke({}, 'pad6')
+        fastKeyStroke('pad6')
         hs.mouse.setAbsolutePosition({x = 160, y = 300})
-        hs.eventtap.keyStroke({}, 'pad6')
+        fastKeyStroke('pad6')
     end
 end
 
@@ -158,9 +158,9 @@ function MediaMode.focus()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
-            hs.eventtap.keyStrokes('gf')
+            insertText('gf')
         elseif stringContains('Disney', title) then
-            hs.eventtap.keyStroke({}, 'tab')
+            fastKeyStroke('tab')
         else
             center = hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():fullFrame())
             hs.eventtap.leftClick(center)
@@ -173,9 +173,9 @@ function MediaMode.fullscreen()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
-            hs.eventtap.keyStroke({'alt'}, 'return')
+            fastKeyStroke({'alt'}, 'return')
         else
-            hs.eventtap.keyStroke({}, 'f')
+            fastKeyStroke('f')
         end
     end
 end
@@ -186,17 +186,17 @@ end
 
 function MediaMode.videoBack()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
-        hs.eventtap.keyStroke({'shift'}, 'Left')
+        fastKeyStroke({'shift'}, 'left')
     else
-        hs.eventtap.keyStroke({}, 'Left')
+        fastKeyStroke('left')
     end
 end
 
 function MediaMode.videoForward()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
-        hs.eventtap.keyStroke({'shift'}, 'Right')
+        fastKeyStroke({'shift'}, 'right')
     else
-        hs.eventtap.keyStroke({}, 'Right')
+        fastKeyStroke('right')
     end
 end
 

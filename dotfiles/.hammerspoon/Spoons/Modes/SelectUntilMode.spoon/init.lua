@@ -25,22 +25,22 @@ end
 
 hs.urlevent.bind('select-until-endOfWord', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'e', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('e')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
+        fastKeyStroke({'shift', 'alt'}, 'right')
     end
 end)
 
 hs.urlevent.bind('select-until-nextWord', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'v', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('v')
+        fastKeyStroke('w')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
+        fastKeyStroke({'shift', 'alt'}, 'right')
+        fastKeyStroke({'shift', 'alt'}, 'right')
     end
 end)
 
@@ -172,11 +172,11 @@ SelectUntilMode.actions = {
         end
 
         if inCodeEditor() then
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
-            hs.eventtap.keyStroke({}, 'h', 0)
+            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+            fastKeyStroke('h')
         end
 
-        hs.eventtap.keyStroke({'shift'}, 'f', 0)
+        fastKeyStroke({'shift'}, 'f')
 
         SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
@@ -193,13 +193,13 @@ SelectUntilMode.actions = {
         end
 
         if appIs(atom) then
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
-            hs.eventtap.keyStroke({}, 'l', 0)
+            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+            fastKeyStroke('l')
         elseif appIs(sublime) then
-            hs.eventtap.keyStroke({'ctrl', 'alt', 'cmd'}, 'v', 0)
+            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         end
 
-        hs.eventtap.keyStroke({}, 't', 0)
+        fastKeyStroke('t')
 
         SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
@@ -208,7 +208,7 @@ SelectUntilMode.actions = {
         Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
-            hs.eventtap.keyStroke({}, 'c', 0)
+            fastKeyStroke('c')
         end
     end,
 
@@ -216,7 +216,7 @@ SelectUntilMode.actions = {
         Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
-            hs.eventtap.keyStroke({}, 'y', 0)
+            fastKeyStroke('y')
         end
     end,
 
@@ -224,7 +224,7 @@ SelectUntilMode.actions = {
         Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
-            hs.eventtap.keyStroke({}, 'p', 0)
+            fastKeyStroke('p')
         end
     end,
 
@@ -232,38 +232,38 @@ SelectUntilMode.actions = {
         Modal.exit()
 
         if TextManipulation.canManipulateWithVim() then
-            hs.eventtap.keyStroke({}, 'd', 0)
+            fastKeyStroke('d')
         end
     end,
 }
 
 SelectUntilMode.keymap = {
     ["'"] = function()
-        hs.eventtap.keyStroke({}, "'", 0)
+        fastKeyStroke("'")
     end,
     ['"'] = function()
-        hs.eventtap.keyStroke({'shift'}, "'", 0)
+        fastKeyStroke({'shift'}, "'")
     end,
     ["`"] = function()
-        hs.eventtap.keyStroke({'alt'}, "`", 0)
+        fastKeyStroke({'alt'}, "`")
     end,
     ['('] = function()
-        hs.eventtap.keyStroke({'shift'}, "9", 0)
+        fastKeyStroke({'shift'}, "9")
     end,
     [')'] = function()
-        hs.eventtap.keyStroke({'shift'}, "0", 0)
+        fastKeyStroke({'shift'}, "0")
     end,
     ['{'] = function()
-        hs.eventtap.keyStroke({'shift'}, "[", 0)
+        fastKeyStroke({'shift'}, "[")
     end,
     ['}'] = function()
-        hs.eventtap.keyStroke({'shift'}, "]", 0)
+        fastKeyStroke({'shift'}, "]")
     end,
     ['['] = function()
-        hs.eventtap.keyStroke({}, "[", 0)
+        fastKeyStroke("[")
     end,
     [']'] = function()
-        hs.eventtap.keyStroke({}, "]", 0)
+        fastKeyStroke("]")
     end,
 }
 
@@ -307,29 +307,29 @@ end)
 
 hs.urlevent.bind('select-until-endOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'right')
     end
 end)
 
 hs.urlevent.bind('select-until-beginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'left')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
     end
 end)
 
 hs.urlevent.bind('select-until-previousBlock', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({'shift'}, 'v', 0)
-        hs.eventtap.keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'v', 0)
-        hs.eventtap.keyStroke({'shift'}, '[', 0)
+        fastKeyStroke({'shift'}, 'v')
+        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke({'shift'}, '[')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
     end
 end)
 

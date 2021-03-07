@@ -48,7 +48,7 @@ end
 
 function WindowManager.caps_lock()
     -- Mission Control
-    hs.eventtap.keyStroke({'fn', 'ctrl'}, 'up', 0)
+    fastKeyStroke({'fn', 'ctrl'}, 'up')
 end
 
 function WindowManager.a()
@@ -214,7 +214,7 @@ function WindowManager.appSettings()
     if isAlfredVisible() then
         hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     else
-        hs.eventtap.keyStroke({'cmd'}, ',')
+        fastKeyStroke({'cmd'}, ',')
     end
 end
 
@@ -226,12 +226,12 @@ end
 
 function WindowManager.toggleSidebar()
     if appIs(finder) then
-        hs.eventtap.keyStroke({'alt', 'cmd'}, 's')
+        fastKeyStroke({'alt', 'cmd'}, 's')
     elseif appIs(sublimeMerge) then
-        hs.eventtap.keyStroke({'cmd'}, 'K')
-        hs.eventtap.keyStroke({'cmd'}, 'B')
+        fastKeyStroke({'cmd'}, 'k')
+        fastKeyStroke({'cmd'}, 'b')
     else
-        hs.eventtap.keyStroke({'cmd'}, '\\')
+        fastKeyStroke({'cmd'}, '\\')
     end
 end
 

@@ -16,7 +16,7 @@ end
 
 function ExtendedCommandMode.r()
     -- Redo
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'z')
+    fastKeyStroke({'shift', 'cmd'}, 'z')
 end
 
 function ExtendedCommandMode.t()
@@ -28,12 +28,12 @@ end
 
 function ExtendedCommandMode.a()
     -- Alfred: Action File
-    hs.eventtap.keyStroke({'alt', 'cmd'}, '\\')
+    fastKeyStroke({'alt', 'cmd'}, '\\')
 end
 
 function ExtendedCommandMode.s()
     -- Screenshot to filesystem
-    hs.eventtap.keyStroke({'shift', 'cmd'}, '4')
+    fastKeyStroke({'shift', 'cmd'}, '4')
 end
 
 function ExtendedCommandMode.d()
@@ -42,12 +42,12 @@ end
 
 function ExtendedCommandMode.f()
     -- Atom: Reveal active file in tree view
-    hs.eventtap.keyStroke({'shift', 'cmd'}, '\\')
+    fastKeyStroke({'shift', 'cmd'}, '\\')
 end
 
 function ExtendedCommandMode.g()
     -- Toggle dock visibility
-    hs.eventtap.keyStroke({'alt', 'cmd'}, 'd')
+    fastKeyStroke({'alt', 'cmd'}, 'd')
 end
 
 function ExtendedCommandMode.left_shift()
@@ -55,7 +55,7 @@ end
 
 function ExtendedCommandMode.z()
     -- Undo
-    hs.eventtap.keyStroke({'cmd'}, 'z')
+    fastKeyStroke({'cmd'}, 'z')
 end
 
 function ExtendedCommandMode.x()
@@ -63,7 +63,7 @@ end
 
 function ExtendedCommandMode.c()
     -- Screenshot to clipboard
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'cmd'}, '4')
+    fastKeyStroke({'shift', 'ctrl', 'cmd'}, '4')
 end
 
 function ExtendedCommandMode.v()
@@ -71,12 +71,12 @@ end
 
 function ExtendedCommandMode.b()
     -- Bartender: Show
-    hs.eventtap.keyStroke({'shift', 'ctrl', 'cmd'}, 'b')
+    fastKeyStroke({'shift', 'ctrl', 'cmd'}, 'b')
 end
 
 function ExtendedCommandMode.spacebar()
     -- New window / folder
-    hs.eventtap.keyStroke({'shift', 'cmd'}, 'n')
+    fastKeyStroke({'shift', 'cmd'}, 'n')
 end
 
 function ExtendedCommandMode.dismissNotifications()
@@ -105,18 +105,18 @@ end
 
 function ExtendedCommandMode.duplicate()
     if appIs(finder) then
-        hs.eventtap.keyStroke({'cmd'}, 'd')
+        fastKeyStroke({'cmd'}, 'd')
     elseif appIs(chrome) then
         -- Vimium
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('yt')
+        fastKeyStroke('escape')
+        insertText('yt')
     elseif inCodeEditor() then
-        hs.eventtap.keyStroke({'shift', 'alt', 'cmd'}, 'd')
+        fastKeyStroke({'shift', 'alt', 'cmd'}, 'd')
     end
 end
 
 function ExtendedCommandMode.surroundText()
-    hs.eventtap.keyStroke({'cmd'}, 'C')
+    fastKeyStroke({'cmd'}, 'c')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
 end
 

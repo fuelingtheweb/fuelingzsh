@@ -20,7 +20,7 @@ function Modal.add(meta)
 
     meta.modal:bind('', 'escape', nil, function()
         spoon.ModalMgr:deactivate({meta.key})
-        hs.eventtap.keyStroke({}, 'escape', 0)
+        fastKeyStroke('escape')
     end)
 
     meta.modal.entered = function()

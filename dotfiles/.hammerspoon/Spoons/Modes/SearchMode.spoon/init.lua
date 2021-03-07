@@ -31,7 +31,7 @@ end
 
 function SearchMode.s()
     -- Search for Symbol
-    hs.eventtap.keyStroke({'cmd'}, 'r')
+    fastKeyStroke({'cmd'}, 'r')
 end
 
 function SearchMode.d()
@@ -58,9 +58,9 @@ end
 
 function SearchMode.c()
     -- Search for merge conflicts
-    hs.eventtap.keyStroke({}, '/', 0)
-    hs.eventtap.keyStrokes('<<<<<')
-    hs.eventtap.keyStroke({}, 'return', 0)
+    fastKeyStroke('/')
+    insertText('<<<<<')
+    fastKeyStroke('return')
 end
 
 function SearchMode.v()
@@ -75,17 +75,17 @@ end
 function SearchMode.default()
     if inCodeEditor() then
         TextManipulation.disableVim()
-        hs.eventtap.keyStroke({}, '/', 0)
+        fastKeyStroke('/')
     end
 end
 
 function SearchMode.tabs()
     if appIs(atom) then
-        hs.eventtap.keyStroke({'cmd'}, 'b')
+        fastKeyStroke({'cmd'}, 'b')
     elseif appIs(sublime) then
-        hs.eventtap.keyStroke({'alt', 'shift'}, 'p')
+        fastKeyStroke({'alt', 'shift'}, 'p')
     elseif appIs(chrome) then
-        hs.eventtap.keyStroke({'shift'}, 't')
+        fastKeyStroke({'shift'}, 't')
     end
 end
 

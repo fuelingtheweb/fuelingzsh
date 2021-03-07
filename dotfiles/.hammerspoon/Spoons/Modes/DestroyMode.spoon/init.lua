@@ -16,16 +16,16 @@ DestroyMode.lookup = {
 
 function DestroyMode.handle(key)
     if key == 'spacebar' then
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke('delete')
     elseif DestroyMode.lookup[key] then
         hs.execute("open -g 'hammerspoon://destroy-" .. DestroyMode.lookup[key] .. "'")
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('d')
+        fastKeyStroke('i')
+        fastKeyStroke(keystroke.mods, keystroke.key)
     end
 end
 
@@ -33,22 +33,22 @@ hs.urlevent.bind('destroy-toEndOfWord', function()
     Pending.run({
         function()
             if TextManipulation.canManipulateWithVim() then
-                hs.eventtap.keyStroke({}, 'escape', 0)
-                hs.eventtap.keyStroke({}, 'd', 0)
-                hs.eventtap.keyStroke({}, 'e', 0)
+                fastKeyStroke('escape')
+                fastKeyStroke('d')
+                fastKeyStroke('e')
             else
-                hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-                hs.eventtap.keyStroke({}, 'delete', 0)
+                fastKeyStroke({'shift', 'alt'}, 'right')
+                fastKeyStroke('delete')
             end
         end,
         function()
             if TextManipulation.canManipulateWithVim() then
-                hs.eventtap.keyStroke({}, 'escape', 0)
-                hs.eventtap.keyStroke({}, 'd', 0)
-                hs.eventtap.keyStroke({'shift'}, 'e', 0)
+                fastKeyStroke('escape')
+                fastKeyStroke('d')
+                fastKeyStroke({'shift'}, 'e')
             else
-                hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-                hs.eventtap.keyStroke({}, 'delete', 0)
+                fastKeyStroke({'shift', 'alt'}, 'right')
+                fastKeyStroke('delete')
             end
         end,
     })
@@ -56,65 +56,65 @@ end)
 
 hs.urlevent.bind('destroy-subword', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'q', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('d')
+        fastKeyStroke('i')
+        fastKeyStroke('q')
     end
 end)
 
 hs.urlevent.bind('destroy-word', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('d')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
     elseif appIs(iterm) then
-        hs.eventtap.keyStroke({'ctrl'}, 'w', 0)
+        fastKeyStroke({'ctrl'}, 'w')
     else
-        hs.eventtap.keyStroke({'alt'}, 'delete', 0)
+        fastKeyStroke({'alt'}, 'delete')
     end
 end)
 
 hs.urlevent.bind('destroy-toEndOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'd', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'd')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('destroy-toBeginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('d')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('destroy-line', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('d')
+        fastKeyStroke('d')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'cmd'}, 'left')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('destroy-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'x', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('x')
     else
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke('delete')
     end
 end)
 
@@ -175,7 +175,7 @@ DestroyMode.actions = {
 
         if inCodeEditor() then
             DestroyMode.keymap[DestroyMode.key]()
-            hs.eventtap.keyStroke({}, 'k', 0)
+            fastKeyStroke('k')
         end
     end,
 
@@ -204,8 +204,8 @@ DestroyMode.actions = {
 
 DestroyMode.keymap = {
     ['v'] = function()
-        hs.eventtap.keyStroke({}, 'd', 0)
-        hs.eventtap.keyStroke({}, 'd', 0)
+        fastKeyStroke('d')
+        fastKeyStroke('d')
     end,
 }
 

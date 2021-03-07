@@ -19,89 +19,89 @@ function ChangeMode.handle(key)
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke(keystroke.mods, keystroke.key, 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('i')
+        fastKeyStroke(keystroke.mods, keystroke.key)
     end
 end
 
 hs.urlevent.bind('change-toEndOfWord', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'e', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('e')
     else
-        hs.eventtap.keyStroke({'shift', 'alt'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'shift', 'alt'}, 'right')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('change-subword', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'q', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('i')
+        fastKeyStroke('q')
     end
 end)
 
 hs.urlevent.bind('change-word', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'i', 0)
-        hs.eventtap.keyStroke({}, 'w', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
     elseif appIs(iterm) and not isAlfredVisible() then
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('ciw')
+        fastKeyStroke('escape')
+        insertText('ciw')
     else
-        hs.eventtap.keyStroke({'alt'}, 'delete', 0)
+        fastKeyStroke({'alt'}, 'delete')
     end
 end)
 
 hs.urlevent.bind('change-toEndOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift'}, 'c', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift'}, 'c')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('change-toBeginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('c')
     else
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'shift', 'cmd'}, 'left')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('change-line', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({}, 'escape', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
-        hs.eventtap.keyStroke({}, 'c', 0)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('c')
     elseif appIs(iterm) and not isAlfredVisible() then
-        hs.eventtap.keyStroke({}, 'escape')
-        hs.eventtap.keyStrokes('cc')
+        fastKeyStroke('escape')
+        insertText('cc')
     else
-        hs.eventtap.keyStroke({'cmd'}, 'left', 0)
-        hs.eventtap.keyStroke({'shift', 'cmd'}, 'right', 0)
-        hs.eventtap.keyStroke({}, 'delete', 0)
+        fastKeyStroke({'cmd'}, 'left')
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+        fastKeyStroke('delete')
     end
 end)
 
 hs.urlevent.bind('change-character', function()
     if TextManipulation.canManipulateWithVim() then
-        hs.eventtap.keyStroke({'ctrl', 'alt'}, 'a', 0)
+        fastKeyStroke({'ctrl', 'alt'}, 'a')
     end
 
-    hs.eventtap.keyStroke({}, 'delete', 0)
+    fastKeyStroke('delete')
 end)
 
 return ChangeMode
