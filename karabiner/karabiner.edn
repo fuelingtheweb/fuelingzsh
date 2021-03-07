@@ -84,49 +84,6 @@
 
         ;; (custom variables) & modifiers -> Advanced
         ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#custom-variable
-        ; {
-        ;     :des "Use right command for sticky vi and vi visual modes"
-        ;     :rules [
-        ;         [:right_command [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 1]] ["right-command-pressed-once" 1]]
-        ;         [:right_command [:right_command ["right-command-pressed-once" 1] ["sticky-vi-mode" 1]] [["sticky-vi-mode" 0] ["sticky-vi-visual-mode" 0]] {:delayed {:invoked ["right-command-pressed-once" 0] :canceled ["right-command-pressed-once" 0]}}]
-        ;         :sticky-vi-mode
-        ;         [:right_command ["sticky-vi-mode" 0]]
-        ;         :sticky-vi-visual-mode
-        ;         [:right_command ["sticky-vi-visual-mode" 0]]
-        ;     ]
-        ; }
-        ; {
-        ;     :des   "Sticky Vi Mode (Press right command once)"
-        ;     :rules [:sticky-vi-mode
-        ;         [:##j :down_arrow]
-        ;         [:##k :up_arrow]
-        ;         [:##h :left_arrow]
-        ;         [:##l :right_arrow]
-        ;         [:##b :!Oleft_arrow]
-        ;         [:##w :!Oright_arrow]
-        ;         [:##0 :!Cleft_arrow]
-        ;         [:##4 :!Cright_arrow]
-        ;         [:##a :!Cright_arrow]
-        ;         [:##i :!Cleft_arrow]
-        ;         [:##n :!Cdown_arrow]
-        ;         [:##u :!Cup_arrow]
-        ;     ]
-        ; }
-        ; {
-        ;     :des   "Sticky Vi Visual Mode (Press right command twice)"
-        ;     :rules [:sticky-vi-visual-mode
-        ;         [:##j :!Sdown_arrow]
-        ;         [:##k :!Sup_arrow]
-        ;         [:##h :!Sleft_arrow]
-        ;         [:##l :!Sright_arrow]
-        ;         [:##b :!SOleft_arrow]
-        ;         [:##e :!SOright_arrow]
-        ;         [:##0 :!SCleft_arrow]
-        ;         [:##4 :!SCright_arrow]
-        ;         [:##open_bracket :!SOup_arrow]
-        ;         [:##close_bracket :!SOdown_arrow]
-        ;     ]
-        ; }
         {
             :des "Misc"
             :rules [
@@ -139,17 +96,6 @@
 
                 [:fn {:pkey :button1}] ; Mouse click. Hold for dragging
                 [:!TCf :escape] ; Escape
-            ]
-        }
-        {
-            :des "Hyper Mode - Mousekey"
-            :rules [:hyper-mode
-                [:down_arrow {:mkey {:y 1536}}]
-                [:up_arrow {:mkey {:y -1536}}]
-                [:left_arrow {:mkey {:x -1536}}]
-                [:right_arrow {:mkey {:x 1536}}]
-                ; [:return_or_enter {:pkey :button1}]
-                [:!Creturn_or_enter {:pkey :button2}]
             ]
         }
         {
