@@ -36,10 +36,10 @@ done
 
 trash $FUELINGZSH/custom
 trash $FUELINGZSH/aliases/custom
-trash $FUELINGZSH/dotfiles/.hammerspoon/Spoons/Custom.spoon
+trash $FUELINGZSH/dotfiles/.hammerspoon/config/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/custom $FUELINGZSH/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/aliases/custom $FUELINGZSH/aliases/custom
-ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/Spoons/Custom.spoon $FUELINGZSH/dotfiles/.hammerspoon/Spoons/Custom.spoon
+ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/config/custom $FUELINGZSH/dotfiles/.hammerspoon/config/custom
 trash $HOME/.config/karabiner.edn
 mkdir $HOME/.config
 ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn

@@ -224,4 +224,8 @@ function Site:open()
     end
 end
 
+function ProjectManager:addFromConfig()
+    dofile(hs.configdir .. '/config/custom/projects.lua')
+end
+
 return ProjectManager

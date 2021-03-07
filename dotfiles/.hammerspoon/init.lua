@@ -10,4 +10,3 @@ Artisan = hs.loadSpoon('Artisan')
 
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
-hs.loadSpoon('Custom')

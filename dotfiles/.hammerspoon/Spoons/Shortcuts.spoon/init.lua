@@ -76,6 +76,11 @@ function Shortcuts:trigger(key)
     end
 end
 
+function Shortcuts:addFromConfig()
+    dofile(hs.configdir .. '/config/shortcuts.lua')
+    dofile(hs.configdir .. '/config/custom/shortcuts.lua')
+end
+
 function Shortcuts:listen()
     hs.urlevent.bind('shortcut-trigger', function(eventName, params)
         self:trigger(params.key)

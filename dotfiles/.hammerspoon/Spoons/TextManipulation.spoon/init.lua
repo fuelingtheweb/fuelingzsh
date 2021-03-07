@@ -1,6 +1,5 @@
 local TextManipulation = {}
 TextManipulation.__index = TextManipulation
-TextManipulation.spoonPath = '/Users/nathan/.hammerspoon/Spoons/TextManipulation.spoon'
 
 TextManipulation.wrapperKeyLookup = {
     t = {mods = {}, key = 't'}, -- t -> tag

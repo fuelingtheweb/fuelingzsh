@@ -53,6 +53,10 @@ function AlfredCommands:trigger(key)
     command.handler()
 end
 
+function AlfredCommands:addFromConfig()
+    dofile(hs.configdir .. '/config/custom/commands.lua')
+end
+
 function AlfredCommands:listen()
     hs.urlevent.bind('alfred-command', function(eventName, params)
         self:trigger(params.key)
