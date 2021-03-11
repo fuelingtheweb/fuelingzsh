@@ -7,7 +7,7 @@ YankMode.lookup = {
     q = 'subword',
     w = 'word',
     a = 'toEndOfLine',
-    i = 'toBeginningOfLine',
+    g = 'toBeginningOfLine',
     v = 'line',
     x = 'character',
     caps_lock = 'all',
@@ -85,6 +85,7 @@ end)
 hs.urlevent.bind('yank-toBeginningOfLine', function()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
+        fastKeyStroke('right')
         fastKeyStroke({'shift', 'cmd'}, 'left')
         fastKeyStroke('y')
     else

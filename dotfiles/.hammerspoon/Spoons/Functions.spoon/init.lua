@@ -38,7 +38,7 @@ end
 function getSelectedText(copying)
     original = hs.pasteboard.getContents()
     hs.pasteboard.clearContents()
-    keyStroke({'cmd'}, 'C')
+    keyStroke({'cmd'}, 'c')
     text = hs.pasteboard.getContents()
     finderFileSelected = false
     for k,v in pairs(hs.pasteboard.contentTypes()) do
@@ -87,7 +87,7 @@ function showChooser(callback, choices)
 end
 
 function openDiscordChannel(name)
-    fastKeyStroke({'cmd'}, 'K')
+    keyStroke({'cmd'}, 'k')
     insertText(name)
     hs.timer.doAfter(0.1, function()
         fastKeyStroke('return')
@@ -95,7 +95,7 @@ function openDiscordChannel(name)
 end
 
 function openNotionPage(name)
-    fastKeyStroke({'cmd'}, 'P')
+    keyStroke({'cmd'}, 'p')
     insertText(name)
     hs.timer.doAfter(0.3, function()
         fastKeyStroke('return')
@@ -133,7 +133,7 @@ function getUrlForQuery(query)
 end
 
 function triggerInAtom(name)
-    fastKeyStroke({'shift', 'cmd'}, 'P')
+    keyStroke({'shift', 'cmd'}, 'p')
     insertText(name)
     hs.timer.doAfter(0.3, function()
         fastKeyStroke('return')
@@ -141,7 +141,7 @@ function triggerInAtom(name)
 end
 
 function goToFileInAtom(file)
-    fastKeyStroke({'cmd'}, 'T')
+    keyStroke({'cmd'}, 't')
     insertText(file)
     hs.timer.doAfter(0.3, function()
         fastKeyStroke('return')
@@ -293,7 +293,7 @@ function trim(s)
 end
 
 function closeWindow()
-    fastKeyStroke({'cmd'}, 'W')
+    fastKeyStroke({'cmd'}, 'w')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()

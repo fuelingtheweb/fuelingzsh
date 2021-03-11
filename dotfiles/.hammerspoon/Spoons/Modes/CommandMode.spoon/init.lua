@@ -50,27 +50,23 @@ Modal.add({
     key = 'CommandMode:save',
     shortcuts = {
         ['j'] = function()
-            CommandMode.save()
             spoon.HyperMode.previousTab()
         end,
         ['k'] = function()
-            CommandMode.save()
             spoon.HyperMode.nextTab()
         end,
         [';'] = function()
-            CommandMode.save()
             spoon.WindowManager.next()
         end,
     },
 })
 
 function CommandMode.s()
-    Modal.enter('CommandMode:save')
+    Modal.enter('CommandMode:save', 2)
 
     -- Save or Save and reload Chrome
     Pending.run({
         function()
-            Modal.exit()
             CommandMode.save()
         end,
         function()
@@ -199,9 +195,9 @@ end
 
 function CommandMode.saveAndReload()
     fastKeyStroke('escape')
-    fastKeyStroke({'cmd'}, 's')
+    keyStroke({'cmd'}, 's')
     hs.application.get(apps['chrome']):activate()
-    fastKeyStroke({'cmd'}, 'r')
+    keyStroke({'cmd'}, 'r')
 end
 
 function CommandMode.cancelOrDelete()

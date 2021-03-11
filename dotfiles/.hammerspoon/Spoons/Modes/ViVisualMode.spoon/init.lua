@@ -22,7 +22,7 @@ function ViVisualMode.selectToTopOfPage()
 end
 
 function ViVisualMode.selectToFirstCharacterOfLine()
-    fastKeyStroke({'shift', 'cmd'}, 'left')
+    spoon.SelectUntilMode.beginningOfLine()
 end
 
 function ViVisualMode.selectToEndOfLine()

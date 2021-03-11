@@ -13,7 +13,7 @@ SelectUntilMode.lookup = {
     c = 'braces',
     b = 'brackets',
     a = 'endOfLine',
-    i = 'beginningOfLine',
+    g = 'beginningOfLine',
     t = 'previousBlock',
 }
 
@@ -315,13 +315,18 @@ hs.urlevent.bind('select-until-endOfLine', function()
 end)
 
 hs.urlevent.bind('select-until-beginningOfLine', function()
+    SelectUntilMode.beginningOfLine()
+end)
+
+function SelectUntilMode.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
+        fastKeyStroke('right')
         fastKeyStroke({'shift', 'cmd'}, 'left')
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
     end
-end)
+end
 
 hs.urlevent.bind('select-until-previousBlock', function()
     if TextManipulation.canManipulateWithVim() then

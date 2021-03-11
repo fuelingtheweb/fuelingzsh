@@ -145,6 +145,10 @@ function triggerItermShortcut(callback)
 end
 
 function launchSpotify()
+    if appIs(spotify) then
+        return spoon.WindowManager.next()
+    end
+
     app = hs.application.get(spotify)
 
     if app and app:isRunning() then

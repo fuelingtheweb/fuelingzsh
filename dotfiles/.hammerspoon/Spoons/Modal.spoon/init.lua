@@ -64,9 +64,15 @@ function Modal.add(meta)
     end
 end
 
-function Modal.enter(key)
+function Modal.enter(key, exitAfter)
     -- spoon.ModalMgr:deactivateAll()
     spoon.ModalMgr:activate({key}, '#FFFFFF', false)
+
+    if exitAfter then
+        hs.timer.doAfter(exitAfter, function()
+            Modal.exit()
+        end)
+    end
 end
 
 function Modal.exit()
