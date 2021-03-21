@@ -18,7 +18,7 @@ GeneralMode.lookup = {
     k = nil,
     l = nil,
     semicolon = nil,
-    quote = '=',
+    quote = 'equals',
     return_or_enter = nil,
     n = '`',
     m = 'multiply',
@@ -28,6 +28,10 @@ GeneralMode.lookup = {
     right_shift = nil,
     spacebar = nil,
 }
+
+function GeneralMode.equals()
+    fastKeyStroke('=')
+end
 
 function GeneralMode.multiply()
     fastKeyStroke({'shift'}, '8')
