@@ -20,7 +20,7 @@ SnippetMode.lookup = {
     semicolon = nil,
     quote = nil,
     return_or_enter = nil,
-    n = 'snippet-af',
+    n = 'functionSnippet',
     m = 'method',
     comma = nil,
     period = nil,
@@ -56,6 +56,20 @@ Modal.addWithMenubar({
     },
 })
 
+Modal.addWithMenubar({
+    key = 'SnippetMode:function',
+    title = 'Snippet: Function',
+    shortcuts = {
+        items = {
+            {key = 'v', method = 'validation'},
+        },
+        callback = function(item)
+            SnippetMode.snippet('function-' .. item.method)
+            Modal.exit()
+        end,
+    },
+})
+
 function SnippetMode.guard()
     return appIncludes({atom, sublime})
 end
@@ -83,6 +97,17 @@ function SnippetMode.method()
         end,
         function()
             Modal.enter('SnippetMode:method')
+        end,
+    })
+end
+
+function SnippetMode.functionSnippet()
+    Pending.run({
+        function()
+            SnippetMode.snippet('function')
+        end,
+        function()
+            Modal.enter('SnippetMode:function')
         end,
     })
 end

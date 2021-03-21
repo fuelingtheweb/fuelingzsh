@@ -4,7 +4,7 @@ HyperMode.__index = HyperMode
 HyperMode.lookup = {
     y = {'copy', 'copyAll'},
     u = nil,
-    i = nil,
+    i = 'bracketMatching',
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
@@ -189,6 +189,12 @@ end
 
 function HyperMode.startArtisan()
     Artisan.start()
+end
+
+BracketMatching = hs.loadSpoon('Modes/BracketMatching')
+
+function HyperMode.bracketMatching()
+    BracketMatching.start()
 end
 
 return HyperMode

@@ -28,7 +28,7 @@ OpenMode.lookup = {
 }
 
 function OpenMode.customOpen(key)
-    hs.execute("open -g 'hammerspoon://custom-open?key=" .. key:upper() .. "'")
+    hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
 function OpenMode.aliases()

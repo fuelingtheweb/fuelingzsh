@@ -122,20 +122,29 @@ end
 
 SelectUntilMode.actions = {
     singleQuote = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
-
-        SelectUntilMode.triggerDirectionIfSet()
-    end,
-
-    doubleQuote = function()
         Pending.run({
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
+
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
             function()
                 SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
 
                 SelectUntilMode.triggerDirectionIfSet()
             end,
+        })
+    end,
+
+    doubleQuote = function()
+        Pending.run({
             function()
                 SelectUntilMode.actions.destroy()
+            end,
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
+
+                SelectUntilMode.triggerDirectionIfSet()
             end,
         })
     end,
@@ -161,10 +170,25 @@ SelectUntilMode.actions = {
         })
     end,
 
-    braces = function()
+    braces = function(first)
+        first = first or false
         Pending.run({
             function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "{")
+                if first then
+                    SelectUntilMode.enterModal(SelectUntilMode.direction, "{")
+
+                    return SelectUntilMode.triggerDirectionIfSet()
+                end
+
+                SelectUntilMode.actions.change()
+            end,
+            function()
+                local key = "{"
+                if first then
+                    key = "}"
+                end
+
+                SelectUntilMode.enterModal(SelectUntilMode.direction, key)
 
                 SelectUntilMode.triggerDirectionIfSet()
             end,
@@ -316,7 +340,7 @@ end
 
 function SelectUntilMode.braces()
     SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.braces()
+    SelectUntilMode.actions.braces(true)
 end
 
 function SelectUntilMode.brackets()
