@@ -128,9 +128,16 @@ SelectUntilMode.actions = {
     end,
 
     doubleQuote = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
+        Pending.run({
+            function()
+                SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
 
-        SelectUntilMode.triggerDirectionIfSet()
+                SelectUntilMode.triggerDirectionIfSet()
+            end,
+            function()
+                SelectUntilMode.actions.destroy()
+            end,
+        })
     end,
 
     backTick = function()

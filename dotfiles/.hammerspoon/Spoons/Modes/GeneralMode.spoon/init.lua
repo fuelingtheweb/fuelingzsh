@@ -14,7 +14,14 @@ function GeneralMode.u()
 end
 
 function GeneralMode.i()
-    insertText('-')
+    Pending.run({
+        function()
+            insertText('-')
+        end,
+        function()
+            insertText('- ')
+        end,
+    })
 end
 
 function GeneralMode.o()

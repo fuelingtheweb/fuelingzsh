@@ -27,7 +27,6 @@ YankMode.lookup = {
     g = 'toBeginningOfLine',
     v = 'line',
     x = 'character',
-    caps_lock = 'all',
     q = 'viewPath',
 }
 
@@ -122,19 +121,6 @@ hs.urlevent.bind('yank-character', function()
     else
         fastKeyStroke({'shift'}, 'left')
         fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
-    end
-end)
-
-hs.urlevent.bind('yank-all', function()
-    fastKeyStroke({'cmd'}, 'a')
-    fastKeyStroke({'cmd'}, 'c')
-
-    if inCodeEditor() then
-        fastKeyStroke('escape')
-        fastKeyStroke('g')
-        fastKeyStroke('g')
-    else
         fastKeyStroke('right')
     end
 end)

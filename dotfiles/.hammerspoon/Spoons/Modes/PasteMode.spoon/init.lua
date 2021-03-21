@@ -12,8 +12,8 @@ PasteMode.lookup = {
 }
 
 function PasteMode.handle(key)
-    if key == 'caps_lock' then
-        triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
+    if PasteMode[key] then
+        PasteMode[key]()
     elseif PasteMode.lookup[key] then
         hs.execute("open -g 'hammerspoon://paste-" .. PasteMode.lookup[key] .. "'")
     elseif TextManipulation.wrapperKeyLookup[key] then

@@ -2,7 +2,14 @@ local HyperMode = {}
 HyperMode.__index = HyperMode
 
 function HyperMode.y()
-    HyperMode.copy()
+    Pending.run({
+        function()
+            HyperMode.copy()
+        end,
+        function()
+            HyperMode.copyAll()
+        end,
+    })
 end
 
 function HyperMode.u()
@@ -17,7 +24,17 @@ function HyperMode.o()
 end
 
 function HyperMode.p()
-    HyperMode.paste()
+    Pending.run({
+        function()
+            HyperMode.alfredClipboard()
+        end,
+        function()
+            HyperMode.paste()
+        end,
+        function()
+            triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
+        end,
+    })
 end
 
 function HyperMode.open_bracket()
@@ -57,11 +74,6 @@ end
 
 function HyperMode.n()
     HyperMode.new()
-end
-
-function HyperMode.m()
-    -- Alfred Clipboard
-    fastKeyStroke({'alt'}, 'c')
 end
 
 function HyperMode.comma()
@@ -105,6 +117,19 @@ function HyperMode.copy()
         -- Already in clipboard, do not reset
     elseif appIs(chrome) then
         copyChromeUrl()
+    end
+end
+
+function HyperMode.copyAll()
+    fastKeyStroke({'cmd'}, 'a')
+    fastKeyStroke({'cmd'}, 'c')
+
+    if inCodeEditor() then
+        fastKeyStroke('escape')
+        fastKeyStroke('g')
+        fastKeyStroke('g')
+    else
+        fastKeyStroke('right')
     end
 end
 
@@ -217,6 +242,10 @@ function HyperMode.paste()
     if titleContains('Slack | ') then
         fastKeyStroke({'shift', 'cmd'}, 'f')
     end
+end
+
+function HyperMode.alfredClipboard()
+    fastKeyStroke({'alt'}, 'c')
 end
 
 return HyperMode
