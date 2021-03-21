@@ -2,28 +2,28 @@ local SelectUntilMode = {}
 SelectUntilMode.__index = SelectUntilMode
 
 SelectUntilMode.lookup = {
+    tab = nil,
+    q = nil,
+    w = 'nextWord',
     e = 'endOfWord',
-    w = 'next-word',
-    s = 'single-quote',
-    d = 'double-quote',
-    z = 'back-tick',
-    caps_lock = 'mode',
-    left_shift = 'mode-backward',
-    f = 'parenthesis',
-    c = 'braces',
-    b = 'brackets',
-    a = 'endOfLine',
-    g = 'beginningOfLine',
+    r = nil,
     t = 'previousBlock',
+    caps_lock = 'mode',
+    a = 'endOfLine',
+    s = 'singleQuote',
+    d = 'doubleQuote',
+    f = 'parenthesis',
+    g = 'beginningOfLine',
+    left_shift = 'modeBackward',
+    z = 'backTick',
+    x = nil,
+    c = 'braces',
+    v = nil,
+    b = 'brackets',
+    spacebar = nil,
 }
 
-function SelectUntilMode.handle(key)
-    if SelectUntilMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://select-until-" .. SelectUntilMode.lookup[key] .. "'")
-    end
-end
-
-hs.urlevent.bind('select-until-endOfWord', function()
+function SelectUntilMode.endOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -31,9 +31,9 @@ hs.urlevent.bind('select-until-endOfWord', function()
     else
         fastKeyStroke({'shift', 'alt'}, 'right')
     end
-end)
+end
 
-hs.urlevent.bind('select-until-nextWord', function()
+function SelectUntilMode.nextWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -42,7 +42,7 @@ hs.urlevent.bind('select-until-nextWord', function()
         fastKeyStroke({'shift', 'alt'}, 'right')
         fastKeyStroke({'shift', 'alt'}, 'right')
     end
-end)
+end
 
 SelectUntilMode.direction = nil
 SelectUntilMode.key = nil
@@ -286,56 +286,56 @@ SelectUntilMode.keymap = {
     end,
 }
 
-hs.urlevent.bind('select-until-mode', function()
+function SelectUntilMode.mode()
     SelectUntilMode.enterModal()
-end)
+end
 
-hs.urlevent.bind('select-until-mode-backward', function()
+function SelectUntilMode.modeBackward()
     SelectUntilMode.enterModal('B')
-end)
+end
 
-hs.urlevent.bind('select-until-single-quote', function()
+function SelectUntilMode.singleQuote()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.singleQuote()
-end)
+end
 
-hs.urlevent.bind('select-until-double-quote', function()
+function SelectUntilMode.doubleQuote()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.doubleQuote()
-end)
+end
 
-hs.urlevent.bind('select-until-back-tick', function()
+function SelectUntilMode.backTick()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.backTick()
-end)
+end
 
-hs.urlevent.bind('select-until-parenthesis', function()
+function SelectUntilMode.parenthesis()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.parenthesis()
-end)
+end
 
-hs.urlevent.bind('select-until-braces', function()
+function SelectUntilMode.braces()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.braces()
-end)
+end
 
-hs.urlevent.bind('select-until-brackets', function()
+function SelectUntilMode.brackets()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.brackets()
-end)
+end
 
-hs.urlevent.bind('select-until-endOfLine', function()
+function SelectUntilMode.endOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'right')
     else
         fastKeyStroke({'shift', 'cmd'}, 'right')
     end
-end)
+end
 
-hs.urlevent.bind('select-until-beginningOfLine', function()
+function SelectUntilMode.beginningOfLine()
     SelectUntilMode.beginningOfLine()
-end)
+end
 
 function SelectUntilMode.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
@@ -347,7 +347,7 @@ function SelectUntilMode.beginningOfLine()
     end
 end
 
-hs.urlevent.bind('select-until-previousBlock', function()
+function SelectUntilMode.previousBlock()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'shift'}, 'v')
         fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'v')
@@ -355,6 +355,6 @@ hs.urlevent.bind('select-until-previousBlock', function()
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
     end
-end)
+end
 
 return SelectUntilMode

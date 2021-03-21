@@ -1,43 +1,44 @@
 local TabMode = {}
 TabMode.__index = TabMode
 
-function TabMode.y()
-end
+TabMode.lookup = {
+    y = nil,
+    u = nil,
+    i = 'first',
+    o = 'last',
+    p = 'pin',
+    open_bracket = 'closeCurrent',
+    close_bracket = 'moveToNewWindow',
+    h = 'moveLeft',
+    j = 'previous',
+    k = 'next',
+    l = 'moveRight',
+    semicolon = nil,
+    quote = nil,
+    return_or_enter = 'restore',
+    n = 'new',
+    m = nil,
+    comma = 'closeAllToLeft',
+    period = 'closeAllToRight',
+    slash = 'closeAllOthers',
+    right_shift = 'closeAll',
+    spacebar = nil,
+}
 
-function TabMode.u()
-end
-
-function TabMode.i()
-    -- Go to first tab
+function TabMode.first()
     fastKeyStroke({'cmd'}, '1')
 end
 
-function TabMode.o()
-    -- Go to last tab
+function TabMode.last()
     fastKeyStroke({'cmd'}, '9')
 end
 
-function TabMode.p()
+function TabMode.pin()
     -- Chrome: Pin Tab
     fastKeyStroke('t')
     fastKeyStroke('p')
 end
 
-function TabMode.open_bracket()
-    TabMode.closeCurrent()
-end
-
-function TabMode.close_bracket()
-    TabMode.moveToNewWindow()
-end
-
-function TabMode.h()
-    TabMode.moveLeft()
-end
-
-function TabMode.j()
-    TabMode.previous()
-end
 
 function TabMode.previous()
     if appIs(tableplus) then
@@ -50,10 +51,6 @@ function TabMode.previous()
     end
 end
 
-function TabMode.k()
-    TabMode.next()
-end
-
 function TabMode.next()
     if appIs(tableplus) then
         fastKeyStroke({'cmd'}, ']')
@@ -63,46 +60,6 @@ function TabMode.next()
     else
         fastKeyStroke({'shift', 'cmd'}, ']')
     end
-end
-
-function TabMode.l()
-    TabMode.moveRight()
-end
-
-function TabMode.semicolon()
-end
-
-function TabMode.quote()
-end
-
-function TabMode.return_or_enter()
-    TabMode.restore()
-end
-
-function TabMode.n()
-    TabMode.new()
-end
-
-function TabMode.m()
-end
-
-function TabMode.comma()
-    TabMode.closeAllToLeft()
-end
-
-function TabMode.period()
-    TabMode.closeAllToRight()
-end
-
-function TabMode.slash()
-    TabMode.closeAllOthers()
-end
-
-function TabMode.right_shift()
-    TabMode.closeAll()
-end
-
-function TabMode.spacebar()
 end
 
 function TabMode.moveLeft()

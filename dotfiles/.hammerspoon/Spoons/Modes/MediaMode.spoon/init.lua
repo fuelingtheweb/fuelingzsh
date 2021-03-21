@@ -1,134 +1,52 @@
 local MediaMode = {}
 MediaMode.__index = MediaMode
 
-function MediaMode.tab()
-end
+MediaMode.lookup = {
+    tab = nil,
+    q = nil,
+    w = nil,
+    e = nil,
+    r = 'updateAudioDevice',
+    t = nil,
+    caps_lock = nil,
+    a = 'startOfVideoOrPreviousVideo',
+    s = 'spotifyMini',
+    d = 'deafen',
+    f = 'fullscreen',
+    g = 'nextVideo',
+    left_shift = nil,
+    z = 'sound',
+    x = nil,
+    c = nil,
+    v = 'focus',
+    b = nil,
+    spacebar = nil,
 
-function MediaMode.q()
-end
+    comma = 'videoBack',
+    period = 'videoForward',
+}
 
-function MediaMode.w()
-end
-
-function MediaMode.e()
-end
-
-function MediaMode.r()
-    MediaMode.updateAudioDevice()
-end
-
-function MediaMode.t()
-end
-
-function MediaMode.y()
-end
-
-function MediaMode.u()
-end
-
-function MediaMode.i()
-end
-
-function MediaMode.o()
-end
-
-function MediaMode.p()
-end
-
-function MediaMode.open_bracket()
-end
-
-function MediaMode.close_bracket()
-end
-
-function MediaMode.caps_lock()
-end
-
-function MediaMode.a()
+function MediaMode.startOfVideoOrPreviousVideo()
     -- Funimation: Start of video / previous video
     fastKeyStroke({'ctrl'}, 'left')
 end
 
-function MediaMode.s()
+function MediaMode.spotifyMini()
     triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
 end
 
-function MediaMode.d()
+function MediaMode.deafen()
     -- Deafen in Discord
     fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
-function MediaMode.f()
-    MediaMode.fullscreen()
-end
-
-function MediaMode.g()
+function MediaMode.nextVideo()
     -- Funimation: Next video
     fastKeyStroke({'ctrl'}, 'right')
 end
 
-function MediaMode.h()
-end
-
-function MediaMode.j()
-end
-
-function MediaMode.k()
-end
-
-function MediaMode.l()
-end
-
-function MediaMode.semicolon()
-end
-
-function MediaMode.quote()
-end
-
-function MediaMode.return_or_enter()
-end
-
-function MediaMode.left_shift()
-end
-
-function MediaMode.z()
+function MediaMode.sound()
     triggerAlfredSearch('Sound')
-end
-
-function MediaMode.x()
-end
-
-function MediaMode.c()
-end
-
-function MediaMode.v()
-    MediaMode.focus()
-end
-
-function MediaMode.b()
-end
-
-function MediaMode.n()
-end
-
-function MediaMode.m()
-end
-
-function MediaMode.comma()
-    MediaMode.videoBack()
-end
-
-function MediaMode.period()
-    MediaMode.videoForward()
-end
-
-function MediaMode.slash()
-end
-
-function MediaMode.right_shift()
-end
-
-function MediaMode.spacebar()
 end
 
 function MediaMode.showVideoBar()

@@ -2,35 +2,46 @@ local SelectInsideMode = {}
 SelectInsideMode.__index = SelectInsideMode
 
 SelectInsideMode.lookup = {
+    tab = nil,
     q = 'subword',
     w = 'word',
-    v = 'line',
+    e = nil,
+    r = nil,
+    t = 'withWrapperKey',
+    caps_lock = nil,
+    a = nil,
+    s = 'withWrapperKey',
+    d = 'withWrapperKey',
+    f = 'withWrapperKey',
+    g = nil,
+    left_shift = nil,
+    z = 'withWrapperKey',
     x = 'character',
+    c = 'withWrapperKey',
+    v = 'line',
+    b = 'withWrapperKey',
+    spacebar = nil,
 }
 
-function SelectInsideMode.handle(key)
-    if SelectInsideMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://select-inside-" .. SelectInsideMode.lookup[key] .. "'")
-    elseif TextManipulation.wrapperKeyLookup[key] then
-        keystroke = TextManipulation.wrapperKeyLookup[key]
+function SelectInsideMode.withWrapperKey(key)
+    keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
-    end
+    fastKeyStroke('escape')
+    fastKeyStroke('v')
+    fastKeyStroke('i')
+    fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-hs.urlevent.bind('select-inside-subword', function()
+function SelectInsideMode.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
         fastKeyStroke('i')
         fastKeyStroke('q')
     end
-end)
+end
 
-hs.urlevent.bind('select-inside-word', function()
+function SelectInsideMode.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -39,9 +50,9 @@ hs.urlevent.bind('select-inside-word', function()
     else
         fastKeyStroke({'shift', 'alt'}, 'left')
     end
-end)
+end
 
-hs.urlevent.bind('select-inside-line', function()
+function SelectInsideMode.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'v')
@@ -49,15 +60,15 @@ hs.urlevent.bind('select-inside-line', function()
         fastKeyStroke({'cmd'}, 'left')
         fastKeyStroke({'shift', 'cmd'}, 'right')
     end
-end)
+end
 
-hs.urlevent.bind('select-inside-character', function()
+function SelectInsideMode.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
     else
         fastKeyStroke({'shift'}, 'left')
     end
-end)
+end
 
 return SelectInsideMode

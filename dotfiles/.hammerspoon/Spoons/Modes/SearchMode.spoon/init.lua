@@ -1,75 +1,48 @@
 local SearchMode = {}
 SearchMode.__index = SearchMode
 
-function SearchMode.tab()
-end
+SearchMode.lookup = {
+    tab = nil,
+    q = nil,
+    w = 'windowsInCurrentApp',
+    e = nil,
+    r = nil,
+    t = 'tabs',
+    caps_lock = 'default',
+    a = 'allWindows',
+    s = 'symbol',
+    d = nil,
+    f = 'files',
+    g = 'google',
+    left_shift = nil,
+    z = 'amazon',
+    x = nil,
+    c = 'mergeConflicts',
+    v = nil,
+    b = nil,
+    spacebar = nil,
+}
 
-function SearchMode.q()
-end
-
-function SearchMode.w()
-    SearchMode.windowsInCurrentApp()
-end
-
-function SearchMode.e()
-end
-
-function SearchMode.r()
-end
-
-function SearchMode.t()
-    SearchMode.tabs()
-end
-
-function SearchMode.caps_lock()
-    SearchMode.default()
-end
-
-function SearchMode.a()
-    SearchMode.allWindows()
-end
-
-function SearchMode.s()
-    -- Search for Symbol
+function SearchMode.symbol()
     fastKeyStroke({'cmd'}, 'r')
 end
 
-function SearchMode.d()
-end
-
-function SearchMode.f()
-    -- Search files
+function SearchMode.files()
     triggerAlfredSearch('open ')
 end
 
-function SearchMode.g()
+function SearchMode.google()
     triggerAlfredWorkflow('google', 'com.akikoz.alfred.websearchsuggest')
 end
 
-function SearchMode.left_shift()
-end
-
-function SearchMode.z()
+function SearchMode.amazon()
     triggerAlfredWorkflow('amazon', 'com.akikoz.alfred.websearchsuggest')
 end
 
-function SearchMode.x()
-end
-
-function SearchMode.c()
-    -- Search for merge conflicts
+function SearchMode.mergeConflicts()
     fastKeyStroke('/')
     insertText('<<<<<')
     fastKeyStroke('return')
-end
-
-function SearchMode.v()
-end
-
-function SearchMode.b()
-end
-
-function SearchMode.spacebar()
 end
 
 function SearchMode.default()

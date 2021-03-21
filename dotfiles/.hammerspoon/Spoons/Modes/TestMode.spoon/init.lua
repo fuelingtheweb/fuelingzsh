@@ -1,23 +1,45 @@
 local TestMode = {}
 TestMode.__index = TestMode
 
-function TestMode.k()
+TestMode.lookup = {
+    y = nil,
+    u = nil,
+    i = nil,
+    o = nil,
+    p = nil,
+    open_bracket = nil,
+    close_bracket = nil,
+    h = nil,
+    j = nil,
+    k = 'class',
+    l = 'all',
+    semicolon = nil,
+    quote = nil,
+    return_or_enter = nil,
+    n = nil,
+    m = 'method',
+    comma = nil,
+    period = nil,
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
+
+
+function TestMode.class()
     if appIs(atom) then
-        -- Atom PHPUnit: Test Class
         fastKeyStroke({'alt', 'cmd'}, 't')
     end
 end
 
-function TestMode.l()
+function TestMode.all()
     if appIs(atom) then
-        -- Atom PHPUnit: Test All
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
     end
 end
 
-function TestMode.m()
+function TestMode.method()
     if appIs(atom) then
-        -- Atom PHPUnit: Test Method
         fastKeyStroke({'ctrl', 'alt'}, 't')
     end
 end

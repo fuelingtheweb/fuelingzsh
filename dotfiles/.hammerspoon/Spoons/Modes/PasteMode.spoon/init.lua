@@ -2,32 +2,38 @@ local PasteMode = {}
 PasteMode.__index = PasteMode
 
 PasteMode.lookup = {
-    e = 'toEndOfWord',
+    tab = nil,
     q = 'subword',
     w = 'word',
+    e = 'toEndOfWord',
+    r = nil,
+    t = 'withWrapperKey',
+    caps_lock = nil,
     a = 'toEndOfLine',
-    i = 'toBeginningOfLine',
-    v = 'line',
+    s = 'withWrapperKey',
+    d = 'withWrapperKey',
+    f = 'withWrapperKey',
+    g = 'toBeginningOfLine',
+    left_shift = nil,
+    z = 'withWrapperKey',
     x = 'character',
+    c = 'withWrapperKey',
+    v = 'line',
+    b = 'withWrapperKey',
+    spacebar = nil,
 }
 
-function PasteMode.handle(key)
-    if PasteMode[key] then
-        PasteMode[key]()
-    elseif PasteMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://paste-" .. PasteMode.lookup[key] .. "'")
-    elseif TextManipulation.wrapperKeyLookup[key] then
-        keystroke = TextManipulation.wrapperKeyLookup[key]
+function PasteMode.withWrapperKey(key)
+    keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
-        fastKeyStroke('p')
-    end
+    fastKeyStroke('escape')
+    fastKeyStroke('v')
+    fastKeyStroke('i')
+    fastKeyStroke(keystroke.mods, keystroke.key)
+    fastKeyStroke('p')
 end
 
-hs.urlevent.bind('paste-toEndOfWord', function()
+function PasteMode.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -37,9 +43,9 @@ hs.urlevent.bind('paste-toEndOfWord', function()
         fastKeyStroke({'shift', 'alt'}, 'right')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
-hs.urlevent.bind('paste-subword', function()
+function PasteMode.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -47,9 +53,9 @@ hs.urlevent.bind('paste-subword', function()
         fastKeyStroke('q')
         fastKeyStroke('p')
     end
-end)
+end
 
-hs.urlevent.bind('paste-word', function()
+function PasteMode.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -60,9 +66,9 @@ hs.urlevent.bind('paste-word', function()
         fastKeyStroke({'shift', 'alt'}, 'left')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
-hs.urlevent.bind('paste-toEndOfLine', function()
+function PasteMode.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -72,9 +78,9 @@ hs.urlevent.bind('paste-toEndOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
-hs.urlevent.bind('paste-toBeginningOfLine', function()
+function PasteMode.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -83,9 +89,9 @@ hs.urlevent.bind('paste-toBeginningOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'left')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
-hs.urlevent.bind('paste-line', function()
+function PasteMode.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'v')
@@ -95,9 +101,9 @@ hs.urlevent.bind('paste-line', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
-hs.urlevent.bind('paste-character', function()
+function PasteMode.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -106,6 +112,6 @@ hs.urlevent.bind('paste-character', function()
         fastKeyStroke({'shift'}, 'left')
         fastKeyStroke({'cmd'}, 'v')
     end
-end)
+end
 
 return PasteMode

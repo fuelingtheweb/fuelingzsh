@@ -1,74 +1,29 @@
 local PaneMode = {}
 PaneMode.__index = PaneMode
 
-function PaneMode.y()
-end
-
-function PaneMode.u()
-end
-
-function PaneMode.i()
-end
-
-function PaneMode.o()
-end
-
-function PaneMode.p()
-end
-
-function PaneMode.open_bracket()
-    PaneMode.destroy()
-end
-
-function PaneMode.close_bracket()
-end
-
-function PaneMode.h()
-end
-
-function PaneMode.j()
-    PaneMode.focusPrevious()
-end
-
-function PaneMode.k()
-    PaneMode.focusNext()
-end
-
-function PaneMode.l()
-    PaneMode.splitRight()
-end
-
-function PaneMode.semicolon()
-    PaneMode.toggleZoom()
-end
-
-function PaneMode.quote()
-end
-
-function PaneMode.return_or_enter()
-end
-
-function PaneMode.n()
-end
-
-function PaneMode.m()
-    PaneMode.splitBottom()
-end
-
-function PaneMode.comma()
-end
-
-function PaneMode.period()
-end
-
-function PaneMode.slash()
-end
-
-function PaneMode.right_shift()
-end
-
-function PaneMode.spacebar()
-end
+PaneMode.lookup = {
+    y = nil,
+    u = nil,
+    i = nil,
+    o = nil,
+    p = nil,
+    open_bracket = 'destroy',
+    close_bracket = nil,
+    h = nil,
+    j = 'focusPrevious',
+    k = 'focusNext',
+    l = 'splitRight',
+    semicolon = 'toggleZoom',
+    quote = nil,
+    return_or_enter = nil,
+    n = nil,
+    m = 'splitBottom',
+    comma = nil,
+    period = nil,
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
 
 function PaneMode.destroy()
     if appIncludes({atom, sublime}) then

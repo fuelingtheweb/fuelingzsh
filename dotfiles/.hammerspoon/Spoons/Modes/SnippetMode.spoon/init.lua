@@ -1,6 +1,34 @@
 local SnippetMode = {}
 SnippetMode.__index = SnippetMode
 
+SnippetMode.lookup = {
+    e = 'snippet-elseif',
+    t = 'this',
+    d = 'snippet-dd',
+
+    y = nil,
+    u = nil,
+    i = 'snippet-if',
+    o = nil,
+    p = 'snippet-property',
+    open_bracket = 'snippet-echo',
+    close_bracket = nil,
+    h = nil,
+    j = nil,
+    k = nil,
+    l = 'snippet-log',
+    semicolon = nil,
+    quote = nil,
+    return_or_enter = nil,
+    n = 'snippet-af',
+    m = 'method',
+    comma = nil,
+    period = nil,
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
+
 Modal.addWithMenubar({
     key = 'SnippetMode:method',
     title = 'Snippet: Method',
@@ -28,39 +56,12 @@ Modal.addWithMenubar({
     },
 })
 
-function SnippetMode.t()
-    SnippetMode.this()
+function SnippetMode.guard()
+    return appIncludes({atom, sublime})
 end
 
-function SnippetMode.m()
-    Pending.run({
-        SnippetMode.method,
-        function()
-            Modal.enter('SnippetMode:method')
-        end,
-    })
-end
-
-SnippetMode.lookup = {
-     e = 'elseif',
-     d = 'dd',
-     i = 'if',
-     p = 'property',
-     open_bracket = 'echo',
-     l = 'log',
-     n = 'af',
-}
-
-function SnippetMode.handle(key)
-    if not appIncludes({atom, sublime}) then
-        return
-    end
-
-    if SnippetMode[key] then
-        SnippetMode[key]()
-    elseif SnippetMode.lookup[key] then
-        SnippetMode.snippet(SnippetMode.lookup[key])
-    end
+function SnippetMode.fallback(value)
+    SnippetMode.snippet(value:gsub('snippet%-', ''))
 end
 
 function SnippetMode.snippet(name)
@@ -72,11 +73,18 @@ function SnippetMode.snippet(name)
 end
 
 function SnippetMode.method()
-    if appIs(atom) and titleContains('Test.php') then
-        SnippetMode.snippet('method-test')
-    elseif appIncludes({atom, sublime}) then
-        SnippetMode.snippet('method')
-    end
+    Pending.run({
+        function()
+            if appIs(atom) and titleContains('Test.php') then
+                SnippetMode.snippet('method-test')
+            elseif appIncludes({atom, sublime}) then
+                SnippetMode.snippet('method')
+            end
+        end,
+        function()
+            Modal.enter('SnippetMode:method')
+        end,
+    })
 end
 
 function SnippetMode.this()

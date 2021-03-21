@@ -1,98 +1,29 @@
 local HyperMode = {}
 HyperMode.__index = HyperMode
 
-function HyperMode.y()
-    Pending.run({
-        function()
-            HyperMode.copy()
-        end,
-        function()
-            HyperMode.copyAll()
-        end,
-    })
-end
-
-function HyperMode.u()
-    HyperMode.copyTextArea()
-end
-
-function HyperMode.i()
-end
-
-function HyperMode.o()
-    HyperMode.open()
-end
-
-function HyperMode.p()
-    Pending.run({
-        function()
-            HyperMode.alfredClipboard()
-        end,
-        function()
-            HyperMode.paste()
-        end,
-        function()
-            triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
-        end,
-    })
-end
-
-function HyperMode.open_bracket()
-    HyperMode.commandPalette()
-end
-
-function HyperMode.close_bracket()
-end
-
-function HyperMode.h()
-    HyperMode.previousPage()
-end
-
-function HyperMode.j()
-    spoon.TabMode.previous()
-end
-
-function HyperMode.k()
-    spoon.TabMode.next()
-end
-
-function HyperMode.l()
-    HyperMode.nextPage()
-end
-
-function HyperMode.semicolon()
-    HyperMode.enableScrolling()
-end
-
-function HyperMode.quote()
-    HyperMode.jumpTo()
-end
-
-function HyperMode.return_or_enter()
-    fastKeyStroke('caps_lock')
-end
-
-function HyperMode.n()
-    HyperMode.new()
-end
-
-function HyperMode.comma()
-    -- Alfred
-    fastKeyStroke({'alt'}, 'z')
-end
-
-function HyperMode.period()
-    Artisan.start()
-end
-
-function HyperMode.slash()
-end
-
-function HyperMode.right_shift()
-end
-
-function HyperMode.spacebar()
-end
+HyperMode.lookup = {
+    y = {'copy', 'copyAll'},
+    u = 'copyTextArea',
+    i = nil,
+    o = 'open',
+    p = {'alfredClipboard', 'paste', 'pasteStrip'},
+    open_bracket = 'commandPalette',
+    close_bracket = nil,
+    h = 'previousPage',
+    j = 'previousTab',
+    k = 'nextTab',
+    l = 'nextPage',
+    semicolon = 'enableScrolling',
+    quote = 'jumpTo',
+    return_or_enter = 'capsLock',
+    n = 'new',
+    m = 'alfred',
+    comma = nil,
+    period = 'startArtisan',
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
 
 function HyperMode.copy()
     text = getSelectedText(true)
@@ -205,6 +136,14 @@ function HyperMode.previousPage()
     end
 end
 
+function HyperMode.previousTab()
+    spoon.TabMode.previous()
+end
+
+function HyperMode.nextTab()
+    spoon.TabMode.next()
+end
+
 function HyperMode.nextPage()
     if appIs(spotify) then
         fastKeyStroke({'alt', 'cmd'}, 'right')
@@ -236,6 +175,10 @@ function HyperMode.enableScrolling()
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
+function HyperMode.alfredClipboard()
+    fastKeyStroke({'alt'}, 'c')
+end
+
 function HyperMode.paste()
     fastKeyStroke({'cmd'}, 'v')
 
@@ -244,8 +187,20 @@ function HyperMode.paste()
     end
 end
 
-function HyperMode.alfredClipboard()
-    fastKeyStroke({'alt'}, 'c')
+function HyperMode.pasteStrip()
+    triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
+end
+
+function HyperMode.capsLock()
+    fastKeyStroke('caps_lock')
+end
+
+function HyperMode.alfred()
+    fastKeyStroke({'alt'}, 'z')
+end
+
+function HyperMode.startArtisan()
+    Artisan.start()
 end
 
 return HyperMode

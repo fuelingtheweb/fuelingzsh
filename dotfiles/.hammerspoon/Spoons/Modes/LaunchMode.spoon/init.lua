@@ -1,116 +1,79 @@
 local LaunchMode = {}
 LaunchMode.__index = LaunchMode
 
+LaunchMode.lookup = {
+    tab = 'windowHintsForCurrentApplication',
+    q = 'Kaleidoscope.app',
+    w = 'Transmit.app',
+    e = 'sublime',
+    r = 'atom',
+    t = 'iterm',
+    caps_lock = 'windowHints',
+    a = {'fantastical', 'alfredPreferences'},
+    s = 'spotify',
+    d = {'Discord.app', 'Ray.app'},
+    f = 'Notion.app',
+    g = 'chrome',
+    left_shift = 'Dash.app',
+    z = {'zoom.us.app', 'Screen.app'},
+    x = {'de.beyondco.tinkerwell', 'de.beyondco.invoker', 'de.beyondco.helo'},
+    c = 'Sublime Merge.app',
+    v = 'TablePlus.app',
+    b = 'finder',
+    spacebar = 'bringAllWindowsToFront',
+}
+
 hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
 hs.hints.fontSize = 20
 hs.hints.iconAlpha = 1
 
-function LaunchMode.tab()
+function LaunchMode.windowHintsForCurrentApplication()
     hs.hints.style = nil
     hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
 end
 
-function LaunchMode.caps_lock()
+function LaunchMode.windowHints()
     hs.hints.style = 'vimperator'
     hs.hints.windowHints()
 end
 
-function LaunchMode.a()
-    Pending.run({
-        function()
-            -- Fantastical
-            fastKeyStroke({'alt', 'cmd'}, 'c')
-        end,
-        function()
-            hs.execute("open -g 'hammerspoon://launch-app?id=alfred-preferences'")
-        end,
-    })
+function LaunchMode.fantastical()
+    fastKeyStroke({'alt', 'cmd'}, 'c')
 end
 
-function LaunchMode.d()
-    Pending.run({
-        function()
-            hs.execute("open -a 'Discord.app'")
-        end,
-        function()
-            hs.execute("open -a 'Ray.app'")
-        end,
-    })
+function LaunchMode.alfredPreferences()
+    hs.application.open('com.runningwithcrayons.Alfred-Preferences')
 end
 
-function LaunchMode.z()
-    Pending.run({
-        function()
-            hs.execute("open -a 'zoom.us.app'")
-        end,
-        function()
-            hs.execute("open -a 'Screen.app'")
-        end,
-    })
-end
-
-function LaunchMode.x()
-    Pending.run({
-        function()
-            hs.application.open('de.beyondco.tinkerwell')
-        end,
-        function()
-            hs.application.open('de.beyondco.invoker')
-        end,
-        function()
-            hs.application.open('de.beyondco.helo')
-        end,
-    })
-end
-
-function LaunchMode.spacebar()
-    -- Bring all windows to front
+function LaunchMode.bringAllWindowsToFront()
     hs.application.frontmostApplication():activate(true)
 end
 
-LaunchMode.lookup = {
-    q = {type = 'open', app = 'Kaleidoscope.app'},
-    w = {type = 'open', app = 'Transmit.app'},
-    e = {type = 'hs', app = 'sublime'},
-    r = {type = 'hs', app = 'atom'},
-    t = {type = 'hs', app = 'iterm'},
-    s = {type = 'hs', app = 'spotify'},
-    f = {type = 'open', app = 'Notion.app'},
-    g = {type = 'hs', app = 'chrome'},
-    left_shift = {type = 'open', app = 'Dash.app'},
-    c = {type = 'open', app = 'Sublime Merge.app'},
-    v = {type = 'open', app = 'TablePlus.app'},
-    b = {type = 'hs', app = 'finder'},
-}
-
-function LaunchMode.handle(key)
-    if LaunchMode[key] then
-        LaunchMode[key]()
-    elseif LaunchMode.lookup[key] then
-        local open = LaunchMode.lookup[key]
-
-        if open.type == 'open' then
-            hs.execute('open -a "' .. open.app .. '"')
-        else
-            hs.execute("open -g 'hammerspoon://launch-app?id=" .. open.app .. "'")
-        end
+function LaunchMode.fallback(value, key)
+    if stringContains('.app', value) then
+        hs.execute("open -a '" .. value .. "'")
+    else
+        LaunchMode.launchApp(value)
     end
 end
 
-hs.urlevent.bind('launch-app', function(eventName, params)
-    bundle = apps[params.id]
+function LaunchMode.launchApp(id)
+    bundle = apps[id]
+
+    if not bundle then
+        return hs.application.open(id)
+    end
+
     app = hs.application.frontmostApplication()
     isActive = app:bundleID() == bundle
 
-    if params.id == 'iterm' then
+    if id == 'iterm' then
         launchIterm()
-    elseif params.id == 'spotify' then
+    elseif id == 'spotify' then
         launchSpotify()
-    elseif params.id == 'alfred-preferences' then
-        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     elseif not isActive and not hasWindows(hs.application.get(bundle)) then
-        if params.id ~= 'atom' then
+        if id ~= 'atom' then
             hs.application.open(bundle)
         end
     elseif not isActive then
@@ -120,7 +83,7 @@ hs.urlevent.bind('launch-app', function(eventName, params)
     elseif not hasWindows(app) then
         hs.application.open(bundle)
     end
-end)
+end
 
 function launchIterm(callback)
     bundle = apps['iterm']

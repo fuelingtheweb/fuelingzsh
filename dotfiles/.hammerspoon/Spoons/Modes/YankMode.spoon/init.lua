@@ -1,9 +1,27 @@
 local YankMode = {}
 YankMode.__index = YankMode
 
-function YankMode.w()
-    YankMode.word()
-end
+YankMode.lookup = {
+    tab = nil,
+    q = 'subword',
+    w = 'word',
+    e = 'toEndOfWord',
+    r = 'relativeFilePath',
+    t = 'withWrapperKey',
+    caps_lock = nil,
+    a = 'toEndOfLine',
+    s = 'withWrapperKey',
+    d = 'withWrapperKey',
+    f = 'withWrapperKey',
+    g = 'toBeginningOfLine',
+    left_shift = 'viewPath',
+    z = 'withWrapperKey',
+    x = 'character',
+    c = 'withWrapperKey',
+    v = 'line',
+    b = 'withWrapperKey',
+    spacebar = nil,
+}
 
 function YankMode.word()
     if TextManipulation.canManipulateWithVim() then
@@ -18,34 +36,16 @@ function YankMode.word()
     end
 end
 
-YankMode.lookup = {
-    e = 'toEndOfWord',
-    r = 'relativeFilePath',
-    q = 'subword',
-    w = 'word',
-    a = 'toEndOfLine',
-    g = 'toBeginningOfLine',
-    v = 'line',
-    x = 'character',
-    q = 'viewPath',
-}
+function YankMode.withWrapperKey(key)
+    keystroke = TextManipulation.wrapperKeyLookup[key]
 
-function YankMode.handle(key)
-    if YankMode[key] then
-        YankMode[key]()
-    elseif YankMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://yank-" .. YankMode.lookup[key] .. "'")
-    elseif TextManipulation.wrapperKeyLookup[key] then
-        keystroke = TextManipulation.wrapperKeyLookup[key]
-
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
-    end
+    fastKeyStroke('escape')
+    fastKeyStroke('y')
+    fastKeyStroke('i')
+    fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-hs.urlevent.bind('yank-toEndOfWord', function()
+function YankMode.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -55,27 +55,27 @@ hs.urlevent.bind('yank-toEndOfWord', function()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('left')
     end
-end)
+end
 
-hs.urlevent.bind('yank-relativeFilePath', function()
+function YankMode.relativeFilePath()
     if appIs(atom) then
         fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
         fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(sublime) then
         fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
     end
-end)
+end
 
-hs.urlevent.bind('yank-subword', function()
+function YankMode.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
         fastKeyStroke('i')
         fastKeyStroke('q')
     end
-end)
+end
 
-hs.urlevent.bind('yank-toEndOfLine', function()
+function YankMode.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -85,9 +85,9 @@ hs.urlevent.bind('yank-toEndOfLine', function()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('left')
     end
-end)
+end
 
-hs.urlevent.bind('yank-toBeginningOfLine', function()
+function YankMode.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('right')
@@ -98,9 +98,9 @@ hs.urlevent.bind('yank-toBeginningOfLine', function()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
-end)
+end
 
-hs.urlevent.bind('yank-line', function()
+function YankMode.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -111,9 +111,9 @@ hs.urlevent.bind('yank-line', function()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
-end)
+end
 
-hs.urlevent.bind('yank-character', function()
+function YankMode.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -123,9 +123,9 @@ hs.urlevent.bind('yank-character', function()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
-end)
+end
 
-hs.urlevent.bind('yank-viewPath', function()
+function YankMode.viewPath()
     fastKeyStroke('escape')
     fastKeyStroke('y')
     fastKeyStroke('i')
@@ -133,6 +133,6 @@ hs.urlevent.bind('yank-viewPath', function()
 
     result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
     hs.pasteboard.setContents(result)
-end)
+end
 
 return YankMode

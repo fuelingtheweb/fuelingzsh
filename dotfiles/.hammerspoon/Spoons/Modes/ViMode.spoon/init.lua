@@ -1,35 +1,27 @@
 local ViMode = {}
 ViMode.__index = ViMode
 
-function ViMode.y()
-    ViMode.moveToTopOfPage()
-end
-
-function ViMode.i()
-    Pending.run({
-        ViMode.moveToFirstCharacterOfLine,
-        ViMode.moveAndInsertAtFirstCharacterOfLine,
-    })
-end
-
-function ViMode.o()
-    Pending.run({
-        ViMode.moveToEndOfLine,
-        ViMode.moveAndAppendAtEndOfLine,
-    })
-end
-
-function ViMode.open_bracket()
-    ViMode.moveToPreviousSubword()
-end
+ViMode.lookup = {
+    y = 'moveToTopOfPage',
+    u = nil,
+    i = {'moveToFirstCharacterOfLine', 'moveAndInsertAtFirstCharacterOfLine'},
+    o = {'moveToEndOfLine', 'moveAndAppendAtEndOfLine'},
+    p = nil,
+    open_bracket = 'moveToPreviousSubword',
+    close_bracket = 'moveToNextSubword',
+    semicolon = 'moveToPreviousWholeWord',
+    quote = {'moveToEndOfWholeWord', 'moveToNextWholeWord'},
+    return_or_enter = nil,
+    n = 'moveToBottomOfPage',
+    m = nil,
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
 
 function ViMode.moveToPreviousSubword()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'q')
-end
-
-function ViMode.close_bracket()
-    ViMode.moveToNextSubword()
 end
 
 function ViMode.moveToNextSubword()
@@ -37,20 +29,9 @@ function ViMode.moveToNextSubword()
     fastKeyStroke('q')
 end
 
-function ViMode.semicolon()
-    ViMode.moveToPreviousWholeWord()
-end
-
 function ViMode.moveToPreviousWholeWord()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'b')
-end
-
-function ViMode.quote()
-    Pending.run({
-        ViMode.moveToEndOfWholeWord,
-        ViMode.moveToNextWholeWord,
-    })
 end
 
 function ViMode.moveToEndOfWholeWord()
@@ -61,10 +42,6 @@ end
 function ViMode.moveToNextWholeWord()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'w')
-end
-
-function ViMode.n()
-    ViMode.moveToBottomOfPage()
 end
 
 function ViMode.moveToTopOfPage()

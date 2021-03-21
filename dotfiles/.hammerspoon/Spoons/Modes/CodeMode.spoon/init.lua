@@ -1,22 +1,55 @@
 local CodeMode = {}
 CodeMode.__index = CodeMode
 
-function CodeMode.y()
-    insertText(' && ')
-end
+GitMode = hs.loadSpoon('Modes/GitMode')
 
-function CodeMode.u()
+CodeMode.lookup = {
+    y = 'conditionalAnd',
+    u = 'addUseStatement',
+    i = 'multipleCursorsUp',
+    o = nil,
+    p = 'conditionalOr',
+    open_bracket = 'fold',
+    close_bracket = 'unfold',
+    h = nil,
+    j = 'moveLineDown',
+    k = 'moveLineUp',
+    l = 'goToDefinition',
+    semicolon = 'toggleSemicolon',
+    quote = 'equals',
+    return_or_enter = 'typeReturn',
+    n = 'selectNextWord',
+    m = 'multipleCursorsDown',
+    comma = 'toggleComma',
+    period = 'doubleArrow',
+    slash = 'goToMatchingBracket',
+    right_shift = nil,
+    spacebar = 'comment',
+
+    b = 'toggleBoolean',
+}
+
+function CodeMode.handle(key)
     if appIs(iterm) then
-        -- Git: Discard changes
-        typeAndEnter('nah')
-    else
-        -- Atom: Add use statement
-        fastKeyStroke({'ctrl', 'alt'}, 'u')
+        GitMode.handle(key)
+    elseif CodeMode.lookup[key] then
+        CodeMode[CodeMode.lookup[key]]()
     end
 end
 
-function CodeMode.i()
-    -- Multiple cursors up
+function CodeMode.conditionalAnd()
+    if titleContains('.lua') then
+        insertText(' and ')
+    else
+        insertText(' && ')
+    end
+end
+
+function CodeMode.addUseStatement()
+    fastKeyStroke({'ctrl', 'alt'}, 'u')
+end
+
+function CodeMode.multipleCursorsUp()
     if appIs(atom) then
         fastKeyStroke({'shift', 'ctrl'}, 'up')
     elseif appIs(sublime) then
@@ -24,41 +57,24 @@ function CodeMode.i()
     end
 end
 
-function CodeMode.o()
-    if appIs(iterm) then
-        typeAndEnter('git:checkout')
-    end
-end
-
-function CodeMode.p()
-    if appIs(iterm) then
-        typeAndEnter('git push')
+function CodeMode.conditionalOr()
+    if titleContains('.lua') then
+        insertText(' or ')
     else
         insertText(' || ')
     end
 end
 
-function CodeMode.open_bracket()
-    -- Fold
+function CodeMode.fold()
     fastKeyStroke({'alt', 'cmd'}, '[')
 end
 
-function CodeMode.close_bracket()
-    -- Unfold
+function CodeMode.unfold()
     fastKeyStroke({'alt', 'cmd'}, ']')
 end
 
-function CodeMode.h()
-    if appIs(iterm) then
-        typeAndEnter('git:status')
-    end
-end
-
-function CodeMode.j()
-    if appIs(iterm) then
-        -- iTerm: Autocomplete next word
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'j')
-    elseif appIs(notion) then
+function CodeMode.moveLineDown()
+    if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'down')
     elseif appIs(atom) or appIs(sublime) then
         -- Atom, Sublime: Move line down
@@ -66,39 +82,32 @@ function CodeMode.j()
     end
 end
 
-function CodeMode.k()
+function CodeMode.moveLineUp()
     if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'up')
         fastKeyStroke({'shift', 'cmd'}, 'up')
     elseif appIs(atom) or appIs(sublime) then
-        -- Atom, Sublime: Move line up
         fastKeyStroke({'ctrl', 'cmd'}, 'up')
     end
 end
 
-function CodeMode.l()
-    if appIs(iterm) then
-        typeAndEnter('git pull')
-    else
-        Pending.run({
-            function()
-                -- Go to definition
-                fastKeyStroke({'alt', 'cmd'}, 'down')
-            end,
-            function()
-                spoon.YankMode.word()
-                goToFileInAtom(hs.pasteboard.getContents())
-            end,
-        })
-    end
+function CodeMode.goToDefinition()
+    Pending.run({
+        function()
+            fastKeyStroke({'alt', 'cmd'}, 'down')
+        end,
+        function()
+            spoon.YankMode.word()
+            goToFileInAtom(hs.pasteboard.getContents())
+        end,
+    })
 end
 
-function CodeMode.semicolon()
-    -- Atom: Toggle semicolon at end of line
+function CodeMode.toggleSemicolon()
     fastKeyStroke({'alt'}, ';')
 end
 
-function CodeMode.quote()
+function CodeMode.equals()
     Pending.run({
         function()
             insertText(' = ')
@@ -116,53 +125,39 @@ function CodeMode.quote()
     })
 end
 
-function CodeMode.return_or_enter()
-    if appIs(iterm) then
-        ProjectManager.serveCurrent()
-    else
-        insertText('return')
-    end
+function CodeMode.typeReturn()
+    insertText('return')
 end
 
-function CodeMode.b()
+function CodeMode.toggleBoolean()
     if appIs(sublime) then
         fastKeyStroke({'alt', 'cmd'}, 'x')
     elseif appIs(atom) then
-        -- Toggle Boolean
         fastKeyStroke('-')
     end
 end
 
-function CodeMode.n()
-    -- Select next word
+function CodeMode.selectNextWord()
     fastKeyStroke({'cmd'}, 'd')
 end
 
-function CodeMode.m()
-    if appIs(iterm) then
-        typeAndEnter('git:merge')
-    else
-        -- Multiple cursors down
-        fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
-    end
+function CodeMode.multipleCursorsDown()
+    fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
 end
 
-function CodeMode.comma()
-    -- Atom: Toggle comma at end of line
+function CodeMode.toggleComma()
     fastKeyStroke({'alt'}, ',')
 end
 
-function CodeMode.period()
+function CodeMode.doubleArrow()
     insertText(' => ')
 end
 
-function CodeMode.slash()
-    -- Atom: Go to matching bracket
+function CodeMode.goToMatchingBracket()
     fastKeyStroke({'ctrl'}, 'm')
 end
 
-function CodeMode.spacebar()
-    -- Comment
+function CodeMode.comment()
     fastKeyStroke({'cmd'}, '/')
 end
 

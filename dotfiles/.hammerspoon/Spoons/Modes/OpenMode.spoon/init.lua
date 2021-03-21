@@ -1,45 +1,54 @@
 local OpenMode = {}
 OpenMode.__index = OpenMode
 
-function OpenMode.a()
-    openInSublime('~/.fuelingzsh/aliases')
-end
-
-function OpenMode.s()
-    openInSublime('~/.fuelingzsh/custom/espanso/default.yml')
-end
-
-function OpenMode.d()
-    hs.execute('open ~/Downloads')
-end
-
-function OpenMode.h()
-    openInSublime('~/.hammerspoon')
-end
-
-function OpenMode.z()
-    openInSublime('~/.fuelingzsh')
-end
-
 OpenMode.lookup = {
+    tab = 'customOpen',
+    q = 'customOpen',
+    w = 'customOpen',
     e = 'inSublime',
     r = 'inAtom',
+    t = 'customOpen',
+    caps_lock = 'customOpen',
+    a = 'aliases',
+    s = 'snippets',
+    d = 'downloads',
+    f = 'customOpen',
     g = 'inChrome',
-    k = 'karabiner',
+    left_shift = 'customOpen',
+    z = 'fuelingzsh',
     x = 'inTinkerwell',
     c = 'inSublimeMerge',
     v = 'inTablePlus',
     b = 'inFinder',
+
+    h = 'hammerspoon',
+    k = 'karabiner',
+
+    spacebar = 'customOpen',
 }
 
-function OpenMode.handle(key)
-    if OpenMode[key] then
-        OpenMode[key]()
-    elseif OpenMode.lookup[key] then
-        OpenMode[OpenMode.lookup[key]]()
-    else
-        hs.execute("open -g 'hammerspoon://custom-open?key=" .. key:upper() .. "'")
-    end
+function OpenMode.customOpen(key)
+    hs.execute("open -g 'hammerspoon://custom-open?key=" .. key:upper() .. "'")
+end
+
+function OpenMode.aliases()
+    openInSublime('~/.fuelingzsh/aliases')
+end
+
+function OpenMode.snippets()
+    openInSublime('~/.fuelingzsh/custom/espanso/default.yml')
+end
+
+function OpenMode.downloads()
+    hs.execute('open ~/Downloads')
+end
+
+function OpenMode.hammerspoon()
+    openInSublime('~/.hammerspoon')
+end
+
+function OpenMode.fuelingzsh()
+    openInSublime('~/.fuelingzsh')
 end
 
 function OpenMode.inSublimeMerge()

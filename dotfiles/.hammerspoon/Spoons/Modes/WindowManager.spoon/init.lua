@@ -1,143 +1,54 @@
 local WindowManager = {}
 WindowManager.__index = WindowManager
 
-function WindowManager.tab()
-    WindowManager.moveToCenter()
+WindowManager.lookup = {
+    tab = 'moveToCenter',
+    q = nil,
+    w = nil,
+    e = nil,
+    r = nil,
+    t = nil,
+    caps_lock = 'missionControl',
+    a = nil,
+    s = nil,
+    d = 'moveToNextDisplay',
+    f = 'maximize',
+    g = 'showGrid',
+    left_shift = nil,
+    z = nil,
+    x = nil,
+    c = nil,
+    v = nil,
+    b = 'toggleSidebar',
+
+    y = nil,
+    u = 'topLeft',
+    i = 'moveToMiddle',
+    o = 'topRight',
+    p = 'appSettings',
+    open_bracket = nil,
+    close_bracket = 'moveTotopRightSmall',
+    h = 'leftHalf',
+    j = 'bottomHalf',
+    k = 'topHalf',
+    l = 'rightHalf',
+    semicolon = 'next',
+    quote = 'nextInCurrentApp',
+    return_or_enter = 'reset',
+    n = 'bottomLeft',
+    m = 'moveMouseToOtherScreen',
+    comma = 'bottomRight',
+    period = nil,
+    slash = nil,
+    right_shift = nil,
+}
+
+function WindowManager.fallback(location)
+    WindowManager.moveTo(location)
 end
 
-function WindowManager.q()
-end
-
-function WindowManager.w()
-end
-
-function WindowManager.e()
-end
-
-function WindowManager.r()
-end
-
-function WindowManager.t()
-end
-
-function WindowManager.y()
-end
-
-function WindowManager.u()
-    WindowManager.moveTo('topLeft')
-end
-
-function WindowManager.i()
-    WindowManager.moveToMiddle()
-end
-
-function WindowManager.o()
-    WindowManager.moveTo('topRight')
-end
-
-function WindowManager.p()
-    WindowManager.appSettings()
-end
-
-function WindowManager.open_bracket()
-end
-
-function WindowManager.close_bracket()
-    WindowManager.moveTotopRightSmall()
-end
-
-function WindowManager.caps_lock()
-    -- Mission Control
+function WindowManager.missionControl()
     fastKeyStroke({'fn', 'ctrl'}, 'up')
-end
-
-function WindowManager.a()
-end
-
-function WindowManager.s()
-end
-
-function WindowManager.d()
-    WindowManager.moveToNextDisplay()
-end
-
-function WindowManager.f()
-    WindowManager.moveTo('maximize')
-end
-
-function WindowManager.g()
-    WindowManager.showGrid()
-end
-
-function WindowManager.h()
-    WindowManager.moveTo('leftHalf')
-end
-
-function WindowManager.j()
-    WindowManager.moveTo('bottomHalf')
-end
-
-function WindowManager.k()
-    WindowManager.moveTo('topHalf')
-end
-
-function WindowManager.l()
-    WindowManager.moveTo('rightHalf')
-end
-
-function WindowManager.semicolon()
-    WindowManager.next()
-end
-
-function WindowManager.quote()
-    WindowManager.nextInCurrentApp()
-end
-
-function WindowManager.return_or_enter()
-    WindowManager.reset()
-end
-
-function WindowManager.left_shift()
-end
-
-function WindowManager.z()
-end
-
-function WindowManager.x()
-end
-
-function WindowManager.c()
-end
-
-function WindowManager.v()
-end
-
-function WindowManager.b()
-    WindowManager.toggleSidebar()
-end
-
-function WindowManager.n()
-    WindowManager.moveTo('bottomLeft')
-end
-
-function WindowManager.m()
-    WindowManager.moveMouseToOtherScreen()
-end
-
-function WindowManager.comma()
-    WindowManager.moveTo('bottomRight')
-end
-
-function WindowManager.period()
-end
-
-function WindowManager.slash()
-end
-
-function WindowManager.right_shift()
-end
-
-function WindowManager.spacebar()
 end
 
 WindowManager.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')

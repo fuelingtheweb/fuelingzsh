@@ -1,81 +1,62 @@
 local ExtendedCommandMode = {}
 ExtendedCommandMode.__index = ExtendedCommandMode
 
-function ExtendedCommandMode.tab()
-end
+ExtendedCommandMode.lookup = {
+    tab = nil,
+    q = nil,
+    w = 'surroundText',
+    e = nil,
+    r = 'redo',
+    t = nil,
+    caps_lock = 'dismissNotifications',
+    a = 'actionFileInAlfred',
+    s = 'screenshotToFilesystem',
+    d = 'duplicate',
+    f = 'revealInSidebar',
+    g = 'toggleDockVisibility',
+    left_shift = nil,
+    z = 'undo',
+    x = nil,
+    c = 'screenshotToClipboard',
+    v = nil,
+    b = 'showBartender',
+    spacebar = 'newWindowOrFolder',
+}
 
-function ExtendedCommandMode.q()
-end
-
-function ExtendedCommandMode.w()
-    ExtendedCommandMode.surroundText()
-end
-
-function ExtendedCommandMode.e()
-end
-
-function ExtendedCommandMode.r()
-    -- Redo
+function ExtendedCommandMode.redo()
     fastKeyStroke({'shift', 'cmd'}, 'z')
 end
 
-function ExtendedCommandMode.t()
-end
-
-function ExtendedCommandMode.caps_lock()
-    ExtendedCommandMode.dismissNotifications()
-end
-
-function ExtendedCommandMode.a()
-    -- Alfred: Action File
+function ExtendedCommandMode.actionFileInAlfred()
     fastKeyStroke({'alt', 'cmd'}, '\\')
 end
 
-function ExtendedCommandMode.s()
-    -- Screenshot to filesystem
+function ExtendedCommandMode.screenshotToFilesystem()
     fastKeyStroke({'shift', 'cmd'}, '4')
 end
 
-function ExtendedCommandMode.d()
-    ExtendedCommandMode.duplicate()
-end
-
-function ExtendedCommandMode.f()
+function ExtendedCommandMode.revealInSidebar()
     -- Atom: Reveal active file in tree view
     fastKeyStroke({'shift', 'cmd'}, '\\')
 end
 
-function ExtendedCommandMode.g()
-    -- Toggle dock visibility
+function ExtendedCommandMode.toggleDockVisibility()
     fastKeyStroke({'alt', 'cmd'}, 'd')
 end
 
-function ExtendedCommandMode.left_shift()
-end
-
-function ExtendedCommandMode.z()
-    -- Undo
+function ExtendedCommandMode.undo()
     fastKeyStroke({'cmd'}, 'z')
 end
 
-function ExtendedCommandMode.x()
-end
-
-function ExtendedCommandMode.c()
-    -- Screenshot to clipboard
+function ExtendedCommandMode.screenshotToClipboard()
     fastKeyStroke({'shift', 'ctrl', 'cmd'}, '4')
 end
 
-function ExtendedCommandMode.v()
-end
-
-function ExtendedCommandMode.b()
-    -- Bartender: Show
+function ExtendedCommandMode.showBartender()
     fastKeyStroke({'shift', 'ctrl', 'cmd'}, 'b')
 end
 
-function ExtendedCommandMode.spacebar()
-    -- New window / folder
+function ExtendedCommandMode.newWindowOrFolder()
     fastKeyStroke({'shift', 'cmd'}, 'n')
 end
 

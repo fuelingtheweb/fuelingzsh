@@ -2,34 +2,41 @@ local DestroyMode = {}
 DestroyMode.__index = DestroyMode
 
 DestroyMode.lookup = {
-    e = 'toEndOfWord',
+    tab = 'modeForward',
     q = 'subword',
     w = 'word',
-    a = 'toEndOfLine',
-    i = 'toBeginningOfLine',
-    v = 'line',
-    x = 'character',
-    tab = 'mode-forward',
+    e = 'toEndOfWord',
+    r = nil,
+    t = 'withWrapperKey',
     caps_lock = 'mode',
-    left_shift = 'mode-backward',
+    a = 'toEndOfLine',
+    s = 'withWrapperKey',
+    d = 'withWrapperKey',
+    f = 'withWrapperKey',
+    g = 'toBeginningOfLine',
+    left_shift = 'modeBackward',
+    z = 'withWrapperKey',
+    x = 'character',
+    c = 'withWrapperKey',
+    v = 'line',
+    b = 'withWrapperKey',
+    spacebar = 'simpleDelete',
 }
 
-function DestroyMode.handle(key)
-    if key == 'spacebar' then
-        fastKeyStroke('delete')
-    elseif DestroyMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://destroy-" .. DestroyMode.lookup[key] .. "'")
-    elseif TextManipulation.wrapperKeyLookup[key] then
-        keystroke = TextManipulation.wrapperKeyLookup[key]
+function DestroyMode.withWrapperKey(key)
+    keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        fastKeyStroke('escape')
-        fastKeyStroke('d')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
-    end
+    fastKeyStroke('escape')
+    fastKeyStroke('d')
+    fastKeyStroke('i')
+    fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-hs.urlevent.bind('destroy-toEndOfWord', function()
+function DestroyMode.simpleDelete()
+    fastKeyStroke('delete')
+end
+
+function DestroyMode.toEndOfWord()
     Pending.run({
         function()
             if TextManipulation.canManipulateWithVim() then
@@ -52,18 +59,18 @@ hs.urlevent.bind('destroy-toEndOfWord', function()
             end
         end,
     })
-end)
+end
 
-hs.urlevent.bind('destroy-subword', function()
+function DestroyMode.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
         fastKeyStroke('i')
         fastKeyStroke('q')
     end
-end)
+end
 
-hs.urlevent.bind('destroy-word', function()
+function DestroyMode.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
@@ -74,9 +81,9 @@ hs.urlevent.bind('destroy-word', function()
     else
         fastKeyStroke({'alt'}, 'delete')
     end
-end)
+end
 
-hs.urlevent.bind('destroy-toEndOfLine', function()
+function DestroyMode.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'd')
@@ -84,9 +91,9 @@ hs.urlevent.bind('destroy-toEndOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('destroy-toBeginningOfLine', function()
+function DestroyMode.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -95,9 +102,9 @@ hs.urlevent.bind('destroy-toBeginningOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'left')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('destroy-line', function()
+function DestroyMode.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
@@ -107,16 +114,16 @@ hs.urlevent.bind('destroy-line', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('destroy-character', function()
+function DestroyMode.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('x')
     else
         fastKeyStroke('delete')
     end
-end)
+end
 
 DestroyMode.direction = nil
 DestroyMode.key = nil
@@ -209,16 +216,16 @@ DestroyMode.keymap = {
     end,
 }
 
-hs.urlevent.bind('destroy-mode-forward', function()
+function DestroyMode.modeForward()
     DestroyMode.enterModal('F')
-end)
+end
 
-hs.urlevent.bind('destroy-mode', function()
+function DestroyMode.mode()
     DestroyMode.enterModal()
-end)
+end
 
-hs.urlevent.bind('destroy-mode-backward', function()
+function DestroyMode.modeBackward()
     DestroyMode.enterModal('B')
-end)
+end
 
 return DestroyMode

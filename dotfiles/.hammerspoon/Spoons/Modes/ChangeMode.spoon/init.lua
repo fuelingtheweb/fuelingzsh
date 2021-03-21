@@ -2,31 +2,41 @@ local ChangeMode = {}
 ChangeMode.__index = ChangeMode
 
 ChangeMode.lookup = {
-    e = 'toEndOfWord',
+    tab = nil,
     q = 'subword',
     w = 'word',
+    e = 'toEndOfWord',
+    r = nil,
+    t = 'withWrapperKey',
+    caps_lock = 'disableVim',
     a = 'toEndOfLine',
-    i = 'toBeginningOfLine',
-    v = 'line',
+    s = 'withWrapperKey',
+    d = 'withWrapperKey',
+    f = 'withWrapperKey',
+    g = 'toBeginningOfLine',
+    left_shift = nil,
+    z = 'withWrapperKey',
     x = 'character',
+    c = 'withWrapperKey',
+    v = 'line',
+    b = 'withWrapperKey',
+    spacebar = nil,
 }
 
-function ChangeMode.handle(key)
-    if key == 'caps_lock' then
-        hs.execute("open -g 'hammerspoon://text-disableVim'")
-    elseif ChangeMode.lookup[key] then
-        hs.execute("open -g 'hammerspoon://change-" .. ChangeMode.lookup[key] .. "'")
-    elseif TextManipulation.wrapperKeyLookup[key] then
-        keystroke = TextManipulation.wrapperKeyLookup[key]
-
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
-    end
+function ChangeMode.disableVim()
+    hs.execute("open -g 'hammerspoon://text-disableVim'")
 end
 
-hs.urlevent.bind('change-toEndOfWord', function()
+function ChangeMode.withWrapperKey(key)
+    keystroke = TextManipulation.wrapperKeyLookup[key]
+
+    fastKeyStroke('escape')
+    fastKeyStroke('c')
+    fastKeyStroke('i')
+    fastKeyStroke(keystroke.mods, keystroke.key)
+end
+
+function ChangeMode.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -35,18 +45,18 @@ hs.urlevent.bind('change-toEndOfWord', function()
         fastKeyStroke({'shift', 'alt'}, 'right')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('change-subword', function()
+function ChangeMode.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
         fastKeyStroke('i')
         fastKeyStroke('q')
     end
-end)
+end
 
-hs.urlevent.bind('change-word', function()
+function ChangeMode.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -58,9 +68,9 @@ hs.urlevent.bind('change-word', function()
     else
         fastKeyStroke({'alt'}, 'delete')
     end
-end)
+end
 
-hs.urlevent.bind('change-toEndOfLine', function()
+function ChangeMode.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'c')
@@ -68,9 +78,9 @@ hs.urlevent.bind('change-toEndOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('change-toBeginningOfLine', function()
+function ChangeMode.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -79,9 +89,9 @@ hs.urlevent.bind('change-toBeginningOfLine', function()
         fastKeyStroke({'shift', 'cmd'}, 'left')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('change-line', function()
+function ChangeMode.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -94,14 +104,14 @@ hs.urlevent.bind('change-line', function()
         fastKeyStroke({'shift', 'cmd'}, 'right')
         fastKeyStroke('delete')
     end
-end)
+end
 
-hs.urlevent.bind('change-character', function()
+function ChangeMode.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'ctrl', 'alt'}, 'a')
     end
 
     fastKeyStroke('delete')
-end)
+end
 
 return ChangeMode

@@ -1,89 +1,76 @@
 local GoogleMode = {}
 GoogleMode.__index = GoogleMode
 
-function GoogleMode.y()
-    hs.execute("open -g 'hammerspoon://custom-open?key=Y'")
+GoogleMode.lookup = {
+    y = 'custom',
+    u = nil,
+    i = 'inbox',
+    o = 'toggleIncognito',
+    p = 'profiles',
+    open_bracket = 'groupTab',
+    close_bracket = nil,
+    h = 'history',
+    j = nil,
+    k = nil,
+    l = 'lastpass',
+    semicolon = 'tabManager',
+    quote = 'openAndReload',
+    return_or_enter = 'dismissDownloadsBar',
+    n = 'newBookmark',
+    m = 'bookmarks',
+    comma = 'toggleDevTools',
+    period = 'toggleDevToolsDocking',
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
+
+function GoogleMode.custom(key)
+    hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
-function GoogleMode.u()
-end
-
-function GoogleMode.i()
+function GoogleMode.inbox()
     openInChrome('https://inbox.google.com')
 end
 
-function GoogleMode.o()
-    GoogleMode.toggleIncognito()
-end
-
-function GoogleMode.p()
-    -- Chrome: Show profiles list
+function GoogleMode.profiles()
     fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
-function GoogleMode.open_bracket()
-    -- Chrome: Group Tab
+function GoogleMode.groupTab()
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g')
 end
 
-function GoogleMode.close_bracket()
-end
-
-function GoogleMode.h()
+function GoogleMode.history()
     triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
 end
 
-function GoogleMode.j()
-end
-
-function GoogleMode.k()
-end
-
-function GoogleMode.l()
-    -- Lastpass
+function GoogleMode.lastpass()
     fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'l')
 end
 
-function GoogleMode.semicolon()
-    -- Chrome: Tab Manager
+function GoogleMode.tabManager()
     fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
-function GoogleMode.quote()
-    GoogleMode.openAndReload()
-end
-
-function GoogleMode.return_or_enter()
-    -- Chrome: Dismiss downloads bar
+function GoogleMode.dismissDownloadsBar()
     fastKeyStroke({'alt'}, 'w')
 end
 
-function GoogleMode.n()
-    -- Chrome: Save Bookmark
+function GoogleMode.newBookmark()
     fastKeyStroke({'cmd'}, 'd')
 end
 
-function GoogleMode.m()
+function GoogleMode.bookmarks()
     triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
 end
 
-function GoogleMode.comma()
-    -- Chrome: Toggle Dev Tools
+function GoogleMode.toggleDevTools()
     fastKeyStroke({'alt', 'cmd'}, 'i')
 end
 
-function GoogleMode.period()
-    -- Chrome: Toggle Dev Tools docking
+function GoogleMode.toggleDevToolsDocking()
     fastKeyStroke({'shift', 'cmd'}, 'd')
-end
-
-function GoogleMode.slash()
-end
-
-function GoogleMode.right_shift()
-end
-
-function GoogleMode.spacebar()
 end
 
 function GoogleMode.openAndReload()

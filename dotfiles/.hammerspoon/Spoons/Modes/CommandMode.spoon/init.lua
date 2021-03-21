@@ -1,121 +1,57 @@
 local CommandMode = {}
 CommandMode.__index = CommandMode
 
-function CommandMode.tab()
-    -- Shift tab
+CommandMode.lookup = {
+    tab = 'shiftTab',
+    q = 'quit',
+    w = {'closeWindow', 'closeAllWindows'},
+    e = {'edit', 'finishEdit'},
+    r = {'reload', 'reloadSecondary'},
+    t = nil,
+    caps_lock = 'alfredCommands',
+    a = 'selectAll',
+    s = {'save', 'saveAndReload'},
+    d = 'done',
+    f = 'find',
+    g = 'atomGitPalette',
+    left_shift = nil,
+    z = 'sleep',
+    x = 'cancelOrDelete',
+    c = nil,
+    v = 'duplicateLine',
+    b = nil,
+    spacebar = nil,
+}
+
+function CommandMode.shiftTab()
     fastKeyStroke({'shift'}, 'tab')
 end
 
-function CommandMode.q()
-    -- Quit
+function CommandMode.quit()
     fastKeyStroke({'cmd'}, 'q')
 end
 
-function CommandMode.w()
-    Pending.run({
-        CommandMode.closeWindow,
-        CommandMode.closeAllWindows,
-    })
-end
-
-function CommandMode.e()
-    -- Edit With
-    Pending.run({
-        CommandMode.edit,
-        CommandMode.finishEdit,
-    })
-end
-
-function CommandMode.r()
-    -- Reload or Chrome hard refresh
-    Pending.run({
-        CommandMode.reload,
-        CommandMode.reloadSecondary,
-    })
-end
-
-function CommandMode.t()
-end
-
-function CommandMode.caps_lock()
+function CommandMode.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function CommandMode.a()
-    -- Select All
+function CommandMode.selectAll()
     fastKeyStroke({'cmd'}, 'a')
 end
 
-Modal.add({
-    key = 'CommandMode:save',
-    shortcuts = {
-        ['j'] = function()
-            spoon.HyperMode.previousTab()
-        end,
-        ['k'] = function()
-            spoon.HyperMode.nextTab()
-        end,
-        [';'] = function()
-            spoon.WindowManager.next()
-        end,
-    },
-})
-
-function CommandMode.s()
-    -- Modal.enter('CommandMode:save', 2)
-
-    -- Save or Save and reload Chrome
-    Pending.run({
-        function()
-            CommandMode.save()
-        end,
-        function()
-            -- Modal.exit()
-            CommandMode.saveAndReload()
-        end,
-    })
-end
-
-function CommandMode.d()
-    CommandMode.done()
-end
-
-function CommandMode.f()
-    CommandMode.find()
-end
-
-function CommandMode.g()
-    -- Atom: Toggle Git Palette
+function CommandMode.atomGitPalette()
     fastKeyStroke({'shift', 'cmd'}, 'h')
 end
 
-function CommandMode.left_shift()
-end
-
-function CommandMode.z()
-    -- Alfred: Sleep
+function CommandMode.sleep()
     triggerAlfredSearch('sleep')
 end
 
-function CommandMode.x()
-    CommandMode.cancelOrDelete()
-end
-
-function CommandMode.c()
-end
-
-function CommandMode.v()
-    -- Duplicate line
+function CommandMode.duplicateLine()
     fastKeyStroke('escape')
     fastKeyStroke('y')
     fastKeyStroke('y')
     fastKeyStroke('p')
-end
-
-function CommandMode.b()
-end
-
-function CommandMode.spacebar()
 end
 
 function CommandMode.reload()

@@ -1,101 +1,40 @@
 local GeneralMode = {}
 GeneralMode.__index = GeneralMode
 
-function GeneralMode.e()
-    insertText('!')
-end
+GeneralMode.lookup = {
+    e = '!',
+    a = '@',
+    d = '$',
 
-function GeneralMode.y()
-    insertText('&')
-end
+    y = '&',
+    u = '_',
+    i = {'-', '- '},
+    o = '+',
+    p = '|',
+    open_bracket = '(',
+    close_bracket = ')',
+    h = '#',
+    j = nil,
+    k = nil,
+    l = nil,
+    semicolon = nil,
+    quote = '=',
+    return_or_enter = nil,
+    n = '`',
+    m = 'multiply',
+    comma = '%',
+    period = '->',
+    slash = '~',
+    right_shift = nil,
+    spacebar = nil,
+}
 
-function GeneralMode.u()
-    insertText('_')
-end
-
-function GeneralMode.i()
-    Pending.run({
-        function()
-            insertText('-')
-        end,
-        function()
-            insertText('- ')
-        end,
-    })
-end
-
-function GeneralMode.o()
-    insertText('+')
-end
-
-function GeneralMode.p()
-    insertText('|')
-end
-
-function GeneralMode.open_bracket()
-    insertText('(')
-end
-
-function GeneralMode.close_bracket()
-    insertText(')')
-end
-
-function GeneralMode.a()
-    insertText('@')
-end
-
-function GeneralMode.d()
-    insertText('$')
-end
-
-function GeneralMode.h()
-    insertText('#')
-end
-
-function GeneralMode.j()
-end
-
-function GeneralMode.k()
-end
-
-function GeneralMode.l()
-end
-
-function GeneralMode.semicolon()
-end
-
-function GeneralMode.quote()
-    insertText('=')
-end
-
-function GeneralMode.return_or_enter()
-end
-
-function GeneralMode.n()
-    insertText('`')
-end
-
-function GeneralMode.m()
-    -- *
+function GeneralMode.multiply()
     fastKeyStroke({'shift'}, '8')
 end
 
-function GeneralMode.comma()
-    insertText('%')
-end
-
-function GeneralMode.period()
-    insertText('->')
-end
-
-function GeneralMode.slash()
-    insertText('~')
-end
-
-function GeneralMode.right_shift()
-end
-
-function GeneralMode.spacebar()
+function GeneralMode.fallback(value)
+    insertText(value)
 end
 
 return GeneralMode

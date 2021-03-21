@@ -1,29 +1,27 @@
 local ViVisualMode = {}
 ViVisualMode.__index = ViVisualMode
 
-function ViVisualMode.y()
-    ViVisualMode.selectToTopOfPage()
-end
-
-function ViVisualMode.i()
-    ViVisualMode.selectToFirstCharacterOfLine()
-end
-
-function ViVisualMode.o()
-    ViVisualMode.selectToEndOfLine()
-end
-
-function ViVisualMode.open_bracket()
-    ViVisualMode.selectToPreviousSubword()
-end
+ViVisualMode.lookup = {
+    y = 'selectToTopOfPage',
+    u = nil,
+    i = 'selectToFirstCharacterOfLine',
+    o = 'selectToEndOfLine',
+    p = nil,
+    open_bracket = 'selectToPreviousSubword',
+    close_bracket = 'selectToNextSubword',
+    semicolon = 'selectToPreviousWholeWord',
+    quote = {'selectToEndOfWholeWord', 'selectToNextWholeWord'},
+    return_or_enter = nil,
+    n = 'selectToBottomOfPage',
+    m = nil,
+    slash = nil,
+    right_shift = nil,
+    spacebar = nil,
+}
 
 function ViVisualMode.selectToPreviousSubword()
     spoon.SelectUntilMode.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'q')
-end
-
-function ViVisualMode.close_bracket()
-    ViVisualMode.selectToNextSubword()
 end
 
 function ViVisualMode.selectToNextSubword()
@@ -31,20 +29,9 @@ function ViVisualMode.selectToNextSubword()
     fastKeyStroke('q')
 end
 
-function ViVisualMode.semicolon()
-    ViVisualMode.selectToPreviousWholeWord()
-end
-
 function ViVisualMode.selectToPreviousWholeWord()
     spoon.SelectUntilMode.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'b')
-end
-
-function ViVisualMode.quote()
-    Pending.run({
-        ViVisualMode.selectToEndOfWholeWord,
-        ViVisualMode.selectToNextWholeWord,
-    })
 end
 
 function ViVisualMode.selectToEndOfWholeWord()
@@ -55,10 +42,6 @@ end
 function ViVisualMode.selectToNextWholeWord()
     spoon.SelectUntilMode.beginSelectingForward()
     fastKeyStroke({'shift'}, 'w')
-end
-
-function ViVisualMode.n()
-    ViVisualMode.selectToBottomOfPage()
 end
 
 function ViVisualMode.selectToTopOfPage()
