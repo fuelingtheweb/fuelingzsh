@@ -11,7 +11,6 @@ alias sdi='sed -i ""'
 alias cvl='csvlook'
 alias _='sudo'
 alias w='which'
-alias c="clear"
 alias h='cd ~/'
 alias hc='cd ~/ && clear'
 alias bc="bc -l -q" # Run Calculator

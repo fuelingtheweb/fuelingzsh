@@ -22,7 +22,7 @@ simlayers.available(']')
 
 simlayers.new('Case Mode (Key: A)', 'CaseMode', 'a', 'all-right')
 simlayers.new('Snippet Mode (Key: S)', 'SnippetMode', 's', 'all')
-simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', 'y,i,o,n', """
+simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', 'y,i,o,open_bracket,close_bracket,semicolon,quote,n', """
                 [:u :page_up]
                 [:h :left_arrow]
                 [:j :down_arrow]
@@ -42,9 +42,7 @@ simlayers.new('Jump to Mode (Key: return)', 'JumpToMode', 'return_or_enter', 'al
 simlayers.new('Dialog Case Mode (Key: Z)', 'CaseDialog', 'z', 'all-right')
 simlayers.available('x')
 simlayers.new('Code Mode (Key: C)', 'CodeMode', 'c', 'all-right')
-simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', 'y,i,o,n', """
-                [:open_bracket :!SOup_arrow]
-                [:close_bracket :!SOdown_arrow]
+simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', 'y,i,o,open_bracket,close_bracket,semicolon,quote,n', """
                 [:h :!Sleft_arrow]
                 [:j :!Sdown_arrow]
                 [:k :!Sup_arrow]

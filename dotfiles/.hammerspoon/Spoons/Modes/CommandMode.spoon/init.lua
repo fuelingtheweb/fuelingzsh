@@ -62,7 +62,7 @@ Modal.add({
 })
 
 function CommandMode.s()
-    Modal.enter('CommandMode:save', 2)
+    -- Modal.enter('CommandMode:save', 2)
 
     -- Save or Save and reload Chrome
     Pending.run({
@@ -70,7 +70,7 @@ function CommandMode.s()
             CommandMode.save()
         end,
         function()
-            Modal.exit()
+            -- Modal.exit()
             CommandMode.saveAndReload()
         end,
     })

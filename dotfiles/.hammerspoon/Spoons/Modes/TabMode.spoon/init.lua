@@ -36,9 +36,33 @@ function TabMode.h()
 end
 
 function TabMode.j()
+    TabMode.previous()
+end
+
+function TabMode.previous()
+    if appIs(tableplus) then
+        fastKeyStroke({'cmd'}, '[')
+    elseif appIncludes({teams, discord}) then
+        -- Teams: Move to next conversation / channel
+        fastKeyStroke({'alt'}, 'down')
+    else
+        fastKeyStroke({'shift', 'cmd'}, '[')
+    end
 end
 
 function TabMode.k()
+    TabMode.next()
+end
+
+function TabMode.next()
+    if appIs(tableplus) then
+        fastKeyStroke({'cmd'}, ']')
+    elseif appIncludes({teams, discord}) then
+        -- Teams: Move to previous conversation / channel
+        fastKeyStroke({'alt'}, 'up')
+    else
+        fastKeyStroke({'shift', 'cmd'}, ']')
+    end
 end
 
 function TabMode.l()

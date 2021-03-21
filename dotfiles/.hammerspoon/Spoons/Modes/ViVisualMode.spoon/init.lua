@@ -13,6 +13,50 @@ function ViVisualMode.o()
     ViVisualMode.selectToEndOfLine()
 end
 
+function ViVisualMode.open_bracket()
+    ViVisualMode.selectToPreviousSubword()
+end
+
+function ViVisualMode.selectToPreviousSubword()
+    spoon.SelectUntilMode.beginSelectingBackward()
+    fastKeyStroke({'shift'}, 'q')
+end
+
+function ViVisualMode.close_bracket()
+    ViVisualMode.selectToNextSubword()
+end
+
+function ViVisualMode.selectToNextSubword()
+    spoon.SelectUntilMode.beginSelectingForward()
+    fastKeyStroke('q')
+end
+
+function ViVisualMode.semicolon()
+    ViVisualMode.selectToPreviousWholeWord()
+end
+
+function ViVisualMode.selectToPreviousWholeWord()
+    spoon.SelectUntilMode.beginSelectingBackward()
+    fastKeyStroke({'shift'}, 'b')
+end
+
+function ViVisualMode.quote()
+    Pending.run({
+        ViVisualMode.selectToEndOfWholeWord,
+        ViVisualMode.selectToNextWholeWord,
+    })
+end
+
+function ViVisualMode.selectToEndOfWholeWord()
+    spoon.SelectUntilMode.beginSelectingForward()
+    fastKeyStroke({'shift'}, 'e')
+end
+
+function ViVisualMode.selectToNextWholeWord()
+    spoon.SelectUntilMode.beginSelectingForward()
+    fastKeyStroke({'shift'}, 'w')
+end
+
 function ViVisualMode.n()
     ViVisualMode.selectToBottomOfPage()
 end

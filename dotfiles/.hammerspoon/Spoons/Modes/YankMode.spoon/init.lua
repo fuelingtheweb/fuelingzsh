@@ -1,6 +1,23 @@
 local YankMode = {}
 YankMode.__index = YankMode
 
+function YankMode.w()
+    YankMode.word()
+end
+
+function YankMode.word()
+    if TextManipulation.canManipulateWithVim() then
+        fastKeyStroke('escape')
+        fastKeyStroke('y')
+        fastKeyStroke('i')
+        fastKeyStroke('w')
+    else
+        fastKeyStroke({'shift', 'alt'}, 'left')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
+    end
+end
+
 YankMode.lookup = {
     e = 'toEndOfWord',
     r = 'relativeFilePath',
@@ -15,7 +32,9 @@ YankMode.lookup = {
 }
 
 function YankMode.handle(key)
-    if YankMode.lookup[key] then
+    if YankMode[key] then
+        YankMode[key]()
+    elseif YankMode.lookup[key] then
         hs.execute("open -g 'hammerspoon://yank-" .. YankMode.lookup[key] .. "'")
     elseif TextManipulation.wrapperKeyLookup[key] then
         keystroke = TextManipulation.wrapperKeyLookup[key]
@@ -54,19 +73,6 @@ hs.urlevent.bind('yank-subword', function()
         fastKeyStroke('y')
         fastKeyStroke('i')
         fastKeyStroke('q')
-    end
-end)
-
-hs.urlevent.bind('yank-word', function()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
-    else
-        fastKeyStroke({'shift', 'alt'}, 'left')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
     end
 end)
 

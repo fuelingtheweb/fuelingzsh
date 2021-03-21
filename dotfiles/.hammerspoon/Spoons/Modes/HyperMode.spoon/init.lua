@@ -32,11 +32,11 @@ function HyperMode.h()
 end
 
 function HyperMode.j()
-    HyperMode.previousTab()
+    spoon.TabMode.previous()
 end
 
 function HyperMode.k()
-    HyperMode.nextTab()
+    spoon.TabMode.next()
 end
 
 function HyperMode.l()
@@ -177,28 +177,6 @@ function HyperMode.previousPage()
         typeAndEnter('cdp')
     else
         fastKeyStroke({'cmd'}, '[')
-    end
-end
-
-function HyperMode.previousTab()
-    if appIs(tableplus) then
-        fastKeyStroke({'cmd'}, '[')
-    elseif appIncludes({teams, discord}) then
-        -- Teams: Move to next conversation / channel
-        fastKeyStroke({'alt'}, 'down')
-    else
-        fastKeyStroke({'shift', 'cmd'}, '[')
-    end
-end
-
-function HyperMode.nextTab()
-    if appIs(tableplus) then
-        fastKeyStroke({'cmd'}, ']')
-    elseif appIncludes({teams, discord}) then
-        -- Teams: Move to previous conversation / channel
-        fastKeyStroke({'alt'}, 'up')
-    else
-        fastKeyStroke({'shift', 'cmd'}, ']')
     end
 end
 

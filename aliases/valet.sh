@@ -1,0 +1,10 @@
+alias v='valet'
+alias vv='valet --version'
+alias vh='valet list'
+alias va='valet link'
+alias vl='valet links'
+alias vrm='valet unlink'
+
+alias vs='valet secure'
+alias vr='valet restart'
+alias vo='valet open'

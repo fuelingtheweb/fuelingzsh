@@ -26,15 +26,13 @@ end
 
 function CodeMode.o()
     if appIs(iterm) then
-        -- Git: Checkout
-        typeAndEnter('gco')
+        typeAndEnter('git:checkout')
     end
 end
 
 function CodeMode.p()
     if appIs(iterm) then
-        -- Git: Push
-        typeAndEnter('gps')
+        typeAndEnter('git push')
     else
         insertText(' || ')
     end
@@ -52,8 +50,7 @@ end
 
 function CodeMode.h()
     if appIs(iterm) then
-        -- Git: Status
-        typeAndEnter('gs')
+        typeAndEnter('git:status')
     end
 end
 
@@ -81,11 +78,18 @@ end
 
 function CodeMode.l()
     if appIs(iterm) then
-        -- Git: Pull
-        typeAndEnter('gpl')
+        typeAndEnter('git pull')
     else
-        -- Atom: Go to definition
-        fastKeyStroke({'alt', 'cmd'}, 'down')
+        Pending.run({
+            function()
+                -- Go to definition
+                fastKeyStroke({'alt', 'cmd'}, 'down')
+            end,
+            function()
+                spoon.YankMode.word()
+                goToFileInAtom(hs.pasteboard.getContents())
+            end,
+        })
     end
 end
 
@@ -136,8 +140,7 @@ end
 
 function CodeMode.m()
     if appIs(iterm) then
-        -- Git: Merge
-        typeAndEnter('gm')
+        typeAndEnter('git:merge')
     else
         -- Multiple cursors down
         fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')

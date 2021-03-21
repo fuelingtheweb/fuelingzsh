@@ -4,6 +4,8 @@ source $ALIASES/file-editing.sh
 
 source $ALIASES/misc-dev.sh
 source $ALIASES/composer.sh
+source $ALIASES/valet.sh
+source $ALIASES/database.sh
 if type "$docker" > /dev/null; then
     source $ALIASES/docker.sh
 fi

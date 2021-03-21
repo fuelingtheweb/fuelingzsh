@@ -96,6 +96,30 @@ function SelectUntilMode.enterModal(direction, key)
     Modal.enter('SelectUntilMode')
 end
 
+function SelectUntilMode.beginSelectingForward()
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
+
+    if appIs(atom) then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke('l')
+    elseif appIs(sublime) then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+    end
+end
+
+function SelectUntilMode.beginSelectingBackward()
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
+
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke('h')
+    end
+end
+
 SelectUntilMode.actions = {
     singleQuote = function()
         SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
@@ -171,13 +195,8 @@ SelectUntilMode.actions = {
             return
         end
 
-        if inCodeEditor() then
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-            fastKeyStroke('h')
-        end
-
+        SelectUntilMode.beginSelectingBackward()
         fastKeyStroke({'shift'}, 'f')
-
         SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
 
@@ -192,15 +211,8 @@ SelectUntilMode.actions = {
             return
         end
 
-        if appIs(atom) then
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-            fastKeyStroke('l')
-        elseif appIs(sublime) then
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-        end
-
+        SelectUntilMode.beginSelectingForward()
         fastKeyStroke('t')
-
         SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
 

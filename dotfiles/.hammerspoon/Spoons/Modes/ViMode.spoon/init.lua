@@ -19,6 +19,50 @@ function ViMode.o()
     })
 end
 
+function ViMode.open_bracket()
+    ViMode.moveToPreviousSubword()
+end
+
+function ViMode.moveToPreviousSubword()
+    fastKeyStroke('escape')
+    fastKeyStroke({'shift'}, 'q')
+end
+
+function ViMode.close_bracket()
+    ViMode.moveToNextSubword()
+end
+
+function ViMode.moveToNextSubword()
+    fastKeyStroke('escape')
+    fastKeyStroke('q')
+end
+
+function ViMode.semicolon()
+    ViMode.moveToPreviousWholeWord()
+end
+
+function ViMode.moveToPreviousWholeWord()
+    fastKeyStroke('escape')
+    fastKeyStroke({'shift'}, 'b')
+end
+
+function ViMode.quote()
+    Pending.run({
+        ViMode.moveToEndOfWholeWord,
+        ViMode.moveToNextWholeWord,
+    })
+end
+
+function ViMode.moveToEndOfWholeWord()
+    fastKeyStroke('escape')
+    fastKeyStroke({'shift'}, 'e')
+end
+
+function ViMode.moveToNextWholeWord()
+    fastKeyStroke('escape')
+    fastKeyStroke({'shift'}, 'w')
+end
+
 function ViMode.n()
     ViMode.moveToBottomOfPage()
 end
