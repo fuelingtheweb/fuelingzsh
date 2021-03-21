@@ -3,10 +3,10 @@ HyperMode.__index = HyperMode
 
 HyperMode.lookup = {
     y = {'copy', 'copyAll'},
-    u = 'copyTextArea',
+    u = nil,
     i = nil,
     o = 'open',
-    p = {'alfredClipboard', 'paste', 'pasteStrip'},
+    p = 'alfredClipboard',
     open_bracket = 'commandPalette',
     close_bracket = nil,
     h = 'previousPage',
@@ -91,18 +91,6 @@ function HyperMode.new()
         fastKeyStroke({'alt', 'cmd'}, 'n')
     else
         fastKeyStroke({'shift', 'cmd'}, 'n')
-    end
-end
-
-function HyperMode.copyTextArea()
-    if appIs(notion) then
-        fastKeyStroke({'cmd'}, 'a')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
-    else
-        fastKeyStroke({'shift', 'cmd'}, 'up')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
     end
 end
 

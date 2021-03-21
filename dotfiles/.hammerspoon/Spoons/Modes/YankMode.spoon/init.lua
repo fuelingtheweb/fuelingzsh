@@ -2,7 +2,7 @@ local YankMode = {}
 YankMode.__index = YankMode
 
 YankMode.lookup = {
-    tab = nil,
+    tab = 'toTopOfPage',
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
@@ -133,6 +133,18 @@ function YankMode.viewPath()
 
     result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
     hs.pasteboard.setContents(result)
+end
+
+function YankMode.toTopOfPage()
+    if appIs(notion) then
+        fastKeyStroke({'cmd'}, 'a')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
+    else
+        fastKeyStroke({'shift', 'cmd'}, 'up')
+        fastKeyStroke({'cmd'}, 'c')
+        fastKeyStroke('right')
+    end
 end
 
 return YankMode

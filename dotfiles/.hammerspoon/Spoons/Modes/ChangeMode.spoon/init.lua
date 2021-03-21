@@ -14,7 +14,7 @@ ChangeMode.lookup = {
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    left_shift = nil,
+    left_shift = {'below', 'above'},
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -112,6 +112,14 @@ function ChangeMode.character()
     end
 
     fastKeyStroke('delete')
+end
+
+function ChangeMode.below()
+    fastKeyStroke('o')
+end
+
+function ChangeMode.above()
+    fastKeyStroke({'shift'}, 'o')
 end
 
 return ChangeMode

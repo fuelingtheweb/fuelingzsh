@@ -2,19 +2,19 @@ local PasteMode = {}
 PasteMode.__index = PasteMode
 
 PasteMode.lookup = {
-    tab = nil,
+    tab = 'pasteNext',
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
     r = nil,
     t = 'withWrapperKey',
-    caps_lock = nil,
+    caps_lock = 'default',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    left_shift = nil,
+    left_shift = {'primaryVim', 'secondaryVim'},
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -24,94 +24,141 @@ PasteMode.lookup = {
 }
 
 function PasteMode.withWrapperKey(key)
-    keystroke = TextManipulation.wrapperKeyLookup[key]
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
-    fastKeyStroke('escape')
-    fastKeyStroke('v')
-    fastKeyStroke('i')
-    fastKeyStroke(keystroke.mods, keystroke.key)
-    fastKeyStroke('p')
+    PasteMode.pastePending(
+        function()
+            keystroke = TextManipulation.wrapperKeyLookup[key]
+
+            fastKeyStroke('v')
+            fastKeyStroke('i')
+            fastKeyStroke(keystroke.mods, keystroke.key)
+        end
+    )
 end
 
 function PasteMode.toEndOfWord()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('e')
-        fastKeyStroke('p')
-    else
-        fastKeyStroke({'shift', 'alt'}, 'right')
-        fastKeyStroke({'cmd'}, 'v')
-    end
+    PasteMode.pastePending(
+        function()
+            fastKeyStroke('v')
+            fastKeyStroke('e')
+        end,
+        function()
+            fastKeyStroke({'shift', 'alt'}, 'right')
+        end
+    )
 end
 
 function PasteMode.subword()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke('q')
-        fastKeyStroke('p')
-    end
+    PasteMode.pastePending(
+        function()
+            fastKeyStroke('v')
+            fastKeyStroke('i')
+            fastKeyStroke('q')
+        end,
+        function()
+            fastKeyStroke({'shift', 'alt'}, 'left')
+        end
+    )
 end
 
 function PasteMode.word()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
-        fastKeyStroke('p')
-    else
-        fastKeyStroke({'shift', 'alt'}, 'left')
-        fastKeyStroke({'cmd'}, 'v')
-    end
+    PasteMode.pastePending(
+        function()
+            fastKeyStroke('v')
+            fastKeyStroke('i')
+            fastKeyStroke('w')
+        end,
+        function()
+            fastKeyStroke({'shift', 'alt'}, 'left')
+        end
+    )
 end
 
 function PasteMode.toEndOfLine()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke('p')
-    else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke({'cmd'}, 'v')
-    end
+    PasteMode.pastePending(
+        function()
+            fastKeyStroke('v')
+            fastKeyStroke({'shift', 'cmd'}, 'right')
+        end,
+        function()
+            fastKeyStroke({'shift', 'cmd'}, 'right')
+        end
+    )
 end
 
 function PasteMode.toBeginningOfLine()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke('p')
-    else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke({'cmd'}, 'v')
-    end
+    PasteMode.pastePending(
+        function() fastKeyStroke({'shift', 'cmd'}, 'left') end,
+        function() fastKeyStroke({'shift', 'cmd'}, 'left') end
+    )
 end
 
 function PasteMode.line()
-    if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'v')
-        fastKeyStroke('p')
-    else
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke({'cmd'}, 'v')
-    end
+    PasteMode.pastePending(
+        function()
+            fastKeyStroke({'shift'}, 'v')
+        end,
+        function()
+            fastKeyStroke({'cmd'}, 'left')
+            fastKeyStroke({'shift', 'cmd'}, 'right')
+        end
+    )
 end
 
 function PasteMode.character()
+    PasteMode.pastePending(
+        function() fastKeyStroke('v') end,
+        function() fastKeyStroke({'shift'}, 'left') end
+    )
+end
+
+function PasteMode.pastePending(selectTextWhenInVim, selectTextWhenInDefault)
+    Pending.run({
+        function()
+            PasteMode.selectText(selectTextWhenInVim, selectTextWhenInDefault)
+            PasteMode.pasteFirst()
+        end,
+        function()
+            PasteMode.selectText(selectTextWhenInVim, selectTextWhenInDefault)
+            PasteMode.pasteNext()
+        end,
+    })
+end
+
+function PasteMode.selectText(selectTextWhenInVim, selectTextWhenInDefault)
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('p')
+        selectTextWhenInVim()
     else
-        fastKeyStroke({'shift'}, 'left')
-        fastKeyStroke({'cmd'}, 'v')
+        selectTextWhenInDefault()
     end
+end
+
+function PasteMode.pasteFirst()
+    if TextManipulation.canManipulateWithVim() then
+        PasteMode.primaryVim()
+    else
+        PasteMode.default()
+    end
+end
+
+function PasteMode.pasteNext()
+    triggerAlfredWorkflow('paste:next', 'com.fuelingtheweb.commands')
+end
+
+function PasteMode.default()
+    fastKeyStroke({'cmd'}, 'v')
+end
+
+function PasteMode.primaryVim()
+    fastKeyStroke('p')
+end
+
+function PasteMode.secondaryVim()
+    fastKeyStroke({'shift'}, 'p')
 end
 
 return PasteMode
