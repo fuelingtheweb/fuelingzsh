@@ -59,4 +59,25 @@ compileTemplate(simlayers, """
                 [:!TCf :escape] ; Escape
             ]
         }
+        {
+            :des "Simultaneous d + f"
+            :rules [[
+                {
+                    :sim [:d :f]
+                    :simo {
+                        :interrupt true
+                        :dorder :insensitive
+                        :uorder :insensitive
+                        :afterup {:set ["SimDF" 0]}
+                    }
+                }
+                {:set ["SimDF" 1]}
+            ]]
+        }
+        {
+            :des "SimDF (Keys: D+F)"
+            :rules [:SimDF
+                [:u [:t :e :s :t]]
+            ]
+        }
 """)
