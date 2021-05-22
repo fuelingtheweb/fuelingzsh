@@ -8,7 +8,7 @@ function yarnOrNpm:get() {
 
 yarnOrNpm:run() {
     command="$(yarnOrNpm:get)$1"
-    $command
+    $command "$@"
 }
 
 # Yarn
@@ -26,27 +26,29 @@ alias yrm='yarnOrNpm:run rm'
 alias yf='yarnOrNpm:run f'
 alias yod='yarnOrNpm:run od'
 
-alias yy='yarn'
+yy() {
+    yarn
+}
 yyi() {
     yarn install
 }
 yya() {
-    yarn add
+    yarn add "$@"
 }
 yyad() {
-    yarn add --dev
+    yarn add --dev "$@"
 }
 yyl() {
     yarn list
 }
 yyu() {
-    yarn upgrade
+    yarn upgrade "$@"
 }
 yyrm() {
-    yarn remove
+    yarn remove "$@"
 }
 yyf() {
-    yarn search
+    yarn search "$@"
 }
 yyod() {
     yarn outdated
@@ -94,7 +96,7 @@ npu() {
     npm update
 }
 nprm() {
-    npm uninstall
+    npm uninstall "$@"
 }
 npf() {
     npm search

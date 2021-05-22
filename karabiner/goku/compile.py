@@ -22,16 +22,7 @@ simlayers.available(']')
 
 simlayers.new('Case Mode (Key: A)', 'CaseMode', 'a', 'all-right')
 simlayers.new('Snippet Mode (Key: S)', 'SnippetMode', 's', 'all')
-simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', 'y,i,o,open_bracket,close_bracket,semicolon,quote,n', """
-                [:u :page_up]
-                [:h :left_arrow]
-                [:j :down_arrow]
-                [:k :up_arrow]
-                [:l :right_arrow]
-                [:m :page_down]
-                [:period :!Oright_arrow] ; Previous word
-                [:comma :!Oleft_arrow] ; Next word
-""")
+simlayers.new('Vi Mode (Key: D)', 'ViMode', 'd', 'all-right')
 simlayers.new('General Mode (Key: F)', 'GeneralMode', 'f', 'all')
 simlayers.new('Google Mode (Key: G)', 'GoogleMode', 'g', 'all-right')
 
@@ -42,18 +33,11 @@ simlayers.new('Jump to Mode (Key: return)', 'JumpToMode', 'return_or_enter', 'al
 simlayers.new('Dialog Case Mode (Key: Z)', 'CaseDialog', 'z', 'all-right')
 simlayers.available('x')
 simlayers.new('Code Mode (Key: C)', 'CodeMode', 'c', 'all-right')
-simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', 'y,i,o,open_bracket,close_bracket,semicolon,quote,n', """
-                [:h :!Sleft_arrow]
-                [:j :!Sdown_arrow]
-                [:k :!Sup_arrow]
-                [:l :!Sright_arrow]
-                [:period :!SOright_arrow] ; Previous word
-                [:comma :!SOleft_arrow] ; Next word
-""")
+simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', 'all-right')
 simlayers.available('b')
 
 simlayers.new('Change Mode (Key: n)', 'ChangeMode', 'n', 'all-left')
-simlayers.new('Media Mode (Key: M)', 'MediaMode', 'm', 'all')
+simlayers.new('Make Mode (Key: M)', 'MakeMode', 'm', 'all-left')
 simlayers.new('Launch Mode (Key: ,)', 'LaunchMode', 'comma', 'all-left')
 simlayers.new('App Mode (Key: .)', 'AppMode', 'period', 'all')
 simlayers.new('Search Mode (Key: /)', 'SearchMode', 'slash', 'all-left')

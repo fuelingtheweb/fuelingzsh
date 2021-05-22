@@ -227,7 +227,7 @@ SelectUntilMode.actions = {
         end
 
         SelectUntilMode.beginSelectingBackward()
-        fastKeyStroke({'shift'}, 'f')
+        fastKeyStroke({'shift'}, 't')
         SelectUntilMode.keymap[SelectUntilMode.key]()
     end,
 

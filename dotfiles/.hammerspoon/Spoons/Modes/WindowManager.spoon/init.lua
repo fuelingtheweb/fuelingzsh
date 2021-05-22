@@ -5,9 +5,9 @@ WindowManager.lookup = {
     tab = 'moveToCenter',
     q = nil,
     w = nil,
-    e = nil,
-    r = nil,
-    t = nil,
+    e = 'scrollScreenWithCursorAtEnd',
+    r = 'scrollScreenWithCursorAtCenter',
+    t = 'scrollScreenWithCursorAtTop',
     caps_lock = 'missionControl',
     a = nil,
     s = nil,
@@ -141,8 +141,34 @@ function WindowManager.toggleSidebar()
     elseif appIs(sublimeMerge) then
         fastKeyStroke({'cmd'}, 'k')
         fastKeyStroke({'cmd'}, 'b')
+    elseif appIs(slack) then
+        fastKeyStroke({'cmd', 'shift'}, 'd')
     else
         fastKeyStroke({'cmd'}, '\\')
+    end
+end
+
+function WindowManager.scrollScreenWithCursorAtEnd()
+    if inCodeEditor() then
+        spoon.HyperMode.forceEscape()
+        fastKeyStroke('z')
+        fastKeyStroke('b')
+    end
+end
+
+function WindowManager.scrollScreenWithCursorAtCenter()
+    if inCodeEditor() then
+        spoon.HyperMode.forceEscape()
+        fastKeyStroke('z')
+        fastKeyStroke('z')
+    end
+end
+
+function WindowManager.scrollScreenWithCursorAtTop()
+    if inCodeEditor() then
+        spoon.HyperMode.forceEscape()
+        fastKeyStroke('z')
+        fastKeyStroke('t')
     end
 end
 

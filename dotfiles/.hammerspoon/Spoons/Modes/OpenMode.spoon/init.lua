@@ -33,6 +33,7 @@ end
 
 function OpenMode.aliases()
     openInSublime('~/.fuelingzsh/aliases')
+    hs.timer.doAfter(0.1, spoon.HyperMode.open)
 end
 
 function OpenMode.snippets()
@@ -45,10 +46,12 @@ end
 
 function OpenMode.hammerspoon()
     openInSublime('~/.hammerspoon')
+    hs.timer.doAfter(0.1, spoon.HyperMode.open)
 end
 
 function OpenMode.fuelingzsh()
     openInSublime('~/.fuelingzsh')
+    hs.timer.doAfter(0.1, spoon.HyperMode.open)
 end
 
 function OpenMode.inSublimeMerge()

@@ -45,7 +45,8 @@ class Simlayer:
             if key == self.modifier:
                 continue
 
-            rules += "[:%s [:hs \"handle-karabiner?layer=%s&key=%s\"]]\n%s" % (key, self.name, key, self.indent(4))
+            modifier = 'f16' if self.modifier == 'caps_lock' else self.modifier
+            rules += "[:%s [:!STC%s :!!%s]]\n%s" % (key, modifier, self.newKey(key), self.indent(4))
 
         if self.custom:
             rules += self.custom.strip()
@@ -63,6 +64,17 @@ class Simlayer:
             keys = 'y,u,i,o,p,open_bracket,close_bracket,h,j,k,l,semicolon,quote,return_or_enter,b,n,m,comma,period,slash,right_shift,spacebar'
 
         return keys.split(',')
+
+    def newKey(self, key):
+        keys = {
+            'caps_lock': 'f16',
+            'w': 'f17',
+            'comma': 'f18',
+            'period': 'f19',
+            'slash': 'f20'
+        }
+
+        return keys.get(key) or key
 
     def indent(self, count):
         return '    ' * count

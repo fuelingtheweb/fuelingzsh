@@ -94,6 +94,10 @@ function openDiscordChannel(name)
     end)
 end
 
+function openSlackChannel(channel)
+    hs.urlevent.openURL('slack://channel?' .. channel)
+end
+
 function openNotionPage(name)
     keyStroke({'cmd'}, 'p')
     insertText(name)

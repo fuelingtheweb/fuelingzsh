@@ -16,7 +16,7 @@
     :profiles {
         :Default {
             :default true
-            :sim 100 ;; simultaneous_threshold_milliseconds (def: 50)
+            :sim 20 ;; simultaneous_threshold_milliseconds (def: 50)
             ;; keys need to be pressed within this threshold to be considered simultaneous
             :delay 500 ;; to_delayed_action_delay_milliseconds (def: 500)
             ;; basically it means time after which the key press is count delayed

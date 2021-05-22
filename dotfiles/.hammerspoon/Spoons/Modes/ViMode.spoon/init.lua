@@ -3,17 +3,23 @@ ViMode.__index = ViMode
 
 ViMode.lookup = {
     y = 'moveToTopOfPage',
-    u = nil,
+    u = 'pageUp',
     i = {'moveToFirstCharacterOfLine', 'moveAndInsertAtFirstCharacterOfLine'},
     o = {'moveToEndOfLine', 'moveAndAppendAtEndOfLine'},
     p = nil,
     open_bracket = 'moveToPreviousSubword',
     close_bracket = 'moveToNextSubword',
+    h = 'left',
+    j = 'down',
+    k = 'up',
+    l = 'right',
     semicolon = 'moveToPreviousWholeWord',
     quote = {'moveToEndOfWholeWord', 'moveToNextWholeWord'},
     return_or_enter = nil,
     n = 'moveToBottomOfPage',
-    m = nil,
+    m = 'pageDown',
+    comma = 'previousWord',
+    period = 'nextWord',
     slash = nil,
     right_shift = nil,
     spacebar = nil,
@@ -84,6 +90,38 @@ end
 
 function ViMode.moveToBottomOfPage()
     fastKeyStroke({'cmd'}, 'down')
+end
+
+function ViMode.pageUp()
+    fastKeyStroke('pageup')
+end
+
+function ViMode.left()
+    fastKeyStroke('left')
+end
+
+function ViMode.down()
+    fastKeyStroke('down')
+end
+
+function ViMode.up()
+    fastKeyStroke('up')
+end
+
+function ViMode.right()
+    fastKeyStroke('right')
+end
+
+function ViMode.pageDown()
+    fastKeyStroke('pagedown')
+end
+
+function ViMode.previousWord()
+    fastKeyStroke({'alt'}, 'left')
+end
+
+function ViMode.nextWord()
+    fastKeyStroke({'alt'}, 'right')
 end
 
 return ViMode

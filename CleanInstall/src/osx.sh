@@ -57,6 +57,8 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 # Disable the over-the-top focus ring animation
 defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
 # Increase window resize speed for Cocoa applications
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 

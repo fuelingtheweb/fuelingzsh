@@ -8,15 +8,15 @@ GeneralMode.lookup = {
 
     y = '&',
     u = '_',
-    i = {'-', '- '},
+    i = '-',
     o = '+',
     p = '|',
-    open_bracket = '(',
-    close_bracket = ')',
+    open_bracket = 'openParens',
+    close_bracket = 'closeParens',
     h = '#',
     j = nil,
     k = nil,
-    l = nil,
+    l = '- ',
     semicolon = nil,
     quote = 'equals',
     return_or_enter = nil,
@@ -28,6 +28,14 @@ GeneralMode.lookup = {
     right_shift = nil,
     spacebar = nil,
 }
+
+function GeneralMode.openParens()
+    fastKeyStroke({'shift'}, '9')
+end
+
+function GeneralMode.closeParens()
+    fastKeyStroke({'shift'}, '0')
+end
 
 function GeneralMode.equals()
     fastKeyStroke('=')

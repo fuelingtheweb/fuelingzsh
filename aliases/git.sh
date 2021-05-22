@@ -30,6 +30,7 @@ alias gdh='git diff --help'
 alias gds='git diff --staged'
 
 alias gf='git fetch'
+alias gfp='git fetch --prune'
 
 # Git Flow Commands
 alias gfi='git flow init'
@@ -46,7 +47,7 @@ alias gfrf='git flow release finish'
 alias gin='git init'
 alias gig='st .gitignore'
 
-alias gl='git log --graph --date=short'
+alias gl='git:log'
 
 alias gm='git:merge'
 alias gmm='git merge $(git:master-branch)'
@@ -55,7 +56,7 @@ alias gma='git merge --abort'
 
 alias go='git:checkout'
 alias goh='git checkout --help'
-alias gon='git checkout -b'
+alias gon='git:branch.new'
 alias gop='git checkout -'
 alias goa='git:checkout.include-all'
 alias gom='git:checkout-master'
@@ -82,7 +83,7 @@ alias grsh='git reset --hard'
 alias grmv='git remote -v'
 alias grmr='git remote rm'
 alias grma='git remote add'
-alias grsu='git remote set-url'
+alias grmsu='git remote set-url'
 
 alias gs='git:status'
 alias gsf='git:status.fuzzy'
@@ -163,6 +164,10 @@ function git:branch.list() {
     git for-each-ref --sort=committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"
 }
 
+function git:branch.new() {
+    git checkout -b $1
+}
+
 function git:branch.rename() {
     local branchName=$1
     if [[ -z $branchName ]]; then
@@ -200,6 +205,10 @@ function git:commit() {
 
 function git:copy-commits() {
     git log --no-merges --reverse --pretty=format:'- %s' $(git:master-branch).. | pbcopy
+}
+
+function git:log() {
+    git log --graph --date=short
 }
 
 function git:master-branch() {

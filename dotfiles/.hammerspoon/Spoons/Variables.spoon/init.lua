@@ -17,6 +17,7 @@ tableplus = 'com.tinyapp.TablePlus'
 teams = 'com.microsoft.teams'
 transmit = 'com.panic.Transmit'
 invoker = 'de.beyondco.invoker'
+slack = 'com.tinyspeck.slackmacgap'
 apps['atom'] = atom
 apps['chrome'] = chrome
 apps['finder'] = finder

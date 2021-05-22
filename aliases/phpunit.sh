@@ -7,7 +7,9 @@ alias xde='xdebug:enable'
 # Testing
 t() {
     clear
-    if [ -f vendor/bin/phpunit ]; then
+    if [ -f artisan ]; then
+        php artisan test --parallel --stop-on-failure
+    elif [ -f vendor/bin/phpunit ]; then
         vendor/bin/phpunit --stop-on-failure "$@"
     else
         phpunit --stop-on-failure "$@"

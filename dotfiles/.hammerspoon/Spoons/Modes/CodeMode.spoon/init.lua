@@ -7,11 +7,11 @@ CodeMode.lookup = {
     y = 'conditionalAnd',
     u = 'addUseStatement',
     i = 'multipleCursorsUp',
-    o = nil,
+    o = 'concatenate',
     p = 'conditionalOr',
     open_bracket = 'fold',
     close_bracket = 'unfold',
-    h = nil,
+    h = 'selectAll',
     j = 'moveLineDown',
     k = 'moveLineUp',
     l = 'goToDefinition',
@@ -23,7 +23,7 @@ CodeMode.lookup = {
     comma = 'toggleComma',
     period = 'doubleArrow',
     slash = 'goToMatchingBracket',
-    right_shift = nil,
+    right_shift = 'selectAllInstances',
     spacebar = 'comment',
 
     b = 'toggleBoolean',
@@ -104,7 +104,20 @@ function CodeMode.goToDefinition()
 end
 
 function CodeMode.toggleSemicolon()
-    fastKeyStroke({'alt'}, ';')
+    if inCodeEditor() then
+        return fastKeyStroke({'alt'}, ';')
+    end
+
+    spoon.ViMode.moveToEndOfLine()
+    fastKeyStroke({'shift'}, 'left')
+    text = getSelectedText()
+
+    if getSelectedText() == ';' then
+        fastKeyStroke('delete')
+    else
+        fastKeyStroke('right')
+        insertText(';')
+    end
 end
 
 function CodeMode.equals()
@@ -146,7 +159,20 @@ function CodeMode.multipleCursorsDown()
 end
 
 function CodeMode.toggleComma()
-    fastKeyStroke({'alt'}, ',')
+    if inCodeEditor() then
+        return fastKeyStroke({'alt'}, ',')
+    end
+
+    spoon.ViMode.moveToEndOfLine()
+    fastKeyStroke({'shift'}, 'left')
+    text = getSelectedText()
+
+    if getSelectedText() == ',' then
+        fastKeyStroke('delete')
+    else
+        fastKeyStroke('right')
+        insertText(',')
+    end
 end
 
 function CodeMode.doubleArrow()
@@ -159,6 +185,24 @@ end
 
 function CodeMode.comment()
     fastKeyStroke({'cmd'}, '/')
+end
+
+function CodeMode.selectAllInstances()
+    fastKeyStroke({'ctrl', 'cmd'}, 'g')
+end
+
+function CodeMode.concatenate()
+    if titleContains('.php') then
+        insertText(' . ')
+    elseif titleContains('.lua') then
+        insertText(' .. ')
+    elseif titleContains('.js') then
+        insertText(' + ')
+    end
+end
+
+function CodeMode.selectAll()
+    fastKeyStroke({'ctrl', 'cmd'}, 'g')
 end
 
 return CodeMode

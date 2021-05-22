@@ -3,17 +3,23 @@ ViVisualMode.__index = ViVisualMode
 
 ViVisualMode.lookup = {
     y = 'selectToTopOfPage',
-    u = nil,
+    u = 'selectLineUp',
     i = 'selectToFirstCharacterOfLine',
     o = 'selectToEndOfLine',
     p = nil,
     open_bracket = 'selectToPreviousSubword',
     close_bracket = 'selectToNextSubword',
+    h = 'selectLeft',
+    j = 'selectDown',
+    k = 'selectUp',
+    l = 'selectRight',
     semicolon = 'selectToPreviousWholeWord',
     quote = {'selectToEndOfWholeWord', 'selectToNextWholeWord'},
     return_or_enter = nil,
     n = 'selectToBottomOfPage',
-    m = nil,
+    m = 'selectLineDown',
+    comma = 'selectPreviousWord',
+    period = 'selectNextWord',
     slash = nil,
     right_shift = nil,
     spacebar = nil,
@@ -58,6 +64,40 @@ end
 
 function ViVisualMode.selectToBottomOfPage()
     fastKeyStroke({'shift', 'cmd'}, 'down')
+end
+
+function ViVisualMode.selectLineUp()
+    fastKeyStroke({'shift'}, 'v')
+    fastKeyStroke('up')
+end
+
+function ViVisualMode.selectLineDown()
+    fastKeyStroke({'shift'}, 'v')
+    fastKeyStroke('down')
+end
+
+function ViVisualMode.selectLeft()
+    fastKeyStroke({'shift'}, 'left')
+end
+
+function ViVisualMode.selectDown()
+    fastKeyStroke({'shift'}, 'down')
+end
+
+function ViVisualMode.selectUp()
+    fastKeyStroke({'shift'}, 'up')
+end
+
+function ViVisualMode.selectRight()
+    fastKeyStroke({'shift'}, 'right')
+end
+
+function ViVisualMode.selectPreviousWord()
+    fastKeyStroke({'shift', 'alt'}, 'left')
+end
+
+function ViVisualMode.selectNextWord()
+    fastKeyStroke({'shift', 'alt'}, 'right')
 end
 
 return ViVisualMode

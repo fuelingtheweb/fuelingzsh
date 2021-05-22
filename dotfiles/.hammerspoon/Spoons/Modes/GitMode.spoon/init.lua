@@ -2,25 +2,25 @@ local GitMode = {}
 GitMode.__index = GitMode
 
 GitMode.lookup = {
-    y = nil,
+    y = 'copyBranch',
     u = 'discardChanges',
-    i = nil,
+    i = 'stageAll',
     o = 'checkout',
-    p = 'push',
-    open_bracket = nil,
+    p = 'diff',
+    open_bracket = 'deleteBranch',
     close_bracket = nil,
     h = 'status',
     j = 'autocompleteNextWord',
-    k = nil,
-    l = 'pull',
+    k = 'commit',
+    l = 'log',
     semicolon = nil,
     quote = nil,
     return_or_enter = 'serveCurrentProject',
-    n = nil,
+    n = 'newBranch',
     m = 'merge',
-    comma = nil,
-    period = nil,
-    slash = nil,
+    comma = 'pull',
+    period = 'push',
+    slash = 'checkoutMaster',
     right_shift = nil,
     spacebar = nil,
 }
@@ -31,12 +31,30 @@ function GitMode.handle(key)
     end
 end
 
+function GitMode.copyBranch()
+    typeAndEnter('gbc')
+end
+
 function GitMode.discardChanges()
-    typeAndEnter('nah')
+    Pending.run({
+        function()
+            typeAndEnter('grs')
+        end,
+        function()
+            typeAndEnter('nah')
+        end,
+    })
 end
 
 function GitMode.checkout()
-    typeAndEnter('git:checkout')
+    Pending.run({
+        function()
+            typeAndEnter('git:checkout')
+        end,
+        function()
+            typeAndEnter('git:checkout.include-all')
+        end,
+    })
 end
 
 function GitMode.push()
@@ -60,7 +78,60 @@ function GitMode.serveCurrentProject()
 end
 
 function GitMode.merge()
-    typeAndEnter('git:merge')
+    Pending.run({
+        function()
+            typeAndEnter('git:merge')
+        end,
+        function()
+            typeAndEnter('gmm')
+        end,
+    })
+end
+
+function GitMode.newBranch()
+    insertText('git:branch.new ')
+end
+
+function GitMode.log()
+    typeAndEnter('git:log')
+end
+
+function GitMode.diff()
+    typeAndEnter('gd')
+end
+
+function GitMode.stageAll()
+    typeAndEnter('gaa')
+end
+
+function GitMode.commit()
+    Pending.run({
+        function()
+            insertText("git:commit ''")
+            fastKeyStroke('left')
+        end,
+        function()
+            typeAndEnter('git:commit')
+        end,
+    })
+end
+
+function GitMode.checkoutMaster()
+    Pending.run({
+        function()
+            typeAndEnter('gum')
+        end,
+        function()
+            typeAndEnter('goml')
+        end,
+        function()
+            typeAndEnter('gom')
+        end,
+    })
+end
+
+function GitMode.deleteBranch()
+    typeAndEnter('git:branch.delete')
 end
 
 return GitMode

@@ -4,6 +4,7 @@ Modal.__index = Modal
 spoon.ModalMgr = hs.loadSpoon('vendor/ModalMgr')
 
 Modal.modals = {}
+Modal.timer = nil
 
 function Modal.addWithMenubar(meta)
     meta = meta or {}
@@ -50,10 +51,10 @@ function Modal.add(meta)
     if meta.shortcuts.items then
         each(meta.shortcuts.items, function(item, key)
             if type(item) == 'function' then
-                return meta.modal:bind('', key, nil, item)
+                return meta.modal:bind('', key, item.name or nil, item)
             end
 
-            meta.modal:bind('', item.key, nil, function()
+            meta.modal:bind('', item.key, item.name or nil, function()
                 meta.shortcuts.callback(item)
             end)
         end)
@@ -65,18 +66,25 @@ function Modal.add(meta)
 end
 
 function Modal.enter(key, exitAfter)
-    -- spoon.ModalMgr:deactivateAll()
+    if Modal.timer and Modal.timer:running() then
+        Modal.timer:stop()
+    end
+
     spoon.ModalMgr:activate({key}, '#FFFFFF', false)
 
     if exitAfter then
-        hs.timer.doAfter(exitAfter, function()
+        Modal.timer = hs.timer.doAfter(exitAfter, function()
             Modal.exit()
         end)
     end
 end
 
-function Modal.exit()
-    spoon.ModalMgr:deactivateAll()
+function Modal.exit(key)
+    if key then
+        spoon.ModalMgr:deactivate({key})
+    else
+        spoon.ModalMgr:deactivateAll()
+    end
 end
 
 return Modal

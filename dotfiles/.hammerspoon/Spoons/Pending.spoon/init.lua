@@ -2,22 +2,23 @@ local Pending = {}
 Pending.__index = Pending
 
 Pending.pressed = 0
-Pending.timer = nil
+Pending.callbacks = nil
+Pending.delay = 0.17
+Pending.timer = hs.timer.new(Pending.delay, function()
+    Pending.trigger()
+end)
 
 function Pending.increment()
     Pending.pressed = Pending.pressed + 1
 end
 
-function Pending.newTimer(callback)
-    Pending.stopTimer()
-    Pending.timer = hs.timer.doAfter(0.2, function()
-        Pending.trigger(callback)
-    end)
+function Pending.restartTimer()
+    Pending.timer:setNextTrigger(Pending.delay)
 end
 
-function Pending.trigger(callback)
+function Pending.trigger()
+    Pending.callbacks[Pending.pressed]()
     Pending.reset()
-    callback()
 end
 
 function Pending.reset()
@@ -26,27 +27,16 @@ function Pending.reset()
 end
 
 function Pending.stopTimer()
-    if Pending.timer and Pending.timer:running() then
-        Pending.timer:stop()
-    end
+    Pending.timer:stop()
 end
 
 function Pending.run(callbacks)
-    local count = countTable(callbacks)
+    Pending.stopTimer()
 
     Pending.increment()
+    Pending.callbacks = callbacks
 
-    each(callbacks, function(callback, index)
-        if Pending.pressed ~= index then
-            return
-        end
-
-        if index == count then
-            return Pending.trigger(callback)
-        end
-
-        Pending.newTimer(callback)
-    end)
+    Pending.restartTimer()
 end
 
 return Pending

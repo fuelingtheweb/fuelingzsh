@@ -22,7 +22,7 @@ HyperMode.lookup = {
     period = 'startArtisan',
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = 'forceEscape',
 }
 
 function HyperMode.copy()
@@ -64,14 +64,40 @@ function HyperMode.copyAll()
     end
 end
 
+Modal.add({
+    key = 'HyperMode:open',
+    title = 'Hyper: Open',
+    shortcuts = {
+        items = {
+            {key = 'p', extension = '.php'},
+            {key = 'b', extension = '.blade.php'},
+            {key = 'j', extension = '.js'},
+            {key = 'l', extension = '.lua'},
+            {key = 'y', extension = '.py'},
+            {key = 'v', extension = '.vue'},
+            {key = 'c', extension = '.css'},
+            {key = 's', extension = '.sass'},
+            {key = 't', extension = 'Test.php'},
+        },
+        callback = function(item)
+            insertText(item.extension)
+            for i = 1, item.extension:len() do
+                fastKeyStroke('left')
+            end
+            Modal.exit()
+        end,
+    },
+})
+
 function HyperMode.open()
     if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
         fastKeyStroke({'cmd'}, 'p')
 
         if inCodeEditor() then
             TextManipulation.disableVim()
+            -- Modal.enter('HyperMode:open')
         end
-    elseif appIs(discord) then
+    elseif appIncludes({discord, slack}) then
         fastKeyStroke({'cmd'}, 'k')
     elseif appIs(spotify) then
         triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
@@ -195,6 +221,14 @@ BracketMatching = hs.loadSpoon('Modes/BracketMatching')
 
 function HyperMode.bracketMatching()
     BracketMatching.start()
+end
+
+function HyperMode.forceEscape()
+    spoon.TestMode.hideOutput()
+    fastKeyStroke('escape')
+    fastKeyStroke('escape')
+    fastKeyStroke('escape')
+    fastKeyStroke('escape')
 end
 
 return HyperMode

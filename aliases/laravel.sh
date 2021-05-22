@@ -93,4 +93,4 @@ alias arcc='artisan responsecache:clear'
 alias ad='artisan dusk'
 alias adm='artisan dusk:make'
 
-alias atp='artisan test --parallel'
+alias atp='artisan test --parallel --stop-on-failure'

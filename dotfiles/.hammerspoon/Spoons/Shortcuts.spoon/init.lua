@@ -4,6 +4,7 @@ Shortcuts.all = {}
 Shortcuts.appFunctionMapping = {
     notion = 'openNotionPage';
     discord = 'openDiscordChannel';
+    slack = 'openSlackChannel';
     iterm = 'typeAndEnter';
     atom = 'triggerInAtom';
     sublime = 'triggerInAtom';

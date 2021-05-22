@@ -113,7 +113,7 @@ end
 
 function Artisan.showNewScreen()
     Ray.newScreen('artisan ' .. Artisan.command .. ' (' .. Artisan.mainPath .. ')')
-    hs.execute("open -a 'Ray.app'")
+    -- hs.execute("open -a 'Ray.app'")
 end
 
 function Artisan.setupArgs()

@@ -3,8 +3,8 @@ LaunchMode.__index = LaunchMode
 
 LaunchMode.lookup = {
     tab = 'windowHintsForCurrentApplication',
-    q = 'Kaleidoscope.app',
-    w = 'Transmit.app',
+    q = {'quit', 'Kaleidoscope.app'},
+    w = {'closeWindow', 'closeAllWindows', 'Transmit.app'},
     e = 'sublime',
     r = 'atom',
     t = 'iterm',
@@ -15,13 +15,19 @@ LaunchMode.lookup = {
     f = 'Notion.app',
     g = 'chrome',
     left_shift = 'Dash.app',
-    z = {'zoom.us.app', 'Screen.app'},
+    z = {'Slack.app', 'zoom.us.app', 'Screen.app'},
     x = {'de.beyondco.tinkerwell', 'de.beyondco.invoker', 'de.beyondco.helo'},
     c = 'Sublime Merge.app',
     v = 'TablePlus.app',
     b = 'finder',
-    spacebar = 'bringAllWindowsToFront',
+    spacebar = {'open', 'bringAllWindowsToFront'},
 }
+
+function LaunchMode.before()
+    if inCodeEditor() then
+        spoon.HyperMode.forceEscape()
+    end
+end
 
 hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
@@ -44,6 +50,22 @@ end
 
 function LaunchMode.alfredPreferences()
     hs.application.open('com.runningwithcrayons.Alfred-Preferences')
+end
+
+function LaunchMode.quit()
+    spoon.CommandMode.quit()
+end
+
+function LaunchMode.closeWindow()
+    spoon.CommandMode.closeWindow()
+end
+
+function LaunchMode.closeAllWindow()
+    spoon.CommandMode.closeAllWindow()
+end
+
+function LaunchMode.open()
+    spoon.HyperMode.open()
 end
 
 function LaunchMode.bringAllWindowsToFront()
@@ -100,7 +122,7 @@ function launchIterm(callback)
 end
 
 function triggerItermShortcut(callback)
-    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 't')
+    fastKeyStroke('`')
 
     if callback then
         callback()
