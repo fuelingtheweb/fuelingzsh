@@ -11,7 +11,7 @@ notion = 'notion.id'
 postman = 'com.postmanlabs.mac'
 preview = 'com.apple.Preview'
 spotify = 'com.spotify.client'
-sublime = 'com.sublimetext.3'
+sublime = 'com.sublimetext.4'
 sublimeMerge = 'com.sublimemerge'
 tableplus = 'com.tinyapp.TablePlus'
 teams = 'com.microsoft.teams'
@@ -23,6 +23,7 @@ apps['chrome'] = chrome
 apps['finder'] = finder
 apps['sublime'] = sublime
 apps['iterm'] = iterm
+apps['slack'] = slack
 
 ultrawide = 'LG ULTRAWIDE'
 macbookScreen = 'Color LCD'

@@ -6,7 +6,7 @@ DestroyMode.lookup = {
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = nil,
+    r = 'untilMode',
     t = 'withWrapperKey',
     caps_lock = 'mode',
     a = 'toEndOfLine',
@@ -33,7 +33,12 @@ function DestroyMode.withWrapperKey(key)
 end
 
 function DestroyMode.simpleDelete()
-    fastKeyStroke('delete')
+    if inCodeEditor() then
+        BracketMatching.cancel()
+        BracketMatching.start()
+    else
+        fastKeyStroke('delete')
+    end
 end
 
 function DestroyMode.toEndOfWord()
@@ -226,6 +231,12 @@ end
 
 function DestroyMode.modeBackward()
     DestroyMode.enterModal('B')
+end
+
+function DestroyMode.untilMode()
+    fastKeyStroke('escape')
+    fastKeyStroke('d')
+    fastKeyStroke('t')
 end
 
 return DestroyMode

@@ -1,17 +1,17 @@
-local SnippetMode = {}
-SnippetMode.__index = SnippetMode
+local CodeSnippets = {}
+CodeSnippets.__index = CodeSnippets
 
-SnippetMode.lookup = {
+CodeSnippets.lookup = {
     e = 'snippet-elseif',
     t = 'this',
-    d = 'snippet-dd',
+    d = 'dd',
 
     y = nil,
     u = nil,
     i = 'snippet-if',
     o = nil,
     p = 'snippet-property',
-    open_bracket = 'snippet-echo',
+    open_bracket = 'echo',
     close_bracket = nil,
     h = nil,
     j = nil,
@@ -22,24 +22,15 @@ SnippetMode.lookup = {
     return_or_enter = nil,
     n = 'functionSnippet',
     m = 'method',
-    comma = nil,
+    comma = 'insertComma',
     period = nil,
     slash = 'insertQuestion',
     right_shift = nil,
     spacebar = nil,
 }
 
-SnippetMode.slack = {
-    i = 'in',
-    o = 'out',
-    l = 'lunch',
-    semicolon = 'break',
-    return_or_enter = 'back',
-    n = 'ofn',
-}
-
 Modal.addWithMenubar({
-    key = 'SnippetMode:method',
+    key = 'CodeSnippets:method',
     title = 'Snippet: Method',
     shortcuts = {
         items = {
@@ -65,14 +56,14 @@ Modal.addWithMenubar({
                 return spoon.ModalMgr:toggleCheatsheet()
             end
 
-            SnippetMode.snippet('method-' .. item.method)
+            CodeSnippets.snippet('method-' .. item.method)
             Modal.exit()
         end,
     },
 })
 
 Modal.addWithMenubar({
-    key = 'SnippetMode:function',
+    key = 'CodeSnippets:function',
     title = 'Snippet: Function',
     shortcuts = {
         items = {
@@ -80,50 +71,41 @@ Modal.addWithMenubar({
             {key = 's', name = 'short', method = 'short'},
         },
         callback = function(item)
-            SnippetMode.snippet('function-' .. item.method)
+            CodeSnippets.snippet('function-' .. item.method)
             Modal.exit()
         end,
     },
 })
 
-function SnippetMode.guard()
-    return appIncludes({atom, sublime, slack})
-end
-
-function SnippetMode.handle(key)
-    if appIs(slack) then
-        lookup = SnippetMode.slack
-
-        if lookup and lookup[key] then
-            insertText('@' .. lookup[key])
-            hs.timer.doAfter(.2, function()
-                keyStroke('escape')
-            end)
-        end
+function CodeSnippets.handle(key)
+    if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
+        fastKeyStroke('o')
+        fastKeyStroke('return')
+        insertText(';dte')
 
         return
     end
 
-    lookup = SnippetMode.lookup
+    lookup = CodeSnippets.lookup
 
     if lookup and lookup[key] then
         local callable = lookup[key]
 
         if callable then
-            if SnippetMode[callable] then
-                SnippetMode[callable](key)
-            elseif SnippetMode.fallback then
-                SnippetMode.fallback(callable, key)
+            if CodeSnippets[callable] then
+                CodeSnippets[callable](key)
+            elseif CodeSnippets.fallback then
+                CodeSnippets.fallback(callable, key)
             end
         end
     end
 end
 
-function SnippetMode.fallback(value)
-    SnippetMode.snippet(value:gsub('snippet%-', ''))
+function CodeSnippets.fallback(value)
+    CodeSnippets.snippet(value:gsub('snippet%-', ''))
 end
 
-function SnippetMode.snippet(name)
+function CodeSnippets.snippet(name)
     if appIs(sublime) then
         typeAndTab('snippet-' .. name)
     else
@@ -131,33 +113,34 @@ function SnippetMode.snippet(name)
     end
 end
 
-function SnippetMode.method()
+function CodeSnippets.method()
     Pending.run({
         function()
             if appIs(atom) and titleContains('Test.php') then
-                SnippetMode.snippet('method-test')
+                CodeSnippets.snippet('method-test')
             elseif appIncludes({atom, sublime}) then
-                SnippetMode.snippet('method')
+                CodeSnippets.snippet('method')
             end
         end,
         function()
-            Modal.enter('SnippetMode:method')
+            Modal.enter('CodeSnippets:method')
         end,
     })
 end
 
-function SnippetMode.functionSnippet()
+function CodeSnippets.functionSnippet()
     Pending.run({
         function()
-            SnippetMode.snippet('function')
+            CodeSnippets.snippet('function')
+            BracketMatching.start()
         end,
         function()
-            Modal.enter('SnippetMode:function')
+            Modal.enter('CodeSnippets:function')
         end,
     })
 end
 
-function SnippetMode.this()
+function CodeSnippets.this()
     if appIs(atom) then
         keyStroke({'shift', 'ctrl'}, 'c')
 
@@ -167,11 +150,21 @@ function SnippetMode.this()
     end
 
     if appIncludes({atom, sublime}) then
-        SnippetMode.snippet('this')
+        CodeSnippets.snippet('this')
     end
 end
 
-function SnippetMode.insertQuotes()
+function CodeSnippets.dd()
+    CodeSnippets.snippet('dd')
+    BracketMatching.start()
+end
+
+function CodeSnippets.echo()
+    CodeSnippets.snippet('echo')
+    BracketMatching.start()
+end
+
+function CodeSnippets.insertQuotes()
     Pending.run({
         function()
             insertText('=""')
@@ -184,12 +177,19 @@ function SnippetMode.insertQuotes()
     })
 end
 
-function SnippetMode.insertColon()
+function CodeSnippets.insertColon()
     insertText(' : ')
+    BracketMatching.start();
 end
 
-function SnippetMode.insertQuestion()
+function CodeSnippets.insertQuestion()
     insertText(' ? ')
+    BracketMatching.start();
 end
 
-return SnippetMode
+function CodeSnippets.insertComma()
+    insertText(', ')
+    BracketMatching.start();
+end
+
+return CodeSnippets

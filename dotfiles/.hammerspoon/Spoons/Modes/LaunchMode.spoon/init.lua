@@ -101,7 +101,7 @@ function LaunchMode.launchApp(id)
     elseif not isActive then
         hs.application.get(bundle):activate()
     elseif multipleWindows(app) then
-        spoon.SearchMode.windowsInCurrentApp()
+        LaunchMode.windowHintsForCurrentApplication()
     elseif not hasWindows(app) then
         hs.application.open(bundle)
     end

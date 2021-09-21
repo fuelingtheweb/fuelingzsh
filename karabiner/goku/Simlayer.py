@@ -67,6 +67,9 @@ class Simlayer:
 
     def newKey(self, key):
         keys = {
+            'o': 'f13',
+            'n': 'f14',
+            'left_shift': 'f15',
             'caps_lock': 'f16',
             'w': 'f17',
             'comma': 'f18',

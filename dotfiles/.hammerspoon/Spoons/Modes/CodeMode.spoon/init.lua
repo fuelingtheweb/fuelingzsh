@@ -1,8 +1,6 @@
 local CodeMode = {}
 CodeMode.__index = CodeMode
 
-GitMode = hs.loadSpoon('Modes/GitMode')
-
 CodeMode.lookup = {
     y = 'conditionalAnd',
     u = 'addUseStatement',
@@ -28,14 +26,6 @@ CodeMode.lookup = {
 
     b = 'toggleBoolean',
 }
-
-function CodeMode.handle(key)
-    if appIs(iterm) then
-        GitMode.handle(key)
-    elseif CodeMode.lookup[key] then
-        CodeMode[CodeMode.lookup[key]]()
-    end
-end
 
 function CodeMode.conditionalAnd()
     if titleContains('.lua') then
@@ -124,9 +114,11 @@ function CodeMode.equals()
     Pending.run({
         function()
             insertText(' = ')
+            BracketMatching.start()
         end,
         function()
             insertText(' == ')
+            BracketMatching.start()
         end,
         function()
             if titleContains('.lua') then
@@ -134,6 +126,8 @@ function CodeMode.equals()
             else
                 insertText(' != ')
             end
+
+            BracketMatching.start()
         end,
     })
 end
@@ -177,6 +171,7 @@ end
 
 function CodeMode.doubleArrow()
     insertText(' => ')
+    BracketMatching.start()
 end
 
 function CodeMode.goToMatchingBracket()

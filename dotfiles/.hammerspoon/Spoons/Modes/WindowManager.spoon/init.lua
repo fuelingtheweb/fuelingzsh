@@ -90,12 +90,18 @@ function WindowManager.reset()
 end
 
 function WindowManager.next()
-    local windows = hs.window.orderedWindows()
-    if not windows[2] then
-        return
+    local windows = hs.fnutils.filter(hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast), function(window)
+        return window:title()
+    end)
+    local nextWin = windows[2]
+
+    if not nextWin or nextWin:title() == currentTitle() then
+        nextWin = windows[1]
     end
 
-    local nextWin = windows[2]
+    if not nextWin then
+        return
+    end
 
     if nextWin:isMinimized() then
         nextWin:unminimize()
@@ -105,14 +111,21 @@ function WindowManager.next()
 end
 
 function WindowManager.nextInCurrentApp()
-    local app = hs.application.frontmostApplication()
-    local windows = app:allWindows()
+    local windows = hs.fnutils.filter(hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast), function(window)
+        return window:title()
+    end)
+    each(windows, function(window, index)
+        log.d(index .. ': ' .. window:title())
+    end)
+    nextWin = windows[2]
 
-    if not windows[2] then
-        return
+    if not nextWin or nextWin:title() == currentTitle() then
+        nextWin = windows[1]
     end
 
-    local nextWin = windows[2]
+    if not nextWin then
+        return
+    end
 
     if nextWin:isMinimized() then
         nextWin:unminimize()
@@ -143,6 +156,8 @@ function WindowManager.toggleSidebar()
         fastKeyStroke({'cmd'}, 'b')
     elseif appIs(slack) then
         fastKeyStroke({'cmd', 'shift'}, 'd')
+    elseif appIs(tableplus) then
+        fastKeyStroke({'cmd'}, '0')
     else
         fastKeyStroke({'cmd'}, '\\')
     end

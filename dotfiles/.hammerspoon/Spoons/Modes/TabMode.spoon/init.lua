@@ -18,8 +18,8 @@ TabMode.lookup = {
     return_or_enter = 'restore',
     n = 'new',
     m = nil,
-    comma = 'closeAllToLeft',
-    period = 'closeAllToRight',
+    comma = {'closePrevious', 'closeAllToLeft'},
+    period = {'closeNext', 'closeAllToRight'},
     slash = 'closeAllOthers',
     right_shift = 'closeAll',
     spacebar = nil,
@@ -68,7 +68,7 @@ function TabMode.moveLeft()
         fastKeyStroke('escape')
         insertText('th')
     elseif appIs(atom) then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'h')
+        fastKeyStroke({'shift', 'alt', 'cmd'}, 'left')
     elseif appIs(sublime) then
         -- https://packagecontrol.io/packages/MoveTab
         fastKeyStroke({'shift', 'alt', 'cmd'}, 'left')
@@ -83,7 +83,7 @@ function TabMode.moveRight()
         fastKeyStroke('escape')
         insertText('tl')
     elseif appIs(atom) then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'l')
+        fastKeyStroke({'shift', 'alt', 'cmd'}, 'right')
     elseif appIs(sublime) then
         -- https://packagecontrol.io/packages/MoveTab
         fastKeyStroke({'shift', 'alt', 'cmd'}, 'right')
@@ -184,6 +184,17 @@ function TabMode.closeAll()
             fastKeyStroke('return')
         end
     end
+end
+
+function TabMode.closePrevious()
+    TabMode.previous()
+    TabMode.closeCurrent()
+    TabMode.next()
+end
+
+function TabMode.closeNext()
+    TabMode.next()
+    TabMode.closeCurrent()
 end
 
 return TabMode

@@ -1,13 +1,11 @@
 local CaseMode = {}
 CaseMode.__index = CaseMode
 
-ArtisanMode = hs.loadSpoon('Modes/ArtisanMode')
-
 CaseMode.lookup = {
     y = 'upperFirst',
     u = 'upper',
-    i = 'constant',
-    o = 'kebab',
+    i = 'kebab',
+    o = 'constant',
     p = 'pascal',
     h = 'title',
     j = 'sentence',
@@ -19,16 +17,12 @@ CaseMode.lookup = {
 }
 
 function CaseMode.handle(key)
-    if appIs(iterm) then
-        ArtisanMode.handle(key)
-    elseif CaseMode.lookup[key] then
-        local item = CaseMode.lookup[key]
+    local item = CaseMode.lookup[key]
 
-        if type(item) == 'table' then
-            CaseMode.change(item.to, item.key)
-        else
-            CaseMode.change(item, key)
-        end
+    if type(item) == 'table' then
+        CaseMode.change(item.to, item.key)
+    else
+        CaseMode.change(item, key)
     end
 end
 

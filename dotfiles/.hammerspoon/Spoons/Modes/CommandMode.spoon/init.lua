@@ -4,13 +4,16 @@ CommandMode.__index = CommandMode
 CommandMode.lookup = {
     tab = 'shiftTab',
     q = 'quit',
-    w = {'closeWindow', 'closeAllWindows'},
+    w = 'closeWindow',
+    -- w = {'closeWindow', 'closeAllWindows'},
     e = {'edit', 'finishEdit'},
-    r = {'reload', 'reloadSecondary'},
+    r = 'reload',
+    -- r = {'reload', 'reloadSecondary'},
     t = nil,
     caps_lock = 'alfredCommands',
     a = 'selectAll',
-    s = {'save', 'saveAndReload'},
+    s = 'save',
+    -- s = {'save', 'saveAndReload'},
     d = 'done',
     f = 'find',
     g = 'atomGitPalette',
@@ -48,10 +51,7 @@ function CommandMode.sleep()
 end
 
 function CommandMode.duplicateLine()
-    fastKeyStroke('escape')
-    fastKeyStroke('y')
-    fastKeyStroke('y')
-    fastKeyStroke('p')
+    fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
 function CommandMode.reload()
@@ -65,18 +65,6 @@ function CommandMode.reload()
         fastKeyStroke('return')
     else
         fastKeyStroke({'cmd'}, 'r')
-    end
-end
-
-function CommandMode.reloadSecondary()
-    if appIs(chrome) then
-        -- Hard refresh
-        fastKeyStroke({'shift', 'cmd'}, 'r')
-    elseif appIs(iterm) then
-        -- Reload running command
-        fastKeyStroke({'ctrl'}, 'c')
-        fastKeyStroke('up')
-        fastKeyStroke('return')
     end
 end
 
@@ -129,13 +117,6 @@ function CommandMode.save()
     end
 end
 
-function CommandMode.saveAndReload()
-    fastKeyStroke('escape')
-    keyStroke({'cmd'}, 's')
-    hs.application.get(apps['chrome']):activate()
-    keyStroke({'cmd'}, 'r')
-end
-
 function CommandMode.cancelOrDelete()
     text = getSelectedText()
     if appIncludes({atom, sublime}) then
@@ -152,18 +133,6 @@ function CommandMode.cancelOrDelete()
         fastKeyStroke({'ctrl'}, 'c')
     else
         fastKeyStroke('delete')
-    end
-end
-
-function CommandMode.closeAllWindows()
-    fastKeyStroke({'shift', 'cmd'}, 'w')
-    if appIs(chrome) then
-        hs.timer.doAfter(1, function()
-            app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then
-                app:hide()
-            end
-        end)
     end
 end
 

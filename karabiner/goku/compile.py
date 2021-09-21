@@ -37,7 +37,7 @@ simlayers.new('Vi Visual Mode (Key: V)', 'ViVisualMode', 'v', 'all-right')
 simlayers.available('b')
 
 simlayers.new('Change Mode (Key: n)', 'ChangeMode', 'n', 'all-left')
-simlayers.new('Make Mode (Key: M)', 'MakeMode', 'm', 'all-left')
+simlayers.new('Make Mode (Key: M)', 'MakeMode', 'm', 'all')
 simlayers.new('Launch Mode (Key: ,)', 'LaunchMode', 'comma', 'all-left')
 simlayers.new('App Mode (Key: .)', 'AppMode', 'period', 'all')
 simlayers.new('Search Mode (Key: /)', 'SearchMode', 'slash', 'all-left')

@@ -3,7 +3,7 @@ Pending.__index = Pending
 
 Pending.pressed = 0
 Pending.callbacks = nil
-Pending.delay = 0.17
+Pending.delay = 0.25
 Pending.timer = hs.timer.new(Pending.delay, function()
     Pending.trigger()
 end)

@@ -13,8 +13,8 @@ GitMode.lookup = {
     j = 'autocompleteNextWord',
     k = 'commit',
     l = 'log',
-    semicolon = nil,
-    quote = nil,
+    semicolon = 'stash',
+    quote = 'stashApply',
     return_or_enter = 'serveCurrentProject',
     n = 'newBranch',
     m = 'merge',
@@ -24,12 +24,6 @@ GitMode.lookup = {
     right_shift = nil,
     spacebar = nil,
 }
-
-function GitMode.handle(key)
-    if GitMode.lookup[key] then
-        GitMode[GitMode.lookup[key]]()
-    end
-end
 
 function GitMode.copyBranch()
     typeAndEnter('gbc')
@@ -41,7 +35,7 @@ function GitMode.discardChanges()
             typeAndEnter('grs')
         end,
         function()
-            typeAndEnter('nah')
+            insertText('nah')
         end,
     })
 end
@@ -66,7 +60,7 @@ function GitMode.status()
 end
 
 function GitMode.autocompleteNextWord()
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'j')
+    fastSuperKeyStroke('j')
 end
 
 function GitMode.pull()
@@ -105,15 +99,7 @@ function GitMode.stageAll()
 end
 
 function GitMode.commit()
-    Pending.run({
-        function()
-            insertText("git:commit ''")
-            fastKeyStroke('left')
-        end,
-        function()
-            typeAndEnter('git:commit')
-        end,
-    })
+    insertText('git:commit ')
 end
 
 function GitMode.checkoutMaster()
@@ -132,6 +118,28 @@ end
 
 function GitMode.deleteBranch()
     typeAndEnter('git:branch.delete')
+end
+
+function GitMode.stash()
+    Pending.run({
+        function()
+            typeAndEnter('gstu')
+        end,
+        function()
+            typeAndEnter('gst')
+        end,
+    })
+end
+
+function GitMode.stashApply()
+    Pending.run({
+        function()
+            typeAndEnter('gstp')
+        end,
+        function()
+            typeAndEnter('gsta')
+        end,
+    })
 end
 
 return GitMode

@@ -1,3 +1,5 @@
+hs.hotkey.alertDuration = 0
+
 hs.loadSpoon('Variables')
 hs.loadSpoon('Functions')
 hs.loadSpoon('Watchers')
@@ -7,6 +9,7 @@ Pending = hs.loadSpoon('Pending')
 Modal = hs.loadSpoon('Modal')
 TextManipulation = hs.loadSpoon('TextManipulation')
 Artisan = hs.loadSpoon('Artisan')
+BracketMatching = hs.loadSpoon('Modes/BracketMatching')
 
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')

@@ -2,10 +2,6 @@ local GeneralMode = {}
 GeneralMode.__index = GeneralMode
 
 GeneralMode.lookup = {
-    e = '!',
-    a = '@',
-    d = '$',
-
     y = '&',
     u = '_',
     i = '-',
@@ -14,10 +10,10 @@ GeneralMode.lookup = {
     open_bracket = 'openParens',
     close_bracket = 'closeParens',
     h = '#',
-    j = nil,
-    k = nil,
+    j = '@',
+    k = '$',
     l = '- ',
-    semicolon = nil,
+    semicolon = '!',
     quote = 'equals',
     return_or_enter = nil,
     n = '`',

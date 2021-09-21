@@ -46,7 +46,7 @@ function GoogleMode.history()
 end
 
 function GoogleMode.lastpass()
-    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'l')
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
 end
 
 function GoogleMode.tabManager()

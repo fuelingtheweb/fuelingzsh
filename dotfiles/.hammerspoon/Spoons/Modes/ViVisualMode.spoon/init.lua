@@ -14,7 +14,8 @@ ViVisualMode.lookup = {
     k = 'selectUp',
     l = 'selectRight',
     semicolon = 'selectToPreviousWholeWord',
-    quote = {'selectToEndOfWholeWord', 'selectToNextWholeWord'},
+    quote = 'selectToEndOfWholeWord',
+    -- quote = {'selectToEndOfWholeWord', 'selectToNextWholeWord'},
     return_or_enter = nil,
     n = 'selectToBottomOfPage',
     m = 'selectLineDown',
@@ -51,7 +52,11 @@ function ViVisualMode.selectToNextWholeWord()
 end
 
 function ViVisualMode.selectToTopOfPage()
-    fastKeyStroke({'shift', 'cmd'}, 'up')
+    if appIs(finder) then
+        fastKeyStroke({'shift', 'alt'}, 'up')
+    else
+        fastKeyStroke({'shift', 'cmd'}, 'up')
+    end
 end
 
 function ViVisualMode.selectToFirstCharacterOfLine()
@@ -63,7 +68,11 @@ function ViVisualMode.selectToEndOfLine()
 end
 
 function ViVisualMode.selectToBottomOfPage()
-    fastKeyStroke({'shift', 'cmd'}, 'down')
+    if appIs(finder) then
+        fastKeyStroke({'shift', 'alt'}, 'down')
+    else
+        fastKeyStroke({'shift', 'cmd'}, 'down')
+    end
 end
 
 function ViVisualMode.selectLineUp()
@@ -93,6 +102,11 @@ function ViVisualMode.selectRight()
 end
 
 function ViVisualMode.selectPreviousWord()
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke('left')
+    end
+
     fastKeyStroke({'shift', 'alt'}, 'left')
 end
 

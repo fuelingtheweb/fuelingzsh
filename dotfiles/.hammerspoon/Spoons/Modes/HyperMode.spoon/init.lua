@@ -4,7 +4,7 @@ HyperMode.__index = HyperMode
 HyperMode.lookup = {
     y = {'copy', 'copyAll'},
     u = nil,
-    i = 'bracketMatching',
+    i = nil,
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
@@ -18,9 +18,9 @@ HyperMode.lookup = {
     return_or_enter = 'capsLock',
     n = 'new',
     m = 'alfred',
-    comma = nil,
-    period = 'startArtisan',
-    slash = nil,
+    comma = 'undo',
+    period = 'redo',
+    slash = 'startArtisan',
     right_shift = nil,
     spacebar = 'forceEscape',
 }
@@ -48,6 +48,8 @@ function HyperMode.copy()
         -- Already in clipboard, do not reset
     elseif appIs(chrome) then
         copyChromeUrl()
+    elseif inCodeEditor() then
+        spoon.YankMode.relativeFilePath()
     end
 end
 
@@ -163,7 +165,7 @@ function HyperMode.nextPage()
         fastKeyStroke({'alt', 'cmd'}, 'right')
     elseif appIs(iterm) then
         -- Autocomplete to the end of the line
-        fastKeyStroke({'cmd'}, 'l')
+        fastSuperKeyStroke(';')
     elseif appIs(atom) then
          -- Atom: Cursor History: Next
         fastKeyStroke({'ctrl'}, 'o')
@@ -217,18 +219,20 @@ function HyperMode.startArtisan()
     Artisan.start()
 end
 
-BracketMatching = hs.loadSpoon('Modes/BracketMatching')
-
-function HyperMode.bracketMatching()
-    BracketMatching.start()
-end
-
 function HyperMode.forceEscape()
     spoon.TestMode.hideOutput()
+    keyStroke('escape')
     fastKeyStroke('escape')
     fastKeyStroke('escape')
     fastKeyStroke('escape')
-    fastKeyStroke('escape')
+end
+
+function HyperMode.undo()
+    fastKeyStroke({'cmd'}, 'z')
+end
+
+function HyperMode.redo()
+    fastKeyStroke({'shift', 'cmd'}, 'z')
 end
 
 return HyperMode

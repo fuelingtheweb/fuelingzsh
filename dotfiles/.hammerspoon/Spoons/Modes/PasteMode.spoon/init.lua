@@ -8,7 +8,7 @@ PasteMode.lookup = {
     e = 'toEndOfWord',
     r = nil,
     t = 'withWrapperKey',
-    caps_lock = 'default',
+    caps_lock = 'backward',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
@@ -20,7 +20,7 @@ PasteMode.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil,
+    spacebar = 'default',
 }
 
 function PasteMode.withWrapperKey(key)
@@ -159,6 +159,12 @@ end
 
 function PasteMode.secondaryVim()
     fastKeyStroke({'shift'}, 'p')
+end
+
+function PasteMode.backward()
+    if inCodeEditor() then
+        fastKeyStroke({'shift'}, 'p')
+    end
 end
 
 return PasteMode

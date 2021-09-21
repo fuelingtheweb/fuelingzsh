@@ -2,13 +2,14 @@ local Shortcuts = {}
 Shortcuts.__index = Shortcuts
 Shortcuts.all = {}
 Shortcuts.appFunctionMapping = {
-    notion = 'openNotionPage';
-    discord = 'openDiscordChannel';
-    slack = 'openSlackChannel';
-    iterm = 'typeAndEnter';
-    atom = 'triggerInAtom';
-    sublime = 'triggerInAtom';
-    {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'};
+    notion = 'openNotionPage',
+    discord = 'openDiscordChannel',
+    slack = 'openSlackChannel',
+    iterm = 'typeAndEnter',
+    atom = 'triggerInAtom',
+    sublime = 'triggerInAtom',
+    chrome = '',
+    {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'},
 }
 
 function Shortcuts:add(key, mapping)

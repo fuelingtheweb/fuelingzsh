@@ -14,10 +14,10 @@ function inCodeEditor()
 end
 
 function appIncludes(bundles)
-    return has_value(bundles, hs.application.frontmostApplication():bundleID())
+    return hasValue(bundles, hs.application.frontmostApplication():bundleID())
 end
 
-function has_value(tab, val)
+function hasValue(tab, val)
     for index, value in ipairs(tab) do
         if value == val then
             return true
@@ -25,6 +25,14 @@ function has_value(tab, val)
     end
 
     return false
+end
+
+function isString(value)
+    return type(value) == 'string'
+end
+
+function isTable(value)
+    return type(value) == 'table'
 end
 
 function appIs(bundle)
@@ -256,7 +264,7 @@ end
     --     app = key
     --     func = value
 
-    --     if project[app] and has_value(project['all'], app) then
+    --     if project[app] and hasValue(project['all'], app) then
     --         if type(project[app]) == 'function' then
     --             project[app]()
     --         elseif type(project[app]) == 'table' then
@@ -306,6 +314,10 @@ function closeWindow()
             end
         end)
     end
+end
+
+function fastSuperKeyStroke(key)
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, key)
 end
 
 function fastKeyStroke(modifiers, key)

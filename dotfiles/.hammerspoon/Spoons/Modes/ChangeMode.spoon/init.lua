@@ -6,7 +6,7 @@ ChangeMode.lookup = {
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = nil,
+    r = 'outer',
     t = 'withWrapperKey',
     caps_lock = 'disableVim',
     a = 'toEndOfLine',
@@ -34,6 +34,10 @@ function ChangeMode.withWrapperKey(key)
     fastKeyStroke('c')
     fastKeyStroke('i')
     fastKeyStroke(keystroke.mods, keystroke.key)
+
+    if not hasValue({'s', 'd', 't'}, key) then
+        BracketMatching.start()
+    end
 end
 
 function ChangeMode.toEndOfWord()
@@ -121,5 +125,39 @@ end
 function ChangeMode.above()
     fastKeyStroke({'shift'}, 'o')
 end
+
+function ChangeMode.outer()
+    Modal.enter('ChangeOuter')
+end
+
+Modal.addWithMenubar({
+    key = 'ChangeOuter',
+    title = 'Change Outer',
+    shortcuts = {
+        items = {
+            {key = 't'},
+            {key = 's'},
+            {key = 'd'},
+            {key = 'f'},
+            {key = 'z'},
+            {key = 'c'},
+            {key = 'b'},
+        },
+        callback = function(item)
+            Modal.exit()
+
+            keystroke = TextManipulation.wrapperKeyLookup[item.key]
+
+            fastKeyStroke('escape')
+            fastKeyStroke('c')
+            fastKeyStroke('a')
+            fastKeyStroke(keystroke.mods, keystroke.key)
+
+            if not hasValue({'s', 'd', 't'}, item.key) then
+                BracketMatching.start()
+            end
+        end,
+    },
+})
 
 return ChangeMode

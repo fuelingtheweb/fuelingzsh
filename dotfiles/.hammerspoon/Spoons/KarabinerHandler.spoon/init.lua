@@ -13,7 +13,9 @@ KarabinerHandler.modes = {
     'PasteMode',
     'DestroyMode',
     'CaseMode',
-    'SnippetMode',
+    'TerminalSnippets',
+    'SlackSnippets',
+    'CodeSnippets',
     'GeneralMode',
     'GoogleMode',
     'ViMode',
@@ -30,10 +32,36 @@ KarabinerHandler.modes = {
     'SearchMode',
     'WindowManager',
     'MediaMode',
+    'TerminalMode',
+    'GitMode',
+    'ArtisanMode',
 }
 
-each(KarabinerHandler.modes, function(mode)
-    spoon[mode] = hs.loadSpoon('Modes/' .. mode)
+each(KarabinerHandler.modes, function(modeName)
+    Mode = hs.loadSpoon('Modes/' .. modeName)
+    spoon[modeName] = Mode
+
+    if not Mode.lookup or modeName == 'JumpToMode' then
+        return
+    end
+
+    each(Mode.lookup, function(callable, key)
+        if type(callable) == 'table' then
+            Mode.lookup[key] = hs.fnutils.map(callable, function(item)
+                local Mode = spoon[modeName]
+
+                if Mode[item] then
+                    return function()
+                        spoon[modeName][item](key)
+                    end
+                elseif Mode.fallback then
+                    return function()
+                        spoon[modeName].fallback(item, key)
+                    end
+                end
+            end)
+        end
+    end)
 end)
 
 function KarabinerHandler.handle(layer, key)
@@ -55,17 +83,7 @@ function KarabinerHandler.handle(layer, key)
         local callable = Mode.lookup[key]
 
         if type(callable) == 'table' then
-            Pending.run(
-                hs.fnutils.map(callable, function(item)
-                    return function()
-                        if Mode[item] then
-                            Mode[item](key)
-                        elseif Mode.fallback then
-                            Mode.fallback(item, key)
-                        end
-                    end
-                end)
-            )
+            Pending.run(callable)
         elseif callable then
             if Mode[callable] then
                 Mode[callable](key)
@@ -85,15 +103,15 @@ KarabinerHandler.modMapping = {
     f16 = 'HyperMode',
     tab = 'TabMode',
     r = 'PaneMode',
-    t = 'TestMode',
+    t = {iterm = 'TerminalMode', atom = 'TestMode'},
     y = 'YankMode',
     u = 'SelectUntilMode',
     i = 'SelectInsideMode',
     o = 'OpenMode',
     p = 'PasteMode',
     ['['] = 'DestroyMode',
-    a = 'CaseMode',
-    s = 'SnippetMode',
+    a = {iterm = 'ArtisanMode', default = 'CaseMode'},
+    s = {iterm = 'TerminalSnippets', slack = 'SlackSnippets', atom = 'CodeSnippets', sublime = 'CodeSnippets'},
     d = 'ViMode',
     f = 'GeneralMode',
     g = 'GoogleMode',
@@ -101,7 +119,7 @@ KarabinerHandler.modMapping = {
     ["\'"] = 'ExtendedCommandMode',
     ['return'] = 'JumpToMode',
     z = 'CaseDialog',
-    c = 'CodeMode',
+    c = {iterm = 'GitMode', atom = 'CodeMode', sublime = 'CodeMode'},
     v = 'ViVisualMode',
     n = 'ChangeMode',
     m = 'MakeMode',
@@ -113,11 +131,22 @@ KarabinerHandler.modMapping = {
 
 KarabinerHandler.callback = function(item)
     if KarabinerHandler.modifier then
-        KarabinerHandler.handle(KarabinerHandler.modMapping[KarabinerHandler.modifier], item.ckey)
+        mode = KarabinerHandler.modMapping[KarabinerHandler.modifier]
+
+        if isTable(mode) then
+            each(mode, function(m, app)
+                if (isTable(mode) and app == 'default') or appIs(apps[app]) then
+                    mode = m
+                end
+            end)
+        end
+
+        if isString(mode) then
+            KarabinerHandler.handle(mode, item.ckey)
+        end
     end
 end
 
-hs.hotkey.alertDuration = 0
 each(KarabinerHandler.modMapping, function(mode, key)
     hs.hotkey.bind({'shift', 'ctrl', 'cmd'}, key, function()
         KarabinerHandler.modifier = key
@@ -144,7 +173,7 @@ allKeys = {
     {key = 'y', ckey = 'y'},
     {key = 'u', ckey = 'u'},
     {key = 'i', ckey = 'i'},
-    {key = 'o', ckey = 'o'},
+    {key = 'f13', ckey = 'o'},
     {key = 'p', ckey = 'p'},
     {key = '[', ckey = 'open_bracket'},
     {key = ']', ckey = 'close_bracket'},
@@ -161,13 +190,13 @@ allKeys = {
     {key = ';', ckey = 'semicolon'},
     {key = "'", ckey = 'quote'},
     {key = 'return', ckey = 'return_or_enter'},
-    {key = 'shift', ckey = 'left_shift'},
+    {key = 'f15', ckey = 'left_shift'},
     {key = 'z', ckey = 'z'},
     {key = 'x', ckey = 'x'},
     {key = 'c', ckey = 'c'},
     {key = 'v', ckey = 'v'},
     {key = 'b', ckey = 'b'},
-    {key = 'n', ckey = 'n'},
+    {key = 'f14', ckey = 'n'},
     {key = 'm', ckey = 'm'},
     {key = 'f18', ckey = 'comma'},
     {key = 'f19', ckey = 'period'},

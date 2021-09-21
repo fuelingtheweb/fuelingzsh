@@ -56,7 +56,7 @@ allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
             count = count + 1
         end
     end
-    if count < 1 then
+    if count < 1 and app:isFrontmost() then
         if appIs(preview) then
             app:kill()
         else

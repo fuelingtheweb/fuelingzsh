@@ -8,13 +8,13 @@ SelectUntilMode.lookup = {
     e = 'endOfWord',
     r = nil,
     t = 'previousBlock',
-    caps_lock = 'mode',
+    caps_lock = 'modeBackward',
     a = 'endOfLine',
     s = 'singleQuote',
     d = 'doubleQuote',
     f = 'parenthesis',
     g = 'beginningOfLine',
-    left_shift = 'modeBackward',
+    left_shift = 'mode',
     z = 'backTick',
     x = nil,
     c = 'braces',
@@ -171,27 +171,27 @@ SelectUntilMode.actions = {
     end,
 
     braces = function(first)
-        first = first or false
+        -- first = first or false
         Pending.run({
             function()
-                if first then
+                -- if first then
                     SelectUntilMode.enterModal(SelectUntilMode.direction, "{")
 
                     return SelectUntilMode.triggerDirectionIfSet()
-                end
+                -- end
 
-                SelectUntilMode.actions.change()
+                -- SelectUntilMode.actions.change()
             end,
-            function()
-                local key = "{"
-                if first then
-                    key = "}"
-                end
+            -- function()
+            --     local key = "{"
+            --     if first then
+            --         key = "}"
+            --     end
 
-                SelectUntilMode.enterModal(SelectUntilMode.direction, key)
+            --     SelectUntilMode.enterModal(SelectUntilMode.direction, key)
 
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
+            --     SelectUntilMode.triggerDirectionIfSet()
+            -- end,
             function()
                 SelectUntilMode.enterModal(SelectUntilMode.direction, "}")
 

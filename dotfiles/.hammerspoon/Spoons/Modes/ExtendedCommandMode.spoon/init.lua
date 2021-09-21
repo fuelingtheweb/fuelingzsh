@@ -4,28 +4,26 @@ ExtendedCommandMode.__index = ExtendedCommandMode
 ExtendedCommandMode.lookup = {
     tab = nil,
     q = nil,
-    w = 'surroundText',
-    e = 'undo',
-    r = 'redo',
+    w = 'closeAllWindows',
+    -- w = 'surroundText',
+    e = nil,
+    r = 'reloadSecondary',
     t = nil,
     caps_lock = 'dismissNotifications',
     a = 'actionFileInAlfred',
     s = 'screenshotToFilesystem',
     d = 'duplicate',
     f = 'revealInSidebar',
-    g = 'toggleDockVisibility',
+    g = 'saveAndReload',
     left_shift = nil,
     z = nil,
     x = nil,
+    x = 'toggleDockVisibility',
     c = 'screenshotToClipboard',
     v = nil,
     b = 'showBartender',
     spacebar = 'newWindowOrFolder',
 }
-
-function ExtendedCommandMode.redo()
-    fastKeyStroke({'shift', 'cmd'}, 'z')
-end
 
 function ExtendedCommandMode.actionFileInAlfred()
     fastKeyStroke({'alt', 'cmd'}, '\\')
@@ -42,10 +40,6 @@ end
 
 function ExtendedCommandMode.toggleDockVisibility()
     fastKeyStroke({'alt', 'cmd'}, 'd')
-end
-
-function ExtendedCommandMode.undo()
-    fastKeyStroke({'cmd'}, 'z')
 end
 
 function ExtendedCommandMode.screenshotToClipboard()
@@ -99,6 +93,37 @@ end
 function ExtendedCommandMode.surroundText()
     fastKeyStroke({'cmd'}, 'c')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
+end
+
+function ExtendedCommandMode.closeAllWindows()
+    fastKeyStroke({'shift', 'cmd'}, 'w')
+    if appIs(chrome) then
+        hs.timer.doAfter(1, function()
+            app = hs.application.frontmostApplication()
+            if next(app:visibleWindows()) == nil then
+                app:hide()
+            end
+        end)
+    end
+end
+
+function ExtendedCommandMode.reloadSecondary()
+    if appIs(chrome) then
+        -- Hard refresh
+        fastKeyStroke({'shift', 'cmd'}, 'r')
+    elseif appIs(iterm) then
+        -- Reload running command
+        fastKeyStroke({'ctrl'}, 'c')
+        fastKeyStroke('up')
+        fastKeyStroke('return')
+    end
+end
+
+function ExtendedCommandMode.saveAndReload()
+    fastKeyStroke('escape')
+    keyStroke({'cmd'}, 's')
+    hs.application.get(apps['chrome']):activate()
+    keyStroke({'cmd'}, 'r')
 end
 
 return ExtendedCommandMode

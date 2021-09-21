@@ -58,11 +58,8 @@ function YankMode.toEndOfWord()
 end
 
 function YankMode.relativeFilePath()
-    if appIs(atom) then
-        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
-        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'r')
-    elseif appIs(sublime) then
-        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'y')
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'y')
     end
 end
 

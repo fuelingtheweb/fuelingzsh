@@ -9,7 +9,7 @@ TerminalMode.lookup = {
     p = nil,
     open_bracket = nil,
     close_bracket = nil,
-    h = nil,
+    h = 'home',
     j = nil,
     k = nil,
     l = 'list',
@@ -25,10 +25,8 @@ TerminalMode.lookup = {
     spacebar = nil,
 }
 
-function TerminalMode.handle(key)
-    if TerminalMode.lookup[key] then
-        TerminalMode[TerminalMode.lookup[key]]()
-    end
+function TerminalMode.home()
+    typeAndEnter('hc')
 end
 
 function TerminalMode.list()

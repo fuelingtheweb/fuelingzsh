@@ -1,8 +1,6 @@
 local TestMode = {}
 TestMode.__index = TestMode
 
-TerminalMode = hs.loadSpoon('Modes/TerminalMode')
-
 TestMode.lookup = {
     y = nil,
     u = nil,
@@ -16,7 +14,7 @@ TestMode.lookup = {
     k = 'class',
     l = 'all',
     semicolon = nil,
-    quote = nil,
+    quote = 'last',
     return_or_enter = nil,
     n = nil,
     m = 'method',
@@ -28,17 +26,7 @@ TestMode.lookup = {
 }
 
 function TestMode.before()
-    if inCodeEditor() then
-        spoon.HyperMode.forceEscape()
-    end
-end
-
-function TestMode.handle(key)
-    if appIs(iterm) then
-        TerminalMode.handle(key)
-    elseif TestMode.lookup[key] then
-        TestMode[TestMode.lookup[key]]()
-    end
+    spoon.HyperMode.forceEscape()
 end
 
 function TestMode.class()
@@ -50,6 +38,12 @@ end
 function TestMode.all()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
+    end
+end
+
+function TestMode.last()
+    if appIs(atom) then
+        fastKeyStroke({'ctrl', 'alt'}, 'r')
     end
 end
 
