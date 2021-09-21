@@ -433,6 +433,11 @@
     # in this case.
     (( VCS_STATUS_HAS_UNSTAGED == -1 )) && res+=" ${modified}─"
 
+    local initials=$(git mob-print --initials)
+    if [[ -n "${initials}" ]]; then
+      res+=" [${initials}]"
+    fi
+
     typeset -g my_git_format=$res
   }
   functions -M my_git_formatter 2>/dev/null
