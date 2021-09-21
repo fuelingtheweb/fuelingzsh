@@ -8,6 +8,7 @@ function yarnOrNpm:get() {
 
 yarnOrNpm:run() {
     command="$(yarnOrNpm:get)$1"
+    shift
     $command "$@"
 }
 
@@ -84,22 +85,22 @@ npi() {
     npm install
 }
 npa() {
-    npm install --save
+    npm install --save "$@"
 }
 npad() {
-    npm install --save-dev
+    npm install --save-dev "$@"
 }
 npl() {
     npm list
 }
 npu() {
-    npm update
+    npm update "$@"
 }
 nprm() {
     npm uninstall "$@"
 }
 npf() {
-    npm search
+    npm search "$@"
 }
 npod() {
     npm outdated
