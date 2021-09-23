@@ -35,6 +35,10 @@ function isTable(value)
     return type(value) == 'table'
 end
 
+function isFunction(value)
+    return type(value) == 'function'
+end
+
 function appIs(bundle)
     return hs.application.frontmostApplication():bundleID() == bundle
 end
@@ -316,6 +320,20 @@ function closeWindow()
     end
 end
 
+function updateChromeUrl(needle, newUrl)
+    copyChromeUrl()
+
+    if stringContains(needle, hs.pasteboard.getContents()) then
+        hs.osascript.applescript([[
+            tell application "Google Chrome"
+                set URL of active tab of front window to "]] .. newUrl .. [["
+            end tell
+        ]])
+
+        return true;
+    end
+end
+
 function fastSuperKeyStroke(key)
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, key)
 end
@@ -335,6 +353,54 @@ end
 
 function insertText(text)
     hs.eventtap.keyStrokes(text)
+end
+
+function handleApp(callback, lookup)
+    local bundle = hs.application.frontmostApplication():bundleID()
+
+    if isTable(callback) then
+        lookup = callback
+        callback = nil
+    end
+
+    if lookup[bundle] then
+        if callback then
+            callback(table.unpack(lookup[bundle]))
+        else
+            lookup[bundle]()
+        end
+    end
+end
+
+function handleConditional(conditional, callback, lookup)
+    if isTable(callback) then
+        lookup = callback
+        callback = nil
+    end
+
+    for key, value in pairs(lookup) do
+        if conditional(value.condition) or value.condition == 'fallback' then
+            if callback then
+                if isTable(value.value) then
+                    callback(table.unpack(value.value))
+                else
+                    callback(value.value)
+                end
+            else
+                value()
+            end
+
+            return
+        end
+    end
+end
+
+function _(callback, ...)
+    local params = table.pack(...)
+
+    return function ()
+        callback(table.unpack(params))
+    end
 end
 
 return obj

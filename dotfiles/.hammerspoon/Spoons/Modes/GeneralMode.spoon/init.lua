@@ -19,7 +19,7 @@ GeneralMode.lookup = {
     n = '`',
     m = 'multiply',
     comma = '%',
-    period = '->',
+    period = 'methodChain',
     slash = '~',
     right_shift = nil,
     spacebar = nil,
@@ -39,6 +39,11 @@ end
 
 function GeneralMode.multiply()
     fastKeyStroke({'shift'}, '8')
+end
+
+function GeneralMode.methodChain()
+    insertText('->')
+    Modal.enter('CodeSnippets:callFunction')
 end
 
 function GeneralMode.fallback(value)

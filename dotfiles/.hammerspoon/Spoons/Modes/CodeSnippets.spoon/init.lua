@@ -1,6 +1,10 @@
 local CodeSnippets = {}
 CodeSnippets.__index = CodeSnippets
 
+dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/method-modal.lua')
+dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/function-modal.lua')
+dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/call-function-modal.lua')
+
 CodeSnippets.lookup = {
     e = 'snippet-elseif',
     t = 'this',
@@ -23,59 +27,11 @@ CodeSnippets.lookup = {
     n = 'functionSnippet',
     m = 'method',
     comma = 'insertComma',
-    period = nil,
+    period = 'callFunction',
     slash = 'insertQuestion',
     right_shift = nil,
     spacebar = nil,
 }
-
-Modal.addWithMenubar({
-    key = 'CodeSnippets:method',
-    title = 'Snippet: Method',
-    shortcuts = {
-        items = {
-            {key = 'n', name = '__construct', method = 'construct'},
-            {key = 'i', name = 'index', method = 'index'},
-            {key = 'c', name = 'create', method = 'create'},
-            {key = 's', name = 'store', method = 'store'},
-            {key = 'h', name = 'show', method = 'show'},
-            {key = 'e', name = 'edit', method = 'edit'},
-            {key = 'u', name = 'update', method = 'update'},
-            {key = 'd', name = 'destroy', method = 'destroy'},
-            {key = 'g', name = 'Model getter', method = 'getter'},
-            {key = 'q', name = 'Model scope', method = 'scope'},
-            {key = 'r', name = 'Model relationship', method = 'relationship'},
-            {key = 't', name = 'Test setup', method = 'test-setup'},
-            {key = 'o', name = 'protected', method = 'protected'},
-            {key = 'v', name = 'private', method = 'private'},
-            {key = ';', name = 'static', method = 'static'},
-            {key = 'space', name = 'cheatsheet', method = 'cheatsheet'},
-        },
-        callback = function(item)
-            if item.method == 'cheatsheet' then
-                return spoon.ModalMgr:toggleCheatsheet()
-            end
-
-            CodeSnippets.snippet('method-' .. item.method)
-            Modal.exit()
-        end,
-    },
-})
-
-Modal.addWithMenubar({
-    key = 'CodeSnippets:function',
-    title = 'Snippet: Function',
-    shortcuts = {
-        items = {
-            {key = 'v', name = 'validation', method = 'validation'},
-            {key = 's', name = 'short', method = 'short'},
-        },
-        callback = function(item)
-            CodeSnippets.snippet('function-' .. item.method)
-            Modal.exit()
-        end,
-    },
-})
 
 function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
@@ -118,6 +74,7 @@ function CodeSnippets.method()
         function()
             if appIs(atom) and titleContains('Test.php') then
                 CodeSnippets.snippet('method-test')
+                spoon.CaseDialog.handle('k')
             elseif appIncludes({atom, sublime}) then
                 CodeSnippets.snippet('method')
             end
@@ -190,6 +147,67 @@ end
 function CodeSnippets.insertComma()
     insertText(', ')
     BracketMatching.start();
+end
+
+function CodeSnippets.callFunction()
+    Modal.enter('CodeSnippets:callFunction')
+end
+
+function CodeSnippets.handleCallFunction(item)
+    if item.extra ~= 'start' then
+        Modal.exit()
+    end
+
+    if item.method == 'static' then
+        insertText('::')
+        Modal.enter('CodeSnippets:callFunction')
+
+        return
+    end
+
+    if item.extra then
+        return CodeSnippets.printFunction(item)
+    end
+
+    CodeSnippets.printFunction(item)
+    -- CodeSnippets.printFunction(item, getSelectedText())
+end
+
+function CodeSnippets.printFunction(item, text)
+    if text and inCodeEditor() then
+        fastKeyStroke({'shift'}, 'delete')
+        fastKeyStroke({'shift', 'cmd'}, 'i')
+    end
+
+    insertText(item.method);
+
+    if item.extra ~= 'start' then
+        insertText('(')
+    end
+
+    if item.extra == 'query' then
+        insertText('function ($query) { $query-> }')
+        insertText(')')
+        fastKeyStroke('left')
+        fastKeyStroke('left')
+        fastKeyStroke('left')
+        Modal.enter('CodeSnippets:callFunction.laravelWhere')
+
+        return
+    elseif text then
+        insertText(text)
+    end
+
+    if item.extra == 'start' then
+        return
+    end
+
+    insertText(')')
+    fastKeyStroke('left')
+
+    if item.extra ~= 'simple' then
+        BracketMatching.start()
+    end
 end
 
 return CodeSnippets

@@ -35,8 +35,6 @@ AlfredCommands:addFromConfig()
 AlfredCommands:listen()
 AlfredCommands:setAlfredJson()
 
-dofile(hs.configdir .. '/config/custom/open.lua')
-
 spoon.MouseCircle = hs.loadSpoon('vendor/MouseCircle')
 spoon.MouseCircle.color = {hex = '#367f71'}
 spoon.MouseCircle:bindHotkeys({show = {{'ctrl', 'alt', 'cmd'}, 'M'}})

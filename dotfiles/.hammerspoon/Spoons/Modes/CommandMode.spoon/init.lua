@@ -16,15 +16,24 @@ CommandMode.lookup = {
     -- s = {'save', 'saveAndReload'},
     d = 'done',
     f = 'find',
-    g = 'atomGitPalette',
+    g = 'searchGoogle',
+    -- g = 'atomGitPalette',
     left_shift = nil,
-    z = 'sleep',
+    z = 'searchAmazon',
     x = 'cancelOrDelete',
-    c = nil,
+    c = 'searchConflicts',
     v = 'duplicateLine',
     b = nil,
     spacebar = nil,
 }
+
+function CommandMode.searchGoogle()
+    spoon.SearchMode.google()
+end
+
+function CommandMode.searchAmazon()
+    spoon.SearchMode.amazon()
+end
 
 function CommandMode.shiftTab()
     fastKeyStroke({'shift'}, 'tab')
@@ -46,12 +55,12 @@ function CommandMode.atomGitPalette()
     fastKeyStroke({'shift', 'cmd'}, 'h')
 end
 
-function CommandMode.sleep()
-    triggerAlfredSearch('sleep')
-end
-
 function CommandMode.duplicateLine()
-    fastKeyStroke({'shift', 'cmd'}, 'd')
+    if inCodeEditor() then
+        fastKeyStroke({'shift', 'cmd'}, 'd')
+    elseif appIs(finder) then
+        fastKeyStroke({'cmd'}, 'd')
+    end
 end
 
 function CommandMode.reload()

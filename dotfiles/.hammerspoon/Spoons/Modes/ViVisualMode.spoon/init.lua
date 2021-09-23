@@ -86,7 +86,12 @@ function ViVisualMode.selectLineDown()
 end
 
 function ViVisualMode.selectLeft()
-    fastKeyStroke({'shift'}, 'left')
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke('left')
+    else
+        fastKeyStroke({'shift'}, 'left')
+    end
 end
 
 function ViVisualMode.selectDown()

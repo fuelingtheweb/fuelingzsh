@@ -2,11 +2,11 @@ local SelectUntilMode = {}
 SelectUntilMode.__index = SelectUntilMode
 
 SelectUntilMode.lookup = {
-    tab = nil,
+    tab = 'untilBackward',
     q = nil,
     w = 'nextWord',
     e = 'endOfWord',
-    r = nil,
+    r = 'untilForward',
     t = 'previousBlock',
     caps_lock = 'modeBackward',
     a = 'endOfLine',
@@ -14,7 +14,7 @@ SelectUntilMode.lookup = {
     d = 'doubleQuote',
     f = 'parenthesis',
     g = 'beginningOfLine',
-    left_shift = 'mode',
+    left_shift = 'modeSecondary',
     z = 'backTick',
     x = nil,
     c = 'braces',
@@ -44,34 +44,38 @@ function SelectUntilMode.nextWord()
     end
 end
 
+SelectUntilMode.secondary = false
 SelectUntilMode.direction = nil
 SelectUntilMode.key = nil
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'SelectUntilMode',
     title = function()
         return 'Select Until: ' .. (SelectUntilMode.direction or '') .. ' ' .. (SelectUntilMode.key or '')
     end,
-    shortcuts = {
-        items = {
-            {key = "s", action = 'singleQuote'},
-            {key = "d", action = 'doubleQuote'},
-            {key = "z", action = 'backTick'},
-            {key = "f", action = 'parenthesis'},
-            {key = "c", action = 'braces'},
-            {key = "b", action = 'brackets'},
-            {key = ',', action = 'backward'},
-            {key = ';', action = 'forward'},
-            {key = 'n', action = 'change'},
-            {key = 'y', action = 'yank'},
-            {key = 'p', action = 'paste'},
-            {key = '[', action = 'destroy'},
-        },
-        callback = function(item)
-            SelectUntilMode.actions[item.action]()
-        end,
+    defaults = false,
+    items = {
+        ['s'] = 'singleQuote',
+        ['d'] = 'doubleQuote',
+        ['z'] = 'backTick',
+        ['f'] = 'parenthesis',
+        ['c'] = 'braces',
+        ['b'] = 'brackets',
+        {shift = true, key = 'f', value = 'secondaryParenthesis'},
+        {shift = true, key = 'c', value = 'secondaryBraces'},
+        {shift = true, key = 'b', value = 'secondaryBrackets'},
+        [','] = 'backward',
+        [';'] = 'forward',
+        ['n'] = 'change',
+        ['y'] = 'yank',
+        ['p'] = 'paste',
+        ['m'] = 'destroy',
     },
+    callback = function(action)
+        SelectUntilMode.actions[action]()
+    end,
     exited = function()
+        SelectUntilMode.secondary = false
         SelectUntilMode.direction = nil
         SelectUntilMode.key = nil
     end,
@@ -88,6 +92,8 @@ function SelectUntilMode.triggerDirectionIfSet()
         action = 'backward'
     end
     SelectUntilMode.actions[action]()
+
+    SelectUntilMode.secondary = false
 end
 
 function SelectUntilMode.enterModal(direction, key)
@@ -122,97 +128,54 @@ end
 
 SelectUntilMode.actions = {
     singleQuote = function()
-        Pending.run({
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
-
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
-
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-        })
+        SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
-        Pending.run({
-            function()
-                SelectUntilMode.actions.destroy()
-            end,
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
-
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-        })
+        SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     backTick = function()
         SelectUntilMode.enterModal(SelectUntilMode.direction, "`")
-
         SelectUntilMode.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
-        Pending.run({
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "(")
+        local character = SelectUntilMode.secondary and ')' or '('
 
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, ")")
-
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-        })
+        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
-    braces = function(first)
-        -- first = first or false
-        Pending.run({
-            function()
-                -- if first then
-                    SelectUntilMode.enterModal(SelectUntilMode.direction, "{")
+    braces = function()
+        local character = SelectUntilMode.secondary and '}' or '{'
 
-                    return SelectUntilMode.triggerDirectionIfSet()
-                -- end
-
-                -- SelectUntilMode.actions.change()
-            end,
-            -- function()
-            --     local key = "{"
-            --     if first then
-            --         key = "}"
-            --     end
-
-            --     SelectUntilMode.enterModal(SelectUntilMode.direction, key)
-
-            --     SelectUntilMode.triggerDirectionIfSet()
-            -- end,
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "}")
-
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-        })
+        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     brackets = function()
-        Pending.run({
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "[")
+        local character = SelectUntilMode.secondary and ']' or '['
 
-                SelectUntilMode.triggerDirectionIfSet()
-            end,
-            function()
-                SelectUntilMode.enterModal(SelectUntilMode.direction, "]")
+        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
+        SelectUntilMode.triggerDirectionIfSet()
+    end,
 
-                SelectUntilMode.triggerDirectionIfSet()
-            end
-        })
+    secondaryParenthesis = function()
+        SelectUntilMode.enterModal(SelectUntilMode.direction, ')')
+        SelectUntilMode.triggerDirectionIfSet()
+    end,
+
+    secondaryBraces = function()
+        SelectUntilMode.enterModal(SelectUntilMode.direction, '}')
+        SelectUntilMode.triggerDirectionIfSet()
+    end,
+
+    secondaryBrackets = function()
+        SelectUntilMode.enterModal(SelectUntilMode.direction, ']')
+        SelectUntilMode.triggerDirectionIfSet()
     end,
 
     backward = function()
@@ -318,6 +281,11 @@ function SelectUntilMode.modeBackward()
     SelectUntilMode.enterModal('B')
 end
 
+function SelectUntilMode.modeSecondary()
+    SelectUntilMode.secondary = true
+    SelectUntilMode.enterModal('F')
+end
+
 function SelectUntilMode.singleQuote()
     SelectUntilMode.enterModal('F')
     SelectUntilMode.actions.singleQuote()
@@ -379,6 +347,18 @@ function SelectUntilMode.previousBlock()
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
     end
+end
+
+function SelectUntilMode.untilForward()
+    fastKeyStroke('escape')
+    fastKeyStroke('v')
+    fastKeyStroke('t')
+end
+
+function SelectUntilMode.untilBackward()
+    fastKeyStroke('escape')
+    fastKeyStroke('v')
+    fastKeyStroke({'shift'}, 't')
 end
 
 return SelectUntilMode

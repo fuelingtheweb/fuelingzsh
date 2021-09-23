@@ -3,8 +3,8 @@ HyperMode.__index = HyperMode
 
 HyperMode.lookup = {
     y = {'copy', 'copyAll'},
-    u = nil,
-    i = nil,
+    u = 'searchTabs',
+    i = 'searchSymbols',
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
@@ -53,6 +53,14 @@ function HyperMode.copy()
     end
 end
 
+function HyperMode.searchSymbols()
+    spoon.SearchMode.symbol()
+end
+
+function HyperMode.searchTabs()
+    spoon.SearchMode.tabs()
+end
+
 function HyperMode.copyAll()
     fastKeyStroke({'cmd'}, 'a')
     fastKeyStroke({'cmd'}, 'c')
@@ -66,32 +74,44 @@ function HyperMode.copyAll()
     end
 end
 
-Modal.add({
-    key = 'HyperMode:open',
-    title = 'Hyper: Open',
-    shortcuts = {
-        items = {
-            {key = 'p', extension = '.php'},
-            {key = 'b', extension = '.blade.php'},
-            {key = 'j', extension = '.js'},
-            {key = 'l', extension = '.lua'},
-            {key = 'y', extension = '.py'},
-            {key = 'v', extension = '.vue'},
-            {key = 'c', extension = '.css'},
-            {key = 's', extension = '.sass'},
-            {key = 't', extension = 'Test.php'},
-        },
-        callback = function(item)
-            insertText(item.extension)
-            for i = 1, item.extension:len() do
-                fastKeyStroke('left')
-            end
-            Modal.exit()
-        end,
-    },
-})
+-- Modal.add({
+--     key = 'HyperMode:open',
+--     title = 'Hyper: Open',
+--     items = {
+--         p = {extension = '.php'},
+--         b = {extension = '.blade.php'},
+--         j = {extension = '.js'},
+--         l = {extension = '.lua'},
+--         y = {extension = '.py'},
+--         v = {extension = '.vue'},
+--         c = {extension = '.css'},
+--         s = {extension = '.sass'},
+--         t = {extension = 'Test.php'},
+--     },
+--     callback = function(item)
+--         insertText(item.extension)
+--         for i = 1, item.extension:len() do
+--             fastKeyStroke('left')
+--         end
+--         Modal.exit()
+--     end,
+-- })
 
 function HyperMode.open()
+    -- handleApp({
+    --     {{atom, sublime}, function()
+    --         fastKeyStroke({'cmd'}, 'p')
+    --         TextManipulation.disableVim()
+    --     end},
+    --     {{notion, sublimeMerge, tableplus, invoker}, function()
+    --         fastKeyStroke({'cmd'}, 'p')
+    --     end},
+    --     {{discord, slack}, _(fastKeyStroke, {'cmd'}, 'k')},
+    --     {spotify, _(triggerAlfredWorkflow, 'spot_mini', 'com.vdesabou.spotify.mini.player')},
+    --     {chrome, _(fastKeyStroke, {'shift'}, 'o')},
+    --     {'fallback', _(fastKeyStroke, {'cmd'}, 'o')},
+    -- })
+
     if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
         fastKeyStroke({'cmd'}, 'p')
 

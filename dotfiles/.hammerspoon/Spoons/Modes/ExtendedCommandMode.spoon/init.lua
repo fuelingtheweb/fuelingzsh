@@ -16,14 +16,21 @@ ExtendedCommandMode.lookup = {
     f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = nil,
-    z = nil,
-    x = nil,
-    x = 'toggleDockVisibility',
+    z = 'sleep',
+    x = 'searchFiles',
     c = 'screenshotToClipboard',
-    v = nil,
+    v = 'toggleDockVisibility',
     b = 'showBartender',
     spacebar = 'newWindowOrFolder',
 }
+
+function ExtendedCommandMode.searchFiles()
+    spoon.SearchMode.files()
+end
+
+function ExtendedCommandMode.sleep()
+    triggerAlfredSearch('sleep')
+end
 
 function ExtendedCommandMode.actionFileInAlfred()
     fastKeyStroke({'alt', 'cmd'}, '\\')

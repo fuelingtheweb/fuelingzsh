@@ -130,34 +130,24 @@ function ChangeMode.outer()
     Modal.enter('ChangeOuter')
 end
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'ChangeOuter',
     title = 'Change Outer',
-    shortcuts = {
-        items = {
-            {key = 't'},
-            {key = 's'},
-            {key = 'd'},
-            {key = 'f'},
-            {key = 'z'},
-            {key = 'c'},
-            {key = 'b'},
-        },
-        callback = function(item)
-            Modal.exit()
+    keys = {'t', 's', 'd', 'f', 'z', 'c', 'b'},
+    callback = function(key)
+        Modal.exit()
 
-            keystroke = TextManipulation.wrapperKeyLookup[item.key]
+        keystroke = TextManipulation.wrapperKeyLookup[key]
 
-            fastKeyStroke('escape')
-            fastKeyStroke('c')
-            fastKeyStroke('a')
-            fastKeyStroke(keystroke.mods, keystroke.key)
+        fastKeyStroke('escape')
+        fastKeyStroke('c')
+        fastKeyStroke('a')
+        fastKeyStroke(keystroke.mods, keystroke.key)
 
-            if not hasValue({'s', 'd', 't'}, item.key) then
-                BracketMatching.start()
-            end
-        end,
-    },
+        if not hasValue({'s', 'd', 't'}, key) then
+            BracketMatching.start()
+        end
+    end,
 })
 
 return ChangeMode

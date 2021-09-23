@@ -1,27 +1,27 @@
 local SearchMode = {}
 SearchMode.__index = SearchMode
 
-SearchMode.lookup = {
-    tab = nil,
-    q = nil,
-    w = 'windowsInCurrentApp',
-    e = nil,
-    r = nil,
-    t = 'tabs',
-    caps_lock = 'default',
-    a = 'allWindows',
-    s = 'symbol',
-    d = nil,
-    f = 'files',
-    g = 'google',
-    left_shift = nil,
-    z = 'amazon',
-    x = nil,
-    c = 'mergeConflicts',
-    v = nil,
-    b = nil,
-    spacebar = nil,
-}
+-- SearchMode.lookup = {
+--     tab = nil,
+--     q = nil,
+--     w = 'windowsInCurrentApp',
+--     e = nil,
+--     r = nil,
+--     t = 'tabs',
+--     caps_lock = 'default',
+--     a = 'allWindows',
+--     s = 'symbol',
+--     d = nil,
+--     f = 'files',
+--     g = 'google',
+--     left_shift = nil,
+--     z = 'amazon',
+--     x = nil,
+--     c = 'mergeConflicts',
+--     v = nil,
+--     b = nil,
+--     spacebar = nil,
+-- }
 
 function SearchMode.symbol()
     fastKeyStroke({'cmd'}, 'r')

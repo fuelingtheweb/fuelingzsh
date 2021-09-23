@@ -79,10 +79,6 @@ function GoogleMode.openAndReload()
 end
 
 function GoogleMode.toggleIncognito()
-    if customUpdateChromeUrl() then
-        return
-    end
-
     hs.osascript.applescript([[
         tell application "Google Chrome"
             set theUrl to URL of active tab of front window

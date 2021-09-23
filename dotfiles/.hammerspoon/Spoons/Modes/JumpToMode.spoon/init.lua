@@ -14,7 +14,7 @@ JumpToMode.lookup = {
     d = 'doubleQuote',
     f = 'parenthesis',
     g = nil,
-    left_shift = nil,
+    left_shift = 'modeSecondary',
     z = 'backTick',
     x = nil,
     c = 'braces',
@@ -23,30 +23,34 @@ JumpToMode.lookup = {
     spacebar = nil,
 }
 
+JumpToMode.secondary = false
 JumpToMode.direction = nil
 JumpToMode.key = nil
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'JumpToMode',
     title = function()
         return 'Jump to: ' .. (JumpToMode.direction or '') .. ' ' .. (JumpToMode.key or '')
     end,
-    shortcuts = {
-        items = {
-            {key = "s", action = 'singleQuote'},
-            {key = "d", action = 'doubleQuote'},
-            {key = "z", action = 'backTick'},
-            {key = "f", action = 'parenthesis'},
-            {key = "c", action = 'braces'},
-            {key = "b", action = 'brackets'},
-            {key = ',', action = 'backward'},
-            {key = ';', action = 'forward'},
-        },
-        callback = function(item)
-            JumpToMode.actions[item.action]()
-        end,
+    defaults = false,
+    items = {
+        ['s'] = 'singleQuote',
+        ['d'] = 'doubleQuote',
+        ['z'] = 'backTick',
+        ['f'] = 'parenthesis',
+        ['c'] = 'braces',
+        ['b'] = 'brackets',
+        {shift = true, key = 'f', value = 'secondaryParenthesis'},
+        {shift = true, key = 'c', value = 'secondaryBraces'},
+        {shift = true, key = 'b', value = 'secondaryBrackets'},
+        [','] = 'backward',
+        [';'] = 'forward',
     },
+    callback = function(action)
+        JumpToMode.actions[action]()
+    end,
     exited = function()
+        JumpToMode.secondary = false
         JumpToMode.direction = nil
         JumpToMode.key = nil
     end,
@@ -63,6 +67,8 @@ function JumpToMode.triggerDirectionIfSet()
         action = 'backward'
     end
     JumpToMode.actions[action]()
+
+    JumpToMode.secondary = false
 
     Modal.exit()
 end
@@ -97,82 +103,54 @@ end
 
 JumpToMode.actions = {
     singleQuote = function()
-        Pending.run({
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "'")
-
-                JumpToMode.triggerDirectionIfSet()
-            end,
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, '"')
-
-                JumpToMode.triggerDirectionIfSet()
-            end,
-        })
+        JumpToMode.enterModal(JumpToMode.direction, "'")
+        JumpToMode.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
-        Pending.run({
-            function()
-                JumpToMode.actions.destroy()
-            end,
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, '"')
-
-                JumpToMode.triggerDirectionIfSet()
-            end,
-        })
+        JumpToMode.enterModal(JumpToMode.direction, '"')
+        JumpToMode.triggerDirectionIfSet()
     end,
 
     backTick = function()
         JumpToMode.enterModal(JumpToMode.direction, "`")
-
         JumpToMode.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
-        Pending.run({
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "(")
+        local character = JumpToMode.secondary and ')' or '('
 
-                JumpToMode.triggerDirectionIfSet()
-            end,
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, ")")
-
-                JumpToMode.triggerDirectionIfSet()
-            end,
-        })
+        JumpToMode.enterModal(JumpToMode.direction, character)
+        JumpToMode.triggerDirectionIfSet()
     end,
 
     braces = function()
-        Pending.run({
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "{")
+        local character = JumpToMode.secondary and '}' or '{'
 
-                JumpToMode.triggerDirectionIfSet()
-            end,
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "}")
-
-                JumpToMode.triggerDirectionIfSet()
-            end,
-        })
+        JumpToMode.enterModal(JumpToMode.direction, character)
+        JumpToMode.triggerDirectionIfSet()
     end,
 
     brackets = function()
-        Pending.run({
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "[")
+        local character = JumpToMode.secondary and ']' or '['
 
-                JumpToMode.triggerDirectionIfSet()
-            end,
-            function()
-                JumpToMode.enterModal(JumpToMode.direction, "]")
+        JumpToMode.enterModal(JumpToMode.direction, character)
+        JumpToMode.triggerDirectionIfSet()
+    end,
 
-                JumpToMode.triggerDirectionIfSet()
-            end
-        })
+    secondaryParenthesis = function()
+        JumpToMode.enterModal(JumpToMode.direction, ')')
+        JumpToMode.triggerDirectionIfSet()
+    end,
+
+    secondaryBraces = function()
+        JumpToMode.enterModal(JumpToMode.direction, '}')
+        JumpToMode.triggerDirectionIfSet()
+    end,
+
+    secondaryBrackets = function()
+        JumpToMode.enterModal(JumpToMode.direction, ']')
+        JumpToMode.triggerDirectionIfSet()
     end,
 
     backward = function()
@@ -242,6 +220,11 @@ end
 
 function JumpToMode.modeBackward()
     JumpToMode.enterModal('B')
+end
+
+function JumpToMode.modeSecondary()
+    JumpToMode.secondary = true
+    JumpToMode.enterModal('F')
 end
 
 function JumpToMode.singleQuote()

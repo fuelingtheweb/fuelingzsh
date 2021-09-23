@@ -13,10 +13,11 @@ TextManipulation.wrapperKeyLookup = {
 
 TextManipulation.vimEnabled = true
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'TextManipulation:vimDisabled',
     title = 'Vim Text Manipulation Disabled',
-    shortcuts = {
+    defaults = false,
+    items = {
         ['return'] = function()
             if inCodeEditor() then
                 Modal.exit()

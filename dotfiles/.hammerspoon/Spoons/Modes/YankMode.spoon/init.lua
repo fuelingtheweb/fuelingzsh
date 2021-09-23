@@ -2,13 +2,14 @@ local YankMode = {}
 YankMode.__index = YankMode
 
 YankMode.lookup = {
-    tab = 'toTopOfPage',
+    tab = 'untilBackward',
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = 'relativeFilePath',
+    r = 'untilForward',
+    -- r = 'relativeFilePath',
     t = 'withWrapperKey',
-    caps_lock = nil,
+    caps_lock = 'toTopOfPage',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
@@ -142,6 +143,18 @@ function YankMode.toTopOfPage()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
+end
+
+function YankMode.untilForward()
+    fastKeyStroke('escape')
+    fastKeyStroke('y')
+    fastKeyStroke('t')
+end
+
+function YankMode.untilBackward()
+    fastKeyStroke('escape')
+    fastKeyStroke('y')
+    fastKeyStroke({'shift'}, 't')
 end
 
 return YankMode

@@ -1,152 +1,201 @@
 local OpenMode = {}
 OpenMode.__index = OpenMode
 
+dofile(hs.configdir .. '/Spoons/Modes/OpenMode.spoon/open-in-modal.lua')
+
 OpenMode.lookup = {
-    tab = 'customOpen',
-    q = 'customOpen',
-    w = 'customOpen',
-    e = 'inSublime',
-    r = 'inAtom',
-    t = 'customOpen',
-    caps_lock = 'customOpen',
-    a = 'aliases',
-    s = 'snippets',
-    d = 'downloads',
-    f = 'customOpen',
-    g = 'inChrome',
-    left_shift = 'customOpen',
-    z = 'fuelingzsh',
-    x = 'inTinkerwell',
-    c = 'inSublimeMerge',
-    v = 'inTablePlus',
-    b = 'inFinder',
-
-    h = 'hammerspoon',
-    k = 'karabiner',
-
-    spacebar = 'customOpen',
+    tab = 'windowHintsForCurrentApplication',
+    q = nil,
+    w = 'openInModal',
+    e = 'sublime',
+    r = 'atom',
+    t = 'iterm',
+    caps_lock = 'windowHints',
+    a = 'openAppModal',
+    s = 'Slack.app',
+    d = 'Discord.app',
+    f = 'openShortcutsModal',
+    g = 'chrome',
+    left_shift = nil,
+    z = 'fantastical',
+    x = 'finder',
+    c = 'Sublime Merge.app',
+    v = 'TablePlus.app',
+    b = nil,
+    spacebar = {'open', 'bringAllWindowsToFront'},
 }
 
-function OpenMode.customOpen(key)
-    hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
-end
+Modal.add({
+    key = 'OpenApp',
+    title = 'Open App',
+    items = {
+        -- q
+        w = {name = 'Tinkerwell', app = 'de.beyondco.tinkerwell'},
+        -- e
+        r = {name = 'Ray', app = 'Ray.app'},
+        t = {name = 'Transmit', app = 'Transmit.app'},
+        -- yu
+        i = {name = 'Invoker', app = 'de.beyondco.invoker'},
+        -- op
+        a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
+        s = {name = 'Spotify', app = 'spotify'},
+        d = {name = 'Dash', app = 'Dash.app'},
+        f = {name = 'Fantastical', app = 'fantastical'},
+        -- g
+        h = {name = 'Helo', app = 'de.beyondco.helo'},
+        -- j
+        k = {name = 'Kaleidoscope', app = 'Kaleidoscope.app'},
+        -- l
+        z = {name = 'Zoom', app = 'zoom.us.app'},
+        -- xcvb
+        n = {name = 'Notion', app = 'Notion.app'},
+        -- m
+    },
+    callback = function(item)
+        Modal.exit()
+        OpenMode.fallback(item.app)
+    end,
+})
 
-function OpenMode.aliases()
-    openInSublime('~/.fuelingzsh/aliases')
-    hs.timer.doAfter(0.1, spoon.HyperMode.open)
-end
-
-function OpenMode.snippets()
-    openInSublime('~/.fuelingzsh/custom/espanso/default.yml')
-end
-
-function OpenMode.downloads()
-    hs.execute('open ~/Downloads')
-end
-
-function OpenMode.hammerspoon()
-    openInSublime('~/.hammerspoon')
-    hs.timer.doAfter(0.1, spoon.HyperMode.open)
-end
-
-function OpenMode.fuelingzsh()
-    openInSublime('~/.fuelingzsh')
-    hs.timer.doAfter(0.1, spoon.HyperMode.open)
-end
-
-function OpenMode.inSublimeMerge()
-    if appIs(iterm) then
-        return typeAndEnter('smerge .')
+function OpenMode.before()
+    if inCodeEditor() then
+        spoon.HyperMode.forceEscape()
     end
-
-    path = currentTitle():match('~%S+')
-
-    if path then
-        hs.execute('/usr/local/bin/smerge "' .. path .. '"')
-    end
 end
 
-function OpenMode.inSublime()
-    if appIs(iterm) then
-        typeAndEnter('st.')
+hs.hints.titleMaxSize = 20
+hs.hints.showTitleThresh = 20
+hs.hints.fontSize = 20
+hs.hints.iconAlpha = 1
+
+function OpenMode.windowHintsForCurrentApplication()
+    hs.hints.style = nil
+    hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
+end
+
+-- KSheet = hs.loadSpoon('vendor/KSheet')
+-- KSheet:init()
+
+-- HSKeybindings = hs.loadSpoon('vendor/HSKeybindings')
+
+function OpenMode.windowHints()
+    hs.hints.style = 'vimperator'
+    hs.hints.windowHints()
+    -- KSheet:toggle()
+    -- HSKeybindings:show()
+end
+
+function OpenMode.fantastical()
+    fastKeyStroke({'alt', 'cmd'}, 'c')
+end
+
+function OpenMode.alfredPreferences()
+    hs.application.open('com.runningwithcrayons.Alfred-Preferences')
+end
+
+function OpenMode.quit()
+    spoon.CommandMode.quit()
+end
+
+function OpenMode.closeWindow()
+    spoon.CommandMode.closeWindow()
+end
+
+function OpenMode.closeAllWindow()
+    spoon.CommandMode.closeAllWindow()
+end
+
+function OpenMode.open()
+    spoon.HyperMode.open()
+end
+
+function OpenMode.bringAllWindowsToFront()
+    hs.application.frontmostApplication():activate(true)
+end
+
+function OpenMode.fallback(value, key)
+    if OpenMode[value] then
+        OpenMode[value]()
+    elseif stringContains('.app', value) then
+        hs.execute("open -a '" .. value .. "'")
     else
-        path = currentTitle():match('~%S+')
-
-        if appIs(atom) then
-            spoon.YankMode.relativeFilePath()
-
-            hs.timer.doAfter(0.2, function()
-                filePath = hs.pasteboard.getContents()
-
-                if path and filePath then
-                    openInSublime(path .. '/' .. filePath)
-                end
-            end)
-        end
-
-        if not path then
-           return;
-        end
-
-        openInSublime(path)
+        OpenMode.launchApp(value)
     end
 end
 
-function OpenMode.inAtom()
-    if appIs(iterm) then
-        typeAndEnter('atom .')
+function OpenMode.launchApp(id)
+    bundle = apps[id]
+
+    if not bundle then
+        return hs.application.open(id)
+    end
+
+    app = hs.application.frontmostApplication()
+    isActive = app:bundleID() == bundle
+
+    if id == 'iterm' then
+        launchIterm()
+    elseif id == 'spotify' then
+        launchSpotify()
+    elseif not isActive and not hasWindows(hs.application.get(bundle)) then
+        if id ~= 'atom' then
+            hs.application.open(bundle)
+        end
+    elseif not isActive then
+        hs.application.get(bundle):activate()
+    elseif multipleWindows(app) then
+        OpenMode.windowHintsForCurrentApplication()
+    elseif not hasWindows(app) then
+        hs.application.open(bundle)
+    end
+end
+
+function launchIterm(callback)
+    bundle = apps['iterm']
+    app = hs.application.get(bundle)
+
+    if app and app:isRunning() then
+        triggerItermShortcut(callback)
     else
-        triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
+        hs.application.open(bundle)
+        hs.timer.doAfter(1, function()
+            triggerItermShortcut(callback)
+        end)
     end
 end
 
-function OpenMode.inChrome()
-    text = getSelectedText()
-    if not appIncludes({atom, sublime}) and text then
-        runGoogleSearch(text)
-    elseif appIs(chrome) then
-        copyChromeUrl()
-        openInChrome(getSelectedText())
+function triggerItermShortcut(callback)
+    fastKeyStroke('`')
+
+    if callback then
+        callback()
+    end
+end
+
+function launchSpotify()
+    if appIs(spotify) then
+        return spoon.WindowManager.next()
+    end
+
+    app = hs.application.get(spotify)
+
+    if app and app:isRunning() then
+        app:activate()
     else
-        ProjectManager.openUrlForCurrent()
+        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/2dMv6aYJXDoDA10nBPOvFN?si=EpPYjSQuSvKX92e4gJBf1Q')
     end
 end
 
-function OpenMode.inTablePlus()
-    customOpenInTablePlus()
+function OpenMode.openAppModal()
+    Modal.enter('OpenApp')
 end
 
-function OpenMode.inFinder()
-    if appIs(iterm) then
-        typeAndEnter('o.')
-    else
-        path = currentTitle():match('~%S+')
-        if not path then
-           return;
-        end
-        if appIs(atom) then
-            hs.execute('open ' .. path)
-        else
-            hs.execute('open -R ' .. path)
-        end
-    end
+function OpenMode.openShortcutsModal()
+    Modal.enter('OpenShortcuts')
 end
 
-function OpenMode.inTinkerwell()
-    if appIs(iterm) then
-        return typeAndEnter('tinkerwell .')
-    end
-
-    path = currentTitle():match('~%S+')
-
-    if path then
-        executeFromFuelingZsh('tinkerwell "' .. path .. '"')
-    end
-end
-
-function OpenMode.karabiner()
-    openInSublime('~/.fuelingzsh/karabiner/goku')
-    openInSublime('~/.fuelingzsh/karabiner/goku/compile.py')
+function OpenMode.openInModal()
+    Modal.enter('OpenIn')
 end
 
 return OpenMode

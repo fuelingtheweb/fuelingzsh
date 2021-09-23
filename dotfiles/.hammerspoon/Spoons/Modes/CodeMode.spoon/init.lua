@@ -40,19 +40,28 @@ function CodeMode.addUseStatement()
 end
 
 function CodeMode.multipleCursorsUp()
-    if appIs(atom) then
-        fastKeyStroke({'shift', 'ctrl'}, 'up')
-    elseif appIs(sublime) then
-        fastKeyStroke({'shift', 'ctrl', 'alt'}, 'up')
-    end
+    handleApp(fastKeyStroke, {
+        [atom] = {{'shift', 'ctrl'}, 'up'},
+        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'},
+    })
+    -- handleApp({
+    --     [atom] = _(fastKeyStroke, {'shift', 'ctrl'}, 'up'),
+    --     [sublime] = _(fastKeyStroke, {'shift', 'ctrl', 'alt'}, 'up'),
+    -- })
 end
 
 function CodeMode.conditionalOr()
-    if titleContains('.lua') then
-        insertText(' or ')
-    else
-        insertText(' || ')
-    end
+    handleConditional(titleContains, insertText, {
+        {condition = '.lua', value = ' or '},
+        {condition = 'fallback', value = ' || '},
+        -- ['.lua'] = ' or ',
+        -- ['fallback'] = ' || ',
+    })
+    -- if titleContains('.lua') then
+    --     insertText(' or ')
+    -- else
+    --     insertText(' || ')
+    -- end
 end
 
 function CodeMode.fold()
@@ -137,11 +146,10 @@ function CodeMode.typeReturn()
 end
 
 function CodeMode.toggleBoolean()
-    if appIs(sublime) then
-        fastKeyStroke({'alt', 'cmd'}, 'x')
-    elseif appIs(atom) then
-        fastKeyStroke('-')
-    end
+    handleApp({
+        [atom] = _(fastKeyStroke, '-'),
+        [sublime] = _(fastKeyStroke, {'alt', 'cmd'}, 'x'),
+    })
 end
 
 function CodeMode.selectNextWord()

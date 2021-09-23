@@ -2,19 +2,19 @@ local DestroyMode = {}
 DestroyMode.__index = DestroyMode
 
 DestroyMode.lookup = {
-    tab = 'modeForward',
+    tab = 'untilBackward',
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = 'untilMode',
+    r = 'untilForward',
     t = 'withWrapperKey',
-    caps_lock = 'mode',
+    -- caps_lock = 'mode',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    left_shift = 'modeBackward',
+    -- left_shift = 'modeBackward',
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -133,21 +133,19 @@ end
 DestroyMode.direction = nil
 DestroyMode.key = nil
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'DestroyMode',
     title = function()
         return 'Destroy: ' .. (DestroyMode.direction or '') .. ' ' .. (DestroyMode.key or '')
     end,
-    shortcuts = {
-        items = {
-            {key = ',', action = 'backward'},
-            {key = ';', action = 'forward'},
-            {key = 'v', action = 'line'},
-        },
-        callback = function(item)
-            DestroyMode.actions[item.action]()
-        end,
+    items = {
+        [','] = 'backward',
+        [';'] = 'forward',
+        ['v'] = 'line',
     },
+    callback = function(action)
+        DestroyMode.actions[action]()
+    end,
     exited = function()
         DestroyMode.direction = nil
         DestroyMode.key = nil
@@ -233,10 +231,16 @@ function DestroyMode.modeBackward()
     DestroyMode.enterModal('B')
 end
 
-function DestroyMode.untilMode()
+function DestroyMode.untilForward()
     fastKeyStroke('escape')
     fastKeyStroke('d')
     fastKeyStroke('t')
+end
+
+function DestroyMode.untilBackward()
+    fastKeyStroke('escape')
+    fastKeyStroke('d')
+    fastKeyStroke({'shift'}, 't')
 end
 
 return DestroyMode

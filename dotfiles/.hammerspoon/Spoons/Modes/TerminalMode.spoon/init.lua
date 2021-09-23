@@ -15,7 +15,7 @@ TerminalMode.lookup = {
     l = 'list',
     semicolon = nil,
     quote = nil,
-    return_or_enter = nil,
+    return_or_enter = 'clear',
     n = nil,
     m = nil,
     comma = nil,
@@ -35,6 +35,10 @@ end
 
 function TerminalMode.navigate()
     insertText('cd ')
+end
+
+function TerminalMode.clear()
+    typeAndEnter('clear')
 end
 
 return TerminalMode

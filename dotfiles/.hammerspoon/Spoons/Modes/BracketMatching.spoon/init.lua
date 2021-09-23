@@ -15,55 +15,56 @@ BracketMatching.lookup = {
     tag = {'<', '>'},
 }
 
-Modal.addWithMenubar({
+Modal.add({
     key = 'BracketMatching',
     title = 'Bracket Matching',
-    shortcuts = {
-        items = {
-            -- numbers
-            -- tab, qwer
-            {key = 't', action = 'thisSnippet'},
-            -- yu
-            {key = 'i', action = 'onlyOpening'},
-            {key = 'o', action = 'onlyClosing'},
-            {key = 'p', action = 'paste'},
-            {key = '[', action = 'cancel'},
-            -- ]\
-            -- caps, a
-            {key = 's', bracket = 'singleQuote'},
-            {key = 'd', bracket = 'doubleQuote'},
-            {key = 'f', bracket = 'parenthesis'},
-            -- g
-            {key = 'h', action = 'left'},
-            -- j
-            {key = 'k', action = 'insertVariable'},
-            {key = 'l', action = 'right'},
-            {key = ';', action = 'insertSemicolon'},
-            {key = "'", action = 'insertNull'},
-            {key = 'return', action = 'newLine'},
-            -- left shift
-            {key = 'z', bracket = 'backTick'},
-            -- x
-            {key = 'c', bracket = 'braces'},
-            -- v
-            {key = 'b', bracket = 'brackets'},
-            {key = 'n', action = 'functionSnippet'},
-            {key = 'm', action = 'commitOrDismiss'},
-            {key = ',', action = 'insertComma'},
-            {key = '.', action = 'continueChain'},
-            -- /, right shift
-            {key = 'space', bracket = 'space'},
-        },
-        callback = function(item)
-            BracketMatching.start()
-
-            if item.action then
-                return BracketMatching[item.action]()
-            end
-
-            BracketMatching.print(item.bracket)
-        end,
+    items = {
+        -- numbers
+        -- tab, qwer
+        t = {action = 'thisSnippet'},
+        -- yu
+        i = {action = 'onlyOpening'},
+        o = {action = 'onlyClosing'},
+        p = {action = 'paste'},
+        -- ['['] = {action = 'cancel'},
+        -- ]\
+        -- caps, a
+        s = {bracket = 'singleQuote'},
+        d = {bracket = 'doubleQuote'},
+        f = {bracket = 'parenthesis'},
+        -- g
+        h = {action = 'left'},
+        -- j
+        k = {action = 'insertVariable'},
+        l = {action = 'right'},
+        [';'] = {action = 'insertSemicolon'},
+        ["'"] = {action = 'insertNull'},
+        ['return'] = {action = 'newLine'},
+        -- left shift
+        z = {bracket = 'backTick'},
+        -- x
+        c = {bracket = 'braces'},
+        -- v
+        b = {bracket = 'brackets'},
+        n = {action = 'functionSnippet'},
+        m = {action = 'cancel'},
+        [','] = {action = 'insertComma'},
+        ['.'] = {action = 'continueChain'},
+        -- /, right shift
+        space = {bracket = 'space'},
     },
+    callback = function(item)
+        BracketMatching.start()
+
+        if item.action then
+            return BracketMatching[item.action]()
+        end
+
+        BracketMatching.print(item.bracket)
+    end,
+    beforeExit = function()
+        BracketMatching.commitOrDismiss()
+    end,
     exited = function()
         BracketMatching.multi = false
         BracketMatching.brackets = {}
@@ -82,7 +83,8 @@ function BracketMatching.print(bracket)
     end
 
     local brackets = BracketMatching.lookup[bracket]
-    local text = getSelectedText()
+    -- local text = getSelectedText()
+    local text = nil
 
     BracketMatching.start()
 
@@ -185,6 +187,7 @@ function BracketMatching.continueChain()
     Modal.exit()
     fastKeyStroke('right');
     insertText('->')
+    Modal.enter('CodeSnippets:callFunction')
 end
 
 function BracketMatching.insertVariable()
@@ -210,6 +213,7 @@ end
 function BracketMatching.functionSnippet()
     Modal.exit()
     spoon.CodeSnippets.snippet('function')
+    BracketMatching.start()
 end
 
 function BracketMatching.thisSnippet()

@@ -1,3 +1,5 @@
+dofile(hs.configdir .. '/config/custom/open-shortcuts-modal.lua')
+
 Shortcuts
     :add('T', {notion = 'tasks'})
     :add('E', {
