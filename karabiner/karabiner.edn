@@ -45,7 +45,7 @@
         :OpenMode {:key :o}
         :PasteMode {:key :p}
         :DestroyMode {:key :open_bracket}
-        ; ]
+        :CloseBracket {:key :close_bracket}
         :CaseMode {:key :a}
         :SnippetMode {:key :s}
         :ViMode {:key :d}
@@ -399,6 +399,30 @@
                 [:v [:!STCopen_bracket :!!v]]
                 [:b [:!STCopen_bracket :!!b]]
                 [:spacebar [:!STCopen_bracket :!!spacebar]]
+            ]
+        }
+        {
+            :des "Close Bracket (Key: ])"
+            :rules [:CloseBracket
+                [:tab [:!STCclose_bracket :!!tab]]
+                [:q [:!STCclose_bracket :!!q]]
+                [:w [:!STCclose_bracket :!!f17]]
+                [:e [:!STCclose_bracket :!!e]]
+                [:r [:!STCclose_bracket :!!r]]
+                [:t [:!STCclose_bracket :!!t]]
+                [:caps_lock [:!STCclose_bracket :!!f16]]
+                [:a [:!STCclose_bracket :!!a]]
+                [:s [:!STCclose_bracket :!!s]]
+                [:d [:!STCclose_bracket :!!d]]
+                [:f [:!STCclose_bracket :!!f]]
+                [:g [:!STCclose_bracket :!!g]]
+                [:left_shift [:!STCclose_bracket :!!f15]]
+                [:z [:!STCclose_bracket :!!z]]
+                [:x [:!STCclose_bracket :!!x]]
+                [:c [:!STCclose_bracket :!!c]]
+                [:v [:!STCclose_bracket :!!v]]
+                [:b [:!STCclose_bracket :!!b]]
+                [:spacebar [:!STCclose_bracket :!!spacebar]]
             ]
         }
         {

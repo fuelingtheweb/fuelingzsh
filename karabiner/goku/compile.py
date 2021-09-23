@@ -18,7 +18,7 @@ simlayers.new('Select Inside Mode (Key: i)', 'SelectInsideMode', 'i', 'all-left'
 simlayers.new('Open Mode (Key: O)', 'OpenMode', 'o', 'all')
 simlayers.new('Paste Mode (Key: P)', 'PasteMode', 'p', 'all-left')
 simlayers.new('Destroy Mode (Key: [)', 'DestroyMode', 'open_bracket', 'all-left')
-simlayers.available(']')
+simlayers.new('Close Bracket (Key: ])', 'CloseBracket', 'close_bracket', 'all-left')
 
 simlayers.new('Case Mode (Key: A)', 'CaseMode', 'a', 'all-right')
 simlayers.new('Snippet Mode (Key: S)', 'SnippetMode', 's', 'all')
