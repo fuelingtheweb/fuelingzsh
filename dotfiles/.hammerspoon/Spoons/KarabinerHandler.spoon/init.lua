@@ -1,67 +1,114 @@
 local KarabinerHandler = {}
 KarabinerHandler.__index = KarabinerHandler
 
-KarabinerHandler.modes = {
-    'HyperMode',
-    'TabMode',
-    'PaneMode',
-    'TestMode',
-    'YankMode',
-    'SelectUntilMode',
-    'SelectInsideMode',
-    'OpenMode',
-    'PasteMode',
-    'DestroyMode',
-    'CaseMode',
-    'TerminalSnippets',
-    'SlackSnippets',
-    'CodeSnippets',
-    'GeneralMode',
-    'GoogleMode',
-    'ViMode',
-    'CommandMode',
-    'ExtendedCommandMode',
-    'JumpToMode',
-    'CaseDialog',
-    'CodeMode',
-    'ViVisualMode',
-    'ChangeMode',
-    'MakeMode',
-    'AppMode',
-    'SearchMode',
-    'WindowManager',
-    'MediaMode',
-    'TerminalMode',
-    'GitMode',
-    'ArtisanMode',
+spoon.SearchMode = hs.loadSpoon('Modes/SearchMode')
+
+KarabinerHandler.modifier = nil
+
+KarabinerHandler.lookup = {
+    tab = 'TabMode',
+    q = nil,
+    w = nil,
+    e = nil,
+    r = 'PaneMode',
+    t = {iterm = 'TerminalMode', atom = 'TestMode'},
+    y = 'YankMode',
+    u = 'AppMode',
+    i = 'MakeMode',
+    o = 'OpenMode',
+    p = 'PasteMode',
+    open_bracket = nil,
+    close_bracket = nil,
+    caps_lock = 'HyperMode',
+    a = {iterm = 'ArtisanMode', default = 'CaseMode'},
+    s = {
+        iterm = 'TerminalSnippets',
+        slack = 'SlackSnippets',
+        atom = 'CodeSnippets',
+        sublime = 'CodeSnippets'
+    },
+    d = 'ViMode',
+    f = 'GeneralMode',
+    g = 'GoogleMode',
+    semicolon = 'CommandMode',
+    quote = 'ExtendedCommandMode',
+    return_or_enter = nil,
+    z = 'CaseDialog',
+    x = nil,
+    c = {iterm = 'GitMode', default = 'CodeMode'},
+    v = 'ViVisualMode',
+    b = nil,
+    n = 'ChangeMode',
+    m = 'DestroyMode',
+    comma = 'SelectInsideMode',
+    period = 'SelectUntilMode',
+    slash = 'JumpToMode',
+    spacebar = 'WindowManager',
 }
 
-each(KarabinerHandler.modes, function(modeName)
-    Mode = hs.loadSpoon('Modes/' .. modeName)
-    spoon[modeName] = Mode
+local lookupKeys = {
+    w = 'f17',
+    o = 'f13',
+    open_bracket = '[',
+    close_bracket = ']',
+    caps_lock = 'f16',
+    semicolon = ';',
+    quote = "'",
+    return_or_enter = 'return',
+    left_shift = 'f15',
+    n = 'f14',
+    comma = 'f18',
+    period = 'f19',
+    slash = 'f20',
+    right_shift = 'rightshift',
+    spacebar = 'space',
+}
 
-    if not Mode.lookup or modeName == 'JumpToMode' then
-        return
-    end
+local availableKeys = {
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'open_bracket', 'close_bracket',
+    'caps_lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'semicolon', 'quote', 'return_or_enter',
+    'left_shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'comma', 'period', 'slash', 'right_shift',
+    'spacebar',
+}
 
-    each(Mode.lookup, function(callable, key)
-        if type(callable) == 'table' then
-            Mode.lookup[key] = hs.fnutils.map(callable, function(item)
-                local Mode = spoon[modeName]
+function KarabinerHandler.loadSpoons(modes)
+    each(modes, function(mode, modifier)
+        if not mode then
+            return
+        end
 
-                if Mode[item] then
-                    return function()
-                        spoon[modeName][item](key)
-                    end
-                elseif Mode.fallback then
-                    return function()
-                        spoon[modeName].fallback(item, key)
-                    end
-                end
-            end)
+        if isTable(mode) then
+            return KarabinerHandler.loadSpoons(mode)
+        end
+
+        if not spoon[mode] then
+            spoon[mode] = hs.loadSpoon('Modes/' .. mode)
+
+            KarabinerHandler.setupMode(spoon[mode])
         end
     end)
-end)
+end
+
+function KarabinerHandler.setupMode(mode)
+    each(mode.lookup or {}, function(callable, key)
+        if not isTable(callable) then
+            return
+        end
+
+        mode.lookup[key] = hs.fnutils.map(callable, function(item)
+            if mode[item] then
+                return function()
+                    mode[item](key)
+                end
+            elseif mode.fallback then
+                return function()
+                    mode.fallback(item, key)
+                end
+            end
+        end)
+    end)
+end
 
 function KarabinerHandler.handle(layer, key)
     local Mode = spoon[layer]
@@ -93,126 +140,90 @@ function KarabinerHandler.handle(layer, key)
     end
 end
 
+function KarabinerHandler.callback(key)
+    if not KarabinerHandler.modifier then
+        return
+    end
+
+    mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
+
+    if isTable(mode) then
+        each(mode, function(m, app)
+            if (isTable(mode) and app == 'default') or appIs(apps[app]) then
+                mode = m
+            end
+        end)
+    end
+
+    if isString(mode) then
+        KarabinerHandler.handle(mode, key)
+    end
+end
+
+function KarabinerHandler.setupKeys()
+    each(KarabinerHandler.lookup, function(mode, modifier)
+        if not mode then
+            return
+        end
+
+        hs.hotkey.bind({'shift', 'ctrl', 'cmd'}, lookupKeys[modifier] or modifier, function()
+            KarabinerHandler.modifier = modifier
+        end)
+    end)
+
+    each(availableKeys, function(key)
+        hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, lookupKeys[key] or key, '', function()
+            KarabinerHandler.callback(key)
+        end, function()
+            KarabinerHandler.modifier = nil
+        end, function()
+            KarabinerHandler.callback(key)
+        end)
+    end)
+end
+
 hs.urlevent.bind('handle-karabiner', function(eventName, params)
     KarabinerHandler.handle(params.layer, params.key)
 end)
 
-KarabinerHandler.modifier = nil
-KarabinerHandler.modMapping = {
-    f16 = 'HyperMode',
-    tab = 'TabMode',
-    r = 'PaneMode',
-    t = {iterm = 'TerminalMode', atom = 'TestMode'},
-    y = 'YankMode',
-    u = 'AppMode',
-    i = 'MakeMode',
-    o = 'OpenMode',
-    p = 'PasteMode',
-    -- ['['] = 'JumpToMode',
-    -- [']'] = 'SelectUntilMode',
-    a = {iterm = 'ArtisanMode', default = 'CaseMode'},
-    s = {iterm = 'TerminalSnippets', slack = 'SlackSnippets', atom = 'CodeSnippets', sublime = 'CodeSnippets'},
-    d = 'ViMode',
-    f = 'GeneralMode',
-    g = 'GoogleMode',
-    [';'] = 'CommandMode',
-    ["\'"] = 'ExtendedCommandMode',
-    -- ['return'] = 'JumpToMode',
-    z = 'CaseDialog',
-    c = {iterm = 'GitMode', default = 'CodeMode'},
-    v = 'ViVisualMode',
-    n = 'ChangeMode',
-    m = 'DestroyMode',
-    [','] = 'SelectInsideMode',
-    ['.'] = 'SelectUntilMode',
-    ['/'] = 'JumpToMode',
-    -- ['/'] = 'SearchMode',
-    space = 'WindowManager',
-}
+KarabinerHandler.loadSpoons(KarabinerHandler.lookup)
+KarabinerHandler.setupKeys()
 
-KarabinerHandler.callback = function(item)
-    if KarabinerHandler.modifier then
-        mode = KarabinerHandler.modMapping[KarabinerHandler.modifier]
+function KarabinerHandler.compileJson()
+    local items = {}
 
+    each(KarabinerHandler.lookup, function(mode, key)
         if isTable(mode) then
-            each(mode, function(m, app)
-                if (isTable(mode) and app == 'default') or appIs(apps[app]) then
-                    mode = m
+            return
+        end
+
+        local item = {
+            mode = mode,
+            key = key,
+            actions = {},
+        }
+
+        local Mode = spoon[mode]
+
+        if Mode.lookup then
+            each(Mode.lookup, function(action, key)
+                if isTable(action) then
+                    return;
                 end
+
+                table.insert(item.actions, {
+                    name = action,
+                    key = key,
+                })
             end)
         end
 
-        if isString(mode) then
-            KarabinerHandler.handle(mode, item.ckey)
-        end
-    end
+        table.insert(items, item)
+    end)
+
+    hs.json.write({items = items}, '/Users/nathan/keymappings.json', false, true)
 end
 
-each(KarabinerHandler.modMapping, function(mode, key)
-    hs.hotkey.bind({'shift', 'ctrl', 'cmd'}, key, function()
-        KarabinerHandler.modifier = key
-    end)
-end)
-
-allKeys = {
-    {key = '1', ckey = '1'},
-    {key = '2', ckey = '2'},
-    {key = '3', ckey = '3'},
-    {key = '4', ckey = '4'},
-    {key = '5', ckey = '5'},
-    {key = '6', ckey = '6'},
-    {key = '7', ckey = '7'},
-    {key = '8', ckey = '8'},
-    {key = '9', ckey = '9'},
-    {key = '0', ckey = '0'},
-    {key = 'tab', ckey = 'tab'},
-    {key = 'q', ckey = 'q'},
-    {key = 'f17', ckey = 'w'},
-    {key = 'e', ckey = 'e'},
-    {key = 'r', ckey = 'r'},
-    {key = 't', ckey = 't'},
-    {key = 'y', ckey = 'y'},
-    {key = 'u', ckey = 'u'},
-    {key = 'i', ckey = 'i'},
-    {key = 'f13', ckey = 'o'},
-    {key = 'p', ckey = 'p'},
-    {key = '[', ckey = 'open_bracket'},
-    {key = ']', ckey = 'close_bracket'},
-    {key = 'f16', ckey = 'caps_lock'},
-    {key = 'a', ckey = 'a'},
-    {key = 's', ckey = 's'},
-    {key = 'd', ckey = 'd'},
-    {key = 'f', ckey = 'f'},
-    {key = 'g', ckey = 'g'},
-    {key = 'h', ckey = 'h'},
-    {key = 'j', ckey = 'j'},
-    {key = 'k', ckey = 'k'},
-    {key = 'l', ckey = 'l'},
-    {key = ';', ckey = 'semicolon'},
-    {key = "'", ckey = 'quote'},
-    {key = 'return', ckey = 'return_or_enter'},
-    {key = 'f15', ckey = 'left_shift'},
-    {key = 'z', ckey = 'z'},
-    {key = 'x', ckey = 'x'},
-    {key = 'c', ckey = 'c'},
-    {key = 'v', ckey = 'v'},
-    {key = 'b', ckey = 'b'},
-    {key = 'f14', ckey = 'n'},
-    {key = 'm', ckey = 'm'},
-    {key = 'f18', ckey = 'comma'},
-    {key = 'f19', ckey = 'period'},
-    {key = 'f20', ckey = 'slash'},
-    {key = 'rightshift', ckey = 'right_shift'},
-    {key = 'space', ckey = 'spacebar'},
-}
-each(allKeys, function(item)
-    hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, item.key, '', function()
-        KarabinerHandler.callback(item)
-    end, function()
-        KarabinerHandler.modifier = nil
-    end, function()
-        KarabinerHandler.callback(item)
-    end)
-end)
+-- KarabinerHandler.compileJson()
 
 return KarabinerHandler

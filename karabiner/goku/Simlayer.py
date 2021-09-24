@@ -45,8 +45,7 @@ class Simlayer:
             if key == self.modifier:
                 continue
 
-            modifier = 'f16' if self.modifier == 'caps_lock' else self.modifier
-            rules += "[:%s [:!STC%s :!!%s]]\n%s" % (key, modifier, self.newKey(key), self.indent(4))
+            rules += "[:%s [:!STC%s :!!%s]]\n%s" % (key, self.newKey(self.modifier), self.newKey(key), self.indent(4))
 
         if self.custom:
             rules += self.custom.strip()
