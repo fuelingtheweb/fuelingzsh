@@ -334,6 +334,18 @@ function updateChromeUrl(needle, newUrl)
     end
 end
 
+function slackReaction(emoji)
+    keyStroke('r')
+    -- hs.eventtap.keyStroke({'cmd', 'shift'}, '\\')
+
+    if emoji then
+        insertText(emoji)
+        hs.timer.doAfter(0.2, function ()
+            keyStroke('return')
+        end)
+    end
+end
+
 function fastSuperKeyStroke(key)
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, key)
 end

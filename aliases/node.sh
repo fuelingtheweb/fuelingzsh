@@ -70,6 +70,7 @@ alias yt='yarn run test'
 alias ytw='yarn run test:watch'
 alias ys='yarn serve'
 alias yb='yarn build'
+alias ysu='brew upgrade yarn'
 
 # NPM
 np() {

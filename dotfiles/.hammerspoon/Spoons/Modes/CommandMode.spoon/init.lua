@@ -128,7 +128,9 @@ end
 
 function CommandMode.cancelOrDelete()
     text = getSelectedText()
-    if appIncludes({atom, sublime}) then
+    if appIs(sublime) and titleContains('.todo') then
+        fastKeyStroke({'ctrl'}, 'c')
+    elseif appIncludes({atom, sublime}) then
         fastKeyStroke({'shift', 'cmd'}, 'delete')
     elseif appIs(finder) and text == 'finderFileSelected' then
         fastKeyStroke({'cmd'}, 'delete')

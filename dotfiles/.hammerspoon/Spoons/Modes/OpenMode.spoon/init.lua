@@ -12,15 +12,15 @@ OpenMode.lookup = {
     t = 'iterm',
     caps_lock = 'windowHints',
     a = 'openAppModal',
-    s = 'Slack.app',
-    d = 'Discord.app',
+    s = 'slack',
+    d = 'discord',
     f = 'openShortcutsModal',
     g = 'chrome',
     left_shift = nil,
     z = 'fantastical',
     x = 'finder',
-    c = 'Sublime Merge.app',
-    v = 'TablePlus.app',
+    c = 'sublimeMerge',
+    v = 'tableplus',
     b = nil,
     spacebar = {'open', 'bringAllWindowsToFront'},
 }
@@ -57,11 +57,11 @@ Modal.add({
     end,
 })
 
-function OpenMode.before()
-    if inCodeEditor() then
-        spoon.HyperMode.forceEscape()
-    end
-end
+-- function OpenMode.before()
+--     if inCodeEditor() then
+--         spoon.HyperMode.forceEscape()
+--     end
+-- end
 
 hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
@@ -137,12 +137,15 @@ function OpenMode.launchApp(id)
         launchIterm()
     elseif id == 'spotify' then
         launchSpotify()
-    elseif not isActive and not hasWindows(hs.application.get(bundle)) then
-        if id ~= 'atom' then
-            hs.application.open(bundle)
-        end
     elseif not isActive then
-        hs.application.get(bundle):activate()
+        app = hs.application.get(bundle)
+        if not hasWindows(app) then
+            if id ~= 'atom' then
+                hs.application.open(bundle)
+            end
+        else
+            app:activate()
+        end
     elseif multipleWindows(app) then
         OpenMode.windowHintsForCurrentApplication()
     elseif not hasWindows(app) then

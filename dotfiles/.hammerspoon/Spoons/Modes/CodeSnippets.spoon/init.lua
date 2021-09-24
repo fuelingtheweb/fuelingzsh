@@ -4,6 +4,7 @@ CodeSnippets.__index = CodeSnippets
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/method-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/function-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/call-function-modal.lua')
+dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/extra-snippets-modal.lua')
 
 CodeSnippets.lookup = {
     e = 'snippet-elseif',
@@ -11,7 +12,7 @@ CodeSnippets.lookup = {
     d = 'dd',
 
     y = nil,
-    u = nil,
+    u = 'extraSnippetsModal',
     i = 'snippet-if',
     o = nil,
     p = 'snippet-property',
@@ -147,6 +148,10 @@ end
 function CodeSnippets.insertComma()
     insertText(', ')
     BracketMatching.start();
+end
+
+function CodeSnippets.extraSnippetsModal()
+    Modal.enter('CodeSnippets:extraSnippets')
 end
 
 function CodeSnippets.callFunction()

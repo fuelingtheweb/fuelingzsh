@@ -1,6 +1,16 @@
 dofile(hs.configdir .. '/config/custom/open-shortcuts-modal.lua')
 
 Shortcuts
+    :add('W', {
+        slack = function()
+            slackReaction(':wave:')
+        end,
+    })
+    :add('R', {
+        slack = function()
+            slackReaction()
+        end,
+    })
     :add('T', {notion = 'tasks'})
     :add('E', {
         atom = function()
@@ -20,11 +30,7 @@ Shortcuts
         sublime = 'BetterSnippetManager: Edit Snippets',
     })
     :add('Z', {iterm = 'wd fz'})
-    :add('H', {
-        notion = 'home',
-        iterm = 'hc',
-    })
-    :add('M', {
+    :add('B', {
         atom = 'Application: Open Your Keymap',
         sublime = 'Preferences: Key Bindings',
     })

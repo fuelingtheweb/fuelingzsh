@@ -202,6 +202,8 @@ function CodeMode.concatenate()
     elseif titleContains('.js') then
         insertText(' + ')
     end
+
+    BracketMatching.start()
 end
 
 function CodeMode.selectAll()

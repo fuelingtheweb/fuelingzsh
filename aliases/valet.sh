@@ -11,3 +11,5 @@ alias vo='valet open'
 
 alias vl7='valet use php@7.4'
 alias vl8='valet use php@8.0'
+
+alias vsu='composer global update laravel/valet && valet install'

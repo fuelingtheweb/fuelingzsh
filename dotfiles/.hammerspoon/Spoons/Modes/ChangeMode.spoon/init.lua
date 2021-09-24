@@ -2,11 +2,11 @@ local ChangeMode = {}
 ChangeMode.__index = ChangeMode
 
 ChangeMode.lookup = {
-    tab = nil,
+    tab = 'untilBackward',
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = 'outer',
+    r = 'untilForward',
     t = 'withWrapperKey',
     caps_lock = 'disableVim',
     a = 'toEndOfLine',
@@ -20,7 +20,7 @@ ChangeMode.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil,
+    spacebar = 'outer',
 }
 
 function ChangeMode.disableVim()
@@ -124,6 +124,18 @@ end
 
 function ChangeMode.above()
     fastKeyStroke({'shift'}, 'o')
+end
+
+function ChangeMode.untilForward()
+    fastKeyStroke('escape')
+    fastKeyStroke('c')
+    fastKeyStroke('t')
+end
+
+function ChangeMode.untilBackward()
+    fastKeyStroke('escape')
+    fastKeyStroke('c')
+    fastKeyStroke({'shift'}, 't')
 end
 
 function ChangeMode.outer()

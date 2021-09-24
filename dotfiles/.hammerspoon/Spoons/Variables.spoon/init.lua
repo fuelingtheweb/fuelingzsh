@@ -24,6 +24,9 @@ apps['finder'] = finder
 apps['sublime'] = sublime
 apps['iterm'] = iterm
 apps['slack'] = slack
+apps['discord'] = discord
+apps['tableplus'] = tableplus
+apps['sublimeMerge'] = sublimeMerge
 
 ultrawide = 'LG ULTRAWIDE'
 macbookScreen = 'Color LCD'
