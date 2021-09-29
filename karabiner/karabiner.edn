@@ -34,7 +34,7 @@
     }
     :simlayers {
         :tabModifier {:key :tab}
-        ; q
+        :qModifier {:key :q}
         ; w
         ; e
         :rModifier {:key :r}
@@ -172,6 +172,33 @@
                 [:slash [:!STCtab :!!f20]]
                 [:right_shift [:!STCtab :!!f12]]
                 [:spacebar [:!STCtab :!!spacebar]]
+            ]
+        }
+        {
+            :des "Modifier: q"
+            :rules [:qModifier
+                [:y [:!STCq :!!y]]
+                [:u [:!STCq :!!u]]
+                [:i [:!STCq :!!i]]
+                [:o [:!STCq :!!f13]]
+                [:p [:!STCq :!!p]]
+                [:open_bracket [:!STCq :!!open_bracket]]
+                [:close_bracket [:!STCq :!!close_bracket]]
+                [:h [:!STCq :!!h]]
+                [:j [:!STCq :!!j]]
+                [:k [:!STCq :!!k]]
+                [:l [:!STCq :!!l]]
+                [:semicolon [:!STCq :!!semicolon]]
+                [:quote [:!STCq :!!quote]]
+                [:return_or_enter [:!STCq :!!return_or_enter]]
+                [:b [:!STCq :!!b]]
+                [:n [:!STCq :!!f14]]
+                [:m [:!STCq :!!m]]
+                [:comma [:!STCq :!!f18]]
+                [:period [:!STCq :!!f19]]
+                [:slash [:!STCq :!!f20]]
+                [:right_shift [:!STCq :!!f12]]
+                [:spacebar [:!STCq :!!spacebar]]
             ]
         }
         {

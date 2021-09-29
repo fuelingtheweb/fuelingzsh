@@ -6,7 +6,7 @@ simlayers = Simlayers()
 simlayers.primary('Modifier: Caps Lock', 'hyper', 'caps_lock', 'all-right')
 
 simlayers.new('Modifier: tab', 'tabModifier', 'tab', 'all-right')
-simlayers.available('q')
+simlayers.new('Modifier: q', 'qModifier', 'q', 'all-right')
 simlayers.available('w')
 simlayers.available('e')
 simlayers.new('Modifier: r', 'rModifier', 'r', 'all-right')
