@@ -122,7 +122,7 @@
         }
         {
             :des "Modifier: Caps Lock"
-            :rules [:hyper
+            :rules [:HyperMode
                 [:y [:!STCf16 :!!y]]
                 [:u [:!STCf16 :!!u]]
                 [:i [:!STCf16 :!!i]]
@@ -175,7 +175,7 @@
             ]
         }
         {
-            :des "Modifier: q"
+            :des "Modifier: Q"
             :rules [:qModifier
                 [:y [:!STCq :!!y]]
                 [:u [:!STCq :!!u]]
@@ -202,7 +202,7 @@
             ]
         }
         {
-            :des "Modifier: r"
+            :des "Modifier: R"
             :rules [:rModifier
                 [:y [:!STCr :!!y]]
                 [:u [:!STCr :!!u]]
@@ -280,7 +280,7 @@
             ]
         }
         {
-            :des "Modifier: u"
+            :des "Modifier: U"
             :rules [:uModifier
                 [:1 [:!STCu :!!1]]
                 [:2 [:!STCu :!!2]]
@@ -333,7 +333,7 @@
             ]
         }
         {
-            :des "Modifier: i"
+            :des "Modifier: I"
             :rules [:iModifier
                 [:tab [:!STCi :!!tab]]
                 [:q [:!STCi :!!q]]
@@ -591,22 +591,6 @@
         {
             :des "Modifier: F"
             :rules [:fModifier
-                [:1 [:!STCf :!!1]]
-                [:2 [:!STCf :!!2]]
-                [:3 [:!STCf :!!3]]
-                [:4 [:!STCf :!!4]]
-                [:5 [:!STCf :!!5]]
-                [:6 [:!STCf :!!6]]
-                [:7 [:!STCf :!!7]]
-                [:8 [:!STCf :!!8]]
-                [:9 [:!STCf :!!9]]
-                [:0 [:!STCf :!!0]]
-                [:tab [:!STCf :!!tab]]
-                [:q [:!STCf :!!q]]
-                [:w [:!STCf :!!f17]]
-                [:e [:!STCf :!!e]]
-                [:r [:!STCf :!!r]]
-                [:t [:!STCf :!!t]]
                 [:y [:!STCf :!!y]]
                 [:u [:!STCf :!!u]]
                 [:i [:!STCf :!!i]]
@@ -614,11 +598,6 @@
                 [:p [:!STCf :!!p]]
                 [:open_bracket [:!STCf :!!open_bracket]]
                 [:close_bracket [:!STCf :!!close_bracket]]
-                [:caps_lock [:!STCf :!!f16]]
-                [:a [:!STCf :!!a]]
-                [:s [:!STCf :!!s]]
-                [:d [:!STCf :!!d]]
-                [:g [:!STCf :!!g]]
                 [:h [:!STCf :!!h]]
                 [:j [:!STCf :!!j]]
                 [:k [:!STCf :!!k]]
@@ -626,11 +605,6 @@
                 [:semicolon [:!STCf :!!semicolon]]
                 [:quote [:!STCf :!!quote]]
                 [:return_or_enter [:!STCf :!!return_or_enter]]
-                [:left_shift [:!STCf :!!f15]]
-                [:z [:!STCf :!!z]]
-                [:x [:!STCf :!!x]]
-                [:c [:!STCf :!!c]]
-                [:v [:!STCf :!!v]]
                 [:b [:!STCf :!!b]]
                 [:n [:!STCf :!!f14]]
                 [:m [:!STCf :!!m]]
@@ -849,7 +823,7 @@
             ]
         }
         {
-            :des "Modifier: n"
+            :des "Modifier: N"
             :rules [:nModifier
                 [:tab [:!STCf14 :!!tab]]
                 [:q [:!STCf14 :!!q]]

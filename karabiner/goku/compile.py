@@ -3,18 +3,18 @@ from Simlayers import *
 
 simlayers = Simlayers()
 
-simlayers.primary('Modifier: Caps Lock', 'hyper', 'caps_lock', 'all-right')
+simlayers.primary('Modifier: Caps Lock', 'HyperMode', 'caps_lock', 'all-right')
 
 simlayers.new('Modifier: tab', 'tabModifier', 'tab', 'all-right')
-simlayers.new('Modifier: q', 'qModifier', 'q', 'all-right')
+simlayers.new('Modifier: Q', 'qModifier', 'q', 'all-right')
 simlayers.available('w')
 simlayers.available('e')
-simlayers.new('Modifier: r', 'rModifier', 'r', 'all-right')
+simlayers.new('Modifier: R', 'rModifier', 'r', 'all-right')
 simlayers.new('Modifier: T', 'tModifier', 't', 'all-right')
 
 simlayers.new('Modifier: Y', 'yModifier', 'y', 'all-left')
-simlayers.new('Modifier: u', 'uModifier', 'u', 'all')
-simlayers.new('Modifier: i', 'iModifier', 'i', 'all-left')
+simlayers.new('Modifier: U', 'uModifier', 'u', 'all')
+simlayers.new('Modifier: I', 'iModifier', 'i', 'all-left')
 simlayers.new('Modifier: O', 'oModifier', 'o', 'all')
 simlayers.new('Modifier: P', 'pModifier', 'p', 'all-left')
 simlayers.new('Modifier: [', 'openBracketModifier', 'open_bracket', 'all-left')
@@ -23,7 +23,7 @@ simlayers.new('Modifier: ]', 'closeBracketModifier', 'close_bracket', 'all-left'
 simlayers.new('Modifier: A', 'aModifier', 'a', 'all-right')
 simlayers.new('Modifier: S', 'sModifier', 's', 'all')
 simlayers.new('Modifier: D', 'dModifier', 'd', 'all-right')
-simlayers.new('Modifier: F', 'fModifier', 'f', 'all')
+simlayers.new('Modifier: F', 'fModifier', 'f', 'all-right')
 simlayers.new('Modifier: G', 'gModifier', 'g', 'all-right')
 
 simlayers.new('Modifier: ;', 'semicolonModifier', 'semicolon', 'all-left')
@@ -36,7 +36,7 @@ simlayers.new('Modifier: C', 'cModifier', 'c', 'all-right')
 simlayers.new('Modifier: V', 'vModifier', 'v', 'all-right')
 simlayers.available('b')
 
-simlayers.new('Modifier: n', 'nModifier', 'n', 'all-left')
+simlayers.new('Modifier: N', 'nModifier', 'n', 'all-left')
 simlayers.new('Modifier: M', 'mModifier', 'm', 'all-left')
 simlayers.new('Modifier: ,', 'commaModifier', 'comma', 'all-left')
 simlayers.new('Modifier: .', 'periodModifier', 'period', 'all-left')
