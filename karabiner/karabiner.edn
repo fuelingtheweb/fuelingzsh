@@ -33,38 +33,38 @@
         :HyperMode {:key :caps_lock :alone {:key :escape}}
     }
     :simlayers {
-        :TabMode {:key :tab}
+        :tabModifier {:key :tab}
         ; q
         ; w
         ; e
-        :PaneMode {:key :r}
-        :TestMode {:key :t}
-        :YankMode {:key :y}
-        :SelectUntilMode {:key :u}
-        :SelectInsideMode {:key :i}
-        :OpenMode {:key :o}
-        :PasteMode {:key :p}
-        :DestroyMode {:key :open_bracket}
-        :CloseBracket {:key :close_bracket}
-        :CaseMode {:key :a}
-        :SnippetMode {:key :s}
-        :ViMode {:key :d}
-        :GeneralMode {:key :f}
-        :GoogleMode {:key :g}
-        :CommandMode {:key :semicolon}
-        :ExtendedCommandMode {:key :quote}
-        :JumpToMode {:key :return_or_enter}
-        :CaseDialog {:key :z}
-        :ExecuteMode {:key :x}
-        :CodeMode {:key :c}
-        :ViVisualMode {:key :v}
+        :rModifier {:key :r}
+        :tModifier {:key :t}
+        :yModifier {:key :y}
+        :uModifier {:key :u}
+        :iModifier {:key :i}
+        :oModifier {:key :o}
+        :pModifier {:key :p}
+        :openBracketModifier {:key :open_bracket}
+        :closeBracketModifier {:key :close_bracket}
+        :aModifier {:key :a}
+        :sModifier {:key :s}
+        :dModifier {:key :d}
+        :fModifier {:key :f}
+        :gModifier {:key :g}
+        :semicolonModifier {:key :semicolon}
+        :quoteModifier {:key :quote}
+        :returnModifier {:key :return_or_enter}
+        :zModifier {:key :z}
+        :xModifier {:key :x}
+        :cModifier {:key :c}
+        :vModifier {:key :v}
         ; b
-        :ChangeMode {:key :n}
-        :MakeMode {:key :m}
-        :LaunchMode {:key :comma}
-        :AppMode {:key :period}
-        :SearchMode {:key :slash}
-        :WindowManager {:key :spacebar}
+        :nModifier {:key :n}
+        :mModifier {:key :m}
+        :commaModifier {:key :comma}
+        :periodModifier {:key :period}
+        :slashModifier {:key :slash}
+        :spacebarModifier {:key :spacebar}
     }
     :main [
         ;; each manipulator has a description and multiple rules
@@ -121,8 +121,8 @@
             ]
         }
         {
-            :des "Hyper Mode (Key: Caps Lock)"
-            :rules [:HyperMode
+            :des "Modifier: Caps Lock"
+            :rules [:hyper
                 [:y [:!STCf16 :!!y]]
                 [:u [:!STCf16 :!!u]]
                 [:i [:!STCf16 :!!i]]
@@ -148,8 +148,8 @@
             ]
         }
         {
-            :des "Tab Mode (Key: tab)"
-            :rules [:TabMode
+            :des "Modifier: tab"
+            :rules [:tabModifier
                 [:y [:!STCtab :!!y]]
                 [:u [:!STCtab :!!u]]
                 [:i [:!STCtab :!!i]]
@@ -175,8 +175,8 @@
             ]
         }
         {
-            :des "Pane Mode (Key: r)"
-            :rules [:PaneMode
+            :des "Modifier: r"
+            :rules [:rModifier
                 [:y [:!STCr :!!y]]
                 [:u [:!STCr :!!u]]
                 [:i [:!STCr :!!i]]
@@ -202,8 +202,8 @@
             ]
         }
         {
-            :des "Test Mode (Key: T)"
-            :rules [:TestMode
+            :des "Modifier: T"
+            :rules [:tModifier
                 [:y [:!STCt :!!y]]
                 [:u [:!STCt :!!u]]
                 [:i [:!STCt :!!i]]
@@ -229,8 +229,8 @@
             ]
         }
         {
-            :des "Yank Mode (Key: Y)"
-            :rules [:YankMode
+            :des "Modifier: Y"
+            :rules [:yModifier
                 [:tab [:!STCy :!!tab]]
                 [:q [:!STCy :!!q]]
                 [:w [:!STCy :!!f17]]
@@ -253,8 +253,8 @@
             ]
         }
         {
-            :des "Select Until Mode (Key: u)"
-            :rules [:SelectUntilMode
+            :des "Modifier: u"
+            :rules [:uModifier
                 [:1 [:!STCu :!!1]]
                 [:2 [:!STCu :!!2]]
                 [:3 [:!STCu :!!3]]
@@ -306,8 +306,8 @@
             ]
         }
         {
-            :des "Select Inside Mode (Key: i)"
-            :rules [:SelectInsideMode
+            :des "Modifier: i"
+            :rules [:iModifier
                 [:tab [:!STCi :!!tab]]
                 [:q [:!STCi :!!q]]
                 [:w [:!STCi :!!f17]]
@@ -330,8 +330,8 @@
             ]
         }
         {
-            :des "Open Mode (Key: O)"
-            :rules [:OpenMode
+            :des "Modifier: O"
+            :rules [:oModifier
                 [:1 [:!STCf13 :!!1]]
                 [:2 [:!STCf13 :!!2]]
                 [:3 [:!STCf13 :!!3]]
@@ -383,8 +383,8 @@
             ]
         }
         {
-            :des "Paste Mode (Key: P)"
-            :rules [:PasteMode
+            :des "Modifier: P"
+            :rules [:pModifier
                 [:tab [:!STCp :!!tab]]
                 [:q [:!STCp :!!q]]
                 [:w [:!STCp :!!f17]]
@@ -407,8 +407,8 @@
             ]
         }
         {
-            :des "Destroy Mode (Key: [)"
-            :rules [:DestroyMode
+            :des "Modifier: ["
+            :rules [:openBracketModifier
                 [:tab [:!STCopen_bracket :!!tab]]
                 [:q [:!STCopen_bracket :!!q]]
                 [:w [:!STCopen_bracket :!!f17]]
@@ -431,8 +431,8 @@
             ]
         }
         {
-            :des "Close Bracket (Key: ])"
-            :rules [:CloseBracket
+            :des "Modifier: ]"
+            :rules [:closeBracketModifier
                 [:tab [:!STCclose_bracket :!!tab]]
                 [:q [:!STCclose_bracket :!!q]]
                 [:w [:!STCclose_bracket :!!f17]]
@@ -455,8 +455,8 @@
             ]
         }
         {
-            :des "Case Mode (Key: A)"
-            :rules [:CaseMode
+            :des "Modifier: A"
+            :rules [:aModifier
                 [:y [:!STCa :!!y]]
                 [:u [:!STCa :!!u]]
                 [:i [:!STCa :!!i]]
@@ -482,8 +482,8 @@
             ]
         }
         {
-            :des "Snippet Mode (Key: S)"
-            :rules [:SnippetMode
+            :des "Modifier: S"
+            :rules [:sModifier
                 [:1 [:!STCs :!!1]]
                 [:2 [:!STCs :!!2]]
                 [:3 [:!STCs :!!3]]
@@ -535,8 +535,8 @@
             ]
         }
         {
-            :des "Vi Mode (Key: D)"
-            :rules [:ViMode
+            :des "Modifier: D"
+            :rules [:dModifier
                 [:y [:!STCd :!!y]]
                 [:u [:!STCd :!!u]]
                 [:i [:!STCd :!!i]]
@@ -562,8 +562,8 @@
             ]
         }
         {
-            :des "General Mode (Key: F)"
-            :rules [:GeneralMode
+            :des "Modifier: F"
+            :rules [:fModifier
                 [:1 [:!STCf :!!1]]
                 [:2 [:!STCf :!!2]]
                 [:3 [:!STCf :!!3]]
@@ -615,8 +615,8 @@
             ]
         }
         {
-            :des "Google Mode (Key: G)"
-            :rules [:GoogleMode
+            :des "Modifier: G"
+            :rules [:gModifier
                 [:y [:!STCg :!!y]]
                 [:u [:!STCg :!!u]]
                 [:i [:!STCg :!!i]]
@@ -642,8 +642,8 @@
             ]
         }
         {
-            :des "Command Mode (Key: ;)"
-            :rules [:CommandMode
+            :des "Modifier: ;"
+            :rules [:semicolonModifier
                 [:tab [:!STCsemicolon :!!tab]]
                 [:q [:!STCsemicolon :!!q]]
                 [:w [:!STCsemicolon :!!f17]]
@@ -666,8 +666,8 @@
             ]
         }
         {
-            :des "Extended Command Mode (Key: ')"
-            :rules [:ExtendedCommandMode
+            :des "Modifier: ')"
+            :rules [:quoteModifier
                 [:tab [:!STCquote :!!tab]]
                 [:q [:!STCquote :!!q]]
                 [:w [:!STCquote :!!f17]]
@@ -690,8 +690,8 @@
             ]
         }
         {
-            :des "Jump to Mode (Key: return)"
-            :rules [:JumpToMode
+            :des "Modifier: return"
+            :rules [:returnModifier
                 [:tab [:!STCreturn_or_enter :!!tab]]
                 [:q [:!STCreturn_or_enter :!!q]]
                 [:w [:!STCreturn_or_enter :!!f17]]
@@ -714,8 +714,8 @@
             ]
         }
         {
-            :des "Dialog Case Mode (Key: Z)"
-            :rules [:CaseDialog
+            :des "Modifier: Z"
+            :rules [:zModifier
                 [:y [:!STCz :!!y]]
                 [:u [:!STCz :!!u]]
                 [:i [:!STCz :!!i]]
@@ -741,8 +741,8 @@
             ]
         }
         {
-            :des "Execute Mode (Key: X)"
-            :rules [:ExecuteMode
+            :des "Modifier: X"
+            :rules [:xModifier
                 [:y [:!STCx :!!y]]
                 [:u [:!STCx :!!u]]
                 [:i [:!STCx :!!i]]
@@ -768,8 +768,8 @@
             ]
         }
         {
-            :des "Code Mode (Key: C)"
-            :rules [:CodeMode
+            :des "Modifier: C"
+            :rules [:cModifier
                 [:y [:!STCc :!!y]]
                 [:u [:!STCc :!!u]]
                 [:i [:!STCc :!!i]]
@@ -795,8 +795,8 @@
             ]
         }
         {
-            :des "Vi Visual Mode (Key: V)"
-            :rules [:ViVisualMode
+            :des "Modifier: V"
+            :rules [:vModifier
                 [:y [:!STCv :!!y]]
                 [:u [:!STCv :!!u]]
                 [:i [:!STCv :!!i]]
@@ -822,8 +822,8 @@
             ]
         }
         {
-            :des "Change Mode (Key: n)"
-            :rules [:ChangeMode
+            :des "Modifier: n"
+            :rules [:nModifier
                 [:tab [:!STCf14 :!!tab]]
                 [:q [:!STCf14 :!!q]]
                 [:w [:!STCf14 :!!f17]]
@@ -846,8 +846,8 @@
             ]
         }
         {
-            :des "Make Mode (Key: M)"
-            :rules [:MakeMode
+            :des "Modifier: M"
+            :rules [:mModifier
                 [:tab [:!STCm :!!tab]]
                 [:q [:!STCm :!!q]]
                 [:w [:!STCm :!!f17]]
@@ -870,8 +870,8 @@
             ]
         }
         {
-            :des "Launch Mode (Key: ,)"
-            :rules [:LaunchMode
+            :des "Modifier: ,"
+            :rules [:commaModifier
                 [:tab [:!STCf18 :!!tab]]
                 [:q [:!STCf18 :!!q]]
                 [:w [:!STCf18 :!!f17]]
@@ -894,8 +894,8 @@
             ]
         }
         {
-            :des "App Mode (Key: .)"
-            :rules [:AppMode
+            :des "Modifier: ."
+            :rules [:periodModifier
                 [:tab [:!STCf19 :!!tab]]
                 [:q [:!STCf19 :!!q]]
                 [:w [:!STCf19 :!!f17]]
@@ -918,8 +918,8 @@
             ]
         }
         {
-            :des "Search Mode (Key: /)"
-            :rules [:SearchMode
+            :des "Modifier: /"
+            :rules [:slashModifier
                 [:tab [:!STCf20 :!!tab]]
                 [:q [:!STCf20 :!!q]]
                 [:w [:!STCf20 :!!f17]]
@@ -942,8 +942,8 @@
             ]
         }
         {
-            :des "Window Mode (Key: Spacebar)"
-            :rules [:WindowManager
+            :des "Modifier: Spacebar"
+            :rules [:spacebarModifier
                 [:1 [:!STCspacebar :!!1]]
                 [:2 [:!STCspacebar :!!2]]
                 [:3 [:!STCspacebar :!!3]]
