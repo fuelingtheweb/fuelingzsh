@@ -7,7 +7,7 @@ KarabinerHandler.modifier = nil
 
 KarabinerHandler.lookup = {
     tab = 'TabMode',
-    q = nil,
+    q = 'Numbers',
     w = nil,
     e = nil,
     r = 'PaneMode',
