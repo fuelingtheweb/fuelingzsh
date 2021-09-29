@@ -10,6 +10,7 @@ Modal.add({
                 w = {method = 'where'},
                 f = {method = 'firstWhere'},
                 h = {method = 'whereHas', extra = 'query'},
+                c = {method = 'whereColumn'},
             }
         },
         r = {
@@ -41,14 +42,17 @@ Modal.add({
             key = 'laravelDb',
             title = 'Laravel DB',
             items = {
+                q = {method = 'query'},
                 w = {method = 'where'},
                 t = {method = 'take'},
                 u = {method = 'update'},
                 o = {method = 'orderBy'},
+                s = {method = 'select'},
                 d = {method = 'orderByDesc'},
                 f = {method = 'first'},
                 g = {method = 'get'},
                 h = {method = 'has'},
+                j = {method = 'join'},
             }
         },
         f = {
@@ -104,6 +108,7 @@ Modal.add({
             key = 'laravelModel',
             title = 'Laravel Model',
             items = {
+                q = {method = '::query'},
                 r = {method = 'refresh'},
                 a = {method = '::all'},
                 f = {method = 'fresh'},

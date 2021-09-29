@@ -111,6 +111,12 @@ function WindowManager.next()
 end
 
 function WindowManager.nextInCurrentApp()
+    if appIs(chrome) then
+        spoon.OpenMode.windowHintsForCurrentApplication()
+        fastKeyStroke('b')
+        return
+    end
+
     local windows = hs.fnutils.filter(hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast), function(window)
         return window:title()
     end)

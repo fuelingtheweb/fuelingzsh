@@ -34,11 +34,10 @@ Modal.add({
         f = {bracket = 'parenthesis'},
         -- g
         h = {action = 'left'},
-        -- j
         k = {action = 'insertVariable'},
         l = {action = 'right'},
         [';'] = {action = 'insertSemicolon'},
-        ["'"] = {action = 'insertNull'},
+        -- ["'"],
         ['return'] = {action = 'newLine'},
         -- left shift
         z = {bracket = 'backTick'},
@@ -193,11 +192,6 @@ end
 function BracketMatching.insertVariable()
     Modal.exit()
     insertText('$')
-end
-
-function BracketMatching.insertNull()
-    Modal.exit()
-    insertText('null')
 end
 
 function BracketMatching.onlyOpening()

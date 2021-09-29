@@ -73,7 +73,8 @@ class Simlayer:
             'w': 'f17',
             'comma': 'f18',
             'period': 'f19',
-            'slash': 'f20'
+            'slash': 'f20',
+            'right_shift': 'f12',
         }
 
         return keys.get(key) or key

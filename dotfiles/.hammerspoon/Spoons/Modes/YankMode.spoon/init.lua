@@ -7,7 +7,6 @@ YankMode.lookup = {
     w = 'word',
     e = 'toEndOfWord',
     r = 'untilForward',
-    -- r = 'relativeFilePath',
     t = 'withWrapperKey',
     caps_lock = 'toTopOfPage',
     a = 'toEndOfLine',
@@ -15,7 +14,7 @@ YankMode.lookup = {
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    left_shift = 'viewPath',
+    left_shift = nil,
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -121,16 +120,6 @@ function YankMode.character()
         fastKeyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
-end
-
-function YankMode.viewPath()
-    fastKeyStroke('escape')
-    fastKeyStroke('y')
-    fastKeyStroke('i')
-    fastKeyStroke("'")
-
-    result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "path" "' .. hs.pasteboard.getContents() .. '"'))
-    hs.pasteboard.setContents(result)
 end
 
 function YankMode.toTopOfPage()

@@ -5,6 +5,7 @@ dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/method-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/function-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/call-function-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/extra-snippets-modal.lua')
+dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/general-snippets-modal.lua')
 
 CodeSnippets.lookup = {
     e = 'snippet-elseif',
@@ -19,7 +20,7 @@ CodeSnippets.lookup = {
     open_bracket = 'echo',
     close_bracket = nil,
     h = nil,
-    j = nil,
+    j = 'generalSnippetsModal',
     k = nil,
     l = 'snippet-log',
     semicolon = 'insertColon',
@@ -148,6 +149,10 @@ end
 function CodeSnippets.insertComma()
     insertText(', ')
     BracketMatching.start();
+end
+
+function CodeSnippets.generalSnippetsModal()
+    Modal.enter('CodeSnippets:generalSnippets')
 end
 
 function CodeSnippets.extraSnippetsModal()

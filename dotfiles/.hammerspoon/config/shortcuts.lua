@@ -1,5 +1,3 @@
-dofile(hs.configdir .. '/config/custom/open-shortcuts-modal.lua')
-
 Shortcuts
     :add('W', {
         slack = function()

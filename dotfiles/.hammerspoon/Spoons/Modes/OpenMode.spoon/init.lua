@@ -1,6 +1,8 @@
 local OpenMode = {}
 OpenMode.__index = OpenMode
 
+dofile(hs.configdir .. '/config/custom/open-frequent-modal.lua')
+dofile(hs.configdir .. '/config/custom/open-bookmarks-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/OpenMode.spoon/open-in-modal.lua')
 
 OpenMode.lookup = {
@@ -14,14 +16,14 @@ OpenMode.lookup = {
     a = 'openAppModal',
     s = 'slack',
     d = 'discord',
-    f = 'openShortcutsModal',
+    f = 'openFrequentModal',
     g = 'chrome',
     left_shift = nil,
     z = 'fantastical',
     x = 'finder',
     c = 'sublimeMerge',
     v = 'tableplus',
-    b = nil,
+    b = 'openBookmarksModal',
     spacebar = {'open', 'bringAllWindowsToFront'},
 }
 
@@ -36,7 +38,8 @@ Modal.add({
         t = {name = 'Transmit', app = 'Transmit.app'},
         -- yu
         i = {name = 'Invoker', app = 'de.beyondco.invoker'},
-        -- op
+        -- o
+        p = {name = 'System Preferences', app = 'System Preferences.app'},
         a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
         s = {name = 'Spotify', app = 'spotify'},
         d = {name = 'Dash', app = 'Dash.app'},
@@ -49,7 +52,7 @@ Modal.add({
         z = {name = 'Zoom', app = 'zoom.us.app'},
         -- xcvb
         n = {name = 'Notion', app = 'Notion.app'},
-        -- m
+        m = {name = 'reMarkable', app = 'reMarkable.app'},
     },
     callback = function(item)
         Modal.exit()
@@ -193,8 +196,12 @@ function OpenMode.openAppModal()
     Modal.enter('OpenApp')
 end
 
-function OpenMode.openShortcutsModal()
-    Modal.enter('OpenShortcuts')
+function OpenMode.openFrequentModal()
+    Modal.enter('OpenFrequent')
+end
+
+function OpenMode.openBookmarksModal()
+    Modal.enter('OpenBookmarks')
 end
 
 function OpenMode.openInModal()

@@ -34,7 +34,7 @@ KarabinerHandler.lookup = {
     quote = 'ExtendedCommandMode',
     return_or_enter = nil,
     z = 'CaseDialog',
-    x = nil,
+    x = 'ExecuteMode',
     c = {iterm = 'GitMode', default = 'CodeMode'},
     v = 'ViVisualMode',
     b = nil,
@@ -60,7 +60,7 @@ local lookupKeys = {
     comma = 'f18',
     period = 'f19',
     slash = 'f20',
-    right_shift = 'rightshift',
+    right_shift = 'f12',
     spacebar = 'space',
 }
 

@@ -340,7 +340,7 @@ function slackReaction(emoji)
 
     if emoji then
         insertText(emoji)
-        hs.timer.doAfter(0.2, function ()
+        hs.timer.doAfter(0.5, function ()
             keyStroke('return')
         end)
     end

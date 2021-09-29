@@ -50,9 +50,11 @@ Modal.add({
         JumpToMode.actions[action]()
     end,
     exited = function()
-        JumpToMode.secondary = false
-        JumpToMode.direction = nil
-        JumpToMode.key = nil
+        if not JumpToMode.paused then
+            JumpToMode.secondary = false
+            JumpToMode.direction = nil
+            JumpToMode.key = nil
+        end
     end,
 })
 
@@ -86,7 +88,14 @@ function JumpToMode.beginJumpingForward()
 
     if inCodeEditor() then
         fastKeyStroke('l')
-        fastKeyStroke('t')
+
+        JumpToMode.paused = true;
+        Modal.exit('JumpToMode')
+
+        fastKeyStroke('f')
+
+        Modal.enter('JumpToMode')
+        JumpToMode.paused = false;
     end
 end
 

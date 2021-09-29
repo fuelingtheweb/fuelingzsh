@@ -241,10 +241,10 @@ end
 
 function HyperMode.forceEscape()
     spoon.TestMode.hideOutput()
-    keyStroke('escape')
+    -- keyStroke('escape')
     fastKeyStroke('escape')
     fastKeyStroke('escape')
-    fastKeyStroke('escape')
+    -- fastKeyStroke('escape')
 end
 
 function HyperMode.undo()

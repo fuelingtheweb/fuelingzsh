@@ -342,7 +342,6 @@ end
 function SelectUntilMode.previousBlock()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'shift'}, 'v')
-        fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke({'shift'}, '[')
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')

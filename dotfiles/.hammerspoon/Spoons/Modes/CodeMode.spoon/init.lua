@@ -21,10 +21,8 @@ CodeMode.lookup = {
     comma = 'toggleComma',
     period = 'doubleArrow',
     slash = 'goToMatchingBracket',
-    right_shift = 'selectAllInstances',
+    right_shift = nil,
     spacebar = 'comment',
-
-    b = 'toggleBoolean',
 }
 
 function CodeMode.conditionalAnd()
@@ -91,15 +89,7 @@ function CodeMode.moveLineUp()
 end
 
 function CodeMode.goToDefinition()
-    Pending.run({
-        function()
-            fastKeyStroke({'alt', 'cmd'}, 'down')
-        end,
-        function()
-            spoon.YankMode.word()
-            goToFileInAtom(hs.pasteboard.getContents())
-        end,
-    })
+    fastKeyStroke({'alt', 'cmd'}, 'down')
 end
 
 function CodeMode.toggleSemicolon()
@@ -188,10 +178,6 @@ end
 
 function CodeMode.comment()
     fastKeyStroke({'cmd'}, '/')
-end
-
-function CodeMode.selectAllInstances()
-    fastKeyStroke({'ctrl', 'cmd'}, 'g')
 end
 
 function CodeMode.concatenate()

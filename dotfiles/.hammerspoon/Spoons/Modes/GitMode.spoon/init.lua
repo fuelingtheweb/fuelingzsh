@@ -84,6 +84,7 @@ end
 
 function GitMode.newBranch()
     insertText('git:branch.new ')
+    spoon.CaseDialog.handle('i')
 end
 
 function GitMode.log()
@@ -100,6 +101,7 @@ end
 
 function GitMode.commit()
     insertText('git:commit ')
+    BracketMatching.start()
 end
 
 function GitMode.checkoutMaster()

@@ -8,13 +8,13 @@ DestroyMode.lookup = {
     e = 'toEndOfWord',
     r = 'untilForward',
     t = 'withWrapperKey',
-    -- caps_lock = 'mode',
+    caps_lock = 'backward',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    -- left_shift = 'modeBackward',
+    left_shift = nil,
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -241,6 +241,15 @@ function DestroyMode.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('d')
     fastKeyStroke({'shift'}, 't')
+end
+
+function DestroyMode.backward()
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        fastKeyStroke('escape')
+        fastKeyStroke('left')
+        fastKeyStroke('x')
+    end
 end
 
 return DestroyMode

@@ -3,6 +3,13 @@ ProjectManager.__index = ProjectManager
 ProjectManager.sites = {}
 
 local Site = {}
+function Site:new()
+    o = {attributes = {}}
+    setmetatable(o, self)
+    self.__index = self
+
+    return o
+end
 function Site:name(name, project)
     o = {
         attributes = {
@@ -180,6 +187,12 @@ function ProjectManager.openDatabaseForCurrent()
     end
 end
 
+function ProjectManager.getByShortPath(path)
+    site = ProjectManager.getByPath('Development/' .. path)
+
+    return site.attributes.path and site or Site:new()
+end
+
 function ProjectManager.getByPath(path)
     site = nil
     each(ProjectManager.sites, function(s)
@@ -221,6 +234,16 @@ function Site:open()
         openInAtom('~/' .. self.attributes.path)
         openInChrome(self.attributes.url)
         openInIterm('/Users/nathan/' .. self.attributes.path)
+    end
+end
+function Site:openInAtom()
+    if self.attributes.path then
+        openInAtom('~/' .. self.attributes.path)
+    end
+end
+function Site:openInChrome()
+    if self.attributes.path then
+        openInChrome(self.attributes.url)
     end
 end
 

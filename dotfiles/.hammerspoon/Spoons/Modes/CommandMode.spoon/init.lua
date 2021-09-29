@@ -35,6 +35,10 @@ function CommandMode.searchAmazon()
     spoon.SearchMode.amazon()
 end
 
+function CommandMode.searchConflicts()
+    spoon.SearchMode.mergeConflicts()
+end
+
 function CommandMode.shiftTab()
     fastKeyStroke({'shift'}, 'tab')
 end
