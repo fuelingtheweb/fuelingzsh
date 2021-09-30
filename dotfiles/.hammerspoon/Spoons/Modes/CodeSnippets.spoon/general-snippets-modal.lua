@@ -2,7 +2,8 @@ Modal.add({
     key = 'CodeSnippets:generalSnippets',
     title = 'General Snippets',
     items = {
-        n = function()
+        n = 'new ',
+        m = function()
             Modal.exit()
             if titleContains('.lua') then
                 insertText('nil')

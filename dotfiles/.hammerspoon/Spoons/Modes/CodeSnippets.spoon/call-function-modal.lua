@@ -97,11 +97,12 @@ Modal.add({
             items = {
                 e = {method = 'each'},
                 r = {method = 'reduce'},
+                y = {method = 'isEmpty'},
+                u = {method = 'isNotEmpty'},
                 f = {method = 'filter'},
                 l = {method = 'count'},
                 c = {method = 'contains'},
-                n = {method = 'isNotEmpty'},
-                m = {method = 'isEmpty'},
+                m = {method = 'map'},
             }
         },
         m = {

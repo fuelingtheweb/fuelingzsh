@@ -26,10 +26,14 @@ ExecuteMode.lookup = {
 }
 
 function ExecuteMode.goToDefinition()
-    spoon.YankMode.word()
+    text = getSelectedText()
+    if not text then
+        spoon.YankMode.word()
+        text = hs.pasteboard.getContents()
+    end
 
     hs.timer.doAfter(0.2, function()
-        goToFileInAtom(hs.pasteboard.getContents())
+        goToFileInAtom(text)
     end)
 end
 

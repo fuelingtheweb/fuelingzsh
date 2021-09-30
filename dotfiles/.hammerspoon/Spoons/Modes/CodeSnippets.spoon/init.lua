@@ -110,6 +110,7 @@ function CodeSnippets.this()
 
     if appIncludes({atom, sublime}) then
         CodeSnippets.snippet('this')
+        Modal.enter('CodeSnippets:callFunction')
     end
 end
 

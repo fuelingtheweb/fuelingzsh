@@ -6,7 +6,8 @@ Modal.add({
         s = {name = 'short', method = 'short'},
     },
     callback = function(item)
-        spoon.CodeSnippets.snippet('function-' .. item.method)
         Modal.exit()
+        spoon.CodeSnippets.snippet('function-' .. item.method)
+        BracketMatching.start()
     end,
 })
