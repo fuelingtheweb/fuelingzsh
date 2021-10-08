@@ -4,24 +4,24 @@ GitMode.__index = GitMode
 GitMode.lookup = {
     y = 'copyBranch',
     u = 'discardChanges',
-    i = 'stageAll',
+    i = 'checkoutIncludingAll',
     o = 'checkout',
     p = 'diff',
-    open_bracket = 'deleteBranch',
-    close_bracket = nil,
+    open_bracket = 'merge',
+    close_bracket = 'rebase',
     h = 'status',
-    j = 'autocompleteNextWord',
+    j = 'reset',
     k = 'commit',
     l = 'log',
-    semicolon = 'stash',
-    quote = 'stashApply',
-    return_or_enter = 'serveCurrentProject',
+    semicolon = 'fetchMaster',
+    quote = 'checkoutMaster',
+    return_or_enter = 'stageAll',
     n = 'newBranch',
-    m = 'merge',
+    m = 'deleteBranch',
     comma = 'pull',
     period = 'push',
-    slash = 'checkoutMaster',
-    right_shift = nil,
+    slash = 'stash',
+    right_shift = 'stashApply',
     spacebar = nil,
 }
 
@@ -30,25 +30,19 @@ function GitMode.copyBranch()
 end
 
 function GitMode.discardChanges()
-    Pending.run({
-        function()
-            typeAndEnter('grs')
-        end,
-        function()
-            insertText('nah')
-        end,
-    })
+    insertText('nah')
+end
+
+function GitMode.reset()
+    typeAndEnter('grs')
 end
 
 function GitMode.checkout()
-    Pending.run({
-        function()
-            typeAndEnter('git:checkout')
-        end,
-        function()
-            typeAndEnter('git:checkout.include-all')
-        end,
-    })
+    typeAndEnter('git:checkout')
+end
+
+function GitMode.checkoutIncludingAll()
+    typeAndEnter('git:checkout.include-all')
 end
 
 function GitMode.push()
@@ -59,27 +53,16 @@ function GitMode.status()
     typeAndEnter('git:status')
 end
 
-function GitMode.autocompleteNextWord()
-    fastSuperKeyStroke('j')
-end
-
 function GitMode.pull()
     typeAndEnter('git pull')
 end
 
-function GitMode.serveCurrentProject()
-    ProjectManager.serveCurrent()
+function GitMode.merge()
+    typeAndEnter('gmm')
 end
 
-function GitMode.merge()
-    Pending.run({
-        function()
-            typeAndEnter('git:merge')
-        end,
-        function()
-            typeAndEnter('gmm')
-        end,
-    })
+function GitMode.rebase()
+    typeAndEnter('grm')
 end
 
 function GitMode.newBranch()
@@ -105,17 +88,11 @@ function GitMode.commit()
 end
 
 function GitMode.checkoutMaster()
-    Pending.run({
-        function()
-            typeAndEnter('gum')
-        end,
-        function()
-            typeAndEnter('goml')
-        end,
-        function()
-            typeAndEnter('gom')
-        end,
-    })
+    typeAndEnter('goml')
+end
+
+function GitMode.fetchMaster()
+    typeAndEnter('gum')
 end
 
 function GitMode.deleteBranch()
@@ -123,25 +100,11 @@ function GitMode.deleteBranch()
 end
 
 function GitMode.stash()
-    Pending.run({
-        function()
-            typeAndEnter('gstu')
-        end,
-        function()
-            typeAndEnter('gst')
-        end,
-    })
+    typeAndEnter('gstu')
 end
 
 function GitMode.stashApply()
-    Pending.run({
-        function()
-            typeAndEnter('gstp')
-        end,
-        function()
-            typeAndEnter('gsta')
-        end,
-    })
+    typeAndEnter('gstp')
 end
 
 return GitMode

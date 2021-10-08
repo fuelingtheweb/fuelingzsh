@@ -8,6 +8,21 @@ Shortcuts
         slack = function()
             slackReaction()
         end,
+        atom = function()
+            path = currentTitle():match('~%S+')
+
+            if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
+                openInAtom(path .. '/routes/web.php')
+            end
+        end,
+        sublime = function()
+            root = currentTitle():match('%S+$')
+            path = currentTitle():match('^~%S+' .. root)
+
+            if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
+                openInSublime(path .. '/routes/web.php')
+            end
+        end,
     })
     :add('T', {notion = 'tasks'})
     :add('E', {
@@ -18,6 +33,16 @@ Shortcuts
                 openInAtom(path .. '/.env')
             elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
                 openInAtom(path .. '/wp-config.php')
+            end
+        end,
+        sublime = function()
+            root = currentTitle():match('%S+$')
+            path = currentTitle():match('^~%S+' .. root)
+
+            if hs.fs.pathToAbsolute(path .. '/.env') then
+                openInSublime(path .. '/.env')
+            elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
+                openInSublime(path .. '/wp-config.php')
             end
         end,
     })

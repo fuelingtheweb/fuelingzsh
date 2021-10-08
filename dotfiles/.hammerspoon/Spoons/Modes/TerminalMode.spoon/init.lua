@@ -10,14 +10,14 @@ TerminalMode.lookup = {
     open_bracket = nil,
     close_bracket = nil,
     h = 'home',
-    j = nil,
+    j = 'autocompleteNextWord',
     k = nil,
     l = 'list',
     semicolon = nil,
     quote = nil,
-    return_or_enter = 'clear',
+    return_or_enter = 'serveCurrentProject',
     n = nil,
-    m = nil,
+    m = 'clear',
     comma = nil,
     period = nil,
     slash = 'navigate',
@@ -39,6 +39,14 @@ end
 
 function TerminalMode.clear()
     typeAndEnter('clear')
+end
+
+function TerminalMode.autocompleteNextWord()
+    fastSuperKeyStroke('j')
+end
+
+function TerminalMode.serveCurrentProject()
+    ProjectManager.serveCurrent()
 end
 
 return TerminalMode

@@ -216,6 +216,8 @@ SelectUntilMode.actions = {
         if TextManipulation.canManipulateWithVim() then
             fastKeyStroke('c')
         end
+
+        BracketMatching.start()
     end,
 
     yank = function()

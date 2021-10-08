@@ -8,8 +8,9 @@ ExtendedCommandMode.lookup = {
     -- w = 'surroundText',
     e = nil,
     r = 'reloadSecondary',
-    t = nil,
-    caps_lock = 'dismissNotifications',
+    t = 'enableScrolling',
+    caps_lock = 'jumpTo',
+    -- caps_lock = 'dismissNotifications',
     a = 'actionFileInAlfred',
     s = 'screenshotToFilesystem',
     d = 'duplicate',
@@ -131,6 +132,21 @@ function ExtendedCommandMode.saveAndReload()
     keyStroke({'cmd'}, 's')
     hs.application.get(apps['chrome']):activate()
     keyStroke({'cmd'}, 'r')
+end
+
+function ExtendedCommandMode.jumpTo()
+    if appIs(atom) then
+        fastKeyStroke({'shift'}, 'return')
+    elseif appIs(sublime) then
+        fastKeyStroke({'shift', 'cmd'}, '.')
+    else
+        fastKeyStroke({'ctrl'}, 'space')
+    end
+end
+
+function ExtendedCommandMode.enableScrolling()
+    -- Vimac: Enable Scroll
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
 return ExtendedCommandMode

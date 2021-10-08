@@ -3,7 +3,7 @@ GoogleMode.__index = GoogleMode
 
 GoogleMode.lookup = {
     y = 'custom',
-    u = nil,
+    u = 'viewSource',
     i = 'inbox',
     o = 'toggleIncognito',
     p = 'profiles',
@@ -75,7 +75,7 @@ end
 
 function GoogleMode.openAndReload()
     hs.application.get(apps['chrome']):activate()
-    fastKeyStroke({'cmd'}, 'R')
+    fastKeyStroke({'cmd'}, 'r')
 end
 
 function GoogleMode.toggleIncognito()
@@ -91,6 +91,10 @@ function GoogleMode.toggleIncognito()
             do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
         end if
     ]])
+end
+
+function GoogleMode.viewSource()
+    fastKeyStroke({'alt', 'cmd'}, 'u')
 end
 
 return GoogleMode

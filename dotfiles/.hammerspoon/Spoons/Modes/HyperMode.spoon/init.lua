@@ -2,26 +2,26 @@ local HyperMode = {}
 HyperMode.__index = HyperMode
 
 HyperMode.lookup = {
-    y = {'copy', 'copyAll'},
-    u = 'searchTabs',
+    y = 'copy',
+        u = 'searchTabs',
     i = 'searchSymbols',
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
-    close_bracket = nil,
+        close_bracket = nil,
     h = 'previousPage',
     j = 'previousTab',
     k = 'nextTab',
     l = 'nextPage',
-    semicolon = 'enableScrolling',
-    quote = 'jumpTo',
+    semicolon = 'nextWindowInCurrentApp',
+    quote = 'nextWindow',
     return_or_enter = 'capsLock',
     n = 'new',
-    m = 'alfred',
+        m = 'alfred',
     comma = 'undo',
     period = 'redo',
-    slash = 'startArtisan',
-    right_shift = nil,
+        slash = 'startArtisan',
+        right_shift = nil,
     spacebar = 'forceEscape',
 }
 
@@ -59,19 +59,6 @@ end
 
 function HyperMode.searchTabs()
     spoon.SearchMode.tabs()
-end
-
-function HyperMode.copyAll()
-    fastKeyStroke({'cmd'}, 'a')
-    fastKeyStroke({'cmd'}, 'c')
-
-    if inCodeEditor() then
-        fastKeyStroke('escape')
-        fastKeyStroke('g')
-        fastKeyStroke('g')
-    else
-        fastKeyStroke('right')
-    end
 end
 
 -- Modal.add({
@@ -196,21 +183,6 @@ function HyperMode.nextPage()
     end
 end
 
-function HyperMode.jumpTo()
-    if appIs(atom) then
-        fastKeyStroke({'shift'}, 'return')
-    elseif appIs(sublime) then
-        fastKeyStroke({'shift', 'cmd'}, '.')
-    else
-        fastKeyStroke({'ctrl'}, 'space')
-    end
-end
-
-function HyperMode.enableScrolling()
-    -- Vimac: Enable Scroll
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
-end
-
 function HyperMode.alfredClipboard()
     fastKeyStroke({'alt'}, 'c')
 end
@@ -253,6 +225,14 @@ end
 
 function HyperMode.redo()
     fastKeyStroke({'shift', 'cmd'}, 'z')
+end
+
+function HyperMode.nextWindow()
+    spoon.WindowManager.next()
+end
+
+function HyperMode.nextWindowInCurrentApp()
+    spoon.WindowManager.nextInCurrentApp()
 end
 
 return HyperMode

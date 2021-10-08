@@ -6,7 +6,7 @@ dofile(hs.configdir .. '/config/custom/open-bookmarks-modal.lua')
 dofile(hs.configdir .. '/Spoons/Modes/OpenMode.spoon/open-in-modal.lua')
 
 OpenMode.lookup = {
-    tab = 'windowHintsForCurrentApplication',
+    tab = nil,
     q = nil,
     w = 'openInModal',
     e = 'sublime',
@@ -148,6 +148,10 @@ function OpenMode.launchApp(id)
             end
         else
             app:activate()
+
+            if id == 'finder' and not multipleWindows(app) then
+                hs.application.open(bundle)
+            end
         end
     elseif multipleWindows(app) then
         OpenMode.windowHintsForCurrentApplication()

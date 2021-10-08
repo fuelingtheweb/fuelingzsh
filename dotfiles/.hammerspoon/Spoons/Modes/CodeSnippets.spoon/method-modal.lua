@@ -2,6 +2,7 @@ Modal.add({
     key = 'CodeSnippets:method',
     title = 'Snippet: Method',
     items = {
+        m = {name = 'primary', method = 'primary'},
         n = {name = '__construct', method = 'construct'},
         i = {name = 'index', method = 'index'},
         c = {name = 'create', method = 'create'},
@@ -19,7 +20,20 @@ Modal.add({
         [';'] = {name = 'static', method = 'static'},
     },
     callback = function(item)
-        spoon.CodeSnippets.snippet('method-' .. item.method)
         Modal.exit()
+
+        if item.method == 'primary' then
+            if appIs(atom) and titleContains('Test.php') then
+                spoon.CodeSnippets.snippet('method-test')
+                spoon.CaseDialog.handle('k')
+            elseif appIncludes({atom, sublime}) then
+                spoon.CodeSnippets.snippet('method')
+                spoon.CaseDialog.handle('m')
+            end
+
+            return
+        end
+
+        spoon.CodeSnippets.snippet('method-' .. item.method)
     end,
 })

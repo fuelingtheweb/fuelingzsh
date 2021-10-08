@@ -29,13 +29,13 @@ KarabinerHandler.lookup = {
     },
     d = 'ViMode',
     f = 'GeneralMode',
-    g = 'GoogleMode',
+    g = {iterm = 'GitMode', default = 'GoogleMode'},
     semicolon = 'CommandMode',
     quote = 'ExtendedCommandMode',
     return_or_enter = nil,
     z = 'CaseDialog',
     x = 'ExecuteMode',
-    c = {iterm = 'GitMode', default = 'CodeMode'},
+    c = 'CodeMode',
     v = 'ViVisualMode',
     b = nil,
     n = 'ChangeMode',
@@ -111,6 +111,8 @@ function KarabinerHandler.setupMode(mode)
 end
 
 function KarabinerHandler.handle(layer, key)
+    Modal.exit()
+
     local Mode = spoon[layer]
 
     if Mode.guard and not Mode.guard() then

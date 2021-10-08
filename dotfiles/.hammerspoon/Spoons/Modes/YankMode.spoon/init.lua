@@ -8,13 +8,13 @@ YankMode.lookup = {
     e = 'toEndOfWord',
     r = 'untilForward',
     t = 'withWrapperKey',
-    caps_lock = 'toTopOfPage',
+    caps_lock = 'all',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
     f = 'withWrapperKey',
     g = 'toBeginningOfLine',
-    left_shift = nil,
+    left_shift = 'toTopOfPage',
     z = 'withWrapperKey',
     x = 'character',
     c = 'withWrapperKey',
@@ -144,6 +144,19 @@ function YankMode.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('y')
     fastKeyStroke({'shift'}, 't')
+end
+
+function YankMode.all()
+    fastKeyStroke({'cmd'}, 'a')
+    fastKeyStroke({'cmd'}, 'c')
+
+    if inCodeEditor() then
+        fastKeyStroke('escape')
+        fastKeyStroke('g')
+        fastKeyStroke('g')
+    else
+        fastKeyStroke('right')
+    end
 end
 
 return YankMode

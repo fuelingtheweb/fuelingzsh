@@ -72,31 +72,11 @@ function CodeSnippets.snippet(name)
 end
 
 function CodeSnippets.method()
-    Pending.run({
-        function()
-            if appIs(atom) and titleContains('Test.php') then
-                CodeSnippets.snippet('method-test')
-                spoon.CaseDialog.handle('k')
-            elseif appIncludes({atom, sublime}) then
-                CodeSnippets.snippet('method')
-            end
-        end,
-        function()
-            Modal.enter('CodeSnippets:method')
-        end,
-    })
+    Modal.enter('CodeSnippets:method')
 end
 
 function CodeSnippets.functionSnippet()
-    Pending.run({
-        function()
-            CodeSnippets.snippet('function')
-            BracketMatching.start()
-        end,
-        function()
-            Modal.enter('CodeSnippets:function')
-        end,
-    })
+    Modal.enter('CodeSnippets:function')
 end
 
 function CodeSnippets.this()
