@@ -1,3 +1,6 @@
+local mdl = {}
+mdl.__index = mdl
+
 Modal.add({
     key = 'CodeSnippets:callFunction',
     title = 'Call Function',
@@ -121,3 +124,5 @@ Modal.add({
         spoon.CodeSnippets.handleCallFunction(item)
     end,
 })
+
+return mdl

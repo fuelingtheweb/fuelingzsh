@@ -83,3 +83,5 @@ function Cheatsheets.nestedItems(mode)
 end
 
 Cheatsheets.setupModal()
+
+return Cheatsheets

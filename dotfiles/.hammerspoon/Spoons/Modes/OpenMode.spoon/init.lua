@@ -1,9 +1,9 @@
 local OpenMode = {}
 OpenMode.__index = OpenMode
 
-dofile(hs.configdir .. '/config/custom/open-frequent-modal.lua')
-dofile(hs.configdir .. '/config/custom/open-bookmarks-modal.lua')
-dofile(hs.configdir .. '/Spoons/Modes/OpenMode.spoon/open-in-modal.lua')
+loadCustomModal('Frequent')
+loadCustomModal('Bookmarks')
+loadModal('OpenIn')
 
 OpenMode.lookup = {
     tab = nil,

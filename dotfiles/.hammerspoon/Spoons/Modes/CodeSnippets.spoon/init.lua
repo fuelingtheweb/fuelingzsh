@@ -1,11 +1,11 @@
 local CodeSnippets = {}
 CodeSnippets.__index = CodeSnippets
 
-dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/method-modal.lua')
-dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/function-modal.lua')
-dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/call-function-modal.lua')
-dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/extra-snippets-modal.lua')
-dofile(hs.configdir .. '/Spoons/Modes/CodeSnippets.spoon/general-snippets-modal.lua')
+loadModal('CodeSnippets.Method')
+loadModal('CodeSnippets.Function')
+loadModal('CodeSnippets.CallFunction')
+loadModal('CodeSnippets.Extra')
+loadModal('CodeSnippets.General')
 
 CodeSnippets.lookup = {
     e = 'snippet-elseif',

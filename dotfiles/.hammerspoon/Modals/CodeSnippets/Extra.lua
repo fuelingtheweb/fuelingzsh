@@ -1,3 +1,6 @@
+local mdl = {}
+mdl.__index = mdl
+
 Modal.add({
     key = 'CodeSnippets:extraSnippets',
     title = 'Extra Snippets',
@@ -34,3 +37,5 @@ Modal.add({
         end
     end,
 })
+
+return mdl

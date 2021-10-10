@@ -1,3 +1,6 @@
+local mdl = {}
+mdl.__index = mdl
+
 Modal.add({
     key = 'CodeSnippets:function',
     title = 'Snippet: Function',
@@ -18,3 +21,5 @@ Modal.add({
         BracketMatching.start()
     end,
 })
+
+return mdl

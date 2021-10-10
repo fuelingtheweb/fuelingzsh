@@ -240,8 +240,4 @@ function HyperMode.cheatsheets()
     Modal.enter('Cheatsheets')
 end
 
-function HyperMode.loadCheatsheets()
-    dofile(hs.configdir .. '/Spoons/Modes/HyperMode.spoon/cheatsheets-modal.lua')
-end
-
 return HyperMode

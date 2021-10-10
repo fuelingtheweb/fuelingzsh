@@ -109,3 +109,5 @@ function OpenIn.inTinkerwell()
         executeFromFuelingZsh('tinkerwell "' .. path .. '"')
     end
 end
+
+return OpenIn

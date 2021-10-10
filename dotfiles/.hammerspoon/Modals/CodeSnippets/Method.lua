@@ -1,3 +1,6 @@
+local mdl = {}
+mdl.__index = mdl
+
 Modal.add({
     key = 'CodeSnippets:method',
     title = 'Snippet: Method',
@@ -37,3 +40,5 @@ Modal.add({
         spoon.CodeSnippets.snippet('method-' .. item.method)
     end,
 })
+
+return mdl

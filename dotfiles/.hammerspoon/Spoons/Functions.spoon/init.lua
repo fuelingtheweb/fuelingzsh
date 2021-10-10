@@ -415,4 +415,12 @@ function _(callback, ...)
     end
 end
 
+function loadCustomModal(modal)
+    return require('config.custom.Modals.' .. modal)
+end
+
+function loadModal(modal)
+    return require('Modals.' .. modal)
+end
+
 return obj

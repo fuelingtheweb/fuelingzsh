@@ -1,3 +1,6 @@
+local mdl = {}
+mdl.__index = mdl
+
 Modal.add({
     key = 'CodeSnippets:generalSnippets',
     title = 'General Snippets',
@@ -22,3 +25,5 @@ Modal.add({
         insertText(item)
     end,
 })
+
+return mdl
