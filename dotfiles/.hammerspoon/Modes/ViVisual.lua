@@ -26,27 +26,27 @@ ViVisualMode.lookup = {
 }
 
 function ViVisualMode.selectToPreviousSubword()
-    spoon.SelectUntilMode.beginSelectingBackward()
+    md.SelectUntil.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'q')
 end
 
 function ViVisualMode.selectToNextSubword()
-    spoon.SelectUntilMode.beginSelectingForward()
+    md.SelectUntil.beginSelectingForward()
     fastKeyStroke('q')
 end
 
 function ViVisualMode.selectToPreviousWholeWord()
-    spoon.SelectUntilMode.beginSelectingBackward()
+    md.SelectUntil.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'b')
 end
 
 function ViVisualMode.selectToEndOfWholeWord()
-    spoon.SelectUntilMode.beginSelectingForward()
+    md.SelectUntil.beginSelectingForward()
     fastKeyStroke({'shift'}, 'e')
 end
 
 function ViVisualMode.selectToNextWholeWord()
-    spoon.SelectUntilMode.beginSelectingForward()
+    md.SelectUntil.beginSelectingForward()
     fastKeyStroke({'shift'}, 'w')
 end
 
@@ -59,7 +59,7 @@ function ViVisualMode.selectToTopOfPage()
 end
 
 function ViVisualMode.selectToFirstCharacterOfLine()
-    spoon.SelectUntilMode.beginningOfLine()
+    md.SelectUntil.beginningOfLine()
 end
 
 function ViVisualMode.selectToEndOfLine()

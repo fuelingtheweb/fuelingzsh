@@ -3,9 +3,9 @@ obj.__index = obj
 
 hs.urlevent.bind('misc-optionPressedOnce', function()
     if appIs(spotify) then
-        spoon.WindowManager.next()
+        md.WindowManager.next()
     else
-        spoon.MediaMode.showVideoBar()
+        md.Media.showVideoBar()
     end
 end)
 

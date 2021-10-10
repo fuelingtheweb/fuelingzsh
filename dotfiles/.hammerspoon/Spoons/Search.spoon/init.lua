@@ -1,58 +1,36 @@
-local SearchMode = {}
-SearchMode.__index = SearchMode
+local Search = {}
+Search.__index = Search
 
--- SearchMode.lookup = {
---     tab = nil,
---     q = nil,
---     w = 'windowsInCurrentApp',
---     e = nil,
---     r = nil,
---     t = 'tabs',
---     caps_lock = 'default',
---     a = 'allWindows',
---     s = 'symbol',
---     d = nil,
---     f = 'files',
---     g = 'google',
---     left_shift = nil,
---     z = 'amazon',
---     x = nil,
---     c = 'mergeConflicts',
---     v = nil,
---     b = nil,
---     spacebar = nil,
--- }
-
-function SearchMode.symbol()
+function Search.symbol()
     fastKeyStroke({'cmd'}, 'r')
 end
 
-function SearchMode.files()
+function Search.files()
     triggerAlfredSearch('open ')
 end
 
-function SearchMode.google()
+function Search.google()
     triggerAlfredWorkflow('google', 'com.akikoz.alfred.websearchsuggest')
 end
 
-function SearchMode.amazon()
+function Search.amazon()
     triggerAlfredWorkflow('amazon', 'com.akikoz.alfred.websearchsuggest')
 end
 
-function SearchMode.mergeConflicts()
+function Search.mergeConflicts()
     fastKeyStroke('/')
     insertText('<<<<<')
     fastKeyStroke('return')
 end
 
-function SearchMode.default()
+function Search.default()
     if inCodeEditor() then
         TextManipulation.disableVim()
         fastKeyStroke('/')
     end
 end
 
-function SearchMode.tabs()
+function Search.tabs()
     if appIs(atom) then
         fastKeyStroke({'cmd'}, 'b')
     elseif appIs(sublime) then
@@ -62,13 +40,13 @@ function SearchMode.tabs()
     end
 end
 
-function SearchMode.windowsInCurrentApp()
+function Search.windowsInCurrentApp()
     windows = hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast)
 
-    SearchMode.loadWindowsInAlfred(windows, 2)
+    Search.loadWindowsInAlfred(windows, 2)
 end
 
-function SearchMode.loadWindowsInAlfred(windows, minimum)
+function Search.loadWindowsInAlfred(windows, minimum)
     if not windows or countTable(windows) < minimum then
         return
     end
@@ -94,7 +72,7 @@ function SearchMode.loadWindowsInAlfred(windows, minimum)
     triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
 end
 
-function SearchMode.allWindows()
+function Search.allWindows()
     windows = hs.window.filter.default
         :rejectApp('Sublime Text')
         :rejectApp('Atom')
@@ -107,11 +85,11 @@ function SearchMode.allWindows()
         :rejectApp('Dash')
         :getWindows(hs.window.filter.sortByFocusedLast)
 
-    SearchMode.loadWindowsInAlfred(windows, 1)
+    Search.loadWindowsInAlfred(windows, 1)
 end
 
 hs.urlevent.bind('window-focus', function(eventName, params)
     hs.window(tonumber(params.id)):focus()
 end)
 
-return SearchMode
+return Search

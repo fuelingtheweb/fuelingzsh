@@ -27,17 +27,17 @@ Modal.add({
 
         if item.method == 'primary' then
             if appIs(atom) and titleContains('Test.php') then
-                spoon.CodeSnippets.snippet('method-test')
-                spoon.CaseDialog.handle('k')
+                md.CodeSnippets.snippet('method-test')
+                md.CaseDialog.handle('k')
             elseif appIncludes({atom, sublime}) then
-                spoon.CodeSnippets.snippet('method')
-                spoon.CaseDialog.handle('m')
+                md.CodeSnippets.snippet('method')
+                md.CaseDialog.handle('m')
             end
 
             return
         end
 
-        spoon.CodeSnippets.snippet('method-' .. item.method)
+        md.CodeSnippets.snippet('method-' .. item.method)
     end,
 })
 

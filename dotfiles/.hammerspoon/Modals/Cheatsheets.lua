@@ -71,7 +71,7 @@ end
 function Cheatsheets.nestedItems(mode)
     local items = {}
 
-    each(spoon[mode].lookup or {}, function(method, key)
+    each(md[mode].lookup or {}, function(method, key)
         name = (
             (key == 'left_shift' and '(left_shift) ' or nil)
             or (key == 'right_shift' and '(right_shift) ' or '')

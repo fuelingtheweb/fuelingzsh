@@ -39,7 +39,7 @@ function OpenIn.inSublime()
         path = currentTitle():match('~%S+')
 
         if appIs(atom) then
-            spoon.YankMode.relativeFilePath()
+            md.Yank.relativeFilePath()
 
             hs.timer.doAfter(0.2, function()
                 filePath = hs.pasteboard.getContents()

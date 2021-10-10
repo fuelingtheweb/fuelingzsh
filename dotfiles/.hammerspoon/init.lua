@@ -9,8 +9,9 @@ Pending = hs.loadSpoon('Pending')
 Modal = hs.loadSpoon('Modal')
 TextManipulation = hs.loadSpoon('TextManipulation')
 Artisan = hs.loadSpoon('Artisan')
-BracketMatching = hs.loadSpoon('Modes/BracketMatching')
+BracketMatching = hs.loadSpoon('BracketMatching')
 
+hs.loadSpoon('Search')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 

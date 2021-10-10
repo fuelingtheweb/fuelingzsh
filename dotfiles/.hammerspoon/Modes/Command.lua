@@ -28,15 +28,15 @@ CommandMode.lookup = {
 }
 
 function CommandMode.searchGoogle()
-    spoon.SearchMode.google()
+    spoon.Search.google()
 end
 
 function CommandMode.searchAmazon()
-    spoon.SearchMode.amazon()
+    spoon.Search.amazon()
 end
 
 function CommandMode.searchConflicts()
-    spoon.SearchMode.mergeConflicts()
+    spoon.Search.mergeConflicts()
 end
 
 function CommandMode.shiftTab()

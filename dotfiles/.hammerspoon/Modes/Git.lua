@@ -67,7 +67,7 @@ end
 
 function GitMode.newBranch()
     insertText('git:branch.new ')
-    spoon.CaseDialog.handle('i')
+    md.CaseDialog.handle('i')
 end
 
 function GitMode.log()

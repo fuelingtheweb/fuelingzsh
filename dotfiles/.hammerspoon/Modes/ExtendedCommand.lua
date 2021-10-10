@@ -26,7 +26,7 @@ ExtendedCommandMode.lookup = {
 }
 
 function ExtendedCommandMode.searchFiles()
-    spoon.SearchMode.files()
+    spoon.Search.files()
 end
 
 function ExtendedCommandMode.sleep()

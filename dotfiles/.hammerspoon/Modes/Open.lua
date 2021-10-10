@@ -62,7 +62,7 @@ Modal.add({
 
 -- function OpenMode.before()
 --     if inCodeEditor() then
---         spoon.HyperMode.forceEscape()
+--         md.Hyper.forceEscape()
 --     end
 -- end
 
@@ -90,19 +90,19 @@ function OpenMode.alfredPreferences()
 end
 
 function OpenMode.quit()
-    spoon.CommandMode.quit()
+    md.Command.quit()
 end
 
 function OpenMode.closeWindow()
-    spoon.CommandMode.closeWindow()
+    md.Command.closeWindow()
 end
 
 function OpenMode.closeAllWindow()
-    spoon.CommandMode.closeAllWindow()
+    md.Command.closeAllWindow()
 end
 
 function OpenMode.open()
-    spoon.HyperMode.open()
+    md.Hyper.open()
 end
 
 function OpenMode.bringAllWindowsToFront()
@@ -177,7 +177,7 @@ end
 
 function launchSpotify()
     if appIs(spotify) then
-        return spoon.WindowManager.next()
+        return md.WindowManager.next()
     end
 
     app = hs.application.get(spotify)

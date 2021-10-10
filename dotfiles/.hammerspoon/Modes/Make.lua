@@ -52,28 +52,28 @@ function MakeMode.lineAfter()
     end
 end
 
-function MakeMode.startOfVideoOrPreviousVideo()
-    spoon.MediaMode.startOfVideoOrPreviousVideo()
-end
+-- function MakeMode.startOfVideoOrPreviousVideo()
+--     md.Media.startOfVideoOrPreviousVideo()
+-- end
 
-function MakeMode.nextVideo()
-    spoon.MediaMode.nextVideo()
-end
+-- function MakeMode.nextVideo()
+--     md.Media.nextVideo()
+-- end
 
-function MakeMode.focus()
-    spoon.MediaMode.focus()
-end
+-- function MakeMode.focus()
+--     md.Media.focus()
+-- end
 
-function MakeMode.fullscreen()
-    spoon.MediaMode.fullscreen()
-end
+-- function MakeMode.fullscreen()
+--     md.Media.fullscreen()
+-- end
 
-function MakeMode.videoBack()
-    spoon.MediaMode.videoBack()
-end
+-- function MakeMode.videoBack()
+--     md.Media.videoBack()
+-- end
 
-function MakeMode.videoForward()
-    spoon.MediaMode.videoForward()
-end
+-- function MakeMode.videoForward()
+--     md.Media.videoForward()
+-- end
 
 return MakeMode

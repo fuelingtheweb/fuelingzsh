@@ -13,9 +13,9 @@ Modal.add({
         Modal.exit()
 
         if item.method == 'primary' then
-            spoon.CodeSnippets.snippet('function')
+            md.CodeSnippets.snippet('function')
         else
-            spoon.CodeSnippets.snippet('function-' .. item.method)
+            md.CodeSnippets.snippet('function-' .. item.method)
         end
 
         BracketMatching.start()

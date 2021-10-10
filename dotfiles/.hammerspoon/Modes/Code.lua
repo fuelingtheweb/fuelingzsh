@@ -97,7 +97,7 @@ function CodeMode.toggleSemicolon()
         return fastKeyStroke({'alt'}, ';')
     end
 
-    spoon.ViMode.moveToEndOfLine()
+    md.Vi.moveToEndOfLine()
     fastKeyStroke({'shift'}, 'left')
     text = getSelectedText()
 
@@ -155,7 +155,7 @@ function CodeMode.toggleComma()
         return fastKeyStroke({'alt'}, ',')
     end
 
-    spoon.ViMode.moveToEndOfLine()
+    md.Vi.moveToEndOfLine()
     fastKeyStroke({'shift'}, 'left')
     text = getSelectedText()
 

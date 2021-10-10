@@ -121,7 +121,7 @@ Modal.add({
         },
     },
     callback = function(item)
-        spoon.CodeSnippets.handleCallFunction(item)
+        md.CodeSnippets.handleCallFunction(item)
     end,
 })
 

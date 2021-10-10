@@ -50,16 +50,16 @@ function HyperMode.copy()
     elseif appIs(chrome) then
         copyChromeUrl()
     elseif inCodeEditor() then
-        spoon.YankMode.relativeFilePath()
+        md.Yank.relativeFilePath()
     end
 end
 
 function HyperMode.searchSymbols()
-    spoon.SearchMode.symbol()
+    spoon.Search.symbol()
 end
 
 function HyperMode.searchTabs()
-    spoon.SearchMode.tabs()
+    spoon.Search.tabs()
 end
 
 -- Modal.add({
@@ -161,11 +161,11 @@ function HyperMode.previousPage()
 end
 
 function HyperMode.previousTab()
-    spoon.TabMode.previous()
+    md.Tab.previous()
 end
 
 function HyperMode.nextTab()
-    spoon.TabMode.next()
+    md.Tab.next()
 end
 
 function HyperMode.nextPage()
@@ -213,7 +213,7 @@ function HyperMode.startArtisan()
 end
 
 function HyperMode.forceEscape()
-    spoon.TestMode.hideOutput()
+    md.Test.hideOutput()
     -- keyStroke('escape')
     fastKeyStroke('escape')
     fastKeyStroke('escape')
@@ -229,11 +229,11 @@ function HyperMode.redo()
 end
 
 function HyperMode.nextWindow()
-    spoon.WindowManager.next()
+    md.WindowManager.next()
 end
 
 function HyperMode.nextWindowInCurrentApp()
-    spoon.WindowManager.nextInCurrentApp()
+    md.WindowManager.nextInCurrentApp()
 end
 
 function HyperMode.cheatsheets()

@@ -26,7 +26,7 @@ TestMode.lookup = {
 }
 
 function TestMode.before()
-    spoon.HyperMode.forceEscape()
+    md.Hyper.forceEscape()
 end
 
 function TestMode.class()

@@ -1,49 +1,50 @@
 local KarabinerHandler = {}
 KarabinerHandler.__index = KarabinerHandler
 
-spoon.SearchMode = hs.loadSpoon('Modes/SearchMode')
+md = {}
 
 KarabinerHandler.modifier = nil
 
 KarabinerHandler.lookup = {
-    tab = 'TabMode',
+    tab = 'Tab',
     q = 'Numbers',
     w = nil,
     e = nil,
-    r = 'PaneMode',
-    t = {iterm = 'TerminalMode', atom = 'TestMode'},
-    y = 'YankMode',
-    u = 'AppMode',
-    i = 'MakeMode',
-    o = 'OpenMode',
-    p = 'PasteMode',
+    r = 'Pane',
+    t = {iterm = 'Terminal', atom = 'Test'},
+    y = 'Yank',
+    u = 'AppShortcut',
+    i = 'Make',
+    o = 'Open',
+    p = 'Paste',
     open_bracket = nil,
     close_bracket = nil,
-    caps_lock = 'HyperMode',
-    a = {iterm = 'ArtisanMode', default = 'CaseMode'},
+    caps_lock = 'Hyper',
+    a = {iterm = 'Artisan', default = 'ChangeCase'},
     s = {
         iterm = 'TerminalSnippets',
         slack = 'SlackSnippets',
         atom = 'CodeSnippets',
         sublime = 'CodeSnippets'
     },
-    d = 'ViMode',
-    f = 'GeneralMode',
-    g = {iterm = 'GitMode', default = 'GoogleMode'},
-    semicolon = 'CommandMode',
-    quote = 'ExtendedCommandMode',
+    d = 'Vi',
+    f = 'General',
+    g = {iterm = 'Git', default = 'Google'},
+    semicolon = 'Command',
+    quote = 'ExtendedCommand',
     return_or_enter = nil,
     z = 'CaseDialog',
-    x = 'ExecuteMode',
-    c = 'CodeMode',
-    v = 'ViVisualMode',
+    x = 'Execute',
+    c = 'Code',
+    v = 'ViVisual',
     b = nil,
-    n = 'ChangeMode',
-    m = 'DestroyMode',
-    comma = 'SelectInsideMode',
-    period = 'SelectUntilMode',
-    slash = 'JumpToMode',
+    n = 'Change',
+    m = 'Destroy',
+    comma = 'SelectInside',
+    period = 'SelectUntil',
+    slash = 'JumpTo',
     spacebar = 'WindowManager',
+    -- Available: Media
 }
 
 local lookupKeys = {
@@ -72,20 +73,20 @@ local availableKeys = {
     'spacebar',
 }
 
-function KarabinerHandler.loadSpoons(modes)
+function KarabinerHandler.loadModes(modes)
     each(modes, function(mode, modifier)
         if not mode then
             return
         end
 
         if isTable(mode) then
-            return KarabinerHandler.loadSpoons(mode)
+            return KarabinerHandler.loadModes(mode)
         end
 
-        if not spoon[mode] then
-            spoon[mode] = hs.loadSpoon('Modes/' .. mode)
+        if not md[mode] then
+            md[mode] = require('Modes.' .. mode)
 
-            KarabinerHandler.setupMode(spoon[mode])
+            KarabinerHandler.setupMode(md[mode])
         end
     end)
 end
@@ -110,10 +111,10 @@ function KarabinerHandler.setupMode(mode)
     end)
 end
 
-function KarabinerHandler.handle(layer, key)
+function KarabinerHandler.handle(mode, key)
     Modal.exit()
 
-    local Mode = spoon[layer]
+    local Mode = md[mode]
 
     if Mode.guard and not Mode.guard() then
         return
@@ -188,7 +189,7 @@ hs.urlevent.bind('handle-karabiner', function(eventName, params)
     KarabinerHandler.handle(params.layer, params.key)
 end)
 
-KarabinerHandler.loadSpoons(KarabinerHandler.lookup)
+KarabinerHandler.loadModes(KarabinerHandler.lookup)
 KarabinerHandler.setupKeys()
 
 function KarabinerHandler.compileJson()
@@ -205,7 +206,7 @@ function KarabinerHandler.compileJson()
             actions = {},
         }
 
-        local Mode = spoon[mode]
+        local Mode = md[mode]
 
         if Mode.lookup then
             each(Mode.lookup, function(action, key)

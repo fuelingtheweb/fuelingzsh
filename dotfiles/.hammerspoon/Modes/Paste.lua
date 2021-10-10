@@ -8,7 +8,7 @@ PasteMode.lookup = {
     e = 'toEndOfWord',
     r = nil,
     t = 'withWrapperKey',
-    caps_lock = 'backward',
+    caps_lock = 'pasteSurround',
     a = 'toEndOfLine',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
@@ -166,5 +166,31 @@ function PasteMode.backward()
         fastKeyStroke({'shift'}, 'p')
     end
 end
+
+-- Modal.add({
+--     key: 'PasteSurround',
+--     title: 'Paste Surround',
+--     items: PasteMode.lookup,
+--     callback = function(key)
+--         Modal.exit()
+
+--         keystroke = TextManipulation.wrapperKeyLookup[key]
+
+--         fastKeyStroke('escape')
+--         fastKeyStroke('c')
+--         fastKeyStroke('a')
+--         fastKeyStroke(keystroke.mods, keystroke.key)
+
+--         if not hasValue({'s', 'd', 't'}, key) then
+--             BracketMatching.start()
+--         end
+--     end,
+-- })
+
+-- function PasteMode.pasteSurround()
+--     if inCodeEditor() then
+--         fastKeyStroke({'shift'}, 'p')
+--     end
+-- end
 
 return PasteMode

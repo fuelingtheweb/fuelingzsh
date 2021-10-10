@@ -10,7 +10,7 @@ Modal.add({
             title = 'Laravel Tests',
             items = {
                 r = {value = 'use RefreshDatabase;', callback = function()
-                    spoon.CodeMode.addUseStatement()
+                    md.Code.addUseStatement()
                 end},
             }
         },

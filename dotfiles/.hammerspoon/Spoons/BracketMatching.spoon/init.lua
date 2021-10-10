@@ -206,13 +206,13 @@ end
 
 function BracketMatching.functionSnippet()
     Modal.exit()
-    spoon.CodeSnippets.snippet('function')
+    md.CodeSnippets.snippet('function')
     BracketMatching.start()
 end
 
 function BracketMatching.thisSnippet()
     Modal.exit()
-    spoon.CodeSnippets.snippet('this')
+    md.CodeSnippets.snippet('this')
 end
 
 return BracketMatching

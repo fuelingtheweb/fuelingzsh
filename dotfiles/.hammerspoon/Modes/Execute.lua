@@ -28,7 +28,7 @@ ExecuteMode.lookup = {
 function ExecuteMode.goToDefinition()
     text = getSelectedText()
     if not text then
-        spoon.YankMode.word()
+        md.Yank.word()
         text = hs.pasteboard.getContents()
     end
 

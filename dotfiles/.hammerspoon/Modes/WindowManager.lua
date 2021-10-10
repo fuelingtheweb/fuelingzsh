@@ -112,7 +112,7 @@ end
 
 function WindowManager.nextInCurrentApp()
     if appIs(chrome) then
-        spoon.OpenMode.windowHintsForCurrentApplication()
+        md.Open.windowHintsForCurrentApplication()
         fastKeyStroke('b')
         return
     end
@@ -171,7 +171,7 @@ end
 
 function WindowManager.scrollScreenWithCursorAtEnd()
     if inCodeEditor() then
-        spoon.HyperMode.forceEscape()
+        md.Hyper.forceEscape()
         fastKeyStroke('z')
         fastKeyStroke('b')
     end
@@ -179,7 +179,7 @@ end
 
 function WindowManager.scrollScreenWithCursorAtCenter()
     if inCodeEditor() then
-        spoon.HyperMode.forceEscape()
+        md.Hyper.forceEscape()
         fastKeyStroke('z')
         fastKeyStroke('z')
     end
@@ -187,7 +187,7 @@ end
 
 function WindowManager.scrollScreenWithCursorAtTop()
     if inCodeEditor() then
-        spoon.HyperMode.forceEscape()
+        md.Hyper.forceEscape()
         fastKeyStroke('z')
         fastKeyStroke('t')
     end
