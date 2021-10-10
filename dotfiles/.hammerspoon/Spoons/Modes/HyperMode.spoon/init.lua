@@ -20,7 +20,8 @@ HyperMode.lookup = {
         m = 'alfred',
     comma = 'undo',
     period = 'redo',
-        slash = 'startArtisan',
+    slash = 'cheatsheets',
+    -- slash = 'startArtisan',
         right_shift = nil,
     spacebar = 'forceEscape',
 }
@@ -233,6 +234,14 @@ end
 
 function HyperMode.nextWindowInCurrentApp()
     spoon.WindowManager.nextInCurrentApp()
+end
+
+function HyperMode.cheatsheets()
+    Modal.enter('Cheatsheets')
+end
+
+function HyperMode.loadCheatsheets()
+    dofile(hs.configdir .. '/Spoons/Modes/HyperMode.spoon/cheatsheets-modal.lua')
 end
 
 return HyperMode

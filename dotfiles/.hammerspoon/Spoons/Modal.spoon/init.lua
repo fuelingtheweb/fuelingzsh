@@ -10,11 +10,6 @@ function Modal.add(meta)
     spoon.ModalMgr:new(meta.key)
     meta.modal = spoon.ModalMgr.modal_list[meta.key]
 
-    meta.modal:bind('', 'escape', 'Exit', function()
-        Modal.exit(meta.key)
-        fastKeyStroke('escape')
-    end)
-
     meta.modal.entered = function()
         if meta.entered then
             meta.entered()
@@ -26,6 +21,10 @@ function Modal.add(meta)
             end
 
             Modal.menubar:setTitle(meta.title)
+        end
+
+        if meta.showCheatsheetOnEnter then
+            Modal.toggleCheatsheet(meta.key)
         end
     end
 
@@ -81,19 +80,26 @@ function Modal.add(meta)
         end)
     end
 
+    if not meta.items or not meta.items.escape then
+        meta.modal:bind('', 'escape', 'Exit', function()
+            Modal.exit(meta.key)
+            fastKeyStroke('escape')
+        end)
+    end
+
+    if not meta.items or not meta.items.j then
+        meta.modal:bind('', 'j', 'Exit', function()
+            if meta.beforeExit then
+                meta.beforeExit()
+            end
+
+            Modal.exit(meta.key)
+        end)
+    end
+
     if meta.defaults == nil or meta.defaults == true then
-        if not meta.items or not meta.items.j then
-            meta.modal:bind('', 'j', 'Exit', function()
-                if meta.beforeExit then
-                    meta.beforeExit()
-                end
-
-                Modal.exit()
-            end)
-        end
-
         meta.modal:bind('', '/', 'Cheatsheet', function()
-            spoon.ModalMgr:toggleCheatsheet()
+            Modal.toggleCheatsheet()
         end)
 
         each(
@@ -127,6 +133,14 @@ function Modal.exit(key)
         spoon.ModalMgr:deactivate({key})
     else
         spoon.ModalMgr:deactivateAll()
+    end
+end
+
+function Modal.toggleCheatsheet(key)
+    if key then
+        spoon.ModalMgr:toggleCheatsheet({key})
+    else
+        spoon.ModalMgr:toggleCheatsheet()
     end
 end
 

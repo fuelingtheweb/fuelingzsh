@@ -13,3 +13,5 @@ BracketMatching = hs.loadSpoon('Modes/BracketMatching')
 
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
+
+spoon.HyperMode.loadCheatsheets()

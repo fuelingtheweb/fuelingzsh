@@ -76,16 +76,9 @@ function OpenMode.windowHintsForCurrentApplication()
     hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
 end
 
--- KSheet = hs.loadSpoon('vendor/KSheet')
--- KSheet:init()
-
--- HSKeybindings = hs.loadSpoon('vendor/HSKeybindings')
-
 function OpenMode.windowHints()
     hs.hints.style = 'vimperator'
     hs.hints.windowHints()
-    -- KSheet:toggle()
-    -- HSKeybindings:show()
 end
 
 function OpenMode.fantastical()
