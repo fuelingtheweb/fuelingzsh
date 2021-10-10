@@ -79,8 +79,8 @@ function Shortcuts:trigger(key)
 end
 
 function Shortcuts:addFromConfig()
-    dofile(hs.configdir .. '/config/shortcuts.lua')
-    dofile(hs.configdir .. '/config/custom/shortcuts.lua')
+    require('config.shortcuts')
+    require('config.custom.shortcuts')
 end
 
 function Shortcuts:listen()

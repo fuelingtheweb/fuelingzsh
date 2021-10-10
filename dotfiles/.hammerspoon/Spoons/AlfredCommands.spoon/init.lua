@@ -54,7 +54,7 @@ function AlfredCommands:trigger(key)
 end
 
 function AlfredCommands:addFromConfig()
-    dofile(hs.configdir .. '/config/custom/commands.lua')
+    require('config.custom.commands')
 end
 
 function AlfredCommands:listen()

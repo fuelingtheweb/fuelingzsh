@@ -19,7 +19,7 @@ end)
 
 UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
 UrlDispatcher.default_handler = chrome
-UrlDispatcher.url_patterns = dofile(hs.configdir .. '/config/custom/routing.lua')
+UrlDispatcher.url_patterns = require('config.custom.routing')
 UrlDispatcher:start()
 
 Shortcuts = hs.loadSpoon('Shortcuts')
