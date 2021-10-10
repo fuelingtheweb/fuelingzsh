@@ -1,7 +1,7 @@
-local MakeMode = {}
-MakeMode.__index = MakeMode
+local Make = {}
+Make.__index = Make
 
-MakeMode.lookup = {
+Make.lookup = {
     tab = nil,
     q = nil,
     w = nil,
@@ -30,50 +30,50 @@ MakeMode.lookup = {
     -- period = 'videoForward',
 }
 
-function MakeMode.fallback(bracket)
+function Make.fallback(bracket)
     BracketMatching.print(bracket)
 end
 
-function MakeMode.multiBracketMatch()
+function Make.multiBracketMatch()
     BracketMatching.startMulti()
 end
 
-function MakeMode.lineBefore()
+function Make.lineBefore()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'o')
     end
 end
 
-function MakeMode.lineAfter()
+function Make.lineAfter()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('o')
     end
 end
 
--- function MakeMode.startOfVideoOrPreviousVideo()
+-- function Make.startOfVideoOrPreviousVideo()
 --     md.Media.startOfVideoOrPreviousVideo()
 -- end
 
--- function MakeMode.nextVideo()
+-- function Make.nextVideo()
 --     md.Media.nextVideo()
 -- end
 
--- function MakeMode.focus()
+-- function Make.focus()
 --     md.Media.focus()
 -- end
 
--- function MakeMode.fullscreen()
+-- function Make.fullscreen()
 --     md.Media.fullscreen()
 -- end
 
--- function MakeMode.videoBack()
+-- function Make.videoBack()
 --     md.Media.videoBack()
 -- end
 
--- function MakeMode.videoForward()
+-- function Make.videoForward()
 --     md.Media.videoForward()
 -- end
 
-return MakeMode
+return Make

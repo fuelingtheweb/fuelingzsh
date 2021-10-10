@@ -1,7 +1,7 @@
-local ChangeMode = {}
-ChangeMode.__index = ChangeMode
+local Change = {}
+Change.__index = Change
 
-ChangeMode.lookup = {
+Change.lookup = {
     tab = 'untilBackward',
     q = 'subword',
     w = 'word',
@@ -23,11 +23,11 @@ ChangeMode.lookup = {
     spacebar = 'outer',
 }
 
-function ChangeMode.disableVim()
+function Change.disableVim()
     hs.execute("open -g 'hammerspoon://text-disableVim'")
 end
 
-function ChangeMode.withWrapperKey(key)
+function Change.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     fastKeyStroke('escape')
@@ -40,7 +40,7 @@ function ChangeMode.withWrapperKey(key)
     end
 end
 
-function ChangeMode.toEndOfWord()
+function Change.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -51,7 +51,7 @@ function ChangeMode.toEndOfWord()
     end
 end
 
-function ChangeMode.subword()
+function Change.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -60,7 +60,7 @@ function ChangeMode.subword()
     end
 end
 
-function ChangeMode.word()
+function Change.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -74,7 +74,7 @@ function ChangeMode.word()
     end
 end
 
-function ChangeMode.toEndOfLine()
+function Change.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'c')
@@ -84,7 +84,7 @@ function ChangeMode.toEndOfLine()
     end
 end
 
-function ChangeMode.toBeginningOfLine()
+function Change.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -95,7 +95,7 @@ function ChangeMode.toBeginningOfLine()
     end
 end
 
-function ChangeMode.line()
+function Change.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('c')
@@ -110,7 +110,7 @@ function ChangeMode.line()
     end
 end
 
-function ChangeMode.character()
+function Change.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'ctrl', 'alt'}, 'a')
     end
@@ -118,27 +118,27 @@ function ChangeMode.character()
     fastKeyStroke('delete')
 end
 
-function ChangeMode.below()
+function Change.below()
     fastKeyStroke('o')
 end
 
-function ChangeMode.above()
+function Change.above()
     fastKeyStroke({'shift'}, 'o')
 end
 
-function ChangeMode.untilForward()
+function Change.untilForward()
     fastKeyStroke('escape')
     fastKeyStroke('c')
     fastKeyStroke('t')
 end
 
-function ChangeMode.untilBackward()
+function Change.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('c')
     fastKeyStroke({'shift'}, 't')
 end
 
-function ChangeMode.outer()
+function Change.outer()
     Modal.enter('ChangeOuter')
 end
 
@@ -162,4 +162,4 @@ Modal.add({
     end,
 })
 
-return ChangeMode
+return Change

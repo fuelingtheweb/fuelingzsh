@@ -1,7 +1,7 @@
-local DestroyMode = {}
-DestroyMode.__index = DestroyMode
+local Destroy = {}
+Destroy.__index = Destroy
 
-DestroyMode.lookup = {
+Destroy.lookup = {
     tab = 'untilBackward',
     q = 'subword',
     w = 'word',
@@ -23,7 +23,7 @@ DestroyMode.lookup = {
     spacebar = 'simpleDelete',
 }
 
-function DestroyMode.withWrapperKey(key)
+function Destroy.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     fastKeyStroke('escape')
@@ -32,7 +32,7 @@ function DestroyMode.withWrapperKey(key)
     fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-function DestroyMode.simpleDelete()
+function Destroy.simpleDelete()
     if inCodeEditor() then
         BracketMatching.cancel()
         BracketMatching.start()
@@ -41,7 +41,7 @@ function DestroyMode.simpleDelete()
     end
 end
 
-function DestroyMode.toEndOfWord()
+function Destroy.toEndOfWord()
     Pending.run({
         function()
             if TextManipulation.canManipulateWithVim() then
@@ -66,7 +66,7 @@ function DestroyMode.toEndOfWord()
     })
 end
 
-function DestroyMode.subword()
+function Destroy.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
@@ -75,7 +75,7 @@ function DestroyMode.subword()
     end
 end
 
-function DestroyMode.word()
+function Destroy.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
@@ -88,7 +88,7 @@ function DestroyMode.word()
     end
 end
 
-function DestroyMode.toEndOfLine()
+function Destroy.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'd')
@@ -98,7 +98,7 @@ function DestroyMode.toEndOfLine()
     end
 end
 
-function DestroyMode.toBeginningOfLine()
+function Destroy.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -109,7 +109,7 @@ function DestroyMode.toBeginningOfLine()
     end
 end
 
-function DestroyMode.line()
+function Destroy.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('d')
@@ -121,7 +121,7 @@ function DestroyMode.line()
     end
 end
 
-function DestroyMode.character()
+function Destroy.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('x')
@@ -130,13 +130,13 @@ function DestroyMode.character()
     end
 end
 
-DestroyMode.direction = nil
-DestroyMode.key = nil
+Destroy.direction = nil
+Destroy.key = nil
 
 Modal.add({
-    key = 'DestroyMode',
+    key = 'Destroy',
     title = function()
-        return 'Destroy: ' .. (DestroyMode.direction or '') .. ' ' .. (DestroyMode.key or '')
+        return 'Destroy: ' .. (Destroy.direction or '') .. ' ' .. (Destroy.key or '')
     end,
     items = {
         [','] = 'backward',
@@ -144,47 +144,47 @@ Modal.add({
         ['v'] = 'line',
     },
     callback = function(action)
-        DestroyMode.actions[action]()
+        Destroy.actions[action]()
     end,
     exited = function()
-        DestroyMode.direction = nil
-        DestroyMode.key = nil
+        Destroy.direction = nil
+        Destroy.key = nil
     end,
 })
 
-function DestroyMode.triggerDirectionIfSet()
-    if not DestroyMode.direction then
+function Destroy.triggerDirectionIfSet()
+    if not Destroy.direction then
         return
     end
 
-    if DestroyMode.direction == 'F' then
+    if Destroy.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
-    DestroyMode.actions[action]()
+    Destroy.actions[action]()
 end
 
-function DestroyMode.enterModal(direction, key)
-    DestroyMode.direction = direction or nil
-    DestroyMode.key = key or nil
-    Modal.enter('DestroyMode')
+function Destroy.enterModal(direction, key)
+    Destroy.direction = direction or nil
+    Destroy.key = key or nil
+    Modal.enter('Destroy')
 end
 
-DestroyMode.actions = {
+Destroy.actions = {
     backward = function()
         if not TextManipulation.canManipulateWithVim() then
             return Modal.exit()
         end
 
-        DestroyMode.enterModal('B', DestroyMode.key)
+        Destroy.enterModal('B', Destroy.key)
 
-        if not DestroyMode.key then
+        if not Destroy.key then
             return
         end
 
         if inCodeEditor() then
-            DestroyMode.keymap[DestroyMode.key]()
+            Destroy.keymap[Destroy.key]()
             fastKeyStroke('k')
         end
     end,
@@ -194,56 +194,56 @@ DestroyMode.actions = {
             return Modal.exit()
         end
 
-        DestroyMode.enterModal('F', DestroyMode.key)
+        Destroy.enterModal('F', Destroy.key)
 
-        if not DestroyMode.key then
+        if not Destroy.key then
             return
         end
 
         if inCodeEditor() then
-            DestroyMode.keymap[DestroyMode.key]()
+            Destroy.keymap[Destroy.key]()
         end
     end,
 
     line = function()
-        DestroyMode.enterModal(DestroyMode.direction, "v")
+        Destroy.enterModal(Destroy.direction, "v")
 
-        DestroyMode.triggerDirectionIfSet()
+        Destroy.triggerDirectionIfSet()
     end,
 }
 
-DestroyMode.keymap = {
+Destroy.keymap = {
     ['v'] = function()
         fastKeyStroke('d')
         fastKeyStroke('d')
     end,
 }
 
-function DestroyMode.modeForward()
-    DestroyMode.enterModal('F')
+function Destroy.modeForward()
+    Destroy.enterModal('F')
 end
 
-function DestroyMode.mode()
-    DestroyMode.enterModal()
+function Destroy.mode()
+    Destroy.enterModal()
 end
 
-function DestroyMode.modeBackward()
-    DestroyMode.enterModal('B')
+function Destroy.modeBackward()
+    Destroy.enterModal('B')
 end
 
-function DestroyMode.untilForward()
+function Destroy.untilForward()
     fastKeyStroke('escape')
     fastKeyStroke('d')
     fastKeyStroke('t')
 end
 
-function DestroyMode.untilBackward()
+function Destroy.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('d')
     fastKeyStroke({'shift'}, 't')
 end
 
-function DestroyMode.backward()
+function Destroy.backward()
     if inCodeEditor() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('escape')
@@ -252,4 +252,4 @@ function DestroyMode.backward()
     end
 end
 
-return DestroyMode
+return Destroy

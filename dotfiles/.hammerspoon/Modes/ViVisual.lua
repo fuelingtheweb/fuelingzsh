@@ -1,7 +1,7 @@
-local ViVisualMode = {}
-ViVisualMode.__index = ViVisualMode
+local ViVisual = {}
+ViVisual.__index = ViVisual
 
-ViVisualMode.lookup = {
+ViVisual.lookup = {
     y = 'selectToTopOfPage',
     u = 'selectLineUp',
     i = 'selectToFirstCharacterOfLine',
@@ -25,32 +25,32 @@ ViVisualMode.lookup = {
     spacebar = nil,
 }
 
-function ViVisualMode.selectToPreviousSubword()
+function ViVisual.selectToPreviousSubword()
     md.SelectUntil.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'q')
 end
 
-function ViVisualMode.selectToNextSubword()
+function ViVisual.selectToNextSubword()
     md.SelectUntil.beginSelectingForward()
     fastKeyStroke('q')
 end
 
-function ViVisualMode.selectToPreviousWholeWord()
+function ViVisual.selectToPreviousWholeWord()
     md.SelectUntil.beginSelectingBackward()
     fastKeyStroke({'shift'}, 'b')
 end
 
-function ViVisualMode.selectToEndOfWholeWord()
+function ViVisual.selectToEndOfWholeWord()
     md.SelectUntil.beginSelectingForward()
     fastKeyStroke({'shift'}, 'e')
 end
 
-function ViVisualMode.selectToNextWholeWord()
+function ViVisual.selectToNextWholeWord()
     md.SelectUntil.beginSelectingForward()
     fastKeyStroke({'shift'}, 'w')
 end
 
-function ViVisualMode.selectToTopOfPage()
+function ViVisual.selectToTopOfPage()
     if appIs(finder) then
         fastKeyStroke({'shift', 'alt'}, 'up')
     else
@@ -58,15 +58,15 @@ function ViVisualMode.selectToTopOfPage()
     end
 end
 
-function ViVisualMode.selectToFirstCharacterOfLine()
+function ViVisual.selectToFirstCharacterOfLine()
     md.SelectUntil.beginningOfLine()
 end
 
-function ViVisualMode.selectToEndOfLine()
+function ViVisual.selectToEndOfLine()
     fastKeyStroke({'shift', 'cmd'}, 'right')
 end
 
-function ViVisualMode.selectToBottomOfPage()
+function ViVisual.selectToBottomOfPage()
     if appIs(finder) then
         fastKeyStroke({'shift', 'alt'}, 'down')
     else
@@ -74,17 +74,17 @@ function ViVisualMode.selectToBottomOfPage()
     end
 end
 
-function ViVisualMode.selectLineUp()
+function ViVisual.selectLineUp()
     fastKeyStroke({'shift'}, 'v')
     fastKeyStroke('up')
 end
 
-function ViVisualMode.selectLineDown()
+function ViVisual.selectLineDown()
     fastKeyStroke({'shift'}, 'v')
     fastKeyStroke('down')
 end
 
-function ViVisualMode.selectLeft()
+function ViVisual.selectLeft()
     if inCodeEditor() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('left')
@@ -93,19 +93,19 @@ function ViVisualMode.selectLeft()
     end
 end
 
-function ViVisualMode.selectDown()
+function ViVisual.selectDown()
     fastKeyStroke({'shift'}, 'down')
 end
 
-function ViVisualMode.selectUp()
+function ViVisual.selectUp()
     fastKeyStroke({'shift'}, 'up')
 end
 
-function ViVisualMode.selectRight()
+function ViVisual.selectRight()
     fastKeyStroke({'shift'}, 'right')
 end
 
-function ViVisualMode.selectPreviousWord()
+function ViVisual.selectPreviousWord()
     if inCodeEditor() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('left')
@@ -114,8 +114,8 @@ function ViVisualMode.selectPreviousWord()
     fastKeyStroke({'shift', 'alt'}, 'left')
 end
 
-function ViVisualMode.selectNextWord()
+function ViVisual.selectNextWord()
     fastKeyStroke({'shift', 'alt'}, 'right')
 end
 
-return ViVisualMode
+return ViVisual

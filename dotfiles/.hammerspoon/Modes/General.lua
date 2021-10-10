@@ -1,7 +1,7 @@
-local GeneralMode = {}
-GeneralMode.__index = GeneralMode
+local General = {}
+General.__index = General
 
-GeneralMode.lookup = {
+General.lookup = {
     y = '&',
     u = '_',
     i = '-',
@@ -25,29 +25,29 @@ GeneralMode.lookup = {
     spacebar = nil,
 }
 
-function GeneralMode.openParens()
+function General.openParens()
     fastKeyStroke({'shift'}, '9')
 end
 
-function GeneralMode.closeParens()
+function General.closeParens()
     fastKeyStroke({'shift'}, '0')
 end
 
-function GeneralMode.equals()
+function General.equals()
     fastKeyStroke('=')
 end
 
-function GeneralMode.multiply()
+function General.multiply()
     fastKeyStroke({'shift'}, '8')
 end
 
-function GeneralMode.methodChain()
+function General.methodChain()
     insertText('->')
     Modal.enter('CodeSnippets:callFunction')
 end
 
-function GeneralMode.fallback(value)
+function General.fallback(value)
     insertText(value)
 end
 
-return GeneralMode
+return General

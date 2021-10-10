@@ -1,7 +1,7 @@
-local ExecuteMode = {}
-ExecuteMode.__index = ExecuteMode
+local Execute = {}
+Execute.__index = Execute
 
-ExecuteMode.lookup = {
+Execute.lookup = {
     y = nil,
     u = nil,
     i = nil,
@@ -25,7 +25,7 @@ ExecuteMode.lookup = {
     spacebar = nil,
 }
 
-function ExecuteMode.goToDefinition()
+function Execute.goToDefinition()
     text = getSelectedText()
     if not text then
         md.Yank.word()
@@ -37,13 +37,13 @@ function ExecuteMode.goToDefinition()
     end)
 end
 
-function ExecuteMode.openLink()
+function Execute.openLink()
     if appIs(sublime) then
         fastKeyStroke({'alt', 'cmd'}, 'return')
     end
 end
 
-function ExecuteMode.openPath()
+function Execute.openPath()
     if not inCodeEditor() then
         return
     end
@@ -66,4 +66,4 @@ function ExecuteMode.openPath()
     end)
 end
 
-return ExecuteMode
+return Execute

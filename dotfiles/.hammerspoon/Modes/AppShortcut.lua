@@ -1,8 +1,8 @@
-local AppMode = {}
-AppMode.__index = AppMode
+local AppShortcut = {}
+AppShortcut.__index = AppShortcut
 
-function AppMode.handle(key)
+function AppShortcut.handle(key)
     hs.execute("open -g 'hammerspoon://shortcut-trigger?key=" .. key:upper() .. "'")
 end
 
-return AppMode
+return AppShortcut

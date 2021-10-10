@@ -1,7 +1,7 @@
-local SelectUntilMode = {}
-SelectUntilMode.__index = SelectUntilMode
+local SelectUntil = {}
+SelectUntil.__index = SelectUntil
 
-SelectUntilMode.lookup = {
+SelectUntil.lookup = {
     tab = 'untilBackward',
     q = nil,
     w = 'nextWord',
@@ -23,7 +23,7 @@ SelectUntilMode.lookup = {
     spacebar = nil,
 }
 
-function SelectUntilMode.endOfWord()
+function SelectUntil.endOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -33,7 +33,7 @@ function SelectUntilMode.endOfWord()
     end
 end
 
-function SelectUntilMode.nextWord()
+function SelectUntil.nextWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -44,14 +44,14 @@ function SelectUntilMode.nextWord()
     end
 end
 
-SelectUntilMode.secondary = false
-SelectUntilMode.direction = nil
-SelectUntilMode.key = nil
+SelectUntil.secondary = false
+SelectUntil.direction = nil
+SelectUntil.key = nil
 
 Modal.add({
-    key = 'SelectUntilMode',
+    key = 'SelectUntil',
     title = function()
-        return 'Select Until: ' .. (SelectUntilMode.direction or '') .. ' ' .. (SelectUntilMode.key or '')
+        return 'Select Until: ' .. (SelectUntil.direction or '') .. ' ' .. (SelectUntil.key or '')
     end,
     defaults = false,
     items = {
@@ -72,37 +72,37 @@ Modal.add({
         ['m'] = 'destroy',
     },
     callback = function(action)
-        SelectUntilMode.actions[action]()
+        SelectUntil.actions[action]()
     end,
     exited = function()
-        SelectUntilMode.secondary = false
-        SelectUntilMode.direction = nil
-        SelectUntilMode.key = nil
+        SelectUntil.secondary = false
+        SelectUntil.direction = nil
+        SelectUntil.key = nil
     end,
 })
 
-function SelectUntilMode.triggerDirectionIfSet()
-    if not SelectUntilMode.direction then
+function SelectUntil.triggerDirectionIfSet()
+    if not SelectUntil.direction then
         return
     end
 
-    if SelectUntilMode.direction == 'F' then
+    if SelectUntil.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
-    SelectUntilMode.actions[action]()
+    SelectUntil.actions[action]()
 
-    SelectUntilMode.secondary = false
+    SelectUntil.secondary = false
 end
 
-function SelectUntilMode.enterModal(direction, key)
-    SelectUntilMode.direction = direction or nil
-    SelectUntilMode.key = key or nil
-    Modal.enter('SelectUntilMode')
+function SelectUntil.enterModal(direction, key)
+    SelectUntil.direction = direction or nil
+    SelectUntil.key = key or nil
+    Modal.enter('SelectUntil')
 end
 
-function SelectUntilMode.beginSelectingForward()
+function SelectUntil.beginSelectingForward()
     if not TextManipulation.canManipulateWithVim() then
         return
     end
@@ -115,7 +115,7 @@ function SelectUntilMode.beginSelectingForward()
     end
 end
 
-function SelectUntilMode.beginSelectingBackward()
+function SelectUntil.beginSelectingBackward()
     if not TextManipulation.canManipulateWithVim() then
         return
     end
@@ -126,56 +126,56 @@ function SelectUntilMode.beginSelectingBackward()
     end
 end
 
-SelectUntilMode.actions = {
+SelectUntil.actions = {
     singleQuote = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, "'")
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, "'")
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, '"')
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, '"')
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     backTick = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, "`")
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, "`")
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
-        local character = SelectUntilMode.secondary and ')' or '('
+        local character = SelectUntil.secondary and ')' or '('
 
-        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, character)
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     braces = function()
-        local character = SelectUntilMode.secondary and '}' or '{'
+        local character = SelectUntil.secondary and '}' or '{'
 
-        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, character)
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     brackets = function()
-        local character = SelectUntilMode.secondary and ']' or '['
+        local character = SelectUntil.secondary and ']' or '['
 
-        SelectUntilMode.enterModal(SelectUntilMode.direction, character)
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, character)
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     secondaryParenthesis = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, ')')
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, ')')
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     secondaryBraces = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, '}')
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, '}')
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     secondaryBrackets = function()
-        SelectUntilMode.enterModal(SelectUntilMode.direction, ']')
-        SelectUntilMode.triggerDirectionIfSet()
+        SelectUntil.enterModal(SelectUntil.direction, ']')
+        SelectUntil.triggerDirectionIfSet()
     end,
 
     backward = function()
@@ -183,15 +183,15 @@ SelectUntilMode.actions = {
             return Modal.exit()
         end
 
-        SelectUntilMode.enterModal('B', SelectUntilMode.key)
+        SelectUntil.enterModal('B', SelectUntil.key)
 
-        if not SelectUntilMode.key then
+        if not SelectUntil.key then
             return
         end
 
-        SelectUntilMode.beginSelectingBackward()
+        SelectUntil.beginSelectingBackward()
         fastKeyStroke({'shift'}, 't')
-        SelectUntilMode.keymap[SelectUntilMode.key]()
+        SelectUntil.keymap[SelectUntil.key]()
     end,
 
     forward = function()
@@ -199,15 +199,15 @@ SelectUntilMode.actions = {
             return Modal.exit()
         end
 
-        SelectUntilMode.enterModal('F', SelectUntilMode.key)
+        SelectUntil.enterModal('F', SelectUntil.key)
 
-        if not SelectUntilMode.key then
+        if not SelectUntil.key then
             return
         end
 
-        SelectUntilMode.beginSelectingForward()
+        SelectUntil.beginSelectingForward()
         fastKeyStroke('t')
-        SelectUntilMode.keymap[SelectUntilMode.key]()
+        SelectUntil.keymap[SelectUntil.key]()
     end,
 
     change = function()
@@ -245,7 +245,7 @@ SelectUntilMode.actions = {
     end,
 }
 
-SelectUntilMode.keymap = {
+SelectUntil.keymap = {
     ["'"] = function()
         fastKeyStroke("'")
     end,
@@ -275,50 +275,50 @@ SelectUntilMode.keymap = {
     end,
 }
 
-function SelectUntilMode.mode()
-    SelectUntilMode.enterModal()
+function SelectUntil.mode()
+    SelectUntil.enterModal()
 end
 
-function SelectUntilMode.modeBackward()
-    SelectUntilMode.enterModal('B')
+function SelectUntil.modeBackward()
+    SelectUntil.enterModal('B')
 end
 
-function SelectUntilMode.modeSecondary()
-    SelectUntilMode.secondary = true
-    SelectUntilMode.enterModal('F')
+function SelectUntil.modeSecondary()
+    SelectUntil.secondary = true
+    SelectUntil.enterModal('F')
 end
 
-function SelectUntilMode.singleQuote()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.singleQuote()
+function SelectUntil.singleQuote()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.singleQuote()
 end
 
-function SelectUntilMode.doubleQuote()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.doubleQuote()
+function SelectUntil.doubleQuote()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.doubleQuote()
 end
 
-function SelectUntilMode.backTick()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.backTick()
+function SelectUntil.backTick()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.backTick()
 end
 
-function SelectUntilMode.parenthesis()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.parenthesis()
+function SelectUntil.parenthesis()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.parenthesis()
 end
 
-function SelectUntilMode.braces()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.braces(true)
+function SelectUntil.braces()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.braces(true)
 end
 
-function SelectUntilMode.brackets()
-    SelectUntilMode.enterModal('F')
-    SelectUntilMode.actions.brackets()
+function SelectUntil.brackets()
+    SelectUntil.enterModal('F')
+    SelectUntil.actions.brackets()
 end
 
-function SelectUntilMode.endOfLine()
+function SelectUntil.endOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift', 'cmd'}, 'right')
@@ -327,11 +327,11 @@ function SelectUntilMode.endOfLine()
     end
 end
 
-function SelectUntilMode.beginningOfLine()
-    SelectUntilMode.beginningOfLine()
+function SelectUntil.beginningOfLine()
+    SelectUntil.beginningOfLine()
 end
 
-function SelectUntilMode.beginningOfLine()
+function SelectUntil.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('right')
@@ -341,7 +341,7 @@ function SelectUntilMode.beginningOfLine()
     end
 end
 
-function SelectUntilMode.previousBlock()
+function SelectUntil.previousBlock()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'shift'}, 'v')
         fastKeyStroke({'shift'}, '[')
@@ -350,16 +350,16 @@ function SelectUntilMode.previousBlock()
     end
 end
 
-function SelectUntilMode.untilForward()
+function SelectUntil.untilForward()
     fastKeyStroke('escape')
     fastKeyStroke('v')
     fastKeyStroke('t')
 end
 
-function SelectUntilMode.untilBackward()
+function SelectUntil.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('v')
     fastKeyStroke({'shift'}, 't')
 end
 
-return SelectUntilMode
+return SelectUntil

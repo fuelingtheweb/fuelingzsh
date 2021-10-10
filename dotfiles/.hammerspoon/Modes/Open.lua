@@ -1,11 +1,11 @@
-local OpenMode = {}
-OpenMode.__index = OpenMode
+local Open = {}
+Open.__index = Open
 
 loadCustomModal('Frequent')
 loadCustomModal('Bookmarks')
 loadModal('OpenIn')
 
-OpenMode.lookup = {
+Open.lookup = {
     tab = nil,
     q = nil,
     w = 'openInModal',
@@ -56,11 +56,11 @@ Modal.add({
     },
     callback = function(item)
         Modal.exit()
-        OpenMode.fallback(item.app)
+        Open.fallback(item.app)
     end,
 })
 
--- function OpenMode.before()
+-- function Open.before()
 --     if inCodeEditor() then
 --         md.Hyper.forceEscape()
 --     end
@@ -71,55 +71,55 @@ hs.hints.showTitleThresh = 20
 hs.hints.fontSize = 20
 hs.hints.iconAlpha = 1
 
-function OpenMode.windowHintsForCurrentApplication()
+function Open.windowHintsForCurrentApplication()
     hs.hints.style = nil
     hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
 end
 
-function OpenMode.windowHints()
+function Open.windowHints()
     hs.hints.style = 'vimperator'
     hs.hints.windowHints()
 end
 
-function OpenMode.fantastical()
+function Open.fantastical()
     fastKeyStroke({'alt', 'cmd'}, 'c')
 end
 
-function OpenMode.alfredPreferences()
+function Open.alfredPreferences()
     hs.application.open('com.runningwithcrayons.Alfred-Preferences')
 end
 
-function OpenMode.quit()
+function Open.quit()
     md.Command.quit()
 end
 
-function OpenMode.closeWindow()
+function Open.closeWindow()
     md.Command.closeWindow()
 end
 
-function OpenMode.closeAllWindow()
+function Open.closeAllWindow()
     md.Command.closeAllWindow()
 end
 
-function OpenMode.open()
+function Open.open()
     md.Hyper.open()
 end
 
-function OpenMode.bringAllWindowsToFront()
+function Open.bringAllWindowsToFront()
     hs.application.frontmostApplication():activate(true)
 end
 
-function OpenMode.fallback(value, key)
-    if OpenMode[value] then
-        OpenMode[value]()
+function Open.fallback(value, key)
+    if Open[value] then
+        Open[value]()
     elseif stringContains('.app', value) then
         hs.execute("open -a '" .. value .. "'")
     else
-        OpenMode.launchApp(value)
+        Open.launchApp(value)
     end
 end
 
-function OpenMode.launchApp(id)
+function Open.launchApp(id)
     bundle = apps[id]
 
     if not bundle then
@@ -147,7 +147,7 @@ function OpenMode.launchApp(id)
             end
         end
     elseif multipleWindows(app) then
-        OpenMode.windowHintsForCurrentApplication()
+        Open.windowHintsForCurrentApplication()
     elseif not hasWindows(app) then
         hs.application.open(bundle)
     end
@@ -189,20 +189,20 @@ function launchSpotify()
     end
 end
 
-function OpenMode.openAppModal()
+function Open.openAppModal()
     Modal.enter('OpenApp')
 end
 
-function OpenMode.openFrequentModal()
+function Open.openFrequentModal()
     Modal.enter('OpenFrequent')
 end
 
-function OpenMode.openBookmarksModal()
+function Open.openBookmarksModal()
     Modal.enter('OpenBookmarks')
 end
 
-function OpenMode.openInModal()
+function Open.openInModal()
     Modal.enter('OpenIn')
 end
 
-return OpenMode
+return Open

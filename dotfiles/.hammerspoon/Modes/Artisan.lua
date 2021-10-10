@@ -1,7 +1,7 @@
-local ArtisanMode = {}
-ArtisanMode.__index = ArtisanMode
+local Artisan = {}
+Artisan.__index = Artisan
 
-ArtisanMode.lookup = {
+Artisan.lookup = {
     y = nil,
     u = nil,
     i = nil,
@@ -25,8 +25,8 @@ ArtisanMode.lookup = {
     spacebar = nil,
 }
 
-function ArtisanMode.migrateFreshAndSeed()
+function Artisan.migrateFreshAndSeed()
     typeAndEnter('amgfs')
 end
 
-return ArtisanMode
+return Artisan

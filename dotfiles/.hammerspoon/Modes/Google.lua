@@ -1,7 +1,7 @@
-local GoogleMode = {}
-GoogleMode.__index = GoogleMode
+local Google = {}
+Google.__index = Google
 
-GoogleMode.lookup = {
+Google.lookup = {
     y = 'custom',
     u = 'viewSource',
     i = 'inbox',
@@ -25,60 +25,60 @@ GoogleMode.lookup = {
     spacebar = nil,
 }
 
-function GoogleMode.custom(key)
+function Google.custom(key)
     hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
-function GoogleMode.inbox()
+function Google.inbox()
     openInChrome('https://inbox.google.com')
 end
 
-function GoogleMode.profiles()
+function Google.profiles()
     fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
-function GoogleMode.groupTab()
+function Google.groupTab()
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g')
 end
 
-function GoogleMode.history()
+function Google.history()
     triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
 end
 
-function GoogleMode.lastpass()
+function Google.lastpass()
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
 end
 
-function GoogleMode.tabManager()
+function Google.tabManager()
     fastKeyStroke({'shift', 'cmd'}, 'm')
 end
 
-function GoogleMode.dismissDownloadsBar()
+function Google.dismissDownloadsBar()
     fastKeyStroke({'alt'}, 'w')
 end
 
-function GoogleMode.newBookmark()
+function Google.newBookmark()
     fastKeyStroke({'cmd'}, 'd')
 end
 
-function GoogleMode.bookmarks()
+function Google.bookmarks()
     triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
 end
 
-function GoogleMode.toggleDevTools()
+function Google.toggleDevTools()
     fastKeyStroke({'alt', 'cmd'}, 'i')
 end
 
-function GoogleMode.toggleDevToolsDocking()
+function Google.toggleDevToolsDocking()
     fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
-function GoogleMode.openAndReload()
+function Google.openAndReload()
     hs.application.get(apps['chrome']):activate()
     fastKeyStroke({'cmd'}, 'r')
 end
 
-function GoogleMode.toggleIncognito()
+function Google.toggleIncognito()
     hs.osascript.applescript([[
         tell application "Google Chrome"
             set theUrl to URL of active tab of front window
@@ -93,8 +93,8 @@ function GoogleMode.toggleIncognito()
     ]])
 end
 
-function GoogleMode.viewSource()
+function Google.viewSource()
     fastKeyStroke({'alt', 'cmd'}, 'u')
 end
 
-return GoogleMode
+return Google

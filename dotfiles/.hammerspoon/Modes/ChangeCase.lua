@@ -1,7 +1,7 @@
-local CaseMode = {}
-CaseMode.__index = CaseMode
+local ChangeCase = {}
+ChangeCase.__index = ChangeCase
 
-CaseMode.lookup = {
+ChangeCase.lookup = {
     y = 'upperFirst',
     u = 'upper',
     i = 'kebab',
@@ -16,17 +16,17 @@ CaseMode.lookup = {
     slash = {to = 'path', key = '/'},
 }
 
-function CaseMode.handle(key)
-    local item = CaseMode.lookup[key]
+function ChangeCase.handle(key)
+    local item = ChangeCase.lookup[key]
 
     if type(item) == 'table' then
-        CaseMode.change(item.to, item.key)
+        ChangeCase.change(item.to, item.key)
     else
-        CaseMode.change(item, key)
+        ChangeCase.change(item, key)
     end
 end
 
-function CaseMode.change(to, key)
+function ChangeCase.change(to, key)
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'c')
         fastKeyStroke({'ctrl', 'alt'}, key)
@@ -43,4 +43,4 @@ function CaseMode.change(to, key)
     end
 end
 
-return CaseMode
+return ChangeCase

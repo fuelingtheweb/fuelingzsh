@@ -1,7 +1,7 @@
-local SelectInsideMode = {}
-SelectInsideMode.__index = SelectInsideMode
+local SelectInside = {}
+SelectInside.__index = SelectInside
 
-SelectInsideMode.lookup = {
+SelectInside.lookup = {
     tab = nil,
     q = 'subword',
     w = 'word',
@@ -23,7 +23,7 @@ SelectInsideMode.lookup = {
     spacebar = nil,
 }
 
-function SelectInsideMode.withWrapperKey(key)
+function SelectInside.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     fastKeyStroke('escape')
@@ -32,7 +32,7 @@ function SelectInsideMode.withWrapperKey(key)
     fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-function SelectInsideMode.subword()
+function SelectInside.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -41,7 +41,7 @@ function SelectInsideMode.subword()
     end
 end
 
-function SelectInsideMode.word()
+function SelectInside.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -52,7 +52,7 @@ function SelectInsideMode.word()
     end
 end
 
-function SelectInsideMode.line()
+function SelectInside.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'v')
@@ -62,7 +62,7 @@ function SelectInsideMode.line()
     end
 end
 
-function SelectInsideMode.character()
+function SelectInside.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('v')
@@ -71,4 +71,4 @@ function SelectInsideMode.character()
     end
 end
 
-return SelectInsideMode
+return SelectInside

@@ -1,7 +1,7 @@
-local JumpToMode = {}
-JumpToMode.__index = JumpToMode
+local JumpTo = {}
+JumpTo.__index = JumpTo
 
-JumpToMode.lookup = {
+JumpTo.lookup = {
     tab = nil,
     q = nil,
     w = nil,
@@ -23,14 +23,14 @@ JumpToMode.lookup = {
     spacebar = nil,
 }
 
-JumpToMode.secondary = false
-JumpToMode.direction = nil
-JumpToMode.key = nil
+JumpTo.secondary = false
+JumpTo.direction = nil
+JumpTo.key = nil
 
 Modal.add({
-    key = 'JumpToMode',
+    key = 'JumpTo',
     title = function()
-        return 'Jump to: ' .. (JumpToMode.direction or '') .. ' ' .. (JumpToMode.key or '')
+        return 'Jump to: ' .. (JumpTo.direction or '') .. ' ' .. (JumpTo.key or '')
     end,
     defaults = false,
     items = {
@@ -47,41 +47,41 @@ Modal.add({
         [';'] = 'forward',
     },
     callback = function(action)
-        JumpToMode.actions[action]()
+        JumpTo.actions[action]()
     end,
     exited = function()
-        if not JumpToMode.paused then
-            JumpToMode.secondary = false
-            JumpToMode.direction = nil
-            JumpToMode.key = nil
+        if not JumpTo.paused then
+            JumpTo.secondary = false
+            JumpTo.direction = nil
+            JumpTo.key = nil
         end
     end,
 })
 
-function JumpToMode.triggerDirectionIfSet()
-    if not JumpToMode.direction then
+function JumpTo.triggerDirectionIfSet()
+    if not JumpTo.direction then
         return
     end
 
-    if JumpToMode.direction == 'F' then
+    if JumpTo.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
-    JumpToMode.actions[action]()
+    JumpTo.actions[action]()
 
-    JumpToMode.secondary = false
+    JumpTo.secondary = false
 
     Modal.exit()
 end
 
-function JumpToMode.enterModal(direction, key)
-    JumpToMode.direction = direction or nil
-    JumpToMode.key = key or nil
-    Modal.enter('JumpToMode')
+function JumpTo.enterModal(direction, key)
+    JumpTo.direction = direction or nil
+    JumpTo.key = key or nil
+    Modal.enter('JumpTo')
 end
 
-function JumpToMode.beginJumpingForward()
+function JumpTo.beginJumpingForward()
     if not TextManipulation.canManipulateWithVim() then
         return
     end
@@ -89,17 +89,17 @@ function JumpToMode.beginJumpingForward()
     if inCodeEditor() then
         fastKeyStroke('l')
 
-        JumpToMode.paused = true;
-        Modal.exit('JumpToMode')
+        JumpTo.paused = true;
+        Modal.exit('JumpTo')
 
         fastKeyStroke('f')
 
-        Modal.enter('JumpToMode')
-        JumpToMode.paused = false;
+        Modal.enter('JumpTo')
+        JumpTo.paused = false;
     end
 end
 
-function JumpToMode.beginJumpingBackward()
+function JumpTo.beginJumpingBackward()
     if not TextManipulation.canManipulateWithVim() then
         return
     end
@@ -110,56 +110,56 @@ function JumpToMode.beginJumpingBackward()
     end
 end
 
-JumpToMode.actions = {
+JumpTo.actions = {
     singleQuote = function()
-        JumpToMode.enterModal(JumpToMode.direction, "'")
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, "'")
+        JumpTo.triggerDirectionIfSet()
     end,
 
     doubleQuote = function()
-        JumpToMode.enterModal(JumpToMode.direction, '"')
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, '"')
+        JumpTo.triggerDirectionIfSet()
     end,
 
     backTick = function()
-        JumpToMode.enterModal(JumpToMode.direction, "`")
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, "`")
+        JumpTo.triggerDirectionIfSet()
     end,
 
     parenthesis = function()
-        local character = JumpToMode.secondary and ')' or '('
+        local character = JumpTo.secondary and ')' or '('
 
-        JumpToMode.enterModal(JumpToMode.direction, character)
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, character)
+        JumpTo.triggerDirectionIfSet()
     end,
 
     braces = function()
-        local character = JumpToMode.secondary and '}' or '{'
+        local character = JumpTo.secondary and '}' or '{'
 
-        JumpToMode.enterModal(JumpToMode.direction, character)
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, character)
+        JumpTo.triggerDirectionIfSet()
     end,
 
     brackets = function()
-        local character = JumpToMode.secondary and ']' or '['
+        local character = JumpTo.secondary and ']' or '['
 
-        JumpToMode.enterModal(JumpToMode.direction, character)
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, character)
+        JumpTo.triggerDirectionIfSet()
     end,
 
     secondaryParenthesis = function()
-        JumpToMode.enterModal(JumpToMode.direction, ')')
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, ')')
+        JumpTo.triggerDirectionIfSet()
     end,
 
     secondaryBraces = function()
-        JumpToMode.enterModal(JumpToMode.direction, '}')
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, '}')
+        JumpTo.triggerDirectionIfSet()
     end,
 
     secondaryBrackets = function()
-        JumpToMode.enterModal(JumpToMode.direction, ']')
-        JumpToMode.triggerDirectionIfSet()
+        JumpTo.enterModal(JumpTo.direction, ']')
+        JumpTo.triggerDirectionIfSet()
     end,
 
     backward = function()
@@ -167,14 +167,14 @@ JumpToMode.actions = {
             return Modal.exit()
         end
 
-        JumpToMode.enterModal('B', JumpToMode.key)
+        JumpTo.enterModal('B', JumpTo.key)
 
-        if not JumpToMode.key then
+        if not JumpTo.key then
             return
         end
 
-        JumpToMode.beginJumpingBackward()
-        JumpToMode.keymap[JumpToMode.key]()
+        JumpTo.beginJumpingBackward()
+        JumpTo.keymap[JumpTo.key]()
     end,
 
     forward = function()
@@ -182,18 +182,18 @@ JumpToMode.actions = {
             return Modal.exit()
         end
 
-        JumpToMode.enterModal('F', JumpToMode.key)
+        JumpTo.enterModal('F', JumpTo.key)
 
-        if not JumpToMode.key then
+        if not JumpTo.key then
             return
         end
 
-        JumpToMode.beginJumpingForward()
-        JumpToMode.keymap[JumpToMode.key]()
+        JumpTo.beginJumpingForward()
+        JumpTo.keymap[JumpTo.key]()
     end,
 }
 
-JumpToMode.keymap = {
+JumpTo.keymap = {
     ["'"] = function()
         fastKeyStroke("'")
     end,
@@ -223,50 +223,50 @@ JumpToMode.keymap = {
     end,
 }
 
-function JumpToMode.mode()
-    JumpToMode.enterModal()
+function JumpTo.mode()
+    JumpTo.enterModal()
 end
 
-function JumpToMode.modeBackward()
-    JumpToMode.enterModal('B')
+function JumpTo.modeBackward()
+    JumpTo.enterModal('B')
 end
 
-function JumpToMode.modeSecondary()
-    JumpToMode.secondary = true
-    JumpToMode.enterModal('F')
+function JumpTo.modeSecondary()
+    JumpTo.secondary = true
+    JumpTo.enterModal('F')
 end
 
-function JumpToMode.singleQuote()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.singleQuote()
+function JumpTo.singleQuote()
+    JumpTo.enterModal('F')
+    JumpTo.actions.singleQuote()
 end
 
-function JumpToMode.doubleQuote()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.doubleQuote()
+function JumpTo.doubleQuote()
+    JumpTo.enterModal('F')
+    JumpTo.actions.doubleQuote()
 end
 
-function JumpToMode.backTick()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.backTick()
+function JumpTo.backTick()
+    JumpTo.enterModal('F')
+    JumpTo.actions.backTick()
 end
 
-function JumpToMode.parenthesis()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.parenthesis()
+function JumpTo.parenthesis()
+    JumpTo.enterModal('F')
+    JumpTo.actions.parenthesis()
 end
 
-function JumpToMode.braces()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.braces(true)
+function JumpTo.braces()
+    JumpTo.enterModal('F')
+    JumpTo.actions.braces(true)
 end
 
-function JumpToMode.brackets()
-    JumpToMode.enterModal('F')
-    JumpToMode.actions.brackets()
+function JumpTo.brackets()
+    JumpTo.enterModal('F')
+    JumpTo.actions.brackets()
 end
 
-function JumpToMode.previousBlock()
+function JumpTo.previousBlock()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'shift'}, '[')
     else
@@ -274,4 +274,4 @@ function JumpToMode.previousBlock()
     end
 end
 
-return JumpToMode
+return JumpTo

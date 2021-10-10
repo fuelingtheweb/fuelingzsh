@@ -1,7 +1,7 @@
-local YankMode = {}
-YankMode.__index = YankMode
+local Yank = {}
+Yank.__index = Yank
 
-YankMode.lookup = {
+Yank.lookup = {
     tab = 'untilBackward',
     q = 'subword',
     w = 'word',
@@ -23,7 +23,7 @@ YankMode.lookup = {
     spacebar = nil,
 }
 
-function YankMode.word()
+function Yank.word()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -36,7 +36,7 @@ function YankMode.word()
     end
 end
 
-function YankMode.withWrapperKey(key)
+function Yank.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     fastKeyStroke('escape')
@@ -45,7 +45,7 @@ function YankMode.withWrapperKey(key)
     fastKeyStroke(keystroke.mods, keystroke.key)
 end
 
-function YankMode.toEndOfWord()
+function Yank.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -57,13 +57,13 @@ function YankMode.toEndOfWord()
     end
 end
 
-function YankMode.relativeFilePath()
+function Yank.relativeFilePath()
     if inCodeEditor() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'y')
     end
 end
 
-function YankMode.subword()
+function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -72,7 +72,7 @@ function YankMode.subword()
     end
 end
 
-function YankMode.toEndOfLine()
+function Yank.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -84,7 +84,7 @@ function YankMode.toEndOfLine()
     end
 end
 
-function YankMode.toBeginningOfLine()
+function Yank.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('right')
@@ -97,7 +97,7 @@ function YankMode.toBeginningOfLine()
     end
 end
 
-function YankMode.line()
+function Yank.line()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -110,7 +110,7 @@ function YankMode.line()
     end
 end
 
-function YankMode.character()
+function Yank.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
         fastKeyStroke('y')
@@ -122,7 +122,7 @@ function YankMode.character()
     end
 end
 
-function YankMode.toTopOfPage()
+function Yank.toTopOfPage()
     if appIs(notion) then
         fastKeyStroke({'cmd'}, 'a')
         fastKeyStroke({'cmd'}, 'c')
@@ -134,19 +134,19 @@ function YankMode.toTopOfPage()
     end
 end
 
-function YankMode.untilForward()
+function Yank.untilForward()
     fastKeyStroke('escape')
     fastKeyStroke('y')
     fastKeyStroke('t')
 end
 
-function YankMode.untilBackward()
+function Yank.untilBackward()
     fastKeyStroke('escape')
     fastKeyStroke('y')
     fastKeyStroke({'shift'}, 't')
 end
 
-function YankMode.all()
+function Yank.all()
     fastKeyStroke({'cmd'}, 'a')
     fastKeyStroke({'cmd'}, 'c')
 
@@ -159,4 +159,4 @@ function YankMode.all()
     end
 end
 
-return YankMode
+return Yank

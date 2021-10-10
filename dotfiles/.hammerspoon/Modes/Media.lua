@@ -1,7 +1,7 @@
-local MediaMode = {}
-MediaMode.__index = MediaMode
+local Media = {}
+Media.__index = Media
 
-MediaMode.lookup = {
+Media.lookup = {
     tab = nil,
     q = nil,
     w = nil,
@@ -26,30 +26,30 @@ MediaMode.lookup = {
     period = 'videoForward',
 }
 
-function MediaMode.startOfVideoOrPreviousVideo()
+function Media.startOfVideoOrPreviousVideo()
     -- Funimation: Start of video / previous video
     fastKeyStroke({'ctrl'}, 'left')
 end
 
-function MediaMode.spotifyMini()
+function Media.spotifyMini()
     triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
 end
 
-function MediaMode.deafen()
+function Media.deafen()
     -- Deafen in Discord
     fastKeyStroke({'shift', 'cmd'}, 'd')
 end
 
-function MediaMode.nextVideo()
+function Media.nextVideo()
     -- Funimation: Next video
     fastKeyStroke({'ctrl'}, 'right')
 end
 
-function MediaMode.sound()
+function Media.sound()
     triggerAlfredSearch('Sound')
 end
 
-function MediaMode.showVideoBar()
+function Media.showVideoBar()
     -- Under System Preferences: Mouse & Trackpad, Enable Mouse Keys and set the Initial Delay option to Short
     -- original = hs.mouse.getAbsolutePosition()
     if stringContains('Prime Video', currentTitle()) then
@@ -72,7 +72,7 @@ function MediaMode.showVideoBar()
     end
 end
 
-function MediaMode.focus()
+function Media.focus()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
@@ -87,7 +87,7 @@ function MediaMode.focus()
     end
 end
 
-function MediaMode.fullscreen()
+function Media.fullscreen()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
@@ -98,11 +98,11 @@ function MediaMode.fullscreen()
     end
 end
 
-function MediaMode.updateAudioDevice()
+function Media.updateAudioDevice()
     hs.audiodevice.findOutputByName('Built-in Output'):setDefaultOutputDevice()
 end
 
-function MediaMode.videoBack()
+function Media.videoBack()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
         fastKeyStroke({'shift'}, 'left')
     else
@@ -110,7 +110,7 @@ function MediaMode.videoBack()
     end
 end
 
-function MediaMode.videoForward()
+function Media.videoForward()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
         fastKeyStroke({'shift'}, 'right')
     else
@@ -118,4 +118,4 @@ function MediaMode.videoForward()
     end
 end
 
-return MediaMode
+return Media

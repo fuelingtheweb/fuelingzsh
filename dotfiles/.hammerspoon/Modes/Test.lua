@@ -1,7 +1,7 @@
-local TestMode = {}
-TestMode.__index = TestMode
+local Test = {}
+Test.__index = Test
 
-TestMode.lookup = {
+Test.lookup = {
     y = nil,
     u = nil,
     i = nil,
@@ -25,38 +25,38 @@ TestMode.lookup = {
     spacebar = nil,
 }
 
-function TestMode.before()
+function Test.before()
     md.Hyper.forceEscape()
 end
 
-function TestMode.class()
+function Test.class()
     if appIs(atom) then
         fastKeyStroke({'alt', 'cmd'}, 't')
     end
 end
 
-function TestMode.all()
+function Test.all()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
     end
 end
 
-function TestMode.last()
+function Test.last()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt'}, 'r')
     end
 end
 
-function TestMode.method()
+function Test.method()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt'}, 't')
     end
 end
 
-function TestMode.hideOutput()
+function Test.hideOutput()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, ']')
     end
 end
 
-return TestMode
+return Test

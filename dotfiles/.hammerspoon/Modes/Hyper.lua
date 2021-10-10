@@ -1,7 +1,7 @@
-local HyperMode = {}
-HyperMode.__index = HyperMode
+local Hyper = {}
+Hyper.__index = Hyper
 
-HyperMode.lookup = {
+Hyper.lookup = {
     y = 'copy',
         u = 'searchTabs',
     i = 'searchSymbols',
@@ -26,7 +26,7 @@ HyperMode.lookup = {
     spacebar = 'forceEscape',
 }
 
-function HyperMode.copy()
+function Hyper.copy()
     text = getSelectedText(true)
     if appIs(spotify) then
         hs.osascript.applescript([[
@@ -54,16 +54,16 @@ function HyperMode.copy()
     end
 end
 
-function HyperMode.searchSymbols()
+function Hyper.searchSymbols()
     spoon.Search.symbol()
 end
 
-function HyperMode.searchTabs()
+function Hyper.searchTabs()
     spoon.Search.tabs()
 end
 
 -- Modal.add({
---     key = 'HyperMode:open',
+--     key = 'Hyper:open',
 --     title = 'Hyper: Open',
 --     items = {
 --         p = {extension = '.php'},
@@ -85,7 +85,7 @@ end
 --     end,
 -- })
 
-function HyperMode.open()
+function Hyper.open()
     -- handleApp({
     --     {{atom, sublime}, function()
     --         fastKeyStroke({'cmd'}, 'p')
@@ -105,7 +105,7 @@ function HyperMode.open()
 
         if inCodeEditor() then
             TextManipulation.disableVim()
-            -- Modal.enter('HyperMode:open')
+            -- Modal.enter('Hyper:open')
         end
     elseif appIncludes({discord, slack}) then
         fastKeyStroke({'cmd'}, 'k')
@@ -118,7 +118,7 @@ function HyperMode.open()
     end
 end
 
-function HyperMode.new()
+function Hyper.new()
     if appIs(atom) then
         TextManipulation.disableVim()
         fastKeyStroke({'alt', 'cmd'}, 'o')
@@ -130,7 +130,7 @@ function HyperMode.new()
     end
 end
 
-function HyperMode.commandPalette()
+function Hyper.commandPalette()
     if appIncludes({atom, sublime, sublimeMerge}) then
         fastKeyStroke({'shift', 'cmd'}, 'p')
 
@@ -142,7 +142,7 @@ function HyperMode.commandPalette()
     end
 end
 
-function HyperMode.previousPage()
+function Hyper.previousPage()
     if appIs(spotify) then
         fastKeyStroke({'alt', 'cmd'}, 'left')
     elseif appIs(discord) then
@@ -160,15 +160,15 @@ function HyperMode.previousPage()
     end
 end
 
-function HyperMode.previousTab()
+function Hyper.previousTab()
     md.Tab.previous()
 end
 
-function HyperMode.nextTab()
+function Hyper.nextTab()
     md.Tab.next()
 end
 
-function HyperMode.nextPage()
+function Hyper.nextPage()
     if appIs(spotify) then
         fastKeyStroke({'alt', 'cmd'}, 'right')
     elseif appIs(iterm) then
@@ -184,11 +184,11 @@ function HyperMode.nextPage()
     end
 end
 
-function HyperMode.alfredClipboard()
+function Hyper.alfredClipboard()
     fastKeyStroke({'alt'}, 'c')
 end
 
-function HyperMode.paste()
+function Hyper.paste()
     fastKeyStroke({'cmd'}, 'v')
 
     if titleContains('Slack | ') then
@@ -196,23 +196,23 @@ function HyperMode.paste()
     end
 end
 
-function HyperMode.pasteStrip()
+function Hyper.pasteStrip()
     triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
 end
 
-function HyperMode.capsLock()
+function Hyper.capsLock()
     fastKeyStroke('caps_lock')
 end
 
-function HyperMode.alfred()
+function Hyper.alfred()
     fastKeyStroke({'alt'}, 'z')
 end
 
-function HyperMode.startArtisan()
+function Hyper.startArtisan()
     Artisan.start()
 end
 
-function HyperMode.forceEscape()
+function Hyper.forceEscape()
     md.Test.hideOutput()
     -- keyStroke('escape')
     fastKeyStroke('escape')
@@ -220,24 +220,24 @@ function HyperMode.forceEscape()
     -- fastKeyStroke('escape')
 end
 
-function HyperMode.undo()
+function Hyper.undo()
     fastKeyStroke({'cmd'}, 'z')
 end
 
-function HyperMode.redo()
+function Hyper.redo()
     fastKeyStroke({'shift', 'cmd'}, 'z')
 end
 
-function HyperMode.nextWindow()
+function Hyper.nextWindow()
     md.WindowManager.next()
 end
 
-function HyperMode.nextWindowInCurrentApp()
+function Hyper.nextWindowInCurrentApp()
     md.WindowManager.nextInCurrentApp()
 end
 
-function HyperMode.cheatsheets()
+function Hyper.cheatsheets()
     Modal.enter('Cheatsheets')
 end
 
-return HyperMode
+return Hyper

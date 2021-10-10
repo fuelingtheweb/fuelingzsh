@@ -1,7 +1,7 @@
-local CommandMode = {}
-CommandMode.__index = CommandMode
+local Command = {}
+Command.__index = Command
 
-CommandMode.lookup = {
+Command.lookup = {
     tab = 'shiftTab',
     q = 'quit',
     w = 'closeWindow',
@@ -27,39 +27,39 @@ CommandMode.lookup = {
     spacebar = nil,
 }
 
-function CommandMode.searchGoogle()
+function Command.searchGoogle()
     spoon.Search.google()
 end
 
-function CommandMode.searchAmazon()
+function Command.searchAmazon()
     spoon.Search.amazon()
 end
 
-function CommandMode.searchConflicts()
+function Command.searchConflicts()
     spoon.Search.mergeConflicts()
 end
 
-function CommandMode.shiftTab()
+function Command.shiftTab()
     fastKeyStroke({'shift'}, 'tab')
 end
 
-function CommandMode.quit()
+function Command.quit()
     fastKeyStroke({'cmd'}, 'q')
 end
 
-function CommandMode.alfredCommands()
+function Command.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function CommandMode.selectAll()
+function Command.selectAll()
     fastKeyStroke({'cmd'}, 'a')
 end
 
-function CommandMode.atomGitPalette()
+function Command.atomGitPalette()
     fastKeyStroke({'shift', 'cmd'}, 'h')
 end
 
-function CommandMode.duplicateLine()
+function Command.duplicateLine()
     if inCodeEditor() then
         fastKeyStroke({'shift', 'cmd'}, 'd')
     elseif appIs(finder) then
@@ -67,7 +67,7 @@ function CommandMode.duplicateLine()
     end
 end
 
-function CommandMode.reload()
+function Command.reload()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(postman) then
@@ -81,11 +81,11 @@ function CommandMode.reload()
     end
 end
 
-function CommandMode.closeWindow()
+function Command.closeWindow()
     closeWindow()
 end
 
-function CommandMode.find()
+function Command.find()
     if inCodeEditor() then
         fastKeyStroke({'shift', 'cmd'}, 'f')
         TextManipulation.disableVim()
@@ -94,17 +94,17 @@ function CommandMode.find()
     end
 end
 
-function CommandMode.edit()
+function Command.edit()
     -- Edit with
     fastKeyStroke({'shift', 'cmd'}, 'e')
 end
 
-function CommandMode.finishEdit()
+function Command.finishEdit()
     -- Edit with: Done
     fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
 end
 
-function CommandMode.done()
+function Command.done()
     if appIs(sublime) then
         -- Plain Tasks: Complete
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
@@ -116,7 +116,7 @@ function CommandMode.done()
     end
 end
 
-function CommandMode.save()
+function Command.save()
     if appIs(chrome) then
         -- Save to Raindrop
         fastKeyStroke({'shift', 'cmd'}, 's')
@@ -130,7 +130,7 @@ function CommandMode.save()
     end
 end
 
-function CommandMode.cancelOrDelete()
+function Command.cancelOrDelete()
     text = getSelectedText()
     if appIs(sublime) and titleContains('.todo') then
         fastKeyStroke({'ctrl'}, 'c')
@@ -151,4 +151,4 @@ function CommandMode.cancelOrDelete()
     end
 end
 
-return CommandMode
+return Command

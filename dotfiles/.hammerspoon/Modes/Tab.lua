@@ -1,7 +1,7 @@
-local TabMode = {}
-TabMode.__index = TabMode
+local Tab = {}
+Tab.__index = Tab
 
-TabMode.lookup = {
+Tab.lookup = {
     y = nil,
     u = nil,
     i = 'first',
@@ -25,22 +25,22 @@ TabMode.lookup = {
     spacebar = nil,
 }
 
-function TabMode.first()
+function Tab.first()
     fastKeyStroke({'cmd'}, '1')
 end
 
-function TabMode.last()
+function Tab.last()
     fastKeyStroke({'cmd'}, '9')
 end
 
-function TabMode.pin()
+function Tab.pin()
     -- Chrome: Pin Tab
     fastKeyStroke('t')
     fastKeyStroke('p')
 end
 
 
-function TabMode.previous()
+function Tab.previous()
     if appIs(tableplus) then
         fastKeyStroke({'cmd'}, '[')
     elseif appIncludes({teams, discord}) then
@@ -51,7 +51,7 @@ function TabMode.previous()
     end
 end
 
-function TabMode.next()
+function Tab.next()
     if appIs(tableplus) then
         fastKeyStroke({'cmd'}, ']')
     elseif appIncludes({teams, discord}) then
@@ -62,7 +62,7 @@ function TabMode.next()
     end
 end
 
-function TabMode.moveLeft()
+function Tab.moveLeft()
     if appIs(chrome) then
         -- Vimium
         fastKeyStroke('escape')
@@ -77,7 +77,7 @@ function TabMode.moveLeft()
     end
 end
 
-function TabMode.moveRight()
+function Tab.moveRight()
     if appIs(chrome) then
         -- Vimium
         fastKeyStroke('escape')
@@ -92,15 +92,15 @@ function TabMode.moveRight()
     end
 end
 
-function TabMode.closeCurrent()
+function Tab.closeCurrent()
     closeWindow()
 end
 
-function TabMode.restore()
+function Tab.restore()
     fastKeyStroke({'shift', 'cmd'}, 't')
 end
 
-function TabMode.moveToNewWindow()
+function Tab.moveToNewWindow()
     if appIs(sublime) then
         fastKeyStroke({'cmd'}, 'a')
         fastKeyStroke({'cmd'}, 'c')
@@ -113,7 +113,7 @@ function TabMode.moveToNewWindow()
     end
 end
 
-function TabMode.new()
+function Tab.new()
     if appIncludes({sublime, atom}) then
         fastKeyStroke({'cmd'}, 'n')
         fastKeyStroke('i')
@@ -126,7 +126,7 @@ function TabMode.new()
     end
 end
 
-function TabMode.closeAllToLeft()
+function Tab.closeAllToLeft()
     if appIs(chrome) then
         insertText('txh')
     elseif appIncludes({atom, sublime}) then
@@ -141,7 +141,7 @@ function TabMode.closeAllToLeft()
     end
 end
 
-function TabMode.closeAllToRight()
+function Tab.closeAllToRight()
     if appIs(chrome) then
         insertText('txl')
     elseif appIncludes({atom, sublime}) then
@@ -156,7 +156,7 @@ function TabMode.closeAllToRight()
     end
 end
 
-function TabMode.closeAllOthers()
+function Tab.closeAllOthers()
     if appIs(chrome) then
         insertText('tx;')
     elseif appIncludes({atom, sublime}) then
@@ -171,7 +171,7 @@ function TabMode.closeAllOthers()
     end
 end
 
-function TabMode.closeAll()
+function Tab.closeAll()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'x')
     elseif appIs(sublime) then
@@ -186,15 +186,15 @@ function TabMode.closeAll()
     end
 end
 
-function TabMode.closePrevious()
-    TabMode.previous()
-    TabMode.closeCurrent()
-    TabMode.next()
+function Tab.closePrevious()
+    Tab.previous()
+    Tab.closeCurrent()
+    Tab.next()
 end
 
-function TabMode.closeNext()
-    TabMode.next()
-    TabMode.closeCurrent()
+function Tab.closeNext()
+    Tab.next()
+    Tab.closeCurrent()
 end
 
-return TabMode
+return Tab

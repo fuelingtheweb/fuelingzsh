@@ -1,7 +1,7 @@
-local TerminalMode = {}
-TerminalMode.__index = TerminalMode
+local Terminal = {}
+Terminal.__index = Terminal
 
-TerminalMode.lookup = {
+Terminal.lookup = {
     y = nil,
     u = nil,
     i = nil,
@@ -25,28 +25,28 @@ TerminalMode.lookup = {
     spacebar = nil,
 }
 
-function TerminalMode.home()
+function Terminal.home()
     typeAndEnter('hc')
 end
 
-function TerminalMode.list()
+function Terminal.list()
     typeAndEnter('ll')
 end
 
-function TerminalMode.navigate()
+function Terminal.navigate()
     insertText('cd ')
 end
 
-function TerminalMode.clear()
+function Terminal.clear()
     typeAndEnter('clear')
 end
 
-function TerminalMode.autocompleteNextWord()
+function Terminal.autocompleteNextWord()
     fastSuperKeyStroke('j')
 end
 
-function TerminalMode.serveCurrentProject()
+function Terminal.serveCurrentProject()
     ProjectManager.serveCurrent()
 end
 
-return TerminalMode
+return Terminal

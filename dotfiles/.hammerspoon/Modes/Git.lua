@@ -1,7 +1,7 @@
-local GitMode = {}
-GitMode.__index = GitMode
+local Git = {}
+Git.__index = Git
 
-GitMode.lookup = {
+Git.lookup = {
     y = 'copyBranch',
     u = 'discardChanges',
     i = 'checkoutIncludingAll',
@@ -25,86 +25,86 @@ GitMode.lookup = {
     spacebar = nil,
 }
 
-function GitMode.copyBranch()
+function Git.copyBranch()
     typeAndEnter('gbc')
 end
 
-function GitMode.discardChanges()
+function Git.discardChanges()
     insertText('nah')
 end
 
-function GitMode.reset()
+function Git.reset()
     typeAndEnter('grs')
 end
 
-function GitMode.checkout()
+function Git.checkout()
     typeAndEnter('git:checkout')
 end
 
-function GitMode.checkoutIncludingAll()
+function Git.checkoutIncludingAll()
     typeAndEnter('git:checkout.include-all')
 end
 
-function GitMode.push()
+function Git.push()
     typeAndEnter('git push')
 end
 
-function GitMode.status()
+function Git.status()
     typeAndEnter('git:status')
 end
 
-function GitMode.pull()
+function Git.pull()
     typeAndEnter('git pull')
 end
 
-function GitMode.merge()
+function Git.merge()
     typeAndEnter('gmm')
 end
 
-function GitMode.rebase()
+function Git.rebase()
     typeAndEnter('grm')
 end
 
-function GitMode.newBranch()
+function Git.newBranch()
     insertText('git:branch.new ')
     md.CaseDialog.handle('i')
 end
 
-function GitMode.log()
+function Git.log()
     typeAndEnter('git:log')
 end
 
-function GitMode.diff()
+function Git.diff()
     typeAndEnter('gd')
 end
 
-function GitMode.stageAll()
+function Git.stageAll()
     typeAndEnter('gaa')
 end
 
-function GitMode.commit()
+function Git.commit()
     insertText('git:commit ')
     BracketMatching.start()
 end
 
-function GitMode.checkoutMaster()
+function Git.checkoutMaster()
     typeAndEnter('goml')
 end
 
-function GitMode.fetchMaster()
+function Git.fetchMaster()
     typeAndEnter('gum')
 end
 
-function GitMode.deleteBranch()
+function Git.deleteBranch()
     typeAndEnter('git:branch.delete')
 end
 
-function GitMode.stash()
+function Git.stash()
     typeAndEnter('gstu')
 end
 
-function GitMode.stashApply()
+function Git.stashApply()
     typeAndEnter('gstp')
 end
 
-return GitMode
+return Git

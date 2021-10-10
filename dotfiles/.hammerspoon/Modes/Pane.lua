@@ -1,7 +1,7 @@
-local PaneMode = {}
-PaneMode.__index = PaneMode
+local Pane = {}
+Pane.__index = Pane
 
-PaneMode.lookup = {
+Pane.lookup = {
     y = nil,
     u = nil,
     i = nil,
@@ -25,7 +25,7 @@ PaneMode.lookup = {
     spacebar = nil,
 }
 
-function PaneMode.destroy()
+function Pane.destroy()
     if appIncludes({atom, sublime}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
         fastKeyStroke('o')
@@ -36,7 +36,7 @@ function PaneMode.destroy()
     end
 end
 
-function PaneMode.splitRight()
+function Pane.splitRight()
     if appIncludes({atom, sublime}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
         fastKeyStroke('o')
@@ -47,7 +47,7 @@ function PaneMode.splitRight()
     end
 end
 
-function PaneMode.splitBottom()
+function Pane.splitBottom()
     if appIncludes({atom, sublime}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
         fastKeyStroke('o')
@@ -56,7 +56,7 @@ function PaneMode.splitBottom()
     end
 end
 
-function PaneMode.toggleZoom()
+function Pane.toggleZoom()
     if appIncludes({atom, sublime}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
         fastKeyStroke('o')
@@ -66,7 +66,7 @@ function PaneMode.toggleZoom()
     end
 end
 
-function PaneMode.focusPrevious()
+function Pane.focusPrevious()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         fastKeyStroke({'alt'}, 'up')
     elseif appIncludes({atom, sublime}) then
@@ -80,7 +80,7 @@ function PaneMode.focusPrevious()
     end
 end
 
-function PaneMode.focusNext()
+function Pane.focusNext()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         fastKeyStroke({'alt'}, 'down')
     elseif appIncludes({atom, sublime}) then
@@ -94,4 +94,4 @@ function PaneMode.focusNext()
     end
 end
 
-return PaneMode
+return Pane

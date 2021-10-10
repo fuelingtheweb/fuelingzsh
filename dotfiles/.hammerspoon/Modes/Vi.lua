@@ -1,7 +1,7 @@
-local ViMode = {}
-ViMode.__index = ViMode
+local Vi = {}
+Vi.__index = Vi
 
-ViMode.lookup = {
+Vi.lookup = {
     y = 'moveToTopOfPage',
     u = 'pageUp',
     i = 'moveToFirstCharacterOfLine',
@@ -25,32 +25,32 @@ ViMode.lookup = {
     spacebar = nil,
 }
 
-function ViMode.moveToPreviousSubword()
+function Vi.moveToPreviousSubword()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'q')
 end
 
-function ViMode.moveToNextSubword()
+function Vi.moveToNextSubword()
     fastKeyStroke('escape')
     fastKeyStroke('q')
 end
 
-function ViMode.moveToPreviousWholeWord()
+function Vi.moveToPreviousWholeWord()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'b')
 end
 
-function ViMode.moveToEndOfWholeWord()
+function Vi.moveToEndOfWholeWord()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'e')
 end
 
-function ViMode.moveToNextWholeWord()
+function Vi.moveToNextWholeWord()
     fastKeyStroke('escape')
     fastKeyStroke({'shift'}, 'w')
 end
 
-function ViMode.moveToTopOfPage()
+function Vi.moveToTopOfPage()
     if appIs(finder) then
         fastKeyStroke({'alt'}, 'up')
     else
@@ -58,11 +58,11 @@ function ViMode.moveToTopOfPage()
     end
 end
 
-function ViMode.moveToFirstCharacterOfLine()
+function Vi.moveToFirstCharacterOfLine()
     fastKeyStroke({'cmd'}, 'left')
 end
 
-function ViMode.moveToEndOfLine()
+function Vi.moveToEndOfLine()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, '4')
     else
@@ -70,29 +70,29 @@ function ViMode.moveToEndOfLine()
     end
 end
 
-function ViMode.moveAndInsertAtFirstCharacterOfLine()
+function Vi.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'i')
     elseif appIs(sublime) then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'i')
     else
-        ViMode.moveToFirstCharacterOfLine()
+        Vi.moveToFirstCharacterOfLine()
     end
 end
 
-function ViMode.moveAndAppendAtEndOfLine()
+function Vi.moveAndAppendAtEndOfLine()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'o')
     elseif appIs(sublime) then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'a')
     else
-        ViMode.moveToEndOfLine()
+        Vi.moveToEndOfLine()
     end
 end
 
-function ViMode.moveToBottomOfPage()
+function Vi.moveToBottomOfPage()
     if appIs(finder) then
         fastKeyStroke({'alt'}, 'down')
     else
@@ -100,36 +100,36 @@ function ViMode.moveToBottomOfPage()
     end
 end
 
-function ViMode.pageUp()
+function Vi.pageUp()
     fastKeyStroke('pageup')
 end
 
-function ViMode.left()
+function Vi.left()
     fastKeyStroke('left')
 end
 
-function ViMode.down()
+function Vi.down()
     fastKeyStroke('down')
 end
 
-function ViMode.up()
+function Vi.up()
     fastKeyStroke('up')
 end
 
-function ViMode.right()
+function Vi.right()
     fastKeyStroke('right')
 end
 
-function ViMode.pageDown()
+function Vi.pageDown()
     fastKeyStroke('pagedown')
 end
 
-function ViMode.previousWord()
+function Vi.previousWord()
     fastKeyStroke({'alt'}, 'left')
 end
 
-function ViMode.nextWord()
+function Vi.nextWord()
     fastKeyStroke({'alt'}, 'right')
 end
 
-return ViMode
+return Vi

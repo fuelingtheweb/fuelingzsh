@@ -1,7 +1,7 @@
-local ExtendedCommandMode = {}
-ExtendedCommandMode.__index = ExtendedCommandMode
+local ExtendedCommand = {}
+ExtendedCommand.__index = ExtendedCommand
 
-ExtendedCommandMode.lookup = {
+ExtendedCommand.lookup = {
     tab = nil,
     q = nil,
     w = 'closeAllWindows',
@@ -25,44 +25,44 @@ ExtendedCommandMode.lookup = {
     spacebar = 'newWindowOrFolder',
 }
 
-function ExtendedCommandMode.searchFiles()
+function ExtendedCommand.searchFiles()
     spoon.Search.files()
 end
 
-function ExtendedCommandMode.sleep()
+function ExtendedCommand.sleep()
     triggerAlfredSearch('sleep')
 end
 
-function ExtendedCommandMode.actionFileInAlfred()
+function ExtendedCommand.actionFileInAlfred()
     fastKeyStroke({'alt', 'cmd'}, '\\')
 end
 
-function ExtendedCommandMode.screenshotToFilesystem()
+function ExtendedCommand.screenshotToFilesystem()
     fastKeyStroke({'shift', 'cmd'}, '4')
 end
 
-function ExtendedCommandMode.revealInSidebar()
+function ExtendedCommand.revealInSidebar()
     -- Atom: Reveal active file in tree view
     fastKeyStroke({'shift', 'cmd'}, '\\')
 end
 
-function ExtendedCommandMode.toggleDockVisibility()
+function ExtendedCommand.toggleDockVisibility()
     fastKeyStroke({'alt', 'cmd'}, 'd')
 end
 
-function ExtendedCommandMode.screenshotToClipboard()
+function ExtendedCommand.screenshotToClipboard()
     fastKeyStroke({'shift', 'ctrl', 'cmd'}, '4')
 end
 
-function ExtendedCommandMode.showBartender()
+function ExtendedCommand.showBartender()
     fastKeyStroke({'shift', 'ctrl', 'cmd'}, 'b')
 end
 
-function ExtendedCommandMode.newWindowOrFolder()
+function ExtendedCommand.newWindowOrFolder()
     fastKeyStroke({'shift', 'cmd'}, 'n')
 end
 
-function ExtendedCommandMode.dismissNotifications()
+function ExtendedCommand.dismissNotifications()
     app = hs.application.frontmostApplication()
     each({1,2,3}, function ()
         hs.osascript.applescript([[
@@ -86,7 +86,7 @@ function ExtendedCommandMode.dismissNotifications()
     app:activate()
 end
 
-function ExtendedCommandMode.duplicate()
+function ExtendedCommand.duplicate()
     if appIs(finder) then
         fastKeyStroke({'cmd'}, 'd')
     elseif appIs(chrome) then
@@ -98,12 +98,12 @@ function ExtendedCommandMode.duplicate()
     end
 end
 
-function ExtendedCommandMode.surroundText()
+function ExtendedCommand.surroundText()
     fastKeyStroke({'cmd'}, 'c')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
 end
 
-function ExtendedCommandMode.closeAllWindows()
+function ExtendedCommand.closeAllWindows()
     fastKeyStroke({'shift', 'cmd'}, 'w')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
@@ -115,7 +115,7 @@ function ExtendedCommandMode.closeAllWindows()
     end
 end
 
-function ExtendedCommandMode.reloadSecondary()
+function ExtendedCommand.reloadSecondary()
     if appIs(chrome) then
         -- Hard refresh
         fastKeyStroke({'shift', 'cmd'}, 'r')
@@ -127,14 +127,14 @@ function ExtendedCommandMode.reloadSecondary()
     end
 end
 
-function ExtendedCommandMode.saveAndReload()
+function ExtendedCommand.saveAndReload()
     fastKeyStroke('escape')
     keyStroke({'cmd'}, 's')
     hs.application.get(apps['chrome']):activate()
     keyStroke({'cmd'}, 'r')
 end
 
-function ExtendedCommandMode.jumpTo()
+function ExtendedCommand.jumpTo()
     if appIs(atom) then
         fastKeyStroke({'shift'}, 'return')
     elseif appIs(sublime) then
@@ -144,9 +144,9 @@ function ExtendedCommandMode.jumpTo()
     end
 end
 
-function ExtendedCommandMode.enableScrolling()
+function ExtendedCommand.enableScrolling()
     -- Vimac: Enable Scroll
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
 end
 
-return ExtendedCommandMode
+return ExtendedCommand

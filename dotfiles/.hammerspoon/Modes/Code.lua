@@ -1,7 +1,7 @@
-local CodeMode = {}
-CodeMode.__index = CodeMode
+local Code = {}
+Code.__index = Code
 
-CodeMode.lookup = {
+Code.lookup = {
     y = 'conditionalAnd',
     u = 'addUseStatement',
     i = 'multipleCursorsUp',
@@ -25,7 +25,7 @@ CodeMode.lookup = {
     spacebar = 'comment',
 }
 
-function CodeMode.conditionalAnd()
+function Code.conditionalAnd()
     if titleContains('.lua') then
         insertText(' and ')
     else
@@ -33,11 +33,11 @@ function CodeMode.conditionalAnd()
     end
 end
 
-function CodeMode.addUseStatement()
+function Code.addUseStatement()
     fastKeyStroke({'ctrl', 'alt'}, 'u')
 end
 
-function CodeMode.multipleCursorsUp()
+function Code.multipleCursorsUp()
     handleApp(fastKeyStroke, {
         [atom] = {{'shift', 'ctrl'}, 'up'},
         [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'},
@@ -48,7 +48,7 @@ function CodeMode.multipleCursorsUp()
     -- })
 end
 
-function CodeMode.conditionalOr()
+function Code.conditionalOr()
     handleConditional(titleContains, insertText, {
         {condition = '.lua', value = ' or '},
         {condition = 'fallback', value = ' || '},
@@ -62,15 +62,15 @@ function CodeMode.conditionalOr()
     -- end
 end
 
-function CodeMode.fold()
+function Code.fold()
     fastKeyStroke({'alt', 'cmd'}, '[')
 end
 
-function CodeMode.unfold()
+function Code.unfold()
     fastKeyStroke({'alt', 'cmd'}, ']')
 end
 
-function CodeMode.moveLineDown()
+function Code.moveLineDown()
     if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'down')
     elseif appIs(atom) or appIs(sublime) then
@@ -79,7 +79,7 @@ function CodeMode.moveLineDown()
     end
 end
 
-function CodeMode.moveLineUp()
+function Code.moveLineUp()
     if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'up')
         fastKeyStroke({'shift', 'cmd'}, 'up')
@@ -88,11 +88,11 @@ function CodeMode.moveLineUp()
     end
 end
 
-function CodeMode.goToDefinition()
+function Code.goToDefinition()
     fastKeyStroke({'alt', 'cmd'}, 'down')
 end
 
-function CodeMode.toggleSemicolon()
+function Code.toggleSemicolon()
     if inCodeEditor() then
         return fastKeyStroke({'alt'}, ';')
     end
@@ -109,7 +109,7 @@ function CodeMode.toggleSemicolon()
     end
 end
 
-function CodeMode.equals()
+function Code.equals()
     Pending.run({
         function()
             insertText(' = ')
@@ -131,26 +131,26 @@ function CodeMode.equals()
     })
 end
 
-function CodeMode.typeReturn()
+function Code.typeReturn()
     insertText('return')
 end
 
-function CodeMode.toggleBoolean()
+function Code.toggleBoolean()
     handleApp({
         [atom] = _(fastKeyStroke, '-'),
         [sublime] = _(fastKeyStroke, {'alt', 'cmd'}, 'x'),
     })
 end
 
-function CodeMode.selectNextWord()
+function Code.selectNextWord()
     fastKeyStroke({'cmd'}, 'd')
 end
 
-function CodeMode.multipleCursorsDown()
+function Code.multipleCursorsDown()
     fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
 end
 
-function CodeMode.toggleComma()
+function Code.toggleComma()
     if inCodeEditor() then
         return fastKeyStroke({'alt'}, ',')
     end
@@ -167,20 +167,20 @@ function CodeMode.toggleComma()
     end
 end
 
-function CodeMode.doubleArrow()
+function Code.doubleArrow()
     insertText(' => ')
     BracketMatching.start()
 end
 
-function CodeMode.goToMatchingBracket()
+function Code.goToMatchingBracket()
     fastKeyStroke({'ctrl'}, 'm')
 end
 
-function CodeMode.comment()
+function Code.comment()
     fastKeyStroke({'cmd'}, '/')
 end
 
-function CodeMode.concatenate()
+function Code.concatenate()
     if titleContains('.php') then
         insertText(' . ')
     elseif titleContains('.lua') then
@@ -192,8 +192,8 @@ function CodeMode.concatenate()
     BracketMatching.start()
 end
 
-function CodeMode.selectAll()
+function Code.selectAll()
     fastKeyStroke({'ctrl', 'cmd'}, 'g')
 end
 
-return CodeMode
+return Code
