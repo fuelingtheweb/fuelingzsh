@@ -45,7 +45,13 @@ function Modal.add(meta)
                     item.key = meta.key .. '.' .. item.key
                     item.callback = meta.callback
                 end
+
+                if meta.showCheatsheetOnEnter then
+                    item.showCheatsheetOnEnter = meta.showCheatsheetOnEnter
+                end
+
                 Modal.add(item)
+
                 meta.modal:bind('', key, item.title or nil, function()
                     Modal.exit()
                     Modal.enter(item.key)

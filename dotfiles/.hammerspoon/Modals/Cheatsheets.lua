@@ -54,15 +54,15 @@ function Cheatsheets.items()
             local nestedItems = {}
 
             each(mode, function(mode, app)
-                nestedItems[Cheatsheets.lookupApps[app]] = {name = app, title = app, key = app, defaults = false, showCheatsheetOnEnter = true, items = Cheatsheets.nestedItems(mode)}
+                nestedItems[Cheatsheets.lookupApps[app]] = {name = app, title = app, key = app, defaults = false, items = Cheatsheets.nestedItems(mode)}
             end)
 
-            items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = name, key = modifier, defaults = false, showCheatsheetOnEnter = true, items = nestedItems}
+            items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = name, key = modifier, defaults = false, items = nestedItems}
 
             return
         end
 
-        items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = mode, key = mode, defaults = false, showCheatsheetOnEnter = true, items = Cheatsheets.nestedItems(mode)}
+        items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = mode, key = mode, defaults = false, items = Cheatsheets.nestedItems(mode)}
     end)
 
     return items
