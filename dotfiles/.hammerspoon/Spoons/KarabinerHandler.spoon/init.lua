@@ -12,7 +12,7 @@ KarabinerHandler.lookup = {
     e = nil,
     r = 'Pane',
     t = {iterm = 'Terminal', atom = 'Test'},
-    y = 'Yank',
+    y = {iterm = 'Yarn', default = 'Yank'},
     u = 'AppShortcut',
     i = 'Make',
     o = 'Open',
