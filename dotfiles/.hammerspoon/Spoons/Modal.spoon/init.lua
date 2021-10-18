@@ -103,6 +103,15 @@ function Modal.add(meta)
         end)
     end
 
+    if not meta.items or not meta.items['-'] then
+        meta.modal:bind('', '-', 'Edit Hammerspoon', function()
+            Modal.exit()
+
+            openInSublime('~/.hammerspoon')
+            hs.timer.doAfter(0.1, md.Hyper.open)
+        end)
+    end
+
     if meta.defaults == nil or meta.defaults == true then
         meta.modal:bind('', '/', 'Cheatsheet', function()
             Modal.toggleCheatsheet()
