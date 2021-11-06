@@ -15,7 +15,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search vagrant osx laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
+plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search vagrant macos laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 export KEYTIMEOUT=1
@@ -36,7 +36,7 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 

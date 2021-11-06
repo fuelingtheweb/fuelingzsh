@@ -4,7 +4,7 @@ Modal.__index = Modal
 spoon.ModalMgr = hs.loadSpoon('vendor/ModalMgr')
 
 Modal.timer = nil
-Modal.menubar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar()
+-- Modal.menubar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar()
 
 function Modal.add(meta)
     spoon.ModalMgr:new(meta.key)
@@ -17,10 +17,13 @@ function Modal.add(meta)
 
         if meta.title then
             if type(meta.title) == 'function' then
-                return Modal.menubar:setTitle(meta.title())
+                spoon.ModalMgr.active_title = meta.title()
+                return
+                -- return Modal.menubar:setTitle(meta.title())
             end
 
-            Modal.menubar:setTitle(meta.title)
+            spoon.ModalMgr.active_title = meta.title
+            -- Modal.menubar:setTitle(meta.title)
         end
 
         if meta.showCheatsheetOnEnter then
@@ -33,7 +36,8 @@ function Modal.add(meta)
             meta.exited()
         end
 
-        Modal.menubar:setTitle('')
+        spoon.ModalMgr.active_title = nil
+        -- Modal.menubar:setTitle('')
     end
 
     if meta.items then
@@ -134,7 +138,11 @@ function Modal.enter(key, exitAfter)
         Modal.timer:stop()
     end
 
-    spoon.ModalMgr:activate({key}, '#FFFFFF', false)
+    if key == 'TextManipulation:vimDisabled' then
+        spoon.ModalMgr:activate({key}, '#212d33', false)
+    else
+        spoon.ModalMgr:activate({key}, '#377f71', false)
+    end
 
     if exitAfter then
         Modal.timer = hs.timer.doAfter(exitAfter, function()

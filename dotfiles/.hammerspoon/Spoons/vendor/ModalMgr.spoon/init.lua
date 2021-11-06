@@ -19,6 +19,7 @@ obj.which_key = nil
 obj.modal_list = {}
 obj.active_list = {}
 obj.supervisor = nil
+obj.active_title = nil
 
 function obj:init()
     hsupervisor_keys = hsupervisor_keys or {{"cmd", "shift", "ctrl"}, "Q"}
@@ -31,14 +32,30 @@ function obj:init()
     obj.modal_tray[1] = {
         type = "circle",
         action = "fill",
-        fillColor = {hex = "#FFFFFF", alpha = 0.7},
+        fillColor = {hex = "#377f71", alpha = 0.7},
+    }
+    obj.modal_tray[2] = {
+        type = "text",
+        text = nil,
+        textFont = "Fira Code Bold",
+        textSize = 18,
+        textColor = {hex = "#377f71", alpha = 1},
+        textAlignment = "center",
+        padding = 20,
+        frame = {
+            x = "1%",
+            y = "0",
+            w = "100%",
+            h = "100%",
+        }
     }
     obj.which_key = hs.canvas.new({x = 0, y = 0, w = 0, h = 0})
     obj.which_key:level(hs.canvas.windowLevels.tornOffMenu)
     obj.which_key[1] = {
         type = "rectangle",
         action = "fill",
-        fillColor = {hex = "#EEEEEE", alpha = 0.95},
+        fillColor = {hex = "#1d262a", alpha = 0.80},
+        -- fillColor = {hex = "#000", alpha = 0.80},
         roundedRectRadii = {xRadius = 10, yRadius = 10},
     }
 end
@@ -70,9 +87,10 @@ function obj:toggleCheatsheet(iterList, force)
         local cres = cscreen:fullFrame()
         obj.which_key:frame({
             x = cres.x + cres.w / 5,
-            y = cres.y + cres.h / 5,
+            y = cres.y + cres.h / 8,
             w = cres.w / 5 * 3,
-            h = cres.h / 5 * 3
+            h = cres.h / 5 * 4
+            -- h = tostring(math.ceil((cres.h / 5 * 3 - 60) / #keys_pool) * 2 / (cres.h / 5 * 3))
         })
         local keys_pool = {}
         local tmplist = iterList or obj.active_list
@@ -80,6 +98,10 @@ function obj:toggleCheatsheet(iterList, force)
             if type(v) == "string" then
                 -- It appears to be idList
                 for _, m in ipairs(obj.modal_list[v].keys) do
+                    -- each(m, function(value, key)
+                    --     log.d('key: ' .. key)
+                    --     log.d(value)
+                    -- end)
                     table.insert(keys_pool, m.msg)
                 end
             elseif type(i) == "string" then
@@ -89,38 +111,61 @@ function obj:toggleCheatsheet(iterList, force)
                 end
             end
         end
+        local leftList = ''
+        local rightList = ''
         for idx, val in ipairs(keys_pool) do
             if idx % 2 == 1 then
-                obj.which_key[idx + 1] = {
-                    type = "text",
-                    text = keys_pool[idx],
-                    textFont = "Courier-Bold",
-                    textSize = 16,
-                    textColor = {hex = "#2390FF", alpha = 1},
-                    textAlignment = "left",
-                    frame = {
-                        x = tostring(40 / (cres.w / 5 * 3)),
-                        y = tostring((30 + (idx - math.ceil(idx / 2)) * math.ceil((cres.h / 5 * 3 - 60) / #keys_pool) * 2) / (cres.h / 5 * 3)),
-                        w = tostring((1 - 80 / (cres.w / 5 * 3)) / 2),
-                        h = tostring(math.ceil((cres.h / 5 * 3 - 60) / #keys_pool) * 2 / (cres.h / 5 * 3))
-                    }
-                }
+                -- log.d(idx)
+                leftList = leftList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ",\n\t\t") .. "\n"
             else
-                obj.which_key[idx + 1] = {
-                    type = "text",
-                    text = keys_pool[idx],
-                    textFont = "Courier-Bold",
-                    textSize = 16,
-                    textColor = {hex = "#2390FF"},
-                    textAlignment = "right",
-                    frame = {
-                        x = "50%",
-                        y = tostring((30 + (idx - math.ceil(idx / 2) - 1) * math.ceil((cres.h / 5 * 3 - 60) / #keys_pool) * 2) / (cres.h / 5 * 3)),
-                        w = tostring((1 - 80 / (cres.w / 5 * 3)) / 2),
-                        h = tostring(math.ceil((cres.h / 5 * 3 - 60) / #keys_pool) * 2 / (cres.h / 5 * 3))
-                    }
-                }
+                rightList = rightList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ",\n\t\t") .. "\n"
             end
+
+            obj.which_key[2] = {
+                type = "text",
+                text = obj.active_title,
+                textFont = "Fira Code Bold",
+                textSize = 22,
+                textColor = {hex = "#fed032", alpha = 1},
+                textAlignment = "center",
+                padding = 20,
+                frame = {
+                    x = "1%",
+                    y = "0",
+                    w = "100%",
+                    h = "100%",
+                }
+            }
+            obj.which_key[3] = {
+                type = "text",
+                text = leftList,
+                textFont = "Fira Code Bold",
+                textSize = 22,
+                textColor = {hex = "#377f71", alpha = 1},
+                textAlignment = "left",
+                padding = 20,
+                frame = {
+                    x = "1%",
+                    y = "5%",
+                    w = "49%",
+                    h = "95%",
+                }
+            }
+            obj.which_key[4] = {
+                type = "text",
+                text = rightList,
+                textFont = "Fira Code Bold",
+                textSize = 22,
+                textColor = {hex = "#377f71"},
+                textAlignment = "right",
+                padding = 20,
+                frame = {
+                    x = "50%",
+                    y = "5%",
+                    w = "49%",
+                    h = "95%",
+                }
+            }
         end
         obj.which_key:show()
     end
@@ -141,15 +186,22 @@ function obj:activate(idList, trayColor, showKeys)
         obj.active_list[val] = obj.modal_list[val]
     end
     if trayColor then
+        obj.modal_tray[2].text = nil
         local cscreen = hs.screen.mainScreen()
         local cres = cscreen:fullFrame()
         obj.modal_tray:frame({
-            x = cres.w - math.ceil(cres.w / 32),
-            y = cres.h - math.ceil(cres.w / 32),
-            w = math.ceil(cres.w / 32 / 2),
-            h = math.ceil(cres.w / 32 / 2)
+            x = cres.w - math.ceil(cres.w / 2) - math.ceil(cres.w / 3 / 2 / 2),
+            y = cres.h - math.ceil(cres.w / 25),
+            -- x = cres.w - math.ceil(cres.w / 32);
+            -- y = cres.h - math.ceil(cres.w / 32);
+            w = math.ceil(cres.w / 3 / 2),
+            h = math.ceil(cres.w / 3 / 2)
         })
         obj.modal_tray[1].fillColor = {hex = trayColor, alpha = 0.7}
+        if trayColor ~= '#212d33' then
+            obj.modal_tray[2].text = obj.active_title
+            obj.modal_tray[2].textColor = {hex = "#fed032", alpha = 1}
+        end
         obj.modal_tray:show()
     end
     if showKeys then

@@ -19,7 +19,7 @@ Yarn.lookup = {
     x = nil,
     c = nil,
     v = nil,
-    b = nil,
+    b = 'yp',
     spacebar = nil,
 }
 

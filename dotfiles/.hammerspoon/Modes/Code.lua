@@ -110,25 +110,28 @@ function Code.toggleSemicolon()
 end
 
 function Code.equals()
-    Pending.run({
-        function()
-            insertText(' = ')
-            BracketMatching.start()
-        end,
-        function()
-            insertText(' == ')
-            BracketMatching.start()
-        end,
-        function()
-            if titleContains('.lua') then
-                insertText(' ~= ')
-            else
-                insertText(' != ')
-            end
+    insertText(' = ')
+    BracketMatching.start()
 
-            BracketMatching.start()
-        end,
-    })
+    -- Pending.run({
+    --     function()
+    --         insertText(' = ')
+    --         BracketMatching.start()
+    --     end,
+    --     function()
+    --         insertText(' == ')
+    --         BracketMatching.start()
+    --     end,
+    --     function()
+    --         if titleContains('.lua') then
+    --             insertText(' ~= ')
+    --         else
+    --             insertText(' != ')
+    --         end
+
+    --         BracketMatching.start()
+    --     end,
+    -- })
 end
 
 function Code.typeReturn()
