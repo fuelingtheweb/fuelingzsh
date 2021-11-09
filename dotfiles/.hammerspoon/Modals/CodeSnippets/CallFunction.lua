@@ -4,7 +4,6 @@ mdl.__index = mdl
 Modal.add({
     key = 'CodeSnippets:callFunction',
     title = 'Call Function',
-    showCheatsheetOnEnter = true,
     items = {
         ['.'] = 'exit',
         w = {

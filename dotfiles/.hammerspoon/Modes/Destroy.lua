@@ -42,28 +42,14 @@ function Destroy.simpleDelete()
 end
 
 function Destroy.toEndOfWord()
-    Pending.run({
-        function()
-            if TextManipulation.canManipulateWithVim() then
-                fastKeyStroke('escape')
-                fastKeyStroke('d')
-                fastKeyStroke('e')
-            else
-                fastKeyStroke({'shift', 'alt'}, 'right')
-                fastKeyStroke('delete')
-            end
-        end,
-        function()
-            if TextManipulation.canManipulateWithVim() then
-                fastKeyStroke('escape')
-                fastKeyStroke('d')
-                fastKeyStroke({'shift'}, 'e')
-            else
-                fastKeyStroke({'shift', 'alt'}, 'right')
-                fastKeyStroke('delete')
-            end
-        end,
-    })
+    if TextManipulation.canManipulateWithVim() then
+        fastKeyStroke('escape')
+        fastKeyStroke('d')
+        fastKeyStroke('e')
+    else
+        fastKeyStroke({'shift', 'alt'}, 'right')
+        fastKeyStroke('delete')
+    end
 end
 
 function Destroy.subword()

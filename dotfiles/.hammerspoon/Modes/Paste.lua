@@ -116,16 +116,8 @@ function Paste.character()
 end
 
 function Paste.pastePending(selectTextWhenInVim, selectTextWhenInDefault)
-    Pending.run({
-        function()
-            Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
-            Paste.pasteFirst()
-        end,
-        function()
-            Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
-            Paste.pasteNext()
-        end,
-    })
+    Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
+    Paste.pasteFirst()
 end
 
 function Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)

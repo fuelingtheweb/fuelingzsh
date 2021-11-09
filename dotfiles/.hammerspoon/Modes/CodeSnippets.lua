@@ -6,6 +6,7 @@ loadModal('CodeSnippets.Function')
 loadModal('CodeSnippets.CallFunction')
 loadModal('CodeSnippets.Extra')
 loadModal('CodeSnippets.General')
+loadModal('CodeSnippets.Equals')
 
 CodeSnippets.lookup = {
     e = 'snippet-elseif',
@@ -24,7 +25,7 @@ CodeSnippets.lookup = {
     k = nil,
     l = 'snippet-log',
     semicolon = 'insertColon',
-    quote = 'insertQuotes',
+    quote = 'equals',
     return_or_enter = nil,
     n = 'functionSnippet',
     m = 'method',
@@ -104,17 +105,8 @@ function CodeSnippets.echo()
     BracketMatching.start()
 end
 
-function CodeSnippets.insertQuotes()
-    Pending.run({
-        function()
-            insertText('=""')
-            fastKeyStroke('left')
-        end,
-        function()
-            insertText("=''")
-            fastKeyStroke('left')
-        end,
-    })
+function CodeSnippets.equals()
+    Modal.enter('CodeSnippets:equals')
 end
 
 function CodeSnippets.insertColon()

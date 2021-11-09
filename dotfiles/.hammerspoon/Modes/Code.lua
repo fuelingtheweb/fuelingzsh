@@ -14,7 +14,7 @@ Code.lookup = {
     k = 'moveLineUp',
     l = 'goToDefinition',
     semicolon = 'toggleSemicolon',
-    quote = 'equals',
+    quote = nil,
     return_or_enter = 'typeReturn',
     n = 'selectNextWord',
     m = 'multipleCursorsDown',
@@ -107,31 +107,6 @@ function Code.toggleSemicolon()
         fastKeyStroke('right')
         insertText(';')
     end
-end
-
-function Code.equals()
-    insertText(' = ')
-    BracketMatching.start()
-
-    -- Pending.run({
-    --     function()
-    --         insertText(' = ')
-    --         BracketMatching.start()
-    --     end,
-    --     function()
-    --         insertText(' == ')
-    --         BracketMatching.start()
-    --     end,
-    --     function()
-    --         if titleContains('.lua') then
-    --             insertText(' ~= ')
-    --         else
-    --             insertText(' != ')
-    --         end
-
-    --         BracketMatching.start()
-    --     end,
-    -- })
 end
 
 function Code.typeReturn()
