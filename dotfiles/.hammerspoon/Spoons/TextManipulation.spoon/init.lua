@@ -38,7 +38,7 @@ function TextManipulation.canManipulateWithVim()
         return false
     end
 
-    if appIncludes({atom, sublime}) then
+    if inCodeEditor() then
         return true
     end
 

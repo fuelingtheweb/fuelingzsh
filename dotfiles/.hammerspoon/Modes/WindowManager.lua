@@ -4,21 +4,21 @@ WindowManager.__index = WindowManager
 WindowManager.lookup = {
     tab = 'moveToCenter',
     q = nil,
-    w = nil,
+    w = 'toggleCodeFocus',
     e = 'scrollScreenWithCursorAtEnd',
     r = 'scrollScreenWithCursorAtCenter',
     t = 'scrollScreenWithCursorAtTop',
     caps_lock = 'missionControl',
-    a = nil,
-    s = nil,
+    a = 'toggleAudio',
+    s = 'toggleScreenShare',
     d = 'moveToNextDisplay',
     f = 'maximize',
     g = 'showGrid',
     left_shift = nil,
-    z = nil,
+    z = 'toggleAudioAndVideo',
     x = nil,
     c = nil,
-    v = nil,
+    v = 'toggleVideo',
     b = 'toggleSidebar',
 
     y = nil,
@@ -111,11 +111,11 @@ function WindowManager.next()
 end
 
 function WindowManager.nextInCurrentApp()
-    if appIs(chrome) then
-        md.Open.windowHintsForCurrentApplication()
-        fastKeyStroke('b')
-        return
-    end
+    md.Open.windowHintsForCurrentApplication()
+    fastKeyStroke('b')
+    -- if appIs(chrome) then
+    --     return
+    -- end
 
     local windows = hs.fnutils.filter(hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast), function(window)
         return window:title()
@@ -191,6 +191,27 @@ function WindowManager.scrollScreenWithCursorAtTop()
         fastKeyStroke('z')
         fastKeyStroke('t')
     end
+end
+
+function WindowManager.toggleAudio()
+    fastKeyStroke({'shift', 'cmd'}, 'a')
+end
+
+function WindowManager.toggleScreenShare()
+    fastKeyStroke({'shift', 'cmd'}, 's')
+end
+
+function WindowManager.toggleVideo()
+    fastKeyStroke({'shift', 'cmd'}, 'v')
+end
+
+function WindowManager.toggleAudioAndVideo()
+    WindowManager.toggleAudio()
+    WindowManager.toggleVideo()
+end
+
+function WindowManager.toggleCodeFocus()
+    fastKeyStroke({'shift', 'alt', 'cmd'}, 'z')
 end
 
 return WindowManager

@@ -1,43 +1,27 @@
 local obj = {}
 obj.__index = obj
 
-function isDisplay(name)
-    return hs.screen.primaryScreen():name() == name
-end
+function isDisplay(name) return hs.screen.primaryScreen():name() == name end
 
-function isMacbookDisplay()
-    return isDisplay(macbookScreen)
-end
+function isMacbookDisplay() return isDisplay(macbookScreen) end
 
-function inCodeEditor()
-    return appIncludes({atom, sublime})
-end
+function inCodeEditor() return appIncludes({atom, sublime, vscode}) end
 
 function appIncludes(bundles)
     return hasValue(bundles, hs.application.frontmostApplication():bundleID())
 end
 
 function hasValue(tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
+    for index, value in ipairs(tab) do if value == val then return true end end
 
     return false
 end
 
-function isString(value)
-    return type(value) == 'string'
-end
+function isString(value) return type(value) == 'string' end
 
-function isTable(value)
-    return type(value) == 'table'
-end
+function isTable(value) return type(value) == 'table' end
 
-function isFunction(value)
-    return type(value) == 'function'
-end
+function isFunction(value) return type(value) == 'function' end
 
 function appIs(bundle)
     return hs.application.frontmostApplication():bundleID() == bundle
@@ -53,19 +37,13 @@ function getSelectedText(copying)
     keyStroke({'cmd'}, 'c')
     text = hs.pasteboard.getContents()
     finderFileSelected = false
-    for k,v in pairs(hs.pasteboard.contentTypes()) do
-        if v == 'public.file-url' then
-            finderFileSelected = true
-        end
+    for k, v in pairs(hs.pasteboard.contentTypes()) do
+        if v == 'public.file-url' then finderFileSelected = true end
     end
 
-    if not copying and finderFileSelected then
-        text = 'finderFileSelected'
-    end
+    if not copying and finderFileSelected then text = 'finderFileSelected' end
 
-    if not copying then
-        hs.pasteboard.setContents(original)
-    end
+    if not copying then hs.pasteboard.setContents(original) end
 
     return text
 end
@@ -80,30 +58,23 @@ function copyChromeUrl()
     ]])
 end
 
-function startsWith(needle, haystack)
-    return haystack:sub(1, #needle) == needle
-end
+function startsWith(needle, haystack) return haystack:sub(1, #needle) == needle end
 
 function titleContains(needle)
     return stringContains(needle:gsub('-', '%%-'), currentTitle())
 end
 
-function stringContains(needle, haystack)
-    return string.find(haystack, needle)
-end
+function stringContains(needle, haystack) return string.find(haystack, needle) end
 
 function showChooser(callback, choices)
-    hs.chooser.new(function(item)
-        callback(item['subText'])
-    end):choices(choices):show()
+    hs.chooser.new(function(item) callback(item['subText']) end):choices(choices)
+        :show()
 end
 
 function openDiscordChannel(name)
     keyStroke({'cmd'}, 'k')
     insertText(name)
-    hs.timer.doAfter(0.1, function()
-        fastKeyStroke('return')
-    end)
+    hs.timer.doAfter(0.1, function() fastKeyStroke('return') end)
 end
 
 function openSlackChannel(channel)
@@ -113,37 +84,31 @@ end
 function openNotionPage(name)
     keyStroke({'cmd'}, 'p')
     insertText(name)
-    hs.timer.doAfter(0.3, function()
-        fastKeyStroke('return')
-    end)
+    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
 end
 
 function openInChrome(url)
-    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default"')
+    hs.execute(
+        '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
+            url .. '" --profile-directory="Default"')
 end
 
 function openInChromeIncognito(url)
-    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
+    hs.execute(
+        '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
+            url .. '" --incognito --profile-directory="Default"')
 end
 
-function openInTablePlus(url)
-    hs.execute('open "' .. url .. '"')
-end
+function openInTablePlus(url) hs.execute('open "' .. url .. '"') end
 
 function openInIterm(path)
-    launchIterm(function()
-        hs.execute('open -a iTerm "' .. path .. '"')
-    end)
+    launchIterm(function() hs.execute('open -a iTerm "' .. path .. '"') end)
 end
 
-function runGoogleSearch(query)
-    openInChromeIncognito(getUrlForQuery(query))
-end
+function runGoogleSearch(query) openInChromeIncognito(getUrlForQuery(query)) end
 
 function getUrlForQuery(query)
-    if startsWith('http', query) then
-        return query
-    end
+    if startsWith('http', query) then return query end
 
     return 'https://www.google.com/search?q=' .. query
 end
@@ -151,22 +116,26 @@ end
 function triggerInAtom(name)
     keyStroke({'shift', 'cmd'}, 'p')
     insertText(name)
-    hs.timer.doAfter(0.3, function()
-        fastKeyStroke('return')
-    end)
+    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
+end
+
+function triggerInCode(name)
+    keyStroke({'shift', 'cmd'}, 'p')
+    insertText(name)
+    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
 end
 
 function goToFileInAtom(file)
     keyStroke({'cmd'}, 't')
     insertText(file)
-    hs.timer.doAfter(0.3, function()
-        fastKeyStroke('return')
-    end)
+    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
 end
 
 function typeAndEnter(string)
     insertText(string)
-    fastKeyStroke('return')
+    -- hs.timer.doAfter(0.2, function ()
+    keyStroke('return')
+    -- end)
 end
 
 function typeAndTab(string)
@@ -175,47 +144,48 @@ function typeAndTab(string)
 end
 
 function triggerAlfredSearch(search)
-    hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search ..'"')
+    hs.osascript.applescript(
+        'tell application id "com.runningwithcrayons.Alfred" to search "' ..
+            search .. '"')
 end
 
 function triggerAlfredWorkflow(trigger, workflow, argument)
-    local script = 'tell application id "com.runningwithcrayons.Alfred" to run trigger "' .. trigger .. '" in workflow "' .. workflow .. '"'
+    spoon.KarabinerHandler.modifier = nil
+    keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'j');
 
-    if argument then
-        script = script .. ' with argument "' .. argument .. '"'
-    end
+    local script =
+        'tell application id "com.runningwithcrayons.Alfred" to run trigger "' ..
+            trigger .. '" in workflow "' .. workflow .. '"'
+
+    if argument then script = script .. ' with argument "' .. argument .. '"' end
 
     hs.osascript.applescript(script)
 end
 
-function openInSublime(path)
-    hs.execute('/usr/local/bin/subl "' .. path .. '"')
-end
+function openInSublime(path) hs.execute('/usr/local/bin/subl "' .. path .. '"') end
 
-function openInAtom(path)
-    hs.execute('/usr/local/bin/atom "' .. path .. '"')
+function openInAtom(path) hs.execute('/usr/local/bin/atom "' .. path .. '"') end
+
+function openInCode(path)
+    hs.execute('/usr/local/bin/code "' .. path:gsub('~', '/Users/nathan') .. '"')
 end
 
 function currentTitle()
     app = hs.application.frontmostApplication()
 
     title = ''
-    for k,v in pairs(app:visibleWindows()) do
-        if title == '' then
-            title = v:title()
-        end
+    for k, v in pairs(app:visibleWindows()) do
+        if title == '' then title = v:title() end
     end
 
     return title
 end
 
 function windowCount(app)
-    if app == nil then
-        return 0
-    end
+    if app == nil then return 0 end
 
     count = 0
-    for k,v in pairs(app:visibleWindows()) do
+    for k, v in pairs(app:visibleWindows()) do
         if (appIs(preview) or appIs(finder)) and v:title() == '' then
         else
             count = count + 1
@@ -226,28 +196,21 @@ function windowCount(app)
 end
 
 function countTable(table)
-    if not table then
-        return 0
-    end
+    if not table then return 0 end
 
     local count = 0
-    each(table, function ()
-        count = count + 1
-    end)
+    each(table, function() count = count + 1 end)
 
     return count
 end
 
-function hasWindows(app)
-    return windowCount(app) > 0
-end
+function hasWindows(app) return windowCount(app) > 0 end
 
-function multipleWindows(app)
-    return windowCount(app) > 1
-end
+function multipleWindows(app) return windowCount(app) > 1 end
 
 function toggleAppStatic()
-    output = hs.execute('/Users/nathan/Development/FuelingTheWeb/bin/toggle-app-static.sh')
+    output = hs.execute(
+                 '/Users/nathan/Development/FuelingTheWeb/bin/toggle-app-static.sh')
     hs.notify.new({title = 'Env Variable Updated', informativeText = output}):send()
 end
 
@@ -260,26 +223,26 @@ end
 -- }
 
 -- function triggerOpenProject(site)
-    -- if not project['all'] then
-    --     return
-    -- end
+-- if not project['all'] then
+--     return
+-- end
 
-    -- for key, value in pairs(openInAppFunctions) do
-    --     app = key
-    --     func = value
+-- for key, value in pairs(openInAppFunctions) do
+--     app = key
+--     func = value
 
-    --     if project[app] and hasValue(project['all'], app) then
-    --         if type(project[app]) == 'function' then
-    --             project[app]()
-    --         elseif type(project[app]) == 'table' then
-    --             for key, value in pairs(project[app]) do
-    --                 _G[func](value)
-    --             end
-    --         else
-    --             _G[func](project[app])
-    --         end
-    --     end
-    -- end
+--     if project[app] and hasValue(project['all'], app) then
+--         if type(project[app]) == 'function' then
+--             project[app]()
+--         elseif type(project[app]) == 'table' then
+--             for key, value in pairs(project[app]) do
+--                 _G[func](value)
+--             end
+--         else
+--             _G[func](project[app])
+--         end
+--     end
+-- end
 -- end
 
 -- function openParentProject(parent)
@@ -295,27 +258,21 @@ function customOpenInTablePlus()
 end
 
 function each(table, callback)
-    for key, value in pairs(table) do
-        callback(value, key)
-    end
+    for key, value in pairs(table) do callback(value, key) end
 end
 
 function executeFromFuelingZsh(command)
     return hs.execute('~/.fuelingzsh/bin/' .. command)
 end
 
-function trim(s)
-    return (s:gsub("^%s*(.-)%s*$", "%1"))
-end
+function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 
 function closeWindow()
     fastKeyStroke({'cmd'}, 'w')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then
-                app:hide()
-            end
+            if next(app:visibleWindows()) == nil then app:hide() end
         end)
     end
 end
@@ -340,19 +297,13 @@ function slackReaction(emoji)
 
     if emoji then
         insertText(emoji)
-        hs.timer.doAfter(0.5, function ()
-            keyStroke('return')
-        end)
+        hs.timer.doAfter(0.5, function() keyStroke('return') end)
     end
 end
 
-function fastSuperKeyStroke(key)
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, key)
-end
+function fastSuperKeyStroke(key) fastKeyStroke({'ctrl', 'alt', 'cmd'}, key) end
 
-function fastKeyStroke(modifiers, key)
-    keyStroke(modifiers, key, 0)
-end
+function fastKeyStroke(modifiers, key) keyStroke(modifiers, key, 0) end
 
 function keyStroke(modifiers, key, delay)
     if type(modifiers) == 'string' then
@@ -361,6 +312,19 @@ function keyStroke(modifiers, key, delay)
     end
 
     hs.eventtap.keyStroke(modifiers, key, delay)
+end
+
+function insertOrPasteText(text)
+    if appIs(vscode) then
+        local original = hs.pasteboard.getContents()
+        hs.pasteboard.setContents(text)
+
+        keyStroke({'cmd'}, 'v')
+
+        hs.pasteboard.setContents(original)
+    else
+        insertText(text)
+    end
 end
 
 function insertText(text)
@@ -410,17 +374,11 @@ end
 function _(callback, ...)
     local params = table.pack(...)
 
-    return function ()
-        callback(table.unpack(params))
-    end
+    return function() callback(table.unpack(params)) end
 end
 
-function loadCustomModal(modal)
-    return require('config.custom.Modals.' .. modal)
-end
+function loadCustomModal(modal) return require('config.custom.Modals.' .. modal) end
 
-function loadModal(modal)
-    return require('Modals.' .. modal)
-end
+function loadModal(modal) return require('Modals.' .. modal) end
 
 return obj

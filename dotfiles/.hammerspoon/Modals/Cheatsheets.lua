@@ -31,7 +31,8 @@ Cheatsheets.lookupKeys = {
 }
 
 Cheatsheets.lookupApps = {
-    atom = 'r',
+    atom = 'q',
+    vscode = 'r',
     sublime = 'e',
     iterm = 't',
     slack = 's',

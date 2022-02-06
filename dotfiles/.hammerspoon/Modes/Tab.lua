@@ -22,23 +22,18 @@ Tab.lookup = {
     period = 'closeNext',
     slash = 'closeAllOthers',
     right_shift = 'closeAll',
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Tab.first()
-    fastKeyStroke({'cmd'}, '1')
-end
+function Tab.first() fastKeyStroke({'cmd'}, '1') end
 
-function Tab.last()
-    fastKeyStroke({'cmd'}, '9')
-end
+function Tab.last() fastKeyStroke({'cmd'}, '9') end
 
 function Tab.pin()
     -- Chrome: Pin Tab
     fastKeyStroke('t')
     fastKeyStroke('p')
 end
-
 
 function Tab.previous()
     if appIs(tableplus) then
@@ -67,10 +62,7 @@ function Tab.moveLeft()
         -- Vimium
         fastKeyStroke('escape')
         insertText('th')
-    elseif appIs(atom) then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'left')
-    elseif appIs(sublime) then
-        -- https://packagecontrol.io/packages/MoveTab
+    elseif inCodeEditor() then
         fastKeyStroke({'shift', 'alt', 'cmd'}, 'left')
     elseif appIs(iterm) then
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -82,23 +74,16 @@ function Tab.moveRight()
         -- Vimium
         fastKeyStroke('escape')
         insertText('tl')
-    elseif appIs(atom) then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'right')
-    elseif appIs(sublime) then
-        -- https://packagecontrol.io/packages/MoveTab
+    elseif inCodeEditor() then
         fastKeyStroke({'shift', 'alt', 'cmd'}, 'right')
     elseif appIs(iterm) then
         fastKeyStroke({'shift', 'cmd'}, 'right')
     end
 end
 
-function Tab.closeCurrent()
-    closeWindow()
-end
+function Tab.closeCurrent() closeWindow() end
 
-function Tab.restore()
-    fastKeyStroke({'shift', 'cmd'}, 't')
-end
+function Tab.restore() fastKeyStroke({'shift', 'cmd'}, 't') end
 
 function Tab.moveToNewWindow()
     if appIs(sublime) then
@@ -114,7 +99,7 @@ function Tab.moveToNewWindow()
 end
 
 function Tab.new()
-    if appIncludes({sublime, atom}) then
+    if inCodeEditor() then
         fastKeyStroke({'cmd'}, 'n')
         fastKeyStroke('i')
         fastKeyStroke('return')
@@ -159,6 +144,9 @@ end
 function Tab.closeAllOthers()
     if appIs(chrome) then
         insertText('tx;')
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('e')
+        fastSuperKeyStroke('/')
     elseif appIncludes({atom, sublime}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'tab')
         fastKeyStroke('x')
@@ -189,7 +177,10 @@ end
 function Tab.closePrevious()
     Tab.previous()
     Tab.closeCurrent()
-    Tab.next()
+    
+    if not appIs(vscode) then
+        Tab.next()
+    end
 end
 
 function Tab.closeNext()

@@ -241,6 +241,11 @@ function Site:openInAtom()
         openInAtom('~/' .. self.attributes.path)
     end
 end
+function Site:openInCode()
+    if self.attributes.path then
+        openInCode('~/' .. self.attributes.path)
+    end
+end
 function Site:openInChrome()
     if self.attributes.path then
         openInChrome(self.attributes.url)

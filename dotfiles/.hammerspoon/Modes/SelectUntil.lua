@@ -107,7 +107,9 @@ function SelectUntil.beginSelectingForward()
         return
     end
 
-    if appIs(atom) then
+    if appIs(vscode) then
+        fastKeyStroke({'ctrl'}, 'v')
+    elseif appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('l')
     elseif appIs(sublime) then
@@ -120,7 +122,9 @@ function SelectUntil.beginSelectingBackward()
         return
     end
 
-    if inCodeEditor() then
+    if appIs(vscode) then
+        fastKeyStroke({'ctrl'}, 'v')
+    elseif inCodeEditor() then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('h')
     end
@@ -328,14 +332,16 @@ function SelectUntil.endOfLine()
 end
 
 function SelectUntil.beginningOfLine()
-    SelectUntil.beginningOfLine()
-end
-
-function SelectUntil.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
-        fastKeyStroke('right')
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+
+        if appIs(vscode) then
+            fastKeyStroke('v')
+            fastKeyStroke({'shift'}, '6')
+        else
+            fastKeyStroke('right')
+            fastKeyStroke({'shift', 'cmd'}, 'left')
+        end
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
     end

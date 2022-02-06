@@ -2,45 +2,36 @@ local Code = {}
 Code.__index = Code
 
 Code.lookup = {
-    y = 'conditionalAnd',
+    y = 'multipleCursorsUp',
     u = 'addUseStatement',
-    i = 'multipleCursorsUp',
-    o = 'concatenate',
-    p = 'conditionalOr',
+    i = 'focusBreadcrumbs',
+    o = 'goToDefinition',
+    p = nil,
     open_bracket = 'fold',
     close_bracket = 'unfold',
-    h = 'selectAll',
+    h = 'previousMember',
     j = 'moveLineDown',
     k = 'moveLineUp',
-    l = 'goToDefinition',
+    l = 'nextMember',
     semicolon = 'toggleSemicolon',
-    quote = nil,
-    return_or_enter = 'typeReturn',
+    quote = 'toggleBrackets',
+    return_or_enter = 'selectAll',
     n = 'selectNextWord',
     m = 'multipleCursorsDown',
     comma = 'toggleComma',
     period = 'doubleArrow',
-    slash = 'goToMatchingBracket',
-    right_shift = nil,
-    spacebar = 'comment',
+    slash = 'goToMatchingPair',
+    right_shift = 'goToMatchingBracket',
+    spacebar = 'comment'
 }
 
-function Code.conditionalAnd()
-    if titleContains('.lua') then
-        insertText(' and ')
-    else
-        insertText(' && ')
-    end
-end
-
-function Code.addUseStatement()
-    fastKeyStroke({'ctrl', 'alt'}, 'u')
-end
+function Code.addUseStatement() fastKeyStroke({'ctrl', 'alt'}, 'i') end
 
 function Code.multipleCursorsUp()
     handleApp(fastKeyStroke, {
+        [vscode] = {{'shift', 'ctrl', 'alt'}, 'up'},
         [atom] = {{'shift', 'ctrl'}, 'up'},
-        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'},
+        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'}
     })
     -- handleApp({
     --     [atom] = _(fastKeyStroke, {'shift', 'ctrl'}, 'up'),
@@ -48,32 +39,14 @@ function Code.multipleCursorsUp()
     -- })
 end
 
-function Code.conditionalOr()
-    handleConditional(titleContains, insertText, {
-        {condition = '.lua', value = ' or '},
-        {condition = 'fallback', value = ' || '},
-        -- ['.lua'] = ' or ',
-        -- ['fallback'] = ' || ',
-    })
-    -- if titleContains('.lua') then
-    --     insertText(' or ')
-    -- else
-    --     insertText(' || ')
-    -- end
-end
+function Code.fold() fastKeyStroke({'alt', 'cmd'}, '[') end
 
-function Code.fold()
-    fastKeyStroke({'alt', 'cmd'}, '[')
-end
-
-function Code.unfold()
-    fastKeyStroke({'alt', 'cmd'}, ']')
-end
+function Code.unfold() fastKeyStroke({'alt', 'cmd'}, ']') end
 
 function Code.moveLineDown()
     if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'down')
-    elseif appIs(atom) or appIs(sublime) then
+    elseif inCodeEditor() then
         -- Atom, Sublime: Move line down
         fastKeyStroke({'ctrl', 'cmd'}, 'down')
     end
@@ -83,19 +56,15 @@ function Code.moveLineUp()
     if appIs(notion) then
         fastKeyStroke({'shift', 'cmd'}, 'up')
         fastKeyStroke({'shift', 'cmd'}, 'up')
-    elseif appIs(atom) or appIs(sublime) then
+    elseif inCodeEditor() then
         fastKeyStroke({'ctrl', 'cmd'}, 'up')
     end
 end
 
-function Code.goToDefinition()
-    fastKeyStroke({'alt', 'cmd'}, 'down')
-end
+function Code.goToDefinition() fastKeyStroke({'alt', 'cmd'}, 'down') end
 
 function Code.toggleSemicolon()
-    if inCodeEditor() then
-        return fastKeyStroke({'alt'}, ';')
-    end
+    if inCodeEditor() then return fastKeyStroke({'alt'}, ';') end
 
     md.Vi.moveToEndOfLine()
     fastKeyStroke({'shift'}, 'left')
@@ -109,29 +78,21 @@ function Code.toggleSemicolon()
     end
 end
 
-function Code.typeReturn()
-    insertText('return')
-end
-
 function Code.toggleBoolean()
     handleApp({
         [atom] = _(fastKeyStroke, '-'),
-        [sublime] = _(fastKeyStroke, {'alt', 'cmd'}, 'x'),
+        [sublime] = _(fastKeyStroke, {'alt', 'cmd'}, 'x')
     })
 end
 
-function Code.selectNextWord()
-    fastKeyStroke({'cmd'}, 'd')
-end
+function Code.selectNextWord() fastKeyStroke({'cmd'}, 'd') end
 
 function Code.multipleCursorsDown()
     fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
 end
 
 function Code.toggleComma()
-    if inCodeEditor() then
-        return fastKeyStroke({'alt'}, ',')
-    end
+    if inCodeEditor() then return fastKeyStroke({'alt'}, ',') end
 
     md.Vi.moveToEndOfLine()
     fastKeyStroke({'shift'}, 'left')
@@ -150,28 +111,20 @@ function Code.doubleArrow()
     BracketMatching.start()
 end
 
-function Code.goToMatchingBracket()
-    fastKeyStroke({'ctrl'}, 'm')
-end
+function Code.goToMatchingPair() fastKeyStroke({'shift', 'alt', 'cmd'}, 'm') end
 
-function Code.comment()
-    fastKeyStroke({'cmd'}, '/')
-end
+function Code.goToMatchingBracket() fastKeyStroke({'ctrl'}, 'm') end
 
-function Code.concatenate()
-    if titleContains('.php') then
-        insertText(' . ')
-    elseif titleContains('.lua') then
-        insertText(' .. ')
-    elseif titleContains('.js') then
-        insertText(' + ')
-    end
+function Code.comment() fastKeyStroke({'cmd'}, '/') end
 
-    BracketMatching.start()
-end
+function Code.selectAll() fastKeyStroke({'ctrl', 'cmd'}, 'g') end
 
-function Code.selectAll()
-    fastKeyStroke({'ctrl', 'cmd'}, 'g')
-end
+function Code.toggleBrackets() fastKeyStroke({'shift', 'cmd'}, "'") end
+
+function Code.previousMember() fastKeyStroke({'shift', 'alt', 'cmd'}, 'up') end
+
+function Code.nextMember() fastKeyStroke({'shift', 'alt', 'cmd'}, 'down') end
+
+function Code.focusBreadcrumbs() fastKeyStroke({'shift', 'cmd'}, '.') end
 
 return Code

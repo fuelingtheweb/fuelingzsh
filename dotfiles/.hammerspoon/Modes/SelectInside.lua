@@ -20,7 +20,7 @@ SelectInside.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil,
+    spacebar = nil
 }
 
 function SelectInside.withWrapperKey(key)
@@ -37,7 +37,13 @@ function SelectInside.subword()
         fastKeyStroke('escape')
         fastKeyStroke('v')
         fastKeyStroke('i')
-        fastKeyStroke('q')
+
+        if appIs(vscode) then
+            fastKeyStroke('\\')
+            fastKeyStroke('w')
+        else
+            fastKeyStroke('q')
+        end
     end
 end
 

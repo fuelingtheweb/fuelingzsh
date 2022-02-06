@@ -11,13 +11,13 @@ KarabinerHandler.lookup = {
     w = nil,
     e = nil,
     r = 'Pane',
-    t = {iterm = 'Terminal', atom = 'Test'},
+    t = {iterm = 'Terminal', atom = 'Test', vscode = 'Test'},
     y = {iterm = 'Yarn', default = 'Yank'},
     u = 'AppShortcut',
     i = 'Make',
     o = 'Open',
     p = 'Paste',
-    open_bracket = nil,
+    open_bracket = 'Media',
     close_bracket = nil,
     caps_lock = 'Hyper',
     a = {iterm = 'Artisan', default = 'ChangeCase'},
@@ -25,6 +25,7 @@ KarabinerHandler.lookup = {
         iterm = 'TerminalSnippets',
         slack = 'SlackSnippets',
         atom = 'CodeSnippets',
+        vscode = 'CodeSnippets',
         sublime = 'CodeSnippets'
     },
     d = 'Vi',
@@ -44,7 +45,6 @@ KarabinerHandler.lookup = {
     period = 'SelectUntil',
     slash = 'JumpTo',
     spacebar = 'WindowManager',
-    -- Available: Media
 }
 
 local lookupKeys = {
@@ -112,7 +112,9 @@ function KarabinerHandler.setupMode(mode)
 end
 
 function KarabinerHandler.handle(mode, key)
-    Modal.exit()
+    if TextManipulation.vimEnabled then
+        Modal.exit()
+    end
 
     local Mode = md[mode]
 
@@ -145,10 +147,11 @@ end
 
 function KarabinerHandler.callback(key)
     if not KarabinerHandler.modifier then
+        log.d('Action Key: ' .. key .. '. No modifier key.')
         return
     end
 
-    mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
+    local mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
 
     if isTable(mode) then
         each(mode, function(m, app)
@@ -178,7 +181,9 @@ function KarabinerHandler.setupKeys()
         hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, lookupKeys[key] or key, '', function()
             KarabinerHandler.callback(key)
         end, function()
-            KarabinerHandler.modifier = nil
+            -- hs.timer.doAfter(0.2, function()
+                KarabinerHandler.modifier = nil
+            -- end)
         end, function()
             KarabinerHandler.callback(key)
         end)

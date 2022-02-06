@@ -3,12 +3,12 @@ Hyper.__index = Hyper
 
 Hyper.lookup = {
     y = 'copy',
-        u = 'searchTabs',
+    u = 'searchTabs',
     i = 'searchSymbols',
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
-        close_bracket = nil,
+    close_bracket = nil,
     h = 'previousPage',
     j = 'previousTab',
     k = 'nextTab',
@@ -17,13 +17,13 @@ Hyper.lookup = {
     quote = 'nextWindow',
     return_or_enter = 'capsLock',
     n = 'new',
-        m = 'alfred',
+    m = 'alfred',
     comma = 'undo',
     period = 'redo',
     slash = 'cheatsheets',
     -- slash = 'startArtisan',
-        right_shift = nil,
-    spacebar = 'forceEscape',
+    right_shift = nil,
+    spacebar = 'forceEscape'
 }
 
 function Hyper.copy()
@@ -54,13 +54,9 @@ function Hyper.copy()
     end
 end
 
-function Hyper.searchSymbols()
-    spoon.Search.symbol()
-end
+function Hyper.searchSymbols() spoon.Search.symbol() end
 
-function Hyper.searchTabs()
-    spoon.Search.tabs()
-end
+function Hyper.searchTabs() spoon.Search.tabs() end
 
 -- Modal.add({
 --     key = 'Hyper:open',
@@ -100,7 +96,9 @@ function Hyper.open()
     --     {'fallback', _(fastKeyStroke, {'cmd'}, 'o')},
     -- })
 
-    if appIncludes({notion, atom, sublime, sublimeMerge, tableplus, invoker}) then
+    if appIncludes({
+        notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker
+    }) then
         fastKeyStroke({'cmd'}, 'p')
 
         if inCodeEditor() then
@@ -125,18 +123,19 @@ function Hyper.new()
     elseif appIs(sublime) then
         TextManipulation.disableVim()
         fastKeyStroke({'alt', 'cmd'}, 'n')
+    elseif appIs(vscode) then
+        TextManipulation.disableVim()
+        fastKeyStroke({'alt', 'cmd'}, 'n')
     else
         fastKeyStroke({'shift', 'cmd'}, 'n')
     end
 end
 
 function Hyper.commandPalette()
-    if appIncludes({atom, sublime, sublimeMerge}) then
+    if appIncludes({atom, vscode, sublime, sublimeMerge}) then
         fastKeyStroke({'shift', 'cmd'}, 'p')
 
-        if inCodeEditor() then
-            TextManipulation.disableVim()
-        end
+        if inCodeEditor() then TextManipulation.disableVim() end
     else
         triggerAlfredWorkflow('search', 'com.tedwise.menubarsearch')
     end
@@ -149,7 +148,7 @@ function Hyper.previousPage()
         fastKeyStroke({'cmd'}, 'k')
         fastKeyStroke('return')
     elseif appIs(atom) then
-         -- Atom: Cursor History: Previous
+        -- Atom: Cursor History: Previous
         fastKeyStroke({'shift', 'alt'}, 'i')
     elseif appIs(sublime) then
         fastKeyStroke({'ctrl'}, '-')
@@ -160,13 +159,9 @@ function Hyper.previousPage()
     end
 end
 
-function Hyper.previousTab()
-    md.Tab.previous()
-end
+function Hyper.previousTab() md.Tab.previous() end
 
-function Hyper.nextTab()
-    md.Tab.next()
-end
+function Hyper.nextTab() md.Tab.next() end
 
 function Hyper.nextPage()
     if appIs(spotify) then
@@ -175,7 +170,7 @@ function Hyper.nextPage()
         -- Autocomplete to the end of the line
         fastSuperKeyStroke(';')
     elseif appIs(atom) then
-         -- Atom: Cursor History: Next
+        -- Atom: Cursor History: Next
         fastKeyStroke({'ctrl'}, 'o')
     elseif appIs(sublime) then
         fastKeyStroke({'ctrl', 'shift'}, '-')
@@ -184,33 +179,23 @@ function Hyper.nextPage()
     end
 end
 
-function Hyper.alfredClipboard()
-    fastKeyStroke({'alt'}, 'c')
-end
+function Hyper.alfredClipboard() fastKeyStroke({'alt'}, 'c') end
 
 function Hyper.paste()
     fastKeyStroke({'cmd'}, 'v')
 
-    if titleContains('Slack | ') then
-        fastKeyStroke({'shift', 'cmd'}, 'f')
-    end
+    if titleContains('Slack | ') then fastKeyStroke({'shift', 'cmd'}, 'f') end
 end
 
 function Hyper.pasteStrip()
     triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
 end
 
-function Hyper.capsLock()
-    fastKeyStroke('caps_lock')
-end
+function Hyper.capsLock() fastKeyStroke('caps_lock') end
 
-function Hyper.alfred()
-    fastKeyStroke({'alt'}, 'z')
-end
+function Hyper.alfred() fastKeyStroke({'alt'}, 'z') end
 
-function Hyper.startArtisan()
-    Artisan.start()
-end
+function Hyper.startArtisan() Artisan.start() end
 
 function Hyper.forceEscape()
     md.Test.hideOutput()
@@ -220,24 +205,14 @@ function Hyper.forceEscape()
     -- fastKeyStroke('escape')
 end
 
-function Hyper.undo()
-    fastKeyStroke({'cmd'}, 'z')
-end
+function Hyper.undo() fastKeyStroke({'cmd'}, 'z') end
 
-function Hyper.redo()
-    fastKeyStroke({'shift', 'cmd'}, 'z')
-end
+function Hyper.redo() fastKeyStroke({'shift', 'cmd'}, 'z') end
 
-function Hyper.nextWindow()
-    md.WindowManager.next()
-end
+function Hyper.nextWindow() md.WindowManager.next() end
 
-function Hyper.nextWindowInCurrentApp()
-    md.WindowManager.nextInCurrentApp()
-end
+function Hyper.nextWindowInCurrentApp() md.WindowManager.nextInCurrentApp() end
 
-function Hyper.cheatsheets()
-    Modal.enter('Cheatsheets')
-end
+function Hyper.cheatsheets() Modal.enter('Cheatsheets') end
 
 return Hyper

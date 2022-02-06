@@ -5,9 +5,10 @@ Modal.add({
     key = 'OpenIn',
     title = 'Open In',
     items = {
+        r = {name = 'VS Code', method = 'inCode'},
         c = {name = 'Sublime Merge', method = 'inSublimeMerge'},
         e = {name = 'Sublime', method = 'inSublime'},
-        r = {name = 'Atom', method = 'inAtom'},
+        q = {name = 'Atom', method = 'inAtom'},
         g = {name = 'Chrome', method = 'inChrome'},
         v = {name = 'TablePlus', method = 'inTablePlus'},
         x = {name = 'Finder', method = 'inFinder'},
@@ -29,6 +30,7 @@ function OpenIn.inSublimeMerge()
 
     if path then
         hs.execute('/usr/local/bin/smerge "' .. path .. '"')
+        hs.application.open(sublimeMerge)
     end
 end
 
@@ -38,7 +40,7 @@ function OpenIn.inSublime()
     else
         path = currentTitle():match('~%S+')
 
-        if appIs(atom) then
+        if appIncludes({atom, vscode}) then
             md.Yank.relativeFilePath()
 
             hs.timer.doAfter(0.2, function()
@@ -66,6 +68,32 @@ function OpenIn.inAtom()
     end
 end
 
+function OpenIn.inCode()
+    if appIs(iterm) then
+        typeAndEnter('code .')
+    else
+        path = currentTitle():match('~%S+')
+
+        if appIs(atom) then
+            md.Yank.relativeFilePath()
+
+            hs.timer.doAfter(0.2, function()
+                filePath = hs.pasteboard.getContents()
+
+                if path and filePath then
+                    openInCode(path .. '/' .. filePath)
+                end
+            end)
+        end
+
+        if not path then
+           return;
+        end
+
+        openInCode(path)
+    end
+end
+
 function OpenIn.inChrome()
     text = getSelectedText()
     if not appIncludes({atom, sublime}) and text then
@@ -80,6 +108,11 @@ end
 
 function OpenIn.inTablePlus()
     customOpenInTablePlus()
+
+    hs.timer.doAfter(0.2, function()
+        md.WindowManager.moveTo('maximize')
+        md.Hyper.open()
+    end)
 end
 
 function OpenIn.inFinder()

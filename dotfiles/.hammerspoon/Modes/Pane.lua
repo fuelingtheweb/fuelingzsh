@@ -14,7 +14,7 @@ Pane.lookup = {
     k = 'focusNext',
     l = 'splitRight',
     semicolon = 'toggleZoom',
-    quote = nil,
+    quote = 'focusOtherSide',
     return_or_enter = nil,
     n = 'splitBottom',
     m = 'destroy',
@@ -27,10 +27,13 @@ Pane.lookup = {
 
 function Pane.destroy()
     if appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastSuperKeyStroke('p')
         fastKeyStroke('o')
         fastKeyStroke('d')
         fastKeyStroke('s')
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('p')
+        fastSuperKeyStroke('d')
     elseif appIs(iterm) then
         fastKeyStroke({'cmd'}, 'w')
     end
@@ -38,10 +41,13 @@ end
 
 function Pane.splitRight()
     if appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastSuperKeyStroke('p')
         fastKeyStroke('o')
         fastKeyStroke('c')
         fastKeyStroke('l')
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('p')
+        fastSuperKeyStroke('l')
     elseif appIs(iterm) then
         fastKeyStroke({'cmd'}, 'd')
     end
@@ -70,9 +76,12 @@ function Pane.focusPrevious()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         fastKeyStroke({'alt'}, 'up')
     elseif appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastSuperKeyStroke('p')
         fastKeyStroke('o')
         fastKeyStroke('h')
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('p')
+        fastSuperKeyStroke('k')
     elseif appIs(transmit) then
         fastKeyStroke({'alt', 'cmd'}, 'left')
     else
@@ -84,13 +93,23 @@ function Pane.focusNext()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         fastKeyStroke({'alt'}, 'down')
     elseif appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
+        fastSuperKeyStroke('p')
         fastKeyStroke('o')
         fastKeyStroke('l')
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('p')
+        fastSuperKeyStroke('j')
     elseif appIs(transmit) then
         fastKeyStroke({'alt', 'cmd'}, 'right')
     else
         fastKeyStroke({'cmd'}, ']')
+    end
+end
+
+function Pane.focusOtherSide()
+    if appIs(vscode) then
+        fastSuperKeyStroke('p')
+        fastSuperKeyStroke(';')
     end
 end
 

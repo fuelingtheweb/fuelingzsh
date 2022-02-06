@@ -23,41 +23,27 @@ Command.lookup = {
     x = 'cancelOrDelete',
     c = 'searchConflicts',
     v = 'duplicateLine',
-    b = nil,
-    spacebar = nil,
+    b = 'duplicateBlock',
+    spacebar = nil
 }
 
-function Command.searchGoogle()
-    spoon.Search.google()
-end
+function Command.searchGoogle() spoon.Search.google() end
 
-function Command.searchAmazon()
-    spoon.Search.amazon()
-end
+function Command.searchAmazon() spoon.Search.amazon() end
 
-function Command.searchConflicts()
-    spoon.Search.mergeConflicts()
-end
+function Command.searchConflicts() spoon.Search.mergeConflicts() end
 
-function Command.shiftTab()
-    fastKeyStroke({'shift'}, 'tab')
-end
+function Command.shiftTab() fastKeyStroke({'shift'}, 'tab') end
 
-function Command.quit()
-    fastKeyStroke({'cmd'}, 'q')
-end
+function Command.quit() fastKeyStroke({'cmd'}, 'q') end
 
 function Command.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function Command.selectAll()
-    fastKeyStroke({'cmd'}, 'a')
-end
+function Command.selectAll() fastKeyStroke({'cmd'}, 'a') end
 
-function Command.atomGitPalette()
-    fastKeyStroke({'shift', 'cmd'}, 'h')
-end
+function Command.atomGitPalette() fastKeyStroke({'shift', 'cmd'}, 'h') end
 
 function Command.duplicateLine()
     if inCodeEditor() then
@@ -67,8 +53,14 @@ function Command.duplicateLine()
     end
 end
 
+function Command.duplicateBlock()
+    if inCodeEditor() then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+    end
+end
+
 function Command.reload()
-    if appIs(atom) then
+    if appIncludes({atom, vscode}) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'r')
     elseif appIs(postman) then
         fastKeyStroke({'cmd'}, 'return')
@@ -81,9 +73,7 @@ function Command.reload()
     end
 end
 
-function Command.closeWindow()
-    closeWindow()
-end
+function Command.closeWindow() closeWindow() end
 
 function Command.find()
     if inCodeEditor() then
@@ -107,6 +97,9 @@ end
 function Command.done()
     if appIs(sublime) then
         -- Plain Tasks: Complete
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+    elseif appIs(vscode) then
+        -- Disconnect from server
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(transmit) then
         -- Disconnect from server
@@ -134,7 +127,7 @@ function Command.cancelOrDelete()
     text = getSelectedText()
     if appIs(sublime) and titleContains('.todo') then
         fastKeyStroke({'ctrl'}, 'c')
-    elseif appIncludes({atom, sublime}) then
+    elseif inCodeEditor() then
         fastKeyStroke({'shift', 'cmd'}, 'delete')
     elseif appIs(finder) and text == 'finderFileSelected' then
         fastKeyStroke({'cmd'}, 'delete')
@@ -142,7 +135,8 @@ function Command.cancelOrDelete()
         fastKeyStroke({'cmd'}, 'delete')
     elseif text then
         fastKeyStroke('delete')
-    elseif appIs(chrome) and stringContains('Fueling the Web Mail', currentTitle()) then
+    elseif appIs(chrome) and
+        stringContains('Fueling the Web Mail', currentTitle()) then
         fastKeyStroke({'shift'}, '3')
     elseif appIs(iterm) then
         fastKeyStroke({'ctrl'}, 'c')

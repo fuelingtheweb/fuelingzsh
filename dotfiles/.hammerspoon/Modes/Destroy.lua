@@ -20,7 +20,7 @@ Destroy.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = 'simpleDelete',
+    spacebar = 'simpleDelete'
 }
 
 function Destroy.withWrapperKey(key)
@@ -57,7 +57,13 @@ function Destroy.subword()
         fastKeyStroke('escape')
         fastKeyStroke('d')
         fastKeyStroke('i')
-        fastKeyStroke('q')
+
+        if appIs(vscode) then
+            fastKeyStroke('\\')
+            fastKeyStroke('w')
+        else
+            fastKeyStroke('q')
+        end
     end
 end
 
@@ -87,7 +93,13 @@ end
 function Destroy.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke('escape')
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+
+        if appIs(vscode) then
+            md.SelectUntil.beginningOfLine()
+        else
+            fastKeyStroke({'shift', 'cmd'}, 'left')
+        end
+
         fastKeyStroke('d')
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
@@ -122,26 +134,19 @@ Destroy.key = nil
 Modal.add({
     key = 'Destroy',
     title = function()
-        return 'Destroy: ' .. (Destroy.direction or '') .. ' ' .. (Destroy.key or '')
+        return 'Destroy: ' .. (Destroy.direction or '') .. ' ' ..
+                   (Destroy.key or '')
     end,
-    items = {
-        [','] = 'backward',
-        [';'] = 'forward',
-        ['v'] = 'line',
-    },
-    callback = function(action)
-        Destroy.actions[action]()
-    end,
+    items = {[','] = 'backward', [';'] = 'forward', ['v'] = 'line'},
+    callback = function(action) Destroy.actions[action]() end,
     exited = function()
         Destroy.direction = nil
         Destroy.key = nil
-    end,
+    end
 })
 
 function Destroy.triggerDirectionIfSet()
-    if not Destroy.direction then
-        return
-    end
+    if not Destroy.direction then return end
 
     if Destroy.direction == 'F' then
         action = 'forward'
@@ -165,9 +170,7 @@ Destroy.actions = {
 
         Destroy.enterModal('B', Destroy.key)
 
-        if not Destroy.key then
-            return
-        end
+        if not Destroy.key then return end
 
         if inCodeEditor() then
             Destroy.keymap[Destroy.key]()
@@ -182,40 +185,30 @@ Destroy.actions = {
 
         Destroy.enterModal('F', Destroy.key)
 
-        if not Destroy.key then
-            return
-        end
+        if not Destroy.key then return end
 
-        if inCodeEditor() then
-            Destroy.keymap[Destroy.key]()
-        end
+        if inCodeEditor() then Destroy.keymap[Destroy.key]() end
     end,
 
     line = function()
         Destroy.enterModal(Destroy.direction, "v")
 
         Destroy.triggerDirectionIfSet()
-    end,
+    end
 }
 
 Destroy.keymap = {
     ['v'] = function()
         fastKeyStroke('d')
         fastKeyStroke('d')
-    end,
+    end
 }
 
-function Destroy.modeForward()
-    Destroy.enterModal('F')
-end
+function Destroy.modeForward() Destroy.enterModal('F') end
 
-function Destroy.mode()
-    Destroy.enterModal()
-end
+function Destroy.mode() Destroy.enterModal() end
 
-function Destroy.modeBackward()
-    Destroy.enterModal('B')
-end
+function Destroy.modeBackward() Destroy.enterModal('B') end
 
 function Destroy.untilForward()
     fastKeyStroke('escape')

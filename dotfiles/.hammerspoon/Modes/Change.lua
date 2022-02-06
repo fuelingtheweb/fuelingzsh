@@ -20,7 +20,7 @@ Change.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = 'outer',
+    spacebar = 'outer'
 }
 
 function Change.disableVim()
@@ -35,9 +35,7 @@ function Change.withWrapperKey(key)
     fastKeyStroke('i')
     fastKeyStroke(keystroke.mods, keystroke.key)
 
-    if not hasValue({'s', 'd', 't'}, key) then
-        BracketMatching.start()
-    end
+    if not hasValue({'s', 'd', 't'}, key) then BracketMatching.start() end
 end
 
 function Change.toEndOfWord()
@@ -56,7 +54,13 @@ function Change.subword()
         fastKeyStroke('escape')
         fastKeyStroke('c')
         fastKeyStroke('i')
-        fastKeyStroke('q')
+
+        if appIs(vscode) then
+            fastKeyStroke('\\')
+            fastKeyStroke('w')
+        else
+            fastKeyStroke('q')
+        end
     end
 end
 
@@ -113,18 +117,18 @@ end
 function Change.character()
     if TextManipulation.canManipulateWithVim() then
         fastKeyStroke({'ctrl', 'alt'}, 'a')
+
+        if appIs(vscode) then
+            fastKeyStroke('right')
+        end
     end
 
     fastKeyStroke('delete')
 end
 
-function Change.below()
-    fastKeyStroke('o')
-end
+function Change.below() fastKeyStroke('o') end
 
-function Change.above()
-    fastKeyStroke({'shift'}, 'o')
-end
+function Change.above() fastKeyStroke({'shift'}, 'o') end
 
 function Change.untilForward()
     fastKeyStroke('escape')
@@ -138,9 +142,7 @@ function Change.untilBackward()
     fastKeyStroke({'shift'}, 't')
 end
 
-function Change.outer()
-    Modal.enter('ChangeOuter')
-end
+function Change.outer() Modal.enter('ChangeOuter') end
 
 Modal.add({
     key = 'ChangeOuter',
@@ -159,7 +161,7 @@ Modal.add({
         if not hasValue({'s', 'd', 't'}, key) then
             BracketMatching.start()
         end
-    end,
+    end
 })
 
 return Change

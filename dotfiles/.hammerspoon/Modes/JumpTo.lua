@@ -18,7 +18,7 @@ JumpTo.lookup = {
     z = 'backTick',
     x = nil,
     c = 'braces',
-    v = nil,
+    v = 'nextBlock',
     b = 'brackets',
     spacebar = nil,
 }
@@ -62,6 +62,8 @@ function JumpTo.triggerDirectionIfSet()
     if not JumpTo.direction then
         return
     end
+
+    local action;
 
     if JumpTo.direction == 'F' then
         action = 'forward'
@@ -258,7 +260,7 @@ end
 
 function JumpTo.braces()
     JumpTo.enterModal('F')
-    JumpTo.actions.braces(true)
+    JumpTo.actions.braces()
 end
 
 function JumpTo.brackets()
@@ -271,6 +273,14 @@ function JumpTo.previousBlock()
         fastKeyStroke({'shift'}, '[')
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
+    end
+end
+
+function JumpTo.nextBlock()
+    if TextManipulation.canManipulateWithVim() then
+        fastKeyStroke({'shift'}, ']')
+    else
+        fastKeyStroke({'shift', 'cmd'}, 'right')
     end
 end
 

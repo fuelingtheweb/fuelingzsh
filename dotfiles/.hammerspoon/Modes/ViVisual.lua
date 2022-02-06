@@ -27,12 +27,24 @@ ViVisual.lookup = {
 
 function ViVisual.selectToPreviousSubword()
     md.SelectUntil.beginSelectingBackward()
-    fastKeyStroke({'shift'}, 'q')
+    
+    if appIs(vscode) then
+        fastKeyStroke('\\')
+        fastKeyStroke('b')
+    else
+        fastKeyStroke({'shift'}, 'q')
+    end
 end
 
 function ViVisual.selectToNextSubword()
     md.SelectUntil.beginSelectingForward()
-    fastKeyStroke('q')
+
+    if appIs(vscode) then
+        fastKeyStroke('\\')
+        fastKeyStroke('e')
+    else
+        fastKeyStroke('q')
+    end
 end
 
 function ViVisual.selectToPreviousWholeWord()
@@ -48,11 +60,19 @@ end
 function ViVisual.selectToNextWholeWord()
     md.SelectUntil.beginSelectingForward()
     fastKeyStroke({'shift'}, 'w')
+
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke('h')
+    end
 end
 
 function ViVisual.selectToTopOfPage()
     if appIs(finder) then
         fastKeyStroke({'shift', 'alt'}, 'up')
+    elseif appIs(vscode) and TextManipulation.vimEnabled then
+        md.SelectUntil.beginSelectingForward()
+        fastKeyStroke('g')
+        fastKeyStroke('g')
     else
         fastKeyStroke({'shift', 'cmd'}, 'up')
     end
@@ -63,29 +83,55 @@ function ViVisual.selectToFirstCharacterOfLine()
 end
 
 function ViVisual.selectToEndOfLine()
-    fastKeyStroke({'shift', 'cmd'}, 'right')
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke({'shift'}, '4')
+        fastKeyStroke('left')
+    else
+        fastKeyStroke({'shift', 'cmd'}, 'right')
+    end
 end
 
 function ViVisual.selectToBottomOfPage()
     if appIs(finder) then
         fastKeyStroke({'shift', 'alt'}, 'down')
+    elseif appIs(vscode) and TextManipulation.vimEnabled then
+        md.SelectUntil.beginSelectingForward()
+        fastKeyStroke({'shift'}, 'g')
     else
         fastKeyStroke({'shift', 'cmd'}, 'down')
     end
 end
 
 function ViVisual.selectLineUp()
-    fastKeyStroke({'shift'}, 'v')
-    fastKeyStroke('up')
+    if TextManipulation.vimEnabled then
+        fastKeyStroke({'shift'}, 'v')
+    end
+
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke('k')
+    else
+        fastKeyStroke('up')
+    end
 end
 
 function ViVisual.selectLineDown()
-    fastKeyStroke({'shift'}, 'v')
-    fastKeyStroke('down')
+    if TextManipulation.vimEnabled then
+        fastKeyStroke({'shift'}, 'v')
+    end
+    
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke('j')
+    else
+        fastKeyStroke('down')
+    end
 end
 
 function ViVisual.selectLeft()
-    if inCodeEditor() then
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke('left')
+    elseif inCodeEditor() and TextManipulation.vimEnabled then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('left')
     else
@@ -94,19 +140,42 @@ function ViVisual.selectLeft()
 end
 
 function ViVisual.selectDown()
-    fastKeyStroke({'shift'}, 'down')
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke({'ctrl'}, 'down')
+    else
+        fastKeyStroke({'shift'}, 'down')
+
+        if inCodeEditor() then
+            fastKeyStroke({'shift'}, 'left')
+        end
+    end
 end
 
 function ViVisual.selectUp()
-    fastKeyStroke({'shift'}, 'up')
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke({'ctrl'}, 'up')
+    else
+        fastKeyStroke({'shift'}, 'up')
+    end
 end
 
 function ViVisual.selectRight()
-    fastKeyStroke({'shift'}, 'right')
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke('right')
+    else
+        fastKeyStroke({'shift'}, 'right')
+    end
 end
 
 function ViVisual.selectPreviousWord()
-    if inCodeEditor() then
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke('b')
+        return
+    elseif inCodeEditor() and TextManipulation.vimEnabled then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
         fastKeyStroke('left')
     end
@@ -115,7 +184,13 @@ function ViVisual.selectPreviousWord()
 end
 
 function ViVisual.selectNextWord()
-    fastKeyStroke({'shift', 'alt'}, 'right')
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        fastKeyStroke({'ctrl'}, 'v')
+        fastKeyStroke('e')
+        return
+    else
+        fastKeyStroke({'shift', 'alt'}, 'right')
+    end
 end
 
 return ViVisual

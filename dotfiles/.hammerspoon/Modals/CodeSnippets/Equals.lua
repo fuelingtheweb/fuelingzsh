@@ -7,31 +7,31 @@ Modal.add({
     items = {
         -- numbers
         -- tab, qwer
-        t = {method = 'thisSnippet'},
+        t = {name = ' = $this->', method = 'thisSnippet'},
         -- yu
-        i = {method = 'simpleSingleQuote'},
-        o = {method = 'simpleDoubleQuote'},
-        p = {method = 'paste'},
+        i = {name = "=''", method = 'simpleSingleQuote'},
+        o = {name = '=""', method = 'simpleDoubleQuote'},
+        p = {name = ' = :clipboard', method = 'paste'},
         -- []\
         -- caps, a
-        s = {bracket = 'singleQuote'},
-        d = {bracket = 'doubleQuote'},
-        f = {bracket = 'parenthesis'},
+        s = {name = " = ''", bracket = 'singleQuote'},
+        d = {name = ' = ""', bracket = 'doubleQuote'},
+        f = {name = ' = ()', bracket = 'parenthesis'},
         -- gh
-        k = {text = ' = $'},
-        l = {text = ' === '},
-        [';'] = {text = ' == '},
-        ["'"] = {method = 'equals'},
+        k = {name = ' = $', text = ' = $'},
+        l = {name = ' === ', text = ' === '},
+        [';'] = {name = ' == ', text = ' == '},
+        ["'"] = {name = ' = ', method = 'equals'},
         -- return, left shift
-        z = {bracket = 'backTick'},
+        z = {name = ' = ``', bracket = 'backTick'},
         -- x
-        c = {bracket = 'braces'},
+        c = {name = ' = {}', bracket = 'braces'},
         -- v
-        b = {bracket = 'brackets'},
-        n = {method = 'strictNotEquals'},
-        m = {method = 'simpleNotEquals'},
+        b = {name = ' = []', bracket = 'brackets'},
+        n = {name = ' ~== ', method = 'strictNotEquals'},
+        m = {name = ' ~= ', method = 'simpleNotEquals'},
         -- ,
-        ['.'] = {method = 'callFunction'},
+        ['.'] = {name = ' = :function', method = 'callFunction'},
         -- /, right shift, space
     },
     callback = function(item)
@@ -44,12 +44,17 @@ Modal.add({
             BracketMatching.print(item.bracket)
         elseif item.text then
             insertText(item.text)
+
+            if hasValue({' === ', ' == '}, item.text) then
+                BracketMatching.start()
+            end
         end
     end,
 })
 
 function mdl.equals()
     insertText(' = ')
+    BracketMatching.start()
 end
 
 function mdl.thisSnippet()
@@ -65,11 +70,14 @@ end
 function mdl.simpleDoubleQuote()
     insertText('=""')
     fastKeyStroke('left');
+    BracketMatching.start()
 end
 
 function mdl.paste()
     mdl.equals()
-    fastKeyStroke({'cmd'}, 'v');
+    hs.timer.doAfter(0.1, function()
+        fastKeyStroke({'cmd'}, 'v');
+    end)
 end
 
 function mdl.simpleNotEquals()
@@ -77,6 +85,7 @@ function mdl.simpleNotEquals()
         insertText(' ~= ')
     else
         insertText(' != ')
+        BracketMatching.start()
     end
 end
 
@@ -85,6 +94,7 @@ function mdl.strictNotEquals()
         insertText(' ~== ')
     else
         insertText(' !== ')
+        BracketMatching.start()
     end
 end
 

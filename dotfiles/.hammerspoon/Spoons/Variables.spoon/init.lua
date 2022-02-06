@@ -18,6 +18,7 @@ teams = 'com.microsoft.teams'
 transmit = 'com.panic.Transmit'
 invoker = 'de.beyondco.invoker'
 slack = 'com.tinyspeck.slackmacgap'
+vscode = 'com.microsoft.VSCode'
 apps['atom'] = atom
 apps['chrome'] = chrome
 apps['finder'] = finder
@@ -27,6 +28,7 @@ apps['slack'] = slack
 apps['discord'] = discord
 apps['tableplus'] = tableplus
 apps['sublimeMerge'] = sublimeMerge
+apps['vscode'] = vscode
 
 ultrawide = 'LG ULTRAWIDE'
 macbookScreen = 'Color LCD'

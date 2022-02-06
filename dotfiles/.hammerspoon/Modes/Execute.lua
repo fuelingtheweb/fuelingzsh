@@ -38,7 +38,7 @@ function Execute.goToDefinition()
 end
 
 function Execute.openLink()
-    if appIs(sublime) then
+    if appIncludes({sublime, vscode}) then
         fastKeyStroke({'alt', 'cmd'}, 'return')
     end
 end

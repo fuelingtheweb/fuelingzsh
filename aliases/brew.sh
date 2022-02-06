@@ -10,3 +10,5 @@ alias bf='brew search'
 alias bod='brew outdated'
 
 alias bri='brew reinstall'
+alias bca='brew install --cask'
+alias bcrm='brew uninstall --cask'

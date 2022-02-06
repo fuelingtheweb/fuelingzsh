@@ -20,7 +20,7 @@ Yank.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil,
+    spacebar = nil
 }
 
 function Yank.word()
@@ -58,9 +58,7 @@ function Yank.toEndOfWord()
 end
 
 function Yank.relativeFilePath()
-    if inCodeEditor() then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'y')
-    end
+    if inCodeEditor() then fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'y') end
 end
 
 function Yank.subword()
@@ -68,7 +66,13 @@ function Yank.subword()
         fastKeyStroke('escape')
         fastKeyStroke('y')
         fastKeyStroke('i')
-        fastKeyStroke('q')
+
+        if appIs(vscode) then
+            fastKeyStroke('\\')
+            fastKeyStroke('w')
+        else
+            fastKeyStroke('q')
+        end
     end
 end
 
@@ -92,7 +96,7 @@ function Yank.toBeginningOfLine()
         fastKeyStroke('y')
     else
         fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke({'cmd'}, 'c')
+        keyStroke({'cmd'}, 'c')
         fastKeyStroke('right')
     end
 end
@@ -147,14 +151,18 @@ function Yank.untilBackward()
 end
 
 function Yank.all()
-    fastKeyStroke({'cmd'}, 'a')
-    fastKeyStroke({'cmd'}, 'c')
-
+    
     if inCodeEditor() then
+        fastKeyStroke({'cmd'}, 'a')
+        fastKeyStroke({'cmd'}, 'c')
+
         fastKeyStroke('escape')
         fastKeyStroke('g')
         fastKeyStroke('g')
     else
+        fastKeyStroke({'cmd'}, 'a')
+        keyStroke({'cmd'}, 'c')
+
         fastKeyStroke('right')
     end
 end

@@ -30,33 +30,23 @@ function Test.before()
 end
 
 function Test.class()
-    if appIs(atom) then
-        fastKeyStroke({'alt', 'cmd'}, 't')
-    end
+    fastKeyStroke({'alt', 'cmd'}, 't')
 end
 
 function Test.all()
-    if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
-    end
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
 end
 
 function Test.last()
-    if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt'}, 'r')
-    end
+    fastKeyStroke({'ctrl', 'alt'}, 'r')
 end
 
 function Test.method()
-    if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt'}, 't')
-    end
+    fastKeyStroke({'ctrl', 'alt'}, 't')
 end
 
 function Test.hideOutput()
-    if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, ']')
-    end
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, ']')
 end
 
 return Test

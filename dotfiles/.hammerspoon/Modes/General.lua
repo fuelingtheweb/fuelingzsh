@@ -21,7 +21,7 @@ General.lookup = {
     comma = '%',
     period = 'methodChain',
     slash = '~',
-    right_shift = nil,
+    right_shift = '^',
     spacebar = nil,
 }
 
@@ -43,7 +43,7 @@ end
 
 function General.methodChain()
     insertText('->')
-    Modal.enter('CodeSnippets:callFunction')
+    -- Modal.enter('CodeSnippets:callFunction')
 end
 
 function General.fallback(value)

@@ -26,10 +26,10 @@ Modal.add({
         Modal.exit()
 
         if item.method == 'primary' then
-            if appIs(atom) and titleContains('Test.php') then
+            if appIncludes({atom, vscode}) and titleContains('Test.php') then
                 md.CodeSnippets.snippet('method-test')
                 md.CaseDialog.handle('k')
-            elseif appIncludes({atom, sublime}) then
+            elseif inCodeEditor() then
                 md.CodeSnippets.snippet('method')
                 md.CaseDialog.handle('m')
             end
@@ -38,6 +38,7 @@ Modal.add({
         end
 
         md.CodeSnippets.snippet('method-' .. item.method)
+        md.CaseDialog.handle('m')
     end,
 })
 

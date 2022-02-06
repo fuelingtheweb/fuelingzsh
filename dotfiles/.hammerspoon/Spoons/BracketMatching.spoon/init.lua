@@ -91,19 +91,21 @@ function BracketMatching.print(bracket)
         Modal.exit()
     end
 
-    if text and inCodeEditor() then
-        fastKeyStroke({'shift'}, 'delete')
-        fastKeyStroke({'shift', 'cmd'}, 'i')
+    if text then
+        if appIs(vscode) then
+            fastKeyStroke({'shift', 'alt', 'cmd'}, 'delete')
+        elseif inCodeEditor() then
+            fastKeyStroke({'shift'}, 'delete')
+            fastKeyStroke({'shift', 'cmd'}, 'i')
+        end
     end
-
-    insertText(brackets[1])
 
     if text then
         BracketMatching.dismiss()
-        insertText(text)
     end
 
-    insertText(brackets[2])
+    insertText(brackets[1] .. (text or '') .. brackets[2])
+
     fastKeyStroke('left')
 end
 
@@ -118,24 +120,34 @@ function BracketMatching.commitOrDismiss()
 
     local text = getSelectedText()
 
-    if text and inCodeEditor() then
-        fastKeyStroke({'shift'}, 'delete')
-        fastKeyStroke({'shift', 'cmd'}, 'i')
+    if text then
+        if appIs(vscode) then
+            fastKeyStroke({'shift', 'alt', 'cmd'}, 'delete')
+            fastKeyStroke('escape')
+            fastKeyStroke({'ctrl', 'alt'}, 'a')
+        elseif inCodeEditor() then
+            fastKeyStroke({'shift'}, 'delete')
+            fastKeyStroke({'shift', 'cmd'}, 'i')
+        end
     end
+
+    local result = ''
 
     each(BracketMatching.brackets, function(bracket)
         local brackets = BracketMatching.lookup[bracket]
-        insertText(brackets[1])
+        result = result .. brackets[1]
     end)
 
     if text then
-        insertText(text)
+        result = result .. text
     end
 
     for i = #BracketMatching.brackets, 1, -1 do
         local brackets = BracketMatching.lookup[BracketMatching.brackets[i]]
-        insertText(brackets[2])
+        result = result .. brackets[2]
     end
+
+    insertText(result)
 
     BracketMatching.dismiss()
 end
@@ -186,7 +198,7 @@ function BracketMatching.continueChain()
     Modal.exit()
     fastKeyStroke('right');
     insertText('->')
-    Modal.enter('CodeSnippets:callFunction')
+    -- Modal.enter('CodeSnippets:callFunction')
 end
 
 function BracketMatching.insertVariable()

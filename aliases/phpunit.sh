@@ -8,13 +8,15 @@ alias xde='xdebug:enable'
 t() {
     clear
     if [ -f artisan ]; then
-        php artisan test --parallel --stop-on-failure
+        php artisan test --parallel --stop-on-failure "$@"
     elif [ -f vendor/bin/phpunit ]; then
         vendor/bin/phpunit --stop-on-failure "$@"
     else
         phpunit --stop-on-failure "$@"
     fi
 }
+
+alias tv='vendor/bin/phpunit --stop-on-failure'
 
 alias tp='t --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer'
 alias td='t --testdox'
@@ -23,6 +25,7 @@ alias tf='t --filter'
 alias tpf='tp --filter'
 alias tdf='td --filter'
 
+alias tge='t --exclude-group'
 alias tg='t --group'
 alias tpg='tp --group'
 alias tdg='td --group'

@@ -22,29 +22,20 @@ ExtendedCommand.lookup = {
     c = 'screenshotToClipboard',
     v = 'toggleDockVisibility',
     b = 'showBartender',
-    spacebar = 'newWindowOrFolder',
+    spacebar = 'newWindowOrFolder'
 }
 
-function ExtendedCommand.searchFiles()
-    spoon.Search.files()
-end
+function ExtendedCommand.searchFiles() spoon.Search.files() end
 
-function ExtendedCommand.sleep()
-    triggerAlfredSearch('sleep')
-end
+function ExtendedCommand.sleep() triggerAlfredSearch('sleep') end
 
-function ExtendedCommand.actionFileInAlfred()
-    fastKeyStroke({'alt', 'cmd'}, '\\')
-end
+function ExtendedCommand.actionFileInAlfred() fastKeyStroke({'alt', 'cmd'}, '\\') end
 
 function ExtendedCommand.screenshotToFilesystem()
     fastKeyStroke({'shift', 'cmd'}, '4')
 end
 
-function ExtendedCommand.revealInSidebar()
-    -- Atom: Reveal active file in tree view
-    fastKeyStroke({'shift', 'cmd'}, '\\')
-end
+function ExtendedCommand.revealInSidebar() fastKeyStroke({'shift', 'cmd'}, '\\') end
 
 function ExtendedCommand.toggleDockVisibility()
     fastKeyStroke({'alt', 'cmd'}, 'd')
@@ -58,13 +49,11 @@ function ExtendedCommand.showBartender()
     fastKeyStroke({'shift', 'ctrl', 'cmd'}, 'b')
 end
 
-function ExtendedCommand.newWindowOrFolder()
-    fastKeyStroke({'shift', 'cmd'}, 'n')
-end
+function ExtendedCommand.newWindowOrFolder() fastKeyStroke({'shift', 'cmd'}, 'n') end
 
 function ExtendedCommand.dismissNotifications()
     app = hs.application.frontmostApplication()
-    each({1,2,3}, function ()
+    each({1, 2, 3}, function()
         hs.osascript.applescript([[
             activate application "NotificationCenter"
             tell application "System Events"
@@ -95,6 +84,7 @@ function ExtendedCommand.duplicate()
         insertText('yt')
     elseif inCodeEditor() then
         fastKeyStroke({'shift', 'alt', 'cmd'}, 'd')
+        TextManipulation.disableVim()
     end
 end
 
@@ -108,9 +98,7 @@ function ExtendedCommand.closeAllWindows()
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then
-                app:hide()
-            end
+            if next(app:visibleWindows()) == nil then app:hide() end
         end)
     end
 end
@@ -135,7 +123,9 @@ function ExtendedCommand.saveAndReload()
 end
 
 function ExtendedCommand.jumpTo()
-    if appIs(atom) then
+    if appIs(vscode) then
+        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'return')
+    elseif appIs(atom) then
         fastKeyStroke({'shift'}, 'return')
     elseif appIs(sublime) then
         fastKeyStroke({'shift', 'cmd'}, '.')

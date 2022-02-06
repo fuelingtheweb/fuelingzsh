@@ -13,11 +13,12 @@ CodeSnippets.lookup = {
     t = 'this',
     d = 'dd',
 
-    y = nil,
+    y = 'conditionalAnd',
     u = 'extraSnippetsModal',
     i = 'snippet-if',
-    o = nil,
-    p = 'snippet-property',
+    o = 'concatenate',
+    p = 'conditionalOr',
+    -- p = 'snippet-property',
     open_bracket = 'echo',
     close_bracket = nil,
     h = nil,
@@ -26,14 +27,14 @@ CodeSnippets.lookup = {
     l = 'snippet-log',
     semicolon = 'insertColon',
     quote = 'equals',
-    return_or_enter = nil,
+    return_or_enter = 'typeReturn',
     n = 'functionSnippet',
     m = 'method',
     comma = 'insertComma',
     period = 'callFunction',
     slash = 'insertQuestion',
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
 function CodeSnippets.handle(key)
@@ -65,23 +66,32 @@ function CodeSnippets.fallback(value)
 end
 
 function CodeSnippets.snippet(name)
-    if appIs(sublime) then
+    local original = hs.pasteboard.getContents()
+    hs.pasteboard.setContents('snippet-' .. name)
+
+    if appIs(vscode) then
+        fastKeyStroke({'ctrl', 'cmd'}, 's')
+        fastKeyStroke({'cmd'}, 'v')
+        keyStroke('return')
+
+        if hasValue({'if'}, name) then
+            BracketMatching.start()
+        end
+    elseif appIs(sublime) then
         typeAndTab('snippet-' .. name)
     else
         typeAndEnter('snippet-' .. name)
     end
+
+    hs.pasteboard.setContents(original)
 end
 
-function CodeSnippets.method()
-    Modal.enter('CodeSnippets:method')
-end
+function CodeSnippets.method() Modal.enter('CodeSnippets:method') end
 
-function CodeSnippets.functionSnippet()
-    Modal.enter('CodeSnippets:function')
-end
+function CodeSnippets.functionSnippet() Modal.enter('CodeSnippets:function') end
 
 function CodeSnippets.this()
-    if appIs(atom) then
+    if appIncludes({atom, vscode}) then
         keyStroke({'shift', 'ctrl'}, 'c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then
@@ -89,10 +99,7 @@ function CodeSnippets.this()
         end
     end
 
-    if appIncludes({atom, sublime}) then
-        CodeSnippets.snippet('this')
-        Modal.enter('CodeSnippets:callFunction')
-    end
+    if appIncludes({atom, sublime, vscode}) then CodeSnippets.snippet('this') end
 end
 
 function CodeSnippets.dd()
@@ -105,9 +112,7 @@ function CodeSnippets.echo()
     BracketMatching.start()
 end
 
-function CodeSnippets.equals()
-    Modal.enter('CodeSnippets:equals')
-end
+function CodeSnippets.equals() Modal.enter('CodeSnippets:equals') end
 
 function CodeSnippets.insertColon()
     insertText(' : ')
@@ -132,14 +137,10 @@ function CodeSnippets.extraSnippetsModal()
     Modal.enter('CodeSnippets:extraSnippets')
 end
 
-function CodeSnippets.callFunction()
-    Modal.enter('CodeSnippets:callFunction')
-end
+function CodeSnippets.callFunction() Modal.enter('CodeSnippets:callFunction') end
 
 function CodeSnippets.handleCallFunction(item)
-    if item.extra ~= 'start' then
-        Modal.exit()
-    end
+    if item.extra ~= 'start' then Modal.exit() end
 
     if item.method == 'static' then
         insertText('::')
@@ -148,9 +149,7 @@ function CodeSnippets.handleCallFunction(item)
         return
     end
 
-    if item.extra then
-        return CodeSnippets.printFunction(item)
-    end
+    if item.extra then return CodeSnippets.printFunction(item) end
 
     CodeSnippets.printFunction(item)
     -- CodeSnippets.printFunction(item, getSelectedText())
@@ -164,9 +163,7 @@ function CodeSnippets.printFunction(item, text)
 
     insertText(item.method);
 
-    if item.extra ~= 'start' then
-        insertText('(')
-    end
+    if item.extra ~= 'start' then insertText('(') end
 
     if item.extra == 'query' then
         insertText('function ($query) { $query-> }')
@@ -181,16 +178,47 @@ function CodeSnippets.printFunction(item, text)
         insertText(text)
     end
 
-    if item.extra == 'start' then
-        return
-    end
+    if item.extra == 'start' then return end
 
     insertText(')')
     fastKeyStroke('left')
 
-    if item.extra ~= 'simple' then
-        BracketMatching.start()
+    if item.extra ~= 'simple' then BracketMatching.start() end
+end
+
+function CodeSnippets.conditionalAnd()
+    if titleContains('.lua') then
+        insertText(' and ')
+    else
+        insertText(' && ')
     end
 end
+
+function CodeSnippets.conditionalOr()
+    handleConditional(titleContains, insertText, {
+        {condition = '.lua', value = ' or '},
+        {condition = 'fallback', value = ' || '} -- ['.lua'] = ' or ',
+        -- ['fallback'] = ' || ',
+    })
+    -- if titleContains('.lua') then
+    --     insertText(' or ')
+    -- else
+    --     insertText(' || ')
+    -- end
+end
+
+function CodeSnippets.concatenate()
+    if titleContains('.php') then
+        insertText(' . ')
+    elseif titleContains('.lua') then
+        insertText(' .. ')
+    elseif titleContains('.js') then
+        insertText(' + ')
+    end
+
+    BracketMatching.start()
+end
+
+function CodeSnippets.typeReturn() insertText('return') end
 
 return CodeSnippets

@@ -7,10 +7,10 @@ loadModal('OpenIn')
 
 Open.lookup = {
     tab = nil,
-    q = nil,
+    r = 'vscode',
     w = 'openInModal',
     e = 'sublime',
-    r = 'atom',
+    q = 'spotify',
     t = 'iterm',
     caps_lock = 'windowHints',
     a = 'openAppModal',
@@ -34,6 +34,7 @@ Modal.add({
         -- q
         w = {name = 'Tinkerwell', app = 'de.beyondco.tinkerwell'},
         -- e
+        e = {name = 'Atom', app = 'Atom.app'},
         r = {name = 'Ray', app = 'Ray.app'},
         t = {name = 'Transmit', app = 'Transmit.app'},
         -- yu

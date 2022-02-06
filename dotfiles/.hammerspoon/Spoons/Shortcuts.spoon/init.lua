@@ -8,6 +8,7 @@ Shortcuts.appFunctionMapping = {
     iterm = 'typeAndEnter',
     atom = 'triggerInAtom',
     sublime = 'triggerInAtom',
+    vscode = 'triggerInCode',
     chrome = '',
     {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'},
 }

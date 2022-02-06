@@ -22,18 +22,12 @@ Vi.lookup = {
     period = 'nextWord',
     slash = 'moveToPreviousSubword',
     right_shift = 'moveToNextSubword',
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Vi.moveToPreviousSubword()
-    fastKeyStroke('escape')
-    fastKeyStroke({'shift'}, 'q')
-end
+function Vi.moveToPreviousSubword() fastKeyStroke({'shift'}, 'q') end
 
-function Vi.moveToNextSubword()
-    fastKeyStroke('escape')
-    fastKeyStroke('q')
-end
+function Vi.moveToNextSubword() fastKeyStroke('q') end
 
 function Vi.moveToPreviousWholeWord()
     fastKeyStroke('escape')
@@ -58,9 +52,7 @@ function Vi.moveToTopOfPage()
     end
 end
 
-function Vi.moveToFirstCharacterOfLine()
-    fastKeyStroke({'cmd'}, 'left')
-end
+function Vi.moveToFirstCharacterOfLine() fastKeyStroke({'cmd'}, 'left') end
 
 function Vi.moveToEndOfLine()
     if appIs(atom) then
@@ -73,7 +65,7 @@ end
 function Vi.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'i')
-    elseif appIs(sublime) then
+    elseif appIncludes({sublime, vscode}) then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'i')
     else
@@ -84,7 +76,7 @@ end
 function Vi.moveAndAppendAtEndOfLine()
     if appIs(atom) then
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'o')
-    elseif appIs(sublime) then
+    elseif appIncludes({sublime, vscode}) then
         fastKeyStroke('escape')
         fastKeyStroke({'shift'}, 'a')
     else
@@ -100,36 +92,20 @@ function Vi.moveToBottomOfPage()
     end
 end
 
-function Vi.pageUp()
-    fastKeyStroke('pageup')
-end
+function Vi.pageUp() fastKeyStroke('pageup') end
 
-function Vi.left()
-    fastKeyStroke('left')
-end
+function Vi.left() fastKeyStroke('left') end
 
-function Vi.down()
-    fastKeyStroke('down')
-end
+function Vi.down() fastKeyStroke('down') end
 
-function Vi.up()
-    fastKeyStroke('up')
-end
+function Vi.up() fastKeyStroke('up') end
 
-function Vi.right()
-    fastKeyStroke('right')
-end
+function Vi.right() fastKeyStroke('right') end
 
-function Vi.pageDown()
-    fastKeyStroke('pagedown')
-end
+function Vi.pageDown() fastKeyStroke('pagedown') end
 
-function Vi.previousWord()
-    fastKeyStroke({'alt'}, 'left')
-end
+function Vi.previousWord() fastKeyStroke({'alt'}, 'left') end
 
-function Vi.nextWord()
-    fastKeyStroke({'alt'}, 'right')
-end
+function Vi.nextWord() fastKeyStroke({'alt'}, 'right') end
 
 return Vi
