@@ -22,7 +22,7 @@ Pane.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
 function Pane.destroy()
@@ -84,6 +84,8 @@ function Pane.focusPrevious()
         fastSuperKeyStroke('k')
     elseif appIs(transmit) then
         fastKeyStroke({'alt', 'cmd'}, 'left')
+    elseif appIs(tableplus) then
+        fastKeyStroke({'alt', 'cmd'}, '[')
     else
         fastKeyStroke({'cmd'}, '[')
     end
@@ -101,6 +103,8 @@ function Pane.focusNext()
         fastSuperKeyStroke('j')
     elseif appIs(transmit) then
         fastKeyStroke({'alt', 'cmd'}, 'right')
+    elseif appIs(tableplus) then
+        fastKeyStroke({'alt', 'cmd'}, ']')
     else
         fastKeyStroke({'cmd'}, ']')
     end

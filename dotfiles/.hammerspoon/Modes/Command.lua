@@ -16,22 +16,16 @@ Command.lookup = {
     -- s = {'save', 'saveAndReload'},
     d = 'done',
     f = 'find',
-    g = 'searchGoogle',
+    g = nil,
     -- g = 'atomGitPalette',
     left_shift = nil,
-    z = 'searchAmazon',
+    z = nil,
     x = 'cancelOrDelete',
-    c = 'searchConflicts',
+    c = nil,
     v = 'duplicateLine',
     b = 'duplicateBlock',
     spacebar = nil
 }
-
-function Command.searchGoogle() spoon.Search.google() end
-
-function Command.searchAmazon() spoon.Search.amazon() end
-
-function Command.searchConflicts() spoon.Search.mergeConflicts() end
 
 function Command.shiftTab() fastKeyStroke({'shift'}, 'tab') end
 
@@ -54,9 +48,7 @@ function Command.duplicateLine()
 end
 
 function Command.duplicateBlock()
-    if inCodeEditor() then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
-    end
+    if inCodeEditor() then fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd') end
 end
 
 function Command.reload()
@@ -99,7 +91,6 @@ function Command.done()
         -- Plain Tasks: Complete
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(vscode) then
-        -- Disconnect from server
         fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
     elseif appIs(transmit) then
         -- Disconnect from server
@@ -119,6 +110,7 @@ function Command.save()
         fastKeyStroke('x')
         fastKeyStroke('return')
     else
+        log.d('Saving with cmd+s...')
         fastKeyStroke({'cmd'}, 's')
     end
 end

@@ -16,8 +16,8 @@ WindowManager.lookup = {
     g = 'showGrid',
     left_shift = nil,
     z = 'toggleAudioAndVideo',
-    x = nil,
-    c = nil,
+    x = 'focusSidebarFileExplorer',
+    c = 'focusSidebarSourceControl',
     v = 'toggleVideo',
     b = 'toggleSidebar',
 
@@ -40,33 +40,25 @@ WindowManager.lookup = {
     comma = 'bottomRight',
     period = nil,
     slash = nil,
-    right_shift = nil,
+    right_shift = nil
 }
 
-function WindowManager.fallback(location)
-    WindowManager.moveTo(location)
-end
+function WindowManager.fallback(location) WindowManager.moveTo(location) end
 
-function WindowManager.missionControl()
-    fastKeyStroke({'fn', 'ctrl'}, 'up')
-end
+function WindowManager.missionControl() fastKeyStroke({'fn', 'ctrl'}, 'up') end
 
 WindowManager.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
 hs.grid.setGrid('12x4')
-hs.grid.setMargins({x=0, y=0})
+hs.grid.setMargins({x = 0, y = 0})
 hs.window.animationDuration = 0
 
 hs.grid.ui.textSize = 100
 hs.grid.ui.showExtraKeys = false
 
-function WindowManager.moveTo(position)
-    WindowManager.HalfsAndThirds[position]()
-end
+function WindowManager.moveTo(position) WindowManager.HalfsAndThirds[position]() end
 
-function WindowManager.showGrid()
-    hs.grid.toggleShow()
-end
+function WindowManager.showGrid() hs.grid.toggleShow() end
 
 function WindowManager.moveTotopRightSmall()
     hs.grid.set(hs.window.focusedWindow(), '9,0 3x1')
@@ -76,32 +68,26 @@ function WindowManager.moveToMiddle()
     hs.grid.set(hs.window.focusedWindow(), '2,0 8x4')
 end
 
-function WindowManager.moveToCenter()
-    WindowManager.HalfsAndThirds.center()
-end
+function WindowManager.moveToCenter() WindowManager.HalfsAndThirds.center() end
 
 function WindowManager.moveToNextDisplay()
     hs.grid.set(hs.window.focusedWindow(), '0,0 12x4')
     hs.window.focusedWindow():moveToScreen(hs.screen.mainScreen():next())
 end
 
-function WindowManager.reset()
-    WindowManager.HalfsAndThirds.undo()
-end
+function WindowManager.reset() WindowManager.HalfsAndThirds.undo() end
 
 function WindowManager.next()
-    local windows = hs.fnutils.filter(hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast), function(window)
-        return window:title()
-    end)
+    local windows = hs.fnutils.filter(hs.window.filter.default:getWindows(
+                                          hs.window.filter.sortByFocusedLast),
+                                      function(window) return window:title() end)
     local nextWin = windows[2]
 
     if not nextWin or nextWin:title() == currentTitle() then
         nextWin = windows[1]
     end
 
-    if not nextWin then
-        return
-    end
+    if not nextWin then return end
 
     if nextWin:isMinimized() then
         nextWin:unminimize()
@@ -117,21 +103,20 @@ function WindowManager.nextInCurrentApp()
     --     return
     -- end
 
-    local windows = hs.fnutils.filter(hs.window.filter.new({hs.application.frontmostApplication():name()}):getWindows(hs.window.filter.sortByFocusedLast), function(window)
+    local windows = hs.fnutils.filter(hs.window.filter.new({
+        hs.application.frontmostApplication():name()
+    }):getWindows(hs.window.filter.sortByFocusedLast), function(window)
         return window:title()
     end)
-    each(windows, function(window, index)
-        log.d(index .. ': ' .. window:title())
-    end)
+    each(windows,
+         function(window, index) log.d(index .. ': ' .. window:title()) end)
     nextWin = windows[2]
 
     if not nextWin or nextWin:title() == currentTitle() then
         nextWin = windows[1]
     end
 
-    if not nextWin then
-        return
-    end
+    if not nextWin then return end
 
     if nextWin:isMinimized() then
         nextWin:unminimize()
@@ -149,9 +134,9 @@ function WindowManager.appSettings()
 end
 
 function WindowManager.moveMouseToOtherScreen()
-    hs.mouse.setAbsolutePosition(
-        hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():next():fullFrame())
-    )
+    hs.mouse.setAbsolutePosition(hs.geometry.rectMidPoint(hs.mouse
+                                                              .getCurrentScreen():next()
+                                                              :fullFrame()))
 end
 
 function WindowManager.toggleSidebar()
@@ -193,17 +178,11 @@ function WindowManager.scrollScreenWithCursorAtTop()
     end
 end
 
-function WindowManager.toggleAudio()
-    fastKeyStroke({'shift', 'cmd'}, 'a')
-end
+function WindowManager.toggleAudio() fastKeyStroke({'shift', 'cmd'}, 'a') end
 
-function WindowManager.toggleScreenShare()
-    fastKeyStroke({'shift', 'cmd'}, 's')
-end
+function WindowManager.toggleScreenShare() fastKeyStroke({'shift', 'cmd'}, 's') end
 
-function WindowManager.toggleVideo()
-    fastKeyStroke({'shift', 'cmd'}, 'v')
-end
+function WindowManager.toggleVideo() fastKeyStroke({'shift', 'cmd'}, 'v') end
 
 function WindowManager.toggleAudioAndVideo()
     WindowManager.toggleAudio()
@@ -212,6 +191,14 @@ end
 
 function WindowManager.toggleCodeFocus()
     fastKeyStroke({'shift', 'alt', 'cmd'}, 'z')
+end
+
+function WindowManager.focusSidebarFileExplorer()
+    triggerInCode('Focus on Files Explorer')
+end
+
+function WindowManager.focusSidebarSourceControl()
+    triggerInCode('Focus on Source Control View')
 end
 
 return WindowManager

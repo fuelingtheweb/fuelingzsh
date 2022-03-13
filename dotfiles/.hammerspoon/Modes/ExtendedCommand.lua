@@ -2,7 +2,7 @@ local ExtendedCommand = {}
 ExtendedCommand.__index = ExtendedCommand
 
 ExtendedCommand.lookup = {
-    tab = nil,
+    tab = 'enableRunOnSave',
     q = nil,
     w = 'closeAllWindows',
     -- w = 'surroundText',
@@ -16,16 +16,14 @@ ExtendedCommand.lookup = {
     d = 'duplicate',
     f = 'revealInSidebar',
     g = 'saveAndReload',
-    left_shift = nil,
+    left_shift = 'disableRunOnSave',
     z = 'sleep',
-    x = 'searchFiles',
+    x = nil,
     c = 'screenshotToClipboard',
     v = 'toggleDockVisibility',
     b = 'showBartender',
     spacebar = 'newWindowOrFolder'
 }
-
-function ExtendedCommand.searchFiles() spoon.Search.files() end
 
 function ExtendedCommand.sleep() triggerAlfredSearch('sleep') end
 
@@ -137,6 +135,16 @@ end
 function ExtendedCommand.enableScrolling()
     -- Vimac: Enable Scroll
     fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
+end
+
+function ExtendedCommand.enableRunOnSave()
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'f')
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'e')
+end
+
+function ExtendedCommand.disableRunOnSave()
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'f')
+    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
 end
 
 return ExtendedCommand

@@ -15,7 +15,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(copydir copyfile history urltools autojump sublime vi-mode git-flow wd web-search macos laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
+plugins=(copypath copyfile history urltools autojump sublime vi-mode git-flow wd web-search macos laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 export KEYTIMEOUT=1

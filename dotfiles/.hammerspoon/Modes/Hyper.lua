@@ -3,8 +3,8 @@ Hyper.__index = Hyper
 
 Hyper.lookup = {
     y = 'copy',
-    u = 'searchTabs',
-    i = 'searchSymbols',
+    u = spoon.Search.tabs,
+    i = spoon.Search.symbol,
     o = 'open',
     p = 'alfredClipboard',
     open_bracket = 'commandPalette',
@@ -53,10 +53,6 @@ function Hyper.copy()
         md.Yank.relativeFilePath()
     end
 end
-
-function Hyper.searchSymbols() spoon.Search.symbol() end
-
-function Hyper.searchTabs() spoon.Search.tabs() end
 
 -- Modal.add({
 --     key = 'Hyper:open',
@@ -110,7 +106,11 @@ function Hyper.open()
     elseif appIs(spotify) then
         triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
     elseif appIs(chrome) then
-        fastKeyStroke({'shift'}, 'o')
+        if urlContains('github.com') then
+            fastKeyStroke({'cmd'}, 'k')
+        else
+            fastKeyStroke({'shift'}, 'o')
+        end
     else
         fastKeyStroke({'cmd'}, 'o')
     end

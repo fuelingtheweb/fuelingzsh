@@ -12,7 +12,7 @@ BracketMatching.lookup = {
     braces = {'{', '}'},
     brackets = {'[', ']'},
     space = {' ', ' '},
-    tag = {'<', '>'},
+    tag = {'<', '>'}
 }
 
 Modal.add({
@@ -50,24 +50,24 @@ Modal.add({
         [','] = {action = 'insertComma'},
         ['.'] = {action = 'continueChain'},
         -- /, right shift
-        space = {bracket = 'space'},
+        space = {bracket = 'space'}
     },
     callback = function(item)
         BracketMatching.start()
 
-        if item.action then
-            return BracketMatching[item.action]()
-        end
+        if item.action then return BracketMatching[item.action]() end
 
         BracketMatching.print(item.bracket)
     end,
     beforeExit = function()
         BracketMatching.commitOrDismiss()
+
+        return true
     end,
     exited = function()
         BracketMatching.multi = false
         BracketMatching.brackets = {}
-    end,
+    end
 })
 
 function BracketMatching.startMulti()
@@ -100,25 +100,22 @@ function BracketMatching.print(bracket)
         end
     end
 
-    if text then
-        BracketMatching.dismiss()
-    end
+    if text then BracketMatching.dismiss() end
 
     insertText(brackets[1] .. (text or '') .. brackets[2])
 
     fastKeyStroke('left')
 end
 
-function BracketMatching.start()
-    Modal.enter('BracketMatching')
-end
+function BracketMatching.start() Modal.enter('BracketMatching') end
 
 function BracketMatching.commitOrDismiss()
-    if not BracketMatching.multi then
-        return BracketMatching.dismiss()
-    end
+    if not BracketMatching.multi then return BracketMatching.dismiss() end
 
     local text = getSelectedText()
+    local brackets = hs.fnutils.copy(BracketMatching.brackets)
+
+    BracketMatching.dismiss()
 
     if text then
         if appIs(vscode) then
@@ -133,28 +130,20 @@ function BracketMatching.commitOrDismiss()
 
     local result = ''
 
-    each(BracketMatching.brackets, function(bracket)
-        local brackets = BracketMatching.lookup[bracket]
-        result = result .. brackets[1]
+    each(brackets, function(bracket)
+        result = result .. BracketMatching.lookup[bracket][1]
     end)
 
-    if text then
-        result = result .. text
-    end
+    if text then result = result .. text end
 
-    for i = #BracketMatching.brackets, 1, -1 do
-        local brackets = BracketMatching.lookup[BracketMatching.brackets[i]]
-        result = result .. brackets[2]
+    for i = #brackets, 1, -1 do
+        result = result .. BracketMatching.lookup[brackets[i]][2]
     end
 
     insertText(result)
-
-    BracketMatching.dismiss()
 end
 
-function BracketMatching.dismiss()
-    Modal.exit()
-end
+function BracketMatching.dismiss() Modal.exit() end
 
 function BracketMatching.newLine()
     Modal.exit()

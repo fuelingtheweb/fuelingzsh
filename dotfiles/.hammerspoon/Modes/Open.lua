@@ -132,8 +132,6 @@ function Open.launchApp(id)
 
     if id == 'iterm' then
         launchIterm()
-    elseif id == 'spotify' then
-        launchSpotify()
     elseif not isActive then
         app = hs.application.get(bundle)
         if not hasWindows(app) then
@@ -176,7 +174,7 @@ function triggerItermShortcut(callback)
     end
 end
 
-function launchSpotify()
+function Open.spotify()
     if appIs(spotify) then
         return md.WindowManager.next()
     end
@@ -186,7 +184,7 @@ function launchSpotify()
     if app and app:isRunning() then
         app:activate()
     else
-        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/2dMv6aYJXDoDA10nBPOvFN?si=EpPYjSQuSvKX92e4gJBf1Q')
+        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
     end
 end
 

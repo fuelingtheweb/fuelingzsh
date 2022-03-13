@@ -22,7 +22,7 @@ Tab.lookup = {
     period = 'closeNext',
     slash = 'closeAllOthers',
     right_shift = 'closeAll',
-    spacebar = nil
+    spacebar = 'manage'
 }
 
 function Tab.first() fastKeyStroke({'cmd'}, '1') end
@@ -177,15 +177,17 @@ end
 function Tab.closePrevious()
     Tab.previous()
     Tab.closeCurrent()
-    
-    if not appIs(vscode) then
-        Tab.next()
-    end
+
+    if not appIs(vscode) then Tab.next() end
 end
 
 function Tab.closeNext()
     Tab.next()
     Tab.closeCurrent()
+end
+
+function Tab.manage()
+    if appIs(chrome) then fastKeyStroke({'shift', 'cmd'}, 'm') end
 end
 
 return Tab

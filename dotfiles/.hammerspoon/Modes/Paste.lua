@@ -23,6 +23,8 @@ Paste.lookup = {
     spacebar = 'default'
 }
 
+function Paste.before() spoon.KarabinerHandler.currentKey = nil end
+
 function Paste.withWrapperKey(key)
     if not TextManipulation.canManipulateWithVim() then return end
 

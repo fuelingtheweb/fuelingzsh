@@ -16,6 +16,17 @@ t() {
     fi
 }
 
+ta() {
+    clear
+    if [ -f artisan ]; then
+        php artisan test --parallel "$@"
+    elif [ -f vendor/bin/phpunit ]; then
+        vendor/bin/phpunit "$@"
+    else
+        phpunit "$@"
+    fi
+}
+
 alias tv='vendor/bin/phpunit --stop-on-failure'
 
 alias tp='t --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer'

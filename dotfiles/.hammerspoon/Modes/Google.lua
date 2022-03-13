@@ -10,8 +10,8 @@ Google.lookup = {
     open_bracket = 'groupTab',
     close_bracket = nil,
     h = 'history',
-    j = nil,
-    k = nil,
+    j = 'nextGitConflict',
+    k = 'previousGitConflict',
     l = 'lastpass',
     semicolon = 'tabManager',
     quote = 'openAndReload',
@@ -95,6 +95,16 @@ end
 
 function Google.viewSource()
     fastKeyStroke({'alt', 'cmd'}, 'u')
+end
+
+function Google.nextGitConflict()
+    fastKeyStroke({'shift', 'alt', 'cmd'}, 'c')
+    fastKeyStroke({'shift', 'alt', 'cmd'}, 'j')
+end
+
+function Google.previousGitConflict()
+    fastKeyStroke({'shift', 'alt', 'cmd'}, 'c')
+    fastKeyStroke({'shift', 'alt', 'cmd'}, 'k')
 end
 
 return Google

@@ -34,7 +34,11 @@ end
 function getSelectedText(copying)
     original = hs.pasteboard.getContents()
     hs.pasteboard.clearContents()
-    keyStroke({'cmd'}, 'c')
+    if appIs(vscode) then
+        keyStroke({'shift', 'alt', 'cmd'}, 'c')
+    else
+        keyStroke({'cmd'}, 'c')
+    end
     text = hs.pasteboard.getContents()
     finderFileSelected = false
     for k, v in pairs(hs.pasteboard.contentTypes()) do
@@ -46,6 +50,18 @@ function getSelectedText(copying)
     if not copying then hs.pasteboard.setContents(original) end
 
     return text
+end
+
+function currentUrl()
+    original = hs.pasteboard.getContents()
+    hs.pasteboard.clearContents()
+
+    copyChromeUrl()
+    url = hs.pasteboard.getContents()
+
+    hs.pasteboard.setContents(original)
+
+    return url
 end
 
 function copyChromeUrl()
@@ -62,6 +78,10 @@ function startsWith(needle, haystack) return haystack:sub(1, #needle) == needle 
 
 function titleContains(needle)
     return stringContains(needle:gsub('-', '%%-'), currentTitle())
+end
+
+function urlContains(needle)
+    return stringContains(needle:gsub('-', '%%-'), currentUrl())
 end
 
 function stringContains(needle, haystack) return string.find(haystack, needle) end
@@ -151,7 +171,6 @@ end
 
 function triggerAlfredWorkflow(trigger, workflow, argument)
     spoon.KarabinerHandler.modifier = nil
-    keyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'j');
 
     local script =
         'tell application id "com.runningwithcrayons.Alfred" to run trigger "' ..
@@ -311,7 +330,15 @@ function keyStroke(modifiers, key, delay)
         modifiers = {}
     end
 
-    hs.eventtap.keyStroke(modifiers, key, delay)
+    log.d('keyStroke: ' .. key)
+
+    if key == spoon.KarabinerHandler.currentKey then
+        hs.timer.doAfter(0.1, function()
+            hs.eventtap.keyStroke(modifiers, key, delay)
+        end)
+    else
+        hs.eventtap.keyStroke(modifiers, key, delay)
+    end
 end
 
 function insertOrPasteText(text)
@@ -327,9 +354,7 @@ function insertOrPasteText(text)
     end
 end
 
-function insertText(text)
-    hs.eventtap.keyStrokes(text)
-end
+function insertText(text) hs.eventtap.keyStrokes(text) end
 
 function handleApp(callback, lookup)
     local bundle = hs.application.frontmostApplication():bundleID()

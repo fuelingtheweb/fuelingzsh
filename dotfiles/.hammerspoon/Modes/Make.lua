@@ -5,22 +5,22 @@ Make.lookup = {
     tab = nil,
     q = nil,
     w = nil,
-    e = nil,
+    e = spoon.Search.viaAlfred,
     r = 'lineBefore',
     t = 'tag',
     caps_lock = 'multiBracketMatch',
-    -- a = nil,
+    a = spoon.Search.amazon,
     s = 'singleQuote',
     d = 'doubleQuote',
     f = 'parenthesis',
-    -- g = nil,
+    g = spoon.Search.google,
     left_shift = nil,
     z = 'backTick',
-    -- x = nil,
+    x = spoon.Search.files,
     c = 'braces',
     v = 'lineAfter',
     b = 'brackets',
-    spacebar = 'space',
+    spacebar = 'space'
 
     -- a = 'startOfVideoOrPreviousVideo',
     -- x = 'fullscreen',
@@ -30,13 +30,9 @@ Make.lookup = {
     -- period = 'videoForward',
 }
 
-function Make.fallback(bracket)
-    BracketMatching.print(bracket)
-end
+function Make.fallback(bracket) BracketMatching.print(bracket) end
 
-function Make.multiBracketMatch()
-    BracketMatching.startMulti()
-end
+function Make.multiBracketMatch() BracketMatching.startMulti() end
 
 function Make.lineBefore()
     if TextManipulation.canManipulateWithVim() then

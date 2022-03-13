@@ -40,8 +40,14 @@ CodeSnippets.lookup = {
 function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
         fastKeyStroke('o')
-        fastKeyStroke('return')
+        keyStroke('return')
         insertText(';dte')
+        hs.timer.doAfter(0.2, function()
+            keyStroke('return')
+            insertText('- ')
+            fastKeyStroke('escape')
+            md.Command.save()
+        end)
 
         return
     end
@@ -74,9 +80,7 @@ function CodeSnippets.snippet(name)
         fastKeyStroke({'cmd'}, 'v')
         keyStroke('return')
 
-        if hasValue({'if'}, name) then
-            BracketMatching.start()
-        end
+        if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then
         typeAndTab('snippet-' .. name)
     else

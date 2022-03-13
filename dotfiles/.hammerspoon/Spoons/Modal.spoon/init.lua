@@ -11,9 +11,7 @@ function Modal.add(meta)
     meta.modal = spoon.ModalMgr.modal_list[meta.key]
 
     meta.modal.entered = function()
-        if meta.entered then
-            meta.entered()
-        end
+        if meta.entered then meta.entered() end
 
         if meta.title then
             if type(meta.title) == 'function' then
@@ -32,9 +30,7 @@ function Modal.add(meta)
     end
 
     meta.modal.exited = function()
-        if meta.exited then
-            meta.exited()
-        end
+        if meta.exited then meta.exited() end
 
         spoon.ModalMgr.active_title = nil
         -- Modal.menubar:setTitle('')
@@ -61,13 +57,14 @@ function Modal.add(meta)
                     Modal.enter(item.key)
                 end)
             elseif isTable(item) and item.key then
-                meta.modal:bind(item.shift and {'shift'} or '', item.key, item.name or nil, function()
+                meta.modal:bind(item.shift and {'shift'} or '', item.key,
+                                item.name or nil,
+                                function()
                     meta.callback(item.value)
                 end)
             elseif isTable(item) then
-                meta.modal:bind('', key, item.name or nil, function()
-                    meta.callback(item)
-                end)
+                meta.modal:bind('', key, item.name or nil,
+                                function() meta.callback(item) end)
             elseif isString(item) then
                 meta.modal:bind('', key, item, function()
                     if item == 'exit' then
@@ -117,26 +114,23 @@ function Modal.add(meta)
     end
 
     if meta.defaults == nil or meta.defaults == true then
-        meta.modal:bind('', '/', 'Cheatsheet', function()
-            Modal.toggleCheatsheet()
-        end)
+        meta.modal:bind('', '/', 'Cheatsheet',
+                        function() Modal.toggleCheatsheet() end)
 
-        each(
-            {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
-            function(key)
-                meta.modal:bind({'shift'}, key, nil, function()
-                    Modal.exit()
-                    fastKeyStroke({'shift'}, key)
-                end)
-            end
-        )
+        each({
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        }, function(key)
+            meta.modal:bind({'shift'}, key, nil, function()
+                Modal.exit()
+                fastKeyStroke({'shift'}, key)
+            end)
+        end)
     end
 end
 
 function Modal.enter(key, exitAfter)
-    if Modal.timer and Modal.timer:running() then
-        Modal.timer:stop()
-    end
+    if Modal.timer and Modal.timer:running() then Modal.timer:stop() end
 
     if key == 'TextManipulation:vimDisabled' then
         spoon.ModalMgr:activate({key}, '#212d33', false)
@@ -145,9 +139,7 @@ function Modal.enter(key, exitAfter)
     end
 
     if exitAfter then
-        Modal.timer = hs.timer.doAfter(exitAfter, function()
-            Modal.exit()
-        end)
+        Modal.timer = hs.timer.doAfter(exitAfter, function() Modal.exit() end)
     end
 end
 

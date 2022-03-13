@@ -7,6 +7,13 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
             openInAtom(path .. '/routes/web.php')
         end
     end,
+    vscode = function()
+        path = currentTitle():match('~%S+')
+
+        if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
+            openInCode(path .. '/routes/web.php')
+        end
+    end,
     sublime = function()
         root = currentTitle():match('%S+$')
         path = currentTitle():match('^~%S+' .. root)
