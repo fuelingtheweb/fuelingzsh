@@ -3,19 +3,16 @@ Command.__index = Command
 
 Command.lookup = {
     tab = 'shiftTab',
-    q = 'quit',
-    w = 'closeWindow',
-    -- w = {'closeWindow', 'closeAllWindows'},
-    e = {'edit', 'finishEdit'},
+    q = nil,
+    w = nil,
+    e = 'edit',
     r = 'reload',
-    -- r = {'reload', 'reloadSecondary'},
     t = nil,
     caps_lock = 'alfredCommands',
-    a = 'selectAll',
+    a = 'actionFileInAlfred',
     s = 'save',
-    -- s = {'save', 'saveAndReload'},
-    d = 'done',
-    f = 'find',
+    d = 'duplicate',
+    f = 'finish',
     g = nil,
     -- g = 'atomGitPalette',
     left_shift = nil,
@@ -23,32 +20,41 @@ Command.lookup = {
     x = 'cancelOrDelete',
     c = nil,
     v = 'duplicateLine',
-    b = 'duplicateBlock',
+    b = nil,
     spacebar = nil
 }
 
 function Command.shiftTab() fastKeyStroke({'shift'}, 'tab') end
 
-function Command.quit() fastKeyStroke({'cmd'}, 'q') end
-
 function Command.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function Command.selectAll() fastKeyStroke({'cmd'}, 'a') end
-
 function Command.atomGitPalette() fastKeyStroke({'shift', 'cmd'}, 'h') end
 
 function Command.duplicateLine()
-    if inCodeEditor() then
-        fastKeyStroke({'shift', 'cmd'}, 'd')
-    elseif appIs(finder) then
-        fastKeyStroke({'cmd'}, 'd')
-    end
+    if inCodeEditor() then fastKeyStroke({'shift', 'cmd'}, 'd') end
 end
 
-function Command.duplicateBlock()
-    if inCodeEditor() then fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd') end
+function Command.duplicate()
+    local text = getSelectedText()
+    if text then
+        if inCodeEditor() then
+            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+        else
+            fastKeyStroke('right')
+            insertText(text)
+        end
+    elseif appIs(finder) then
+        fastKeyStroke({'cmd'}, 'd')
+    elseif appIs(chrome) then
+        -- Vimium
+        fastKeyStroke('escape')
+        insertText('yt')
+    elseif inCodeEditor() then
+        fastKeyStroke({'shift', 'alt', 'cmd'}, 'd')
+        TextManipulation.disableVim()
+    end
 end
 
 function Command.reload()
@@ -67,31 +73,16 @@ end
 
 function Command.closeWindow() closeWindow() end
 
-function Command.find()
-    if inCodeEditor() then
-        fastKeyStroke({'shift', 'cmd'}, 'f')
-        TextManipulation.disableVim()
-    else
-        fastKeyStroke({'cmd'}, 'f')
-    end
-end
+function Command.edit() triggerAlfredWorkflow('edit', 'com.sztoltz.editwith') end
 
-function Command.edit()
-    -- Edit with
-    fastKeyStroke({'shift', 'cmd'}, 'e')
-end
-
-function Command.finishEdit()
-    -- Edit with: Done
-    fastKeyStroke({'shift', 'ctrl', 'alt', 'cmd'}, 'd')
-end
-
-function Command.done()
+function Command.finish()
     if appIs(sublime) then
-        -- Plain Tasks: Complete
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
-    elseif appIs(vscode) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+        if titleContains('com%.sztoltz%.editwith') then
+            triggerAlfredWorkflow('finish', 'com.sztoltz.editwith')
+        else
+            -- Plain Tasks: Complete
+            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+        end
     elseif appIs(transmit) then
         -- Disconnect from server
         fastKeyStroke({'cmd'}, 'e')
@@ -117,16 +108,14 @@ end
 
 function Command.cancelOrDelete()
     text = getSelectedText()
-    if appIs(sublime) and titleContains('.todo') then
+    if text then
+        fastKeyStroke('delete')
+    elseif appIs(sublime) and titleContains('.todo') then
         fastKeyStroke({'ctrl'}, 'c')
     elseif inCodeEditor() then
         fastKeyStroke({'shift', 'cmd'}, 'delete')
-    elseif appIs(finder) and text == 'finderFileSelected' then
+    elseif appIncludes({transmit, finder}) then
         fastKeyStroke({'cmd'}, 'delete')
-    elseif appIs(transmit) then
-        fastKeyStroke({'cmd'}, 'delete')
-    elseif text then
-        fastKeyStroke('delete')
     elseif appIs(chrome) and
         stringContains('Fueling the Web Mail', currentTitle()) then
         fastKeyStroke({'shift'}, '3')
@@ -136,5 +125,7 @@ function Command.cancelOrDelete()
         fastKeyStroke('delete')
     end
 end
+
+function Command.actionFileInAlfred() fastKeyStroke({'alt', 'cmd'}, '\\') end
 
 return Command

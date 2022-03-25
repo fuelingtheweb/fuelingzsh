@@ -34,20 +34,24 @@ end
 function getSelectedText(copying)
     original = hs.pasteboard.getContents()
     hs.pasteboard.clearContents()
+
     if appIs(vscode) then
         keyStroke({'shift', 'alt', 'cmd'}, 'c')
     else
         keyStroke({'cmd'}, 'c')
     end
+
     text = hs.pasteboard.getContents()
     finderFileSelected = false
     for k, v in pairs(hs.pasteboard.contentTypes()) do
         if v == 'public.file-url' then finderFileSelected = true end
     end
 
-    if not copying and finderFileSelected then text = 'finderFileSelected' end
+    if not copying then
+        hs.pasteboard.setContents(original)
 
-    if not copying then hs.pasteboard.setContents(original) end
+        if finderFileSelected then text = nil end
+    end
 
     return text
 end
@@ -107,16 +111,22 @@ function openNotionPage(name)
     hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
 end
 
+function maximizeAfterDelay()
+    hs.timer.doAfter(0.5, function() md.WindowManager.moveTo('maximize') end)
+end
+
 function openInChrome(url)
     hs.execute(
         '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
             url .. '" --profile-directory="Default"')
+    maximizeAfterDelay()
 end
 
 function openInChromeIncognito(url)
     hs.execute(
         '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
             url .. '" --incognito --profile-directory="Default"')
+    maximizeAfterDelay()
 end
 
 function openInTablePlus(url) hs.execute('open "' .. url .. '"') end
@@ -181,12 +191,19 @@ function triggerAlfredWorkflow(trigger, workflow, argument)
     hs.osascript.applescript(script)
 end
 
-function openInSublime(path) hs.execute('/usr/local/bin/subl "' .. path .. '"') end
+function openInSublime(path)
+    hs.execute('/usr/local/bin/subl "' .. path .. '"')
+    maximizeAfterDelay()
+end
 
-function openInAtom(path) hs.execute('/usr/local/bin/atom "' .. path .. '"') end
+function openInAtom(path)
+    hs.execute('/usr/local/bin/atom "' .. path .. '"')
+    maximizeAfterDelay()
+end
 
 function openInCode(path)
     hs.execute('/usr/local/bin/code "' .. path:gsub('~', '/Users/nathan') .. '"')
+    maximizeAfterDelay()
 end
 
 function currentTitle()
@@ -405,5 +422,7 @@ end
 function loadCustomModal(modal) return require('config.custom.Modals.' .. modal) end
 
 function loadModal(modal) return require('Modals.' .. modal) end
+
+function isLua() return titleContains('.lua') end
 
 return obj

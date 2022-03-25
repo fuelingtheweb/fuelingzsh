@@ -119,9 +119,9 @@ function BracketMatching.commitOrDismiss()
 
     if text then
         if appIs(vscode) then
+            keyStroke('c')
+            fastKeyStroke({'cmd'}, 'z')
             fastKeyStroke({'shift', 'alt', 'cmd'}, 'delete')
-            fastKeyStroke('escape')
-            fastKeyStroke({'ctrl', 'alt'}, 'a')
         elseif inCodeEditor() then
             fastKeyStroke({'shift'}, 'delete')
             fastKeyStroke({'shift', 'cmd'}, 'i')
@@ -186,7 +186,11 @@ end
 function BracketMatching.continueChain()
     Modal.exit()
     fastKeyStroke('right');
-    insertText('->')
+    if isLua() then
+        insertText('.')
+    else
+        insertText('->')
+    end
     -- Modal.enter('CodeSnippets:callFunction')
 end
 

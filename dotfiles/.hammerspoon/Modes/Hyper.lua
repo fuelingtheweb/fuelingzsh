@@ -111,6 +111,8 @@ function Hyper.open()
         else
             fastKeyStroke({'shift'}, 'o')
         end
+    elseif appIs(iterm) then
+        insertText('cd ')
     else
         fastKeyStroke({'cmd'}, 'o')
     end

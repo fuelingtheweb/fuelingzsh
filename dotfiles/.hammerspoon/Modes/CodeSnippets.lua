@@ -87,7 +87,7 @@ function CodeSnippets.snippet(name)
         typeAndEnter('snippet-' .. name)
     end
 
-    hs.pasteboard.setContents(original)
+    hs.timer.doAfter(1, function() hs.pasteboard.setContents(original) end)
 end
 
 function CodeSnippets.method() Modal.enter('CodeSnippets:method') end
@@ -191,7 +191,7 @@ function CodeSnippets.printFunction(item, text)
 end
 
 function CodeSnippets.conditionalAnd()
-    if titleContains('.lua') then
+    if isLua() then
         insertText(' and ')
     else
         insertText(' && ')
@@ -204,7 +204,7 @@ function CodeSnippets.conditionalOr()
         {condition = 'fallback', value = ' || '} -- ['.lua'] = ' or ',
         -- ['fallback'] = ' || ',
     })
-    -- if titleContains('.lua') then
+    -- if isLua() then
     --     insertText(' or ')
     -- else
     --     insertText(' || ')
@@ -214,7 +214,7 @@ end
 function CodeSnippets.concatenate()
     if titleContains('.php') then
         insertText(' . ')
-    elseif titleContains('.lua') then
+    elseif isLua() then
         insertText(' .. ')
     elseif titleContains('.js') then
         insertText(' + ')

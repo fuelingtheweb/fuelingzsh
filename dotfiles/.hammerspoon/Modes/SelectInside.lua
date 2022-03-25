@@ -9,7 +9,7 @@ SelectInside.lookup = {
     r = nil,
     t = 'withWrapperKey',
     caps_lock = nil,
-    a = nil,
+    a = 'all',
     s = 'withWrapperKey',
     d = 'withWrapperKey',
     f = 'withWrapperKey',
@@ -76,5 +76,7 @@ function SelectInside.character()
         fastKeyStroke({'shift'}, 'left')
     end
 end
+
+function SelectInside.all() fastKeyStroke({'cmd'}, 'a') end
 
 return SelectInside

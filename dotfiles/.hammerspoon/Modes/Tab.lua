@@ -13,7 +13,7 @@ Tab.lookup = {
     j = 'previous',
     k = 'next',
     l = 'moveRight',
-    semicolon = 'closeCurrent',
+    semicolon = nil,
     quote = 'moveToNewWindow',
     return_or_enter = 'restore',
     n = 'new',
@@ -101,9 +101,11 @@ end
 function Tab.new()
     if inCodeEditor() then
         fastKeyStroke({'cmd'}, 'n')
-        fastKeyStroke('i')
-        fastKeyStroke('return')
-        fastKeyStroke('up')
+        hs.timer.doAfter(0.1, function()
+            fastKeyStroke('i')
+            fastKeyStroke('return')
+            fastKeyStroke('up')
+        end)
     elseif appIs(finder) then
         fastKeyStroke({'cmd'}, 'n')
     else
@@ -171,6 +173,9 @@ function Tab.closeAll()
             insertText('Close All Tabs')
             fastKeyStroke('return')
         end
+    elseif appIs(vscode) then
+        fastSuperKeyStroke('e')
+        fastSuperKeyStroke('[')
     end
 end
 

@@ -4,16 +4,16 @@ ExtendedCommand.__index = ExtendedCommand
 ExtendedCommand.lookup = {
     tab = 'enableRunOnSave',
     q = nil,
-    w = 'closeAllWindows',
+    w = nil,
     -- w = 'surroundText',
     e = nil,
     r = 'reloadSecondary',
     t = 'enableScrolling',
     caps_lock = 'jumpTo',
     -- caps_lock = 'dismissNotifications',
-    a = 'actionFileInAlfred',
+    a = nil,
     s = 'screenshotToFilesystem',
-    d = 'duplicate',
+    d = nil,
     f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = 'disableRunOnSave',
@@ -26,8 +26,6 @@ ExtendedCommand.lookup = {
 }
 
 function ExtendedCommand.sleep() triggerAlfredSearch('sleep') end
-
-function ExtendedCommand.actionFileInAlfred() fastKeyStroke({'alt', 'cmd'}, '\\') end
 
 function ExtendedCommand.screenshotToFilesystem()
     fastKeyStroke({'shift', 'cmd'}, '4')
@@ -73,32 +71,9 @@ function ExtendedCommand.dismissNotifications()
     app:activate()
 end
 
-function ExtendedCommand.duplicate()
-    if appIs(finder) then
-        fastKeyStroke({'cmd'}, 'd')
-    elseif appIs(chrome) then
-        -- Vimium
-        fastKeyStroke('escape')
-        insertText('yt')
-    elseif inCodeEditor() then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'd')
-        TextManipulation.disableVim()
-    end
-end
-
 function ExtendedCommand.surroundText()
     fastKeyStroke({'cmd'}, 'c')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
-end
-
-function ExtendedCommand.closeAllWindows()
-    fastKeyStroke({'shift', 'cmd'}, 'w')
-    if appIs(chrome) then
-        hs.timer.doAfter(1, function()
-            app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then app:hide() end
-        end)
-    end
 end
 
 function ExtendedCommand.reloadSecondary()

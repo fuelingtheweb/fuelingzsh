@@ -24,7 +24,7 @@ Open.lookup = {
     c = 'sublimeMerge',
     v = 'tableplus',
     b = 'openBookmarksModal',
-    spacebar = {'open', 'bringAllWindowsToFront'},
+    spacebar = {'open', 'bringAllWindowsToFront'}
 }
 
 Modal.add({
@@ -53,12 +53,12 @@ Modal.add({
         z = {name = 'Zoom', app = 'zoom.us.app'},
         -- xcvb
         n = {name = 'Notion', app = 'Notion.app'},
-        m = {name = 'reMarkable', app = 'reMarkable.app'},
+        m = {name = 'reMarkable', app = 'reMarkable.app'}
     },
     callback = function(item)
         Modal.exit()
         Open.fallback(item.app)
-    end,
+    end
 })
 
 -- function Open.before()
@@ -71,6 +71,7 @@ hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
 hs.hints.fontSize = 20
 hs.hints.iconAlpha = 1
+hs.hints.style = nil
 
 function Open.windowHintsForCurrentApplication()
     hs.hints.style = nil
@@ -78,33 +79,23 @@ function Open.windowHintsForCurrentApplication()
 end
 
 function Open.windowHints()
-    hs.hints.style = 'vimperator'
+    -- hs.hints.style = 'vimperator'
     hs.hints.windowHints()
 end
 
-function Open.fantastical()
-    fastKeyStroke({'alt', 'cmd'}, 'c')
-end
+function Open.fantastical() fastKeyStroke({'alt', 'cmd'}, 'c') end
 
 function Open.alfredPreferences()
     hs.application.open('com.runningwithcrayons.Alfred-Preferences')
 end
 
-function Open.quit()
-    md.Command.quit()
-end
+function Open.quit() md.Command.quit() end
 
-function Open.closeWindow()
-    md.Command.closeWindow()
-end
+function Open.closeWindow() md.Command.closeWindow() end
 
-function Open.closeAllWindow()
-    md.Command.closeAllWindow()
-end
+function Open.closeAllWindow() md.Command.closeAllWindow() end
 
-function Open.open()
-    md.Hyper.open()
-end
+function Open.open() md.Hyper.open() end
 
 function Open.bringAllWindowsToFront()
     hs.application.frontmostApplication():activate(true)
@@ -123,9 +114,7 @@ end
 function Open.launchApp(id)
     bundle = apps[id]
 
-    if not bundle then
-        return hs.application.open(id)
-    end
+    if not bundle then return hs.application.open(id) end
 
     app = hs.application.frontmostApplication()
     isActive = app:bundleID() == bundle
@@ -135,9 +124,7 @@ function Open.launchApp(id)
     elseif not isActive then
         app = hs.application.get(bundle)
         if not hasWindows(app) then
-            if id ~= 'atom' then
-                hs.application.open(bundle)
-            end
+            if id ~= 'atom' then hs.application.open(bundle) end
         else
             app:activate()
 
@@ -160,48 +147,35 @@ function launchIterm(callback)
         triggerItermShortcut(callback)
     else
         hs.application.open(bundle)
-        hs.timer.doAfter(1, function()
-            triggerItermShortcut(callback)
-        end)
+        hs.timer.doAfter(1, function() triggerItermShortcut(callback) end)
     end
 end
 
 function triggerItermShortcut(callback)
     fastKeyStroke('`')
 
-    if callback then
-        callback()
-    end
+    if callback then callback() end
 end
 
 function Open.spotify()
-    if appIs(spotify) then
-        return md.WindowManager.next()
-    end
+    if appIs(spotify) then return md.WindowManager.next() end
 
     app = hs.application.get(spotify)
 
     if app and app:isRunning() then
         app:activate()
     else
-        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
+        hs.execute(
+            'open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
     end
 end
 
-function Open.openAppModal()
-    Modal.enter('OpenApp')
-end
+function Open.openAppModal() Modal.enter('OpenApp') end
 
-function Open.openFrequentModal()
-    Modal.enter('OpenFrequent')
-end
+function Open.openFrequentModal() Modal.enter('OpenFrequent') end
 
-function Open.openBookmarksModal()
-    Modal.enter('OpenBookmarks')
-end
+function Open.openBookmarksModal() Modal.enter('OpenBookmarks') end
 
-function Open.openInModal()
-    Modal.enter('OpenIn')
-end
+function Open.openInModal() Modal.enter('OpenIn') end
 
 return Open

@@ -3,7 +3,7 @@ WindowManager.__index = WindowManager
 
 WindowManager.lookup = {
     tab = 'moveToCenter',
-    q = nil,
+    q = 'quitApplication',
     w = 'toggleCodeFocus',
     e = 'scrollScreenWithCursorAtEnd',
     r = 'scrollScreenWithCursorAtCenter',
@@ -32,11 +32,11 @@ WindowManager.lookup = {
     j = 'bottomHalf',
     k = 'topHalf',
     l = 'rightHalf',
-    semicolon = nil,
+    semicolon = 'moveMouseToOtherScreen',
     quote = nil,
     return_or_enter = 'reset',
     n = 'bottomLeft',
-    m = 'moveMouseToOtherScreen',
+    m = 'destroy',
     comma = 'bottomRight',
     period = nil,
     slash = nil,
@@ -200,5 +200,18 @@ end
 function WindowManager.focusSidebarSourceControl()
     triggerInCode('Focus on Source Control View')
 end
+
+function WindowManager.destroy()
+    fastKeyStroke({'shift', 'cmd'}, 'w')
+
+    if appIs(chrome) then
+        hs.timer.doAfter(1, function()
+            app = hs.application.frontmostApplication()
+            if next(app:visibleWindows()) == nil then app:hide() end
+        end)
+    end
+end
+
+function WindowManager.quitApplication() fastKeyStroke({'cmd'}, 'q') end
 
 return WindowManager

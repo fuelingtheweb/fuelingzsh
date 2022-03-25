@@ -73,6 +73,15 @@ function Search.allWindows()
     Search.loadWindowsInAlfred(windows, 1)
 end
 
+function Search.window()
+    if inCodeEditor() then
+        fastKeyStroke({'shift', 'cmd'}, 'f')
+        TextManipulation.disableVim()
+    else
+        fastKeyStroke({'cmd'}, 'f')
+    end
+end
+
 hs.urlevent.bind('window-focus', function(eventName, params)
     hs.window(tonumber(params.id)):focus()
 end)

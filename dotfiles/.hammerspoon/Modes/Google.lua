@@ -22,56 +22,38 @@ Google.lookup = {
     period = 'toggleDevToolsDocking',
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
 function Google.custom(key)
     hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
-function Google.inbox()
-    openInChrome('https://inbox.google.com')
-end
+function Google.inbox() openInChrome('https://inbox.google.com') end
 
-function Google.profiles()
-    fastKeyStroke({'shift', 'cmd'}, 'm')
-end
+function Google.profiles() fastKeyStroke({'shift', 'cmd'}, 'm') end
 
-function Google.groupTab()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g')
-end
+function Google.groupTab() fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g') end
 
 function Google.history()
     triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
 end
 
-function Google.lastpass()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
-end
+function Google.lastpass() fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p') end
 
-function Google.tabManager()
-    fastKeyStroke({'shift', 'cmd'}, 'm')
-end
+function Google.tabManager() fastKeyStroke({'shift', 'cmd'}, 'm') end
 
-function Google.dismissDownloadsBar()
-    fastKeyStroke({'alt'}, 'w')
-end
+function Google.dismissDownloadsBar() fastKeyStroke({'alt'}, 'w') end
 
-function Google.newBookmark()
-    fastKeyStroke({'cmd'}, 'd')
-end
+function Google.newBookmark() fastKeyStroke({'cmd'}, 'd') end
 
 function Google.bookmarks()
     triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
 end
 
-function Google.toggleDevTools()
-    fastKeyStroke({'alt', 'cmd'}, 'i')
-end
+function Google.toggleDevTools() fastKeyStroke({'alt', 'cmd'}, 'i') end
 
-function Google.toggleDevToolsDocking()
-    fastKeyStroke({'shift', 'cmd'}, 'd')
-end
+function Google.toggleDevToolsDocking() fastKeyStroke({'shift', 'cmd'}, 'd') end
 
 function Google.openAndReload()
     hs.application.get(apps['chrome']):activate()
@@ -93,18 +75,16 @@ function Google.toggleIncognito()
     ]])
 end
 
-function Google.viewSource()
-    fastKeyStroke({'alt', 'cmd'}, 'u')
-end
+function Google.viewSource() fastKeyStroke({'alt', 'cmd'}, 'u') end
 
 function Google.nextGitConflict()
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'c')
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'j')
+    keyStroke({'shift', 'alt', 'cmd'}, 'g')
+    keyStroke({'shift', 'alt', 'cmd'}, 'j')
 end
 
 function Google.previousGitConflict()
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'c')
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'k')
+    keyStroke({'shift', 'alt', 'cmd'}, 'g')
+    keyStroke({'shift', 'alt', 'cmd'}, 'k')
 end
 
 return Google

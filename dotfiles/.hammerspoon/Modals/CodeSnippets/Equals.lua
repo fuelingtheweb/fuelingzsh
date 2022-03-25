@@ -31,7 +31,7 @@ Modal.add({
         n = {name = ' ~== ', method = 'strictNotEquals'},
         m = {name = ' ~= ', method = 'simpleNotEquals'},
         -- ,
-        ['.'] = {name = ' = :function', method = 'callFunction'},
+        ['.'] = {name = ' = :function', method = 'callFunction'}
         -- /, right shift, space
     },
     callback = function(item)
@@ -49,7 +49,7 @@ Modal.add({
                 BracketMatching.start()
             end
         end
-    end,
+    end
 })
 
 function mdl.equals()
@@ -69,19 +69,17 @@ end
 
 function mdl.simpleDoubleQuote()
     insertText('=""')
-    fastKeyStroke('left');
+    keyStroke('left');
     BracketMatching.start()
 end
 
 function mdl.paste()
     mdl.equals()
-    hs.timer.doAfter(0.1, function()
-        fastKeyStroke({'cmd'}, 'v');
-    end)
+    hs.timer.doAfter(0.1, function() fastKeyStroke({'cmd'}, 'v'); end)
 end
 
 function mdl.simpleNotEquals()
-    if titleContains('.lua') then
+    if isLua() then
         insertText(' ~= ')
     else
         insertText(' != ')
@@ -90,7 +88,7 @@ function mdl.simpleNotEquals()
 end
 
 function mdl.strictNotEquals()
-    if titleContains('.lua') then
+    if isLua() then
         insertText(' ~== ')
     else
         insertText(' !== ')
