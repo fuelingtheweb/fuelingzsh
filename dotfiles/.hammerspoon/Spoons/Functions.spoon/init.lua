@@ -326,19 +326,6 @@ function slackReaction(emoji)
     end
 end
 
-function insertOrPasteText(text)
-    if appIs(vscode) then
-        local original = hs.pasteboard.getContents()
-        hs.pasteboard.setContents(text)
-
-        ks.slow().cmd('v')
-
-        hs.pasteboard.setContents(original)
-    else
-        ks.type(text)
-    end
-end
-
 function handleApp(callback, lookup)
     local bundle = hs.application.frontmostApplication():bundleID()
 
