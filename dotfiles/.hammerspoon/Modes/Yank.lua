@@ -31,7 +31,7 @@ function Yank.word()
         ks.key('w')
     else
         ks.shiftAlt('left')
-        ks.cmd('c')
+        ks.copy()
         ks.key('right')
     end
 end
@@ -52,7 +52,7 @@ function Yank.toEndOfWord()
         ks.key('e')
     else
         ks.shiftAlt('right')
-        ks.cmd('c')
+        ks.copy()
         ks.key('left')
     end
 end
@@ -81,7 +81,7 @@ function Yank.toEndOfLine()
         ks.shift('4')
     else
         ks.shiftCmd('right')
-        ks.cmd('c')
+        ks.copy()
         ks.key('left')
     end
 end
@@ -94,7 +94,7 @@ function Yank.toBeginningOfLine()
         ks.key('y')
     else
         ks.shiftCmd('left')
-        ks.slow().cmd('c')
+        ks.slow().copy()
         ks.key('right')
     end
 end
@@ -107,7 +107,7 @@ function Yank.line()
     else
         ks.cmd('left')
         ks.shiftCmd('right')
-        ks.cmd('c')
+        ks.copy()
         ks.key('right')
     end
 end
@@ -119,7 +119,7 @@ function Yank.character()
         ks.key('l')
     else
         ks.shift('left')
-        ks.cmd('c')
+        ks.copy()
         ks.key('right')
     end
 end
@@ -127,11 +127,11 @@ end
 function Yank.toTopOfPage()
     if appIs(notion) then
         ks.cmd('a')
-        ks.cmd('c')
+        ks.copy()
         ks.key('right')
     else
         ks.shiftCmd('up')
-        ks.cmd('c')
+        ks.copy()
         ks.key('right')
     end
 end
@@ -152,14 +152,14 @@ function Yank.all()
 
     if inCodeEditor() then
         ks.cmd('a')
-        ks.cmd('c')
+        ks.copy()
 
         ks.escape()
         ks.key('g')
         ks.key('g')
     else
         ks.cmd('a')
-        ks.slow().cmd('c')
+        ks.slow().copy()
 
         ks.key('right')
     end

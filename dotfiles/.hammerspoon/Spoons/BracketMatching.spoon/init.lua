@@ -120,7 +120,7 @@ function BracketMatching.commitOrDismiss()
     if text then
         if appIs(vscode) then
             ks.slow().key('c')
-            ks.cmd('z')
+            ks.undo()
             ks.shiftAltCmd('delete')
         elseif inCodeEditor() then
             ks.shift('delete')
@@ -168,7 +168,7 @@ end
 
 function BracketMatching.paste()
     Modal.exit()
-    ks.cmd('v')
+    ks.paste()
 end
 
 function BracketMatching.insertComma()

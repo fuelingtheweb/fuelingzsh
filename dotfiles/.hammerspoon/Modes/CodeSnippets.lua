@@ -76,7 +76,8 @@ function CodeSnippets.snippet(name)
 
     if appIs(vscode) then
         ks.ctrlCmd('s')
-        ks.cmd('v').slow().enter()
+        ks.paste()
+        ks.slow().enter()
 
         if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then

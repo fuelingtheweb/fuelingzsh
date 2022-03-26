@@ -35,7 +35,7 @@ function Pane.destroy()
         fastSuperks.slow().key('p')
         fastSuperks.slow().key('d')
     elseif appIs(iterm) then
-        ks.cmd('w')
+        ks.close()
     end
 end
 

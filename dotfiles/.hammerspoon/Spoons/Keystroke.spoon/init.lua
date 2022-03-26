@@ -7,6 +7,14 @@ function Keystroke.escape() Keystroke.key('escape') end
 function Keystroke.enter() Keystroke.key('return') end
 function Keystroke.tab() Keystroke.key('tab') end
 
+function Keystroke.copy() Keystroke.cmd('c') end
+function Keystroke.paste() Keystroke.cmd('v') end
+function Keystroke.undo() Keystroke.cmd('z') end
+function Keystroke.redo() Keystroke.shiftCmd('z') end
+function Keystroke.save() Keystroke.cmd('s') end
+function Keystroke.refresh() Keystroke.cmd('r') end
+function Keystroke.close() Keystroke.cmd('w') end
+
 function Keystroke.shift(key) Keystroke.fire({'shift'}, key) end
 function Keystroke.shiftCtrl(key) Keystroke.fire({'shift', 'ctrl'}, key) end
 function Keystroke.shiftCtrlAlt(key)

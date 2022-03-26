@@ -20,7 +20,7 @@ Paste.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = 'default'
+    spacebar = ks.paste
 }
 
 function Paste.before() spoon.KarabinerHandler.currentKey = nil end
@@ -106,8 +106,6 @@ end
 function Paste.pasteNext()
     triggerAlfredWorkflow('paste:next', 'com.fuelingtheweb.commands')
 end
-
-function Paste.default() ks.cmd('v') end
 
 function Paste.primaryVim() ks.key('p') end
 

@@ -64,7 +64,7 @@ function Command.reload()
         -- Run last command
         ks.key('up').enter()
     else
-        ks.cmd('r')
+        ks.refresh()
     end
 end
 
@@ -98,7 +98,7 @@ function Command.save()
         ks.key('x').enter()
     else
         log.d('Saving with cmd+s...')
-        ks.cmd('s')
+        ks.save()
 
         -- if inCodeEditor() then ks.escape() end
         if inCodeEditor() then ks.escape() end

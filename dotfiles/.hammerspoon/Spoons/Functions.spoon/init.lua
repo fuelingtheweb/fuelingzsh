@@ -38,7 +38,7 @@ function getSelectedText(copying)
     if appIs(vscode) then
         ks.slow().shiftAltCmd('c')
     else
-        ks.slow().cmd('c')
+        ks.slow().copy()
     end
 
     text = hs.pasteboard.getContents()
@@ -294,7 +294,7 @@ end
 function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 
 function closeWindow()
-    ks.cmd('w')
+    ks.close()
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()

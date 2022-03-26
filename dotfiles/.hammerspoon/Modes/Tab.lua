@@ -88,8 +88,8 @@ function Tab.restore() ks.shiftCmd('t') end
 function Tab.moveToNewWindow()
     if appIs(sublime) then
         ks.cmd('a')
-        ks.cmd('c')
-        ks.cmd('w')
+        ks.copy()
+        ks.close()
         ks.key('space')
         ks.shiftCmd('n')
         ks.key('p')

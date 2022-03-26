@@ -18,8 +18,8 @@ Hyper.lookup = {
     return_or_enter = 'capsLock',
     n = 'new',
     m = 'alfred',
-    comma = 'undo',
-    period = 'redo',
+    comma = ks.undo,
+    period = ks.redo,
     slash = 'cheatsheets',
     -- slash = 'startArtisan',
     right_shift = nil,
@@ -183,7 +183,7 @@ end
 function Hyper.alfredClipboard() ks.alt('c') end
 
 function Hyper.paste()
-    ks.cmd('v')
+    ks.paste()
 
     if titleContains('Slack | ') then ks.shiftCmd('f') end
 end
@@ -205,10 +205,6 @@ function Hyper.forceEscape()
     ks.escape()
     -- ks.escape()
 end
-
-function Hyper.undo() ks.cmd('z') end
-
-function Hyper.redo() ks.shiftCmd('z') end
 
 function Hyper.nextWindow() md.WindowManager.next() end
 

@@ -361,7 +361,7 @@ function Artisan.openNewFiles(callback)
         end)
 
         hs.application.get(atom):activate()
-        ks.cmd('s')
+        ks.save()
     end):start()
 
     callback()

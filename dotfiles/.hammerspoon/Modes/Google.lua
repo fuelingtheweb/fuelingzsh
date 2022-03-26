@@ -57,7 +57,7 @@ function Google.toggleDevToolsDocking() ks.shiftCmd('d') end
 
 function Google.openAndReload()
     hs.application.get(apps['chrome']):activate()
-    ks.cmd('r')
+    ks.refresh()
 end
 
 function Google.toggleIncognito()

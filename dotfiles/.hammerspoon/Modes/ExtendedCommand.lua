@@ -64,7 +64,7 @@ function ExtendedCommand.dismissNotifications()
 end
 
 function ExtendedCommand.surroundText()
-    ks.cmd('c')
+    ks.copy()
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
 end
 
@@ -81,9 +81,9 @@ end
 
 function ExtendedCommand.saveAndReload()
     ks.escape()
-    ks.slow().cmd('s')
+    ks.slow().save()
     hs.application.get(apps['chrome']):activate()
-    ks.slow().cmd('r')
+    ks.slow().refresh()
 end
 
 function ExtendedCommand.jumpTo()

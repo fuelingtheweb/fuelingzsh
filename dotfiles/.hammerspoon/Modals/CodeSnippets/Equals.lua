@@ -75,7 +75,7 @@ end
 
 function mdl.paste()
     mdl.equals()
-    hs.timer.doAfter(0.1, function() ks.cmd('v'); end)
+    hs.timer.doAfter(0.1, ks.paste)
 end
 
 function mdl.simpleNotEquals()
