@@ -41,14 +41,14 @@ function Command.duplicate()
             ks.super('d')
         else
             ks.key('right')
-            insertText(text)
+            ks.type(text)
         end
     elseif appIs(finder) then
         ks.cmd('d')
     elseif appIs(chrome) then
         -- Vimium
         ks.escape()
-        insertText('yt')
+        ks.type('yt')
     elseif inCodeEditor() then
         ks.shiftAltCmd('d')
         TextManipulation.disableVim()

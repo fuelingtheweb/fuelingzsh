@@ -74,7 +74,7 @@ function Code.toggleSemicolon()
         ks.key('delete')
     else
         ks.key('right')
-        insertText(';')
+        ks.type(';')
     end
 end
 
@@ -100,12 +100,12 @@ function Code.toggleComma()
         ks.key('delete')
     else
         ks.key('right')
-        insertText(',')
+        ks.type(',')
     end
 end
 
 function Code.doubleArrow()
-    insertText(' => ')
+    ks.type(' => ')
     BracketMatching.start()
 end
 

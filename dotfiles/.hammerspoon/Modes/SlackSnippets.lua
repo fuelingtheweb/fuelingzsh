@@ -26,7 +26,7 @@ SlackSnippets.lookup = {
 }
 
 function SlackSnippets.fallback(value)
-    insertText('@' .. value)
+    ks.type('@' .. value)
 
     hs.timer.doAfter(.2, function() ks.slow().key('escape') end)
 end

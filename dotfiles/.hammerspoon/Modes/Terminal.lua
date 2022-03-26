@@ -29,7 +29,7 @@ function Terminal.home() typeAndEnter('hc') end
 
 function Terminal.list() typeAndEnter('ll') end
 
-function Terminal.navigate() insertText('cd ') end
+function Terminal.navigate() ks.type('cd ') end
 
 function Terminal.clear() typeAndEnter('clear') end
 

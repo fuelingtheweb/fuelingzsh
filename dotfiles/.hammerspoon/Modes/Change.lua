@@ -72,7 +72,7 @@ function Change.word()
         ks.key('w')
     elseif appIs(iterm) and not isAlfredVisible() then
         ks.escape()
-        insertText('ciw')
+        ks.type('ciw')
     else
         ks.alt('delete')
     end
@@ -106,7 +106,7 @@ function Change.line()
         ks.key('c')
     elseif appIs(iterm) and not isAlfredVisible() then
         ks.escape()
-        insertText('cc')
+        ks.type('cc')
     else
         ks.cmd('left')
         ks.shiftCmd('right')

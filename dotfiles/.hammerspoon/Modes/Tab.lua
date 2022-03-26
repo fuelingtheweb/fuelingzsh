@@ -61,7 +61,7 @@ function Tab.moveLeft()
     if appIs(chrome) then
         -- Vimium
         ks.escape()
-        insertText('th')
+        ks.type('th')
     elseif inCodeEditor() then
         ks.shiftAltCmd('left')
     elseif appIs(iterm) then
@@ -73,7 +73,7 @@ function Tab.moveRight()
     if appIs(chrome) then
         -- Vimium
         ks.escape()
-        insertText('tl')
+        ks.type('tl')
     elseif inCodeEditor() then
         ks.shiftAltCmd('right')
     elseif appIs(iterm) then
@@ -115,14 +115,14 @@ end
 
 function Tab.closeAllToLeft()
     if appIs(chrome) then
-        insertText('txh')
+        ks.type('txh')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
         ks.key('x')
         ks.key('h')
 
         if appIs(sublime) then
-            insertText('Close Tabs to Left')
+            ks.type('Close Tabs to Left')
             ks.key('return')
         end
     end
@@ -130,14 +130,14 @@ end
 
 function Tab.closeAllToRight()
     if appIs(chrome) then
-        insertText('txl')
+        ks.type('txl')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
         ks.key('x')
         ks.key('l')
 
         if appIs(sublime) then
-            insertText('Close Tabs to Right')
+            ks.type('Close Tabs to Right')
             ks.key('return')
         end
     end
@@ -145,7 +145,7 @@ end
 
 function Tab.closeAllOthers()
     if appIs(chrome) then
-        insertText('tx;')
+        ks.type('tx;')
     elseif appIs(vscode) then
         fastSuperks.slow().key('e')
         fastSuperks.slow().key('/')
@@ -155,7 +155,7 @@ function Tab.closeAllOthers()
         ks.key(';')
 
         if appIs(sublime) then
-            insertText('Close Other Tabs')
+            ks.type('Close Other Tabs')
             ks.key('return')
         end
     end
@@ -170,7 +170,7 @@ function Tab.closeAll()
         ks.key(';')
 
         if appIs(sublime) then
-            insertText('Close All Tabs')
+            ks.type('Close All Tabs')
             ks.key('return')
         end
     elseif appIs(vscode) then

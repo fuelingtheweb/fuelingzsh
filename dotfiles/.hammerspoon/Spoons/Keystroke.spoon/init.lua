@@ -34,6 +34,12 @@ function Keystroke.fire(modifiers, key)
     Keystroke.reset()
 end
 
+function Keystroke.type(text)
+    hs.eventtap.keyStrokes(text)
+
+    return Keystroke
+end
+
 function Keystroke.slow(delay)
     Keystroke.delay = delay or nil
 

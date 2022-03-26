@@ -34,10 +34,10 @@ function General.equals() ks.key('=') end
 function General.multiply() ks.shift('8') end
 
 function General.methodChain()
-    insertText('->')
+    ks.type('->')
     -- Modal.enter('CodeSnippets:callFunction')
 end
 
-function General.fallback(value) insertText(value) end
+function General.fallback(value) ks.type(value) end
 
 return General

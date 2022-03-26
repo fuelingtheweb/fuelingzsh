@@ -102,7 +102,7 @@ function BracketMatching.print(bracket)
 
     if text then BracketMatching.dismiss() end
 
-    insertText(brackets[1] .. (text or '') .. brackets[2])
+    ks.type(brackets[1] .. (text or '') .. brackets[2])
 
     ks.key('left')
 end
@@ -140,7 +140,7 @@ function BracketMatching.commitOrDismiss()
         result = result .. BracketMatching.lookup[brackets[i]][2]
     end
 
-    insertText(result)
+    ks.type(result)
 end
 
 function BracketMatching.dismiss() Modal.exit() end
@@ -174,29 +174,29 @@ end
 function BracketMatching.insertComma()
     Modal.exit()
     ks.key('right');
-    insertText(',')
+    ks.type(',')
 end
 
 function BracketMatching.insertSemicolon()
     Modal.exit()
     ks.key('right');
-    insertText(';')
+    ks.type(';')
 end
 
 function BracketMatching.continueChain()
     Modal.exit()
     ks.key('right');
     if isLua() then
-        insertText('.')
+        ks.type('.')
     else
-        insertText('->')
+        ks.type('->')
     end
     -- Modal.enter('CodeSnippets:callFunction')
 end
 
 function BracketMatching.insertVariable()
     Modal.exit()
-    insertText('$')
+    ks.type('$')
 end
 
 function BracketMatching.onlyOpening()

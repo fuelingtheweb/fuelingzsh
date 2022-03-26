@@ -41,7 +41,7 @@ function ChangeCase.change(to, key)
         result = trim(hs.execute(
                           '/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' ..
                               to .. '" "' .. text .. '"'))
-        insertText(result)
+        ks.type(result)
     end
 end
 

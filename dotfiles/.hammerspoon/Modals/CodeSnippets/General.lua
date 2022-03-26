@@ -9,9 +9,9 @@ Modal.add({
         m = function()
             Modal.exit()
             if isLua() then
-                insertText('nil')
+                ks.type('nil')
             else
-                insertText('null')
+                ks.type('null')
             end
         end,
         t = 'true',
@@ -22,7 +22,7 @@ Modal.add({
     },
     callback = function(item)
         Modal.exit()
-        insertText(item)
+        ks.type(item)
     end
 })
 

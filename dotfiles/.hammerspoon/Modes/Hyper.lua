@@ -69,7 +69,7 @@ end
 --         t = {extension = 'Test.php'},
 --     },
 --     callback = function(item)
---         insertText(item.extension)
+--         ks.type(item.extension)
 --         for i = 1, item.extension:len() do
 --             ks.key('left')
 --         end
@@ -112,7 +112,7 @@ function Hyper.open()
             ks.shift('o')
         end
     elseif appIs(iterm) then
-        insertText('cd ')
+        ks.type('cd ')
     else
         ks.cmd('o')
     end

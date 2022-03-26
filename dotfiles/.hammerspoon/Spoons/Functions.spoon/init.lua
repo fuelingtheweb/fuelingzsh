@@ -97,7 +97,7 @@ end
 
 function openDiscordChannel(name)
     ks.slow().cmd('k')
-    insertText(name)
+    ks.type(name)
     hs.timer.doAfter(0.1, function() ks.key('return') end)
 end
 
@@ -107,7 +107,7 @@ end
 
 function openNotionPage(name)
     ks.slow().cmd('p')
-    insertText(name)
+    ks.type(name)
     hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
@@ -145,33 +145,25 @@ end
 
 function triggerInAtom(name)
     ks.slow().shiftCmd('p')
-    insertText(name)
+    ks.type(name)
     hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function triggerInCode(name)
     ks.slow().shiftCmd('p')
-    insertText(name)
+    ks.type(name)
     hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function goToFileInAtom(file)
     ks.slow().cmd('t')
-    insertText(file)
+    ks.type(file)
     hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
-function typeAndEnter(string)
-    insertText(string)
-    -- hs.timer.doAfter(0.2, function ()
-    ks.slow().key('return')
-    -- end)
-end
+function typeAndEnter(string) ks.type(string).enter() end
 
-function typeAndTab(string)
-    insertText(string)
-    ks.key('tab')
-end
+function typeAndTab(string) ks.type(string).tab() end
 
 function triggerAlfredSearch(search)
     hs.osascript.applescript(
@@ -331,7 +323,7 @@ function slackReaction(emoji)
     ks.slow().key('r')
 
     if emoji then
-        insertText(emoji)
+        ks.type(emoji)
         hs.timer.doAfter(0.5, function() ks.slow().key('return') end)
     end
 end
@@ -345,11 +337,9 @@ function insertOrPasteText(text)
 
         hs.pasteboard.setContents(original)
     else
-        insertText(text)
+        ks.type(text)
     end
 end
-
-function insertText(text) hs.eventtap.keyStrokes(text) end
 
 function handleApp(callback, lookup)
     local bundle = hs.application.frontmostApplication():bundleID()

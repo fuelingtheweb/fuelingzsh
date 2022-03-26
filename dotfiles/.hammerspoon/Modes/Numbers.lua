@@ -22,11 +22,9 @@ Numbers.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Numbers.fallback(value)
-    insertText(value)
-end
+function Numbers.fallback(value) ks.type(value) end
 
 return Numbers

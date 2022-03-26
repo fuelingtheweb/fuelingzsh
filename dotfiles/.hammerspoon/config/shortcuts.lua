@@ -79,11 +79,11 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     sublime = function()
         ks.escape()
         ks.shift('i')
-        insertText('# ')
+        ks.type('# ')
     end,
     default = function()
         ks.cmd('left')
-        insertText('# ')
+        ks.type('# ')
     end
 }):add('2', {
     notion = function()
@@ -93,11 +93,11 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     sublime = function()
         ks.escape()
         ks.shift('i')
-        insertText('## ')
+        ks.type('## ')
     end,
     default = function()
         ks.cmd('left')
-        insertText('## ')
+        ks.type('## ')
     end
 }):add('3', {
     notion = function()
@@ -107,11 +107,11 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     sublime = function()
         ks.escape()
         ks.shift('i')
-        insertText('### ')
+        ks.type('### ')
     end,
     default = function()
         ks.cmd('left')
-        insertText('### ')
+        ks.type('### ')
     end
 }):add('4', {
     notion = function()
@@ -125,12 +125,12 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
         else
             ks.escape()
             ks.shift('i')
-            insertText('- ')
+            ks.type('- ')
         end
     end,
     default = function()
         ks.cmd('left')
-        insertText('- ')
+        ks.type('- ')
     end
 }):add('5', {
     notion = function()
@@ -140,11 +140,11 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     sublime = function()
         ks.escape()
         ks.shift('i')
-        insertText('- ')
+        ks.type('- ')
     end,
     default = function()
         ks.cmd('left')
-        insertText('- ')
+        ks.type('- ')
     end
 }):add('6', {
     notion = function()
@@ -154,11 +154,11 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     sublime = function()
         ks.escape()
         ks.shift('i')
-        insertText('1. ')
+        ks.type('1. ')
     end,
     default = function()
         ks.cmd('left')
-        insertText('1. ')
+        ks.type('1. ')
     end
 }):add('7', {
     notion = function()

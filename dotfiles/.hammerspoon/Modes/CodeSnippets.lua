@@ -41,10 +41,10 @@ function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
         ks.key('o')
         ks.slow().key('return')
-        insertText(';dte')
+        ks.type(';dte')
         hs.timer.doAfter(0.2, function()
             ks.slow().key('return')
-            insertText('- ')
+            ks.type('- ')
             ks.escape()
             md.Command.save()
         end)
@@ -99,7 +99,7 @@ function CodeSnippets.this()
         ks.slow().shiftCtrl('c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then
-            return insertText('$table->')
+            return ks.type('$table->')
         end
     end
 
@@ -119,17 +119,17 @@ end
 function CodeSnippets.equals() Modal.enter('CodeSnippets:equals') end
 
 function CodeSnippets.insertColon()
-    insertText(' : ')
+    ks.type(' : ')
     BracketMatching.start();
 end
 
 function CodeSnippets.insertQuestion()
-    insertText(' ? ')
+    ks.type(' ? ')
     BracketMatching.start();
 end
 
 function CodeSnippets.insertComma()
-    insertText(', ')
+    ks.type(', ')
     BracketMatching.start();
 end
 
@@ -147,7 +147,7 @@ function CodeSnippets.handleCallFunction(item)
     if item.extra ~= 'start' then Modal.exit() end
 
     if item.method == 'static' then
-        insertText('::')
+        ks.type('::')
         Modal.enter('CodeSnippets:callFunction')
 
         return
@@ -165,13 +165,13 @@ function CodeSnippets.printFunction(item, text)
         ks.shiftCmd('i')
     end
 
-    insertText(item.method);
+    ks.type(item.method);
 
-    if item.extra ~= 'start' then insertText('(') end
+    if item.extra ~= 'start' then ks.type('(') end
 
     if item.extra == 'query' then
-        insertText('function ($query) { $query-> }')
-        insertText(')')
+        ks.type('function ($query) { $query-> }')
+        ks.type(')')
         ks.key('left')
         ks.key('left')
         ks.key('left')
@@ -179,12 +179,12 @@ function CodeSnippets.printFunction(item, text)
 
         return
     elseif text then
-        insertText(text)
+        ks.type(text)
     end
 
     if item.extra == 'start' then return end
 
-    insertText(')')
+    ks.type(')')
     ks.key('left')
 
     if item.extra ~= 'simple' then BracketMatching.start() end
@@ -192,9 +192,9 @@ end
 
 function CodeSnippets.conditionalAnd()
     if isLua() then
-        insertText(' and ')
+        ks.type(' and ')
     else
-        insertText(' && ')
+        ks.type(' && ')
     end
 end
 
@@ -205,24 +205,24 @@ function CodeSnippets.conditionalOr()
         -- ['fallback'] = ' || ',
     })
     -- if isLua() then
-    --     insertText(' or ')
+    --     ks.type(' or ')
     -- else
-    --     insertText(' || ')
+    --     ks.type(' || ')
     -- end
 end
 
 function CodeSnippets.concatenate()
     if titleContains('.php') then
-        insertText(' . ')
+        ks.type(' . ')
     elseif isLua() then
-        insertText(' .. ')
+        ks.type(' .. ')
     elseif titleContains('.js') then
-        insertText(' + ')
+        ks.type(' + ')
     end
 
     BracketMatching.start()
 end
 
-function CodeSnippets.typeReturn() insertText('return') end
+function CodeSnippets.typeReturn() ks.type('return') end
 
 return CodeSnippets

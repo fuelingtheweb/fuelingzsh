@@ -27,14 +27,14 @@ Modal.add({
         Modal.exit()
 
         if isTable(item) then
-            insertText(item.value)
+            ks.type(item.value)
 
             if item.callback then
                 ks.key('left')
                 item.callback()
             end
         else
-            insertText(item)
+            ks.type(item)
         end
     end
 })

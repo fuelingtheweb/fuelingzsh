@@ -75,7 +75,7 @@ function Media.focus()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
-            insertText('gf')
+            ks.type('gf')
         elseif stringContains('Disney', title) then
             ks.key('tab')
         else
