@@ -21,7 +21,7 @@ Modal.add({
         ['return'] = function()
             if inCodeEditor() then
                 Modal.exit()
-                ks.key('return')
+                ks.enter()
             end
         end
     },

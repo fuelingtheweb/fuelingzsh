@@ -147,45 +147,45 @@ function BracketMatching.dismiss() Modal.exit() end
 
 function BracketMatching.newLine()
     Modal.exit()
-    ks.key('return');
+    ks.enter()
 end
 
 function BracketMatching.cancel()
-    ks.key('right');
-    ks.key('delete');
-    ks.key('delete');
+    ks.key('right')
+    ks.key('delete')
+    ks.key('delete')
 end
 
 function BracketMatching.left()
     Modal.exit()
-    ks.key('left');
+    ks.key('left')
 end
 
 function BracketMatching.right()
     Modal.exit()
-    ks.key('right');
+    ks.key('right')
 end
 
 function BracketMatching.paste()
     Modal.exit()
-    ks.cmd('v');
+    ks.cmd('v')
 end
 
 function BracketMatching.insertComma()
     Modal.exit()
-    ks.key('right');
+    ks.key('right')
     ks.type(',')
 end
 
 function BracketMatching.insertSemicolon()
     Modal.exit()
-    ks.key('right');
+    ks.key('right')
     ks.type(';')
 end
 
 function BracketMatching.continueChain()
     Modal.exit()
-    ks.key('right');
+    ks.key('right')
     if isLua() then
         ks.type('.')
     else
@@ -200,13 +200,13 @@ function BracketMatching.insertVariable()
 end
 
 function BracketMatching.onlyOpening()
-    ks.key('right');
-    ks.key('delete');
+    ks.key('right')
+    ks.key('delete')
 end
 
 function BracketMatching.onlyClosing()
-    ks.key('delete');
-    ks.key('right');
+    ks.key('delete')
+    ks.key('right')
 end
 
 function BracketMatching.functionSnippet()

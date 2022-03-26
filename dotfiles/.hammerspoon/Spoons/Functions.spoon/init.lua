@@ -98,7 +98,7 @@ end
 function openDiscordChannel(name)
     ks.slow().cmd('k')
     ks.type(name)
-    hs.timer.doAfter(0.1, function() ks.key('return') end)
+    hs.timer.doAfter(0.1, ks.enter)
 end
 
 function openSlackChannel(channel)
@@ -108,7 +108,7 @@ end
 function openNotionPage(name)
     ks.slow().cmd('p')
     ks.type(name)
-    hs.timer.doAfter(0.3, function() ks.key('return') end)
+    hs.timer.doAfter(0.3, ks.enter)
 end
 
 function maximizeAfterDelay()
@@ -146,19 +146,19 @@ end
 function triggerInAtom(name)
     ks.slow().shiftCmd('p')
     ks.type(name)
-    hs.timer.doAfter(0.3, function() ks.key('return') end)
+    hs.timer.doAfter(0.3, ks.enter)
 end
 
 function triggerInCode(name)
     ks.slow().shiftCmd('p')
     ks.type(name)
-    hs.timer.doAfter(0.3, function() ks.key('return') end)
+    hs.timer.doAfter(0.3, ks.enter)
 end
 
 function goToFileInAtom(file)
     ks.slow().cmd('t')
     ks.type(file)
-    hs.timer.doAfter(0.3, function() ks.key('return') end)
+    hs.timer.doAfter(0.3, ks.enter)
 end
 
 function typeAndEnter(string) ks.type(string).enter() end
@@ -322,7 +322,7 @@ function slackReaction(emoji)
 
     if emoji then
         ks.type(emoji)
-        hs.timer.doAfter(0.5, function() ks.slow().key('return') end)
+        hs.timer.doAfter(0.5, function() ks.slow().enter() end)
     end
 end
 

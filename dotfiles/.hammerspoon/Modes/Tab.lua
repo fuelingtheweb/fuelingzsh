@@ -102,8 +102,7 @@ function Tab.new()
     if inCodeEditor() then
         ks.cmd('n')
         hs.timer.doAfter(0.1, function()
-            ks.key('i')
-            ks.key('return')
+            ks.key('i').enter()
             ks.key('up')
         end)
     elseif appIs(finder) then
@@ -121,10 +120,7 @@ function Tab.closeAllToLeft()
         ks.key('x')
         ks.key('h')
 
-        if appIs(sublime) then
-            ks.type('Close Tabs to Left')
-            ks.key('return')
-        end
+        if appIs(sublime) then ks.type('Close Tabs to Left').enter() end
     end
 end
 
@@ -136,10 +132,7 @@ function Tab.closeAllToRight()
         ks.key('x')
         ks.key('l')
 
-        if appIs(sublime) then
-            ks.type('Close Tabs to Right')
-            ks.key('return')
-        end
+        if appIs(sublime) then ks.type('Close Tabs to Right').enter() end
     end
 end
 
@@ -154,10 +147,7 @@ function Tab.closeAllOthers()
         ks.key('x')
         ks.key(';')
 
-        if appIs(sublime) then
-            ks.type('Close Other Tabs')
-            ks.key('return')
-        end
+        if appIs(sublime) then ks.type('Close Other Tabs').enter() end
     end
 end
 
@@ -169,10 +159,7 @@ function Tab.closeAll()
         ks.key('x')
         ks.key(';')
 
-        if appIs(sublime) then
-            ks.type('Close All Tabs')
-            ks.key('return')
-        end
+        if appIs(sublime) then ks.type('Close All Tabs').enter() end
     elseif appIs(vscode) then
         fastSuperks.slow().key('e')
         fastSuperks.slow().key('[')

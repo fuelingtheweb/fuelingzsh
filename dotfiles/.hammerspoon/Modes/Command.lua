@@ -62,8 +62,7 @@ function Command.reload()
         ks.cmd('return')
     elseif appIs(iterm) then
         -- Run last command
-        ks.key('up')
-        ks.key('return')
+        ks.key('up').enter()
     else
         ks.cmd('r')
     end
@@ -96,8 +95,7 @@ function Command.save()
     elseif appIs(iterm) then
         -- Save from Vim
         ks.shift(';')
-        ks.key('x')
-        ks.key('return')
+        ks.key('x').enter()
     else
         log.d('Saving with cmd+s...')
         ks.cmd('s')

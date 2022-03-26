@@ -75,8 +75,7 @@ function ExtendedCommand.reloadSecondary()
     elseif appIs(iterm) then
         -- Reload running command
         ks.ctrl('c')
-        ks.key('up')
-        ks.key('return')
+        ks.key('up').enter()
     end
 end
 

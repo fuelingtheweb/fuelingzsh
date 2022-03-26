@@ -147,8 +147,7 @@ function Hyper.previousPage()
     if appIs(spotify) then
         ks.altCmd('left')
     elseif appIs(discord) then
-        ks.cmd('k')
-        ks.key('return')
+        ks.cmd('k').enter()
     elseif appIs(atom) then
         -- Atom: Cursor History: Previous
         ks.shiftAlt('i')

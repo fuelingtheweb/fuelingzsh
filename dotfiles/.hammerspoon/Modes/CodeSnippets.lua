@@ -39,11 +39,10 @@ CodeSnippets.lookup = {
 
 function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
-        ks.key('o')
-        ks.slow().key('return')
+        ks.key('o').slow().enter()
         ks.type(';dte')
         hs.timer.doAfter(0.2, function()
-            ks.slow().key('return')
+            ks.slow().enter()
             ks.type('- ')
             ks.escape()
             md.Command.save()
@@ -77,8 +76,7 @@ function CodeSnippets.snippet(name)
 
     if appIs(vscode) then
         ks.ctrlCmd('s')
-        ks.cmd('v')
-        ks.slow().key('return')
+        ks.cmd('v').slow().enter()
 
         if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then
