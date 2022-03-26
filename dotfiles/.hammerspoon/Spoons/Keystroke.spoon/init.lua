@@ -33,6 +33,12 @@ function Keystroke.cmd(key) Keystroke.fire({'cmd'}, key) end
 function Keystroke.key(key) Keystroke.fire({}, key) end
 function Keystroke.solo(key) Keystroke.fire({}, key) end
 
+function Keystroke.sequence(keys)
+    each(keys, Keystroke.key)
+
+    return Keystroke
+end
+
 function Keystroke.fire(modifiers, key)
     if type(modifiers) == 'string' then
         key = modifiers

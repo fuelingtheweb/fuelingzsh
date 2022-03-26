@@ -31,8 +31,7 @@ function Change.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     ks.escape()
-    ks.key('c')
-    ks.key('i')
+    ks.sequence({'c', 'i'})
     ks.fire(keystroke.mods, keystroke.key)
 
     if not hasValue({'s', 'd', 't'}, key) then BracketMatching.start() end
@@ -41,8 +40,7 @@ end
 function Change.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('c')
-        ks.key('e')
+        ks.sequence({'c', 'e'})
     else
         ks.shiftAlt('right')
         ks.key('delete')
@@ -52,12 +50,10 @@ end
 function Change.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('c')
-        ks.key('i')
+        ks.sequence({'c', 'i'})
 
         if appIs(vscode) then
-            ks.key('\\')
-            ks.key('w')
+            ks.sequence({'\\', 'w'})
         else
             ks.key('q')
         end
@@ -67,9 +63,7 @@ end
 function Change.word()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('c')
-        ks.key('i')
-        ks.key('w')
+        ks.sequence({'c', 'i', 'w'})
     elseif appIs(iterm) and not isAlfredVisible() then
         ks.escape()
         ks.type('ciw')
@@ -102,8 +96,7 @@ end
 function Change.line()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('c')
-        ks.key('c')
+        ks.sequence({'c', 'c'})
     elseif appIs(iterm) and not isAlfredVisible() then
         ks.escape()
         ks.type('cc')
@@ -130,8 +123,7 @@ function Change.above() ks.shift('o') end
 
 function Change.untilForward()
     ks.escape()
-    ks.key('c')
-    ks.key('t')
+    ks.sequence({'c', 't'})
 end
 
 function Change.untilBackward()
@@ -152,8 +144,7 @@ Modal.add({
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
         ks.escape()
-        ks.key('c')
-        ks.key('a')
+        ks.sequence({'c', 'a'})
         ks.fire(keystroke.mods, keystroke.key)
 
         if not hasValue({'s', 'd', 't'}, key) then

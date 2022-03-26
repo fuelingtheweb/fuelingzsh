@@ -26,9 +26,7 @@ Yank.lookup = {
 function Yank.word()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('y')
-        ks.key('i')
-        ks.key('w')
+        ks.sequence({'y', 'i', 'w'})
     else
         ks.shiftAlt('left')
         ks.copy()
@@ -40,16 +38,14 @@ function Yank.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
     ks.escape()
-    ks.key('y')
-    ks.key('i')
+    ks.sequence({'y', 'i'})
     ks.fire(keystroke.mods, keystroke.key)
 end
 
 function Yank.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('y')
-        ks.key('e')
+        ks.sequence({'y', 'e'})
     else
         ks.shiftAlt('right')
         ks.copy()
@@ -62,12 +58,10 @@ function Yank.relativeFilePath() if inCodeEditor() then ks.super('y') end end
 function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('y')
-        ks.key('i')
+        ks.sequence({'y', 'i'})
 
         if appIs(vscode) then
-            ks.key('\\')
-            ks.key('w')
+            ks.sequence({'\\', 'w'})
         else
             ks.key('q')
         end
@@ -102,8 +96,7 @@ end
 function Yank.line()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('y')
-        ks.key('y')
+        ks.sequence({'y', 'y'})
     else
         ks.cmd('left')
         ks.shiftCmd('right')
@@ -115,8 +108,7 @@ end
 function Yank.character()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('y')
-        ks.key('l')
+        ks.sequence({'y', 'l'})
     else
         ks.shift('left')
         ks.copy()
@@ -138,8 +130,7 @@ end
 
 function Yank.untilForward()
     ks.escape()
-    ks.key('y')
-    ks.key('t')
+    ks.sequence({'y', 't'})
 end
 
 function Yank.untilBackward()
@@ -155,8 +146,7 @@ function Yank.all()
         ks.copy()
 
         ks.escape()
-        ks.key('g')
-        ks.key('g')
+        ks.sequence({'g', 'g'})
     else
         ks.cmd('a')
         ks.slow().copy()

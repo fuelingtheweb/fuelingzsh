@@ -28,9 +28,7 @@ Pane.lookup = {
 function Pane.destroy()
     if appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('d')
-        ks.key('s')
+        ks.sequence({'o', 'd', 's'})
     elseif appIs(vscode) then
         ks.super('p')
         ks.super('d')
@@ -42,9 +40,7 @@ end
 function Pane.splitRight()
     if appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('c')
-        ks.key('l')
+        ks.sequence({'o', 'c', 'l'})
     elseif appIs(vscode) then
         ks.super('p')
         ks.super('l')
@@ -56,17 +52,14 @@ end
 function Pane.splitBottom()
     if appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('c')
-        ks.key('j')
+        ks.sequence({'o', 'c', 'j'})
     end
 end
 
 function Pane.toggleZoom()
     if appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('z')
+        ks.sequence({'o', 'z'})
     elseif appIs(iterm) then
         ks.shiftCmd('return')
     end
@@ -77,8 +70,7 @@ function Pane.focusPrevious()
         ks.alt('up')
     elseif appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('h')
+        ks.sequence({'o', 'h'})
     elseif appIs(vscode) then
         ks.super('p')
         ks.super('k')
@@ -96,8 +88,7 @@ function Pane.focusNext()
         ks.alt('down')
     elseif appIncludes({atom, sublime}) then
         ks.super('p')
-        ks.key('o')
-        ks.key('l')
+        ks.sequence({'o', 'l'})
     elseif appIs(vscode) then
         ks.super('p')
         ks.super('j')

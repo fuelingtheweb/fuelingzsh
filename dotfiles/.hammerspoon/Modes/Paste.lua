@@ -31,17 +31,14 @@ function Paste.withWrapperKey(key)
     Paste.pastePending(function()
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        ks.key('v')
-        ks.key('i')
+        ks.sequence({'v', 'i'})
         ks.fire(keystroke.mods, keystroke.key)
     end)
 end
 
 function Paste.toEndOfWord()
-    Paste.pastePending(function()
-        ks.key('v')
-        ks.key('e')
-    end, function() ks.shiftAlt('right') end)
+    Paste.pastePending(function() ks.sequence({'v', 'e'}) end,
+                       function() ks.shiftAlt('right') end)
 end
 
 function Paste.subword()
@@ -50,11 +47,8 @@ function Paste.subword()
 end
 
 function Paste.word()
-    Paste.pastePending(function()
-        ks.key('v')
-        ks.key('i')
-        ks.key('w')
-    end, function() ks.shiftAlt('left') end)
+    Paste.pastePending(function() ks.sequence({'v', 'i', 'w'}) end,
+                       function() ks.shiftAlt('left') end)
 end
 
 function Paste.toEndOfLine()

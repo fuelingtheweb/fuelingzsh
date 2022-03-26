@@ -157,24 +157,21 @@ end
 function WindowManager.scrollScreenWithCursorAtEnd()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        ks.key('z')
-        ks.key('b')
+        ks.sequence({'z', 'b'})
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtCenter()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        ks.key('z')
-        ks.key('z')
+        ks.sequence({'z', 'z'})
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtTop()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        ks.key('z')
-        ks.key('t')
+        ks.sequence({'z', 't'})
     end
 end
 

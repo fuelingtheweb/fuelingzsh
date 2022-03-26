@@ -31,8 +31,7 @@ function Tab.last() ks.cmd('9') end
 
 function Tab.pin()
     -- Chrome: Pin Tab
-    ks.key('t')
-    ks.key('p')
+    ks.sequence({'t', 'p'})
 end
 
 function Tab.previous()
@@ -117,8 +116,7 @@ function Tab.closeAllToLeft()
         ks.type('txh')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
-        ks.key('x')
-        ks.key('h')
+        ks.sequence({'x', 'h'})
 
         if appIs(sublime) then ks.type('Close Tabs to Left').enter() end
     end
@@ -129,8 +127,7 @@ function Tab.closeAllToRight()
         ks.type('txl')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
-        ks.key('x')
-        ks.key('l')
+        ks.sequence({'x', 'l'})
 
         if appIs(sublime) then ks.type('Close Tabs to Right').enter() end
     end
@@ -144,8 +141,7 @@ function Tab.closeAllOthers()
         ks.super('/')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
-        ks.key('x')
-        ks.key(';')
+        ks.sequence({'x', ';'})
 
         if appIs(sublime) then ks.type('Close Other Tabs').enter() end
     end
@@ -156,8 +152,7 @@ function Tab.closeAll()
         ks.super('x')
     elseif appIs(sublime) then
         ks.super('tab')
-        ks.key('x')
-        ks.key(';')
+        ks.sequence({'x', ';'})
 
         if appIs(sublime) then ks.type('Close All Tabs').enter() end
     elseif appIs(vscode) then

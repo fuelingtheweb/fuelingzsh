@@ -29,8 +29,7 @@ function ViVisual.selectToPreviousSubword()
     md.SelectUntil.beginSelectingBackward()
 
     if appIs(vscode) then
-        ks.key('\\')
-        ks.key('b')
+        ks.sequence({'\\', 'b'})
     else
         ks.shift('q')
     end
@@ -40,8 +39,7 @@ function ViVisual.selectToNextSubword()
     md.SelectUntil.beginSelectingForward()
 
     if appIs(vscode) then
-        ks.key('\\')
-        ks.key('e')
+        ks.sequence({'\\', 'e'})
     else
         ks.key('q')
     end
@@ -69,8 +67,7 @@ function ViVisual.selectToTopOfPage()
         ks.shiftAlt('up')
     elseif appIs(vscode) and TextManipulation.vimEnabled then
         md.SelectUntil.beginSelectingForward()
-        ks.key('g')
-        ks.key('g')
+        ks.sequence({'g', 'g'})
     else
         ks.shiftCmd('up')
     end

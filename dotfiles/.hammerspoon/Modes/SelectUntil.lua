@@ -26,8 +26,7 @@ SelectUntil.lookup = {
 function SelectUntil.endOfWord()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('v')
-        ks.key('e')
+        ks.sequence({'v', 'e'})
     else
         ks.shiftAlt('right')
     end
@@ -36,8 +35,7 @@ end
 function SelectUntil.nextWord()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('v')
-        ks.key('w')
+        ks.sequence({'v', 'w'})
     else
         ks.shiftAlt('right')
         ks.shiftAlt('right')
@@ -317,8 +315,7 @@ end
 
 function SelectUntil.untilForward()
     ks.escape()
-    ks.key('v')
-    ks.key('t')
+    ks.sequence({'v', 't'})
 end
 
 function SelectUntil.untilBackward()
