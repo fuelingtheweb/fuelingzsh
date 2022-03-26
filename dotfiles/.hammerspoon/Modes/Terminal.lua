@@ -33,7 +33,7 @@ function Terminal.navigate() ks.type('cd ') end
 
 function Terminal.clear() ks.type('clear').enter() end
 
-function Terminal.autocompleteNextWord() fastSuperks.slow().key('j') end
+function Terminal.autocompleteNextWord() ks.super('j') end
 
 function Terminal.serveCurrentProject() ProjectManager.serveCurrent() end
 

@@ -169,7 +169,7 @@ function Hyper.nextPage()
         ks.altCmd('right')
     elseif appIs(iterm) then
         -- Autocomplete to the end of the line
-        fastSuperks.slow().key(';')
+        ks.super(';')
     elseif appIs(atom) then
         -- Atom: Cursor History: Next
         ks.ctrl('o')

@@ -140,8 +140,8 @@ function Tab.closeAllOthers()
     if appIs(chrome) then
         ks.type('tx;')
     elseif appIs(vscode) then
-        fastSuperks.slow().key('e')
-        fastSuperks.slow().key('/')
+        ks.super('e')
+        ks.super('/')
     elseif appIncludes({atom, sublime}) then
         ks.super('tab')
         ks.key('x')
@@ -161,8 +161,8 @@ function Tab.closeAll()
 
         if appIs(sublime) then ks.type('Close All Tabs').enter() end
     elseif appIs(vscode) then
-        fastSuperks.slow().key('e')
-        fastSuperks.slow().key('[')
+        ks.super('e')
+        ks.super('[')
     end
 end
 
