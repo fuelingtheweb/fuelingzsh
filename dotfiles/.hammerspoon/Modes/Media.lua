@@ -77,7 +77,7 @@ function Media.focus()
         if stringContains('Funimation', title) then
             ks.type('gf')
         elseif stringContains('Disney', title) then
-            ks.key('tab')
+            ks.tab()
         else
             center = hs.geometry.rectMidPoint(
                          hs.mouse.getCurrentScreen():fullFrame())
