@@ -71,7 +71,7 @@ end
 --     callback = function(item)
 --         insertText(item.extension)
 --         for i = 1, item.extension:len() do
---             fastKeyStroke('left')
+--             ks.key('left')
 --         end
 --         Modal.exit()
 --     end,
@@ -80,62 +80,62 @@ end
 function Hyper.open()
     -- handleApp({
     --     {{atom, sublime}, function()
-    --         fastKeyStroke({'cmd'}, 'p')
+    --         ks.cmd('p')
     --         TextManipulation.disableVim()
     --     end},
     --     {{notion, sublimeMerge, tableplus, invoker}, function()
-    --         fastKeyStroke({'cmd'}, 'p')
+    --         ks.cmd('p')
     --     end},
-    --     {{discord, slack}, _(fastKeyStroke, {'cmd'}, 'k')},
+    --     {{discord, slack}, _(ks.fire, {'cmd'}, 'k')},
     --     {spotify, _(triggerAlfredWorkflow, 'spot_mini', 'com.vdesabou.spotify.mini.player')},
-    --     {chrome, _(fastKeyStroke, {'shift'}, 'o')},
-    --     {'fallback', _(fastKeyStroke, {'cmd'}, 'o')},
+    --     {chrome, _(ks.fire, {'shift'}, 'o')},
+    --     {'fallback', _(ks.fire, {'cmd'}, 'o')},
     -- })
 
     if appIncludes({
         notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker
     }) then
-        fastKeyStroke({'cmd'}, 'p')
+        ks.cmd('p')
 
         if inCodeEditor() then
             TextManipulation.disableVim()
             -- Modal.enter('Hyper:open')
         end
     elseif appIncludes({discord, slack}) then
-        fastKeyStroke({'cmd'}, 'k')
+        ks.cmd('k')
     elseif appIs(spotify) then
         triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
     elseif appIs(chrome) then
         if urlContains('github.com') then
-            fastKeyStroke({'cmd'}, 'k')
+            ks.cmd('k')
         else
-            fastKeyStroke({'shift'}, 'o')
+            ks.shift('o')
         end
     elseif appIs(iterm) then
         insertText('cd ')
     else
-        fastKeyStroke({'cmd'}, 'o')
+        ks.cmd('o')
     end
 end
 
 function Hyper.new()
     if appIs(atom) then
         TextManipulation.disableVim()
-        fastKeyStroke({'alt', 'cmd'}, 'o')
+        ks.altCmd('o')
     elseif appIs(sublime) then
         TextManipulation.disableVim()
-        fastKeyStroke({'alt', 'cmd'}, 'n')
+        ks.altCmd('n')
     elseif appIs(vscode) then
         TextManipulation.disableVim()
-        fastKeyStroke({'alt', 'cmd'}, 'n')
+        ks.altCmd('n')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'n')
+        ks.shiftCmd('n')
     end
 end
 
 function Hyper.commandPalette()
     if appIncludes({atom, vscode, sublime, sublimeMerge}) then
-        fastKeyStroke({'shift', 'cmd'}, 'p')
+        ks.shiftCmd('p')
 
         if inCodeEditor() then TextManipulation.disableVim() end
     else
@@ -145,19 +145,19 @@ end
 
 function Hyper.previousPage()
     if appIs(spotify) then
-        fastKeyStroke({'alt', 'cmd'}, 'left')
+        ks.altCmd('left')
     elseif appIs(discord) then
-        fastKeyStroke({'cmd'}, 'k')
-        fastKeyStroke('return')
+        ks.cmd('k')
+        ks.key('return')
     elseif appIs(atom) then
         -- Atom: Cursor History: Previous
-        fastKeyStroke({'shift', 'alt'}, 'i')
+        ks.shiftAlt('i')
     elseif appIs(sublime) then
-        fastKeyStroke({'ctrl'}, '-')
+        ks.ctrl('-')
     elseif appIs(iterm) then
         typeAndEnter('cdp')
     else
-        fastKeyStroke({'cmd'}, '[')
+        ks.cmd('[')
     end
 end
 
@@ -167,49 +167,49 @@ function Hyper.nextTab() md.Tab.next() end
 
 function Hyper.nextPage()
     if appIs(spotify) then
-        fastKeyStroke({'alt', 'cmd'}, 'right')
+        ks.altCmd('right')
     elseif appIs(iterm) then
         -- Autocomplete to the end of the line
-        fastSuperKeyStroke(';')
+        fastSuperks.slow().key(';')
     elseif appIs(atom) then
         -- Atom: Cursor History: Next
-        fastKeyStroke({'ctrl'}, 'o')
+        ks.ctrl('o')
     elseif appIs(sublime) then
-        fastKeyStroke({'ctrl', 'shift'}, '-')
+        ks.shiftCtrl('-')
     else
-        fastKeyStroke({'cmd'}, ']')
+        ks.cmd(']')
     end
 end
 
-function Hyper.alfredClipboard() fastKeyStroke({'alt'}, 'c') end
+function Hyper.alfredClipboard() ks.alt('c') end
 
 function Hyper.paste()
-    fastKeyStroke({'cmd'}, 'v')
+    ks.cmd('v')
 
-    if titleContains('Slack | ') then fastKeyStroke({'shift', 'cmd'}, 'f') end
+    if titleContains('Slack | ') then ks.shiftCmd('f') end
 end
 
 function Hyper.pasteStrip()
     triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
 end
 
-function Hyper.capsLock() fastKeyStroke('caps_lock') end
+function Hyper.capsLock() ks.key('caps_lock') end
 
-function Hyper.alfred() fastKeyStroke({'alt'}, 'z') end
+function Hyper.alfred() ks.alt('z') end
 
 function Hyper.startArtisan() Artisan.start() end
 
 function Hyper.forceEscape()
     md.Test.hideOutput()
-    -- keyStroke('escape')
-    fastKeyStroke('escape')
-    fastKeyStroke('escape')
-    -- fastKeyStroke('escape')
+    -- ks.slow().key('escape')
+    ks.escape()
+    ks.escape()
+    -- ks.escape()
 end
 
-function Hyper.undo() fastKeyStroke({'cmd'}, 'z') end
+function Hyper.undo() ks.cmd('z') end
 
-function Hyper.redo() fastKeyStroke({'shift', 'cmd'}, 'z') end
+function Hyper.redo() ks.shiftCmd('z') end
 
 function Hyper.nextWindow() md.WindowManager.next() end
 

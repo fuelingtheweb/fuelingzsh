@@ -26,10 +26,10 @@ Destroy.lookup = {
 function Destroy.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    fastKeyStroke('escape')
-    fastKeyStroke('d')
-    fastKeyStroke('i')
-    fastKeyStroke(keystroke.mods, keystroke.key)
+    ks.escape()
+    ks.key('d')
+    ks.key('i')
+    ks.fire(keystroke.mods, keystroke.key)
 end
 
 function Destroy.simpleDelete()
@@ -37,94 +37,94 @@ function Destroy.simpleDelete()
         BracketMatching.cancel()
         BracketMatching.start()
     else
-        fastKeyStroke('delete')
+        ks.key('delete')
     end
 end
 
 function Destroy.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('d')
-        fastKeyStroke('e')
+        ks.escape()
+        ks.key('d')
+        ks.key('e')
     else
-        fastKeyStroke({'shift', 'alt'}, 'right')
-        fastKeyStroke('delete')
+        ks.shiftAlt('right')
+        ks.key('delete')
     end
 end
 
 function Destroy.subword()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('d')
-        fastKeyStroke('i')
+        ks.escape()
+        ks.key('d')
+        ks.key('i')
 
         if appIs(vscode) then
-            fastKeyStroke('\\')
-            fastKeyStroke('w')
+            ks.key('\\')
+            ks.key('w')
         else
-            fastKeyStroke('q')
+            ks.key('q')
         end
     end
 end
 
 function Destroy.word()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('d')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
+        ks.escape()
+        ks.key('d')
+        ks.key('i')
+        ks.key('w')
     elseif appIs(iterm) then
-        fastKeyStroke({'ctrl'}, 'w')
+        ks.ctrl('w')
     else
-        fastKeyStroke({'alt'}, 'delete')
+        ks.alt('delete')
     end
 end
 
 function Destroy.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'd')
+        ks.escape()
+        ks.shift('d')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke('delete')
+        ks.shiftCmd('right')
+        ks.key('delete')
     end
 end
 
 function Destroy.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
+        ks.escape()
 
         if appIs(vscode) then
             md.SelectUntil.beginningOfLine()
         else
-            fastKeyStroke({'shift', 'cmd'}, 'left')
+            ks.shiftCmd('left')
         end
 
-        fastKeyStroke('d')
+        ks.key('d')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke('delete')
+        ks.shiftCmd('left')
+        ks.key('delete')
     end
 end
 
 function Destroy.line()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('d')
-        fastKeyStroke('d')
+        ks.escape()
+        ks.key('d')
+        ks.key('d')
     else
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke('delete')
+        ks.cmd('left')
+        ks.shiftCmd('right')
+        ks.key('delete')
     end
 end
 
 function Destroy.character()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('x')
+        ks.escape()
+        ks.key('x')
     else
-        fastKeyStroke('delete')
+        ks.key('delete')
     end
 end
 
@@ -174,7 +174,7 @@ Destroy.actions = {
 
         if inCodeEditor() then
             Destroy.keymap[Destroy.key]()
-            fastKeyStroke('k')
+            ks.key('k')
         end
     end,
 
@@ -199,8 +199,8 @@ Destroy.actions = {
 
 Destroy.keymap = {
     ['v'] = function()
-        fastKeyStroke('d')
-        fastKeyStroke('d')
+        ks.key('d')
+        ks.key('d')
     end
 }
 
@@ -211,23 +211,23 @@ function Destroy.mode() Destroy.enterModal() end
 function Destroy.modeBackward() Destroy.enterModal('B') end
 
 function Destroy.untilForward()
-    fastKeyStroke('escape')
-    fastKeyStroke('d')
-    fastKeyStroke('t')
+    ks.escape()
+    ks.key('d')
+    ks.key('t')
 end
 
 function Destroy.untilBackward()
-    fastKeyStroke('escape')
-    fastKeyStroke('d')
-    fastKeyStroke({'shift'}, 't')
+    ks.escape()
+    ks.key('d')
+    ks.shift('t')
 end
 
 function Destroy.backward()
     if inCodeEditor() then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-        fastKeyStroke('escape')
-        fastKeyStroke('left')
-        fastKeyStroke('x')
+        ks.super('v')
+        ks.escape()
+        ks.key('left')
+        ks.key('x')
     end
 end
 

@@ -25,49 +25,49 @@ Vi.lookup = {
     spacebar = nil
 }
 
-function Vi.moveToPreviousSubword() fastKeyStroke({'shift'}, 'q') end
+function Vi.moveToPreviousSubword() ks.shift('q') end
 
-function Vi.moveToNextSubword() fastKeyStroke('q') end
+function Vi.moveToNextSubword() ks.key('q') end
 
 function Vi.moveToPreviousWholeWord()
-    fastKeyStroke('escape')
-    fastKeyStroke({'shift'}, 'b')
+    ks.escape()
+    ks.shift('b')
 end
 
 function Vi.moveToEndOfWholeWord()
-    fastKeyStroke('escape')
-    fastKeyStroke({'shift'}, 'e')
+    ks.escape()
+    ks.shift('e')
 end
 
 function Vi.moveToNextWholeWord()
-    fastKeyStroke('escape')
-    fastKeyStroke({'shift'}, 'w')
+    ks.escape()
+    ks.shift('w')
 end
 
 function Vi.moveToTopOfPage()
     if appIs(finder) then
-        fastKeyStroke({'alt'}, 'up')
+        ks.alt('up')
     else
-        fastKeyStroke({'cmd'}, 'up')
+        ks.cmd('up')
     end
 end
 
-function Vi.moveToFirstCharacterOfLine() fastKeyStroke({'cmd'}, 'left') end
+function Vi.moveToFirstCharacterOfLine() ks.cmd('left') end
 
 function Vi.moveToEndOfLine()
     if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, '4')
+        ks.super('4')
     else
-        fastKeyStroke({'cmd'}, 'right')
+        ks.cmd('right')
     end
 end
 
 function Vi.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'i')
+        ks.super('i')
     elseif appIncludes({sublime, vscode}) then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
     else
         Vi.moveToFirstCharacterOfLine()
     end
@@ -75,10 +75,10 @@ end
 
 function Vi.moveAndAppendAtEndOfLine()
     if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'o')
+        ks.super('o')
     elseif appIncludes({sublime, vscode}) then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'a')
+        ks.escape()
+        ks.shift('a')
     else
         Vi.moveToEndOfLine()
     end
@@ -86,26 +86,26 @@ end
 
 function Vi.moveToBottomOfPage()
     if appIs(finder) then
-        fastKeyStroke({'alt'}, 'down')
+        ks.alt('down')
     else
-        fastKeyStroke({'cmd'}, 'down')
+        ks.cmd('down')
     end
 end
 
-function Vi.pageUp() fastKeyStroke('pageup') end
+function Vi.pageUp() ks.key('pageup') end
 
-function Vi.left() fastKeyStroke('left') end
+function Vi.left() ks.key('left') end
 
-function Vi.down() fastKeyStroke('down') end
+function Vi.down() ks.key('down') end
 
-function Vi.up() fastKeyStroke('up') end
+function Vi.up() ks.key('up') end
 
-function Vi.right() fastKeyStroke('right') end
+function Vi.right() ks.key('right') end
 
-function Vi.pageDown() fastKeyStroke('pagedown') end
+function Vi.pageDown() ks.key('pagedown') end
 
-function Vi.previousWord() fastKeyStroke({'alt'}, 'left') end
+function Vi.previousWord() ks.alt('left') end
 
-function Vi.nextWord() fastKeyStroke({'alt'}, 'right') end
+function Vi.nextWord() ks.alt('right') end
 
 return Vi

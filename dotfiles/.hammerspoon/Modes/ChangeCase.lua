@@ -13,7 +13,7 @@ ChangeCase.lookup = {
     l = 'lower',
     m = 'camel',
     period = {to = 'dot', key = '.'},
-    slash = {to = 'path', key = '/'},
+    slash = {to = 'path', key = '/'}
 }
 
 function ChangeCase.handle(key)
@@ -28,17 +28,19 @@ end
 
 function ChangeCase.change(to, key)
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'c')
-        fastKeyStroke({'ctrl', 'alt'}, key)
+        ks.super('c')
+        ks.ctrlAlt(key)
     else
         text = getSelectedText()
 
         if not text then
-            fastKeyStroke({'shift', 'alt'}, 'left')
+            ks.shiftAlt('left')
             text = getSelectedText()
         end
 
-        result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. to .. '" "' .. text .. '"'))
+        result = trim(hs.execute(
+                          '/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' ..
+                              to .. '" "' .. text .. '"'))
         insertText(result)
     end
 end

@@ -1,7 +1,7 @@
 local Search = {}
 Search.__index = Search
 
-function Search.symbol() fastKeyStroke({'cmd'}, 'r') end
+function Search.symbol() ks.cmd('r') end
 
 function Search.files() triggerAlfredSearch('open ') end
 
@@ -18,17 +18,17 @@ function Search.viaAlfred() triggerAlfredSearch('search:') end
 function Search.default()
     if inCodeEditor() then
         TextManipulation.disableVim()
-        fastKeyStroke('/')
+        ks.key('/')
     end
 end
 
 function Search.tabs()
     if appIs(atom) then
-        fastKeyStroke({'cmd'}, 'b')
+        ks.cmd('b')
     elseif appIs(sublime) then
-        fastKeyStroke({'alt', 'shift'}, 'p')
+        ks.shiftAlt('p')
     elseif appIs(chrome) then
-        fastKeyStroke({'shift'}, 't')
+        ks.shift('t')
     end
 end
 
@@ -75,10 +75,10 @@ end
 
 function Search.window()
     if inCodeEditor() then
-        fastKeyStroke({'shift', 'cmd'}, 'f')
+        ks.shiftCmd('f')
         TextManipulation.disableVim()
     else
-        fastKeyStroke({'cmd'}, 'f')
+        ks.cmd('f')
     end
 end
 

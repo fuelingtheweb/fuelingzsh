@@ -25,91 +25,91 @@ Tab.lookup = {
     spacebar = 'manage'
 }
 
-function Tab.first() fastKeyStroke({'cmd'}, '1') end
+function Tab.first() ks.cmd('1') end
 
-function Tab.last() fastKeyStroke({'cmd'}, '9') end
+function Tab.last() ks.cmd('9') end
 
 function Tab.pin()
     -- Chrome: Pin Tab
-    fastKeyStroke('t')
-    fastKeyStroke('p')
+    ks.key('t')
+    ks.key('p')
 end
 
 function Tab.previous()
     if appIs(tableplus) then
-        fastKeyStroke({'cmd'}, '[')
+        ks.cmd('[')
     elseif appIncludes({teams, discord}) then
         -- Teams: Move to next conversation / channel
-        fastKeyStroke({'alt'}, 'down')
+        ks.alt('down')
     else
-        fastKeyStroke({'shift', 'cmd'}, '[')
+        ks.shiftCmd('[')
     end
 end
 
 function Tab.next()
     if appIs(tableplus) then
-        fastKeyStroke({'cmd'}, ']')
+        ks.cmd(']')
     elseif appIncludes({teams, discord}) then
         -- Teams: Move to previous conversation / channel
-        fastKeyStroke({'alt'}, 'up')
+        ks.alt('up')
     else
-        fastKeyStroke({'shift', 'cmd'}, ']')
+        ks.shiftCmd(']')
     end
 end
 
 function Tab.moveLeft()
     if appIs(chrome) then
         -- Vimium
-        fastKeyStroke('escape')
+        ks.escape()
         insertText('th')
     elseif inCodeEditor() then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'left')
+        ks.shiftAltCmd('left')
     elseif appIs(iterm) then
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+        ks.shiftCmd('left')
     end
 end
 
 function Tab.moveRight()
     if appIs(chrome) then
         -- Vimium
-        fastKeyStroke('escape')
+        ks.escape()
         insertText('tl')
     elseif inCodeEditor() then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'right')
+        ks.shiftAltCmd('right')
     elseif appIs(iterm) then
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+        ks.shiftCmd('right')
     end
 end
 
 function Tab.closeCurrent() closeWindow() end
 
-function Tab.restore() fastKeyStroke({'shift', 'cmd'}, 't') end
+function Tab.restore() ks.shiftCmd('t') end
 
 function Tab.moveToNewWindow()
     if appIs(sublime) then
-        fastKeyStroke({'cmd'}, 'a')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke({'cmd'}, 'w')
-        fastKeyStroke('space')
-        fastKeyStroke({'shift', 'cmd'}, 'n')
-        fastKeyStroke('p')
+        ks.cmd('a')
+        ks.cmd('c')
+        ks.cmd('w')
+        ks.key('space')
+        ks.shiftCmd('n')
+        ks.key('p')
     elseif appIs(chrome) then
-        fastKeyStroke({'shift'}, 'w')
+        ks.shift('w')
     end
 end
 
 function Tab.new()
     if inCodeEditor() then
-        fastKeyStroke({'cmd'}, 'n')
+        ks.cmd('n')
         hs.timer.doAfter(0.1, function()
-            fastKeyStroke('i')
-            fastKeyStroke('return')
-            fastKeyStroke('up')
+            ks.key('i')
+            ks.key('return')
+            ks.key('up')
         end)
     elseif appIs(finder) then
-        fastKeyStroke({'cmd'}, 'n')
+        ks.cmd('n')
     else
-        fastKeyStroke({'cmd'}, 't')
+        ks.cmd('t')
     end
 end
 
@@ -117,13 +117,13 @@ function Tab.closeAllToLeft()
     if appIs(chrome) then
         insertText('txh')
     elseif appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'tab')
-        fastKeyStroke('x')
-        fastKeyStroke('h')
+        ks.super('tab')
+        ks.key('x')
+        ks.key('h')
 
         if appIs(sublime) then
             insertText('Close Tabs to Left')
-            fastKeyStroke('return')
+            ks.key('return')
         end
     end
 end
@@ -132,13 +132,13 @@ function Tab.closeAllToRight()
     if appIs(chrome) then
         insertText('txl')
     elseif appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'tab')
-        fastKeyStroke('x')
-        fastKeyStroke('l')
+        ks.super('tab')
+        ks.key('x')
+        ks.key('l')
 
         if appIs(sublime) then
             insertText('Close Tabs to Right')
-            fastKeyStroke('return')
+            ks.key('return')
         end
     end
 end
@@ -147,35 +147,35 @@ function Tab.closeAllOthers()
     if appIs(chrome) then
         insertText('tx;')
     elseif appIs(vscode) then
-        fastSuperKeyStroke('e')
-        fastSuperKeyStroke('/')
+        fastSuperks.slow().key('e')
+        fastSuperks.slow().key('/')
     elseif appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'tab')
-        fastKeyStroke('x')
-        fastKeyStroke(';')
+        ks.super('tab')
+        ks.key('x')
+        ks.key(';')
 
         if appIs(sublime) then
             insertText('Close Other Tabs')
-            fastKeyStroke('return')
+            ks.key('return')
         end
     end
 end
 
 function Tab.closeAll()
     if appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'x')
+        ks.super('x')
     elseif appIs(sublime) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'tab')
-        fastKeyStroke('x')
-        fastKeyStroke(';')
+        ks.super('tab')
+        ks.key('x')
+        ks.key(';')
 
         if appIs(sublime) then
             insertText('Close All Tabs')
-            fastKeyStroke('return')
+            ks.key('return')
         end
     elseif appIs(vscode) then
-        fastSuperKeyStroke('e')
-        fastSuperKeyStroke('[')
+        fastSuperks.slow().key('e')
+        fastSuperks.slow().key('[')
     end
 end
 
@@ -191,8 +191,6 @@ function Tab.closeNext()
     Tab.closeCurrent()
 end
 
-function Tab.manage()
-    if appIs(chrome) then fastKeyStroke({'shift', 'cmd'}, 'm') end
-end
+function Tab.manage() if appIs(chrome) then ks.shiftCmd('m') end end
 
 return Tab

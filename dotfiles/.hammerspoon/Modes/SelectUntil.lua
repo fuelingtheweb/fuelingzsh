@@ -20,27 +20,27 @@ SelectUntil.lookup = {
     c = 'braces',
     v = nil,
     b = 'brackets',
-    spacebar = nil,
+    spacebar = nil
 }
 
 function SelectUntil.endOfWord()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('e')
+        ks.escape()
+        ks.key('v')
+        ks.key('e')
     else
-        fastKeyStroke({'shift', 'alt'}, 'right')
+        ks.shiftAlt('right')
     end
 end
 
 function SelectUntil.nextWord()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('w')
+        ks.escape()
+        ks.key('v')
+        ks.key('w')
     else
-        fastKeyStroke({'shift', 'alt'}, 'right')
-        fastKeyStroke({'shift', 'alt'}, 'right')
+        ks.shiftAlt('right')
+        ks.shiftAlt('right')
     end
 end
 
@@ -51,7 +51,8 @@ SelectUntil.key = nil
 Modal.add({
     key = 'SelectUntil',
     title = function()
-        return 'Select Until: ' .. (SelectUntil.direction or '') .. ' ' .. (SelectUntil.key or '')
+        return 'Select Until: ' .. (SelectUntil.direction or '') .. ' ' ..
+                   (SelectUntil.key or '')
     end,
     defaults = false,
     items = {
@@ -69,22 +70,18 @@ Modal.add({
         ['n'] = 'change',
         ['y'] = 'yank',
         ['p'] = 'paste',
-        ['m'] = 'destroy',
+        ['m'] = 'destroy'
     },
-    callback = function(action)
-        SelectUntil.actions[action]()
-    end,
+    callback = function(action) SelectUntil.actions[action]() end,
     exited = function()
         SelectUntil.secondary = false
         SelectUntil.direction = nil
         SelectUntil.key = nil
-    end,
+    end
 })
 
 function SelectUntil.triggerDirectionIfSet()
-    if not SelectUntil.direction then
-        return
-    end
+    if not SelectUntil.direction then return end
 
     if SelectUntil.direction == 'F' then
         action = 'forward'
@@ -103,30 +100,26 @@ function SelectUntil.enterModal(direction, key)
 end
 
 function SelectUntil.beginSelectingForward()
-    if not TextManipulation.canManipulateWithVim() then
-        return
-    end
+    if not TextManipulation.canManipulateWithVim() then return end
 
     if appIs(vscode) then
-        fastKeyStroke({'ctrl'}, 'v')
+        ks.ctrl('v')
     elseif appIs(atom) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-        fastKeyStroke('l')
+        ks.super('v')
+        ks.key('l')
     elseif appIs(sublime) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
+        ks.super('v')
     end
 end
 
 function SelectUntil.beginSelectingBackward()
-    if not TextManipulation.canManipulateWithVim() then
-        return
-    end
+    if not TextManipulation.canManipulateWithVim() then return end
 
     if appIs(vscode) then
-        fastKeyStroke({'ctrl'}, 'v')
+        ks.ctrl('v')
     elseif inCodeEditor() then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'v')
-        fastKeyStroke('h')
+        ks.super('v')
+        ks.key('h')
     end
 end
 
@@ -189,12 +182,10 @@ SelectUntil.actions = {
 
         SelectUntil.enterModal('B', SelectUntil.key)
 
-        if not SelectUntil.key then
-            return
-        end
+        if not SelectUntil.key then return end
 
         SelectUntil.beginSelectingBackward()
-        fastKeyStroke({'shift'}, 't')
+        ks.shift('t')
         SelectUntil.keymap[SelectUntil.key]()
     end,
 
@@ -205,21 +196,17 @@ SelectUntil.actions = {
 
         SelectUntil.enterModal('F', SelectUntil.key)
 
-        if not SelectUntil.key then
-            return
-        end
+        if not SelectUntil.key then return end
 
         SelectUntil.beginSelectingForward()
-        fastKeyStroke('t')
+        ks.key('t')
         SelectUntil.keymap[SelectUntil.key]()
     end,
 
     change = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
-            fastKeyStroke('c')
-        end
+        if TextManipulation.canManipulateWithVim() then ks.key('c') end
 
         BracketMatching.start()
     end,
@@ -227,65 +214,37 @@ SelectUntil.actions = {
     yank = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
-            fastKeyStroke('y')
-        end
+        if TextManipulation.canManipulateWithVim() then ks.key('y') end
     end,
 
     paste = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
-            fastKeyStroke('p')
-        end
+        if TextManipulation.canManipulateWithVim() then ks.key('p') end
     end,
 
     destroy = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
-            fastKeyStroke('d')
-        end
-    end,
+        if TextManipulation.canManipulateWithVim() then ks.key('d') end
+    end
 }
 
 SelectUntil.keymap = {
-    ["'"] = function()
-        fastKeyStroke("'")
-    end,
-    ['"'] = function()
-        fastKeyStroke({'shift'}, "'")
-    end,
-    ["`"] = function()
-        fastKeyStroke({'alt'}, "`")
-    end,
-    ['('] = function()
-        fastKeyStroke({'shift'}, "9")
-    end,
-    [')'] = function()
-        fastKeyStroke({'shift'}, "0")
-    end,
-    ['{'] = function()
-        fastKeyStroke({'shift'}, "[")
-    end,
-    ['}'] = function()
-        fastKeyStroke({'shift'}, "]")
-    end,
-    ['['] = function()
-        fastKeyStroke("[")
-    end,
-    [']'] = function()
-        fastKeyStroke("]")
-    end,
+    ["'"] = function() ks.key("'") end,
+    ['"'] = function() ks.shift("'") end,
+    ["`"] = function() ks.alt("`") end,
+    ['('] = function() ks.shift("9") end,
+    [')'] = function() ks.shift("0") end,
+    ['{'] = function() ks.shift("[") end,
+    ['}'] = function() ks.shift("]") end,
+    ['['] = function() ks.key("[") end,
+    [']'] = function() ks.key("]") end
 }
 
-function SelectUntil.mode()
-    SelectUntil.enterModal()
-end
+function SelectUntil.mode() SelectUntil.enterModal() end
 
-function SelectUntil.modeBackward()
-    SelectUntil.enterModal('B')
-end
+function SelectUntil.modeBackward() SelectUntil.enterModal('B') end
 
 function SelectUntil.modeSecondary()
     SelectUntil.secondary = true
@@ -324,48 +283,48 @@ end
 
 function SelectUntil.endOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+        ks.escape()
+        ks.shiftCmd('right')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+        ks.shiftCmd('right')
     end
 end
 
 function SelectUntil.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
+        ks.escape()
 
         if appIs(vscode) then
-            fastKeyStroke('v')
-            fastKeyStroke({'shift'}, '6')
+            ks.key('v')
+            ks.shift('6')
         else
-            fastKeyStroke('right')
-            fastKeyStroke({'shift', 'cmd'}, 'left')
+            ks.key('right')
+            ks.shiftCmd('left')
         end
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+        ks.shiftCmd('left')
     end
 end
 
 function SelectUntil.previousBlock()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke({'shift'}, 'v')
-        fastKeyStroke({'shift'}, '[')
+        ks.shift('v')
+        ks.shift('[')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+        ks.shiftCmd('left')
     end
 end
 
 function SelectUntil.untilForward()
-    fastKeyStroke('escape')
-    fastKeyStroke('v')
-    fastKeyStroke('t')
+    ks.escape()
+    ks.key('v')
+    ks.key('t')
 end
 
 function SelectUntil.untilBackward()
-    fastKeyStroke('escape')
-    fastKeyStroke('v')
-    fastKeyStroke({'shift'}, 't')
+    ks.escape()
+    ks.key('v')
+    ks.shift('t')
 end
 
 return SelectUntil

@@ -30,116 +30,114 @@ end
 function Change.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    fastKeyStroke('escape')
-    fastKeyStroke('c')
-    fastKeyStroke('i')
-    fastKeyStroke(keystroke.mods, keystroke.key)
+    ks.escape()
+    ks.key('c')
+    ks.key('i')
+    ks.fire(keystroke.mods, keystroke.key)
 
     if not hasValue({'s', 'd', 't'}, key) then BracketMatching.start() end
 end
 
 function Change.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('e')
+        ks.escape()
+        ks.key('c')
+        ks.key('e')
     else
-        fastKeyStroke({'shift', 'alt'}, 'right')
-        fastKeyStroke('delete')
+        ks.shiftAlt('right')
+        ks.key('delete')
     end
 end
 
 function Change.subword()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('i')
+        ks.escape()
+        ks.key('c')
+        ks.key('i')
 
         if appIs(vscode) then
-            fastKeyStroke('\\')
-            fastKeyStroke('w')
+            ks.key('\\')
+            ks.key('w')
         else
-            fastKeyStroke('q')
+            ks.key('q')
         end
     end
 end
 
 function Change.word()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
+        ks.escape()
+        ks.key('c')
+        ks.key('i')
+        ks.key('w')
     elseif appIs(iterm) and not isAlfredVisible() then
-        fastKeyStroke('escape')
+        ks.escape()
         insertText('ciw')
     else
-        fastKeyStroke({'alt'}, 'delete')
+        ks.alt('delete')
     end
 end
 
 function Change.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'c')
+        ks.escape()
+        ks.shift('c')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke('delete')
+        ks.shiftCmd('right')
+        ks.key('delete')
     end
 end
 
 function Change.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke('c')
+        ks.escape()
+        ks.shiftCmd('left')
+        ks.key('c')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke('delete')
+        ks.shiftCmd('left')
+        ks.key('delete')
     end
 end
 
 function Change.line()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('c')
+        ks.escape()
+        ks.key('c')
+        ks.key('c')
     elseif appIs(iterm) and not isAlfredVisible() then
-        fastKeyStroke('escape')
+        ks.escape()
         insertText('cc')
     else
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke('delete')
+        ks.cmd('left')
+        ks.shiftCmd('right')
+        ks.key('delete')
     end
 end
 
 function Change.character()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke({'ctrl', 'alt'}, 'a')
+        ks.ctrlAlt('a')
 
-        if appIs(vscode) then
-            fastKeyStroke('right')
-        end
+        if appIs(vscode) then ks.key('right') end
     end
 
-    fastKeyStroke('delete')
+    ks.key('delete')
 end
 
-function Change.below() fastKeyStroke('o') end
+function Change.below() ks.key('o') end
 
-function Change.above() fastKeyStroke({'shift'}, 'o') end
+function Change.above() ks.shift('o') end
 
 function Change.untilForward()
-    fastKeyStroke('escape')
-    fastKeyStroke('c')
-    fastKeyStroke('t')
+    ks.escape()
+    ks.key('c')
+    ks.key('t')
 end
 
 function Change.untilBackward()
-    fastKeyStroke('escape')
-    fastKeyStroke('c')
-    fastKeyStroke({'shift'}, 't')
+    ks.escape()
+    ks.key('c')
+    ks.shift('t')
 end
 
 function Change.outer() Modal.enter('ChangeOuter') end
@@ -153,10 +151,10 @@ Modal.add({
 
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        fastKeyStroke('escape')
-        fastKeyStroke('c')
-        fastKeyStroke('a')
-        fastKeyStroke(keystroke.mods, keystroke.key)
+        ks.escape()
+        ks.key('c')
+        ks.key('a')
+        ks.fire(keystroke.mods, keystroke.key)
 
         if not hasValue({'s', 'd', 't'}, key) then
             BracketMatching.start()

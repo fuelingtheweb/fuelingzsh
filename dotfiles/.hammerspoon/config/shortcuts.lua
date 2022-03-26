@@ -62,112 +62,112 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     vscode = 'Preferences: Open Keyboard Shortcuts'
 }):add('D', {
     notion = function()
-        fastKeyStroke({'alt', 'cmd'}, '2')
-        fastKeyStroke({'shift'}, '2')
+        ks.altCmd('2')
+        ks.shift('2')
     end,
     iterm = 'wd d'
 }):add('0', {
     notion = function()
         -- Notion: Create text
-        fastKeyStroke({'alt', 'cmd'}, '0')
+        ks.altCmd('0')
     end
 }):add('1', {
     notion = function()
         -- Notion: Create H1 heading
-        fastKeyStroke({'alt', 'cmd'}, '1')
+        ks.altCmd('1')
     end,
     sublime = function()
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
         insertText('# ')
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('# ')
     end
 }):add('2', {
     notion = function()
         -- Notion: Create H2 heading
-        fastKeyStroke({'alt', 'cmd'}, '2')
+        ks.altCmd('2')
     end,
     sublime = function()
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
         insertText('## ')
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('## ')
     end
 }):add('3', {
     notion = function()
         -- Notion: Create H3 heading
-        fastKeyStroke({'alt', 'cmd'}, '3')
+        ks.altCmd('3')
     end,
     sublime = function()
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
         insertText('### ')
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('### ')
     end
 }):add('4', {
     notion = function()
         -- Notion: Create to-do checkbox
-        fastKeyStroke({'alt', 'cmd'}, '4')
+        ks.altCmd('4')
     end,
     sublime = function()
         if titleContains('.todo') then
             -- Sublime: Create to-do checkbox
-            fastKeyStroke({'cmd'}, 'i')
+            ks.cmd('i')
         else
-            fastKeyStroke({}, 'escape')
-            fastKeyStroke({'shift'}, 'i')
+            ks.escape()
+            ks.shift('i')
             insertText('- ')
         end
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('- ')
     end
 }):add('5', {
     notion = function()
         -- Notion: Create bulleted list
-        fastKeyStroke({'alt', 'cmd'}, '5')
+        ks.altCmd('5')
     end,
     sublime = function()
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
         insertText('- ')
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('- ')
     end
 }):add('6', {
     notion = function()
         -- Notion: Create numbered list
-        fastKeyStroke({'alt', 'cmd'}, '6')
+        ks.altCmd('6')
     end,
     sublime = function()
-        fastKeyStroke({}, 'escape')
-        fastKeyStroke({'shift'}, 'i')
+        ks.escape()
+        ks.shift('i')
         insertText('1. ')
     end,
     default = function()
-        fastKeyStroke({'cmd'}, 'left')
+        ks.cmd('left')
         insertText('1. ')
     end
 }):add('7', {
     notion = function()
         -- Notion: Create toggle list
-        fastKeyStroke({'alt', 'cmd'}, '7')
+        ks.altCmd('7')
     end
 }):add('8', {
     notion = function()
         -- Notion: Create code block
-        fastKeyStroke({'alt', 'cmd'}, '8')
+        ks.altCmd('8')
     end
 })

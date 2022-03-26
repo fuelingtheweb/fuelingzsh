@@ -90,15 +90,13 @@ function Modal.add(meta)
     if not meta.items or not meta.items.escape then
         meta.modal:bind('', 'escape', 'Exit', function()
             Modal.exit(meta.key)
-            fastKeyStroke('escape')
+            ks.escape()
         end)
     end
 
     if not meta.items or not meta.items.j then
         meta.modal:bind('', 'j', 'Exit', function()
-            if meta.beforeExit then
-                meta.beforeExit()
-            end
+            if meta.beforeExit then meta.beforeExit() end
 
             Modal.exit(meta.key)
         end)
@@ -123,7 +121,7 @@ function Modal.add(meta)
         }, function(key)
             meta.modal:bind({'shift'}, key, nil, function()
                 Modal.exit()
-                fastKeyStroke({'shift'}, key)
+                ks.shift(key)
             end)
         end)
     end

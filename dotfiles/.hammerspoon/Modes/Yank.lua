@@ -25,145 +25,143 @@ Yank.lookup = {
 
 function Yank.word()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
+        ks.escape()
+        ks.key('y')
+        ks.key('i')
+        ks.key('w')
     else
-        fastKeyStroke({'shift', 'alt'}, 'left')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.shiftAlt('left')
+        ks.cmd('c')
+        ks.key('right')
     end
 end
 
 function Yank.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    fastKeyStroke('escape')
-    fastKeyStroke('y')
-    fastKeyStroke('i')
-    fastKeyStroke(keystroke.mods, keystroke.key)
+    ks.escape()
+    ks.key('y')
+    ks.key('i')
+    ks.fire(keystroke.mods, keystroke.key)
 end
 
 function Yank.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('e')
+        ks.escape()
+        ks.key('y')
+        ks.key('e')
     else
-        fastKeyStroke({'shift', 'alt'}, 'right')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('left')
+        ks.shiftAlt('right')
+        ks.cmd('c')
+        ks.key('left')
     end
 end
 
-function Yank.relativeFilePath()
-    if inCodeEditor() then fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'y') end
-end
+function Yank.relativeFilePath() if inCodeEditor() then ks.super('y') end end
 
 function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('i')
+        ks.escape()
+        ks.key('y')
+        ks.key('i')
 
         if appIs(vscode) then
-            fastKeyStroke('\\')
-            fastKeyStroke('w')
+            ks.key('\\')
+            ks.key('w')
         else
-            fastKeyStroke('q')
+            ks.key('q')
         end
     end
 end
 
 function Yank.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke({'shift'}, '4')
+        ks.escape()
+        ks.key('y')
+        ks.shift('4')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('left')
+        ks.shiftCmd('right')
+        ks.cmd('c')
+        ks.key('left')
     end
 end
 
 function Yank.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('right')
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        fastKeyStroke('y')
+        ks.escape()
+        ks.key('right')
+        ks.shiftCmd('left')
+        ks.key('y')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
-        keyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.shiftCmd('left')
+        ks.slow().cmd('c')
+        ks.key('right')
     end
 end
 
 function Yank.line()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('y')
+        ks.escape()
+        ks.key('y')
+        ks.key('y')
     else
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.cmd('left')
+        ks.shiftCmd('right')
+        ks.cmd('c')
+        ks.key('right')
     end
 end
 
 function Yank.character()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('y')
-        fastKeyStroke('l')
+        ks.escape()
+        ks.key('y')
+        ks.key('l')
     else
-        fastKeyStroke({'shift'}, 'left')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.shift('left')
+        ks.cmd('c')
+        ks.key('right')
     end
 end
 
 function Yank.toTopOfPage()
     if appIs(notion) then
-        fastKeyStroke({'cmd'}, 'a')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.cmd('a')
+        ks.cmd('c')
+        ks.key('right')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'up')
-        fastKeyStroke({'cmd'}, 'c')
-        fastKeyStroke('right')
+        ks.shiftCmd('up')
+        ks.cmd('c')
+        ks.key('right')
     end
 end
 
 function Yank.untilForward()
-    fastKeyStroke('escape')
-    fastKeyStroke('y')
-    fastKeyStroke('t')
+    ks.escape()
+    ks.key('y')
+    ks.key('t')
 end
 
 function Yank.untilBackward()
-    fastKeyStroke('escape')
-    fastKeyStroke('y')
-    fastKeyStroke({'shift'}, 't')
+    ks.escape()
+    ks.key('y')
+    ks.shift('t')
 end
 
 function Yank.all()
-    
+
     if inCodeEditor() then
-        fastKeyStroke({'cmd'}, 'a')
-        fastKeyStroke({'cmd'}, 'c')
+        ks.cmd('a')
+        ks.cmd('c')
 
-        fastKeyStroke('escape')
-        fastKeyStroke('g')
-        fastKeyStroke('g')
+        ks.escape()
+        ks.key('g')
+        ks.key('g')
     else
-        fastKeyStroke({'cmd'}, 'a')
-        keyStroke({'cmd'}, 'c')
+        ks.cmd('a')
+        ks.slow().cmd('c')
 
-        fastKeyStroke('right')
+        ks.key('right')
     end
 end
 

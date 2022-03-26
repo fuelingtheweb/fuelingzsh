@@ -36,9 +36,9 @@ function getSelectedText(copying)
     hs.pasteboard.clearContents()
 
     if appIs(vscode) then
-        keyStroke({'shift', 'alt', 'cmd'}, 'c')
+        ks.slow().shiftAltCmd('c')
     else
-        keyStroke({'cmd'}, 'c')
+        ks.slow().cmd('c')
     end
 
     text = hs.pasteboard.getContents()
@@ -96,9 +96,9 @@ function showChooser(callback, choices)
 end
 
 function openDiscordChannel(name)
-    keyStroke({'cmd'}, 'k')
+    ks.slow().cmd('k')
     insertText(name)
-    hs.timer.doAfter(0.1, function() fastKeyStroke('return') end)
+    hs.timer.doAfter(0.1, function() ks.key('return') end)
 end
 
 function openSlackChannel(channel)
@@ -106,9 +106,9 @@ function openSlackChannel(channel)
 end
 
 function openNotionPage(name)
-    keyStroke({'cmd'}, 'p')
+    ks.slow().cmd('p')
     insertText(name)
-    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
+    hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function maximizeAfterDelay()
@@ -144,33 +144,33 @@ function getUrlForQuery(query)
 end
 
 function triggerInAtom(name)
-    keyStroke({'shift', 'cmd'}, 'p')
+    ks.slow().shiftCmd('p')
     insertText(name)
-    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
+    hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function triggerInCode(name)
-    keyStroke({'shift', 'cmd'}, 'p')
+    ks.slow().shiftCmd('p')
     insertText(name)
-    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
+    hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function goToFileInAtom(file)
-    keyStroke({'cmd'}, 't')
+    ks.slow().cmd('t')
     insertText(file)
-    hs.timer.doAfter(0.3, function() fastKeyStroke('return') end)
+    hs.timer.doAfter(0.3, function() ks.key('return') end)
 end
 
 function typeAndEnter(string)
     insertText(string)
     -- hs.timer.doAfter(0.2, function ()
-    keyStroke('return')
+    ks.slow().key('return')
     -- end)
 end
 
 function typeAndTab(string)
     insertText(string)
-    fastKeyStroke('tab')
+    ks.key('tab')
 end
 
 function triggerAlfredSearch(search)
@@ -304,7 +304,7 @@ end
 function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 
 function closeWindow()
-    fastKeyStroke({'cmd'}, 'w')
+    ks.cmd('w')
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
@@ -328,33 +328,11 @@ function updateChromeUrl(needle, newUrl)
 end
 
 function slackReaction(emoji)
-    keyStroke('r')
-    -- hs.eventtap.keyStroke({'cmd', 'shift'}, '\\')
+    ks.slow().key('r')
 
     if emoji then
         insertText(emoji)
-        hs.timer.doAfter(0.5, function() keyStroke('return') end)
-    end
-end
-
-function fastSuperKeyStroke(key) fastKeyStroke({'ctrl', 'alt', 'cmd'}, key) end
-
-function fastKeyStroke(modifiers, key) keyStroke(modifiers, key, 0) end
-
-function keyStroke(modifiers, key, delay)
-    if type(modifiers) == 'string' then
-        key = modifiers
-        modifiers = {}
-    end
-
-    log.d('keyStroke: ' .. key)
-
-    if key == spoon.KarabinerHandler.currentKey then
-        hs.timer.doAfter(0.1, function()
-            hs.eventtap.keyStroke(modifiers, key, delay)
-        end)
-    else
-        hs.eventtap.keyStroke(modifiers, key, delay)
+        hs.timer.doAfter(0.5, function() ks.slow().key('return') end)
     end
 end
 
@@ -363,7 +341,7 @@ function insertOrPasteText(text)
         local original = hs.pasteboard.getContents()
         hs.pasteboard.setContents(text)
 
-        keyStroke({'cmd'}, 'v')
+        ks.slow().cmd('v')
 
         hs.pasteboard.setContents(original)
     else

@@ -86,12 +86,12 @@ function JumpTo.beginJumpingForward()
     if not TextManipulation.canManipulateWithVim() then return end
 
     if inCodeEditor() then
-        fastKeyStroke('l')
+        ks.key('l')
 
         JumpTo.paused = true;
         Modal.exit('JumpTo')
 
-        fastKeyStroke('f')
+        ks.key('f')
 
         Modal.enter('JumpTo')
         JumpTo.paused = false;
@@ -102,8 +102,8 @@ function JumpTo.beginJumpingBackward()
     if not TextManipulation.canManipulateWithVim() then return end
 
     if inCodeEditor() then
-        fastKeyStroke('h')
-        fastKeyStroke({'shift'}, 't')
+        ks.key('h')
+        ks.shift('t')
     end
 end
 
@@ -187,15 +187,15 @@ JumpTo.actions = {
 }
 
 JumpTo.keymap = {
-    ["'"] = function() fastKeyStroke("'") end,
-    ['"'] = function() fastKeyStroke({'shift'}, "'") end,
-    ["`"] = function() fastKeyStroke({'alt'}, "`") end,
-    ['('] = function() fastKeyStroke({'shift'}, "9") end,
-    [')'] = function() fastKeyStroke({'shift'}, "0") end,
-    ['{'] = function() fastKeyStroke({'shift'}, "[") end,
-    ['}'] = function() fastKeyStroke({'shift'}, "]") end,
-    ['['] = function() fastKeyStroke("[") end,
-    [']'] = function() fastKeyStroke("]") end
+    ["'"] = function() ks.key("'") end,
+    ['"'] = function() ks.shift("'") end,
+    ["`"] = function() ks.alt("`") end,
+    ['('] = function() ks.shift("9") end,
+    [')'] = function() ks.shift("0") end,
+    ['{'] = function() ks.shift("[") end,
+    ['}'] = function() ks.shift("]") end,
+    ['['] = function() ks.key("[") end,
+    [']'] = function() ks.key("]") end
 }
 
 function JumpTo.mode() JumpTo.enterModal() end
@@ -239,17 +239,17 @@ end
 
 function JumpTo.previousBlock()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke({'shift'}, '[')
+        ks.shift('[')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'left')
+        ks.shiftCmd('left')
     end
 end
 
 function JumpTo.nextBlock()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke({'shift'}, ']')
+        ks.shift(']')
     else
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+        ks.shiftCmd('right')
     end
 end
 

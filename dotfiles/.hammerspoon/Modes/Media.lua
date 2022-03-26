@@ -23,12 +23,12 @@ Media.lookup = {
     spacebar = nil,
 
     comma = 'videoBack',
-    period = 'videoForward',
+    period = 'videoForward'
 }
 
 function Media.startOfVideoOrPreviousVideo()
     -- Funimation: Start of video / previous video
-    fastKeyStroke({'ctrl'}, 'left')
+    ks.ctrl('left')
 end
 
 function Media.spotifyMini()
@@ -37,38 +37,37 @@ end
 
 function Media.deafen()
     -- Deafen in Discord
-    fastKeyStroke({'shift', 'cmd'}, 'd')
+    ks.shiftCmd('d')
 end
 
 function Media.nextVideo()
     -- Funimation: Next video
-    fastKeyStroke({'ctrl'}, 'right')
+    ks.ctrl('right')
 end
 
-function Media.sound()
-    triggerAlfredSearch('Sound')
-end
+function Media.sound() triggerAlfredSearch('Sound') end
 
 function Media.showVideoBar()
     -- Under System Preferences: Mouse & Trackpad, Enable Mouse Keys and set the Initial Delay option to Short
     -- original = hs.mouse.getAbsolutePosition()
     if stringContains('Prime Video', currentTitle()) then
         hs.mouse.setAbsolutePosition({x = 1900, y = 900})
-        fastKeyStroke('pad6')
+        ks.key('pad6')
         hs.mouse.setAbsolutePosition({x = 1900, y = 300})
-        fastKeyStroke('pad6')
-    elseif stringContains('TV', currentTitle()) or stringContains('Disney', currentTitle()) then
+        ks.key('pad6')
+    elseif stringContains('TV', currentTitle()) or
+        stringContains('Disney', currentTitle()) then
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
-        fastKeyStroke('pad6')
+        ks.key('pad6')
         hs.timer.doAfter(0.8, function()
             hs.mouse.setAbsolutePosition({x = 160, y = 300})
-            fastKeyStroke('pad6')
+            ks.key('pad6')
         end)
     else
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
-        fastKeyStroke('pad6')
+        ks.key('pad6')
         hs.mouse.setAbsolutePosition({x = 160, y = 300})
-        fastKeyStroke('pad6')
+        ks.key('pad6')
     end
 end
 
@@ -78,9 +77,10 @@ function Media.focus()
         if stringContains('Funimation', title) then
             insertText('gf')
         elseif stringContains('Disney', title) then
-            fastKeyStroke('tab')
+            ks.key('tab')
         else
-            center = hs.geometry.rectMidPoint(hs.mouse.getCurrentScreen():fullFrame())
+            center = hs.geometry.rectMidPoint(
+                         hs.mouse.getCurrentScreen():fullFrame())
             hs.eventtap.leftClick(center)
             hs.eventtap.leftClick(center)
         end
@@ -91,9 +91,9 @@ function Media.fullscreen()
     if appIs(chrome) then
         title = currentTitle()
         if stringContains('Funimation', title) then
-            fastKeyStroke({'alt'}, 'return')
+            ks.alt('return')
         else
-            fastKeyStroke('f')
+            ks.key('f')
         end
     end
 end
@@ -104,17 +104,17 @@ end
 
 function Media.videoBack()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
-        fastKeyStroke({'shift'}, 'left')
+        ks.shift('left')
     else
-        fastKeyStroke('left')
+        ks.key('left')
     end
 end
 
 function Media.videoForward()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
-        fastKeyStroke({'shift'}, 'right')
+        ks.shift('right')
     else
-        fastKeyStroke('right')
+        ks.key('right')
     end
 end
 

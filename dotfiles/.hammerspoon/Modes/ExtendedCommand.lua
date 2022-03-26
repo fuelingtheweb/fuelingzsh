@@ -27,25 +27,17 @@ ExtendedCommand.lookup = {
 
 function ExtendedCommand.sleep() triggerAlfredSearch('sleep') end
 
-function ExtendedCommand.screenshotToFilesystem()
-    fastKeyStroke({'shift', 'cmd'}, '4')
-end
+function ExtendedCommand.screenshotToFilesystem() ks.shiftCmd('4') end
 
-function ExtendedCommand.revealInSidebar() fastKeyStroke({'shift', 'cmd'}, '\\') end
+function ExtendedCommand.revealInSidebar() ks.shiftCmd('\\') end
 
-function ExtendedCommand.toggleDockVisibility()
-    fastKeyStroke({'alt', 'cmd'}, 'd')
-end
+function ExtendedCommand.toggleDockVisibility() ks.altCmd('d') end
 
-function ExtendedCommand.screenshotToClipboard()
-    fastKeyStroke({'shift', 'ctrl', 'cmd'}, '4')
-end
+function ExtendedCommand.screenshotToClipboard() ks.shiftCtrlCmd('4') end
 
-function ExtendedCommand.showBartender()
-    fastKeyStroke({'shift', 'ctrl', 'cmd'}, 'b')
-end
+function ExtendedCommand.showBartender() ks.shiftCtrlCmd('b') end
 
-function ExtendedCommand.newWindowOrFolder() fastKeyStroke({'shift', 'cmd'}, 'n') end
+function ExtendedCommand.newWindowOrFolder() ks.shiftCmd('n') end
 
 function ExtendedCommand.dismissNotifications()
     app = hs.application.frontmostApplication()
@@ -72,54 +64,54 @@ function ExtendedCommand.dismissNotifications()
 end
 
 function ExtendedCommand.surroundText()
-    fastKeyStroke({'cmd'}, 'c')
+    ks.cmd('c')
     triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
 end
 
 function ExtendedCommand.reloadSecondary()
     if appIs(chrome) then
         -- Hard refresh
-        fastKeyStroke({'shift', 'cmd'}, 'r')
+        ks.shiftCmd('r')
     elseif appIs(iterm) then
         -- Reload running command
-        fastKeyStroke({'ctrl'}, 'c')
-        fastKeyStroke('up')
-        fastKeyStroke('return')
+        ks.ctrl('c')
+        ks.key('up')
+        ks.key('return')
     end
 end
 
 function ExtendedCommand.saveAndReload()
-    fastKeyStroke('escape')
-    keyStroke({'cmd'}, 's')
+    ks.escape()
+    ks.slow().cmd('s')
     hs.application.get(apps['chrome']):activate()
-    keyStroke({'cmd'}, 'r')
+    ks.slow().cmd('r')
 end
 
 function ExtendedCommand.jumpTo()
     if appIs(vscode) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'return')
+        ks.super('return')
     elseif appIs(atom) then
-        fastKeyStroke({'shift'}, 'return')
+        ks.shift('return')
     elseif appIs(sublime) then
-        fastKeyStroke({'shift', 'cmd'}, '.')
+        ks.shiftCmd('.')
     else
-        fastKeyStroke({'ctrl'}, 'space')
+        ks.ctrl('space')
     end
 end
 
 function ExtendedCommand.enableScrolling()
     -- Vimac: Enable Scroll
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 's')
+    ks.super('s')
 end
 
 function ExtendedCommand.enableRunOnSave()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'f')
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'e')
+    ks.super('f')
+    ks.super('e')
 end
 
 function ExtendedCommand.disableRunOnSave()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'f')
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+    ks.super('f')
+    ks.super('d')
 end
 
 return ExtendedCommand

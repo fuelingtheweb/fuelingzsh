@@ -22,31 +22,19 @@ Test.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Test.before()
-    md.Hyper.forceEscape()
-end
+function Test.before() md.Hyper.forceEscape() end
 
-function Test.class()
-    fastKeyStroke({'alt', 'cmd'}, 't')
-end
+function Test.class() ks.altCmd('t') end
 
-function Test.all()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, 't')
-end
+function Test.all() ks.super('t') end
 
-function Test.last()
-    fastKeyStroke({'ctrl', 'alt'}, 'r')
-end
+function Test.last() ks.ctrlAlt('r') end
 
-function Test.method()
-    fastKeyStroke({'ctrl', 'alt'}, 't')
-end
+function Test.method() ks.ctrlAlt('t') end
 
-function Test.hideOutput()
-    fastKeyStroke({'ctrl', 'alt', 'cmd'}, ']')
-end
+function Test.hideOutput() ks.super(']') end
 
 return Test

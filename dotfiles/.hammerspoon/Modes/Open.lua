@@ -83,7 +83,7 @@ function Open.windowHints()
     hs.hints.windowHints()
 end
 
-function Open.fantastical() fastKeyStroke({'alt', 'cmd'}, 'c') end
+function Open.fantastical() ks.altCmd('c') end
 
 function Open.alfredPreferences()
     hs.application.open('com.runningwithcrayons.Alfred-Preferences')
@@ -152,7 +152,7 @@ function launchIterm(callback)
 end
 
 function triggerItermShortcut(callback)
-    fastKeyStroke('`')
+    ks.key('`')
 
     if callback then callback() end
 end

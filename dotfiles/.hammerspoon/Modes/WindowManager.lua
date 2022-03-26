@@ -45,7 +45,7 @@ WindowManager.lookup = {
 
 function WindowManager.fallback(location) WindowManager.moveTo(location) end
 
-function WindowManager.missionControl() fastKeyStroke({'fn', 'ctrl'}, 'up') end
+function WindowManager.missionControl() ks.fire({'fn', 'ctrl'}, 'up') end
 
 WindowManager.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
@@ -98,7 +98,7 @@ end
 
 function WindowManager.nextInCurrentApp()
     md.Open.windowHintsForCurrentApplication()
-    fastKeyStroke('b')
+    ks.key('b')
     -- if appIs(chrome) then
     --     return
     -- end
@@ -129,7 +129,7 @@ function WindowManager.appSettings()
     if isAlfredVisible() then
         hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     else
-        fastKeyStroke({'cmd'}, ',')
+        ks.cmd(',')
     end
 end
 
@@ -141,57 +141,55 @@ end
 
 function WindowManager.toggleSidebar()
     if appIs(finder) then
-        fastKeyStroke({'alt', 'cmd'}, 's')
+        ks.altCmd('s')
     elseif appIs(sublimeMerge) then
-        fastKeyStroke({'cmd'}, 'k')
-        fastKeyStroke({'cmd'}, 'b')
+        ks.cmd('k')
+        ks.cmd('b')
     elseif appIs(slack) then
-        fastKeyStroke({'cmd', 'shift'}, 'd')
+        ks.shiftCmd('d')
     elseif appIs(tableplus) then
-        fastKeyStroke({'cmd'}, '0')
+        ks.cmd('0')
     else
-        fastKeyStroke({'cmd'}, '\\')
+        ks.cmd('\\')
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtEnd()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        fastKeyStroke('z')
-        fastKeyStroke('b')
+        ks.key('z')
+        ks.key('b')
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtCenter()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        fastKeyStroke('z')
-        fastKeyStroke('z')
+        ks.key('z')
+        ks.key('z')
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtTop()
     if inCodeEditor() then
         md.Hyper.forceEscape()
-        fastKeyStroke('z')
-        fastKeyStroke('t')
+        ks.key('z')
+        ks.key('t')
     end
 end
 
-function WindowManager.toggleAudio() fastKeyStroke({'shift', 'cmd'}, 'a') end
+function WindowManager.toggleAudio() ks.shiftCmd('a') end
 
-function WindowManager.toggleScreenShare() fastKeyStroke({'shift', 'cmd'}, 's') end
+function WindowManager.toggleScreenShare() ks.shiftCmd('s') end
 
-function WindowManager.toggleVideo() fastKeyStroke({'shift', 'cmd'}, 'v') end
+function WindowManager.toggleVideo() ks.shiftCmd('v') end
 
 function WindowManager.toggleAudioAndVideo()
     WindowManager.toggleAudio()
     WindowManager.toggleVideo()
 end
 
-function WindowManager.toggleCodeFocus()
-    fastKeyStroke({'shift', 'alt', 'cmd'}, 'z')
-end
+function WindowManager.toggleCodeFocus() ks.shiftAltCmd('z') end
 
 function WindowManager.focusSidebarFileExplorer()
     triggerInCode('Focus on Files Explorer')
@@ -202,7 +200,7 @@ function WindowManager.focusSidebarSourceControl()
 end
 
 function WindowManager.destroy()
-    fastKeyStroke({'shift', 'cmd'}, 'w')
+    ks.shiftCmd('w')
 
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
@@ -212,6 +210,6 @@ function WindowManager.destroy()
     end
 end
 
-function WindowManager.quitApplication() fastKeyStroke({'cmd'}, 'q') end
+function WindowManager.quitApplication() ks.cmd('q') end
 
 return WindowManager

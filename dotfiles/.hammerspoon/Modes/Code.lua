@@ -25,83 +25,81 @@ Code.lookup = {
     spacebar = 'comment'
 }
 
-function Code.addUseStatement() fastKeyStroke({'ctrl', 'alt'}, 'i') end
+function Code.addUseStatement() ks.ctrlAlt('i') end
 
 function Code.multipleCursorsUp()
-    handleApp(fastKeyStroke, {
+    handleApp(ks.fire, {
         [vscode] = {{'shift', 'ctrl', 'alt'}, 'up'},
         [atom] = {{'shift', 'ctrl'}, 'up'},
         [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'}
     })
     -- handleApp({
-    --     [atom] = _(fastKeyStroke, {'shift', 'ctrl'}, 'up'),
-    --     [sublime] = _(fastKeyStroke, {'shift', 'ctrl', 'alt'}, 'up'),
+    --     [atom] = _(ks.fire, {'shift', 'ctrl'}, 'up'),
+    --     [sublime] = _(ks.fire, {'shift', 'ctrl', 'alt'}, 'up'),
     -- })
 end
 
-function Code.fold() fastKeyStroke({'alt', 'cmd'}, '[') end
+function Code.fold() ks.altCmd('[') end
 
-function Code.unfold() fastKeyStroke({'alt', 'cmd'}, ']') end
+function Code.unfold() ks.altCmd(']') end
 
 function Code.moveLineDown()
     if appIs(notion) then
-        fastKeyStroke({'shift', 'cmd'}, 'down')
+        ks.shiftCmd('down')
     elseif inCodeEditor() then
         -- Atom, Sublime: Move line down
-        fastKeyStroke({'ctrl', 'cmd'}, 'down')
+        ks.ctrlCmd('down')
     end
 end
 
 function Code.moveLineUp()
     if appIs(notion) then
-        fastKeyStroke({'shift', 'cmd'}, 'up')
-        fastKeyStroke({'shift', 'cmd'}, 'up')
+        ks.shiftCmd('up')
+        ks.shiftCmd('up')
     elseif inCodeEditor() then
-        fastKeyStroke({'ctrl', 'cmd'}, 'up')
+        ks.ctrlCmd('up')
     end
 end
 
-function Code.goToDefinition() fastKeyStroke({'alt', 'cmd'}, 'down') end
+function Code.goToDefinition() ks.altCmd('down') end
 
 function Code.toggleSemicolon()
-    if inCodeEditor() then return fastKeyStroke({'alt'}, ';') end
+    if inCodeEditor() then return ks.alt(';') end
 
     md.Vi.moveToEndOfLine()
-    fastKeyStroke({'shift'}, 'left')
+    ks.shift('left')
     text = getSelectedText()
 
     if getSelectedText() == ';' then
-        fastKeyStroke('delete')
+        ks.key('delete')
     else
-        fastKeyStroke('right')
+        ks.key('right')
         insertText(';')
     end
 end
 
 function Code.toggleBoolean()
     handleApp({
-        [atom] = _(fastKeyStroke, '-'),
-        [sublime] = _(fastKeyStroke, {'alt', 'cmd'}, 'x')
+        [atom] = _(ks.fire, '-'),
+        [sublime] = _(ks.fire, {'alt', 'cmd'}, 'x')
     })
 end
 
-function Code.selectNextWord() fastKeyStroke({'cmd'}, 'd') end
+function Code.selectNextWord() ks.cmd('d') end
 
-function Code.multipleCursorsDown()
-    fastKeyStroke({'shift', 'ctrl', 'alt'}, 'down')
-end
+function Code.multipleCursorsDown() ks.shiftCtrlAlt('down') end
 
 function Code.toggleComma()
-    if inCodeEditor() then return fastKeyStroke({'alt'}, ',') end
+    if inCodeEditor() then return ks.alt(',') end
 
     md.Vi.moveToEndOfLine()
-    fastKeyStroke({'shift'}, 'left')
+    ks.shift('left')
     text = getSelectedText()
 
     if getSelectedText() == ',' then
-        fastKeyStroke('delete')
+        ks.key('delete')
     else
-        fastKeyStroke('right')
+        ks.key('right')
         insertText(',')
     end
 end
@@ -111,20 +109,20 @@ function Code.doubleArrow()
     BracketMatching.start()
 end
 
-function Code.goToMatchingPair() fastKeyStroke({'shift', 'alt', 'cmd'}, 'm') end
+function Code.goToMatchingPair() ks.shiftAltCmd('m') end
 
-function Code.goToMatchingBracket() fastKeyStroke({'ctrl'}, 'm') end
+function Code.goToMatchingBracket() ks.ctrl('m') end
 
-function Code.comment() fastKeyStroke({'cmd'}, '/') end
+function Code.comment() ks.cmd('/') end
 
-function Code.selectAll() fastKeyStroke({'ctrl', 'cmd'}, 'g') end
+function Code.selectAll() ks.ctrlCmd('g') end
 
-function Code.toggleBrackets() fastKeyStroke({'shift', 'cmd'}, "'") end
+function Code.toggleBrackets() ks.shiftCmd("'") end
 
-function Code.previousMember() fastKeyStroke({'shift', 'alt', 'cmd'}, 'up') end
+function Code.previousMember() ks.shiftAltCmd('up') end
 
-function Code.nextMember() fastKeyStroke({'shift', 'alt', 'cmd'}, 'down') end
+function Code.nextMember() ks.shiftAltCmd('down') end
 
-function Code.focusBreadcrumbs() fastKeyStroke({'shift', 'cmd'}, '.') end
+function Code.focusBreadcrumbs() ks.shiftCmd('.') end
 
 return Code

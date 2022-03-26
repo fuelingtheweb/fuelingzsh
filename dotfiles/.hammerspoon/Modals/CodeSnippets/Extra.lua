@@ -9,18 +9,19 @@ Modal.add({
             key = 'laravelTests',
             title = 'Laravel Tests',
             items = {
-                r = {value = 'use RefreshDatabase;', callback = function()
-                    md.Code.addUseStatement()
-                end},
+                r = {
+                    value = 'use RefreshDatabase;',
+                    callback = function()
+                        md.Code.addUseStatement()
+                    end
+                }
             }
         },
         m = {
             key = 'laravelModel',
             title = 'Laravel Model',
-            items = {
-                g = 'protected $guarded = [];',
-            }
-        },
+            items = {g = 'protected $guarded = [];'}
+        }
     },
     callback = function(item)
         Modal.exit()
@@ -29,13 +30,13 @@ Modal.add({
             insertText(item.value)
 
             if item.callback then
-                fastKeyStroke('left')
+                ks.key('left')
                 item.callback()
             end
         else
             insertText(item)
         end
-    end,
+    end
 })
 
 return mdl

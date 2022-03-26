@@ -39,13 +39,13 @@ CodeSnippets.lookup = {
 
 function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
-        fastKeyStroke('o')
-        keyStroke('return')
+        ks.key('o')
+        ks.slow().key('return')
         insertText(';dte')
         hs.timer.doAfter(0.2, function()
-            keyStroke('return')
+            ks.slow().key('return')
             insertText('- ')
-            fastKeyStroke('escape')
+            ks.escape()
             md.Command.save()
         end)
 
@@ -76,9 +76,9 @@ function CodeSnippets.snippet(name)
     hs.pasteboard.setContents('snippet-' .. name)
 
     if appIs(vscode) then
-        fastKeyStroke({'ctrl', 'cmd'}, 's')
-        fastKeyStroke({'cmd'}, 'v')
-        keyStroke('return')
+        ks.ctrlCmd('s')
+        ks.cmd('v')
+        ks.slow().key('return')
 
         if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then
@@ -96,7 +96,7 @@ function CodeSnippets.functionSnippet() Modal.enter('CodeSnippets:function') end
 
 function CodeSnippets.this()
     if appIncludes({atom, vscode}) then
-        keyStroke({'shift', 'ctrl'}, 'c')
+        ks.slow().shiftCtrl('c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then
             return insertText('$table->')
@@ -161,8 +161,8 @@ end
 
 function CodeSnippets.printFunction(item, text)
     if text and inCodeEditor() then
-        fastKeyStroke({'shift'}, 'delete')
-        fastKeyStroke({'shift', 'cmd'}, 'i')
+        ks.shift('delete')
+        ks.shiftCmd('i')
     end
 
     insertText(item.method);
@@ -172,9 +172,9 @@ function CodeSnippets.printFunction(item, text)
     if item.extra == 'query' then
         insertText('function ($query) { $query-> }')
         insertText(')')
-        fastKeyStroke('left')
-        fastKeyStroke('left')
-        fastKeyStroke('left')
+        ks.key('left')
+        ks.key('left')
+        ks.key('left')
         Modal.enter('CodeSnippets:callFunction.laravelWhere')
 
         return
@@ -185,7 +185,7 @@ function CodeSnippets.printFunction(item, text)
     if item.extra == 'start' then return end
 
     insertText(')')
-    fastKeyStroke('left')
+    ks.key('left')
 
     if item.extra ~= 'simple' then BracketMatching.start() end
 end

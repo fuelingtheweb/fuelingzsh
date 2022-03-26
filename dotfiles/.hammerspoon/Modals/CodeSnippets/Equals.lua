@@ -64,18 +64,18 @@ end
 
 function mdl.simpleSingleQuote()
     insertText("=''")
-    fastKeyStroke('left');
+    ks.key('left');
 end
 
 function mdl.simpleDoubleQuote()
     insertText('=""')
-    keyStroke('left');
+    ks.slow().key('left');
     BracketMatching.start()
 end
 
 function mdl.paste()
     mdl.equals()
-    hs.timer.doAfter(0.1, function() fastKeyStroke({'cmd'}, 'v'); end)
+    hs.timer.doAfter(0.1, function() ks.cmd('v'); end)
 end
 
 function mdl.simpleNotEquals()

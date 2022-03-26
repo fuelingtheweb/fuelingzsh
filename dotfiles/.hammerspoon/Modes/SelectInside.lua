@@ -26,57 +26,57 @@ SelectInside.lookup = {
 function SelectInside.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    fastKeyStroke('escape')
-    fastKeyStroke('v')
-    fastKeyStroke('i')
-    fastKeyStroke(keystroke.mods, keystroke.key)
+    ks.escape()
+    ks.key('v')
+    ks.key('i')
+    ks.fire(keystroke.mods, keystroke.key)
 end
 
 function SelectInside.subword()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
+        ks.escape()
+        ks.key('v')
+        ks.key('i')
 
         if appIs(vscode) then
-            fastKeyStroke('\\')
-            fastKeyStroke('w')
+            ks.key('\\')
+            ks.key('w')
         else
-            fastKeyStroke('q')
+            ks.key('q')
         end
     end
 end
 
 function SelectInside.word()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
+        ks.escape()
+        ks.key('v')
+        ks.key('i')
+        ks.key('w')
     else
-        fastKeyStroke({'shift', 'alt'}, 'left')
+        ks.shiftAlt('left')
     end
 end
 
 function SelectInside.line()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'v')
+        ks.escape()
+        ks.shift('v')
     else
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+        ks.cmd('left')
+        ks.shiftCmd('right')
     end
 end
 
 function SelectInside.character()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('v')
+        ks.escape()
+        ks.key('v')
     else
-        fastKeyStroke({'shift'}, 'left')
+        ks.shift('left')
     end
 end
 
-function SelectInside.all() fastKeyStroke({'cmd'}, 'a') end
+function SelectInside.all() ks.cmd('a') end
 
 return SelectInside

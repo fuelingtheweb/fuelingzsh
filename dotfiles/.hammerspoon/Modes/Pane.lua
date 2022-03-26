@@ -27,93 +27,93 @@ Pane.lookup = {
 
 function Pane.destroy()
     if appIncludes({atom, sublime}) then
-        fastSuperKeyStroke('p')
-        fastKeyStroke('o')
-        fastKeyStroke('d')
-        fastKeyStroke('s')
+        fastSuperks.slow().key('p')
+        ks.key('o')
+        ks.key('d')
+        ks.key('s')
     elseif appIs(vscode) then
-        fastSuperKeyStroke('p')
-        fastSuperKeyStroke('d')
+        fastSuperks.slow().key('p')
+        fastSuperks.slow().key('d')
     elseif appIs(iterm) then
-        fastKeyStroke({'cmd'}, 'w')
+        ks.cmd('w')
     end
 end
 
 function Pane.splitRight()
     if appIncludes({atom, sublime}) then
-        fastSuperKeyStroke('p')
-        fastKeyStroke('o')
-        fastKeyStroke('c')
-        fastKeyStroke('l')
+        fastSuperks.slow().key('p')
+        ks.key('o')
+        ks.key('c')
+        ks.key('l')
     elseif appIs(vscode) then
-        fastSuperKeyStroke('p')
-        fastSuperKeyStroke('l')
+        fastSuperks.slow().key('p')
+        fastSuperks.slow().key('l')
     elseif appIs(iterm) then
-        fastKeyStroke({'cmd'}, 'd')
+        ks.cmd('d')
     end
 end
 
 function Pane.splitBottom()
     if appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
-        fastKeyStroke('o')
-        fastKeyStroke('c')
-        fastKeyStroke('j')
+        ks.super('p')
+        ks.key('o')
+        ks.key('c')
+        ks.key('j')
     end
 end
 
 function Pane.toggleZoom()
     if appIncludes({atom, sublime}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p')
-        fastKeyStroke('o')
-        fastKeyStroke('z')
+        ks.super('p')
+        ks.key('o')
+        ks.key('z')
     elseif appIs(iterm) then
-        fastKeyStroke({'shift', 'cmd'}, 'return')
+        ks.shiftCmd('return')
     end
 end
 
 function Pane.focusPrevious()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        fastKeyStroke({'alt'}, 'up')
+        ks.alt('up')
     elseif appIncludes({atom, sublime}) then
-        fastSuperKeyStroke('p')
-        fastKeyStroke('o')
-        fastKeyStroke('h')
+        fastSuperks.slow().key('p')
+        ks.key('o')
+        ks.key('h')
     elseif appIs(vscode) then
-        fastSuperKeyStroke('p')
-        fastSuperKeyStroke('k')
+        fastSuperks.slow().key('p')
+        fastSuperks.slow().key('k')
     elseif appIs(transmit) then
-        fastKeyStroke({'alt', 'cmd'}, 'left')
+        ks.altCmd('left')
     elseif appIs(tableplus) then
-        fastKeyStroke({'alt', 'cmd'}, '[')
+        ks.altCmd('[')
     else
-        fastKeyStroke({'cmd'}, '[')
+        ks.cmd('[')
     end
 end
 
 function Pane.focusNext()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
-        fastKeyStroke({'alt'}, 'down')
+        ks.alt('down')
     elseif appIncludes({atom, sublime}) then
-        fastSuperKeyStroke('p')
-        fastKeyStroke('o')
-        fastKeyStroke('l')
+        fastSuperks.slow().key('p')
+        ks.key('o')
+        ks.key('l')
     elseif appIs(vscode) then
-        fastSuperKeyStroke('p')
-        fastSuperKeyStroke('j')
+        fastSuperks.slow().key('p')
+        fastSuperks.slow().key('j')
     elseif appIs(transmit) then
-        fastKeyStroke({'alt', 'cmd'}, 'right')
+        ks.altCmd('right')
     elseif appIs(tableplus) then
-        fastKeyStroke({'alt', 'cmd'}, ']')
+        ks.altCmd(']')
     else
-        fastKeyStroke({'cmd'}, ']')
+        ks.cmd(']')
     end
 end
 
 function Pane.focusOtherSide()
     if appIs(vscode) then
-        fastSuperKeyStroke('p')
-        fastSuperKeyStroke(';')
+        fastSuperks.slow().key('p')
+        fastSuperks.slow().key(';')
     end
 end
 

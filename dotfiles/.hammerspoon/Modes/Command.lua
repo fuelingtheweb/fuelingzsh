@@ -24,50 +24,48 @@ Command.lookup = {
     spacebar = nil
 }
 
-function Command.shiftTab() fastKeyStroke({'shift'}, 'tab') end
+function Command.shiftTab() ks.shift('tab') end
 
 function Command.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function Command.atomGitPalette() fastKeyStroke({'shift', 'cmd'}, 'h') end
+function Command.atomGitPalette() ks.shiftCmd('h') end
 
-function Command.duplicateLine()
-    if inCodeEditor() then fastKeyStroke({'shift', 'cmd'}, 'd') end
-end
+function Command.duplicateLine() if inCodeEditor() then ks.shiftCmd('d') end end
 
 function Command.duplicate()
     local text = getSelectedText()
     if text then
         if inCodeEditor() then
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+            ks.super('d')
         else
-            fastKeyStroke('right')
+            ks.key('right')
             insertText(text)
         end
     elseif appIs(finder) then
-        fastKeyStroke({'cmd'}, 'd')
+        ks.cmd('d')
     elseif appIs(chrome) then
         -- Vimium
-        fastKeyStroke('escape')
+        ks.escape()
         insertText('yt')
     elseif inCodeEditor() then
-        fastKeyStroke({'shift', 'alt', 'cmd'}, 'd')
+        ks.shiftAltCmd('d')
         TextManipulation.disableVim()
     end
 end
 
 function Command.reload()
     if appIncludes({atom, vscode}) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'r')
+        ks.super('r')
     elseif appIs(postman) then
-        fastKeyStroke({'cmd'}, 'return')
+        ks.cmd('return')
     elseif appIs(iterm) then
         -- Run last command
-        fastKeyStroke('up')
-        fastKeyStroke('return')
+        ks.key('up')
+        ks.key('return')
     else
-        fastKeyStroke({'cmd'}, 'r')
+        ks.cmd('r')
     end
 end
 
@@ -81,51 +79,54 @@ function Command.finish()
             triggerAlfredWorkflow('finish', 'com.sztoltz.editwith')
         else
             -- Plain Tasks: Complete
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'd')
+            ks.super('d')
         end
     elseif appIs(transmit) then
         -- Disconnect from server
-        fastKeyStroke({'cmd'}, 'e')
+        ks.cmd('e')
     else
-        fastKeyStroke({'cmd'}, 'return')
+        ks.cmd('return')
     end
 end
 
 function Command.save()
     if appIs(chrome) then
         -- Save to Raindrop
-        fastKeyStroke({'shift', 'cmd'}, 's')
+        ks.shiftCmd('s')
     elseif appIs(iterm) then
         -- Save from Vim
-        fastKeyStroke({'shift'}, ';')
-        fastKeyStroke('x')
-        fastKeyStroke('return')
+        ks.shift(';')
+        ks.key('x')
+        ks.key('return')
     else
         log.d('Saving with cmd+s...')
-        fastKeyStroke({'cmd'}, 's')
+        ks.cmd('s')
+
+        -- if inCodeEditor() then ks.escape() end
+        if inCodeEditor() then ks.escape() end
     end
 end
 
 function Command.cancelOrDelete()
     text = getSelectedText()
     if text then
-        fastKeyStroke('delete')
+        ks.key('delete')
     elseif appIs(sublime) and titleContains('.todo') then
-        fastKeyStroke({'ctrl'}, 'c')
+        ks.ctrl('c')
     elseif inCodeEditor() then
-        fastKeyStroke({'shift', 'cmd'}, 'delete')
+        ks.shiftCmd('delete')
     elseif appIncludes({transmit, finder}) then
-        fastKeyStroke({'cmd'}, 'delete')
+        ks.cmd('delete')
     elseif appIs(chrome) and
         stringContains('Fueling the Web Mail', currentTitle()) then
-        fastKeyStroke({'shift'}, '3')
+        ks.shift('3')
     elseif appIs(iterm) then
-        fastKeyStroke({'ctrl'}, 'c')
+        ks.ctrl('c')
     else
-        fastKeyStroke('delete')
+        ks.key('delete')
     end
 end
 
-function Command.actionFileInAlfred() fastKeyStroke({'alt', 'cmd'}, '\\') end
+function Command.actionFileInAlfred() ks.altCmd('\\') end
 
 return Command

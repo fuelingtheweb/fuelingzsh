@@ -36,15 +36,15 @@ function Make.multiBracketMatch() BracketMatching.startMulti() end
 
 function Make.lineBefore()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke({'shift'}, 'o')
+        ks.escape()
+        ks.shift('o')
     end
 end
 
 function Make.lineAfter()
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
-        fastKeyStroke('o')
+        ks.escape()
+        ks.key('o')
     end
 end
 

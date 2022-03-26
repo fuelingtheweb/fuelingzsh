@@ -93,10 +93,10 @@ function BracketMatching.print(bracket)
 
     if text then
         if appIs(vscode) then
-            fastKeyStroke({'shift', 'alt', 'cmd'}, 'delete')
+            ks.shiftAltCmd('delete')
         elseif inCodeEditor() then
-            fastKeyStroke({'shift'}, 'delete')
-            fastKeyStroke({'shift', 'cmd'}, 'i')
+            ks.shift('delete')
+            ks.shiftCmd('i')
         end
     end
 
@@ -104,7 +104,7 @@ function BracketMatching.print(bracket)
 
     insertText(brackets[1] .. (text or '') .. brackets[2])
 
-    fastKeyStroke('left')
+    ks.key('left')
 end
 
 function BracketMatching.start() Modal.enter('BracketMatching') end
@@ -119,12 +119,12 @@ function BracketMatching.commitOrDismiss()
 
     if text then
         if appIs(vscode) then
-            keyStroke('c')
-            fastKeyStroke({'cmd'}, 'z')
-            fastKeyStroke({'shift', 'alt', 'cmd'}, 'delete')
+            ks.slow().key('c')
+            ks.cmd('z')
+            ks.shiftAltCmd('delete')
         elseif inCodeEditor() then
-            fastKeyStroke({'shift'}, 'delete')
-            fastKeyStroke({'shift', 'cmd'}, 'i')
+            ks.shift('delete')
+            ks.shiftCmd('i')
         end
     end
 
@@ -147,45 +147,45 @@ function BracketMatching.dismiss() Modal.exit() end
 
 function BracketMatching.newLine()
     Modal.exit()
-    fastKeyStroke('return');
+    ks.key('return');
 end
 
 function BracketMatching.cancel()
-    fastKeyStroke('right');
-    fastKeyStroke('delete');
-    fastKeyStroke('delete');
+    ks.key('right');
+    ks.key('delete');
+    ks.key('delete');
 end
 
 function BracketMatching.left()
     Modal.exit()
-    fastKeyStroke('left');
+    ks.key('left');
 end
 
 function BracketMatching.right()
     Modal.exit()
-    fastKeyStroke('right');
+    ks.key('right');
 end
 
 function BracketMatching.paste()
     Modal.exit()
-    fastKeyStroke({'cmd'}, 'v');
+    ks.cmd('v');
 end
 
 function BracketMatching.insertComma()
     Modal.exit()
-    fastKeyStroke('right');
+    ks.key('right');
     insertText(',')
 end
 
 function BracketMatching.insertSemicolon()
     Modal.exit()
-    fastKeyStroke('right');
+    ks.key('right');
     insertText(';')
 end
 
 function BracketMatching.continueChain()
     Modal.exit()
-    fastKeyStroke('right');
+    ks.key('right');
     if isLua() then
         insertText('.')
     else
@@ -200,13 +200,13 @@ function BracketMatching.insertVariable()
 end
 
 function BracketMatching.onlyOpening()
-    fastKeyStroke('right');
-    fastKeyStroke('delete');
+    ks.key('right');
+    ks.key('delete');
 end
 
 function BracketMatching.onlyClosing()
-    fastKeyStroke('delete');
-    fastKeyStroke('right');
+    ks.key('delete');
+    ks.key('right');
 end
 
 function BracketMatching.functionSnippet()

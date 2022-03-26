@@ -33,15 +33,15 @@ function windowCreated(window)
     if appIncludes({sublime, notion, atom, chrome}) then
         window:maximize()
     elseif appIs(discord) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'h')
+        ks.super('h')
     elseif appIs(teams) then
         if isMacbookDisplay() then
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'f')
+            ks.super('f')
         else
-            fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'l')
+            ks.super('l')
         end
     elseif appIs(finder) then
-        fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'j')
+        ks.super('j')
     end
 end
 

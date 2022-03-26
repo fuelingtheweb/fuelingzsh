@@ -22,31 +22,19 @@ Terminal.lookup = {
     period = nil,
     slash = 'navigate',
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Terminal.home()
-    typeAndEnter('hc')
-end
+function Terminal.home() typeAndEnter('hc') end
 
-function Terminal.list()
-    typeAndEnter('ll')
-end
+function Terminal.list() typeAndEnter('ll') end
 
-function Terminal.navigate()
-    insertText('cd ')
-end
+function Terminal.navigate() insertText('cd ') end
 
-function Terminal.clear()
-    typeAndEnter('clear')
-end
+function Terminal.clear() typeAndEnter('clear') end
 
-function Terminal.autocompleteNextWord()
-    fastSuperKeyStroke('j')
-end
+function Terminal.autocompleteNextWord() fastSuperks.slow().key('j') end
 
-function Terminal.serveCurrentProject()
-    ProjectManager.serveCurrent()
-end
+function Terminal.serveCurrentProject() ProjectManager.serveCurrent() end
 
 return Terminal

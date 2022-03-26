@@ -31,54 +31,54 @@ function Paste.withWrapperKey(key)
     Paste.pastePending(function()
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke(keystroke.mods, keystroke.key)
+        ks.key('v')
+        ks.key('i')
+        ks.fire(keystroke.mods, keystroke.key)
     end)
 end
 
 function Paste.toEndOfWord()
     Paste.pastePending(function()
-        fastKeyStroke('v')
-        fastKeyStroke('e')
-    end, function() fastKeyStroke({'shift', 'alt'}, 'right') end)
+        ks.key('v')
+        ks.key('e')
+    end, function() ks.shiftAlt('right') end)
 end
 
 function Paste.subword()
     Paste.pastePending(function() md.SelectInside.subword() end,
-                       function() fastKeyStroke({'shift', 'alt'}, 'left') end)
+                       function() ks.shiftAlt('left') end)
 end
 
 function Paste.word()
     Paste.pastePending(function()
-        fastKeyStroke('v')
-        fastKeyStroke('i')
-        fastKeyStroke('w')
-    end, function() fastKeyStroke({'shift', 'alt'}, 'left') end)
+        ks.key('v')
+        ks.key('i')
+        ks.key('w')
+    end, function() ks.shiftAlt('left') end)
 end
 
 function Paste.toEndOfLine()
     Paste.pastePending(function()
-        fastKeyStroke('v')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
-    end, function() fastKeyStroke({'shift', 'cmd'}, 'right') end)
+        ks.key('v')
+        ks.shiftCmd('right')
+    end, function() ks.shiftCmd('right') end)
 end
 
 function Paste.toBeginningOfLine()
-    Paste.pastePending(function() fastKeyStroke({'shift', 'cmd'}, 'left') end,
-                       function() fastKeyStroke({'shift', 'cmd'}, 'left') end)
+    Paste.pastePending(function() ks.shiftCmd('left') end,
+                       function() ks.shiftCmd('left') end)
 end
 
 function Paste.line()
-    Paste.pastePending(function() fastKeyStroke({'shift'}, 'v') end, function()
-        fastKeyStroke({'cmd'}, 'left')
-        fastKeyStroke({'shift', 'cmd'}, 'right')
+    Paste.pastePending(function() ks.shift('v') end, function()
+        ks.cmd('left')
+        ks.shiftCmd('right')
     end)
 end
 
 function Paste.character()
-    Paste.pastePending(function() fastKeyStroke('v') end,
-                       function() fastKeyStroke({'shift'}, 'left') end)
+    Paste.pastePending(function() ks.key('v') end,
+                       function() ks.shift('left') end)
 end
 
 function Paste.pastePending(selectTextWhenInVim, selectTextWhenInDefault)
@@ -88,7 +88,7 @@ end
 
 function Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
     if TextManipulation.canManipulateWithVim() then
-        fastKeyStroke('escape')
+        ks.escape()
         selectTextWhenInVim()
     else
         selectTextWhenInDefault()
@@ -107,15 +107,13 @@ function Paste.pasteNext()
     triggerAlfredWorkflow('paste:next', 'com.fuelingtheweb.commands')
 end
 
-function Paste.default() fastKeyStroke({'cmd'}, 'v') end
+function Paste.default() ks.cmd('v') end
 
-function Paste.primaryVim() fastKeyStroke('p') end
+function Paste.primaryVim() ks.key('p') end
 
-function Paste.secondaryVim() fastKeyStroke({'shift'}, 'p') end
+function Paste.secondaryVim() ks.shift('p') end
 
-function Paste.backward()
-    if inCodeEditor() then fastKeyStroke({'shift'}, 'p') end
-end
+function Paste.backward() if inCodeEditor() then ks.shift('p') end end
 
 -- Modal.add({
 --     key: 'PasteSurround',
@@ -126,10 +124,10 @@ end
 
 --         keystroke = TextManipulation.wrapperKeyLookup[key]
 
---         fastKeyStroke('escape')
---         fastKeyStroke('c')
---         fastKeyStroke('a')
---         fastKeyStroke(keystroke.mods, keystroke.key)
+--         ks.escape()
+--         ks.key('c')
+--         ks.key('a')
+--         ks.fire(keystroke.mods, keystroke.key)
 
 --         if not hasValue({'s', 'd', 't'}, key) then
 --             BracketMatching.start()
@@ -139,7 +137,7 @@ end
 
 -- function Paste.pasteSurround()
 --     if inCodeEditor() then
---         fastKeyStroke({'shift'}, 'p')
+--         ks.shift('p')
 --     end
 -- end
 

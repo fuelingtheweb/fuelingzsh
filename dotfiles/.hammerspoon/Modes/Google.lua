@@ -31,33 +31,33 @@ end
 
 function Google.inbox() openInChrome('https://inbox.google.com') end
 
-function Google.profiles() fastKeyStroke({'shift', 'cmd'}, 'm') end
+function Google.profiles() ks.shiftCmd('m') end
 
-function Google.groupTab() fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'g') end
+function Google.groupTab() ks.super('g') end
 
 function Google.history()
     triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
 end
 
-function Google.lastpass() fastKeyStroke({'ctrl', 'alt', 'cmd'}, 'p') end
+function Google.lastpass() ks.super('p') end
 
-function Google.tabManager() fastKeyStroke({'shift', 'cmd'}, 'm') end
+function Google.tabManager() ks.shiftCmd('m') end
 
-function Google.dismissDownloadsBar() fastKeyStroke({'alt'}, 'w') end
+function Google.dismissDownloadsBar() ks.alt('w') end
 
-function Google.newBookmark() fastKeyStroke({'cmd'}, 'd') end
+function Google.newBookmark() ks.cmd('d') end
 
 function Google.bookmarks()
     triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
 end
 
-function Google.toggleDevTools() fastKeyStroke({'alt', 'cmd'}, 'i') end
+function Google.toggleDevTools() ks.altCmd('i') end
 
-function Google.toggleDevToolsDocking() fastKeyStroke({'shift', 'cmd'}, 'd') end
+function Google.toggleDevToolsDocking() ks.shiftCmd('d') end
 
 function Google.openAndReload()
     hs.application.get(apps['chrome']):activate()
-    fastKeyStroke({'cmd'}, 'r')
+    ks.cmd('r')
 end
 
 function Google.toggleIncognito()
@@ -75,16 +75,16 @@ function Google.toggleIncognito()
     ]])
 end
 
-function Google.viewSource() fastKeyStroke({'alt', 'cmd'}, 'u') end
+function Google.viewSource() ks.altCmd('u') end
 
 function Google.nextGitConflict()
-    keyStroke({'shift', 'alt', 'cmd'}, 'g')
-    keyStroke({'shift', 'alt', 'cmd'}, 'j')
+    ks.slow().shiftAltCmd('g')
+    ks.slow().shiftAltCmd('j')
 end
 
 function Google.previousGitConflict()
-    keyStroke({'shift', 'alt', 'cmd'}, 'g')
-    keyStroke({'shift', 'alt', 'cmd'}, 'k')
+    ks.slow().shiftAltCmd('g')
+    ks.slow().shiftAltCmd('k')
 end
 
 return Google
