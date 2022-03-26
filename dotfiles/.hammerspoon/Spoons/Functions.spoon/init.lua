@@ -313,7 +313,7 @@ function updateChromeUrl(needle, newUrl)
             end tell
         ]])
 
-        return true;
+        return true
     end
 end
 

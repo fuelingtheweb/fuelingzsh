@@ -118,17 +118,17 @@ function CodeSnippets.equals() Modal.enter('CodeSnippets:equals') end
 
 function CodeSnippets.insertColon()
     ks.type(' : ')
-    BracketMatching.start();
+    BracketMatching.start()
 end
 
 function CodeSnippets.insertQuestion()
     ks.type(' ? ')
-    BracketMatching.start();
+    BracketMatching.start()
 end
 
 function CodeSnippets.insertComma()
     ks.type(', ')
-    BracketMatching.start();
+    BracketMatching.start()
 end
 
 function CodeSnippets.generalSnippetsModal()
@@ -163,7 +163,7 @@ function CodeSnippets.printFunction(item, text)
         ks.shiftCmd('i')
     end
 
-    ks.type(item.method);
+    ks.type(item.method)
 
     if item.extra ~= 'start' then ks.type('(') end
 

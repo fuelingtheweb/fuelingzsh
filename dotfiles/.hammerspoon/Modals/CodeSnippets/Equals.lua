@@ -64,12 +64,12 @@ end
 
 function mdl.simpleSingleQuote()
     ks.type("=''")
-    ks.key('left');
+    ks.key('left')
 end
 
 function mdl.simpleDoubleQuote()
     ks.type('=""')
-    ks.slow().key('left');
+    ks.slow().key('left')
     BracketMatching.start()
 end
 

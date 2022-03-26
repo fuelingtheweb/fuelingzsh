@@ -62,7 +62,7 @@ function JumpTo.before() spoon.KarabinerHandler.currentKey = nil end
 function JumpTo.triggerDirectionIfSet()
     if not JumpTo.direction then return end
 
-    local action;
+    local action
 
     if JumpTo.direction == 'F' then
         action = 'forward'
@@ -88,13 +88,13 @@ function JumpTo.beginJumpingForward()
     if inCodeEditor() then
         ks.key('l')
 
-        JumpTo.paused = true;
+        JumpTo.paused = true
         Modal.exit('JumpTo')
 
         ks.key('f')
 
         Modal.enter('JumpTo')
-        JumpTo.paused = false;
+        JumpTo.paused = false
     end
 end
 
