@@ -39,12 +39,9 @@ CodeSnippets.lookup = {
 
 function CodeSnippets.handle(key)
     if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
-        ks.key('o').slow().enter()
-        ks.type(';dte')
+        ks.key('o').slow().enter().type(';dte')
         hs.timer.doAfter(0.2, function()
-            ks.slow().enter()
-            ks.type('- ')
-            ks.escape()
+            ks.slow().enter().type('- ').escape()
             md.Command.save()
         end)
 
@@ -75,9 +72,7 @@ function CodeSnippets.snippet(name)
     hs.pasteboard.setContents('snippet-' .. name)
 
     if appIs(vscode) then
-        ks.ctrlCmd('s')
-        ks.paste()
-        ks.slow().enter()
+        ks.ctrlCmd('s').paste().slow().enter()
 
         if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then
@@ -160,8 +155,7 @@ end
 
 function CodeSnippets.printFunction(item, text)
     if text and inCodeEditor() then
-        ks.shift('delete')
-        ks.shiftCmd('i')
+        ks.shift('delete').shiftCmd('i')
     end
 
     ks.type(item.method)
@@ -170,10 +164,7 @@ function CodeSnippets.printFunction(item, text)
 
     if item.extra == 'query' then
         ks.type('function ($query) { $query-> }')
-        ks.type(')')
-        ks.left()
-        ks.left()
-        ks.left()
+        ks.type(')').left().left().left()
         Modal.enter('CodeSnippets:callFunction.laravelWhere')
 
         return
@@ -183,8 +174,7 @@ function CodeSnippets.printFunction(item, text)
 
     if item.extra == 'start' then return end
 
-    ks.type(')')
-    ks.left()
+    ks.type(')').left()
 
     if item.extra ~= 'simple' then BracketMatching.start() end
 end

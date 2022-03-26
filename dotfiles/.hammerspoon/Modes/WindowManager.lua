@@ -143,8 +143,7 @@ function WindowManager.toggleSidebar()
     if appIs(finder) then
         ks.altCmd('s')
     elseif appIs(sublimeMerge) then
-        ks.cmd('k')
-        ks.cmd('b')
+        ks.cmd('k').cmd('b')
     elseif appIs(slack) then
         ks.shiftCmd('d')
     elseif appIs(tableplus) then

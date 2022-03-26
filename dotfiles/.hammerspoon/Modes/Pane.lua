@@ -27,11 +27,9 @@ Pane.lookup = {
 
 function Pane.destroy()
     if appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'd', 's'})
+        ks.super('p').sequence({'o', 'd', 's'})
     elseif appIs(vscode) then
-        ks.super('p')
-        ks.super('d')
+        ks.super('p').super('d')
     elseif appIs(iterm) then
         ks.close()
     end
@@ -39,11 +37,9 @@ end
 
 function Pane.splitRight()
     if appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'c', 'l'})
+        ks.super('p').sequence({'o', 'c', 'l'})
     elseif appIs(vscode) then
-        ks.super('p')
-        ks.super('l')
+        ks.super('p').super('l')
     elseif appIs(iterm) then
         ks.cmd('d')
     end
@@ -51,15 +47,13 @@ end
 
 function Pane.splitBottom()
     if appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'c', 'j'})
+        ks.super('p').sequence({'o', 'c', 'j'})
     end
 end
 
 function Pane.toggleZoom()
     if appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'z'})
+        ks.super('p').sequence({'o', 'z'})
     elseif appIs(iterm) then
         ks.shiftCmd('return')
     end
@@ -69,11 +63,9 @@ function Pane.focusPrevious()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         ks.alt('up')
     elseif appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'h'})
+        ks.super('p').sequence({'o', 'h'})
     elseif appIs(vscode) then
-        ks.super('p')
-        ks.super('k')
+        ks.super('p').super('k')
     elseif appIs(transmit) then
         ks.altCmd('left')
     elseif appIs(tableplus) then
@@ -87,11 +79,9 @@ function Pane.focusNext()
     if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
         ks.alt('down')
     elseif appIncludes({atom, sublime}) then
-        ks.super('p')
-        ks.sequence({'o', 'l'})
+        ks.super('p').sequence({'o', 'l'})
     elseif appIs(vscode) then
-        ks.super('p')
-        ks.super('j')
+        ks.super('p').super('j')
     elseif appIs(transmit) then
         ks.altCmd('right')
     elseif appIs(tableplus) then
@@ -101,11 +91,6 @@ function Pane.focusNext()
     end
 end
 
-function Pane.focusOtherSide()
-    if appIs(vscode) then
-        ks.super('p')
-        ks.super(';')
-    end
-end
+function Pane.focusOtherSide() if appIs(vscode) then ks.super('p').super(';') end end
 
 return Pane

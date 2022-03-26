@@ -31,8 +31,7 @@ function Paste.withWrapperKey(key)
     Paste.pastePending(function()
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        ks.sequence({'v', 'i'})
-        ks.fire(keystroke.mods, keystroke.key)
+        ks.sequence({'v', 'i'}).fire(keystroke.mods, keystroke.key)
     end)
 end
 
@@ -52,10 +51,8 @@ function Paste.word()
 end
 
 function Paste.toEndOfLine()
-    Paste.pastePending(function()
-        ks.key('v')
-        ks.shiftCmd('right')
-    end, function() ks.shiftCmd('right') end)
+    Paste.pastePending(function() ks.key('v').shiftCmd('right') end,
+                       function() ks.shiftCmd('right') end)
 end
 
 function Paste.toBeginningOfLine()
@@ -64,10 +61,8 @@ function Paste.toBeginningOfLine()
 end
 
 function Paste.line()
-    Paste.pastePending(function() ks.shift('v') end, function()
-        ks.cmd('left')
-        ks.shiftCmd('right')
-    end)
+    Paste.pastePending(function() ks.shift('v') end,
+                       function() ks.cmd('left').shiftCmd('right') end)
 end
 
 function Paste.character()

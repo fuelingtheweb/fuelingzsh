@@ -59,8 +59,7 @@ end
 function Tab.moveLeft()
     if appIs(chrome) then
         -- Vimium
-        ks.escape()
-        ks.type('th')
+        ks.escape().type('th')
     elseif inCodeEditor() then
         ks.shiftAltCmd('left')
     elseif appIs(iterm) then
@@ -71,8 +70,7 @@ end
 function Tab.moveRight()
     if appIs(chrome) then
         -- Vimium
-        ks.escape()
-        ks.type('tl')
+        ks.escape().type('tl')
     elseif inCodeEditor() then
         ks.shiftAltCmd('right')
     elseif appIs(iterm) then
@@ -86,12 +84,7 @@ function Tab.restore() ks.shiftCmd('t') end
 
 function Tab.moveToNewWindow()
     if appIs(sublime) then
-        ks.cmd('a')
-        ks.copy()
-        ks.close()
-        ks.key('space')
-        ks.shiftCmd('n')
-        ks.key('p')
+        ks.cmd('a').copy().close().key('space').shiftCmd('n').key('p')
     elseif appIs(chrome) then
         ks.shift('w')
     end
@@ -100,10 +93,7 @@ end
 function Tab.new()
     if inCodeEditor() then
         ks.cmd('n')
-        hs.timer.doAfter(0.1, function()
-            ks.key('i').enter()
-            ks.up()
-        end)
+        hs.timer.doAfter(0.1, function() ks.key('i').enter().up() end)
     elseif appIs(finder) then
         ks.cmd('n')
     else
@@ -115,8 +105,7 @@ function Tab.closeAllToLeft()
     if appIs(chrome) then
         ks.type('txh')
     elseif appIncludes({atom, sublime}) then
-        ks.super('tab')
-        ks.sequence({'x', 'h'})
+        ks.super('tab').sequence({'x', 'h'})
 
         if appIs(sublime) then ks.type('Close Tabs to Left').enter() end
     end
@@ -126,8 +115,7 @@ function Tab.closeAllToRight()
     if appIs(chrome) then
         ks.type('txl')
     elseif appIncludes({atom, sublime}) then
-        ks.super('tab')
-        ks.sequence({'x', 'l'})
+        ks.super('tab').sequence({'x', 'l'})
 
         if appIs(sublime) then ks.type('Close Tabs to Right').enter() end
     end
@@ -137,11 +125,9 @@ function Tab.closeAllOthers()
     if appIs(chrome) then
         ks.type('tx;')
     elseif appIs(vscode) then
-        ks.super('e')
-        ks.super('/')
+        ks.super('e').super('/')
     elseif appIncludes({atom, sublime}) then
-        ks.super('tab')
-        ks.sequence({'x', ';'})
+        ks.super('tab').sequence({'x', ';'})
 
         if appIs(sublime) then ks.type('Close Other Tabs').enter() end
     end
@@ -151,13 +137,11 @@ function Tab.closeAll()
     if appIs(atom) then
         ks.super('x')
     elseif appIs(sublime) then
-        ks.super('tab')
-        ks.sequence({'x', ';'})
+        ks.super('tab').sequence({'x', ';'})
 
         if appIs(sublime) then ks.type('Close All Tabs').enter() end
     elseif appIs(vscode) then
-        ks.super('e')
-        ks.super('[')
+        ks.super('e').super('[')
     end
 end
 

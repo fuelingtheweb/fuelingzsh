@@ -35,17 +35,11 @@ function Make.fallback(bracket) BracketMatching.print(bracket) end
 function Make.multiBracketMatch() BracketMatching.startMulti() end
 
 function Make.lineBefore()
-    if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shift('o')
-    end
+    if TextManipulation.canManipulateWithVim() then ks.escape().shift('o') end
 end
 
 function Make.lineAfter()
-    if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.key('o')
-    end
+    if TextManipulation.canManipulateWithVim() then ks.escape().key('o') end
 end
 
 -- function Make.startOfVideoOrPreviousVideo()

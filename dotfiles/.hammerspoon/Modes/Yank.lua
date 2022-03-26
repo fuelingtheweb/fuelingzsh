@@ -25,31 +25,23 @@ Yank.lookup = {
 
 function Yank.word()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'y', 'i', 'w'})
+        ks.escape().sequence({'y', 'i', 'w'})
     else
-        ks.shiftAlt('left')
-        ks.copy()
-        ks.right()
+        ks.shiftAlt('left').copy().right()
     end
 end
 
 function Yank.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    ks.escape()
-    ks.sequence({'y', 'i'})
-    ks.fire(keystroke.mods, keystroke.key)
+    ks.escape().sequence({'y', 'i'}).fire(keystroke.mods, keystroke.key)
 end
 
 function Yank.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'y', 'e'})
+        ks.escape().sequence({'y', 'e'})
     else
-        ks.shiftAlt('right')
-        ks.copy()
-        ks.left()
+        ks.shiftAlt('right').copy().left()
     end
 end
 
@@ -57,8 +49,7 @@ function Yank.relativeFilePath() if inCodeEditor() then ks.super('y') end end
 
 function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'y', 'i'})
+        ks.escape().sequence({'y', 'i'})
 
         if appIs(vscode) then
             ks.sequence({'\\', 'w'})
@@ -70,88 +61,54 @@ end
 
 function Yank.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.key('y')
-        ks.shift('4')
+        ks.escape().key('y').shift('4')
     else
-        ks.shiftCmd('right')
-        ks.copy()
-        ks.left()
+        ks.shiftCmd('right').copy().left()
     end
 end
 
 function Yank.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.right()
-        ks.shiftCmd('left')
-        ks.key('y')
+        ks.escape().right().shiftCmd('left').key('y')
     else
-        ks.shiftCmd('left')
-        ks.slow().copy()
-        ks.right()
+        ks.shiftCmd('left').slow().copy().right()
     end
 end
 
 function Yank.line()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'y', 'y'})
+        ks.escape().sequence({'y', 'y'})
     else
-        ks.cmd('left')
-        ks.shiftCmd('right')
-        ks.copy()
-        ks.right()
+        ks.cmd('left').shiftCmd('right').copy().right()
     end
 end
 
 function Yank.character()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'y', 'l'})
+        ks.escape().sequence({'y', 'l'})
     else
-        ks.shift('left')
-        ks.copy()
-        ks.right()
+        ks.shift('left').copy().right()
     end
 end
 
 function Yank.toTopOfPage()
     if appIs(notion) then
-        ks.cmd('a')
-        ks.copy()
-        ks.right()
+        ks.cmd('a').copy().right()
     else
-        ks.shiftCmd('up')
-        ks.copy()
-        ks.right()
+        ks.shiftCmd('up').copy().right()
     end
 end
 
-function Yank.untilForward()
-    ks.escape()
-    ks.sequence({'y', 't'})
-end
+function Yank.untilForward() ks.escape().sequence({'y', 't'}) end
 
-function Yank.untilBackward()
-    ks.escape()
-    ks.key('y')
-    ks.shift('t')
-end
+function Yank.untilBackward() ks.escape().key('y').shift('t') end
 
 function Yank.all()
 
     if inCodeEditor() then
-        ks.cmd('a')
-        ks.copy()
-
-        ks.escape()
-        ks.sequence({'g', 'g'})
+        ks.cmd('a').copy().escape().sequence({'g', 'g'})
     else
-        ks.cmd('a')
-        ks.slow().copy()
-
-        ks.right()
+        ks.cmd('a').slow().copy().right()
     end
 end
 

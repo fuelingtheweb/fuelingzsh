@@ -54,8 +54,7 @@ end
 
 function Code.moveLineUp()
     if appIs(notion) then
-        ks.shiftCmd('up')
-        ks.shiftCmd('up')
+        ks.shiftCmd('up').shiftCmd('up')
     elseif inCodeEditor() then
         ks.ctrlCmd('up')
     end
@@ -73,8 +72,7 @@ function Code.toggleSemicolon()
     if getSelectedText() == ';' then
         ks.delete()
     else
-        ks.right()
-        ks.type(';')
+        ks.right().type(';')
     end
 end
 
@@ -99,8 +97,7 @@ function Code.toggleComma()
     if getSelectedText() == ',' then
         ks.delete()
     else
-        ks.right()
-        ks.type(',')
+        ks.right().type(',')
     end
 end
 

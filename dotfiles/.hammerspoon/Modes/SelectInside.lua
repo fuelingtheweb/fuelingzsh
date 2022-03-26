@@ -26,15 +26,12 @@ SelectInside.lookup = {
 function SelectInside.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    ks.escape()
-    ks.sequence({'v', 'i'})
-    ks.fire(keystroke.mods, keystroke.key)
+    ks.escape().sequence({'v', 'i'}).fire(keystroke.mods, keystroke.key)
 end
 
 function SelectInside.subword()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'v', 'i'})
+        ks.escape().sequence({'v', 'i'})
 
         if appIs(vscode) then
             ks.sequence({'\\', 'w'})
@@ -46,8 +43,7 @@ end
 
 function SelectInside.word()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'v', 'i', 'w'})
+        ks.escape().sequence({'v', 'i', 'w'})
     else
         ks.shiftAlt('left')
     end
@@ -55,18 +51,15 @@ end
 
 function SelectInside.line()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shift('v')
+        ks.escape().shift('v')
     else
-        ks.cmd('left')
-        ks.shiftCmd('right')
+        ks.cmd('left').shiftCmd('right')
     end
 end
 
 function SelectInside.character()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.key('v')
+        ks.escape().key('v')
     else
         ks.shift('left')
     end

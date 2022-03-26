@@ -95,8 +95,7 @@ function BracketMatching.print(bracket)
         if appIs(vscode) then
             ks.shiftAltCmd('delete')
         elseif inCodeEditor() then
-            ks.shift('delete')
-            ks.shiftCmd('i')
+            ks.shift('delete').shiftCmd('i')
         end
     end
 
@@ -119,12 +118,9 @@ function BracketMatching.commitOrDismiss()
 
     if text then
         if appIs(vscode) then
-            ks.slow().key('c')
-            ks.undo()
-            ks.shiftAltCmd('delete')
+            ks.slow().key('c').undo().shiftAltCmd('delete')
         elseif inCodeEditor() then
-            ks.shift('delete')
-            ks.shiftCmd('i')
+            ks.shift('delete').shiftCmd('i')
         end
     end
 
@@ -150,11 +146,7 @@ function BracketMatching.newLine()
     ks.enter()
 end
 
-function BracketMatching.cancel()
-    ks.right()
-    ks.delete()
-    ks.delete()
-end
+function BracketMatching.cancel() ks.right().delete().delete() end
 
 function BracketMatching.left()
     Modal.exit()
@@ -173,14 +165,12 @@ end
 
 function BracketMatching.insertComma()
     Modal.exit()
-    ks.right()
-    ks.type(',')
+    ks.right().type(',')
 end
 
 function BracketMatching.insertSemicolon()
     Modal.exit()
-    ks.right()
-    ks.type(';')
+    ks.right().type(';')
 end
 
 function BracketMatching.continueChain()
@@ -199,15 +189,9 @@ function BracketMatching.insertVariable()
     ks.type('$')
 end
 
-function BracketMatching.onlyOpening()
-    ks.right()
-    ks.delete()
-end
+function BracketMatching.onlyOpening() ks.right().delete() end
 
-function BracketMatching.onlyClosing()
-    ks.delete()
-    ks.right()
-end
+function BracketMatching.onlyClosing() ks.delete().right() end
 
 function BracketMatching.functionSnippet()
     Modal.exit()

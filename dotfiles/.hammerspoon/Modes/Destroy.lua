@@ -26,9 +26,7 @@ Destroy.lookup = {
 function Destroy.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    ks.escape()
-    ks.sequence({'d', 'i'})
-    ks.fire(keystroke.mods, keystroke.key)
+    ks.escape().sequence({'d', 'i'}).fire(keystroke.mods, keystroke.key)
 end
 
 function Destroy.simpleDelete()
@@ -42,18 +40,15 @@ end
 
 function Destroy.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'d', 'e'})
+        ks.escape().sequence({'d', 'e'})
     else
-        ks.shiftAlt('right')
-        ks.delete()
+        ks.shiftAlt('right').delete()
     end
 end
 
 function Destroy.subword()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'d', 'i'})
+        ks.escape().sequence({'d', 'i'})
 
         if appIs(vscode) then
             ks.sequence({'\\', 'w'})
@@ -65,8 +60,7 @@ end
 
 function Destroy.word()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'d', 'i', 'w'})
+        ks.escape().sequence({'d', 'i', 'w'})
     elseif appIs(iterm) then
         ks.ctrl('w')
     else
@@ -76,11 +70,9 @@ end
 
 function Destroy.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shift('d')
+        ks.escape().shift('d')
     else
-        ks.shiftCmd('right')
-        ks.delete()
+        ks.shiftCmd('right').delete()
     end
 end
 
@@ -96,26 +88,21 @@ function Destroy.toBeginningOfLine()
 
         ks.key('d')
     else
-        ks.shiftCmd('left')
-        ks.delete()
+        ks.shiftCmd('left').delete()
     end
 end
 
 function Destroy.line()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'d', 'd'})
+        ks.escape().sequence({'d', 'd'})
     else
-        ks.cmd('left')
-        ks.shiftCmd('right')
-        ks.delete()
+        ks.cmd('left').shiftCmd('right').delete()
     end
 end
 
 function Destroy.character()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.key('x')
+        ks.escape().key('x')
     else
         ks.delete()
     end
@@ -198,24 +185,12 @@ function Destroy.mode() Destroy.enterModal() end
 
 function Destroy.modeBackward() Destroy.enterModal('B') end
 
-function Destroy.untilForward()
-    ks.escape()
-    ks.sequence({'d', 't'})
-end
+function Destroy.untilForward() ks.escape().sequence({'d', 't'}) end
 
-function Destroy.untilBackward()
-    ks.escape()
-    ks.key('d')
-    ks.shift('t')
-end
+function Destroy.untilBackward() ks.escape().key('d').shift('t') end
 
 function Destroy.backward()
-    if inCodeEditor() then
-        ks.super('v')
-        ks.escape()
-        ks.left()
-        ks.key('x')
-    end
+    if inCodeEditor() then ks.super('v').escape().left().key('x') end
 end
 
 return Destroy

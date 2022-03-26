@@ -40,15 +40,13 @@ function Command.duplicate()
         if inCodeEditor() then
             ks.super('d')
         else
-            ks.right()
-            ks.type(text)
+            ks.right().type(text)
         end
     elseif appIs(finder) then
         ks.cmd('d')
     elseif appIs(chrome) then
         -- Vimium
-        ks.escape()
-        ks.type('yt')
+        ks.escape().type('yt')
     elseif inCodeEditor() then
         ks.shiftAltCmd('d')
         TextManipulation.disableVim()
@@ -94,8 +92,7 @@ function Command.save()
         ks.shiftCmd('s')
     elseif appIs(iterm) then
         -- Save from Vim
-        ks.shift(';')
-        ks.key('x').enter()
+        ks.shift(';').key('x').enter()
     else
         log.d('Saving with cmd+s...')
         ks.save()

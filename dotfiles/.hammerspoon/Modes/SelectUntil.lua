@@ -25,8 +25,7 @@ SelectUntil.lookup = {
 
 function SelectUntil.endOfWord()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'v', 'e'})
+        ks.escape().sequence({'v', 'e'})
     else
         ks.shiftAlt('right')
     end
@@ -34,11 +33,9 @@ end
 
 function SelectUntil.nextWord()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'v', 'w'})
+        ks.escape().sequence({'v', 'w'})
     else
-        ks.shiftAlt('right')
-        ks.shiftAlt('right')
+        ks.shiftAlt('right').shiftAlt('right')
     end
 end
 
@@ -103,8 +100,7 @@ function SelectUntil.beginSelectingForward()
     if appIs(vscode) then
         ks.ctrl('v')
     elseif appIs(atom) then
-        ks.super('v')
-        ks.key('l')
+        ks.super('v').key('l')
     elseif appIs(sublime) then
         ks.super('v')
     end
@@ -116,8 +112,7 @@ function SelectUntil.beginSelectingBackward()
     if appIs(vscode) then
         ks.ctrl('v')
     elseif inCodeEditor() then
-        ks.super('v')
-        ks.key('h')
+        ks.super('v').key('h')
     end
 end
 
@@ -281,8 +276,7 @@ end
 
 function SelectUntil.endOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shiftCmd('right')
+        ks.escape().shiftCmd('right')
     else
         ks.shiftCmd('right')
     end
@@ -293,11 +287,9 @@ function SelectUntil.beginningOfLine()
         ks.escape()
 
         if appIs(vscode) then
-            ks.key('v')
-            ks.shift('6')
+            ks.key('v').shift('6')
         else
-            ks.right()
-            ks.shiftCmd('left')
+            ks.right().shiftCmd('left')
         end
     else
         ks.shiftCmd('left')
@@ -306,22 +298,14 @@ end
 
 function SelectUntil.previousBlock()
     if TextManipulation.canManipulateWithVim() then
-        ks.shift('v')
-        ks.shift('[')
+        ks.shift('v').shift('[')
     else
         ks.shiftCmd('left')
     end
 end
 
-function SelectUntil.untilForward()
-    ks.escape()
-    ks.sequence({'v', 't'})
-end
+function SelectUntil.untilForward() ks.escape().sequence({'v', 't'}) end
 
-function SelectUntil.untilBackward()
-    ks.escape()
-    ks.key('v')
-    ks.shift('t')
-end
+function SelectUntil.untilBackward() ks.escape().key('v').shift('t') end
 
 return SelectUntil

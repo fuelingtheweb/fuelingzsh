@@ -74,14 +74,12 @@ function ExtendedCommand.reloadSecondary()
         ks.shiftCmd('r')
     elseif appIs(iterm) then
         -- Reload running command
-        ks.ctrl('c')
-        ks.up().enter()
+        ks.ctrl('c').up().enter()
     end
 end
 
 function ExtendedCommand.saveAndReload()
-    ks.escape()
-    ks.slow().save()
+    ks.escape().slow().save()
     hs.application.get(apps['chrome']):activate()
     ks.slow().refresh()
 end
@@ -104,13 +102,11 @@ function ExtendedCommand.enableScrolling()
 end
 
 function ExtendedCommand.enableRunOnSave()
-    ks.super('f')
-    ks.super('e')
+    ks.super('f').super('e')
 end
 
 function ExtendedCommand.disableRunOnSave()
-    ks.super('f')
-    ks.super('d')
+    ks.super('f').super('d')
 end
 
 return ExtendedCommand

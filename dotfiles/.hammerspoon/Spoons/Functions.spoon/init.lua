@@ -96,8 +96,7 @@ function showChooser(callback, choices)
 end
 
 function openDiscordChannel(name)
-    ks.slow().cmd('k')
-    ks.type(name)
+    ks.slow().cmd('k').type(name)
     hs.timer.doAfter(0.1, ks.enter)
 end
 
@@ -106,8 +105,7 @@ function openSlackChannel(channel)
 end
 
 function openNotionPage(name)
-    ks.slow().cmd('p')
-    ks.type(name)
+    ks.slow().cmd('p').type(name)
     hs.timer.doAfter(0.3, ks.enter)
 end
 
@@ -144,20 +142,17 @@ function getUrlForQuery(query)
 end
 
 function triggerInAtom(name)
-    ks.slow().shiftCmd('p')
-    ks.type(name)
+    ks.slow().shiftCmd('p').type(name)
     hs.timer.doAfter(0.3, ks.enter)
 end
 
 function triggerInCode(name)
-    ks.slow().shiftCmd('p')
-    ks.type(name)
+    ks.slow().shiftCmd('p').type(name)
     hs.timer.doAfter(0.3, ks.enter)
 end
 
 function goToFileInAtom(file)
-    ks.slow().cmd('t')
-    ks.type(file)
+    ks.slow().cmd('t').type(file)
     hs.timer.doAfter(0.3, ks.enter)
 end
 

@@ -29,20 +29,11 @@ function Vi.moveToPreviousSubword() ks.shift('q') end
 
 function Vi.moveToNextSubword() ks.key('q') end
 
-function Vi.moveToPreviousWholeWord()
-    ks.escape()
-    ks.shift('b')
-end
+function Vi.moveToPreviousWholeWord() ks.escape().shift('b') end
 
-function Vi.moveToEndOfWholeWord()
-    ks.escape()
-    ks.shift('e')
-end
+function Vi.moveToEndOfWholeWord() ks.escape().shift('e') end
 
-function Vi.moveToNextWholeWord()
-    ks.escape()
-    ks.shift('w')
-end
+function Vi.moveToNextWholeWord() ks.escape().shift('w') end
 
 function Vi.moveToTopOfPage()
     if appIs(finder) then
@@ -66,8 +57,7 @@ function Vi.moveAndInsertAtFirstCharacterOfLine()
     if appIs(atom) then
         ks.super('i')
     elseif appIncludes({sublime, vscode}) then
-        ks.escape()
-        ks.shift('i')
+        ks.escape().shift('i')
     else
         Vi.moveToFirstCharacterOfLine()
     end
@@ -77,8 +67,7 @@ function Vi.moveAndAppendAtEndOfLine()
     if appIs(atom) then
         ks.super('o')
     elseif appIncludes({sublime, vscode}) then
-        ks.escape()
-        ks.shift('a')
+        ks.escape().shift('a')
     else
         Vi.moveToEndOfLine()
     end

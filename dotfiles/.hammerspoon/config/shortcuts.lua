@@ -60,114 +60,51 @@ Shortcuts:add('W', {slack = function() slackReaction(':wave:') end}):add('R', {
     atom = 'Application: Open Your Keymap',
     sublime = 'Preferences: Key Bindings',
     vscode = 'Preferences: Open Keyboard Shortcuts'
-}):add('D', {
-    notion = function()
-        ks.altCmd('2')
-        ks.shift('2')
-    end,
-    iterm = 'wd d'
-}):add('0', {
-    notion = function()
+}):add('D', {notion = function() ks.altCmd('2').shift('2') end, iterm = 'wd d'})
+    :add('0', {
         -- Notion: Create text
-        ks.altCmd('0')
-    end
-}):add('1', {
-    notion = function()
+        notion = function() ks.altCmd('0') end
+    }):add('1', {
         -- Notion: Create H1 heading
-        ks.altCmd('1')
-    end,
-    sublime = function()
-        ks.escape()
-        ks.shift('i')
-        ks.type('# ')
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('# ')
-    end
-}):add('2', {
-    notion = function()
+        notion = function() ks.altCmd('1') end,
+        sublime = function() ks.escape().shift('i').type('# ') end,
+        default = function() ks.cmd('left').type('# ') end
+    }):add('2', {
         -- Notion: Create H2 heading
-        ks.altCmd('2')
-    end,
-    sublime = function()
-        ks.escape()
-        ks.shift('i')
-        ks.type('## ')
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('## ')
-    end
-}):add('3', {
-    notion = function()
+        notion = function() ks.altCmd('2') end,
+        sublime = function() ks.escape().shift('i').type('## ') end,
+        default = function() ks.cmd('left').type('## ') end
+    }):add('3', {
         -- Notion: Create H3 heading
-        ks.altCmd('3')
-    end,
-    sublime = function()
-        ks.escape()
-        ks.shift('i')
-        ks.type('### ')
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('### ')
-    end
-}):add('4', {
-    notion = function()
+        notion = function() ks.altCmd('3') end,
+        sublime = function() ks.escape().shift('i').type('### ') end,
+        default = function() ks.cmd('left').type('### ') end
+    }):add('4', {
         -- Notion: Create to-do checkbox
-        ks.altCmd('4')
-    end,
-    sublime = function()
-        if titleContains('.todo') then
-            -- Sublime: Create to-do checkbox
-            ks.cmd('i')
-        else
-            ks.escape()
-            ks.shift('i')
-            ks.type('- ')
-        end
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('- ')
-    end
-}):add('5', {
-    notion = function()
+        notion = function() ks.altCmd('4') end,
+        sublime = function()
+            if titleContains('.todo') then
+                -- Sublime: Create to-do checkbox
+                ks.cmd('i')
+            else
+                ks.escape().shift('i').type('- ')
+            end
+        end,
+        default = function() ks.cmd('left').type('- ') end
+    }):add('5', {
         -- Notion: Create bulleted list
-        ks.altCmd('5')
-    end,
-    sublime = function()
-        ks.escape()
-        ks.shift('i')
-        ks.type('- ')
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('- ')
-    end
-}):add('6', {
-    notion = function()
+        notion = function() ks.altCmd('5') end,
+        sublime = function() ks.escape().shift('i').type('- ') end,
+        default = function() ks.cmd('left').type('- ') end
+    }):add('6', {
         -- Notion: Create numbered list
-        ks.altCmd('6')
-    end,
-    sublime = function()
-        ks.escape()
-        ks.shift('i')
-        ks.type('1. ')
-    end,
-    default = function()
-        ks.cmd('left')
-        ks.type('1. ')
-    end
-}):add('7', {
-    notion = function()
+        notion = function() ks.altCmd('6') end,
+        sublime = function() ks.escape().shift('i').type('1. ') end,
+        default = function() ks.cmd('left').type('1. ') end
+    }):add('7', {
         -- Notion: Create toggle list
-        ks.altCmd('7')
-    end
-}):add('8', {
-    notion = function()
+        notion = function() ks.altCmd('7') end
+    }):add('8', {
         -- Notion: Create code block
-        ks.altCmd('8')
-    end
-})
+        notion = function() ks.altCmd('8') end
+    })

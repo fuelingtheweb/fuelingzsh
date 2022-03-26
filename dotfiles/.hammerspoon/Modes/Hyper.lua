@@ -200,10 +200,7 @@ function Hyper.startArtisan() Artisan.start() end
 
 function Hyper.forceEscape()
     md.Test.hideOutput()
-    -- ks.slow().key('escape')
-    ks.escape()
-    ks.escape()
-    -- ks.escape()
+    ks.escape().escape()
 end
 
 function Hyper.nextWindow() md.WindowManager.next() end

@@ -78,13 +78,11 @@ end
 function Google.viewSource() ks.altCmd('u') end
 
 function Google.nextGitConflict()
-    ks.slow().shiftAltCmd('g')
-    ks.slow().shiftAltCmd('j')
+    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('j')
 end
 
 function Google.previousGitConflict()
-    ks.slow().shiftAltCmd('g')
-    ks.slow().shiftAltCmd('k')
+    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('k')
 end
 
 return Google

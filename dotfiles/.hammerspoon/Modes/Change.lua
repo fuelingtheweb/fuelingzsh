@@ -30,27 +30,22 @@ end
 function Change.withWrapperKey(key)
     keystroke = TextManipulation.wrapperKeyLookup[key]
 
-    ks.escape()
-    ks.sequence({'c', 'i'})
-    ks.fire(keystroke.mods, keystroke.key)
+    ks.escape().sequence({'c', 'i'}).fire(keystroke.mods, keystroke.key)
 
     if not hasValue({'s', 'd', 't'}, key) then BracketMatching.start() end
 end
 
 function Change.toEndOfWord()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'c', 'e'})
+        ks.escape().sequence({'c', 'e'})
     else
-        ks.shiftAlt('right')
-        ks.delete()
+        ks.shiftAlt('right').delete()
     end
 end
 
 function Change.subword()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'c', 'i'})
+        ks.escape().sequence({'c', 'i'})
 
         if appIs(vscode) then
             ks.sequence({'\\', 'w'})
@@ -62,11 +57,9 @@ end
 
 function Change.word()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'c', 'i', 'w'})
+        ks.escape().sequence({'c', 'i', 'w'})
     elseif appIs(iterm) and not isAlfredVisible() then
-        ks.escape()
-        ks.type('ciw')
+        ks.escape().type('ciw')
     else
         ks.alt('delete')
     end
@@ -74,36 +67,27 @@ end
 
 function Change.toEndOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shift('c')
+        ks.escape().shift('c')
     else
-        ks.shiftCmd('right')
-        ks.delete()
+        ks.shiftCmd('right').delete()
     end
 end
 
 function Change.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.shiftCmd('left')
-        ks.key('c')
+        ks.escape().shiftCmd('left').key('c')
     else
-        ks.shiftCmd('left')
-        ks.delete()
+        ks.shiftCmd('left').delete()
     end
 end
 
 function Change.line()
     if TextManipulation.canManipulateWithVim() then
-        ks.escape()
-        ks.sequence({'c', 'c'})
+        ks.escape().sequence({'c', 'c'})
     elseif appIs(iterm) and not isAlfredVisible() then
-        ks.escape()
-        ks.type('cc')
+        ks.escape().type('cc')
     else
-        ks.cmd('left')
-        ks.shiftCmd('right')
-        ks.delete()
+        ks.cmd('left').shiftCmd('right').delete()
     end
 end
 
@@ -121,16 +105,9 @@ function Change.below() ks.key('o') end
 
 function Change.above() ks.shift('o') end
 
-function Change.untilForward()
-    ks.escape()
-    ks.sequence({'c', 't'})
-end
+function Change.untilForward() ks.escape().sequence({'c', 't'}) end
 
-function Change.untilBackward()
-    ks.escape()
-    ks.key('c')
-    ks.shift('t')
-end
+function Change.untilBackward() ks.escape().key('c').shift('t') end
 
 function Change.outer() Modal.enter('ChangeOuter') end
 
@@ -143,9 +120,7 @@ Modal.add({
 
         keystroke = TextManipulation.wrapperKeyLookup[key]
 
-        ks.escape()
-        ks.sequence({'c', 'a'})
-        ks.fire(keystroke.mods, keystroke.key)
+        ks.escape().sequence({'c', 'a'}).fire(keystroke.mods, keystroke.key)
 
         if not hasValue({'s', 'd', 't'}, key) then
             BracketMatching.start()

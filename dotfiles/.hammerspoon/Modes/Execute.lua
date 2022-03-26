@@ -42,8 +42,7 @@ end
 function Execute.openPath()
     if not inCodeEditor() then return end
 
-    ks.escape()
-    ks.sequence({'y', 'i', "'"})
+    ks.escape().sequence({'y', 'i', "'"})
 
     path = hs.pasteboard.getContents()
 

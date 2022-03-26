@@ -78,9 +78,7 @@ function ViVisual.selectToFirstCharacterOfLine() md.SelectUntil
 
 function ViVisual.selectToEndOfLine()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.shift('4')
-        ks.left()
+        ks.ctrl('v').shift('4').left()
     else
         ks.shiftCmd('right')
     end
@@ -119,11 +117,9 @@ end
 
 function ViVisual.selectLeft()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.left()
+        ks.ctrl('v').left()
     elseif inCodeEditor() and TextManipulation.vimEnabled then
-        ks.super('v')
-        ks.left()
+        ks.super('v').left()
     else
         ks.shift('left')
     end
@@ -131,8 +127,7 @@ end
 
 function ViVisual.selectDown()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.ctrl('down')
+        ks.ctrl('v').ctrl('down')
     else
         ks.shift('down')
 
@@ -142,8 +137,7 @@ end
 
 function ViVisual.selectUp()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.ctrl('up')
+        ks.ctrl('v').ctrl('up')
     else
         ks.shift('up')
     end
@@ -151,8 +145,7 @@ end
 
 function ViVisual.selectRight()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.right()
+        ks.ctrl('v').right()
     else
         ks.shift('right')
     end
@@ -160,12 +153,10 @@ end
 
 function ViVisual.selectPreviousWord()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.key('b')
+        ks.ctrl('v').key('b')
         return
     elseif inCodeEditor() and TextManipulation.vimEnabled then
-        ks.super('v')
-        ks.left()
+        ks.super('v').left()
     end
 
     ks.shiftAlt('left')
@@ -173,8 +164,7 @@ end
 
 function ViVisual.selectNextWord()
     if appIs(vscode) and TextManipulation.vimEnabled then
-        ks.ctrl('v')
-        ks.key('e')
+        ks.ctrl('v').key('e')
         return
     else
         ks.shiftAlt('right')

@@ -62,14 +62,10 @@ function mdl.thisSnippet()
     md.CodeSnippets.snippet('this')
 end
 
-function mdl.simpleSingleQuote()
-    ks.type("=''")
-    ks.left()
-end
+function mdl.simpleSingleQuote() ks.type("=''").left() end
 
 function mdl.simpleDoubleQuote()
-    ks.type('=""')
-    ks.slow().left()
+    ks.type('=""').slow().left()
     BracketMatching.start()
 end
 

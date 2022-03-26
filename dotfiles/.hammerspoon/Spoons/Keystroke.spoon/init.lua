@@ -3,40 +3,42 @@ Keystroke.__index = Keystroke
 
 ks = Keystroke
 
-function Keystroke.escape() Keystroke.key('escape') end
-function Keystroke.enter() Keystroke.key('return') end
-function Keystroke.tab() Keystroke.key('tab') end
-function Keystroke.delete() Keystroke.key('delete') end
-function Keystroke.up() Keystroke.key('up') end
-function Keystroke.down() Keystroke.key('down') end
-function Keystroke.left() Keystroke.key('left') end
-function Keystroke.right() Keystroke.key('right') end
+function Keystroke.escape() return Keystroke.key('escape') end
+function Keystroke.enter() return Keystroke.key('return') end
+function Keystroke.tab() return Keystroke.key('tab') end
+function Keystroke.delete() return Keystroke.key('delete') end
+function Keystroke.up() return Keystroke.key('up') end
+function Keystroke.down() return Keystroke.key('down') end
+function Keystroke.left() return Keystroke.key('left') end
+function Keystroke.right() return Keystroke.key('right') end
 
-function Keystroke.copy() Keystroke.cmd('c') end
-function Keystroke.paste() Keystroke.cmd('v') end
-function Keystroke.undo() Keystroke.cmd('z') end
-function Keystroke.redo() Keystroke.shiftCmd('z') end
-function Keystroke.save() Keystroke.cmd('s') end
-function Keystroke.refresh() Keystroke.cmd('r') end
-function Keystroke.close() Keystroke.cmd('w') end
+function Keystroke.copy() return Keystroke.cmd('c') end
+function Keystroke.paste() return Keystroke.cmd('v') end
+function Keystroke.undo() return Keystroke.cmd('z') end
+function Keystroke.redo() return Keystroke.shiftCmd('z') end
+function Keystroke.save() return Keystroke.cmd('s') end
+function Keystroke.refresh() return Keystroke.cmd('r') end
+function Keystroke.close() return Keystroke.cmd('w') end
 
-function Keystroke.shift(key) Keystroke.fire({'shift'}, key) end
-function Keystroke.shiftCtrl(key) Keystroke.fire({'shift', 'ctrl'}, key) end
+function Keystroke.shift(key) return Keystroke.fire({'shift'}, key) end
+function Keystroke.shiftCtrl(key) return Keystroke.fire({'shift', 'ctrl'}, key) end
 function Keystroke.shiftCtrlAlt(key)
-    Keystroke.fire({'shift', 'ctrl', 'alt'}, key)
+    return Keystroke.fire({'shift', 'ctrl', 'alt'}, key)
 end
-function Keystroke.shiftAlt(key) Keystroke.fire({'shift', 'alt'}, key) end
-function Keystroke.shiftAltCmd(key) Keystroke.fire({'shift', 'alt', 'cmd'}, key) end
-function Keystroke.shiftCmd(key) Keystroke.fire({'shift', 'cmd'}, key) end
-function Keystroke.ctrl(key) Keystroke.fire({'ctrl'}, key) end
-function Keystroke.ctrlAlt(key) Keystroke.fire({'ctrl', 'alt'}, key) end
-function Keystroke.ctrlCmd(key) Keystroke.fire({'ctrl', 'cmd'}, key) end
-function Keystroke.super(key) Keystroke.fire({'ctrl', 'alt', 'cmd'}, key) end
-function Keystroke.alt(key) Keystroke.fire({'alt'}, key) end
-function Keystroke.altCmd(key) Keystroke.fire({'alt', 'cmd'}, key) end
-function Keystroke.cmd(key) Keystroke.fire({'cmd'}, key) end
-function Keystroke.key(key) Keystroke.fire({}, key) end
-function Keystroke.solo(key) Keystroke.fire({}, key) end
+function Keystroke.shiftAlt(key) return Keystroke.fire({'shift', 'alt'}, key) end
+function Keystroke.shiftAltCmd(key)
+    return Keystroke.fire({'shift', 'alt', 'cmd'}, key)
+end
+function Keystroke.shiftCmd(key) return Keystroke.fire({'shift', 'cmd'}, key) end
+function Keystroke.ctrl(key) return Keystroke.fire({'ctrl'}, key) end
+function Keystroke.ctrlAlt(key) return Keystroke.fire({'ctrl', 'alt'}, key) end
+function Keystroke.ctrlCmd(key) return Keystroke.fire({'ctrl', 'cmd'}, key) end
+function Keystroke.super(key) return Keystroke.fire({'ctrl', 'alt', 'cmd'}, key) end
+function Keystroke.alt(key) return Keystroke.fire({'alt'}, key) end
+function Keystroke.altCmd(key) return Keystroke.fire({'alt', 'cmd'}, key) end
+function Keystroke.cmd(key) return Keystroke.fire({'cmd'}, key) end
+function Keystroke.key(key) return Keystroke.fire({}, key) end
+function Keystroke.solo(key) return Keystroke.fire({}, key) end
 
 function Keystroke.sequence(keys)
     each(keys, Keystroke.key)
@@ -53,6 +55,8 @@ function Keystroke.fire(modifiers, key)
     hs.eventtap.keyStroke(modifiers, key, Keystroke.delay)
 
     Keystroke.reset()
+
+    return Keystroke
 end
 
 function Keystroke.type(text)

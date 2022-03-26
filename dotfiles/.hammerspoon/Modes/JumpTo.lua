@@ -101,10 +101,7 @@ end
 function JumpTo.beginJumpingBackward()
     if not TextManipulation.canManipulateWithVim() then return end
 
-    if inCodeEditor() then
-        ks.key('h')
-        ks.shift('t')
-    end
+    if inCodeEditor() then ks.key('h').shift('t') end
 end
 
 JumpTo.actions = {
