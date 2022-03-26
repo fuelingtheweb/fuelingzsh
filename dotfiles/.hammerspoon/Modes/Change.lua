@@ -43,7 +43,7 @@ function Change.toEndOfWord()
         ks.sequence({'c', 'e'})
     else
         ks.shiftAlt('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -78,7 +78,7 @@ function Change.toEndOfLine()
         ks.shift('c')
     else
         ks.shiftCmd('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -89,7 +89,7 @@ function Change.toBeginningOfLine()
         ks.key('c')
     else
         ks.shiftCmd('left')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -103,7 +103,7 @@ function Change.line()
     else
         ks.cmd('left')
         ks.shiftCmd('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -111,10 +111,10 @@ function Change.character()
     if TextManipulation.canManipulateWithVim() then
         ks.ctrlAlt('a')
 
-        if appIs(vscode) then ks.key('right') end
+        if appIs(vscode) then ks.right() end
     end
 
-    ks.key('delete')
+    ks.delete()
 end
 
 function Change.below() ks.key('o') end

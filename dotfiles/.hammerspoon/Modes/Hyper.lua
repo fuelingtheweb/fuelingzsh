@@ -71,7 +71,7 @@ end
 --     callback = function(item)
 --         ks.type(item.extension)
 --         for i = 1, item.extension:len() do
---             ks.key('left')
+--             ks.left()
 --         end
 --         Modal.exit()
 --     end,

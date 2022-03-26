@@ -106,7 +106,7 @@ function Media.videoBack()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
         ks.shift('left')
     else
-        ks.key('left')
+        ks.left()
     end
 end
 
@@ -114,7 +114,7 @@ function Media.videoForward()
     if appIs(chrome) and stringContains('Funimation', currentTitle()) then
         ks.shift('right')
     else
-        ks.key('right')
+        ks.right()
     end
 end
 

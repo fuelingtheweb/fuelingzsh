@@ -36,7 +36,7 @@ function Destroy.simpleDelete()
         BracketMatching.cancel()
         BracketMatching.start()
     else
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -46,7 +46,7 @@ function Destroy.toEndOfWord()
         ks.sequence({'d', 'e'})
     else
         ks.shiftAlt('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -80,7 +80,7 @@ function Destroy.toEndOfLine()
         ks.shift('d')
     else
         ks.shiftCmd('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -97,7 +97,7 @@ function Destroy.toBeginningOfLine()
         ks.key('d')
     else
         ks.shiftCmd('left')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -108,7 +108,7 @@ function Destroy.line()
     else
         ks.cmd('left')
         ks.shiftCmd('right')
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -117,7 +117,7 @@ function Destroy.character()
         ks.escape()
         ks.key('x')
     else
-        ks.key('delete')
+        ks.delete()
     end
 end
 
@@ -213,7 +213,7 @@ function Destroy.backward()
     if inCodeEditor() then
         ks.super('v')
         ks.escape()
-        ks.key('left')
+        ks.left()
         ks.key('x')
     end
 end

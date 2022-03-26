@@ -30,7 +30,7 @@ Modal.add({
             ks.type(item.value)
 
             if item.callback then
-                ks.key('left')
+                ks.left()
                 item.callback()
             end
         else

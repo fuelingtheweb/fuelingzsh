@@ -102,7 +102,7 @@ function Tab.new()
         ks.cmd('n')
         hs.timer.doAfter(0.1, function()
             ks.key('i').enter()
-            ks.key('up')
+            ks.up()
         end)
     elseif appIs(finder) then
         ks.cmd('n')

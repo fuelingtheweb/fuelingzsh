@@ -104,7 +104,7 @@ function BracketMatching.print(bracket)
 
     ks.type(brackets[1] .. (text or '') .. brackets[2])
 
-    ks.key('left')
+    ks.left()
 end
 
 function BracketMatching.start() Modal.enter('BracketMatching') end
@@ -151,19 +151,19 @@ function BracketMatching.newLine()
 end
 
 function BracketMatching.cancel()
-    ks.key('right')
-    ks.key('delete')
-    ks.key('delete')
+    ks.right()
+    ks.delete()
+    ks.delete()
 end
 
 function BracketMatching.left()
     Modal.exit()
-    ks.key('left')
+    ks.left()
 end
 
 function BracketMatching.right()
     Modal.exit()
-    ks.key('right')
+    ks.right()
 end
 
 function BracketMatching.paste()
@@ -173,19 +173,19 @@ end
 
 function BracketMatching.insertComma()
     Modal.exit()
-    ks.key('right')
+    ks.right()
     ks.type(',')
 end
 
 function BracketMatching.insertSemicolon()
     Modal.exit()
-    ks.key('right')
+    ks.right()
     ks.type(';')
 end
 
 function BracketMatching.continueChain()
     Modal.exit()
-    ks.key('right')
+    ks.right()
     if isLua() then
         ks.type('.')
     else
@@ -200,13 +200,13 @@ function BracketMatching.insertVariable()
 end
 
 function BracketMatching.onlyOpening()
-    ks.key('right')
-    ks.key('delete')
+    ks.right()
+    ks.delete()
 end
 
 function BracketMatching.onlyClosing()
-    ks.key('delete')
-    ks.key('right')
+    ks.delete()
+    ks.right()
 end
 
 function BracketMatching.functionSnippet()

@@ -40,7 +40,7 @@ function Command.duplicate()
         if inCodeEditor() then
             ks.super('d')
         else
-            ks.key('right')
+            ks.right()
             ks.type(text)
         end
     elseif appIs(finder) then
@@ -62,7 +62,7 @@ function Command.reload()
         ks.cmd('return')
     elseif appIs(iterm) then
         -- Run last command
-        ks.key('up').enter()
+        ks.up().enter()
     else
         ks.refresh()
     end
@@ -108,7 +108,7 @@ end
 function Command.cancelOrDelete()
     text = getSelectedText()
     if text then
-        ks.key('delete')
+        ks.delete()
     elseif appIs(sublime) and titleContains('.todo') then
         ks.ctrl('c')
     elseif inCodeEditor() then
@@ -121,7 +121,7 @@ function Command.cancelOrDelete()
     elseif appIs(iterm) then
         ks.ctrl('c')
     else
-        ks.key('delete')
+        ks.delete()
     end
 end
 

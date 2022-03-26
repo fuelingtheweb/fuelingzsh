@@ -71,9 +71,9 @@ function Code.toggleSemicolon()
     text = getSelectedText()
 
     if getSelectedText() == ';' then
-        ks.key('delete')
+        ks.delete()
     else
-        ks.key('right')
+        ks.right()
         ks.type(';')
     end
 end
@@ -97,9 +97,9 @@ function Code.toggleComma()
     text = getSelectedText()
 
     if getSelectedText() == ',' then
-        ks.key('delete')
+        ks.delete()
     else
-        ks.key('right')
+        ks.right()
         ks.type(',')
     end
 end

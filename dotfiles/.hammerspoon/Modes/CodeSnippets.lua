@@ -171,9 +171,9 @@ function CodeSnippets.printFunction(item, text)
     if item.extra == 'query' then
         ks.type('function ($query) { $query-> }')
         ks.type(')')
-        ks.key('left')
-        ks.key('left')
-        ks.key('left')
+        ks.left()
+        ks.left()
+        ks.left()
         Modal.enter('CodeSnippets:callFunction.laravelWhere')
 
         return
@@ -184,7 +184,7 @@ function CodeSnippets.printFunction(item, text)
     if item.extra == 'start' then return end
 
     ks.type(')')
-    ks.key('left')
+    ks.left()
 
     if item.extra ~= 'simple' then BracketMatching.start() end
 end

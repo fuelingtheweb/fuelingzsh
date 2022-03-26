@@ -296,7 +296,7 @@ function SelectUntil.beginningOfLine()
             ks.key('v')
             ks.shift('6')
         else
-            ks.key('right')
+            ks.right()
             ks.shiftCmd('left')
         end
     else

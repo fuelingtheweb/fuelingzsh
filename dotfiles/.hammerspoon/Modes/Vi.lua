@@ -94,13 +94,13 @@ end
 
 function Vi.pageUp() ks.key('pageup') end
 
-function Vi.left() ks.key('left') end
+function Vi.left() ks.left() end
 
-function Vi.down() ks.key('down') end
+function Vi.down() ks.down() end
 
-function Vi.up() ks.key('up') end
+function Vi.up() ks.up() end
 
-function Vi.right() ks.key('right') end
+function Vi.right() ks.right() end
 
 function Vi.pageDown() ks.key('pagedown') end
 

@@ -6,6 +6,11 @@ ks = Keystroke
 function Keystroke.escape() Keystroke.key('escape') end
 function Keystroke.enter() Keystroke.key('return') end
 function Keystroke.tab() Keystroke.key('tab') end
+function Keystroke.delete() Keystroke.key('delete') end
+function Keystroke.up() Keystroke.key('up') end
+function Keystroke.down() Keystroke.key('down') end
+function Keystroke.left() Keystroke.key('left') end
+function Keystroke.right() Keystroke.key('right') end
 
 function Keystroke.copy() Keystroke.cmd('c') end
 function Keystroke.paste() Keystroke.cmd('v') end

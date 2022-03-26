@@ -30,7 +30,7 @@ function Yank.word()
     else
         ks.shiftAlt('left')
         ks.copy()
-        ks.key('right')
+        ks.right()
     end
 end
 
@@ -49,7 +49,7 @@ function Yank.toEndOfWord()
     else
         ks.shiftAlt('right')
         ks.copy()
-        ks.key('left')
+        ks.left()
     end
 end
 
@@ -76,20 +76,20 @@ function Yank.toEndOfLine()
     else
         ks.shiftCmd('right')
         ks.copy()
-        ks.key('left')
+        ks.left()
     end
 end
 
 function Yank.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
-        ks.key('right')
+        ks.right()
         ks.shiftCmd('left')
         ks.key('y')
     else
         ks.shiftCmd('left')
         ks.slow().copy()
-        ks.key('right')
+        ks.right()
     end
 end
 
@@ -101,7 +101,7 @@ function Yank.line()
         ks.cmd('left')
         ks.shiftCmd('right')
         ks.copy()
-        ks.key('right')
+        ks.right()
     end
 end
 
@@ -112,7 +112,7 @@ function Yank.character()
     else
         ks.shift('left')
         ks.copy()
-        ks.key('right')
+        ks.right()
     end
 end
 
@@ -120,11 +120,11 @@ function Yank.toTopOfPage()
     if appIs(notion) then
         ks.cmd('a')
         ks.copy()
-        ks.key('right')
+        ks.right()
     else
         ks.shiftCmd('up')
         ks.copy()
-        ks.key('right')
+        ks.right()
     end
 end
 
@@ -151,7 +151,7 @@ function Yank.all()
         ks.cmd('a')
         ks.slow().copy()
 
-        ks.key('right')
+        ks.right()
     end
 end
 

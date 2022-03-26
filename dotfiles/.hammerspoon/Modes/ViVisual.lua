@@ -80,7 +80,7 @@ function ViVisual.selectToEndOfLine()
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.ctrl('v')
         ks.shift('4')
-        ks.key('left')
+        ks.left()
     else
         ks.shiftCmd('right')
     end
@@ -103,7 +103,7 @@ function ViVisual.selectLineUp()
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.key('k')
     else
-        ks.key('up')
+        ks.up()
     end
 end
 
@@ -113,17 +113,17 @@ function ViVisual.selectLineDown()
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.key('j')
     else
-        ks.key('down')
+        ks.down()
     end
 end
 
 function ViVisual.selectLeft()
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.ctrl('v')
-        ks.key('left')
+        ks.left()
     elseif inCodeEditor() and TextManipulation.vimEnabled then
         ks.super('v')
-        ks.key('left')
+        ks.left()
     else
         ks.shift('left')
     end
@@ -152,7 +152,7 @@ end
 function ViVisual.selectRight()
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.ctrl('v')
-        ks.key('right')
+        ks.right()
     else
         ks.shift('right')
     end
@@ -165,7 +165,7 @@ function ViVisual.selectPreviousWord()
         return
     elseif inCodeEditor() and TextManipulation.vimEnabled then
         ks.super('v')
-        ks.key('left')
+        ks.left()
     end
 
     ks.shiftAlt('left')
