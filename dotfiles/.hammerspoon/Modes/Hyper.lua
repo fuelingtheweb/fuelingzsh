@@ -155,7 +155,7 @@ function Hyper.previousPage()
     elseif appIs(sublime) then
         ks.ctrl('-')
     elseif appIs(iterm) then
-        typeAndEnter('cdp')
+        ks.type('cdp').enter()
     else
         ks.cmd('[')
     end

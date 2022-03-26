@@ -82,9 +82,9 @@ function CodeSnippets.snippet(name)
 
         if hasValue({'if'}, name) then BracketMatching.start() end
     elseif appIs(sublime) then
-        typeAndTab('snippet-' .. name)
+        ks.type('snippet-' .. name).tab()
     else
-        typeAndEnter('snippet-' .. name)
+        ks.type('snippet-' .. name).enter()
     end
 
     hs.timer.doAfter(1, function() hs.pasteboard.setContents(original) end)

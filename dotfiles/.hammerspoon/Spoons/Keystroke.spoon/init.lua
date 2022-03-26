@@ -4,6 +4,8 @@ Keystroke.__index = Keystroke
 ks = Keystroke
 
 function Keystroke.escape() Keystroke.key('escape') end
+function Keystroke.enter() Keystroke.key('return') end
+function Keystroke.tab() Keystroke.key('tab') end
 
 function Keystroke.shift(key) Keystroke.fire({'shift'}, key) end
 function Keystroke.shiftCtrl(key) Keystroke.fire({'shift', 'ctrl'}, key) end

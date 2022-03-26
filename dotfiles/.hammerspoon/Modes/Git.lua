@@ -25,50 +25,50 @@ Git.lookup = {
     spacebar = nil
 }
 
-function Git.copyBranch() typeAndEnter('gbc') end
+function Git.copyBranch() ks.type('gbc').enter() end
 
 function Git.discardChanges() ks.type('nah') end
 
-function Git.reset() typeAndEnter('grs') end
+function Git.reset() ks.type('grs').enter() end
 
-function Git.checkout() typeAndEnter('git:checkout') end
+function Git.checkout() ks.type('git:checkout').enter() end
 
-function Git.checkoutIncludingAll() typeAndEnter('git:checkout.include-all') end
+function Git.checkoutIncludingAll() ks.type('git:checkout.include-all').enter() end
 
-function Git.push() typeAndEnter('git push') end
+function Git.push() ks.type('git push').enter() end
 
-function Git.status() typeAndEnter('git:status') end
+function Git.status() ks.type('git:status').enter() end
 
-function Git.pull() typeAndEnter('git pull') end
+function Git.pull() ks.type('git pull').enter() end
 
-function Git.merge() typeAndEnter('gmm') end
+function Git.merge() ks.type('gmm').enter() end
 
-function Git.rebase() typeAndEnter('grm') end
+function Git.rebase() ks.type('grm').enter() end
 
 function Git.newBranch()
     ks.type('git:branch.new ')
     md.CaseDialog.handle('i')
 end
 
-function Git.log() typeAndEnter('git:log') end
+function Git.log() ks.type('git:log').enter() end
 
-function Git.diff() typeAndEnter('gd') end
+function Git.diff() ks.type('gd').enter() end
 
-function Git.stageAll() typeAndEnter('gaa') end
+function Git.stageAll() ks.type('gaa').enter() end
 
 function Git.commit()
     ks.type('git:commit ')
     BracketMatching.start()
 end
 
-function Git.checkoutMaster() typeAndEnter('goml') end
+function Git.checkoutMaster() ks.type('goml').enter() end
 
-function Git.fetchMaster() typeAndEnter('gum') end
+function Git.fetchMaster() ks.type('gum').enter() end
 
-function Git.deleteBranch() typeAndEnter('git:branch.delete') end
+function Git.deleteBranch() ks.type('git:branch.delete').enter() end
 
-function Git.stash() typeAndEnter('gstu') end
+function Git.stash() ks.type('gstu').enter() end
 
-function Git.stashApply() typeAndEnter('gstp') end
+function Git.stashApply() ks.type('gstp').enter() end
 
 return Git

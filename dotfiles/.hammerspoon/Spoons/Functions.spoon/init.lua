@@ -163,8 +163,6 @@ end
 
 function typeAndEnter(string) ks.type(string).enter() end
 
-function typeAndTab(string) ks.type(string).tab() end
-
 function triggerAlfredSearch(search)
     hs.osascript.applescript(
         'tell application id "com.runningwithcrayons.Alfred" to search "' ..

@@ -14,7 +14,7 @@ function Site:name(name, project)
     o = {
         attributes = {
             name = name,
-            path = project.attributes.path .. '/' .. name,
+            path = project.attributes.path .. '/' .. name
         }
     }
     setmetatable(o, self)
@@ -64,14 +64,12 @@ function Project:name(name, client)
 
     self.attributes = {
         name = name,
-        path = client.attributes.path .. '/' .. name,
+        path = client.attributes.path .. '/' .. name
     }
 
     return o
 end
-function Project:site(name)
-    return Site:name(name, self)
-end
+function Project:site(name) return Site:name(name, self) end
 function Project:addSite(name, callback)
     callback(self:site(name))
 
@@ -84,10 +82,7 @@ function Client:name(name)
     setmetatable(o, self)
     self.__index = self
 
-    self.attributes = {
-        name = name,
-        path = 'Development/' .. name,
-    }
+    self.attributes = {name = name, path = 'Development/' .. name}
 
     return o
 end
@@ -96,9 +91,7 @@ function Client:shortcut(key, mapping)
 
     return self
 end
-function Client:project(name)
-    return Project:name(name, self)
-end
+function Client:project(name) return Project:name(name, self) end
 function Client:addProject(name, callback)
     callback(self:project(name))
 
@@ -113,39 +106,35 @@ function ProjectManager:setAlfredJson()
         local fullPath = '~/' .. site.attributes.path
         table.insert(items, {
             uid = site.attributes.path:gsub('/', '.'),
-            title = site.attributes.path:gsub('Development/', ''):gsub('/', ' > '):gsub('-', ' '),
+            title = site.attributes.path:gsub('Development/', ''):gsub('/',
+                                                                       ' > ')
+                :gsub('-', ' '),
             subtitle = fullPath,
             arg = site.attributes.path,
             autocomplete = site.attributes.path:gsub('/', ' > '),
-            text = {
-                copy = fullPath,
-                largetype = fullPath,
-            },
+            text = {copy = fullPath, largetype = fullPath},
             mods = {
                 cmd = {
                     valid = true,
                     arg = site.attributes.path,
-                    subtitle = site.attributes.url,
-                },
+                    subtitle = site.attributes.url
+                }
             }
         })
     end)
 
-    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/projects.json', false, true)
+    hs.json.write({items = items},
+                  '/Users/nathan/.fuelingzsh/custom/projects.json', false, true)
 end
 
 function ProjectManager.current()
     current = nil
 
     each(ProjectManager.sites, function(site)
-        if titleContains(site.attributes.path) then
-            current = site
-        end
+        if titleContains(site.attributes.path) then current = site end
     end)
 
-    if current then
-        return current
-    end
+    if current then return current end
 
     return {attributes = {}}
 end
@@ -153,16 +142,14 @@ end
 function ProjectManager.openUrlForCurrent()
     site = ProjectManager.current()
 
-    if site.attributes.url then
-        return openInChrome(site.attributes.url)
-    end
+    if site.attributes.url then return openInChrome(site.attributes.url) end
 end
 
 function ProjectManager.serveCurrent()
     site = ProjectManager.current()
 
     if site.attributes.serve then
-        return typeAndEnter(site.attributes.serve)
+        return ks.type(site.attributes.serve).enter()
     end
 end
 
@@ -173,14 +160,21 @@ function ProjectManager.openDatabaseForCurrent()
         if site.attributes.database then
             if type(site.attributes.database) == 'table' then
                 name = site.attributes.path:gsub('Development/', '')
-                openInTablePlus('mysql://root@127.0.0.1/' .. site.attributes.database.name .. '?statusColor=686B6F&enviroment=local&name=' .. name)
+                openInTablePlus('mysql://root@127.0.0.1/' ..
+                                    site.attributes.database.name ..
+                                    '?statusColor=686B6F&enviroment=local&name=' ..
+                                    name)
             else
                 openInTablePlus(site.attributes.database)
             end
         else
-            database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
+            database = site.attributes.path:gsub('Development/', ''):gsub('/',
+                                                                          '_')
+                           :lower()
             name = site.attributes.path:gsub('Development/', '')
-            openInTablePlus('mysql://root@127.0.0.1/' .. database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
+            openInTablePlus('mysql://root@127.0.0.1/' .. database ..
+                                '?statusColor=686B6F&enviroment=local&name=' ..
+                                name)
         end
 
         return true
@@ -195,38 +189,26 @@ end
 
 function ProjectManager.getByPath(path)
     site = nil
-    each(ProjectManager.sites, function(s)
-        if s.attributes.path == path then
-            site = s
-        end
-    end)
+    each(ProjectManager.sites,
+         function(s) if s.attributes.path == path then site = s end end)
 
-    if site then
-        return site
-    end
+    if site then return site end
 
     return {attributes = {}}
 end
 
 function ProjectManager.getByShortcutKey(key)
     site = nil
-    each(ProjectManager.sites, function(s)
-        if s.attributes.shortcutKey == key then
-            site = s
-        end
-    end)
+    each(ProjectManager.sites,
+         function(s) if s.attributes.shortcutKey == key then site = s end end)
 
-    if site then
-        return site
-    end
+    if site then return site end
 
     return {attributes = {}}
 end
 
 function Site:openInChrome()
-    if self.attributes.path then
-        openInChrome(self.attributes.url)
-    end
+    if self.attributes.path then openInChrome(self.attributes.url) end
 end
 
 function Site:open()
@@ -237,23 +219,15 @@ function Site:open()
     end
 end
 function Site:openInAtom()
-    if self.attributes.path then
-        openInAtom('~/' .. self.attributes.path)
-    end
+    if self.attributes.path then openInAtom('~/' .. self.attributes.path) end
 end
 function Site:openInCode()
-    if self.attributes.path then
-        openInCode('~/' .. self.attributes.path)
-    end
+    if self.attributes.path then openInCode('~/' .. self.attributes.path) end
 end
 function Site:openInChrome()
-    if self.attributes.path then
-        openInChrome(self.attributes.url)
-    end
+    if self.attributes.path then openInChrome(self.attributes.url) end
 end
 
-function ProjectManager:addFromConfig()
-    require('config.custom.projects')
-end
+function ProjectManager:addFromConfig() require('config.custom.projects') end
 
 return ProjectManager

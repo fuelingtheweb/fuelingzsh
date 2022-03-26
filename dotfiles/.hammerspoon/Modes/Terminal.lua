@@ -25,13 +25,13 @@ Terminal.lookup = {
     spacebar = nil
 }
 
-function Terminal.home() typeAndEnter('hc') end
+function Terminal.home() ks.type('hc').enter() end
 
-function Terminal.list() typeAndEnter('ll') end
+function Terminal.list() ks.type('ll').enter() end
 
 function Terminal.navigate() ks.type('cd ') end
 
-function Terminal.clear() typeAndEnter('clear') end
+function Terminal.clear() ks.type('clear').enter() end
 
 function Terminal.autocompleteNextWord() fastSuperks.slow().key('j') end
 

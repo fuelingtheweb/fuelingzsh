@@ -22,11 +22,9 @@ Artisan.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = nil
 }
 
-function Artisan.migrateFreshAndSeed()
-    typeAndEnter('amgfs')
-end
+function Artisan.migrateFreshAndSeed() ks.type('amgfs').enter() end
 
 return Artisan

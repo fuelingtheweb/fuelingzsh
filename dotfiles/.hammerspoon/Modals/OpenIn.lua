@@ -26,7 +26,7 @@ Modal.add({
 
 function OpenIn.inSublimeMerge()
     if appIs(iterm) then
-        typeAndEnter('smerge .')
+        ks.type('smerge .').enter()
     else
         local path = currentTitle():match('~%S+')
 
@@ -38,7 +38,7 @@ end
 
 function OpenIn.inSublime()
     if appIs(iterm) then
-        typeAndEnter('st.')
+        ks.type('st.').enter()
     else
         path = currentTitle():match('~%S+')
 
@@ -62,7 +62,7 @@ end
 
 function OpenIn.inAtom()
     if appIs(iterm) then
-        typeAndEnter('atom .')
+        ks.type('atom .').enter()
     else
         triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
     end
@@ -70,7 +70,7 @@ end
 
 function OpenIn.inCode()
     if appIs(iterm) then
-        typeAndEnter('code .')
+        ks.type('code .').enter()
     else
         path = currentTitle():match('~%S+')
 
@@ -112,7 +112,7 @@ end
 
 function OpenIn.inFinder()
     if appIs(iterm) then
-        typeAndEnter('o.')
+        ks.type('o.').enter()
     else
         path = currentTitle():match('~%S+')
         if not path then return; end
@@ -125,7 +125,7 @@ function OpenIn.inFinder()
 end
 
 function OpenIn.inTinkerwell()
-    if appIs(iterm) then return typeAndEnter('tinkerwell .') end
+    if appIs(iterm) then return ks.type('tinkerwell .').enter() end
 
     path = currentTitle():match('~%S+')
 
