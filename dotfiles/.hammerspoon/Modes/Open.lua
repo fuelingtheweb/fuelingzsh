@@ -95,10 +95,6 @@ function Open.quit()
     md.Command.quit()
 end
 
-function Open.closeWindow()
-    md.Command.closeWindow()
-end
-
 function Open.closeAllWindow()
     md.Command.closeAllWindow()
 end

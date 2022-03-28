@@ -15,7 +15,7 @@ Terminal.lookup = {
     l = 'list',
     semicolon = nil,
     quote = nil,
-    return_or_enter = 'serveCurrentProject',
+    return_or_enter = ProjectManager.serveCurrent,
     n = nil,
     m = 'clear',
     comma = nil,
@@ -43,10 +43,6 @@ end
 
 function Terminal.autocompleteNextWord()
     ks.super('j')
-end
-
-function Terminal.serveCurrentProject()
-    ProjectManager.serveCurrent()
 end
 
 return Terminal

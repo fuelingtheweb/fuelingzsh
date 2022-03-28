@@ -21,7 +21,7 @@ Hyper.lookup = {
     comma = ks.undo,
     period = ks.redo,
     slash = 'cheatsheets',
-    -- slash = 'startArtisan',
+    -- slash = Artisan.start,
     right_shift = nil,
     spacebar = 'forceEscape',
 }
@@ -207,10 +207,6 @@ end
 
 function Hyper.alfred()
     ks.alt('z')
-end
-
-function Hyper.startArtisan()
-    Artisan.start()
 end
 
 function Hyper.forceEscape()

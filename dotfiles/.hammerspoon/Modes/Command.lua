@@ -75,10 +75,6 @@ function Command.reload()
     end
 end
 
-function Command.closeWindow()
-    closeWindow()
-end
-
 function Command.edit()
     triggerAlfredWorkflow('edit', 'com.sztoltz.editwith')
 end

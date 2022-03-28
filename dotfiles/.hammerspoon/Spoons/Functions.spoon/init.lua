@@ -329,18 +329,6 @@ function trim(s)
     return (s:gsub('^%s*(.-)%s*$', '%1'))
 end
 
-function closeWindow()
-    ks.close()
-    if appIs(chrome) then
-        hs.timer.doAfter(1, function()
-            app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then
-                app:hide()
-            end
-        end)
-    end
-end
-
 function updateChromeUrl(needle, newUrl)
     copyChromeUrl()
 

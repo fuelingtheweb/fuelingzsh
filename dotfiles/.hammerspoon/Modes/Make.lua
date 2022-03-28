@@ -8,7 +8,7 @@ Make.lookup = {
     e = spoon.Search.viaAlfred,
     r = 'lineBefore',
     t = 'tag',
-    caps_lock = 'multiBracketMatch',
+    caps_lock = BracketMatching.startMulti,
     a = spoon.Search.amazon,
     s = 'singleQuote',
     d = 'doubleQuote',
@@ -32,10 +32,6 @@ Make.lookup = {
 
 function Make.fallback(bracket)
     BracketMatching.print(bracket)
-end
-
-function Make.multiBracketMatch()
-    BracketMatching.startMulti()
 end
 
 function Make.lineBefore()

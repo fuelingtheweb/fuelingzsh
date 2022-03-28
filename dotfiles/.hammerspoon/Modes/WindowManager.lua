@@ -13,7 +13,7 @@ WindowManager.lookup = {
     s = 'toggleScreenShare',
     d = 'moveToNextDisplay',
     f = 'maximize',
-    g = 'showGrid',
+    g = hs.grid.toggleShow,
     left_shift = nil,
     z = 'toggleAudioAndVideo',
     x = 'focusSidebarFileExplorer',
@@ -62,10 +62,6 @@ hs.grid.ui.showExtraKeys = false
 
 function WindowManager.moveTo(position)
     WindowManager.HalfsAndThirds[position]()
-end
-
-function WindowManager.showGrid()
-    hs.grid.toggleShow()
 end
 
 function WindowManager.moveTotopRightSmall()
