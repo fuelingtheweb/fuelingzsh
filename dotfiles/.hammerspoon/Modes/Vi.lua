@@ -9,10 +9,10 @@ Vi.lookup = {
     p = nil,
     open_bracket = 'moveAndInsertAtFirstCharacterOfLine',
     close_bracket = 'moveAndAppendAtEndOfLine',
-    h = 'left',
-    j = 'down',
-    k = 'up',
-    l = 'right',
+    h = ks.left,
+    j = ks.down,
+    k = ks.up,
+    l = ks.right,
     semicolon = 'moveToPreviousWholeWord',
     quote = 'moveToEndOfWholeWord',
     return_or_enter = 'moveToNextWholeWord',
@@ -82,14 +82,6 @@ function Vi.moveToBottomOfPage()
 end
 
 function Vi.pageUp() ks.key('pageup') end
-
-function Vi.left() ks.left() end
-
-function Vi.down() ks.down() end
-
-function Vi.up() ks.up() end
-
-function Vi.right() ks.right() end
 
 function Vi.pageDown() ks.key('pagedown') end
 
