@@ -22,22 +22,32 @@ General.lookup = {
     period = 'methodChain',
     slash = '~',
     right_shift = '^',
-    spacebar = nil
+    spacebar = nil,
 }
 
-function General.openParens() ks.shift('9') end
+function General.openParens()
+    ks.shift('9')
+end
 
-function General.closeParens() ks.shift('0') end
+function General.closeParens()
+    ks.shift('0')
+end
 
-function General.equals() ks.key('=') end
+function General.equals()
+    ks.key('=')
+end
 
-function General.multiply() ks.shift('8') end
+function General.multiply()
+    ks.shift('8')
+end
 
 function General.methodChain()
     ks.type('->')
     -- Modal.enter('CodeSnippets:callFunction')
 end
 
-function General.fallback(value) ks.type(value) end
+function General.fallback(value)
+    ks.type(value)
+end
 
 return General

@@ -22,18 +22,28 @@ Vi.lookup = {
     period = 'nextWord',
     slash = 'moveToPreviousSubword',
     right_shift = 'moveToNextSubword',
-    spacebar = nil
+    spacebar = nil,
 }
 
-function Vi.moveToPreviousSubword() ks.shift('q') end
+function Vi.moveToPreviousSubword()
+    ks.shift('q')
+end
 
-function Vi.moveToNextSubword() ks.key('q') end
+function Vi.moveToNextSubword()
+    ks.key('q')
+end
 
-function Vi.moveToPreviousWholeWord() ks.escape().shift('b') end
+function Vi.moveToPreviousWholeWord()
+    ks.escape().shift('b')
+end
 
-function Vi.moveToEndOfWholeWord() ks.escape().shift('e') end
+function Vi.moveToEndOfWholeWord()
+    ks.escape().shift('e')
+end
 
-function Vi.moveToNextWholeWord() ks.escape().shift('w') end
+function Vi.moveToNextWholeWord()
+    ks.escape().shift('w')
+end
 
 function Vi.moveToTopOfPage()
     if appIs(finder) then
@@ -43,7 +53,9 @@ function Vi.moveToTopOfPage()
     end
 end
 
-function Vi.moveToFirstCharacterOfLine() ks.cmd('left') end
+function Vi.moveToFirstCharacterOfLine()
+    ks.cmd('left')
+end
 
 function Vi.moveToEndOfLine()
     if appIs(atom) then
@@ -81,12 +93,20 @@ function Vi.moveToBottomOfPage()
     end
 end
 
-function Vi.pageUp() ks.key('pageup') end
+function Vi.pageUp()
+    ks.key('pageup')
+end
 
-function Vi.pageDown() ks.key('pagedown') end
+function Vi.pageDown()
+    ks.key('pagedown')
+end
 
-function Vi.previousWord() ks.alt('left') end
+function Vi.previousWord()
+    ks.alt('left')
+end
 
-function Vi.nextWord() ks.alt('right') end
+function Vi.nextWord()
+    ks.alt('right')
+end
 
 return Vi

@@ -22,7 +22,7 @@ ViVisual.lookup = {
     period = 'selectNextWord',
     slash = 'selectToPreviousSubword',
     right_shift = 'selectToNextSubword',
-    spacebar = nil
+    spacebar = nil,
 }
 
 function ViVisual.selectToPreviousSubword()
@@ -59,7 +59,9 @@ function ViVisual.selectToNextWholeWord()
     md.SelectUntil.beginSelectingForward()
     ks.shift('w')
 
-    if appIs(vscode) and TextManipulation.vimEnabled then ks.key('h') end
+    if appIs(vscode) and TextManipulation.vimEnabled then
+        ks.key('h')
+    end
 end
 
 function ViVisual.selectToTopOfPage()
@@ -73,8 +75,9 @@ function ViVisual.selectToTopOfPage()
     end
 end
 
-function ViVisual.selectToFirstCharacterOfLine() md.SelectUntil
-    .beginningOfLine() end
+function ViVisual.selectToFirstCharacterOfLine()
+    md.SelectUntil.beginningOfLine()
+end
 
 function ViVisual.selectToEndOfLine()
     if appIs(vscode) and TextManipulation.vimEnabled then
@@ -96,7 +99,9 @@ function ViVisual.selectToBottomOfPage()
 end
 
 function ViVisual.selectLineUp()
-    if TextManipulation.vimEnabled then ks.shift('v') end
+    if TextManipulation.vimEnabled then
+        ks.shift('v')
+    end
 
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.key('k')
@@ -106,7 +111,9 @@ function ViVisual.selectLineUp()
 end
 
 function ViVisual.selectLineDown()
-    if TextManipulation.vimEnabled then ks.shift('v') end
+    if TextManipulation.vimEnabled then
+        ks.shift('v')
+    end
 
     if appIs(vscode) and TextManipulation.vimEnabled then
         ks.key('j')
@@ -131,7 +138,9 @@ function ViVisual.selectDown()
     else
         ks.shift('down')
 
-        if inCodeEditor() then ks.shift('left') end
+        if inCodeEditor() then
+            ks.shift('left')
+        end
     end
 end
 

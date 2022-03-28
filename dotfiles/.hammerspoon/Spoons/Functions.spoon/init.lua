@@ -1,27 +1,43 @@
 local obj = {}
 obj.__index = obj
 
-function isDisplay(name) return hs.screen.primaryScreen():name() == name end
+function isDisplay(name)
+    return hs.screen.primaryScreen():name() == name
+end
 
-function isMacbookDisplay() return isDisplay(macbookScreen) end
+function isMacbookDisplay()
+    return isDisplay(macbookScreen)
+end
 
-function inCodeEditor() return appIncludes({atom, sublime, vscode}) end
+function inCodeEditor()
+    return appIncludes({atom, sublime, vscode})
+end
 
 function appIncludes(bundles)
     return hasValue(bundles, hs.application.frontmostApplication():bundleID())
 end
 
 function hasValue(tab, val)
-    for index, value in ipairs(tab) do if value == val then return true end end
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
 
     return false
 end
 
-function isString(value) return type(value) == 'string' end
+function isString(value)
+    return type(value) == 'string'
+end
 
-function isTable(value) return type(value) == 'table' end
+function isTable(value)
+    return type(value) == 'table'
+end
 
-function isFunction(value) return type(value) == 'function' end
+function isFunction(value)
+    return type(value) == 'function'
+end
 
 function appIs(bundle)
     return hs.application.frontmostApplication():bundleID() == bundle
@@ -78,7 +94,9 @@ function copyChromeUrl()
     ]])
 end
 
-function startsWith(needle, haystack) return haystack:sub(1, #needle) == needle end
+function startsWith(needle, haystack)
+    return haystack:sub(1, #needle) == needle
+end
 
 function titleContains(needle)
     return stringContains(needle:gsub('-', '%%-'), currentTitle())
@@ -88,10 +106,16 @@ function urlContains(needle)
     return stringContains(needle:gsub('-', '%%-'), currentUrl())
 end
 
-function stringContains(needle, haystack) return string.find(haystack, needle) end
+function stringContains(needle, haystack)
+    return string.find(haystack, needle)
+end
 
 function showChooser(callback, choices)
-    hs.chooser.new(function(item) callback(item['subText']) end):choices(choices)
+    hs.chooser
+        .new(function(item)
+            callback(item['subText'])
+        end)
+        :choices(choices)
         :show()
 end
 
@@ -110,33 +134,39 @@ function openNotionPage(name)
 end
 
 function maximizeAfterDelay()
-    hs.timer.doAfter(0.5, function() md.WindowManager.moveTo('maximize') end)
+    hs.timer.doAfter(0.5, function()
+        md.WindowManager.moveTo('maximize')
+    end)
 end
 
 function openInChrome(url)
-    hs.execute(
-        '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
-            url .. '" --profile-directory="Default"')
+    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default"')
     maximizeAfterDelay()
 end
 
 function openInChromeIncognito(url)
-    hs.execute(
-        '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' ..
-            url .. '" --incognito --profile-directory="Default"')
+    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
     maximizeAfterDelay()
 end
 
-function openInTablePlus(url) hs.execute('open "' .. url .. '"') end
-
-function openInIterm(path)
-    launchIterm(function() hs.execute('open -a iTerm "' .. path .. '"') end)
+function openInTablePlus(url)
+    hs.execute('open "' .. url .. '"')
 end
 
-function runGoogleSearch(query) openInChromeIncognito(getUrlForQuery(query)) end
+function openInIterm(path)
+    launchIterm(function()
+        hs.execute('open -a iTerm "' .. path .. '"')
+    end)
+end
+
+function runGoogleSearch(query)
+    openInChromeIncognito(getUrlForQuery(query))
+end
 
 function getUrlForQuery(query)
-    if startsWith('http', query) then return query end
+    if startsWith('http', query) then
+        return query
+    end
 
     return 'https://www.google.com/search?q=' .. query
 end
@@ -156,22 +186,22 @@ function goToFileInAtom(file)
     hs.timer.doAfter(0.3, ks.enter)
 end
 
-function typeAndEnter(string) ks.type(string).enter() end
+function typeAndEnter(string)
+    ks.type(string).enter()
+end
 
 function triggerAlfredSearch(search)
-    hs.osascript.applescript(
-        'tell application id "com.runningwithcrayons.Alfred" to search "' ..
-            search .. '"')
+    hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search .. '"')
 end
 
 function triggerAlfredWorkflow(trigger, workflow, argument)
     spoon.KarabinerHandler.modifier = nil
 
-    local script =
-        'tell application id "com.runningwithcrayons.Alfred" to run trigger "' ..
-            trigger .. '" in workflow "' .. workflow .. '"'
+    local script = 'tell application id "com.runningwithcrayons.Alfred" to run trigger "' .. trigger .. '" in workflow "' .. workflow .. '"'
 
-    if argument then script = script .. ' with argument "' .. argument .. '"' end
+    if argument then
+        script = script .. ' with argument "' .. argument .. '"'
+    end
 
     hs.osascript.applescript(script)
 end
@@ -196,7 +226,9 @@ function currentTitle()
 
     title = ''
     for k, v in pairs(app:visibleWindows()) do
-        if title == '' then title = v:title() end
+        if title == '' then
+            title = v:title()
+        end
     end
 
     return title
@@ -220,18 +252,23 @@ function countTable(table)
     if not table then return 0 end
 
     local count = 0
-    each(table, function() count = count + 1 end)
+    each(table, function()
+        count = count + 1
+    end)
 
     return count
 end
 
-function hasWindows(app) return windowCount(app) > 0 end
+function hasWindows(app)
+    return windowCount(app) > 0
+end
 
-function multipleWindows(app) return windowCount(app) > 1 end
+function multipleWindows(app)
+    return windowCount(app) > 1
+end
 
 function toggleAppStatic()
-    output = hs.execute(
-                 '/Users/nathan/Development/FuelingTheWeb/bin/toggle-app-static.sh')
+    output = hs.execute('/Users/nathan/Development/FuelingTheWeb/bin/toggle-app-static.sh')
     hs.notify.new({title = 'Env Variable Updated', informativeText = output}):send()
 end
 
@@ -279,21 +316,27 @@ function customOpenInTablePlus()
 end
 
 function each(table, callback)
-    for key, value in pairs(table) do callback(value, key) end
+    for key, value in pairs(table) do
+        callback(value, key)
+    end
 end
 
 function executeFromFuelingZsh(command)
     return hs.execute('~/.fuelingzsh/bin/' .. command)
 end
 
-function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
+function trim(s)
+    return (s:gsub('^%s*(.-)%s*$', '%1'))
+end
 
 function closeWindow()
     ks.close()
     if appIs(chrome) then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
-            if next(app:visibleWindows()) == nil then app:hide() end
+            if next(app:visibleWindows()) == nil then
+                app:hide()
+            end
         end)
     end
 end
@@ -317,7 +360,9 @@ function slackReaction(emoji)
 
     if emoji then
         ks.type(emoji)
-        hs.timer.doAfter(0.5, function() ks.slow().enter() end)
+        hs.timer.doAfter(0.5, function()
+            ks.slow().enter()
+        end)
     end
 end
 
@@ -364,13 +409,21 @@ end
 function _(callback, ...)
     local params = table.pack(...)
 
-    return function() callback(table.unpack(params)) end
+    return function()
+        callback(table.unpack(params))
+    end
 end
 
-function loadCustomModal(modal) return require('config.custom.Modals.' .. modal) end
+function loadCustomModal(modal)
+    return require('config.custom.Modals.' .. modal)
+end
 
-function loadModal(modal) return require('Modals.' .. modal) end
+function loadModal(modal)
+    return require('Modals.' .. modal)
+end
 
-function isLua() return titleContains('.lua') end
+function isLua()
+    return titleContains('.lua')
+end
 
 return obj

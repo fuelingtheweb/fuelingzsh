@@ -20,7 +20,7 @@ SelectInside.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil
+    spacebar = nil,
 }
 
 function SelectInside.withWrapperKey(key)
@@ -65,6 +65,8 @@ function SelectInside.character()
     end
 end
 
-function SelectInside.all() ks.cmd('a') end
+function SelectInside.all()
+    ks.cmd('a')
+end
 
 return SelectInside

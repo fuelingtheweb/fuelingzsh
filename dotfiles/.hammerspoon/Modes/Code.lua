@@ -22,16 +22,18 @@ Code.lookup = {
     period = 'doubleArrow',
     slash = 'goToMatchingPair',
     right_shift = 'goToMatchingBracket',
-    spacebar = 'comment'
+    spacebar = 'comment',
 }
 
-function Code.addUseStatement() ks.ctrlAlt('i') end
+function Code.addUseStatement()
+    ks.ctrlAlt('i')
+end
 
 function Code.multipleCursorsUp()
     handleApp(ks.fire, {
         [vscode] = {{'shift', 'ctrl', 'alt'}, 'up'},
         [atom] = {{'shift', 'ctrl'}, 'up'},
-        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'}
+        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'},
     })
     -- handleApp({
     --     [atom] = _(ks.fire, {'shift', 'ctrl'}, 'up'),
@@ -39,9 +41,13 @@ function Code.multipleCursorsUp()
     -- })
 end
 
-function Code.fold() ks.altCmd('[') end
+function Code.fold()
+    ks.altCmd('[')
+end
 
-function Code.unfold() ks.altCmd(']') end
+function Code.unfold()
+    ks.altCmd(']')
+end
 
 function Code.moveLineDown()
     if appIs(notion) then
@@ -60,10 +66,14 @@ function Code.moveLineUp()
     end
 end
 
-function Code.goToDefinition() ks.altCmd('down') end
+function Code.goToDefinition()
+    ks.altCmd('down')
+end
 
 function Code.toggleSemicolon()
-    if inCodeEditor() then return ks.alt(';') end
+    if inCodeEditor() then
+        return ks.alt(';')
+    end
 
     md.Vi.moveToEndOfLine()
     ks.shift('left')
@@ -79,16 +89,22 @@ end
 function Code.toggleBoolean()
     handleApp({
         [atom] = _(ks.fire, '-'),
-        [sublime] = _(ks.fire, {'alt', 'cmd'}, 'x')
+        [sublime] = _(ks.fire, {'alt', 'cmd'}, 'x'),
     })
 end
 
-function Code.selectNextWord() ks.cmd('d') end
+function Code.selectNextWord()
+    ks.cmd('d')
+end
 
-function Code.multipleCursorsDown() ks.shiftCtrlAlt('down') end
+function Code.multipleCursorsDown()
+    ks.shiftCtrlAlt('down')
+end
 
 function Code.toggleComma()
-    if inCodeEditor() then return ks.alt(',') end
+    if inCodeEditor() then
+        return ks.alt(',')
+    end
 
     md.Vi.moveToEndOfLine()
     ks.shift('left')
@@ -106,20 +122,36 @@ function Code.doubleArrow()
     BracketMatching.start()
 end
 
-function Code.goToMatchingPair() ks.shiftAltCmd('m') end
+function Code.goToMatchingPair()
+    ks.shiftAltCmd('m')
+end
 
-function Code.goToMatchingBracket() ks.ctrl('m') end
+function Code.goToMatchingBracket()
+    ks.ctrl('m')
+end
 
-function Code.comment() ks.cmd('/') end
+function Code.comment()
+    ks.cmd('/')
+end
 
-function Code.selectAll() ks.ctrlCmd('g') end
+function Code.selectAll()
+    ks.ctrlCmd('g')
+end
 
-function Code.toggleBrackets() ks.shiftCmd("'") end
+function Code.toggleBrackets()
+    ks.shiftCmd("'")
+end
 
-function Code.previousMember() ks.shiftAltCmd('up') end
+function Code.previousMember()
+    ks.shiftAltCmd('up')
+end
 
-function Code.nextMember() ks.shiftAltCmd('down') end
+function Code.nextMember()
+    ks.shiftAltCmd('down')
+end
 
-function Code.focusBreadcrumbs() ks.shiftCmd('.') end
+function Code.focusBreadcrumbs()
+    ks.shiftCmd('.')
+end
 
 return Code

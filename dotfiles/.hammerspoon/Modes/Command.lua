@@ -21,21 +21,30 @@ Command.lookup = {
     c = nil,
     v = 'duplicateLine',
     b = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
-function Command.shiftTab() ks.shift('tab') end
+function Command.shiftTab()
+    ks.shift('tab')
+end
 
 function Command.alfredCommands()
     triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
 end
 
-function Command.atomGitPalette() ks.shiftCmd('h') end
+function Command.atomGitPalette()
+    ks.shiftCmd('h')
+end
 
-function Command.duplicateLine() if inCodeEditor() then ks.shiftCmd('d') end end
+function Command.duplicateLine()
+    if inCodeEditor() then
+        ks.shiftCmd('d')
+    end
+end
 
 function Command.duplicate()
     local text = getSelectedText()
+
     if text then
         if inCodeEditor() then
             ks.super('d')
@@ -66,9 +75,13 @@ function Command.reload()
     end
 end
 
-function Command.closeWindow() closeWindow() end
+function Command.closeWindow()
+    closeWindow()
+end
 
-function Command.edit() triggerAlfredWorkflow('edit', 'com.sztoltz.editwith') end
+function Command.edit()
+    triggerAlfredWorkflow('edit', 'com.sztoltz.editwith')
+end
 
 function Command.finish()
     if appIs(sublime) then
@@ -104,6 +117,7 @@ end
 
 function Command.cancelOrDelete()
     text = getSelectedText()
+
     if text then
         ks.delete()
     elseif appIs(sublime) and titleContains('.todo') then
@@ -122,6 +136,8 @@ function Command.cancelOrDelete()
     end
 end
 
-function Command.actionFileInAlfred() ks.altCmd('\\') end
+function Command.actionFileInAlfred()
+    ks.altCmd('\\')
+end
 
 return Command

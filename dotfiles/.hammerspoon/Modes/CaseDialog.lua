@@ -13,20 +13,21 @@ CaseDialog.lookup = {
     l = 'lower',
     m = 'camel',
     period = 'dot',
-    slash = 'path'
+    slash = 'path',
 }
 
 function CaseDialog.handle(key)
     if CaseDialog.lookup[key] then
-        triggerAlfredWorkflow('case-dialog', 'com.fuelingtheweb.commands',
-                              CaseDialog.lookup[key])
+        triggerAlfredWorkflow(
+            'case-dialog',
+            'com.fuelingtheweb.commands',
+            CaseDialog.lookup[key]
+        )
     end
 end
 
 hs.urlevent.bind('case-changeFromAlfred', function(eventName, params)
-    result = trim(hs.execute(
-                      '/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' ..
-                          params.to .. '" "' .. params.text .. '"'))
+    result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. params.to .. '" "' .. params.text .. '"'))
     hs.pasteboard.setContents(result)
     ks.type(result)
 end)

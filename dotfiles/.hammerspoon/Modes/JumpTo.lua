@@ -20,7 +20,7 @@ JumpTo.lookup = {
     c = 'braces',
     v = 'nextBlock',
     b = 'brackets',
-    spacebar = nil
+    spacebar = nil,
 }
 
 JumpTo.secondary = false
@@ -30,8 +30,7 @@ JumpTo.key = nil
 Modal.add({
     key = 'JumpTo',
     title = function()
-        return 'Jump to: ' .. (JumpTo.direction or '') .. ' ' ..
-                   (JumpTo.key or '')
+        return 'Jump to: ' .. (JumpTo.direction or '') .. ' ' .. (JumpTo.key or '')
     end,
     defaults = false,
     items = {
@@ -45,22 +44,28 @@ Modal.add({
         {shift = true, key = 'c', value = 'secondaryBraces'},
         {shift = true, key = 'b', value = 'secondaryBrackets'},
         [','] = 'backward',
-        [';'] = 'forward'
+        [';'] = 'forward',
     },
-    callback = function(action) JumpTo.actions[action]() end,
+    callback = function(action)
+        JumpTo.actions[action]()
+    end,
     exited = function()
         if not JumpTo.paused then
             JumpTo.secondary = false
             JumpTo.direction = nil
             JumpTo.key = nil
         end
-    end
+    end,
 })
 
-function JumpTo.before() spoon.KarabinerHandler.currentKey = nil end
+function JumpTo.before()
+    spoon.KarabinerHandler.currentKey = nil
+end
 
 function JumpTo.triggerDirectionIfSet()
-    if not JumpTo.direction then return end
+    if not JumpTo.direction then
+        return
+    end
 
     local action
 
@@ -69,6 +74,7 @@ function JumpTo.triggerDirectionIfSet()
     else
         action = 'backward'
     end
+
     JumpTo.actions[action]()
 
     JumpTo.secondary = false
@@ -83,7 +89,9 @@ function JumpTo.enterModal(direction, key)
 end
 
 function JumpTo.beginJumpingForward()
-    if not TextManipulation.canManipulateWithVim() then return end
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
     if inCodeEditor() then
         ks.key('l')
@@ -99,9 +107,13 @@ function JumpTo.beginJumpingForward()
 end
 
 function JumpTo.beginJumpingBackward()
-    if not TextManipulation.canManipulateWithVim() then return end
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
-    if inCodeEditor() then ks.key('h').shift('t') end
+    if inCodeEditor() then
+        ks.key('h').shift('t')
+    end
 end
 
 JumpTo.actions = {
@@ -116,7 +128,7 @@ JumpTo.actions = {
     end,
 
     backTick = function()
-        JumpTo.enterModal(JumpTo.direction, "`")
+        JumpTo.enterModal(JumpTo.direction, '`')
         JumpTo.triggerDirectionIfSet()
     end,
 
@@ -163,7 +175,9 @@ JumpTo.actions = {
 
         JumpTo.enterModal('B', JumpTo.key)
 
-        if not JumpTo.key then return end
+        if not JumpTo.key then
+            return
+        end
 
         JumpTo.beginJumpingBackward()
         JumpTo.keymap[JumpTo.key]()
@@ -176,7 +190,9 @@ JumpTo.actions = {
 
         JumpTo.enterModal('F', JumpTo.key)
 
-        if not JumpTo.key then return end
+        if not JumpTo.key then
+            return
+        end
 
         JumpTo.beginJumpingForward()
         JumpTo.keymap[JumpTo.key]()
@@ -186,18 +202,22 @@ JumpTo.actions = {
 JumpTo.keymap = {
     ["'"] = function() ks.key("'") end,
     ['"'] = function() ks.shift("'") end,
-    ["`"] = function() ks.alt("`") end,
-    ['('] = function() ks.shift("9") end,
-    [')'] = function() ks.shift("0") end,
-    ['{'] = function() ks.shift("[") end,
-    ['}'] = function() ks.shift("]") end,
-    ['['] = function() ks.key("[") end,
-    [']'] = function() ks.key("]") end
+    ['`'] = function() ks.alt('`') end,
+    ['('] = function() ks.shift('9') end,
+    [')'] = function() ks.shift('0') end,
+    ['{'] = function() ks.shift('[') end,
+    ['}'] = function() ks.shift(']') end,
+    ['['] = function() ks.key('[') end,
+    [']'] = function() ks.key(']') end
 }
 
-function JumpTo.mode() JumpTo.enterModal() end
+function JumpTo.mode()
+    JumpTo.enterModal()
+end
 
-function JumpTo.modeBackward() JumpTo.enterModal('B') end
+function JumpTo.modeBackward()
+    JumpTo.enterModal('B')
+end
 
 function JumpTo.modeSecondary()
     JumpTo.secondary = true

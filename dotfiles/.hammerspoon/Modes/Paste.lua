@@ -20,13 +20,17 @@ Paste.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = ks.paste
+    spacebar = ks.paste,
 }
 
-function Paste.before() spoon.KarabinerHandler.currentKey = nil end
+function Paste.before()
+    spoon.KarabinerHandler.currentKey = nil
+end
 
 function Paste.withWrapperKey(key)
-    if not TextManipulation.canManipulateWithVim() then return end
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
     Paste.pastePending(function()
         keystroke = TextManipulation.wrapperKeyLookup[key]
@@ -36,38 +40,52 @@ function Paste.withWrapperKey(key)
 end
 
 function Paste.toEndOfWord()
-    Paste.pastePending(function() ks.sequence({'v', 'e'}) end,
-                       function() ks.shiftAlt('right') end)
+    Paste.pastePending(
+        function() ks.sequence({'v', 'e'}) end,
+        function() ks.shiftAlt('right') end
+    )
 end
 
 function Paste.subword()
-    Paste.pastePending(function() md.SelectInside.subword() end,
-                       function() ks.shiftAlt('left') end)
+    Paste.pastePending(
+        function() md.SelectInside.subword() end,
+        function() ks.shiftAlt('left') end
+    )
 end
 
 function Paste.word()
-    Paste.pastePending(function() ks.sequence({'v', 'i', 'w'}) end,
-                       function() ks.shiftAlt('left') end)
+    Paste.pastePending(
+        function() ks.sequence({'v', 'i', 'w'}) end,
+        function() ks.shiftAlt('left') end
+    )
 end
 
 function Paste.toEndOfLine()
-    Paste.pastePending(function() ks.key('v').shiftCmd('right') end,
-                       function() ks.shiftCmd('right') end)
+    Paste.pastePending(
+        function() ks.key('v').shiftCmd('right') end,
+        function() ks.shiftCmd('right') end
+    )
 end
 
 function Paste.toBeginningOfLine()
-    Paste.pastePending(function() ks.shiftCmd('left') end,
-                       function() ks.shiftCmd('left') end)
+    Paste.pastePending(
+        function() ks.shiftCmd('left') end,
+        function() ks.shiftCmd('left') end
+    )
 end
 
 function Paste.line()
-    Paste.pastePending(function() ks.shift('v') end,
-                       function() ks.cmd('left').shiftCmd('right') end)
+    Paste.pastePending(
+        function() ks.shift('v') end,
+        function() ks.cmd('left').shiftCmd('right') end
+    )
 end
 
 function Paste.character()
-    Paste.pastePending(function() ks.key('v') end,
-                       function() ks.shift('left') end)
+    Paste.pastePending(
+        function() ks.key('v') end,
+        function() ks.shift('left') end
+    )
 end
 
 function Paste.pastePending(selectTextWhenInVim, selectTextWhenInDefault)
@@ -96,11 +114,19 @@ function Paste.pasteNext()
     triggerAlfredWorkflow('paste:next', 'com.fuelingtheweb.commands')
 end
 
-function Paste.primaryVim() ks.key('p') end
+function Paste.primaryVim()
+    ks.key('p')
+end
 
-function Paste.secondaryVim() ks.shift('p') end
+function Paste.secondaryVim()
+    ks.shift('p')
+end
 
-function Paste.backward() if inCodeEditor() then ks.shift('p') end end
+function Paste.backward()
+    if inCodeEditor() then
+        ks.shift('p')
+    end
+end
 
 -- Modal.add({
 --     key: 'PasteSurround',

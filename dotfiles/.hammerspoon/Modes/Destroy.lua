@@ -20,7 +20,7 @@ Destroy.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = 'simpleDelete'
+    spacebar = 'simpleDelete',
 }
 
 function Destroy.withWrapperKey(key)
@@ -114,19 +114,22 @@ Destroy.key = nil
 Modal.add({
     key = 'Destroy',
     title = function()
-        return 'Destroy: ' .. (Destroy.direction or '') .. ' ' ..
-                   (Destroy.key or '')
+        return 'Destroy: ' .. (Destroy.direction or '') .. ' ' .. (Destroy.key or '')
     end,
     items = {[','] = 'backward', [';'] = 'forward', ['v'] = 'line'},
-    callback = function(action) Destroy.actions[action]() end,
+    callback = function(action)
+        Destroy.actions[action]()
+    end,
     exited = function()
         Destroy.direction = nil
         Destroy.key = nil
-    end
+    end,
 })
 
 function Destroy.triggerDirectionIfSet()
-    if not Destroy.direction then return end
+    if not Destroy.direction then
+        return
+    end
 
     if Destroy.direction == 'F' then
         action = 'forward'
@@ -150,7 +153,9 @@ Destroy.actions = {
 
         Destroy.enterModal('B', Destroy.key)
 
-        if not Destroy.key then return end
+        if not Destroy.key then
+            return
+        end
 
         if inCodeEditor() then
             Destroy.keymap[Destroy.key]()
@@ -165,32 +170,52 @@ Destroy.actions = {
 
         Destroy.enterModal('F', Destroy.key)
 
-        if not Destroy.key then return end
+        if not Destroy.key then
+            return
+        end
 
-        if inCodeEditor() then Destroy.keymap[Destroy.key]() end
+        if inCodeEditor() then
+            Destroy.keymap[Destroy.key]()
+        end
     end,
 
     line = function()
-        Destroy.enterModal(Destroy.direction, "v")
+        Destroy.enterModal(Destroy.direction, 'v')
 
         Destroy.triggerDirectionIfSet()
     end
 }
 
-Destroy.keymap = {['v'] = function() ks.sequence({'d', 'd'}) end}
+Destroy.keymap = {
+    ['v'] = function()
+        ks.sequence({'d', 'd'})
+    end,
+}
 
-function Destroy.modeForward() Destroy.enterModal('F') end
+function Destroy.modeForward()
+    Destroy.enterModal('F')
+end
 
-function Destroy.mode() Destroy.enterModal() end
+function Destroy.mode()
+    Destroy.enterModal()
+end
 
-function Destroy.modeBackward() Destroy.enterModal('B') end
+function Destroy.modeBackward()
+    Destroy.enterModal('B')
+end
 
-function Destroy.untilForward() ks.escape().sequence({'d', 't'}) end
+function Destroy.untilForward()
+    ks.escape().sequence({'d', 't'})
+end
 
-function Destroy.untilBackward() ks.escape().key('d').shift('t') end
+function Destroy.untilBackward()
+    ks.escape().key('d').shift('t')
+end
 
 function Destroy.backward()
-    if inCodeEditor() then ks.super('v').escape().left().key('x') end
+    if inCodeEditor() then
+        ks.super('v').escape().left().key('x')
+    end
 end
 
 return Destroy

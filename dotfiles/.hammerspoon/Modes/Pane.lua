@@ -22,7 +22,7 @@ Pane.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
 function Pane.destroy()
@@ -91,6 +91,10 @@ function Pane.focusNext()
     end
 end
 
-function Pane.focusOtherSide() if appIs(vscode) then ks.super('p').super(';') end end
+function Pane.focusOtherSide()
+    if appIs(vscode) then
+        ks.super('p').super(';')
+    end
+end
 
 return Pane

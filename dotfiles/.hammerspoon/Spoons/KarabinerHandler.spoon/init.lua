@@ -26,7 +26,7 @@ KarabinerHandler.lookup = {
         slack = 'SlackSnippets',
         atom = 'CodeSnippets',
         vscode = 'CodeSnippets',
-        sublime = 'CodeSnippets'
+        sublime = 'CodeSnippets',
     },
     d = 'Vi',
     f = 'General',
@@ -44,7 +44,7 @@ KarabinerHandler.lookup = {
     comma = 'SelectInside',
     period = 'SelectUntil',
     slash = 'JumpTo',
-    spacebar = 'WindowManager'
+    spacebar = 'WindowManager',
 }
 
 local lookupKeys = {
@@ -86,7 +86,7 @@ local lookupKeys = {
     period = 'f19',
     slash = 'f20',
     right_shift = 'f12',
-    spacebar = 'tab'
+    spacebar = 'tab',
 }
 
 local availableKeys = {
@@ -94,14 +94,18 @@ local availableKeys = {
     't', 'y', 'u', 'i', 'o', 'p', 'open_bracket', 'close_bracket', 'caps_lock',
     'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'semicolon', 'quote',
     'return_or_enter', 'left_shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'comma',
-    'period', 'slash', 'right_shift', 'spacebar'
+    'period', 'slash', 'right_shift', 'spacebar',
 }
 
 function KarabinerHandler.loadModes(modes)
     each(modes, function(mode, modifier)
-        if not mode then return end
+        if not mode then
+            return
+        end
 
-        if isTable(mode) then return KarabinerHandler.loadModes(mode) end
+        if isTable(mode) then
+            return KarabinerHandler.loadModes(mode)
+        end
 
         if not md[mode] then
             md[mode] = require('Modes.' .. mode)
@@ -113,7 +117,9 @@ end
 
 function KarabinerHandler.setupMode(mode)
     each(mode.lookup or {}, function(callable, key)
-        if not isTable(callable) then return end
+        if not isTable(callable) then
+            return
+        end
 
         mode.lookup[key] = hs.fnutils.map(callable, function(item)
             if mode[item] then
@@ -126,7 +132,9 @@ function KarabinerHandler.setupMode(mode)
 end
 
 function KarabinerHandler.handle(mode, key)
-    if TextManipulation.vimEnabled then Modal.exit() end
+    if TextManipulation.vimEnabled then
+        Modal.exit()
+    end
 
     log.d('-----------------------In Handle Method-----------------------')
     log.d('Mode: ' .. mode)
@@ -134,9 +142,13 @@ function KarabinerHandler.handle(mode, key)
 
     local Mode = md[mode]
 
-    if Mode.guard and not Mode.guard() then return end
+    if Mode.guard and not Mode.guard() then
+        return
+    end
 
-    if Mode.before then Mode.before() end
+    if Mode.before then
+        Mode.before()
+    end
 
     if Mode[key] then
         log.d('Calling Mode.key')
@@ -197,53 +209,55 @@ end
 
 function KarabinerHandler.setupKeys()
     each(KarabinerHandler.lookup, function(mode, modifier)
-        if not mode then return end
+        if not mode then
+            return
+        end
 
-        hs.hotkey.bind({'shift', 'ctrl', 'cmd'},
-                       lookupKeys[modifier] or modifier, function()
-            KarabinerHandler.modifier = modifier
-            log.d(
-                '!!!!!!!!!!!!!!!-----------------------Setting Modifier-----------------------')
-            log.d('Modifier: ' .. modifier)
-            log.d('KarabinerHandler.modifier: ' .. KarabinerHandler.modifier)
-            log.d(
-                '-----------------------End Setting Modifier-----------------------')
-        end)
+        hs.hotkey.bind(
+            {'shift', 'ctrl', 'cmd'},
+            lookupKeys[modifier] or modifier,
+            function()
+                KarabinerHandler.modifier = modifier
+                log.d('!!!!!!!!!!!!!!!-----------------------Setting Modifier-----------------------')
+                log.d('Modifier: ' .. modifier)
+                log.d('KarabinerHandler.modifier: ' .. KarabinerHandler.modifier)
+                log.d('-----------------------End Setting Modifier-----------------------')
+            end
+        )
     end)
 
     each(availableKeys, function(key)
-        hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, lookupKeys[key] or key,
-                       '', function()
-            log.d('-----------------------First Callback-----------------------')
-            log.d('Key: ' .. key)
-            log.d('With KarabinerHandler.modifier: ' ..
-                      KarabinerHandler.modifier)
-            KarabinerHandler.callback(key)
-            log.d(
-                '-----------------------End First Callback-----------------------')
-        end, function()
-            log.d(
-                '-----------------------Second Callback-----------------------')
-            log.d('Key: ' .. key)
-            log.d('With KarabinerHandler.modifier: ' ..
-                      KarabinerHandler.modifier or 'empty')
-            -- hs.timer.doAfter(0.2, function()
-            KarabinerHandler.modifier = nil
-            KarabinerHandler.currentKey = nil
-            log.d('Clearing KarabinerHandler.modifier: ' ..
-                      (KarabinerHandler.modifier or 'empty'))
-            -- end)
-            log.d(
-                '-----------------------End Second Callback-----------------------')
-        end, function()
-            log.d('-----------------------Third Callback-----------------------')
-            log.d('Key: ' .. key)
-            log.d('With KarabinerHandler.modifier: ' ..
-                      KarabinerHandler.modifier)
-            KarabinerHandler.callback(key)
-            log.d(
-                '-----------------------End Third Callback-----------------------')
-        end)
+        hs.hotkey.bind(
+            {'shift', 'ctrl', 'alt', 'cmd'},
+            lookupKeys[key] or key,
+            '',
+            function()
+                log.d('-----------------------First Callback-----------------------')
+                log.d('Key: ' .. key)
+                log.d('With KarabinerHandler.modifier: ' .. KarabinerHandler.modifier)
+                KarabinerHandler.callback(key)
+                log.d('-----------------------End First Callback-----------------------')
+            end,
+            function()
+                log.d('-----------------------Second Callback-----------------------')
+                log.d('Key: ' .. key)
+                log.d('With KarabinerHandler.modifier: ' .. KarabinerHandler.modifier or 'empty')
+                -- hs.timer.doAfter(0.2, function()
+                KarabinerHandler.modifier = nil
+                KarabinerHandler.currentKey = nil
+                log.d('Clearing KarabinerHandler.modifier: ' ..
+                (KarabinerHandler.modifier or 'empty'))
+                -- end)
+                log.d('-----------------------End Second Callback-----------------------')
+            end,
+            function()
+                log.d('-----------------------Third Callback-----------------------')
+                log.d('Key: ' .. key)
+                log.d('With KarabinerHandler.modifier: ' ..
+                KarabinerHandler.modifier)
+                KarabinerHandler.callback(key)
+                log.d('-----------------------End Third Callback-----------------------')
+            end)
     end)
 end
 
@@ -258,7 +272,9 @@ function KarabinerHandler.compileJson()
     local items = {}
 
     each(KarabinerHandler.lookup, function(mode, key)
-        if isTable(mode) then return end
+        if isTable(mode) then
+            return
+        end
 
         local item = {mode = mode, key = key, actions = {}}
 
@@ -266,7 +282,9 @@ function KarabinerHandler.compileJson()
 
         if Mode.lookup then
             each(Mode.lookup, function(action, key)
-                if isTable(action) then return; end
+                if isTable(action) then
+                    return
+                end
 
                 table.insert(item.actions, {name = action, key = key})
             end)
@@ -275,8 +293,7 @@ function KarabinerHandler.compileJson()
         table.insert(items, item)
     end)
 
-    hs.json
-        .write({items = items}, '/Users/nathan/keymappings.json', false, true)
+    hs.json.write({items = items}, '/Users/nathan/keymappings.json', false, true)
 end
 
 -- KarabinerHandler.compileJson()

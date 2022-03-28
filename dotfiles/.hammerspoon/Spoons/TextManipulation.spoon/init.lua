@@ -8,7 +8,7 @@ TextManipulation.wrapperKeyLookup = {
     z = {mods = {}, key = 'z'}, -- z -> back ticks
     f = {mods = {'shift'}, key = '9'}, -- f -> parenthesis
     c = {mods = {'shift'}, key = '['}, -- c -> braces
-    b = {mods = {}, key = '['} -- b -> brackets
+    b = {mods = {}, key = '['}, -- b -> brackets
 }
 
 TextManipulation.vimEnabled = true
@@ -26,13 +26,17 @@ Modal.add({
         end
     },
     entered = function() TextManipulation.vimEnabled = false end,
-    exited = function() TextManipulation.vimEnabled = true end
+    exited = function() TextManipulation.vimEnabled = true end,
 })
 
 function TextManipulation.canManipulateWithVim()
-    if not TextManipulation.vimEnabled or isAlfredVisible() then return false end
+    if not TextManipulation.vimEnabled or isAlfredVisible() then
+        return false
+    end
 
-    if inCodeEditor() then return true end
+    if inCodeEditor() then
+        return true
+    end
 
     return false
 end
@@ -41,7 +45,8 @@ function TextManipulation.disableVim()
     Modal.enter('TextManipulation:vimDisabled')
 end
 
-hs.urlevent.bind('text-disableVim',
-                 function(eventName, params) TextManipulation.disableVim() end)
+hs.urlevent.bind('text-disableVim', function(eventName, params)
+    TextManipulation.disableVim()
+end)
 
 return TextManipulation

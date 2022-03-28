@@ -22,38 +22,56 @@ Google.lookup = {
     period = 'toggleDevToolsDocking',
     slash = nil,
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
 function Google.custom(key)
     hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
-function Google.inbox() openInChrome('https://inbox.google.com') end
+function Google.inbox()
+    openInChrome('https://inbox.google.com')
+end
 
-function Google.profiles() ks.shiftCmd('m') end
+function Google.profiles()
+    ks.shiftCmd('m')
+end
 
-function Google.groupTab() ks.super('g') end
+function Google.groupTab()
+    ks.super('g')
+end
 
 function Google.history()
     triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
 end
 
-function Google.lastpass() ks.super('p') end
+function Google.lastpass()
+    ks.super('p')
+end
 
-function Google.tabManager() ks.shiftCmd('m') end
+function Google.tabManager()
+    ks.shiftCmd('m')
+end
 
-function Google.dismissDownloadsBar() ks.alt('w') end
+function Google.dismissDownloadsBar()
+    ks.alt('w')
+end
 
-function Google.newBookmark() ks.cmd('d') end
+function Google.newBookmark()
+    ks.cmd('d')
+end
 
 function Google.bookmarks()
     triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
 end
 
-function Google.toggleDevTools() ks.altCmd('i') end
+function Google.toggleDevTools()
+    ks.altCmd('i')
+end
 
-function Google.toggleDevToolsDocking() ks.shiftCmd('d') end
+function Google.toggleDevToolsDocking()
+    ks.shiftCmd('d')
+end
 
 function Google.openAndReload()
     hs.application.get(apps['chrome']):activate()
@@ -75,7 +93,9 @@ function Google.toggleIncognito()
     ]])
 end
 
-function Google.viewSource() ks.altCmd('u') end
+function Google.viewSource()
+    ks.altCmd('u')
+end
 
 function Google.nextGitConflict()
     ks.slow().shiftAltCmd('g').slow().shiftAltCmd('j')

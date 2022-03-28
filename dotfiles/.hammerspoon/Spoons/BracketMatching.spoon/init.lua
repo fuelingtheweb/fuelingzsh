@@ -12,7 +12,7 @@ BracketMatching.lookup = {
     braces = {'{', '}'},
     brackets = {'[', ']'},
     space = {' ', ' '},
-    tag = {'<', '>'}
+    tag = {'<', '>'},
 }
 
 Modal.add({
@@ -50,12 +50,14 @@ Modal.add({
         [','] = {action = 'insertComma'},
         ['.'] = {action = 'continueChain'},
         -- /, right shift
-        space = {bracket = 'space'}
+        space = {bracket = 'space'},
     },
     callback = function(item)
         BracketMatching.start()
 
-        if item.action then return BracketMatching[item.action]() end
+        if item.action then
+            return BracketMatching[item.action]()
+        end
 
         BracketMatching.print(item.bracket)
     end,
@@ -67,7 +69,7 @@ Modal.add({
     exited = function()
         BracketMatching.multi = false
         BracketMatching.brackets = {}
-    end
+    end,
 })
 
 function BracketMatching.startMulti()
@@ -99,17 +101,23 @@ function BracketMatching.print(bracket)
         end
     end
 
-    if text then BracketMatching.dismiss() end
+    if text then
+        BracketMatching.dismiss()
+    end
 
     ks.type(brackets[1] .. (text or '') .. brackets[2])
 
     ks.left()
 end
 
-function BracketMatching.start() Modal.enter('BracketMatching') end
+function BracketMatching.start()
+    Modal.enter('BracketMatching')
+end
 
 function BracketMatching.commitOrDismiss()
-    if not BracketMatching.multi then return BracketMatching.dismiss() end
+    if not BracketMatching.multi then
+        return BracketMatching.dismiss()
+    end
 
     local text = getSelectedText()
     local brackets = hs.fnutils.copy(BracketMatching.brackets)
@@ -139,14 +147,18 @@ function BracketMatching.commitOrDismiss()
     ks.type(result)
 end
 
-function BracketMatching.dismiss() Modal.exit() end
+function BracketMatching.dismiss()
+    Modal.exit()
+end
 
 function BracketMatching.newLine()
     Modal.exit()
     ks.enter()
 end
 
-function BracketMatching.cancel() ks.right().delete().delete() end
+function BracketMatching.cancel()
+    ks.right().delete().delete()
+end
 
 function BracketMatching.left()
     Modal.exit()
@@ -189,9 +201,13 @@ function BracketMatching.insertVariable()
     ks.type('$')
 end
 
-function BracketMatching.onlyOpening() ks.right().delete() end
+function BracketMatching.onlyOpening()
+    ks.right().delete()
+end
 
-function BracketMatching.onlyClosing() ks.delete().right() end
+function BracketMatching.onlyClosing()
+    ks.delete().right()
+end
 
 function BracketMatching.functionSnippet()
     Modal.exit()

@@ -20,7 +20,7 @@ Make.lookup = {
     c = 'braces',
     v = 'lineAfter',
     b = 'brackets',
-    spacebar = 'space'
+    spacebar = 'space',
 
     -- a = 'startOfVideoOrPreviousVideo',
     -- x = 'fullscreen',
@@ -30,16 +30,24 @@ Make.lookup = {
     -- period = 'videoForward',
 }
 
-function Make.fallback(bracket) BracketMatching.print(bracket) end
+function Make.fallback(bracket)
+    BracketMatching.print(bracket)
+end
 
-function Make.multiBracketMatch() BracketMatching.startMulti() end
+function Make.multiBracketMatch()
+    BracketMatching.startMulti()
+end
 
 function Make.lineBefore()
-    if TextManipulation.canManipulateWithVim() then ks.escape().shift('o') end
+    if TextManipulation.canManipulateWithVim() then
+        ks.escape().shift('o')
+    end
 end
 
 function Make.lineAfter()
-    if TextManipulation.canManipulateWithVim() then ks.escape().key('o') end
+    if TextManipulation.canManipulateWithVim() then
+        ks.escape().key('o')
+    end
 end
 
 -- function Make.startOfVideoOrPreviousVideo()

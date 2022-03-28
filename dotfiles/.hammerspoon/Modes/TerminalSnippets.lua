@@ -22,9 +22,11 @@ TerminalSnippets.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
-function TerminalSnippets.fallback(value) ks.type(value) end
+function TerminalSnippets.fallback(value)
+    ks.type(value)
+end
 
 return TerminalSnippets

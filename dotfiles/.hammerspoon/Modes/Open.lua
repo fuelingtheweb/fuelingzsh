@@ -24,7 +24,7 @@ Open.lookup = {
     c = 'sublimeMerge',
     v = 'tableplus',
     b = 'openBookmarksModal',
-    spacebar = {'open', 'bringAllWindowsToFront'}
+    spacebar = {'open', 'bringAllWindowsToFront'},
 }
 
 Modal.add({
@@ -58,7 +58,7 @@ Modal.add({
     callback = function(item)
         Modal.exit()
         Open.fallback(item.app)
-    end
+    end,
 })
 
 -- function Open.before()
@@ -83,19 +83,29 @@ function Open.windowHints()
     hs.hints.windowHints()
 end
 
-function Open.fantastical() ks.altCmd('c') end
+function Open.fantastical()
+    ks.altCmd('c')
+end
 
 function Open.alfredPreferences()
     hs.application.open('com.runningwithcrayons.Alfred-Preferences')
 end
 
-function Open.quit() md.Command.quit() end
+function Open.quit()
+    md.Command.quit()
+end
 
-function Open.closeWindow() md.Command.closeWindow() end
+function Open.closeWindow()
+    md.Command.closeWindow()
+end
 
-function Open.closeAllWindow() md.Command.closeAllWindow() end
+function Open.closeAllWindow()
+    md.Command.closeAllWindow()
+end
 
-function Open.open() md.Hyper.open() end
+function Open.open()
+    md.Hyper.open()
+end
 
 function Open.bringAllWindowsToFront()
     hs.application.frontmostApplication():activate(true)
@@ -114,7 +124,9 @@ end
 function Open.launchApp(id)
     bundle = apps[id]
 
-    if not bundle then return hs.application.open(id) end
+    if not bundle then
+        return hs.application.open(id)
+    end
 
     app = hs.application.frontmostApplication()
     isActive = app:bundleID() == bundle
@@ -123,6 +135,7 @@ function Open.launchApp(id)
         launchIterm()
     elseif not isActive then
         app = hs.application.get(bundle)
+
         if not hasWindows(app) then
             if id ~= 'atom' then hs.application.open(bundle) end
         else
@@ -154,28 +167,39 @@ end
 function triggerItermShortcut(callback)
     ks.key('`')
 
-    if callback then callback() end
+    if callback then
+        callback()
+    end
 end
 
 function Open.spotify()
-    if appIs(spotify) then return md.WindowManager.next() end
+    if appIs(spotify) then
+        return md.WindowManager.next()
+    end
 
     app = hs.application.get(spotify)
 
     if app and app:isRunning() then
         app:activate()
     else
-        hs.execute(
-            'open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
+        hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
     end
 end
 
-function Open.openAppModal() Modal.enter('OpenApp') end
+function Open.openAppModal()
+    Modal.enter('OpenApp')
+end
 
-function Open.openFrequentModal() Modal.enter('OpenFrequent') end
+function Open.openFrequentModal()
+    Modal.enter('OpenFrequent')
+end
 
-function Open.openBookmarksModal() Modal.enter('OpenBookmarks') end
+function Open.openBookmarksModal()
+    Modal.enter('OpenBookmarks')
+end
 
-function Open.openInModal() Modal.enter('OpenIn') end
+function Open.openInModal()
+    Modal.enter('OpenIn')
+end
 
 return Open

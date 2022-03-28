@@ -22,35 +22,46 @@ Execute.lookup = {
     period = 'openPath',
     slash = nil,
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
 function Execute.goToDefinition()
     text = getSelectedText()
+
     if not text then
         md.Yank.word()
         text = hs.pasteboard.getContents()
     end
 
-    hs.timer.doAfter(0.2, function() goToFileInAtom(text) end)
+    hs.timer.doAfter(0.2, function()
+        goToFileInAtom(text)
+    end)
 end
 
 function Execute.openLink()
-    if appIncludes({sublime, vscode}) then ks.altCmd('return') end
+    if appIncludes({sublime, vscode}) then
+        ks.altCmd('return')
+    end
 end
 
 function Execute.openPath()
-    if not inCodeEditor() then return end
+    if not inCodeEditor() then
+        return
+    end
 
     ks.escape().sequence({'y', 'i', "'"})
 
     path = hs.pasteboard.getContents()
 
-    if not stringContains('/', path) then path = path:gsub('%.', '/') end
+    if not stringContains('/', path) then
+        path = path:gsub('%.', '/')
+    end
 
     path = path:gsub('^/', '')
 
-    hs.timer.doAfter(0.2, function() goToFileInAtom(path) end)
+    hs.timer.doAfter(0.2, function()
+        goToFileInAtom(path)
+    end)
 end
 
 return Execute

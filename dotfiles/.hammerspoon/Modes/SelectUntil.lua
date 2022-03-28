@@ -20,7 +20,7 @@ SelectUntil.lookup = {
     c = 'braces',
     v = nil,
     b = 'brackets',
-    spacebar = nil
+    spacebar = nil,
 }
 
 function SelectUntil.endOfWord()
@@ -46,8 +46,7 @@ SelectUntil.key = nil
 Modal.add({
     key = 'SelectUntil',
     title = function()
-        return 'Select Until: ' .. (SelectUntil.direction or '') .. ' ' ..
-                   (SelectUntil.key or '')
+        return 'Select Until: ' .. (SelectUntil.direction or '') .. ' ' .. (SelectUntil.key or '')
     end,
     defaults = false,
     items = {
@@ -65,24 +64,27 @@ Modal.add({
         ['n'] = 'change',
         ['y'] = 'yank',
         ['p'] = 'paste',
-        ['m'] = 'destroy'
+        ['m'] = 'destroy',
     },
     callback = function(action) SelectUntil.actions[action]() end,
     exited = function()
         SelectUntil.secondary = false
         SelectUntil.direction = nil
         SelectUntil.key = nil
-    end
+    end,
 })
 
 function SelectUntil.triggerDirectionIfSet()
-    if not SelectUntil.direction then return end
+    if not SelectUntil.direction then
+        return
+    end
 
     if SelectUntil.direction == 'F' then
         action = 'forward'
     else
         action = 'backward'
     end
+
     SelectUntil.actions[action]()
 
     SelectUntil.secondary = false
@@ -95,7 +97,9 @@ function SelectUntil.enterModal(direction, key)
 end
 
 function SelectUntil.beginSelectingForward()
-    if not TextManipulation.canManipulateWithVim() then return end
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
     if appIs(vscode) then
         ks.ctrl('v')
@@ -107,7 +111,9 @@ function SelectUntil.beginSelectingForward()
 end
 
 function SelectUntil.beginSelectingBackward()
-    if not TextManipulation.canManipulateWithVim() then return end
+    if not TextManipulation.canManipulateWithVim() then
+        return
+    end
 
     if appIs(vscode) then
         ks.ctrl('v')
@@ -128,7 +134,7 @@ SelectUntil.actions = {
     end,
 
     backTick = function()
-        SelectUntil.enterModal(SelectUntil.direction, "`")
+        SelectUntil.enterModal(SelectUntil.direction, '`')
         SelectUntil.triggerDirectionIfSet()
     end,
 
@@ -175,7 +181,9 @@ SelectUntil.actions = {
 
         SelectUntil.enterModal('B', SelectUntil.key)
 
-        if not SelectUntil.key then return end
+        if not SelectUntil.key then
+            return
+        end
 
         SelectUntil.beginSelectingBackward()
         ks.shift('t')
@@ -189,7 +197,9 @@ SelectUntil.actions = {
 
         SelectUntil.enterModal('F', SelectUntil.key)
 
-        if not SelectUntil.key then return end
+        if not SelectUntil.key then
+            return
+        end
 
         SelectUntil.beginSelectingForward()
         ks.key('t')
@@ -199,7 +209,9 @@ SelectUntil.actions = {
     change = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then ks.key('c') end
+        if TextManipulation.canManipulateWithVim() then
+            ks.key('c')
+        end
 
         BracketMatching.start()
     end,
@@ -207,37 +219,47 @@ SelectUntil.actions = {
     yank = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then ks.key('y') end
+        if TextManipulation.canManipulateWithVim() then
+            ks.key('y')
+        end
     end,
 
     paste = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then ks.key('p') end
+        if TextManipulation.canManipulateWithVim() then
+            ks.key('p')
+        end
     end,
 
     destroy = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then ks.key('d') end
+        if TextManipulation.canManipulateWithVim() then
+            ks.key('d')
+        end
     end
 }
 
 SelectUntil.keymap = {
     ["'"] = function() ks.key("'") end,
     ['"'] = function() ks.shift("'") end,
-    ["`"] = function() ks.alt("`") end,
-    ['('] = function() ks.shift("9") end,
-    [')'] = function() ks.shift("0") end,
-    ['{'] = function() ks.shift("[") end,
-    ['}'] = function() ks.shift("]") end,
-    ['['] = function() ks.key("[") end,
-    [']'] = function() ks.key("]") end
+    ['`'] = function() ks.alt('`') end,
+    ['('] = function() ks.shift('9') end,
+    [')'] = function() ks.shift('0') end,
+    ['{'] = function() ks.shift('[') end,
+    ['}'] = function() ks.shift(']') end,
+    ['['] = function() ks.key('[') end,
+    [']'] = function() ks.key(']') end,
 }
 
-function SelectUntil.mode() SelectUntil.enterModal() end
+function SelectUntil.mode()
+    SelectUntil.enterModal()
+end
 
-function SelectUntil.modeBackward() SelectUntil.enterModal('B') end
+function SelectUntil.modeBackward()
+    SelectUntil.enterModal('B')
+end
 
 function SelectUntil.modeSecondary()
     SelectUntil.secondary = true
@@ -304,8 +326,12 @@ function SelectUntil.previousBlock()
     end
 end
 
-function SelectUntil.untilForward() ks.escape().sequence({'v', 't'}) end
+function SelectUntil.untilForward()
+    ks.escape().sequence({'v', 't'})
+end
 
-function SelectUntil.untilBackward() ks.escape().key('v').shift('t') end
+function SelectUntil.untilBackward()
+    ks.escape().key('v').shift('t')
+end
 
 return SelectUntil

@@ -20,9 +20,11 @@ Yarn.lookup = {
     c = nil,
     v = nil,
     b = 'yp',
-    spacebar = nil
+    spacebar = nil,
 }
 
-function Yarn.fallback(value) ks.type(value).enter() end
+function Yarn.fallback(value)
+    ks.type(value).enter()
+end
 
 return Yarn

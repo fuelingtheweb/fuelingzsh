@@ -20,7 +20,7 @@ Change.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = 'outer'
+    spacebar = 'outer',
 }
 
 function Change.disableVim()
@@ -32,7 +32,9 @@ function Change.withWrapperKey(key)
 
     ks.escape().sequence({'c', 'i'}).fire(keystroke.mods, keystroke.key)
 
-    if not hasValue({'s', 'd', 't'}, key) then BracketMatching.start() end
+    if not hasValue({'s', 'd', 't'}, key) then
+        BracketMatching.start()
+    end
 end
 
 function Change.toEndOfWord()
@@ -95,21 +97,33 @@ function Change.character()
     if TextManipulation.canManipulateWithVim() then
         ks.ctrlAlt('a')
 
-        if appIs(vscode) then ks.right() end
+        if appIs(vscode) then
+            ks.right()
+        end
     end
 
     ks.delete()
 end
 
-function Change.below() ks.key('o') end
+function Change.below()
+    ks.key('o')
+end
 
-function Change.above() ks.shift('o') end
+function Change.above()
+    ks.shift('o')
+end
 
-function Change.untilForward() ks.escape().sequence({'c', 't'}) end
+function Change.untilForward()
+    ks.escape().sequence({'c', 't'})
+end
 
-function Change.untilBackward() ks.escape().key('c').shift('t') end
+function Change.untilBackward()
+    ks.escape().key('c').shift('t')
+end
 
-function Change.outer() Modal.enter('ChangeOuter') end
+function Change.outer()
+    Modal.enter('ChangeOuter')
+end
 
 Modal.add({
     key = 'ChangeOuter',
@@ -125,7 +139,7 @@ Modal.add({
         if not hasValue({'s', 'd', 't'}, key) then
             BracketMatching.start()
         end
-    end
+    end,
 })
 
 return Change

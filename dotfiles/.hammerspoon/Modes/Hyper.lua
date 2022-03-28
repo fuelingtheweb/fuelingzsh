@@ -23,11 +23,12 @@ Hyper.lookup = {
     slash = 'cheatsheets',
     -- slash = 'startArtisan',
     right_shift = nil,
-    spacebar = 'forceEscape'
+    spacebar = 'forceEscape',
 }
 
 function Hyper.copy()
     text = getSelectedText(true)
+
     if appIs(spotify) then
         hs.osascript.applescript([[
             tell application "Spotify"
@@ -92,9 +93,7 @@ function Hyper.open()
     --     {'fallback', _(ks.fire, {'cmd'}, 'o')},
     -- })
 
-    if appIncludes({
-        notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker
-    }) then
+    if appIncludes({notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker}) then
         ks.cmd('p')
 
         if inCodeEditor() then
@@ -137,7 +136,9 @@ function Hyper.commandPalette()
     if appIncludes({atom, vscode, sublime, sublimeMerge}) then
         ks.shiftCmd('p')
 
-        if inCodeEditor() then TextManipulation.disableVim() end
+        if inCodeEditor() then
+            TextManipulation.disableVim()
+        end
     else
         triggerAlfredWorkflow('search', 'com.tedwise.menubarsearch')
     end
@@ -160,9 +161,13 @@ function Hyper.previousPage()
     end
 end
 
-function Hyper.previousTab() md.Tab.previous() end
+function Hyper.previousTab()
+    md.Tab.previous()
+end
 
-function Hyper.nextTab() md.Tab.next() end
+function Hyper.nextTab()
+    md.Tab.next()
+end
 
 function Hyper.nextPage()
     if appIs(spotify) then
@@ -180,33 +185,49 @@ function Hyper.nextPage()
     end
 end
 
-function Hyper.alfredClipboard() ks.alt('c') end
+function Hyper.alfredClipboard()
+    ks.alt('c')
+end
 
 function Hyper.paste()
     ks.paste()
 
-    if titleContains('Slack | ') then ks.shiftCmd('f') end
+    if titleContains('Slack | ') then
+        ks.shiftCmd('f')
+    end
 end
 
 function Hyper.pasteStrip()
     triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
 end
 
-function Hyper.capsLock() ks.key('caps_lock') end
+function Hyper.capsLock()
+    ks.key('caps_lock')
+end
 
-function Hyper.alfred() ks.alt('z') end
+function Hyper.alfred()
+    ks.alt('z')
+end
 
-function Hyper.startArtisan() Artisan.start() end
+function Hyper.startArtisan()
+    Artisan.start()
+end
 
 function Hyper.forceEscape()
     md.Test.hideOutput()
     ks.escape().escape()
 end
 
-function Hyper.nextWindow() md.WindowManager.next() end
+function Hyper.nextWindow()
+    md.WindowManager.next()
+end
 
-function Hyper.nextWindowInCurrentApp() md.WindowManager.nextInCurrentApp() end
+function Hyper.nextWindowInCurrentApp()
+    md.WindowManager.nextInCurrentApp()
+end
 
-function Hyper.cheatsheets() Modal.enter('Cheatsheets') end
+function Hyper.cheatsheets()
+    Modal.enter('Cheatsheets')
+end
 
 return Hyper

@@ -23,7 +23,7 @@ Media.lookup = {
     spacebar = nil,
 
     comma = 'videoBack',
-    period = 'videoForward'
+    period = 'videoForward',
 }
 
 function Media.startOfVideoOrPreviousVideo()
@@ -45,7 +45,9 @@ function Media.nextVideo()
     ks.ctrl('right')
 end
 
-function Media.sound() triggerAlfredSearch('Sound') end
+function Media.sound()
+    triggerAlfredSearch('Sound')
+end
 
 function Media.showVideoBar()
     -- Under System Preferences: Mouse & Trackpad, Enable Mouse Keys and set the Initial Delay option to Short
@@ -80,7 +82,8 @@ function Media.focus()
             ks.tab()
         else
             center = hs.geometry.rectMidPoint(
-                         hs.mouse.getCurrentScreen():fullFrame())
+                hs.mouse.getCurrentScreen():fullFrame()
+            )
             hs.eventtap.leftClick(center)
             hs.eventtap.leftClick(center)
         end
@@ -90,6 +93,7 @@ end
 function Media.fullscreen()
     if appIs(chrome) then
         title = currentTitle()
+
         if stringContains('Funimation', title) then
             ks.alt('return')
         else

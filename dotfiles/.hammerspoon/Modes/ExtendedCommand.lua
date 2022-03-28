@@ -22,25 +22,40 @@ ExtendedCommand.lookup = {
     c = 'screenshotToClipboard',
     v = 'toggleDockVisibility',
     b = 'showBartender',
-    spacebar = 'newWindowOrFolder'
+    spacebar = 'newWindowOrFolder',
 }
 
-function ExtendedCommand.sleep() triggerAlfredSearch('sleep') end
+function ExtendedCommand.sleep()
+    triggerAlfredSearch('sleep')
+end
 
-function ExtendedCommand.screenshotToFilesystem() ks.shiftCmd('4') end
+function ExtendedCommand.screenshotToFilesystem()
+    ks.shiftCmd('4')
+end
 
-function ExtendedCommand.revealInSidebar() ks.shiftCmd('\\') end
+function ExtendedCommand.revealInSidebar()
+    ks.shiftCmd('\\')
+end
 
-function ExtendedCommand.toggleDockVisibility() ks.altCmd('d') end
+function ExtendedCommand.toggleDockVisibility()
+    ks.altCmd('d')
+end
 
-function ExtendedCommand.screenshotToClipboard() ks.shiftCtrlCmd('4') end
+function ExtendedCommand.screenshotToClipboard()
+    ks.shiftCtrlCmd('4')
+end
 
-function ExtendedCommand.showBartender() ks.shiftCtrlCmd('b') end
+function ExtendedCommand.showBartender()
+    ks.shiftCtrlCmd('b')
+end
 
-function ExtendedCommand.newWindowOrFolder() ks.shiftCmd('n') end
+function ExtendedCommand.newWindowOrFolder()
+    ks.shiftCmd('n')
+end
 
 function ExtendedCommand.dismissNotifications()
     app = hs.application.frontmostApplication()
+
     each({1, 2, 3}, function()
         hs.osascript.applescript([[
             activate application "NotificationCenter"
@@ -60,6 +75,7 @@ function ExtendedCommand.dismissNotifications()
             end tell
         ]])
     end)
+
     app:activate()
 end
 

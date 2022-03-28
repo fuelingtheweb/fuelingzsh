@@ -55,15 +55,33 @@ function Cheatsheets.items()
             local nestedItems = {}
 
             each(mode, function(mode, app)
-                nestedItems[Cheatsheets.lookupApps[app]] = {name = app, title = app, key = app, defaults = false, items = Cheatsheets.nestedItems(mode)}
+                nestedItems[Cheatsheets.lookupApps[app]] = {
+                    name = app,
+                    title = app,
+                    key = app,
+                    defaults = false,
+                    items = Cheatsheets.nestedItems(mode)
+                }
             end)
 
-            items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = name, key = modifier, defaults = false, items = nestedItems}
+            items[Cheatsheets.lookupKeys[modifier] or modifier] = {
+                name = name,
+                title = name,
+                key = modifier,
+                defaults = false,
+                items = nestedItems
+            }
 
             return
         end
 
-        items[Cheatsheets.lookupKeys[modifier] or modifier] = {name = name, title = mode, key = mode, defaults = false, items = Cheatsheets.nestedItems(mode)}
+        items[Cheatsheets.lookupKeys[modifier] or modifier] = {
+            name = name,
+            title = mode,
+            key = mode,
+            defaults = false,
+            items = Cheatsheets.nestedItems(mode)
+        }
     end)
 
     return items
@@ -75,8 +93,8 @@ function Cheatsheets.nestedItems(mode)
     each(md[mode].lookup or {}, function(method, key)
         name = (
             (key == 'left_shift' and '(left_shift) ' or nil)
-            or (key == 'right_shift' and '(right_shift) ' or '')
-        ) .. (isString(method) and method or '')
+                or (key == 'right_shift' and '(right_shift) ' or '')
+            ) .. (isString(method) and method or '')
         items[Cheatsheets.lookupKeys[key] or key] = {name = name, mode = mode, actionKey = key}
     end)
 

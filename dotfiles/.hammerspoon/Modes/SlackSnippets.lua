@@ -22,13 +22,15 @@ SlackSnippets.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
 function SlackSnippets.fallback(value)
     ks.type('@' .. value)
 
-    hs.timer.doAfter(.2, function() ks.slow().key('escape') end)
+    hs.timer.doAfter(.2, function()
+        ks.slow().key('escape')
+    end)
 end
 
 return SlackSnippets

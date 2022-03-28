@@ -33,6 +33,6 @@ apps['vscode'] = vscode
 ultrawide = 'LG ULTRAWIDE'
 macbookScreen = 'Color LCD'
 
-log = hs.logger.new('ftw-log','debug')
+log = hs.logger.new('ftw-log', 'debug')
 
 return obj

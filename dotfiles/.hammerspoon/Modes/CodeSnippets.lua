@@ -34,7 +34,7 @@ CodeSnippets.lookup = {
     period = 'callFunction',
     slash = 'insertQuestion',
     right_shift = nil,
-    spacebar = nil
+    spacebar = nil,
 }
 
 function CodeSnippets.handle(key)
@@ -81,12 +81,18 @@ function CodeSnippets.snippet(name)
         ks.type('snippet-' .. name).enter()
     end
 
-    hs.timer.doAfter(1, function() hs.pasteboard.setContents(original) end)
+    hs.timer.doAfter(1, function()
+        hs.pasteboard.setContents(original)
+    end)
 end
 
-function CodeSnippets.method() Modal.enter('CodeSnippets:method') end
+function CodeSnippets.method()
+    Modal.enter('CodeSnippets:method')
+end
 
-function CodeSnippets.functionSnippet() Modal.enter('CodeSnippets:function') end
+function CodeSnippets.functionSnippet()
+    Modal.enter('CodeSnippets:function')
+end
 
 function CodeSnippets.this()
     if appIncludes({atom, vscode}) then
@@ -97,7 +103,9 @@ function CodeSnippets.this()
         end
     end
 
-    if appIncludes({atom, sublime, vscode}) then CodeSnippets.snippet('this') end
+    if appIncludes({atom, sublime, vscode}) then
+        CodeSnippets.snippet('this')
+    end
 end
 
 function CodeSnippets.dd()
@@ -110,7 +118,9 @@ function CodeSnippets.echo()
     BracketMatching.start()
 end
 
-function CodeSnippets.equals() Modal.enter('CodeSnippets:equals') end
+function CodeSnippets.equals()
+    Modal.enter('CodeSnippets:equals')
+end
 
 function CodeSnippets.insertColon()
     ks.type(' : ')
@@ -135,10 +145,14 @@ function CodeSnippets.extraSnippetsModal()
     Modal.enter('CodeSnippets:extraSnippets')
 end
 
-function CodeSnippets.callFunction() Modal.enter('CodeSnippets:callFunction') end
+function CodeSnippets.callFunction()
+    Modal.enter('CodeSnippets:callFunction')
+end
 
 function CodeSnippets.handleCallFunction(item)
-    if item.extra ~= 'start' then Modal.exit() end
+    if item.extra ~= 'start' then
+        Modal.exit()
+    end
 
     if item.method == 'static' then
         ks.type('::')
@@ -147,7 +161,9 @@ function CodeSnippets.handleCallFunction(item)
         return
     end
 
-    if item.extra then return CodeSnippets.printFunction(item) end
+    if item.extra then
+        return CodeSnippets.printFunction(item)
+    end
 
     CodeSnippets.printFunction(item)
     -- CodeSnippets.printFunction(item, getSelectedText())
@@ -160,7 +176,9 @@ function CodeSnippets.printFunction(item, text)
 
     ks.type(item.method)
 
-    if item.extra ~= 'start' then ks.type('(') end
+    if item.extra ~= 'start' then
+        ks.type('(')
+    end
 
     if item.extra == 'query' then
         ks.type('function ($query) { $query-> }')
@@ -172,7 +190,9 @@ function CodeSnippets.printFunction(item, text)
         ks.type(text)
     end
 
-    if item.extra == 'start' then return end
+    if item.extra == 'start' then
+        return
+    end
 
     ks.type(')').left()
 
@@ -190,7 +210,7 @@ end
 function CodeSnippets.conditionalOr()
     handleConditional(titleContains, insertText, {
         {condition = '.lua', value = ' or '},
-        {condition = 'fallback', value = ' || '} -- ['.lua'] = ' or ',
+        {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
         -- ['fallback'] = ' || ',
     })
     -- if isLua() then
@@ -212,6 +232,8 @@ function CodeSnippets.concatenate()
     BracketMatching.start()
 end
 
-function CodeSnippets.typeReturn() ks.type('return') end
+function CodeSnippets.typeReturn()
+    ks.type('return')
+end
 
 return CodeSnippets

@@ -12,16 +12,20 @@ Modal.add({
         g = {name = 'Chrome', method = 'inChrome'},
         v = {name = 'TablePlus', method = 'inTablePlus'},
         x = {name = 'Finder', method = 'inFinder'},
-        w = {name = 'Tinkerwell', method = 'inTinkerwell'}
+        w = {name = 'Tinkerwell', method = 'inTinkerwell'},
     },
     callback = function(item)
         Modal.exit()
 
         OpenIn[item.method]()
 
-        hs.timer.doAfter(appIs(iterm) and 2 or 0.5,
-                         function() md.WindowManager.moveTo('maximize') end)
-    end
+        hs.timer.doAfter(
+            appIs(iterm) and 2 or 0.5,
+            function()
+                md.WindowManager.moveTo('maximize')
+            end
+        )
+    end,
 })
 
 function OpenIn.inSublimeMerge()
@@ -30,10 +34,14 @@ function OpenIn.inSublimeMerge()
     else
         local path = currentTitle():match('~%S+')
 
-        if path then hs.execute('/usr/local/bin/smerge "' .. path .. '"') end
+        if path then
+            hs.execute('/usr/local/bin/smerge "' .. path .. '"')
+        end
     end
 
-    hs.timer.doAfter(0.5, function() hs.application.open(sublimeMerge) end)
+    hs.timer.doAfter(0.5, function()
+        hs.application.open(sublimeMerge)
+    end)
 end
 
 function OpenIn.inSublime()
@@ -54,7 +62,9 @@ function OpenIn.inSublime()
             end)
         end
 
-        if not path then return; end
+        if not path then
+            return
+        end
 
         openInSublime(path)
     end
@@ -86,7 +96,9 @@ function OpenIn.inCode()
             end)
         end
 
-        if not path then return; end
+        if not path then
+            return
+        end
 
         openInCode(path)
     end
@@ -94,6 +106,7 @@ end
 
 function OpenIn.inChrome()
     text = getSelectedText()
+
     if not appIncludes({atom, sublime}) and text then
         runGoogleSearch(text)
     elseif appIs(chrome) then
@@ -115,7 +128,11 @@ function OpenIn.inFinder()
         ks.type('o.').enter()
     else
         path = currentTitle():match('~%S+')
-        if not path then return; end
+
+        if not path then
+            return
+        end
+
         if appIs(atom) then
             hs.execute('open ' .. path)
         else
@@ -125,11 +142,15 @@ function OpenIn.inFinder()
 end
 
 function OpenIn.inTinkerwell()
-    if appIs(iterm) then return ks.type('tinkerwell .').enter() end
+    if appIs(iterm) then
+        return ks.type('tinkerwell .').enter()
+    end
 
     path = currentTitle():match('~%S+')
 
-    if path then executeFromFuelingZsh('tinkerwell "' .. path .. '"') end
+    if path then
+        executeFromFuelingZsh('tinkerwell "' .. path .. '"')
+    end
 end
 
 return OpenIn

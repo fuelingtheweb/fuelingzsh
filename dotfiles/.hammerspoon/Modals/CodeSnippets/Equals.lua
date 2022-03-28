@@ -62,7 +62,9 @@ function mdl.thisSnippet()
     md.CodeSnippets.snippet('this')
 end
 
-function mdl.simpleSingleQuote() ks.type("=''").left() end
+function mdl.simpleSingleQuote()
+    ks.type("=''").left()
+end
 
 function mdl.simpleDoubleQuote()
     ks.type('=""').slow().left()
@@ -98,4 +100,3 @@ function mdl.callFunction()
 end
 
 return mdl
-

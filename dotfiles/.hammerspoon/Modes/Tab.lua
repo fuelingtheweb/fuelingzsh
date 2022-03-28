@@ -22,12 +22,16 @@ Tab.lookup = {
     period = 'closeNext',
     slash = 'closeAllOthers',
     right_shift = 'closeAll',
-    spacebar = 'manage'
+    spacebar = 'manage',
 }
 
-function Tab.first() ks.cmd('1') end
+function Tab.first()
+    ks.cmd('1')
+end
 
-function Tab.last() ks.cmd('9') end
+function Tab.last()
+    ks.cmd('9')
+end
 
 function Tab.pin()
     -- Chrome: Pin Tab
@@ -78,9 +82,13 @@ function Tab.moveRight()
     end
 end
 
-function Tab.closeCurrent() closeWindow() end
+function Tab.closeCurrent()
+    closeWindow()
+end
 
-function Tab.restore() ks.shiftCmd('t') end
+function Tab.restore()
+    ks.shiftCmd('t')
+end
 
 function Tab.moveToNewWindow()
     if appIs(sublime) then
@@ -93,7 +101,9 @@ end
 function Tab.new()
     if inCodeEditor() then
         ks.cmd('n')
-        hs.timer.doAfter(0.1, function() ks.key('i').enter().up() end)
+        hs.timer.doAfter(0.1, function()
+            ks.key('i').enter().up()
+        end)
     elseif appIs(finder) then
         ks.cmd('n')
     else
@@ -107,7 +117,9 @@ function Tab.closeAllToLeft()
     elseif appIncludes({atom, sublime}) then
         ks.super('tab').sequence({'x', 'h'})
 
-        if appIs(sublime) then ks.type('Close Tabs to Left').enter() end
+        if appIs(sublime) then
+            ks.type('Close Tabs to Left').enter()
+        end
     end
 end
 
@@ -117,7 +129,9 @@ function Tab.closeAllToRight()
     elseif appIncludes({atom, sublime}) then
         ks.super('tab').sequence({'x', 'l'})
 
-        if appIs(sublime) then ks.type('Close Tabs to Right').enter() end
+        if appIs(sublime) then
+            ks.type('Close Tabs to Right').enter()
+        end
     end
 end
 
@@ -129,7 +143,9 @@ function Tab.closeAllOthers()
     elseif appIncludes({atom, sublime}) then
         ks.super('tab').sequence({'x', ';'})
 
-        if appIs(sublime) then ks.type('Close Other Tabs').enter() end
+        if appIs(sublime) then
+            ks.type('Close Other Tabs').enter()
+        end
     end
 end
 
@@ -139,7 +155,9 @@ function Tab.closeAll()
     elseif appIs(sublime) then
         ks.super('tab').sequence({'x', ';'})
 
-        if appIs(sublime) then ks.type('Close All Tabs').enter() end
+        if appIs(sublime) then
+            ks.type('Close All Tabs').enter()
+        end
     elseif appIs(vscode) then
         ks.super('e').super('[')
     end
@@ -149,7 +167,9 @@ function Tab.closePrevious()
     Tab.previous()
     Tab.closeCurrent()
 
-    if not appIs(vscode) then Tab.next() end
+    if not appIs(vscode) then
+        Tab.next()
+    end
 end
 
 function Tab.closeNext()
@@ -157,6 +177,10 @@ function Tab.closeNext()
     Tab.closeCurrent()
 end
 
-function Tab.manage() if appIs(chrome) then ks.shiftCmd('m') end end
+function Tab.manage()
+    if appIs(chrome) then
+        ks.shiftCmd('m')
+    end
+end
 
 return Tab

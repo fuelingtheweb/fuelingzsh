@@ -20,7 +20,7 @@ Yank.lookup = {
     c = 'withWrapperKey',
     v = 'line',
     b = 'withWrapperKey',
-    spacebar = nil
+    spacebar = nil,
 }
 
 function Yank.word()
@@ -45,7 +45,11 @@ function Yank.toEndOfWord()
     end
 end
 
-function Yank.relativeFilePath() if inCodeEditor() then ks.super('y') end end
+function Yank.relativeFilePath()
+    if inCodeEditor() then
+        ks.super('y')
+    end
+end
 
 function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
@@ -99,12 +103,15 @@ function Yank.toTopOfPage()
     end
 end
 
-function Yank.untilForward() ks.escape().sequence({'y', 't'}) end
+function Yank.untilForward()
+    ks.escape().sequence({'y', 't'})
+end
 
-function Yank.untilBackward() ks.escape().key('y').shift('t') end
+function Yank.untilBackward()
+    ks.escape().key('y').shift('t')
+end
 
 function Yank.all()
-
     if inCodeEditor() then
         ks.cmd('a').copy().escape().sequence({'g', 'g'})
     else

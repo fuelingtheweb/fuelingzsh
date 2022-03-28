@@ -8,7 +8,7 @@ hs.screen.watcher.new(function()
 end):start()
 
 wf = hs.window.filter
-windowsForCreatedHook = wf.new{'Sublime Text', 'Notion', 'Atom', 'Google Chrome', 'Discord', 'Microsoft Teams', 'Finder'}
+windowsForCreatedHook = wf.new {'Sublime Text', 'Notion', 'Atom', 'Google Chrome', 'Discord', 'Microsoft Teams', 'Finder'}
 allwindows = wf.new(nil)
 allwindows:rejectApp('Hammerspoon'):rejectApp('Alfred'):rejectApp('Shortcat')
 hs.window.animationDuration = 0
@@ -47,10 +47,10 @@ end
 
 -- windowsForCreatedHook:subscribe(wf.windowCreated, windowCreated)
 
-allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
+allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     app = hs.application.frontmostApplication()
     count = 0
-    for k,v in pairs(app:visibleWindows()) do
+    for k, v in pairs(app:visibleWindows()) do
         if (appIs(preview) or appIs(finder)) and v:title() == '' then
         else
             count = count + 1
@@ -64,7 +64,7 @@ allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
         end
     end
 
-    if not (window:application():bundleID() == chrome and stringContains("Untitled %- Google Chrome", window:title())) then
+    if not (window:application():bundleID() == chrome and stringContains('Untitled %- Google Chrome', window:title())) then
         for key, value in pairs(openWindows) do
             if window:id() == value then
                 table.remove(openWindows, key)
@@ -73,7 +73,7 @@ allwindows:subscribe(wf.windowDestroyed, function (window, appName, reason)
     end
 end)
 
-gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function (paths)
+gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
     shouldRun = true
     each(paths, function(path)
         if stringContains('.pyc', path) then
@@ -87,7 +87,7 @@ gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/go
     end
 end)
 
-karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function ()
+karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
     output = hs.execute('/usr/local/bin/goku')
     hs.notify.new({title = 'Karabiner Config', informativeText = output}):send()
 end)
