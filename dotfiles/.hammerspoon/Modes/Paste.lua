@@ -8,7 +8,7 @@ Paste.lookup = {
     e = 'toEndOfWord',
     r = nil,
     t = Brackets.pasteInside,
-    caps_lock = 'pasteSurround',
+    caps_lock = nil,
     a = 'toEndOfLine',
     s = Brackets.pasteInside,
     d = Brackets.pasteInside,
@@ -115,31 +115,5 @@ function Paste.backward()
         ks.shift('p')
     end
 end
-
--- Modal.add({
---     key: 'PasteSurround',
---     title: 'Paste Surround',
---     items: Paste.lookup,
---     callback = function(key)
---         Modal.exit()
-
---         keystroke = Brackets.actionInsideLookup[key]
-
---         ks.escape()
---         ks.key('c')
---         ks.key('a')
---         ks.fire(keystroke.mods, keystroke.key)
-
---         if not hasValue({'s', 'd', 't'}, key) then
---             Brackets.start()
---         end
---     end,
--- })
-
--- function Paste.pasteSurround()
---     if is.codeEditor() then
---         ks.shift('p')
---     end
--- end
 
 return Paste
