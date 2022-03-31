@@ -32,7 +32,7 @@ function Media.startOfVideoOrPreviousVideo()
 end
 
 function Media.spotifyMini()
-    triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
+    fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
 end
 
 function Media.deafen()
@@ -46,7 +46,7 @@ function Media.nextVideo()
 end
 
 function Media.sound()
-    triggerAlfredSearch('Sound')
+    fn.Alfred.search('Sound')
 end
 
 function Media.showVideoBar()
@@ -74,7 +74,7 @@ function Media.showVideoBar()
 end
 
 function Media.focus()
-    if appIs(chrome) then
+    if is.chrome() then
         title = currentTitle()
         if stringContains('Funimation', title) then
             ks.type('gf')
@@ -91,7 +91,7 @@ function Media.focus()
 end
 
 function Media.fullscreen()
-    if appIs(chrome) then
+    if is.chrome() then
         title = currentTitle()
 
         if stringContains('Funimation', title) then
@@ -107,7 +107,7 @@ function Media.updateAudioDevice()
 end
 
 function Media.videoBack()
-    if appIs(chrome) and stringContains('Funimation', currentTitle()) then
+    if is.chrome() and stringContains('Funimation', currentTitle()) then
         ks.shift('left')
     else
         ks.left()
@@ -115,7 +115,7 @@ function Media.videoBack()
 end
 
 function Media.videoForward()
-    if appIs(chrome) and stringContains('Funimation', currentTitle()) then
+    if is.chrome() and stringContains('Funimation', currentTitle()) then
         ks.shift('right')
     else
         ks.right()

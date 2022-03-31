@@ -111,7 +111,7 @@ function Paste.pasteFirst()
 end
 
 function Paste.pasteNext()
-    triggerAlfredWorkflow('paste:next', 'com.fuelingtheweb.commands')
+    fn.Alfred.run('paste:next', 'com.fuelingtheweb.commands')
 end
 
 function Paste.primaryVim()
@@ -123,7 +123,7 @@ function Paste.secondaryVim()
 end
 
 function Paste.backward()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.shift('p')
     end
 end
@@ -149,7 +149,7 @@ end
 -- })
 
 -- function Paste.pasteSurround()
---     if inCodeEditor() then
+--     if is.codeEditor() then
 --         ks.shift('p')
 --     end
 -- end

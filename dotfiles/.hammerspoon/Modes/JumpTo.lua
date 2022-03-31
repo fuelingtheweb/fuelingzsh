@@ -93,7 +93,7 @@ function JumpTo.beginJumpingForward()
         return
     end
 
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.key('l')
 
         JumpTo.paused = true
@@ -111,7 +111,7 @@ function JumpTo.beginJumpingBackward()
         return
     end
 
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.key('h').shift('t')
     end
 end

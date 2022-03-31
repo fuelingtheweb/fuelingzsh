@@ -46,7 +46,7 @@ function Vi.moveToNextWholeWord()
 end
 
 function Vi.moveToTopOfPage()
-    if appIs(finder) then
+    if is.finder() then
         ks.alt('up')
     else
         ks.cmd('up')
@@ -58,7 +58,7 @@ function Vi.moveToFirstCharacterOfLine()
 end
 
 function Vi.moveToEndOfLine()
-    if appIs(atom) then
+    if is.In(atom) then
         ks.super('4')
     else
         ks.cmd('right')
@@ -66,9 +66,9 @@ function Vi.moveToEndOfLine()
 end
 
 function Vi.moveAndInsertAtFirstCharacterOfLine()
-    if appIs(atom) then
+    if is.In(atom) then
         ks.super('i')
-    elseif appIncludes({sublime, vscode}) then
+    elseif is.In(sublime, vscode) then
         ks.escape().shift('i')
     else
         Vi.moveToFirstCharacterOfLine()
@@ -76,9 +76,9 @@ function Vi.moveAndInsertAtFirstCharacterOfLine()
 end
 
 function Vi.moveAndAppendAtEndOfLine()
-    if appIs(atom) then
+    if is.In(atom) then
         ks.super('o')
-    elseif appIncludes({sublime, vscode}) then
+    elseif is.In(sublime, vscode) then
         ks.escape().shift('a')
     else
         Vi.moveToEndOfLine()
@@ -86,7 +86,7 @@ function Vi.moveAndAppendAtEndOfLine()
 end
 
 function Vi.moveToBottomOfPage()
-    if appIs(finder) then
+    if is.finder() then
         ks.alt('down')
     else
         ks.cmd('down')

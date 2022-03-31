@@ -50,18 +50,18 @@ function Code.unfold()
 end
 
 function Code.moveLineDown()
-    if appIs(notion) then
+    if is.In(notion) then
         ks.shiftCmd('down')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         -- Atom, Sublime: Move line down
         ks.ctrlCmd('down')
     end
 end
 
 function Code.moveLineUp()
-    if appIs(notion) then
+    if is.In(notion) then
         ks.shiftCmd('up').shiftCmd('up')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.ctrlCmd('up')
     end
 end
@@ -71,7 +71,7 @@ function Code.goToDefinition()
 end
 
 function Code.toggleSemicolon()
-    if inCodeEditor() then
+    if is.codeEditor() then
         return ks.alt(';')
     end
 
@@ -102,7 +102,7 @@ function Code.multipleCursorsDown()
 end
 
 function Code.toggleComma()
-    if inCodeEditor() then
+    if is.codeEditor() then
         return ks.alt(',')
     end
 

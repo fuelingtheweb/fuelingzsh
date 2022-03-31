@@ -18,7 +18,7 @@ CaseDialog.lookup = {
 
 function CaseDialog.handle(key)
     if CaseDialog.lookup[key] then
-        triggerAlfredWorkflow(
+        fn.Alfred.run(
             'case-dialog',
             'com.fuelingtheweb.commands',
             CaseDialog.lookup[key]

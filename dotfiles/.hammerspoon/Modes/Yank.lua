@@ -46,7 +46,7 @@ function Yank.toEndOfWord()
 end
 
 function Yank.relativeFilePath()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.super('y')
     end
 end
@@ -55,7 +55,7 @@ function Yank.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'y', 'i'})
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.sequence({'\\', 'w'})
         else
             ks.key('q')
@@ -96,7 +96,7 @@ function Yank.character()
 end
 
 function Yank.toTopOfPage()
-    if appIs(notion) then
+    if is.In(notion) then
         ks.cmd('a').copy().right()
     else
         ks.shiftCmd('up').copy().right()
@@ -112,7 +112,7 @@ function Yank.untilBackward()
 end
 
 function Yank.all()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.cmd('a').copy().escape().sequence({'g', 'g'})
     else
         ks.cmd('a').slow().copy().right()

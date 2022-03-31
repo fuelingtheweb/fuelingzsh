@@ -19,7 +19,7 @@ Modal.add({
     defaults = false,
     items = {
         ['return'] = function()
-            if inCodeEditor() then
+            if is.codeEditor() then
                 Modal.exit()
                 ks.enter()
             end
@@ -30,11 +30,11 @@ Modal.add({
 })
 
 function TextManipulation.canManipulateWithVim()
-    if not TextManipulation.vimEnabled or isAlfredVisible() then
+    if not TextManipulation.vimEnabled or fn.Alfred.visible() then
         return false
     end
 
-    if inCodeEditor() then
+    if is.codeEditor() then
         return true
     end
 

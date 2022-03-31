@@ -1,12 +1,12 @@
 local CodeSnippets = {}
 CodeSnippets.__index = CodeSnippets
 
-loadModal('CodeSnippets.Method')
-loadModal('CodeSnippets.Function')
-loadModal('CodeSnippets.CallFunction')
-loadModal('CodeSnippets.Extra')
-loadModal('CodeSnippets.General')
-loadModal('CodeSnippets.Equals')
+Modal.load('CodeSnippets.Method')
+Modal.load('CodeSnippets.Function')
+Modal.load('CodeSnippets.CallFunction')
+Modal.load('CodeSnippets.Extra')
+Modal.load('CodeSnippets.General')
+Modal.load('CodeSnippets.Equals')
 
 CodeSnippets.lookup = {
     e = 'snippet-elseif',
@@ -38,7 +38,7 @@ CodeSnippets.lookup = {
 }
 
 function CodeSnippets.handle(key)
-    if appIs(sublime) and titleContains('EOD.md') and key == 'semicolon' then
+    if is.sublime() and titleContains('EOD.md') and key == 'semicolon' then
         ks.key('o').slow().enter().type(';dte')
         hs.timer.doAfter(0.2, function()
             ks.slow().enter().type('- ').escape()
@@ -71,11 +71,11 @@ function CodeSnippets.snippet(name)
     local original = hs.pasteboard.getContents()
     hs.pasteboard.setContents('snippet-' .. name)
 
-    if appIs(vscode) then
+    if is.vscode() then
         ks.ctrlCmd('s').paste().slow().enter()
 
         if hasValue({'if'}, name) then BracketMatching.start() end
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.type('snippet-' .. name).tab()
     else
         ks.type('snippet-' .. name).enter()
@@ -95,7 +95,7 @@ function CodeSnippets.functionSnippet()
 end
 
 function CodeSnippets.this()
-    if appIncludes({atom, vscode}) then
+    if is.In(atom, vscode) then
         ks.slow().shiftCtrl('c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then
@@ -103,7 +103,7 @@ function CodeSnippets.this()
         end
     end
 
-    if appIncludes({atom, sublime, vscode}) then
+    if is.codeEditor() then
         CodeSnippets.snippet('this')
     end
 end
@@ -170,7 +170,7 @@ function CodeSnippets.handleCallFunction(item)
 end
 
 function CodeSnippets.printFunction(item, text)
-    if text and inCodeEditor() then
+    if text and is.codeEditor() then
         ks.shift('delete').shiftCmd('i')
     end
 
@@ -200,7 +200,7 @@ function CodeSnippets.printFunction(item, text)
 end
 
 function CodeSnippets.conditionalAnd()
-    if isLua() then
+    if is.lua() then
         ks.type(' and ')
     else
         ks.type(' && ')
@@ -213,7 +213,7 @@ function CodeSnippets.conditionalOr()
         {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
         -- ['fallback'] = ' || ',
     })
-    -- if isLua() then
+    -- if is.lua() then
     --     ks.type(' or ')
     -- else
     --     ks.type(' || ')
@@ -223,7 +223,7 @@ end
 function CodeSnippets.concatenate()
     if titleContains('.php') then
         ks.type(' . ')
-    elseif isLua() then
+    elseif is.lua() then
         ks.type(' .. ')
     elseif titleContains('.js') then
         ks.type(' + ')

@@ -1,9 +1,9 @@
 local Open = {}
 Open.__index = Open
 
-loadCustomModal('Frequent')
-loadCustomModal('Bookmarks')
-loadModal('OpenIn')
+Modal.loadCustom('Frequent')
+Modal.loadCustom('Bookmarks')
+Modal.load('OpenIn')
 
 Open.lookup = {
     tab = nil,
@@ -62,7 +62,7 @@ Modal.add({
 })
 
 -- function Open.before()
---     if inCodeEditor() then
+--     if is.codeEditor() then
 --         md.Hyper.forceEscape()
 --     end
 -- end
@@ -118,7 +118,7 @@ function Open.fallback(value, key)
 end
 
 function Open.launchApp(id)
-    bundle = apps[id]
+    bundle = fn.app.bundles[id]
 
     if not bundle then
         return hs.application.open(id)
@@ -128,7 +128,7 @@ function Open.launchApp(id)
     isActive = app:bundleID() == bundle
 
     if id == 'iterm' then
-        launchIterm()
+        fn.iTerm.launch()
     elseif not isActive then
         app = hs.application.get(bundle)
 
@@ -148,18 +148,6 @@ function Open.launchApp(id)
     end
 end
 
-function launchIterm(callback)
-    bundle = apps['iterm']
-    app = hs.application.get(bundle)
-
-    if app and app:isRunning() then
-        triggerItermShortcut(callback)
-    else
-        hs.application.open(bundle)
-        hs.timer.doAfter(1, function() triggerItermShortcut(callback) end)
-    end
-end
-
 function triggerItermShortcut(callback)
     ks.key('`')
 
@@ -169,7 +157,7 @@ function triggerItermShortcut(callback)
 end
 
 function Open.spotify()
-    if appIs(spotify) then
+    if is.In(spotify) then
         return md.WindowManager.next()
     end
 

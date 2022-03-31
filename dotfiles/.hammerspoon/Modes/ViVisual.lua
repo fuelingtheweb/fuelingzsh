@@ -28,7 +28,7 @@ ViVisual.lookup = {
 function ViVisual.selectToPreviousSubword()
     md.SelectUntil.beginSelectingBackward()
 
-    if appIs(vscode) then
+    if is.vscode() then
         ks.sequence({'\\', 'b'})
     else
         ks.shift('q')
@@ -38,7 +38,7 @@ end
 function ViVisual.selectToNextSubword()
     md.SelectUntil.beginSelectingForward()
 
-    if appIs(vscode) then
+    if is.vscode() then
         ks.sequence({'\\', 'e'})
     else
         ks.key('q')
@@ -59,15 +59,15 @@ function ViVisual.selectToNextWholeWord()
     md.SelectUntil.beginSelectingForward()
     ks.shift('w')
 
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.key('h')
     end
 end
 
 function ViVisual.selectToTopOfPage()
-    if appIs(finder) then
+    if is.finder() then
         ks.shiftAlt('up')
-    elseif appIs(vscode) and TextManipulation.vimEnabled then
+    elseif is.vscode() and TextManipulation.vimEnabled then
         md.SelectUntil.beginSelectingForward()
         ks.sequence({'g', 'g'})
     else
@@ -80,7 +80,7 @@ function ViVisual.selectToFirstCharacterOfLine()
 end
 
 function ViVisual.selectToEndOfLine()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').shift('4').left()
     else
         ks.shiftCmd('right')
@@ -88,9 +88,9 @@ function ViVisual.selectToEndOfLine()
 end
 
 function ViVisual.selectToBottomOfPage()
-    if appIs(finder) then
+    if is.finder() then
         ks.shiftAlt('down')
-    elseif appIs(vscode) and TextManipulation.vimEnabled then
+    elseif is.vscode() and TextManipulation.vimEnabled then
         md.SelectUntil.beginSelectingForward()
         ks.shift('g')
     else
@@ -103,7 +103,7 @@ function ViVisual.selectLineUp()
         ks.shift('v')
     end
 
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.key('k')
     else
         ks.up()
@@ -115,7 +115,7 @@ function ViVisual.selectLineDown()
         ks.shift('v')
     end
 
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.key('j')
     else
         ks.down()
@@ -123,9 +123,9 @@ function ViVisual.selectLineDown()
 end
 
 function ViVisual.selectLeft()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').left()
-    elseif inCodeEditor() and TextManipulation.vimEnabled then
+    elseif is.codeEditor() and TextManipulation.vimEnabled then
         ks.super('v').left()
     else
         ks.shift('left')
@@ -133,19 +133,19 @@ function ViVisual.selectLeft()
 end
 
 function ViVisual.selectDown()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').ctrl('down')
     else
         ks.shift('down')
 
-        if inCodeEditor() then
+        if is.codeEditor() then
             ks.shift('left')
         end
     end
 end
 
 function ViVisual.selectUp()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').ctrl('up')
     else
         ks.shift('up')
@@ -153,7 +153,7 @@ function ViVisual.selectUp()
 end
 
 function ViVisual.selectRight()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').right()
     else
         ks.shift('right')
@@ -161,10 +161,10 @@ function ViVisual.selectRight()
 end
 
 function ViVisual.selectPreviousWord()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').key('b')
         return
-    elseif inCodeEditor() and TextManipulation.vimEnabled then
+    elseif is.codeEditor() and TextManipulation.vimEnabled then
         ks.super('v').left()
     end
 
@@ -172,7 +172,7 @@ function ViVisual.selectPreviousWord()
 end
 
 function ViVisual.selectNextWord()
-    if appIs(vscode) and TextManipulation.vimEnabled then
+    if is.vscode() and TextManipulation.vimEnabled then
         ks.ctrl('v').key('e')
         return
     else

@@ -8,7 +8,7 @@ Modal.add({
         n = 'new ',
         m = function()
             Modal.exit()
-            if isLua() then
+            if is.lua() then
                 ks.type('nil')
             else
                 ks.type('null')

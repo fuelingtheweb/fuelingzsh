@@ -26,7 +26,7 @@ ExtendedCommand.lookup = {
 }
 
 function ExtendedCommand.sleep()
-    triggerAlfredSearch('sleep')
+    fn.Alfred.search('sleep')
 end
 
 function ExtendedCommand.screenshotToFilesystem()
@@ -81,14 +81,14 @@ end
 
 function ExtendedCommand.surroundText()
     ks.copy()
-    triggerAlfredWorkflow('surround', 'com.fuelingtheweb.commands')
+    fn.Alfred.run('surround', 'com.fuelingtheweb.commands')
 end
 
 function ExtendedCommand.reloadSecondary()
-    if appIs(chrome) then
+    if is.chrome() then
         -- Hard refresh
         ks.shiftCmd('r')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         -- Reload running command
         ks.ctrl('c').up().enter()
     end
@@ -96,16 +96,16 @@ end
 
 function ExtendedCommand.saveAndReload()
     ks.escape().slow().save()
-    hs.application.get(apps['chrome']):activate()
+    hs.application.get(chrome):activate()
     ks.slow().refresh()
 end
 
 function ExtendedCommand.jumpTo()
-    if appIs(vscode) then
+    if is.vscode() then
         ks.super('return')
-    elseif appIs(atom) then
+    elseif is.In(atom) then
         ks.shift('return')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.shiftCmd('.')
     else
         ks.ctrl('space')

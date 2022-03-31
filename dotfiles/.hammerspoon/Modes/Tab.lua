@@ -39,9 +39,9 @@ function Tab.pin()
 end
 
 function Tab.previous()
-    if appIs(tableplus) then
+    if is.In(tableplus) then
         ks.cmd('[')
-    elseif appIncludes({teams, discord}) then
+    elseif is.In(teams, discord) then
         -- Teams: Move to next conversation / channel
         ks.alt('down')
     else
@@ -50,9 +50,9 @@ function Tab.previous()
 end
 
 function Tab.next()
-    if appIs(tableplus) then
+    if is.In(tableplus) then
         ks.cmd(']')
-    elseif appIncludes({teams, discord}) then
+    elseif is.In(teams, discord) then
         -- Teams: Move to previous conversation / channel
         ks.alt('up')
     else
@@ -61,23 +61,23 @@ function Tab.next()
 end
 
 function Tab.moveLeft()
-    if appIs(chrome) then
+    if is.chrome() then
         -- Vimium
         ks.escape().type('th')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.shiftAltCmd('left')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.shiftCmd('left')
     end
 end
 
 function Tab.moveRight()
-    if appIs(chrome) then
+    if is.chrome() then
         -- Vimium
         ks.escape().type('tl')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.shiftAltCmd('right')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.shiftCmd('right')
     end
 end
@@ -85,7 +85,7 @@ end
 function Tab.closeCurrent()
     ks.close()
 
-    if appIs(chrome) then
+    if is.chrome() then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
 
@@ -101,20 +101,20 @@ function Tab.restore()
 end
 
 function Tab.moveToNewWindow()
-    if appIs(sublime) then
+    if is.sublime() then
         ks.cmd('a').copy().close().key('space').shiftCmd('n').key('p')
-    elseif appIs(chrome) then
+    elseif is.chrome() then
         ks.shift('w')
     end
 end
 
 function Tab.new()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.cmd('n')
         hs.timer.doAfter(0.1, function()
             ks.key('i').enter().up()
         end)
-    elseif appIs(finder) then
+    elseif is.finder() then
         ks.cmd('n')
     else
         ks.cmd('t')
@@ -122,53 +122,53 @@ function Tab.new()
 end
 
 function Tab.closeAllToLeft()
-    if appIs(chrome) then
+    if is.chrome() then
         ks.type('txh')
-    elseif appIncludes({atom, sublime}) then
+    elseif is.In(atom, sublime) then
         ks.super('tab').sequence({'x', 'h'})
 
-        if appIs(sublime) then
+        if is.sublime() then
             ks.type('Close Tabs to Left').enter()
         end
     end
 end
 
 function Tab.closeAllToRight()
-    if appIs(chrome) then
+    if is.chrome() then
         ks.type('txl')
-    elseif appIncludes({atom, sublime}) then
+    elseif is.In(atom, sublime) then
         ks.super('tab').sequence({'x', 'l'})
 
-        if appIs(sublime) then
+        if is.sublime() then
             ks.type('Close Tabs to Right').enter()
         end
     end
 end
 
 function Tab.closeAllOthers()
-    if appIs(chrome) then
+    if is.chrome() then
         ks.type('tx;')
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('e').super('/')
-    elseif appIncludes({atom, sublime}) then
+    elseif is.In(atom, sublime) then
         ks.super('tab').sequence({'x', ';'})
 
-        if appIs(sublime) then
+        if is.sublime() then
             ks.type('Close Other Tabs').enter()
         end
     end
 end
 
 function Tab.closeAll()
-    if appIs(atom) then
+    if is.In(atom) then
         ks.super('x')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.super('tab').sequence({'x', ';'})
 
-        if appIs(sublime) then
+        if is.sublime() then
             ks.type('Close All Tabs').enter()
         end
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('e').super('[')
     end
 end
@@ -177,7 +177,7 @@ function Tab.closePrevious()
     Tab.previous()
     Tab.closeCurrent()
 
-    if not appIs(vscode) then
+    if is.notIn(vscode) then
         Tab.next()
     end
 end
@@ -188,7 +188,7 @@ function Tab.closeNext()
 end
 
 function Tab.manage()
-    if appIs(chrome) then
+    if is.chrome() then
         ks.shiftCmd('m')
     end
 end

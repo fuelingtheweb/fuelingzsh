@@ -1,23 +1,21 @@
 Shortcuts
     :add('W', {slack = function()
-        slackReaction(':wave:')
+        fn.Slack.react(':wave:')
     end})
     :add('R', {
-        slack = function()
-            slackReaction()
-        end,
+        slack = fn.Slack.react,
         atom = function()
             path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
-                openInAtom(path .. '/routes/web.php')
+                fn.Atom.open(path .. '/routes/web.php')
             end
         end,
         vscode = function()
             path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
-                openInCode(path .. '/routes/web.php')
+                fn.Code.open(path .. '/routes/web.php')
             end
         end,
         sublime = function()
@@ -25,7 +23,7 @@ Shortcuts
             path = currentTitle():match('^~%S+' .. root)
 
             if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
-                openInSublime(path .. '/routes/web.php')
+                fn.Sublime.open(path .. '/routes/web.php')
             end
         end
     })
@@ -35,18 +33,18 @@ Shortcuts
             path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/.env') then
-                openInAtom(path .. '/.env')
+                fn.Atom.open(path .. '/.env')
             elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
-                openInAtom(path .. '/wp-config.php')
+                fn.Atom.open(path .. '/wp-config.php')
             end
         end,
         vscode = function()
             path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/.env') then
-                openInCode(path .. '/.env')
+                fn.Code.open(path .. '/.env')
             elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
-                openInCode(path .. '/wp-config.php')
+                fn.Code.open(path .. '/wp-config.php')
             end
         end,
         sublime = function()
@@ -54,15 +52,15 @@ Shortcuts
             path = currentTitle():match('^~%S+' .. root)
 
             if hs.fs.pathToAbsolute(path .. '/.env') then
-                openInSublime(path .. '/.env')
+                fn.Sublime.open(path .. '/.env')
             elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
-                openInSublime(path .. '/wp-config.php')
+                fn.Sublime.open(path .. '/wp-config.php')
             end
         end
     })
     :add('S', {
         atom = function()
-            openInSublime('/Users/nathan/Development/Atom/fueling-snippets/snippets')
+            fn.Sublime.open('/Users/nathan/Development/Atom/fueling-snippets/snippets')
         end,
         sublime = 'BetterSnippetManager: Edit Snippets'
     })

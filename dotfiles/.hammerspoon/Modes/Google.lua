@@ -30,7 +30,7 @@ function Google.custom(key)
 end
 
 function Google.inbox()
-    openInChrome('https://inbox.google.com')
+    fn.Chrome.open('https://inbox.google.com')
 end
 
 function Google.profiles()
@@ -42,7 +42,7 @@ function Google.groupTab()
 end
 
 function Google.history()
-    triggerAlfredWorkflow('history', 'com.thomasupton.chrome-history')
+    fn.Alfred.run('history', 'com.thomasupton.chrome-history')
 end
 
 function Google.lastpass()
@@ -62,7 +62,7 @@ function Google.newBookmark()
 end
 
 function Google.bookmarks()
-    triggerAlfredWorkflow('bookmarks', 'com.chrome.bookmarks')
+    fn.Alfred.run('bookmarks', 'com.chrome.bookmarks')
 end
 
 function Google.toggleDevTools()
@@ -74,7 +74,7 @@ function Google.toggleDevToolsDocking()
 end
 
 function Google.openAndReload()
-    hs.application.get(apps['chrome']):activate()
+    hs.application.get(chrome):activate()
     ks.refresh()
 end
 

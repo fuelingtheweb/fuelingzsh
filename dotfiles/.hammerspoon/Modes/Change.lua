@@ -49,7 +49,7 @@ function Change.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'c', 'i'})
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.sequence({'\\', 'w'})
         else
             ks.key('q')
@@ -60,7 +60,7 @@ end
 function Change.word()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'c', 'i', 'w'})
-    elseif appIs(iterm) and not isAlfredVisible() then
+    elseif is.iterm() and not fn.Alfred.visible() then
         ks.escape().type('ciw')
     else
         ks.alt('delete')
@@ -86,7 +86,7 @@ end
 function Change.line()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'c', 'c'})
-    elseif appIs(iterm) and not isAlfredVisible() then
+    elseif is.iterm() and not fn.Alfred.visible() then
         ks.escape().type('cc')
     else
         ks.cmd('left').shiftCmd('right').delete()
@@ -97,7 +97,7 @@ function Change.character()
     if TextManipulation.canManipulateWithVim() then
         ks.ctrlAlt('a')
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.right()
         end
     end

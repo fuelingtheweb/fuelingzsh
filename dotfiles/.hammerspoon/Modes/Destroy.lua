@@ -30,7 +30,7 @@ function Destroy.withWrapperKey(key)
 end
 
 function Destroy.simpleDelete()
-    if inCodeEditor() then
+    if is.codeEditor() then
         BracketMatching.cancel()
         BracketMatching.start()
     else
@@ -50,7 +50,7 @@ function Destroy.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'d', 'i'})
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.sequence({'\\', 'w'})
         else
             ks.key('q')
@@ -61,7 +61,7 @@ end
 function Destroy.word()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'d', 'i', 'w'})
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.ctrl('w')
     else
         ks.alt('delete')
@@ -80,7 +80,7 @@ function Destroy.toBeginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
 
-        if appIs(vscode) then
+        if is.vscode() then
             md.SelectUntil.beginningOfLine()
         else
             ks.shiftCmd('left')
@@ -157,7 +157,7 @@ Destroy.actions = {
             return
         end
 
-        if inCodeEditor() then
+        if is.codeEditor() then
             Destroy.keymap[Destroy.key]()
             ks.key('k')
         end
@@ -174,7 +174,7 @@ Destroy.actions = {
             return
         end
 
-        if inCodeEditor() then
+        if is.codeEditor() then
             Destroy.keymap[Destroy.key]()
         end
     end,
@@ -213,7 +213,7 @@ function Destroy.untilBackward()
 end
 
 function Destroy.backward()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.super('v').escape().left().key('x')
     end
 end

@@ -34,18 +34,18 @@ function Execute.goToDefinition()
     end
 
     hs.timer.doAfter(0.2, function()
-        goToFileInAtom(text)
+        fn.Code.openFile(text)
     end)
 end
 
 function Execute.openLink()
-    if appIncludes({sublime, vscode}) then
+    if is.In(sublime, vscode) then
         ks.altCmd('return')
     end
 end
 
 function Execute.openPath()
-    if not inCodeEditor() then
+    if not is.codeEditor() then
         return
     end
 
@@ -60,7 +60,7 @@ function Execute.openPath()
     path = path:gsub('^/', '')
 
     hs.timer.doAfter(0.2, function()
-        goToFileInAtom(path)
+        fn.Code.openFile(path)
     end)
 end
 

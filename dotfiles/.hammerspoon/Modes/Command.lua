@@ -29,7 +29,7 @@ function Command.shiftTab()
 end
 
 function Command.alfredCommands()
-    triggerAlfredWorkflow('commands', 'com.fuelingtheweb.commands')
+    fn.Alfred.run('commands', 'com.fuelingtheweb.commands')
 end
 
 function Command.atomGitPalette()
@@ -37,7 +37,7 @@ function Command.atomGitPalette()
 end
 
 function Command.duplicateLine()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.shiftCmd('d')
     end
 end
@@ -46,28 +46,28 @@ function Command.duplicate()
     local text = getSelectedText()
 
     if text then
-        if inCodeEditor() then
+        if is.codeEditor() then
             ks.super('d')
         else
             ks.right().type(text)
         end
-    elseif appIs(finder) then
+    elseif is.finder() then
         ks.cmd('d')
-    elseif appIs(chrome) then
+    elseif is.chrome() then
         -- Vimium
         ks.escape().type('yt')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.shiftAltCmd('d')
         TextManipulation.disableVim()
     end
 end
 
 function Command.reload()
-    if appIncludes({atom, vscode}) then
+    if is.In(atom, vscode) then
         ks.super('r')
-    elseif appIs(postman) then
+    elseif is.In(postman) then
         ks.cmd('return')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         -- Run last command
         ks.up().enter()
     else
@@ -76,38 +76,41 @@ function Command.reload()
 end
 
 function Command.edit()
-    triggerAlfredWorkflow('edit', 'com.sztoltz.editwith')
+    fn.Alfred.run('edit', 'com.sztoltz.editwith')
 end
 
 function Command.finish()
-    if appIs(sublime) then
+    if is.sublime() then
         if titleContains('com%.sztoltz%.editwith') then
-            triggerAlfredWorkflow('finish', 'com.sztoltz.editwith')
+            fn.Alfred.run('finish', 'com.sztoltz.editwith')
         else
             -- Plain Tasks: Complete
             ks.super('d')
         end
-    elseif appIs(transmit) then
+    elseif is.In(transmit) then
         -- Disconnect from server
         ks.cmd('e')
+    elseif is.vscode() and titleContains('.git/COMMIT_EDITMSG') then
+        ks.save().close()
+        fn.iTerm.launch()
     else
         ks.cmd('return')
     end
 end
 
 function Command.save()
-    if appIs(chrome) then
+    if is.chrome() then
         -- Save to Raindrop
         ks.shiftCmd('s')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         -- Save from Vim
         ks.shift(';').key('x').enter()
     else
         log.d('Saving with cmd+s...')
         ks.save()
 
-        -- if inCodeEditor() then ks.escape() end
-        if inCodeEditor() then ks.escape() end
+        -- if is.codeEditor() then ks.escape() end
+        if is.codeEditor() then ks.escape() end
     end
 end
 
@@ -116,16 +119,16 @@ function Command.cancelOrDelete()
 
     if text then
         ks.delete()
-    elseif appIs(sublime) and titleContains('.todo') then
+    elseif is.sublime() and titleContains('.todo') then
         ks.ctrl('c')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.shiftCmd('delete')
-    elseif appIncludes({transmit, finder}) then
+    elseif is.In(transmit, finder) then
         ks.cmd('delete')
-    elseif appIs(chrome) and
+    elseif is.chrome() and
         stringContains('Fueling the Web Mail', currentTitle()) then
         ks.shift('3')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.ctrl('c')
     else
         ks.delete()

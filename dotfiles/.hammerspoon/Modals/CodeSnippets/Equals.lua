@@ -77,7 +77,7 @@ function mdl.paste()
 end
 
 function mdl.simpleNotEquals()
-    if isLua() then
+    if is.lua() then
         ks.type(' ~= ')
     else
         ks.type(' != ')
@@ -86,7 +86,7 @@ function mdl.simpleNotEquals()
 end
 
 function mdl.strictNotEquals()
-    if isLua() then
+    if is.lua() then
         ks.type(' ~== ')
     else
         ks.type(' !== ')

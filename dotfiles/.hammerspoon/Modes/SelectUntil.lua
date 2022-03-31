@@ -101,11 +101,11 @@ function SelectUntil.beginSelectingForward()
         return
     end
 
-    if appIs(vscode) then
+    if is.vscode() then
         ks.ctrl('v')
-    elseif appIs(atom) then
+    elseif is.In(atom) then
         ks.super('v').key('l')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.super('v')
     end
 end
@@ -115,9 +115,9 @@ function SelectUntil.beginSelectingBackward()
         return
     end
 
-    if appIs(vscode) then
+    if is.vscode() then
         ks.ctrl('v')
-    elseif inCodeEditor() then
+    elseif is.codeEditor() then
         ks.super('v').key('h')
     end
 end
@@ -308,7 +308,7 @@ function SelectUntil.beginningOfLine()
     if TextManipulation.canManipulateWithVim() then
         ks.escape()
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.key('v').shift('6')
         else
             ks.right().shiftCmd('left')

@@ -45,7 +45,7 @@ function Cheatsheets.items()
     each(spoon.KarabinerHandler.lookup, function(mode, modifier)
         local name = mode
 
-        if isTable(mode) then
+        if is.Table(mode) then
             name = ''
 
             each(mode, function(mode, app)
@@ -94,7 +94,7 @@ function Cheatsheets.nestedItems(mode)
         name = (
             (key == 'left_shift' and '(left_shift) ' or nil)
                 or (key == 'right_shift' and '(right_shift) ' or '')
-            ) .. (isString(method) and method or '')
+            ) .. (is.String(method) and method or '')
         items[Cheatsheets.lookupKeys[key] or key] = {name = name, mode = mode, actionKey = key}
     end)
 

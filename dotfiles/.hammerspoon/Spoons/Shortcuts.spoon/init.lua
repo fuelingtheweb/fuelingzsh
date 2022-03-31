@@ -2,15 +2,15 @@ local Shortcuts = {}
 Shortcuts.__index = Shortcuts
 Shortcuts.all = {}
 Shortcuts.appFunctionMapping = {
-    notion = 'openNotionPage',
-    discord = 'openDiscordChannel',
-    slack = 'openSlackChannel',
-    iterm = 'typeAndEnter',
-    atom = 'triggerInAtom',
-    sublime = 'triggerInAtom',
-    vscode = 'triggerInCode',
+    notion = fn.Notion.openPage,
+    discord = fn.Discord.openChannel,
+    slack = fn.Slack.openChannel,
+    iterm = ks.typeAndEnter,
+    atom = fn.Code.run,
+    sublime = fn.Code.run,
+    vscode = fn.Code.run,
     chrome = '',
-    {app = 'atom', key = 'atomFile', func = 'goToFileInAtom'},
+    {app = 'atom', key = 'atomFile', func = fn.Code.openFile},
 }
 
 function Shortcuts:add(key, mapping)
@@ -59,9 +59,11 @@ function Shortcuts:trigger(key)
             shortcutKey = value['key']
         end
 
-        if appIs(_G[app]) and shortcut[shortcutKey] then
+        if is.In(_G[app]) and shortcut[shortcutKey] then
             if type(shortcut[shortcutKey]) == 'function' then
                 shortcut[shortcutKey]()
+            elseif is.Function(func) then
+                func(shortcut[shortcutKey])
             else
                 _G[func](shortcut[shortcutKey])
             end

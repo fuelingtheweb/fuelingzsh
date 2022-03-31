@@ -148,6 +148,10 @@ function Keystroke.type(text)
     return Keystroke
 end
 
+function Keystroke.typeAndEnter(text)
+    return Keystroke.type(text).enter()
+end
+
 function Keystroke.slow(delay)
     Keystroke.delay = delay or nil
 

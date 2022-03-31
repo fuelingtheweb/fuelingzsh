@@ -6,34 +6,34 @@ function Search.symbol()
 end
 
 function Search.files()
-    triggerAlfredSearch('open ')
+    fn.Alfred.search('open ')
 end
 
 function Search.google()
-    triggerAlfredWorkflow('google', 'com.akikoz.alfred.websearchsuggest')
+    fn.Alfred.run('google', 'com.akikoz.alfred.websearchsuggest')
 end
 
 function Search.amazon()
-    triggerAlfredWorkflow('amazon', 'com.akikoz.alfred.websearchsuggest')
+    fn.Alfred.run('amazon', 'com.akikoz.alfred.websearchsuggest')
 end
 
 function Search.viaAlfred()
-    triggerAlfredSearch('search:')
+    fn.Alfred.search('search:')
 end
 
 function Search.default()
-    if inCodeEditor() then
+    if is.codeEditor() then
         TextManipulation.disableVim()
         ks.key('/')
     end
 end
 
 function Search.tabs()
-    if appIs(atom) then
+    if is.In(atom) then
         ks.cmd('b')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.shiftAlt('p')
-    elseif appIs(chrome) then
+    elseif is.chrome() then
         ks.shift('t')
     end
 end
@@ -67,7 +67,7 @@ function Search.loadWindowsInAlfred(windows, minimum)
 
     hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/windows.json', false, true)
 
-    triggerAlfredWorkflow('windows', 'com.fuelingtheweb.commands')
+    fn.Alfred.run('windows', 'com.fuelingtheweb.commands')
 end
 
 function Search.allWindows()
@@ -87,7 +87,7 @@ function Search.allWindows()
 end
 
 function Search.window()
-    if inCodeEditor() then
+    if is.codeEditor() then
         ks.shiftCmd('f')
         TextManipulation.disableVim()
     else

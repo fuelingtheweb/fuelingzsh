@@ -1,8 +1,10 @@
 local obj = {}
 obj.__index = obj
 
+log = hs.logger.new('ftw-log', 'debug')
+
 hs.urlevent.bind('misc-optionPressedOnce', function()
-    if appIs(spotify) then
+    if is.In(spotify) then
         md.WindowManager.next()
     else
         md.Media.showVideoBar()

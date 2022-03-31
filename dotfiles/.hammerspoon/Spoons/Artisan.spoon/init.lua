@@ -257,7 +257,7 @@ function Artisan.start()
         Artisan.mainPath = path
         Artisan.path = path .. '/artisan'
 
-        triggerAlfredWorkflow('artisan', 'com.fuelingtheweb.commands')
+        fn.Alfred.run('artisan', 'com.fuelingtheweb.commands')
     else
         ray('artisan not found')
     end
@@ -326,7 +326,7 @@ hs.urlevent.bind('artisan', function(eventName, params)
     command = Artisan.commands[Artisan.command]
 
     if command.args then
-        return triggerAlfredWorkflow(
+        return fn.Alfred.run(
             'artisan-command',
             'com.fuelingtheweb.commands',
             command.name

@@ -15,7 +15,7 @@ Hyper.lookup = {
     l = 'nextPage',
     semicolon = 'nextWindowInCurrentApp',
     quote = 'nextWindow',
-    return_or_enter = 'capsLock',
+    return_or_enter = function() hs.hid.capslock.set(true) end,
     n = 'new',
     m = 'alfred',
     comma = ks.undo,
@@ -29,7 +29,7 @@ Hyper.lookup = {
 function Hyper.copy()
     text = getSelectedText(true)
 
-    if appIs(spotify) then
+    if is.In(spotify) then
         hs.osascript.applescript([[
             tell application "Spotify"
                 set theTrack to name of the current track
@@ -48,9 +48,9 @@ function Hyper.copy()
         ]])
     elseif text then
         -- Already in clipboard, do not reset
-    elseif appIs(chrome) then
-        copyChromeUrl()
-    elseif inCodeEditor() then
+    elseif is.chrome() then
+        fn.Chrome.copyUrl()
+    elseif is.codeEditor() then
         md.Yank.relativeFilePath()
     end
 end
@@ -88,29 +88,29 @@ function Hyper.open()
     --         ks.cmd('p')
     --     end},
     --     {{discord, slack}, _(ks.fire, {'cmd'}, 'k')},
-    --     {spotify, _(triggerAlfredWorkflow, 'spot_mini', 'com.vdesabou.spotify.mini.player')},
+    --     {spotify, _(fn.Alfred.run, 'spot_mini', 'com.vdesabou.spotify.mini.player')},
     --     {chrome, _(ks.fire, {'shift'}, 'o')},
     --     {'fallback', _(ks.fire, {'cmd'}, 'o')},
     -- })
 
-    if appIncludes({notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker}) then
+    if is.In(notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker) then
         ks.cmd('p')
 
-        if inCodeEditor() then
+        if is.codeEditor() then
             TextManipulation.disableVim()
             -- Modal.enter('Hyper:open')
         end
-    elseif appIncludes({discord, slack}) then
+    elseif is.In(discord, slack) then
         ks.cmd('k')
-    elseif appIs(spotify) then
-        triggerAlfredWorkflow('spot_mini', 'com.vdesabou.spotify.mini.player')
-    elseif appIs(chrome) then
-        if urlContains('github.com') then
+    elseif is.In(spotify) then
+        fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
+    elseif is.chrome() then
+        if fn.Chrome.urlContains('github.com') then
             ks.cmd('k')
         else
             ks.shift('o')
         end
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.type('cd ')
     else
         ks.cmd('o')
@@ -118,13 +118,13 @@ function Hyper.open()
 end
 
 function Hyper.new()
-    if appIs(atom) then
+    if is.In(atom) then
         TextManipulation.disableVim()
         ks.altCmd('o')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         TextManipulation.disableVim()
         ks.altCmd('n')
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         TextManipulation.disableVim()
         ks.altCmd('n')
     else
@@ -133,28 +133,28 @@ function Hyper.new()
 end
 
 function Hyper.commandPalette()
-    if appIncludes({atom, vscode, sublime, sublimeMerge}) then
+    if is.In(atom, vscode, sublime, sublimeMerge) then
         ks.shiftCmd('p')
 
-        if inCodeEditor() then
+        if is.codeEditor() then
             TextManipulation.disableVim()
         end
     else
-        triggerAlfredWorkflow('search', 'com.tedwise.menubarsearch')
+        fn.Alfred.run('search', 'com.tedwise.menubarsearch')
     end
 end
 
 function Hyper.previousPage()
-    if appIs(spotify) then
+    if is.In(spotify) then
         ks.altCmd('left')
-    elseif appIs(discord) then
+    elseif is.In(discord) then
         ks.cmd('k').enter()
-    elseif appIs(atom) then
+    elseif is.In(atom) then
         -- Atom: Cursor History: Previous
         ks.shiftAlt('i')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.ctrl('-')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.type('cdp').enter()
     else
         ks.cmd('[')
@@ -170,15 +170,15 @@ function Hyper.nextTab()
 end
 
 function Hyper.nextPage()
-    if appIs(spotify) then
+    if is.In(spotify) then
         ks.altCmd('right')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         -- Autocomplete to the end of the line
         ks.super(';')
-    elseif appIs(atom) then
+    elseif is.In(atom) then
         -- Atom: Cursor History: Next
         ks.ctrl('o')
-    elseif appIs(sublime) then
+    elseif is.sublime() then
         ks.shiftCtrl('-')
     else
         ks.cmd(']')
@@ -198,11 +198,7 @@ function Hyper.paste()
 end
 
 function Hyper.pasteStrip()
-    triggerAlfredWorkflow('paste:strip', 'com.fuelingtheweb.commands')
-end
-
-function Hyper.capsLock()
-    ks.key('caps_lock')
+    fn.Alfred.run('paste:strip', 'com.fuelingtheweb.commands')
 end
 
 function Hyper.alfred()

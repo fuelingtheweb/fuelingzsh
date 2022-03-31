@@ -26,10 +26,10 @@ Modal.add({
         Modal.exit()
 
         if item.method == 'primary' then
-            if appIncludes({atom, vscode}) and titleContains('Test.php') then
+            if is.In(atom, vscode) and titleContains('Test.php') then
                 md.CodeSnippets.snippet('method-test')
                 md.CaseDialog.handle('k')
-            elseif inCodeEditor() then
+            elseif is.codeEditor() then
                 md.CodeSnippets.snippet('method')
                 md.CaseDialog.handle('m')
             end

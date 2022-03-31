@@ -94,9 +94,9 @@ function BracketMatching.print(bracket)
     end
 
     if text then
-        if appIs(vscode) then
+        if is.vscode() then
             ks.shiftAltCmd('delete')
-        elseif inCodeEditor() then
+        elseif is.codeEditor() then
             ks.shift('delete').shiftCmd('i')
         end
     end
@@ -125,9 +125,9 @@ function BracketMatching.commitOrDismiss()
     BracketMatching.dismiss()
 
     if text then
-        if appIs(vscode) then
+        if is.vscode() then
             ks.slow().key('c').undo().shiftAltCmd('delete')
-        elseif inCodeEditor() then
+        elseif is.codeEditor() then
             ks.shift('delete').shiftCmd('i')
         end
     end
@@ -188,7 +188,7 @@ end
 function BracketMatching.continueChain()
     Modal.exit()
     ks.right()
-    if isLua() then
+    if is.lua() then
         ks.type('.')
     else
         ks.type('->')

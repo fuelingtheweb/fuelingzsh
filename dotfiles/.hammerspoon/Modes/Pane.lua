@@ -26,49 +26,49 @@ Pane.lookup = {
 }
 
 function Pane.destroy()
-    if appIncludes({atom, sublime}) then
+    if is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'd', 's'})
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('p').super('d')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.close()
     end
 end
 
 function Pane.splitRight()
-    if appIncludes({atom, sublime}) then
+    if is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'c', 'l'})
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('p').super('l')
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.cmd('d')
     end
 end
 
 function Pane.splitBottom()
-    if appIncludes({atom, sublime}) then
+    if is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'c', 'j'})
     end
 end
 
 function Pane.toggleZoom()
-    if appIncludes({atom, sublime}) then
+    if is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'z'})
-    elseif appIs(iterm) then
+    elseif is.iterm() then
         ks.shiftCmd('return')
     end
 end
 
 function Pane.focusPrevious()
-    if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
+    if is.chrome() and stringContains('Google Sheets', currentTitle()) then
         ks.alt('up')
-    elseif appIncludes({atom, sublime}) then
+    elseif is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'h'})
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('p').super('k')
-    elseif appIs(transmit) then
+    elseif is.In(transmit) then
         ks.altCmd('left')
-    elseif appIs(tableplus) then
+    elseif is.In(tableplus) then
         ks.altCmd('[')
     else
         ks.cmd('[')
@@ -76,15 +76,15 @@ function Pane.focusPrevious()
 end
 
 function Pane.focusNext()
-    if appIs(chrome) and stringContains('Google Sheets', currentTitle()) then
+    if is.chrome() and stringContains('Google Sheets', currentTitle()) then
         ks.alt('down')
-    elseif appIncludes({atom, sublime}) then
+    elseif is.In(atom, sublime) then
         ks.super('p').sequence({'o', 'l'})
-    elseif appIs(vscode) then
+    elseif is.vscode() then
         ks.super('p').super('j')
-    elseif appIs(transmit) then
+    elseif is.In(transmit) then
         ks.altCmd('right')
-    elseif appIs(tableplus) then
+    elseif is.In(tableplus) then
         ks.altCmd(']')
     else
         ks.cmd(']')
@@ -92,7 +92,7 @@ function Pane.focusNext()
 end
 
 function Pane.focusOtherSide()
-    if appIs(vscode) then
+    if is.vscode() then
         ks.super('p').super(';')
     end
 end

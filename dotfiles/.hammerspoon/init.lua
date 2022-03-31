@@ -1,7 +1,25 @@
 hs.hotkey.alertDuration = 0
 
-hs.loadSpoon('Variables')
 hs.loadSpoon('Functions')
+
+fn = {
+    app = require('Helpers.App'),
+    is = require('Helpers.Is'),
+    Alfred = require('Apps.Alfred'),
+    Atom = require('Apps.Atom'),
+    Chrome = require('Apps.Chrome'),
+    Code = require('Apps.Code'),
+    Discord = require('Apps.Discord'),
+    iTerm = require('Apps.iTerm'),
+    Notion = require('Apps.Notion'),
+    Slack = require('Apps.Slack'),
+    Sublime = require('Apps.Sublime'),
+}
+
+is = fn.is
+
+fn.app.loadBundleVariables()
+
 hs.loadSpoon('Watchers')
 
 Ray = hs.loadSpoon('Ray')
@@ -16,4 +34,4 @@ hs.loadSpoon('Search')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 
-loadModal('Cheatsheets')
+Modal.load('Cheatsheets')

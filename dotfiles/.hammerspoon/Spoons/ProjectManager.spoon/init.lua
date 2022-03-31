@@ -164,7 +164,7 @@ function ProjectManager.openUrlForCurrent()
     site = ProjectManager.current()
 
     if site.attributes.url then
-        return openInChrome(site.attributes.url)
+        return fn.Chrome.open(site.attributes.url)
     end
 end
 
@@ -233,35 +233,29 @@ function ProjectManager.getByShortcutKey(key)
     return {attributes = {}}
 end
 
-function Site:openInChrome()
-    if self.attributes.path then
-        openInChrome(self.attributes.url)
-    end
-end
-
 function Site:open()
     if self.attributes.path then
-        openInAtom('~/' .. self.attributes.path)
-        openInChrome(self.attributes.url)
-        openInIterm('/Users/nathan/' .. self.attributes.path)
+        fn.Atom.open('~/' .. self.attributes.path)
+        fn.Chrome.open(self.attributes.url)
+        fn.iTerm.open('/Users/nathan/' .. self.attributes.path)
     end
 end
 
 function Site:openInAtom()
     if self.attributes.path then
-        openInAtom('~/' .. self.attributes.path)
+        fn.Atom.open('~/' .. self.attributes.path)
     end
 end
 
 function Site:openInCode()
     if self.attributes.path then
-        openInCode('~/' .. self.attributes.path)
+        fn.Code.open('~/' .. self.attributes.path)
     end
 end
 
 function Site:openInChrome()
     if self.attributes.path then
-        openInChrome(self.attributes.url)
+        fn.Chrome.open(self.attributes.url)
     end
 end
 

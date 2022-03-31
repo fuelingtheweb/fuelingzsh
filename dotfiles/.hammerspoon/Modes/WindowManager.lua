@@ -112,7 +112,7 @@ end
 function WindowManager.nextInCurrentApp()
     md.Open.windowHintsForCurrentApplication()
     ks.key('b')
-    -- if appIs(chrome) then
+    -- if is.chrome() then
     --     return
     -- end
 
@@ -140,7 +140,7 @@ function WindowManager.nextInCurrentApp()
 end
 
 function WindowManager.appSettings()
-    if isAlfredVisible() then
+    if fn.Alfred.visible() then
         hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     else
         ks.cmd(',')
@@ -156,13 +156,13 @@ function WindowManager.moveMouseToOtherScreen()
 end
 
 function WindowManager.toggleSidebar()
-    if appIs(finder) then
+    if is.finder() then
         ks.altCmd('s')
-    elseif appIs(sublimeMerge) then
+    elseif is.In(sublimeMerge) then
         ks.cmd('k').cmd('b')
-    elseif appIs(slack) then
+    elseif is.In(slack) then
         ks.shiftCmd('d')
-    elseif appIs(tableplus) then
+    elseif is.In(tableplus) then
         ks.cmd('0')
     else
         ks.cmd('\\')
@@ -170,21 +170,21 @@ function WindowManager.toggleSidebar()
 end
 
 function WindowManager.scrollScreenWithCursorAtEnd()
-    if inCodeEditor() then
+    if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 'b'})
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtCenter()
-    if inCodeEditor() then
+    if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 'z'})
     end
 end
 
 function WindowManager.scrollScreenWithCursorAtTop()
-    if inCodeEditor() then
+    if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 't'})
     end
@@ -212,21 +212,21 @@ function WindowManager.toggleCodeFocus()
 end
 
 function WindowManager.focusSidebarFileExplorer()
-    triggerInCode('Focus on Files Explorer')
+    fn.Code.run('Focus on Files Explorer')
 end
 
 function WindowManager.focusSidebarSourceControl()
-    triggerInCode('Focus on Source Control View')
+    fn.Code.run('Focus on Source Control View')
 end
 
 function WindowManager.destroy()
-    if appIs(finder) then
+    if is.finder() then
         ks.close()
     else
         ks.shiftCmd('w')
     end
 
-    if appIs(chrome) then
+    if is.chrome() then
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
 

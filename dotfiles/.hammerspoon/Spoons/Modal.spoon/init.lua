@@ -42,9 +42,9 @@ function Modal.add(meta)
 
     if meta.items then
         each(meta.items, function(item, key)
-            if isFunction(item) then
+            if is.Function(item) then
                 meta.modal:bind('', key, nil, item)
-            elseif isTable(item) and item.items then
+            elseif is.Table(item) and item.items then
                 if not item.callback then
                     item.key = meta.key .. '.' .. item.key
                     item.callback = meta.callback
@@ -60,7 +60,7 @@ function Modal.add(meta)
                     Modal.exit()
                     Modal.enter(item.key)
                 end)
-            elseif isTable(item) and item.key then
+            elseif is.Table(item) and item.key then
                 meta.modal:bind(
                     item.shift and {'shift'} or '',
                     item.key,
@@ -69,11 +69,11 @@ function Modal.add(meta)
                         meta.callback(item.value)
                     end
                 )
-            elseif isTable(item) then
+            elseif is.Table(item) then
                 meta.modal:bind('', key, item.name or nil, function()
                     meta.callback(item)
                 end)
-            elseif isString(item) then
+            elseif is.String(item) then
                 meta.modal:bind('', key, item, function()
                     if item == 'exit' then
                         return Modal.exit()
@@ -116,7 +116,7 @@ function Modal.add(meta)
         meta.modal:bind('', '-', 'Edit Hammerspoon', function()
             Modal.exit()
 
-            openInSublime('~/.hammerspoon')
+            fn.Sublime.open('~/.hammerspoon')
             hs.timer.doAfter(0.1, md.Hyper.open)
         end)
     end
@@ -170,6 +170,14 @@ function Modal.toggleCheatsheet(key)
     else
         spoon.ModalMgr:toggleCheatsheet()
     end
+end
+
+function Modal.loadCustom(modal)
+    return require('config.custom.Modals.' .. modal)
+end
+
+function Modal.load(modal)
+    return require('Modals.' .. modal)
 end
 
 return Modal

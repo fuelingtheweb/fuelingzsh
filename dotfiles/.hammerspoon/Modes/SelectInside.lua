@@ -33,7 +33,7 @@ function SelectInside.subword()
     if TextManipulation.canManipulateWithVim() then
         ks.escape().sequence({'v', 'i'})
 
-        if appIs(vscode) then
+        if is.vscode() then
             ks.sequence({'\\', 'w'})
         else
             ks.key('q')

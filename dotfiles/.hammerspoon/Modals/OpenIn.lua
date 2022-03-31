@@ -20,7 +20,7 @@ Modal.add({
         OpenIn[item.method]()
 
         hs.timer.doAfter(
-            appIs(iterm) and 2 or 0.5,
+            is.iterm() and 2 or 0.5,
             function()
                 md.WindowManager.moveTo('maximize')
             end
@@ -29,7 +29,7 @@ Modal.add({
 })
 
 function OpenIn.inSublimeMerge()
-    if appIs(iterm) then
+    if is.iterm() then
         ks.type('smerge .').enter()
     else
         local path = currentTitle():match('~%S+')
@@ -45,19 +45,19 @@ function OpenIn.inSublimeMerge()
 end
 
 function OpenIn.inSublime()
-    if appIs(iterm) then
+    if is.iterm() then
         ks.type('st.').enter()
     else
         path = currentTitle():match('~%S+')
 
-        if appIncludes({atom, vscode}) then
+        if is.In(atom, vscode) then
             md.Yank.relativeFilePath()
 
             hs.timer.doAfter(0.2, function()
                 filePath = hs.pasteboard.getContents()
 
                 if path and filePath then
-                    openInSublime(path .. '/' .. filePath)
+                    fn.Sublime.open(path .. '/' .. filePath)
                 end
             end)
         end
@@ -66,32 +66,32 @@ function OpenIn.inSublime()
             return
         end
 
-        openInSublime(path)
+        fn.Sublime.open(path)
     end
 end
 
 function OpenIn.inAtom()
-    if appIs(iterm) then
+    if is.iterm() then
         ks.type('atom .').enter()
     else
-        triggerAlfredWorkflow('projects', 'com.fuelingtheweb.commands')
+        fn.Alfred.run('projects', 'com.fuelingtheweb.commands')
     end
 end
 
 function OpenIn.inCode()
-    if appIs(iterm) then
+    if is.iterm() then
         ks.type('code .').enter()
     else
         path = currentTitle():match('~%S+')
 
-        if appIs(atom) then
+        if is.In(atom) then
             md.Yank.relativeFilePath()
 
             hs.timer.doAfter(0.2, function()
                 filePath = hs.pasteboard.getContents()
 
                 if path and filePath then
-                    openInCode(path .. '/' .. filePath)
+                    fn.Code.open(path .. '/' .. filePath)
                 end
             end)
         end
@@ -100,31 +100,33 @@ function OpenIn.inCode()
             return
         end
 
-        openInCode(path)
+        fn.Code.open(path)
     end
 end
 
 function OpenIn.inChrome()
     text = getSelectedText()
 
-    if not appIncludes({atom, sublime}) and text then
-        runGoogleSearch(text)
-    elseif appIs(chrome) then
-        copyChromeUrl()
-        openInChrome(getSelectedText())
+    if is.notIn(atom, sublime) and text then
+        fn.Chrome.searchGoogle(text)
+    elseif is.chrome() then
+        fn.Chrome.copyUrl()
+        fn.Chrome.open(getSelectedText())
     else
         ProjectManager.openUrlForCurrent()
     end
 end
 
 function OpenIn.inTablePlus()
-    customOpenInTablePlus()
+    if not ProjectManager:openDatabaseForCurrent() then
+        fn.Alfred.run('tableplus', 'com.chrisrenga.tableplus')
+    end
 
     hs.timer.doAfter(0.5, function() md.Hyper.open() end)
 end
 
 function OpenIn.inFinder()
-    if appIs(iterm) then
+    if is.iterm() then
         ks.type('o.').enter()
     else
         path = currentTitle():match('~%S+')
@@ -133,7 +135,7 @@ function OpenIn.inFinder()
             return
         end
 
-        if appIs(atom) then
+        if is.In(atom) then
             hs.execute('open ' .. path)
         else
             hs.execute('open -R ' .. path)
@@ -142,7 +144,7 @@ function OpenIn.inFinder()
 end
 
 function OpenIn.inTinkerwell()
-    if appIs(iterm) then
+    if is.iterm() then
         return ks.type('tinkerwell .').enter()
     end
 

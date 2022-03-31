@@ -26,7 +26,7 @@ Modal.add({
     callback = function(item)
         Modal.exit()
 
-        if isTable(item) then
+        if is.Table(item) then
             ks.type(item.value)
 
             if item.callback then

@@ -103,7 +103,7 @@ function KarabinerHandler.loadModes(modes)
             return
         end
 
-        if isTable(mode) then
+        if is.Table(mode) then
             return KarabinerHandler.loadModes(mode)
         end
 
@@ -117,7 +117,7 @@ end
 
 function KarabinerHandler.setupMode(mode)
     each(mode.lookup or {}, function(callable, key)
-        if not isTable(callable) then
+        if not is.Table(callable) then
             return
         end
 
@@ -159,10 +159,10 @@ function KarabinerHandler.handle(mode, key)
     elseif Mode.lookup and Mode.lookup[key] then
         local callable = Mode.lookup[key]
 
-        if isTable(callable) then
+        if is.Table(callable) then
             log.d('Calling Pending.run')
             Pending.run(callable)
-        elseif isFunction(callable) then
+        elseif is.Function(callable) then
             log.d('Calling callable()')
             callable()
         elseif callable then
@@ -191,15 +191,15 @@ function KarabinerHandler.callback(key)
 
     log.d('-----------------------Handling Binding-----------------------')
 
-    if isTable(mode) then
+    if is.Table(mode) then
         each(mode, function(m, app)
-            if (isTable(mode) and app == 'default') or appIs(apps[app]) then
+            if (is.Table(mode) and app == 'default') or is.In(fn.app.bundles[app]) then
                 mode = m
             end
         end)
     end
 
-    if isString(mode) then
+    if is.String(mode) then
         log.d('String Mode: ' .. mode)
         KarabinerHandler.handle(mode, key)
     end
@@ -272,7 +272,7 @@ function KarabinerHandler.compileJson()
     local items = {}
 
     each(KarabinerHandler.lookup, function(mode, key)
-        if isTable(mode) then
+        if is.Table(mode) then
             return
         end
 
@@ -282,7 +282,7 @@ function KarabinerHandler.compileJson()
 
         if Mode.lookup then
             each(Mode.lookup, function(action, key)
-                if isTable(action) then
+                if is.Table(action) then
                     return
                 end
 
