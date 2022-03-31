@@ -41,12 +41,12 @@ Modal.add({
             mdl[item.method]()
         elseif item.bracket then
             mdl.equals()
-            BracketMatching.print(item.bracket)
+            Brackets.print(item.bracket)
         elseif item.text then
             ks.type(item.text)
 
             if hasValue({' === ', ' == '}, item.text) then
-                BracketMatching.start()
+                Brackets.start()
             end
         end
     end
@@ -54,7 +54,7 @@ Modal.add({
 
 function mdl.equals()
     ks.type(' = ')
-    BracketMatching.start()
+    Brackets.start()
 end
 
 function mdl.thisSnippet()
@@ -68,7 +68,7 @@ end
 
 function mdl.simpleDoubleQuote()
     ks.type('=""').slow().left()
-    BracketMatching.start()
+    Brackets.start()
 end
 
 function mdl.paste()
@@ -81,7 +81,7 @@ function mdl.simpleNotEquals()
         ks.type(' ~= ')
     else
         ks.type(' != ')
-        BracketMatching.start()
+        Brackets.start()
     end
 end
 
@@ -90,7 +90,7 @@ function mdl.strictNotEquals()
         ks.type(' ~== ')
     else
         ks.type(' !== ')
-        BracketMatching.start()
+        Brackets.start()
     end
 end
 

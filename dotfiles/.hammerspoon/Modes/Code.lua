@@ -119,7 +119,7 @@ end
 
 function Code.doubleArrow()
     ks.type(' => ')
-    BracketMatching.start()
+    Brackets.start()
 end
 
 function Code.goToMatchingPair()

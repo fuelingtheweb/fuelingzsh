@@ -1,10 +1,10 @@
-local BracketMatching = {}
-BracketMatching.__index = BracketMatching
+local Brackets = {}
+Brackets.__index = Brackets
 
-BracketMatching.multi = false
-BracketMatching.brackets = {}
+Brackets.multi = false
+Brackets.brackets = {}
 
-BracketMatching.lookup = {
+Brackets.lookup = {
     singleQuote = {"'", "'"},
     doubleQuote = {'"', '"'},
     backTick = {'`', '`'},
@@ -15,8 +15,18 @@ BracketMatching.lookup = {
     tag = {'<', '>'},
 }
 
+Brackets.actionInsideLookup = {
+    t = {mods = {}, key = 't'}, -- t -> tag
+    s = {mods = {}, key = "'"}, -- s -> single quotes
+    d = {mods = {'shift'}, key = "'"}, -- d -> double quotes
+    z = {mods = {}, key = 'z'}, -- z -> back ticks
+    f = {mods = {'shift'}, key = '9'}, -- f -> parenthesis
+    c = {mods = {'shift'}, key = '['}, -- c -> braces
+    b = {mods = {}, key = '['}, -- b -> brackets
+}
+
 Modal.add({
-    key = 'BracketMatching',
+    key = 'Brackets',
     title = 'Bracket Matching',
     items = {
         -- numbers
@@ -53,41 +63,41 @@ Modal.add({
         space = {bracket = 'space'},
     },
     callback = function(item)
-        BracketMatching.start()
+        Brackets.start()
 
         if item.action then
-            return BracketMatching[item.action]()
+            return Brackets[item.action]()
         end
 
-        BracketMatching.print(item.bracket)
+        Brackets.print(item.bracket)
     end,
     beforeExit = function()
-        BracketMatching.commitOrDismiss()
+        Brackets.commitOrDismiss()
 
         return true
     end,
     exited = function()
-        BracketMatching.multi = false
-        BracketMatching.brackets = {}
+        Brackets.multi = false
+        Brackets.brackets = {}
     end,
 })
 
-function BracketMatching.startMulti()
-    BracketMatching.multi = true
-    BracketMatching.start()
+function Brackets.startMulti()
+    Brackets.multi = true
+    Brackets.start()
 end
 
-function BracketMatching.print(bracket)
-    if BracketMatching.multi then
-        table.insert(BracketMatching.brackets, bracket)
+function Brackets.print(bracket)
+    if Brackets.multi then
+        table.insert(Brackets.brackets, bracket)
         return
     end
 
-    local brackets = BracketMatching.lookup[bracket]
+    local brackets = Brackets.lookup[bracket]
     -- local text = getSelectedText()
     local text = nil
 
-    BracketMatching.start()
+    Brackets.start()
 
     if hasValue({'singleQuote', 'doubleQuote', 'tag'}, bracket) then
         Modal.exit()
@@ -102,7 +112,7 @@ function BracketMatching.print(bracket)
     end
 
     if text then
-        BracketMatching.dismiss()
+        Brackets.dismiss()
     end
 
     ks.type(brackets[1] .. (text or '') .. brackets[2])
@@ -110,19 +120,19 @@ function BracketMatching.print(bracket)
     ks.left()
 end
 
-function BracketMatching.start()
-    Modal.enter('BracketMatching')
+function Brackets.start()
+    Modal.enter('Brackets')
 end
 
-function BracketMatching.commitOrDismiss()
-    if not BracketMatching.multi then
-        return BracketMatching.dismiss()
+function Brackets.commitOrDismiss()
+    if not Brackets.multi then
+        return Brackets.dismiss()
     end
 
     local text = getSelectedText()
-    local brackets = hs.fnutils.copy(BracketMatching.brackets)
+    local brackets = hs.fnutils.copy(Brackets.brackets)
 
-    BracketMatching.dismiss()
+    Brackets.dismiss()
 
     if text then
         if is.vscode() then
@@ -135,57 +145,57 @@ function BracketMatching.commitOrDismiss()
     local result = ''
 
     each(brackets, function(bracket)
-        result = result .. BracketMatching.lookup[bracket][1]
+        result = result .. Brackets.lookup[bracket][1]
     end)
 
     if text then result = result .. text end
 
     for i = #brackets, 1, -1 do
-        result = result .. BracketMatching.lookup[brackets[i]][2]
+        result = result .. Brackets.lookup[brackets[i]][2]
     end
 
     ks.type(result)
 end
 
-function BracketMatching.dismiss()
+function Brackets.dismiss()
     Modal.exit()
 end
 
-function BracketMatching.newLine()
+function Brackets.newLine()
     Modal.exit()
     ks.enter()
 end
 
-function BracketMatching.cancel()
+function Brackets.cancel()
     ks.right().delete().delete()
 end
 
-function BracketMatching.left()
+function Brackets.left()
     Modal.exit()
     ks.left()
 end
 
-function BracketMatching.right()
+function Brackets.right()
     Modal.exit()
     ks.right()
 end
 
-function BracketMatching.paste()
+function Brackets.paste()
     Modal.exit()
     ks.paste()
 end
 
-function BracketMatching.insertComma()
+function Brackets.insertComma()
     Modal.exit()
     ks.right().type(',')
 end
 
-function BracketMatching.insertSemicolon()
+function Brackets.insertSemicolon()
     Modal.exit()
     ks.right().type(';')
 end
 
-function BracketMatching.continueChain()
+function Brackets.continueChain()
     Modal.exit()
     ks.right()
     if is.lua() then
@@ -196,28 +206,63 @@ function BracketMatching.continueChain()
     -- Modal.enter('CodeSnippets:callFunction')
 end
 
-function BracketMatching.insertVariable()
+function Brackets.insertVariable()
     Modal.exit()
     ks.type('$')
 end
 
-function BracketMatching.onlyOpening()
+function Brackets.onlyOpening()
     ks.right().delete()
 end
 
-function BracketMatching.onlyClosing()
+function Brackets.onlyClosing()
     ks.delete().right()
 end
 
-function BracketMatching.functionSnippet()
+function Brackets.functionSnippet()
     Modal.exit()
     md.CodeSnippets.snippet('function')
-    BracketMatching.start()
+    Brackets.start()
 end
 
-function BracketMatching.thisSnippet()
+function Brackets.thisSnippet()
     Modal.exit()
     md.CodeSnippets.snippet('this')
 end
 
-return BracketMatching
+function Brackets.selectInside(key)
+    Brackets.actionInside('v', key)
+end
+
+function Brackets.destroyInside(key)
+    Brackets.actionInside('d', key)
+end
+
+function Brackets.yankInside(key)
+    Brackets.actionInside('y', key)
+end
+
+function Brackets.pasteInside(key)
+    Brackets.selectInside(key)
+    md.Paste.primaryVim()
+end
+
+function Brackets.changeInside(key)
+    Brackets.actionInside('c', key)
+
+    if not hasValue({'s', 'd', 't'}, key) then
+        Brackets.start()
+    end
+end
+
+function Brackets.actionInside(action, key)
+    if is.notVimMode() then
+        return
+    end
+
+    keystroke = Brackets.actionInsideLookup[key]
+
+    ks.escape().sequence({action, 'i'}).fire(keystroke.mods, keystroke.key)
+end
+
+return Brackets

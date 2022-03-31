@@ -18,7 +18,7 @@ Modal.add({
             md.CodeSnippets.snippet('function-' .. item.method)
         end
 
-        BracketMatching.start()
+        Brackets.start()
     end,
 })
 

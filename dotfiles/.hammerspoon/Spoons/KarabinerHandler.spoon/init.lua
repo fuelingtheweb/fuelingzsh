@@ -164,7 +164,7 @@ function KarabinerHandler.handle(mode, key)
             Pending.run(callable)
         elseif is.Function(callable) then
             log.d('Calling callable()')
-            callable()
+            callable(key)
         elseif callable then
             if Mode[callable] then
                 log.d('Calling Mode.callable(key)')

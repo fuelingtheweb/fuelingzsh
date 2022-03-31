@@ -7,36 +7,24 @@ Paste.lookup = {
     w = 'word',
     e = 'toEndOfWord',
     r = nil,
-    t = 'withWrapperKey',
+    t = Brackets.pasteInside,
     caps_lock = 'pasteSurround',
     a = 'toEndOfLine',
-    s = 'withWrapperKey',
-    d = 'withWrapperKey',
-    f = 'withWrapperKey',
+    s = Brackets.pasteInside,
+    d = Brackets.pasteInside,
+    f = Brackets.pasteInside,
     g = 'toBeginningOfLine',
     left_shift = {'primaryVim', 'secondaryVim'},
-    z = 'withWrapperKey',
+    z = Brackets.pasteInside,
     x = 'character',
-    c = 'withWrapperKey',
+    c = Brackets.pasteInside,
     v = 'line',
-    b = 'withWrapperKey',
+    b = Brackets.pasteInside,
     spacebar = ks.paste,
 }
 
 function Paste.before()
     spoon.KarabinerHandler.currentKey = nil
-end
-
-function Paste.withWrapperKey(key)
-    if not TextManipulation.canManipulateWithVim() then
-        return
-    end
-
-    Paste.pastePending(function()
-        keystroke = TextManipulation.wrapperKeyLookup[key]
-
-        ks.sequence({'v', 'i'}).fire(keystroke.mods, keystroke.key)
-    end)
 end
 
 function Paste.toEndOfWord()
@@ -62,7 +50,7 @@ end
 
 function Paste.toEndOfLine()
     Paste.pastePending(
-        function() ks.key('v').shiftCmd('right') end,
+        function() ks.key('v').shift('4') end,
         function() ks.shiftCmd('right') end
     )
 end
@@ -94,7 +82,7 @@ function Paste.pastePending(selectTextWhenInVim, selectTextWhenInDefault)
 end
 
 function Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape()
         selectTextWhenInVim()
     else
@@ -103,7 +91,7 @@ function Paste.selectText(selectTextWhenInVim, selectTextWhenInDefault)
 end
 
 function Paste.pasteFirst()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         Paste.primaryVim()
     else
         Paste.default()
@@ -135,7 +123,7 @@ end
 --     callback = function(key)
 --         Modal.exit()
 
---         keystroke = TextManipulation.wrapperKeyLookup[key]
+--         keystroke = Brackets.actionInsideLookup[key]
 
 --         ks.escape()
 --         ks.key('c')
@@ -143,7 +131,7 @@ end
 --         ks.fire(keystroke.mods, keystroke.key)
 
 --         if not hasValue({'s', 'd', 't'}, key) then
---             BracketMatching.start()
+--             Brackets.start()
 --         end
 --     end,
 -- })

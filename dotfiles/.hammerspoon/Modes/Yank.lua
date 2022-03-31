@@ -7,38 +7,32 @@ Yank.lookup = {
     w = 'word',
     e = 'toEndOfWord',
     r = 'untilForward',
-    t = 'withWrapperKey',
+    t = Brackets.yankInside,
     caps_lock = 'all',
     a = 'toEndOfLine',
-    s = 'withWrapperKey',
-    d = 'withWrapperKey',
-    f = 'withWrapperKey',
+    s = Brackets.yankInside,
+    d = Brackets.yankInside,
+    f = Brackets.yankInside,
     g = 'toBeginningOfLine',
     left_shift = 'toTopOfPage',
-    z = 'withWrapperKey',
+    z = Brackets.yankInside,
     x = 'character',
-    c = 'withWrapperKey',
+    c = Brackets.yankInside,
     v = 'line',
-    b = 'withWrapperKey',
+    b = Brackets.yankInside,
     spacebar = nil,
 }
 
 function Yank.word()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'y', 'i', 'w'})
     else
         ks.shiftAlt('left').copy().right()
     end
 end
 
-function Yank.withWrapperKey(key)
-    keystroke = TextManipulation.wrapperKeyLookup[key]
-
-    ks.escape().sequence({'y', 'i'}).fire(keystroke.mods, keystroke.key)
-end
-
 function Yank.toEndOfWord()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'y', 'e'})
     else
         ks.shiftAlt('right').copy().left()
@@ -52,7 +46,7 @@ function Yank.relativeFilePath()
 end
 
 function Yank.subword()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'y', 'i'})
 
         if is.vscode() then
@@ -64,7 +58,7 @@ function Yank.subword()
 end
 
 function Yank.toEndOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().key('y').shift('4')
     else
         ks.shiftCmd('right').copy().left()
@@ -72,7 +66,7 @@ function Yank.toEndOfLine()
 end
 
 function Yank.toBeginningOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().right().shiftCmd('left').key('y')
     else
         ks.shiftCmd('left').slow().copy().right()
@@ -80,7 +74,7 @@ function Yank.toBeginningOfLine()
 end
 
 function Yank.line()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'y', 'y'})
     else
         ks.cmd('left').shiftCmd('right').copy().right()
@@ -88,7 +82,7 @@ function Yank.line()
 end
 
 function Yank.character()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'y', 'l'})
     else
         ks.shift('left').copy().right()

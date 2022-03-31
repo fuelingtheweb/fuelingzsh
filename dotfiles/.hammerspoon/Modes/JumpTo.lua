@@ -89,7 +89,7 @@ function JumpTo.enterModal(direction, key)
 end
 
 function JumpTo.beginJumpingForward()
-    if not TextManipulation.canManipulateWithVim() then
+    if is.notVimMode() then
         return
     end
 
@@ -107,7 +107,7 @@ function JumpTo.beginJumpingForward()
 end
 
 function JumpTo.beginJumpingBackward()
-    if not TextManipulation.canManipulateWithVim() then
+    if is.notVimMode() then
         return
     end
 
@@ -169,7 +169,7 @@ JumpTo.actions = {
     end,
 
     backward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 
@@ -184,7 +184,7 @@ JumpTo.actions = {
     end,
 
     forward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 
@@ -255,7 +255,7 @@ function JumpTo.brackets()
 end
 
 function JumpTo.previousBlock()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.shift('[')
     else
         ks.shiftCmd('left')
@@ -263,7 +263,7 @@ function JumpTo.previousBlock()
 end
 
 function JumpTo.nextBlock()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.shift(']')
     else
         ks.shiftCmd('right')

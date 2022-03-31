@@ -24,7 +24,7 @@ SelectUntil.lookup = {
 }
 
 function SelectUntil.endOfWord()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'v', 'e'})
     else
         ks.shiftAlt('right')
@@ -32,7 +32,7 @@ function SelectUntil.endOfWord()
 end
 
 function SelectUntil.nextWord()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'v', 'w'})
     else
         ks.shiftAlt('right').shiftAlt('right')
@@ -97,7 +97,7 @@ function SelectUntil.enterModal(direction, key)
 end
 
 function SelectUntil.beginSelectingForward()
-    if not TextManipulation.canManipulateWithVim() then
+    if is.notVimMode() then
         return
     end
 
@@ -111,7 +111,7 @@ function SelectUntil.beginSelectingForward()
 end
 
 function SelectUntil.beginSelectingBackward()
-    if not TextManipulation.canManipulateWithVim() then
+    if is.notVimMode() then
         return
     end
 
@@ -175,7 +175,7 @@ SelectUntil.actions = {
     end,
 
     backward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 
@@ -191,7 +191,7 @@ SelectUntil.actions = {
     end,
 
     forward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 
@@ -209,17 +209,17 @@ SelectUntil.actions = {
     change = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
+        if is.vimMode() then
             ks.key('c')
         end
 
-        BracketMatching.start()
+        Brackets.start()
     end,
 
     yank = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
+        if is.vimMode() then
             ks.key('y')
         end
     end,
@@ -227,7 +227,7 @@ SelectUntil.actions = {
     paste = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
+        if is.vimMode() then
             ks.key('p')
         end
     end,
@@ -235,7 +235,7 @@ SelectUntil.actions = {
     destroy = function()
         Modal.exit()
 
-        if TextManipulation.canManipulateWithVim() then
+        if is.vimMode() then
             ks.key('d')
         end
     end
@@ -297,7 +297,7 @@ function SelectUntil.brackets()
 end
 
 function SelectUntil.endOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shiftCmd('right')
     else
         ks.shiftCmd('right')
@@ -305,7 +305,7 @@ function SelectUntil.endOfLine()
 end
 
 function SelectUntil.beginningOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape()
 
         if is.vscode() then
@@ -319,7 +319,7 @@ function SelectUntil.beginningOfLine()
 end
 
 function SelectUntil.previousBlock()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.shift('v').shift('[')
     else
         ks.shiftCmd('left')

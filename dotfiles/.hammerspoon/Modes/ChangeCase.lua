@@ -27,7 +27,7 @@ function ChangeCase.handle(key)
 end
 
 function ChangeCase.change(to, key)
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.super('c').ctrlAlt(key)
     else
         text = getSelectedText()

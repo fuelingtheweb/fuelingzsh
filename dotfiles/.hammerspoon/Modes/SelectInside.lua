@@ -7,30 +7,24 @@ SelectInside.lookup = {
     w = 'word',
     e = nil,
     r = nil,
-    t = 'withWrapperKey',
+    t = Brackets.selectInside,
     caps_lock = nil,
     a = 'all',
-    s = 'withWrapperKey',
-    d = 'withWrapperKey',
-    f = 'withWrapperKey',
+    s = Brackets.selectInside,
+    d = Brackets.selectInside,
+    f = Brackets.selectInside,
     g = nil,
     left_shift = nil,
-    z = 'withWrapperKey',
+    z = Brackets.selectInside,
     x = 'character',
-    c = 'withWrapperKey',
+    c = Brackets.selectInside,
     v = 'line',
-    b = 'withWrapperKey',
+    b = Brackets.selectInside,
     spacebar = nil,
 }
 
-function SelectInside.withWrapperKey(key)
-    keystroke = TextManipulation.wrapperKeyLookup[key]
-
-    ks.escape().sequence({'v', 'i'}).fire(keystroke.mods, keystroke.key)
-end
-
 function SelectInside.subword()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'v', 'i'})
 
         if is.vscode() then
@@ -42,7 +36,7 @@ function SelectInside.subword()
 end
 
 function SelectInside.word()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'v', 'i', 'w'})
     else
         ks.shiftAlt('left')
@@ -50,7 +44,7 @@ function SelectInside.word()
 end
 
 function SelectInside.line()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shift('v')
     else
         ks.cmd('left').shiftCmd('right')
@@ -58,7 +52,7 @@ function SelectInside.line()
 end
 
 function SelectInside.character()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().key('v')
     else
         ks.shift('left')

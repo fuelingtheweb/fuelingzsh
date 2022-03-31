@@ -8,7 +8,7 @@ Make.lookup = {
     e = spoon.Search.viaAlfred,
     r = 'lineBefore',
     t = 'tag',
-    caps_lock = BracketMatching.startMulti,
+    caps_lock = Brackets.startMulti,
     a = spoon.Search.amazon,
     s = 'singleQuote',
     d = 'doubleQuote',
@@ -31,17 +31,17 @@ Make.lookup = {
 }
 
 function Make.fallback(bracket)
-    BracketMatching.print(bracket)
+    Brackets.print(bracket)
 end
 
 function Make.lineBefore()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shift('o')
     end
 end
 
 function Make.lineAfter()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().key('o')
     end
 end

@@ -5,6 +5,14 @@ function Is.codeEditor()
     return fn.app.codeEditor()
 end
 
+function Is.vimMode()
+    return TextManipulation.canManipulateWithVim()
+end
+
+function Is.notVimMode()
+    return not Is.vimMode()
+end
+
 function Is.chrome()
     return Is.In(chrome)
 end

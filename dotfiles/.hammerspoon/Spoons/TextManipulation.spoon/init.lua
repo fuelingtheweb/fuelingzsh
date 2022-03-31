@@ -1,16 +1,6 @@
 local TextManipulation = {}
 TextManipulation.__index = TextManipulation
 
-TextManipulation.wrapperKeyLookup = {
-    t = {mods = {}, key = 't'}, -- t -> tag
-    s = {mods = {}, key = "'"}, -- s -> single quotes
-    d = {mods = {'shift'}, key = "'"}, -- d -> double quotes
-    z = {mods = {}, key = 'z'}, -- z -> back ticks
-    f = {mods = {'shift'}, key = '9'}, -- f -> parenthesis
-    c = {mods = {'shift'}, key = '['}, -- c -> braces
-    b = {mods = {}, key = '['}, -- b -> brackets
-}
-
 TextManipulation.vimEnabled = true
 
 Modal.add({
@@ -19,10 +9,8 @@ Modal.add({
     defaults = false,
     items = {
         ['return'] = function()
-            if is.codeEditor() then
-                Modal.exit()
-                ks.enter()
-            end
+            Modal.exit()
+            ks.enter()
         end
     },
     entered = function() TextManipulation.vimEnabled = false end,
@@ -44,9 +32,5 @@ end
 function TextManipulation.disableVim()
     Modal.enter('TextManipulation:vimDisabled')
 end
-
-hs.urlevent.bind('text-disableVim', function(eventName, params)
-    TextManipulation.disableVim()
-end)
 
 return TextManipulation

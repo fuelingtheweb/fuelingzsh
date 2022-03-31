@@ -27,7 +27,7 @@ Pending = hs.loadSpoon('Pending')
 Modal = hs.loadSpoon('Modal')
 TextManipulation = hs.loadSpoon('TextManipulation')
 Artisan = hs.loadSpoon('Artisan')
-BracketMatching = hs.loadSpoon('BracketMatching')
+Brackets = hs.loadSpoon('Brackets')
 
 hs.loadSpoon('Keystroke')
 hs.loadSpoon('Search')

@@ -7,39 +7,33 @@ Destroy.lookup = {
     w = 'word',
     e = 'toEndOfWord',
     r = 'untilForward',
-    t = 'withWrapperKey',
+    t = Brackets.destroyInside,
     caps_lock = 'backward',
     a = 'toEndOfLine',
-    s = 'withWrapperKey',
-    d = 'withWrapperKey',
-    f = 'withWrapperKey',
+    s = Brackets.destroyInside,
+    d = Brackets.destroyInside,
+    f = Brackets.destroyInside,
     g = 'toBeginningOfLine',
     left_shift = nil,
-    z = 'withWrapperKey',
+    z = Brackets.destroyInside,
     x = 'character',
-    c = 'withWrapperKey',
+    c = Brackets.destroyInside,
     v = 'line',
-    b = 'withWrapperKey',
+    b = Brackets.destroyInside,
     spacebar = 'simpleDelete',
 }
 
-function Destroy.withWrapperKey(key)
-    keystroke = TextManipulation.wrapperKeyLookup[key]
-
-    ks.escape().sequence({'d', 'i'}).fire(keystroke.mods, keystroke.key)
-end
-
 function Destroy.simpleDelete()
     if is.codeEditor() then
-        BracketMatching.cancel()
-        BracketMatching.start()
+        Brackets.cancel()
+        Brackets.start()
     else
         ks.delete()
     end
 end
 
 function Destroy.toEndOfWord()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'d', 'e'})
     else
         ks.shiftAlt('right').delete()
@@ -47,7 +41,7 @@ function Destroy.toEndOfWord()
 end
 
 function Destroy.subword()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'d', 'i'})
 
         if is.vscode() then
@@ -59,7 +53,7 @@ function Destroy.subword()
 end
 
 function Destroy.word()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'d', 'i', 'w'})
     elseif is.iterm() then
         ks.ctrl('w')
@@ -69,7 +63,7 @@ function Destroy.word()
 end
 
 function Destroy.toEndOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shift('d')
     else
         ks.shiftCmd('right').delete()
@@ -77,7 +71,7 @@ function Destroy.toEndOfLine()
 end
 
 function Destroy.toBeginningOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape()
 
         if is.vscode() then
@@ -93,7 +87,7 @@ function Destroy.toBeginningOfLine()
 end
 
 function Destroy.line()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'d', 'd'})
     else
         ks.cmd('left').shiftCmd('right').delete()
@@ -101,7 +95,7 @@ function Destroy.line()
 end
 
 function Destroy.character()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().key('x')
     else
         ks.delete()
@@ -147,7 +141,7 @@ end
 
 Destroy.actions = {
     backward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 
@@ -164,7 +158,7 @@ Destroy.actions = {
     end,
 
     forward = function()
-        if not TextManipulation.canManipulateWithVim() then
+        if is.notVimMode() then
             return Modal.exit()
         end
 

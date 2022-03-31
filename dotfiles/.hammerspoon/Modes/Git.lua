@@ -84,7 +84,7 @@ end
 
 function Git.commit()
     ks.type('git:commit ')
-    BracketMatching.start()
+    Brackets.start()
 end
 
 function Git.checkoutMaster()

@@ -7,38 +7,24 @@ Change.lookup = {
     w = 'word',
     e = 'toEndOfWord',
     r = 'untilForward',
-    t = 'withWrapperKey',
-    caps_lock = 'disableVim',
+    t = Brackets.changeInside,
+    caps_lock = TextManipulation.disableVim,
     a = 'toEndOfLine',
-    s = 'withWrapperKey',
-    d = 'withWrapperKey',
-    f = 'withWrapperKey',
+    s = Brackets.changeInside,
+    d = Brackets.changeInside,
+    f = Brackets.changeInside,
     g = 'toBeginningOfLine',
     left_shift = {'below', 'above'},
-    z = 'withWrapperKey',
+    z = Brackets.changeInside,
     x = 'character',
-    c = 'withWrapperKey',
+    c = Brackets.changeInside,
     v = 'line',
-    b = 'withWrapperKey',
+    b = Brackets.changeInside,
     spacebar = 'outer',
 }
 
-function Change.disableVim()
-    hs.execute("open -g 'hammerspoon://text-disableVim'")
-end
-
-function Change.withWrapperKey(key)
-    keystroke = TextManipulation.wrapperKeyLookup[key]
-
-    ks.escape().sequence({'c', 'i'}).fire(keystroke.mods, keystroke.key)
-
-    if not hasValue({'s', 'd', 't'}, key) then
-        BracketMatching.start()
-    end
-end
-
 function Change.toEndOfWord()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'c', 'e'})
     else
         ks.shiftAlt('right').delete()
@@ -46,7 +32,7 @@ function Change.toEndOfWord()
 end
 
 function Change.subword()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'c', 'i'})
 
         if is.vscode() then
@@ -58,7 +44,7 @@ function Change.subword()
 end
 
 function Change.word()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'c', 'i', 'w'})
     elseif is.iterm() and not fn.Alfred.visible() then
         ks.escape().type('ciw')
@@ -68,7 +54,7 @@ function Change.word()
 end
 
 function Change.toEndOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shift('c')
     else
         ks.shiftCmd('right').delete()
@@ -76,7 +62,7 @@ function Change.toEndOfLine()
 end
 
 function Change.toBeginningOfLine()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().shiftCmd('left').key('c')
     else
         ks.shiftCmd('left').delete()
@@ -84,7 +70,7 @@ function Change.toBeginningOfLine()
 end
 
 function Change.line()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.escape().sequence({'c', 'c'})
     elseif is.iterm() and not fn.Alfred.visible() then
         ks.escape().type('cc')
@@ -94,7 +80,7 @@ function Change.line()
 end
 
 function Change.character()
-    if TextManipulation.canManipulateWithVim() then
+    if is.vimMode() then
         ks.ctrlAlt('a')
 
         if is.vscode() then
@@ -132,12 +118,12 @@ Modal.add({
     callback = function(key)
         Modal.exit()
 
-        keystroke = TextManipulation.wrapperKeyLookup[key]
+        keystroke = Brackets.actionInsideLookup[key]
 
         ks.escape().sequence({'c', 'a'}).fire(keystroke.mods, keystroke.key)
 
         if not hasValue({'s', 'd', 't'}, key) then
-            BracketMatching.start()
+            Brackets.start()
         end
     end,
 })
