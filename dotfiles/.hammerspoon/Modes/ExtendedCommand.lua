@@ -11,23 +11,19 @@ ExtendedCommand.lookup = {
     t = 'enableScrolling',
     caps_lock = 'jumpTo',
     -- caps_lock = 'dismissNotifications',
-    a = nil,
+    a = fn.Alfred.open,
     s = 'screenshotToFilesystem',
     d = nil,
     f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = 'disableRunOnSave',
-    z = 'sleep',
+    z = fn.Alfred.sleep,
     x = nil,
     c = 'screenshotToClipboard',
     v = 'toggleDockVisibility',
     b = 'showBartender',
     spacebar = 'newWindowOrFolder',
 }
-
-function ExtendedCommand.sleep()
-    fn.Alfred.search('sleep')
-end
 
 function ExtendedCommand.screenshotToFilesystem()
     ks.shiftCmd('4')

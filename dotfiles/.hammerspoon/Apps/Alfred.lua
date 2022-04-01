@@ -1,6 +1,26 @@
 local Alfred = {}
 Alfred.__index = Alfred
 
+function Alfred.open()
+    ks.alt('z')
+end
+
+function Alfred.clipboard()
+    ks.alt('c')
+end
+
+function Alfred.commands()
+    Alfred.run('commands', 'com.fuelingtheweb.commands')
+end
+
+function Alfred.actionFile()
+    ks.altCmd('\\')
+end
+
+function Alfred.sleep()
+    Alfred.search('sleep')
+end
+
 function Alfred.search(search)
     hs.osascript.applescript('tell application id "com.runningwithcrayons.Alfred" to search "' .. search .. '"')
 end

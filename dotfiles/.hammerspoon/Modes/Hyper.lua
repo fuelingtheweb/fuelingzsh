@@ -6,7 +6,7 @@ Hyper.lookup = {
     u = spoon.Search.tabs,
     i = spoon.Search.symbol,
     o = 'open',
-    p = 'alfredClipboard',
+    p = fn.Alfred.clipboard,
     open_bracket = 'commandPalette',
     close_bracket = nil,
     h = 'previousPage',
@@ -17,7 +17,7 @@ Hyper.lookup = {
     quote = 'nextWindow',
     return_or_enter = function() hs.hid.capslock.set(true) end,
     n = 'new',
-    m = 'alfred',
+    m = nil,
     comma = ks.undo,
     period = ks.redo,
     slash = 'cheatsheets',
@@ -185,10 +185,6 @@ function Hyper.nextPage()
     end
 end
 
-function Hyper.alfredClipboard()
-    ks.alt('c')
-end
-
 function Hyper.paste()
     ks.paste()
 
@@ -199,10 +195,6 @@ end
 
 function Hyper.pasteStrip()
     fn.Alfred.run('paste:strip', 'com.fuelingtheweb.commands')
-end
-
-function Hyper.alfred()
-    ks.alt('z')
 end
 
 function Hyper.forceEscape()

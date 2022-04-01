@@ -8,8 +8,8 @@ Command.lookup = {
     e = 'edit',
     r = 'reload',
     t = nil,
-    caps_lock = 'alfredCommands',
-    a = 'actionFileInAlfred',
+    caps_lock = fn.Alfred.commands,
+    a = fn.Alfred.actionFile,
     s = 'save',
     d = 'duplicate',
     f = 'finish',
@@ -26,10 +26,6 @@ Command.lookup = {
 
 function Command.shiftTab()
     ks.shift('tab')
-end
-
-function Command.alfredCommands()
-    fn.Alfred.run('commands', 'com.fuelingtheweb.commands')
 end
 
 function Command.atomGitPalette()
@@ -91,7 +87,7 @@ function Command.finish()
         -- Disconnect from server
         ks.cmd('e')
     elseif is.vscode() and titleContains('.git/COMMIT_EDITMSG') then
-        ks.save().close()
+        ks.slow().save().slow().close()
         fn.iTerm.launch()
     else
         ks.cmd('return')
@@ -131,10 +127,6 @@ function Command.cancelOrDelete()
     else
         ks.delete()
     end
-end
-
-function Command.actionFileInAlfred()
-    ks.altCmd('\\')
 end
 
 return Command
