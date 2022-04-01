@@ -218,7 +218,7 @@ function WindowManager.focusSidebarSourceControl()
 end
 
 function WindowManager.destroy()
-    if is.In(finder, zoom, rayapp, slack, discord) then
+    if is.In(finder, zoom, rayapp, slack, discord, 'org.hammerspoon.Hammerspoon') then
         ks.close()
     else
         ks.shiftCmd('w')
