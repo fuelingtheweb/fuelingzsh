@@ -61,12 +61,6 @@ Modal.add({
     end,
 })
 
--- function Open.before()
---     if is.codeEditor() then
---         md.Hyper.forceEscape()
---     end
--- end
-
 hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
 hs.hints.fontSize = 20

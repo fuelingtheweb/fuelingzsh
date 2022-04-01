@@ -36,6 +36,8 @@ TextManipulation = hs.loadSpoon('TextManipulation')
 Artisan = hs.loadSpoon('Artisan')
 Brackets = hs.loadSpoon('Brackets')
 
+ToBracket = Modal.load('ToBracket')
+
 hs.loadSpoon('Keystroke')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')

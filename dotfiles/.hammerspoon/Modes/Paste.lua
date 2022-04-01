@@ -23,10 +23,6 @@ Paste.lookup = {
     spacebar = ks.paste,
 }
 
-function Paste.before()
-    spoon.KarabinerHandler.currentKey = nil
-end
-
 function Paste.toEndOfWord()
     Paste.pastePending(
         function() ks.sequence({'v', 'e'}) end,
