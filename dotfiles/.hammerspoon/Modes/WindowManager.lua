@@ -87,11 +87,11 @@ end
 
 function WindowManager.next()
     local windows = hs.fnutils.filter(
-        hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast),
-        function(window)
-            return window:title()
-        end
+        hs.window.filter.default
+        :getWindows(hs.window.filter.sortByFocusedLast),
+        function(window) return window:title() end
     )
+
     local nextWin = windows[2]
 
     if not nextWin or nextWin:title() == currentTitle() then
@@ -112,17 +112,15 @@ end
 function WindowManager.nextInCurrentApp()
     md.Open.windowHintsForCurrentApplication()
     ks.key('b')
-    -- if is.chrome() then
-    --     return
-    -- end
 
-    local windows = hs.fnutils.filter(hs.window.filter.new({
-        hs.application.frontmostApplication():name()
-    }):getWindows(hs.window.filter.sortByFocusedLast), function(window)
-        return window:title()
-    end)
-    each(windows, function(window, index) log.d(index .. ': ' .. window:title()) end)
-    nextWin = windows[2]
+    local windows = hs.fnutils.filter(
+        hs.window.filter
+        .new({hs.application.frontmostApplication():name()})
+        :getWindows(hs.window.filter.sortByFocusedLast),
+        function(window) return window:title() end
+    )
+
+    local nextWin = windows[2]
 
     if not nextWin or nextWin:title() == currentTitle() then
         nextWin = windows[1]

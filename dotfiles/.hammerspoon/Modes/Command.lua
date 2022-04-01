@@ -106,10 +106,8 @@ function Command.save()
         -- Save from Vim
         ks.shift(';').key('x').enter()
     else
-        log.d('Saving with cmd+s...')
         ks.save()
 
-        -- if is.codeEditor() then ks.escape() end
         if is.codeEditor() then ks.escape() end
     end
 end

@@ -136,10 +136,6 @@ function KarabinerHandler.handle(mode, key)
         Modal.exit()
     end
 
-    log.d('-----------------------In Handle Method-----------------------')
-    log.d('Mode: ' .. mode)
-    log.d('Key: ' .. key)
-
     local Mode = md[mode]
 
     if Mode.guard and not Mode.guard() then
@@ -151,45 +147,34 @@ function KarabinerHandler.handle(mode, key)
     end
 
     if Mode[key] then
-        log.d('Calling Mode.key')
         return Mode[key]()
     elseif Mode.handle then
-        log.d('Calling Mode.handle(key)')
         Mode.handle(key)
     elseif Mode.lookup and Mode.lookup[key] then
         local callable = Mode.lookup[key]
 
         if is.Table(callable) then
-            log.d('Calling Pending.run')
             Pending.run(callable)
         elseif is.Function(callable) then
-            log.d('Calling callable()')
             callable(key)
         elseif callable then
             if Mode[callable] then
-                log.d('Calling Mode.callable(key)')
                 Mode[callable](key)
             elseif Mode.fallback then
-                log.d('Calling Mode.fallback(callable, key)')
                 Mode.fallback(callable, key)
             end
         end
     end
-
-    log.d('-----------------------End In Handle Method-----------------------')
 end
 
 function KarabinerHandler.callback(key)
     KarabinerHandler.currentKey = key
 
     if not KarabinerHandler.modifier then
-        log.d('Action Key: ' .. key .. '. No modifier key.')
         return
     end
 
     local mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
-
-    log.d('-----------------------Handling Binding-----------------------')
 
     if is.Table(mode) then
         each(mode, function(m, app)
@@ -200,11 +185,8 @@ function KarabinerHandler.callback(key)
     end
 
     if is.String(mode) then
-        log.d('String Mode: ' .. mode)
         KarabinerHandler.handle(mode, key)
     end
-
-    log.d('-----------------------End Handling Binding-----------------------')
 end
 
 function KarabinerHandler.setupKeys()
@@ -216,13 +198,7 @@ function KarabinerHandler.setupKeys()
         hs.hotkey.bind(
             {'shift', 'ctrl', 'cmd'},
             lookupKeys[modifier] or modifier,
-            function()
-                KarabinerHandler.modifier = modifier
-                log.d('!!!!!!!!!!!!!!!-----------------------Setting Modifier-----------------------')
-                log.d('Modifier: ' .. modifier)
-                log.d('KarabinerHandler.modifier: ' .. KarabinerHandler.modifier)
-                log.d('-----------------------End Setting Modifier-----------------------')
-            end
+            function() KarabinerHandler.modifier = modifier end
         )
     end)
 
@@ -231,33 +207,13 @@ function KarabinerHandler.setupKeys()
             {'shift', 'ctrl', 'alt', 'cmd'},
             lookupKeys[key] or key,
             '',
+            function() KarabinerHandler.callback(key) end,
             function()
-                log.d('-----------------------First Callback-----------------------')
-                log.d('Key: ' .. key)
-                log.d('With KarabinerHandler.modifier: ' .. KarabinerHandler.modifier)
-                KarabinerHandler.callback(key)
-                log.d('-----------------------End First Callback-----------------------')
-            end,
-            function()
-                log.d('-----------------------Second Callback-----------------------')
-                log.d('Key: ' .. key)
-                log.d('With KarabinerHandler.modifier: ' .. KarabinerHandler.modifier or 'empty')
-                -- hs.timer.doAfter(0.2, function()
                 KarabinerHandler.modifier = nil
                 KarabinerHandler.currentKey = nil
-                log.d('Clearing KarabinerHandler.modifier: ' ..
-                (KarabinerHandler.modifier or 'empty'))
-                -- end)
-                log.d('-----------------------End Second Callback-----------------------')
             end,
-            function()
-                log.d('-----------------------Third Callback-----------------------')
-                log.d('Key: ' .. key)
-                log.d('With KarabinerHandler.modifier: ' ..
-                KarabinerHandler.modifier)
-                KarabinerHandler.callback(key)
-                log.d('-----------------------End Third Callback-----------------------')
-            end)
+            function() KarabinerHandler.callback(key) end
+        )
     end)
 end
 

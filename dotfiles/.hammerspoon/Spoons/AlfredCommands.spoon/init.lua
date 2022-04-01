@@ -4,7 +4,7 @@ AlfredCommands.all = {}
 
 function AlfredCommands:add(key, name, icon, handler)
     if self.all[key] then
-        log.d('Command conflict for: ', key)
+        hs.alert.show('Command conflict for: ', key)
         hs.notify.new({title = 'Command conflict for: ' .. key}):send()
 
         return

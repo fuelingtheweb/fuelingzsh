@@ -8,11 +8,11 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "ModalMgr"
-obj.version = "1.0"
-obj.author = "ashfinal <ashfinal@gmail.com>"
-obj.homepage = "https://github.com/Hammerspoon/Spoons"
-obj.license = "MIT - https://opensource.org/licenses/MIT"
+obj.name = 'ModalMgr'
+obj.version = '1.0'
+obj.author = 'ashfinal <ashfinal@gmail.com>'
+obj.homepage = 'https://github.com/Hammerspoon/Spoons'
+obj.license = 'MIT - https://opensource.org/licenses/MIT'
 
 obj.modal_tray = nil
 obj.which_key = nil
@@ -22,39 +22,39 @@ obj.supervisor = nil
 obj.active_title = nil
 
 function obj:init()
-    hsupervisor_keys = hsupervisor_keys or {{"cmd", "shift", "ctrl"}, "Q"}
+    hsupervisor_keys = hsupervisor_keys or {{'cmd', 'shift', 'ctrl'}, 'Q'}
     obj.supervisor = hs.hotkey.modal.new(hsupervisor_keys[1], hsupervisor_keys[2], 'Initialize Modal Environment')
-    obj.supervisor:bind(hsupervisor_keys[1], hsupervisor_keys[2], "Reset Modal Environment", function() obj.supervisor:exit() end)
-    hshelp_keys = hshelp_keys or {{"alt", "shift"}, "/"}
-    obj.supervisor:bind(hshelp_keys[1], hshelp_keys[2], "Toggle Help Panel", function() obj:toggleCheatsheet({all=obj.supervisor}) end)
+    obj.supervisor:bind(hsupervisor_keys[1], hsupervisor_keys[2], 'Reset Modal Environment', function() obj.supervisor:exit() end)
+    hshelp_keys = hshelp_keys or {{'alt', 'shift'}, '/'}
+    obj.supervisor:bind(hshelp_keys[1], hshelp_keys[2], 'Toggle Help Panel', function() obj:toggleCheatsheet({all = obj.supervisor}) end)
     obj.modal_tray = hs.canvas.new({x = 0, y = 0, w = 0, h = 0})
     obj.modal_tray:level(hs.canvas.windowLevels.tornOffMenu)
     obj.modal_tray[1] = {
-        type = "circle",
-        action = "fill",
-        fillColor = {hex = "#377f71", alpha = 0.7},
+        type = 'circle',
+        action = 'fill',
+        fillColor = {hex = '#377f71', alpha = 0.7},
     }
     obj.modal_tray[2] = {
-        type = "text",
+        type = 'text',
         text = nil,
-        textFont = "Fira Code Bold",
+        textFont = 'Fira Code Bold',
         textSize = 18,
-        textColor = {hex = "#377f71", alpha = 1},
-        textAlignment = "center",
+        textColor = {hex = '#377f71', alpha = 1},
+        textAlignment = 'center',
         padding = 20,
         frame = {
-            x = "1%",
-            y = "0",
-            w = "100%",
-            h = "100%",
+            x = '1%',
+            y = '0',
+            w = '100%',
+            h = '100%',
         }
     }
     obj.which_key = hs.canvas.new({x = 0, y = 0, w = 0, h = 0})
     obj.which_key:level(hs.canvas.windowLevels.tornOffMenu)
     obj.which_key[1] = {
-        type = "rectangle",
-        action = "fill",
-        fillColor = {hex = "#1d262a", alpha = 0.80},
+        type = 'rectangle',
+        action = 'fill',
+        fillColor = {hex = '#1d262a', alpha = 0.80},
         -- fillColor = {hex = "#000", alpha = 0.80},
         roundedRectRadii = {xRadius = 10, yRadius = 10},
     }
@@ -95,16 +95,12 @@ function obj:toggleCheatsheet(iterList, force)
         local keys_pool = {}
         local tmplist = iterList or obj.active_list
         for i, v in pairs(tmplist) do
-            if type(v) == "string" then
+            if type(v) == 'string' then
                 -- It appears to be idList
                 for _, m in ipairs(obj.modal_list[v].keys) do
-                    -- each(m, function(value, key)
-                    --     log.d('key: ' .. key)
-                    --     log.d(value)
-                    -- end)
                     table.insert(keys_pool, m.msg)
                 end
-            elseif type(i) == "string" then
+            elseif type(i) == 'string' then
                 -- It appears to be active_list
                 for _, m in pairs(v.keys) do
                     table.insert(keys_pool, m.msg)
@@ -115,55 +111,54 @@ function obj:toggleCheatsheet(iterList, force)
         local rightList = ''
         for idx, val in ipairs(keys_pool) do
             if idx % 2 == 1 then
-                -- log.d(idx)
-                leftList = leftList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ",\n\t\t") .. "\n"
+                leftList = leftList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ',\n\t\t') .. '\n'
             else
-                rightList = rightList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ",\n\t\t") .. "\n"
+                rightList = rightList .. keys_pool[idx]:gsub(', $', ''):gsub(', ', ',\n\t\t') .. '\n'
             end
 
             obj.which_key[2] = {
-                type = "text",
+                type = 'text',
                 text = obj.active_title,
-                textFont = "Fira Code Bold",
+                textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = "#fed032", alpha = 1},
-                textAlignment = "center",
+                textColor = {hex = '#fed032', alpha = 1},
+                textAlignment = 'center',
                 padding = 20,
                 frame = {
-                    x = "1%",
-                    y = "0",
-                    w = "100%",
-                    h = "100%",
+                    x = '1%',
+                    y = '0',
+                    w = '100%',
+                    h = '100%',
                 }
             }
             obj.which_key[3] = {
-                type = "text",
+                type = 'text',
                 text = leftList,
-                textFont = "Fira Code Bold",
+                textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = "#377f71", alpha = 1},
-                textAlignment = "left",
+                textColor = {hex = '#377f71', alpha = 1},
+                textAlignment = 'left',
                 padding = 20,
                 frame = {
-                    x = "1%",
-                    y = "5%",
-                    w = "49%",
-                    h = "95%",
+                    x = '1%',
+                    y = '5%',
+                    w = '49%',
+                    h = '95%',
                 }
             }
             obj.which_key[4] = {
-                type = "text",
+                type = 'text',
                 text = rightList,
-                textFont = "Fira Code Bold",
+                textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = "#377f71"},
-                textAlignment = "right",
+                textColor = {hex = '#377f71'},
+                textAlignment = 'right',
                 padding = 20,
                 frame = {
-                    x = "50%",
-                    y = "5%",
-                    w = "49%",
-                    h = "95%",
+                    x = '50%',
+                    y = '5%',
+                    w = '49%',
+                    h = '95%',
                 }
             }
         end
@@ -200,7 +195,7 @@ function obj:activate(idList, trayColor, showKeys)
         obj.modal_tray[1].fillColor = {hex = trayColor, alpha = 0.7}
         if trayColor ~= '#212d33' then
             obj.modal_tray[2].text = obj.active_title
-            obj.modal_tray[2].textColor = {hex = "#fed032", alpha = 1}
+            obj.modal_tray[2].textColor = {hex = '#fed032', alpha = 1}
         end
         obj.modal_tray:show()
     end
@@ -237,8 +232,8 @@ function obj:deactivateAll()
     local i = 1
     local tab = {}
     for k, _ in pairs(obj.active_list) do
-      tab[i] = k
-      i = i + 1
+        tab[i] = k
+        i = i + 1
     end
     obj:deactivate(tab)
 end
