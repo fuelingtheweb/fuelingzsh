@@ -3,7 +3,7 @@ Atom.__index = Atom
 
 function Atom.open(path)
     hs.execute('/usr/local/bin/atom "' .. path .. '"')
-    maximizeAfterDelay()
+    cm.Window.maximizeAfterDelay()
 end
 
 return Atom

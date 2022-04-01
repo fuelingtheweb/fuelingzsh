@@ -1,0 +1,46 @@
+local Window = {}
+Window.__index = Window
+
+Window.lookup = {
+    tab = cm.Window.moveToCenter,
+    q = cm.Window.quitApplication,
+    w = cm.Window.toggleCodeFocus,
+    e = cm.Window.scrollScreenWithCursorAtEnd,
+    r = cm.Window.scrollScreenWithCursorAtCenter,
+    t = cm.Window.scrollScreenWithCursorAtTop,
+    caps_lock = cm.Window.missionControl,
+    a = cm.Media.toggleAudio,
+    s = cm.Media.toggleScreenShare,
+    d = cm.Window.moveToNextDisplay,
+    f = cm.Window.maximize,
+    g = hs.grid.toggleShow,
+    left_shift = nil,
+    z = cm.Media.toggleAudioAndVideo,
+    x = cm.Window.focusSidebarFileExplorer,
+    c = cm.Window.focusSidebarSourceControl,
+    v = cm.Media.toggleVideo,
+    b = cm.Window.toggleSidebar,
+
+    y = nil,
+    u = cm.Window.topLeft,
+    i = cm.Window.moveToMiddle,
+    o = cm.Window.topRight,
+    p = cm.Window.settings,
+    open_bracket = nil,
+    close_bracket = cm.Window.moveTotopRightSmall,
+    h = cm.Window.leftHalf,
+    j = cm.Window.bottomHalf,
+    k = cm.Window.topHalf,
+    l = cm.Window.rightHalf,
+    semicolon = cm.Window.moveMouseToOtherScreen,
+    quote = nil,
+    return_or_enter = cm.Window.reset,
+    n = cm.Window.bottomLeft,
+    m = nil,
+    comma = cm.Window.bottomRight,
+    period = nil,
+    slash = nil,
+    right_shift = nil,
+}
+
+return Window

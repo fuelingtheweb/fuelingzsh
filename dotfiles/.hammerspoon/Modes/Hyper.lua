@@ -13,11 +13,11 @@ Hyper.lookup = {
     j = 'previousTab',
     k = 'nextTab',
     l = 'nextPage',
-    semicolon = 'nextWindowInCurrentApp',
-    quote = 'nextWindow',
+    semicolon = cm.Window.nextInCurrentApp,
+    quote = cm.Window.next,
     return_or_enter = function() hs.hid.capslock.set(true) end,
     n = 'new',
-    m = nil,
+    m = cm.Window.destroy,
     comma = ks.undo,
     period = ks.redo,
     slash = 'cheatsheets',
@@ -200,14 +200,6 @@ end
 function Hyper.forceEscape()
     md.Test.hideOutput()
     ks.escape().escape()
-end
-
-function Hyper.nextWindow()
-    md.WindowManager.next()
-end
-
-function Hyper.nextWindowInCurrentApp()
-    md.WindowManager.nextInCurrentApp()
 end
 
 function Hyper.cheatsheets()

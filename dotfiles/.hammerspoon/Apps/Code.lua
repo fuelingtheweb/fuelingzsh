@@ -13,7 +13,7 @@ end
 
 function Code.open(path)
     hs.execute('/usr/local/bin/code "' .. path:gsub('~', '/Users/nathan') .. '"')
-    maximizeAfterDelay()
+    cm.Window.maximizeAfterDelay()
 end
 
 return Code

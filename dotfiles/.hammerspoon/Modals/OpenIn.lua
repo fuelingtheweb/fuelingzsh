@@ -19,12 +19,7 @@ Modal.add({
 
         OpenIn[item.method]()
 
-        hs.timer.doAfter(
-            is.iterm() and 2 or 0.5,
-            function()
-                md.WindowManager.moveTo('maximize')
-            end
-        )
+        cm.Window.maximizeAfterDelay(is.iterm() and 2 or 0.5)
     end,
 })
 

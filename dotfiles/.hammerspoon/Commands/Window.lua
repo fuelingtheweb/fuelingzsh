@@ -1,57 +1,7 @@
-local WindowManager = {}
-WindowManager.__index = WindowManager
+local Window = {}
+Window.__index = Window
 
-WindowManager.lookup = {
-    tab = 'moveToCenter',
-    q = 'quitApplication',
-    w = 'toggleCodeFocus',
-    e = 'scrollScreenWithCursorAtEnd',
-    r = 'scrollScreenWithCursorAtCenter',
-    t = 'scrollScreenWithCursorAtTop',
-    caps_lock = 'missionControl',
-    a = 'toggleAudio',
-    s = 'toggleScreenShare',
-    d = 'moveToNextDisplay',
-    f = 'maximize',
-    g = hs.grid.toggleShow,
-    left_shift = nil,
-    z = 'toggleAudioAndVideo',
-    x = 'focusSidebarFileExplorer',
-    c = 'focusSidebarSourceControl',
-    v = 'toggleVideo',
-    b = 'toggleSidebar',
-
-    y = nil,
-    u = 'topLeft',
-    i = 'moveToMiddle',
-    o = 'topRight',
-    p = 'appSettings',
-    open_bracket = nil,
-    close_bracket = 'moveTotopRightSmall',
-    h = 'leftHalf',
-    j = 'bottomHalf',
-    k = 'topHalf',
-    l = 'rightHalf',
-    semicolon = 'moveMouseToOtherScreen',
-    quote = nil,
-    return_or_enter = 'reset',
-    n = 'bottomLeft',
-    m = 'destroy',
-    comma = 'bottomRight',
-    period = nil,
-    slash = nil,
-    right_shift = nil,
-}
-
-function WindowManager.fallback(location)
-    WindowManager.moveTo(location)
-end
-
-function WindowManager.missionControl()
-    ks.fire({'fn', 'ctrl'}, 'up')
-end
-
-WindowManager.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
+Window.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
 hs.grid.setGrid('12x4')
 hs.grid.setMargins({x = 0, y = 0})
@@ -60,32 +10,32 @@ hs.window.animationDuration = 0
 hs.grid.ui.textSize = 100
 hs.grid.ui.showExtraKeys = false
 
-function WindowManager.moveTo(position)
-    WindowManager.HalfsAndThirds[position]()
+function Window.missionControl()
+    ks.fire({'fn', 'ctrl'}, 'up')
 end
 
-function WindowManager.moveTotopRightSmall()
+function Window.moveTotopRightSmall()
     hs.grid.set(hs.window.focusedWindow(), '9,0 3x1')
 end
 
-function WindowManager.moveToMiddle()
+function Window.moveToMiddle()
     hs.grid.set(hs.window.focusedWindow(), '2,0 8x4')
 end
 
-function WindowManager.moveToCenter()
-    WindowManager.HalfsAndThirds.center()
+function Window.moveToCenter()
+    Window.HalfsAndThirds.center()
 end
 
-function WindowManager.moveToNextDisplay()
+function Window.moveToNextDisplay()
     hs.grid.set(hs.window.focusedWindow(), '0,0 12x4')
     hs.window.focusedWindow():moveToScreen(hs.screen.mainScreen():next())
 end
 
-function WindowManager.reset()
-    WindowManager.HalfsAndThirds.undo()
+function Window.reset()
+    Window.HalfsAndThirds.undo()
 end
 
-function WindowManager.next()
+function Window.next()
     local windows = hs.fnutils.filter(
         hs.window.filter.default
         :getWindows(hs.window.filter.sortByFocusedLast),
@@ -109,7 +59,7 @@ function WindowManager.next()
     end
 end
 
-function WindowManager.nextInCurrentApp()
+function Window.nextInCurrentApp()
     md.Open.windowHintsForCurrentApplication()
     ks.key('b')
 
@@ -137,7 +87,7 @@ function WindowManager.nextInCurrentApp()
     end
 end
 
-function WindowManager.appSettings()
+function Window.settings()
     if fn.Alfred.visible() then
         hs.application.open('com.runningwithcrayons.Alfred-Preferences')
     else
@@ -145,7 +95,7 @@ function WindowManager.appSettings()
     end
 end
 
-function WindowManager.moveMouseToOtherScreen()
+function Window.moveMouseToOtherScreen()
     hs.mouse.setAbsolutePosition(
         hs.geometry.rectMidPoint(
             hs.mouse.getCurrentScreen():next():fullFrame()
@@ -153,7 +103,7 @@ function WindowManager.moveMouseToOtherScreen()
     )
 end
 
-function WindowManager.toggleSidebar()
+function Window.toggleSidebar()
     if is.finder() then
         ks.altCmd('s')
     elseif is.In(sublimeMerge) then
@@ -167,57 +117,40 @@ function WindowManager.toggleSidebar()
     end
 end
 
-function WindowManager.scrollScreenWithCursorAtEnd()
+function Window.scrollScreenWithCursorAtEnd()
     if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 'b'})
     end
 end
 
-function WindowManager.scrollScreenWithCursorAtCenter()
+function Window.scrollScreenWithCursorAtCenter()
     if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 'z'})
     end
 end
 
-function WindowManager.scrollScreenWithCursorAtTop()
+function Window.scrollScreenWithCursorAtTop()
     if is.codeEditor() then
         md.Hyper.forceEscape()
         ks.sequence({'z', 't'})
     end
 end
 
-function WindowManager.toggleAudio()
-    ks.shiftCmd('a')
-end
-
-function WindowManager.toggleScreenShare()
-    ks.shiftCmd('s')
-end
-
-function WindowManager.toggleVideo()
-    ks.shiftCmd('v')
-end
-
-function WindowManager.toggleAudioAndVideo()
-    WindowManager.toggleAudio()
-    WindowManager.toggleVideo()
-end
-
-function WindowManager.toggleCodeFocus()
+function Window.toggleCodeFocus()
     ks.shiftAltCmd('z')
 end
 
-function WindowManager.focusSidebarFileExplorer()
+function Window.focusSidebarFileExplorer()
     fn.Code.run('Focus on Files Explorer')
 end
 
-function WindowManager.focusSidebarSourceControl()
+function Window.focusSidebarSourceControl()
     fn.Code.run('Focus on Source Control View')
 end
 
-function WindowManager.destroy()
+function Window.destroy()
     if is.In(finder, zoom, rayapp, slack, discord, 'org.hammerspoon.Hammerspoon') then
         ks.close()
     else
@@ -235,8 +168,52 @@ function WindowManager.destroy()
     end
 end
 
-function WindowManager.quitApplication()
+function Window.quitApplication()
     ks.cmd('q')
 end
 
-return WindowManager
+function Window.maximizeAfterDelay(delay)
+    hs.timer.doAfter(delay or 0.5, Window.maximize)
+end
+
+function Window.maximize()
+    Window.moveTo('maximize')
+end
+
+function Window.topLeft()
+    Window.moveTo('topLeft')
+end
+
+function Window.topRight()
+    Window.moveTo('topRight')
+end
+
+function Window.leftHalf()
+    Window.moveTo('leftHalf')
+end
+
+function Window.bottomHalf()
+    Window.moveTo('bottomHalf')
+end
+
+function Window.topHalf()
+    Window.moveTo('topHalf')
+end
+
+function Window.rightHalf()
+    Window.moveTo('rightHalf')
+end
+
+function Window.bottomLeft()
+    Window.moveTo('bottomLeft')
+end
+
+function Window.bottomRight()
+    Window.moveTo('bottomRight')
+end
+
+function Window.moveTo(position)
+    Window.HalfsAndThirds[position]()
+end
+
+return Window

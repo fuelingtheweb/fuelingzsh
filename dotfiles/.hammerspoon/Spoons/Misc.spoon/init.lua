@@ -5,7 +5,7 @@ log = hs.logger.new('ftw-log', 'debug')
 
 hs.urlevent.bind('misc-optionPressedOnce', function()
     if is.In(spotify) then
-        md.WindowManager.next()
+        cm.Window.next()
     else
         md.Media.showVideoBar()
     end

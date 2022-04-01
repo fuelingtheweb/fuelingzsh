@@ -44,7 +44,7 @@ KarabinerHandler.lookup = {
     comma = 'SelectInside',
     period = 'SelectUntil',
     slash = 'JumpTo',
-    spacebar = 'WindowManager',
+    spacebar = 'Window',
 }
 
 local lookupKeys = {

@@ -158,7 +158,7 @@ end
 
 function Open.spotify()
     if is.In(spotify) then
-        return md.WindowManager.next()
+        return cm.Window.next()
     end
 
     app = hs.application.get(spotify)

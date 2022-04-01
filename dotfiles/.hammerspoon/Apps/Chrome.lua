@@ -3,12 +3,12 @@ Chrome.__index = Chrome
 
 function Chrome.open(url)
     hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default"')
-    maximizeAfterDelay()
+    cm.Window.maximizeAfterDelay()
 end
 
 function Chrome.openIncognito(url)
     hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
-    maximizeAfterDelay()
+    cm.Window.maximizeAfterDelay()
 end
 
 function Chrome.urlContains(needle)

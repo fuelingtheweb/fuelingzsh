@@ -19,6 +19,11 @@ fn = {
 
 is = fn.is
 
+cm = {
+    Media = require('Commands.Media'),
+    Window = require('Commands.Window'),
+}
+
 fn.app.loadBundleVariables()
 
 hs.loadSpoon('Watchers')

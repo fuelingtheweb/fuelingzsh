@@ -8,7 +8,7 @@ Paste.lookup = {
     e = 'toEndOfWord',
     r = nil,
     t = Brackets.pasteInside,
-    caps_lock = nil,
+    caps_lock = 'all',
     a = 'toEndOfLine',
     s = Brackets.pasteInside,
     d = Brackets.pasteInside,
@@ -113,6 +113,14 @@ end
 function Paste.backward()
     if is.codeEditor() then
         ks.shift('p')
+    end
+end
+
+function Paste.all()
+    ks.slow().cmd('a').slow().paste()
+
+    if is.codeEditor() then
+        ks.escape().sequence({'g', 'g'})
     end
 end
 

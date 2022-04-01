@@ -57,12 +57,6 @@ function showChooser(callback, choices)
         :show()
 end
 
-function maximizeAfterDelay()
-    hs.timer.doAfter(0.5, function()
-        md.WindowManager.moveTo('maximize')
-    end)
-end
-
 function currentTitle()
     app = hs.application.frontmostApplication()
 
