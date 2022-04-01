@@ -11,6 +11,7 @@ App.bundles = {
     notion = 'notion.id',
     postman = 'com.postmanlabs.mac',
     preview = 'com.apple.Preview',
+    rayapp = 'be.spatie.ray',
     slack = 'com.tinyspeck.slackmacgap',
     spotify = 'com.spotify.client',
     sublime = 'com.sublimetext.4',
@@ -19,6 +20,7 @@ App.bundles = {
     teams = 'com.microsoft.teams',
     transmit = 'com.panic.Transmit',
     vscode = 'com.microsoft.VSCode',
+    zoom = 'us.zoom.xos',
 }
 
 function App.codeEditor()

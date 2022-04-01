@@ -14,6 +14,7 @@ fn = {
     Notion = require('Apps.Notion'),
     Slack = require('Apps.Slack'),
     Sublime = require('Apps.Sublime'),
+    TablePlus = require('Apps.TablePlus'),
 }
 
 is = fn.is

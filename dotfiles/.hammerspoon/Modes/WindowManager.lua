@@ -220,7 +220,7 @@ function WindowManager.focusSidebarSourceControl()
 end
 
 function WindowManager.destroy()
-    if is.finder() then
+    if is.In(finder, zoom, rayapp, slack, discord) then
         ks.close()
     else
         ks.shiftCmd('w')

@@ -13,20 +13,21 @@ allwindows:rejectApp('Hammerspoon'):rejectApp('Alfred'):rejectApp('Shortcat')
 hs.window.animationDuration = 0
 
 allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
-    app = hs.application.frontmostApplication()
-    count = 0
+    local app = window:application()
+    local bundle = app:bundleID()
+    local count = 0
 
     for k, v in pairs(app:visibleWindows()) do
-        if (is.In(preview) or is.finder()) and v:title() == '' then
+        if hasValue({preview, finder}, bundle) and v:title() == '' then
         else
             count = count + 1
         end
     end
 
-    if count < 1 and app:isFrontmost() then
-        if is.In(preview) then
+    if count < 1 then
+        if hasValue({preview, sublimeMerge, slack, discord, sublime, vscode, spotify, tableplus, zoom, rayapp}, bundle) then
             app:kill()
-        else
+        elseif app:isFrontmost() then
             app:hide()
         end
     end

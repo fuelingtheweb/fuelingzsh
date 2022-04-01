@@ -38,17 +38,11 @@ function Is.In(bundle, ...)
         return fn.app.includes(bundle)
     end
 
-    local bundles = table.pack(...)
-
-    table.insert(bundles, bundle)
-
-    return fn.app.includes(bundles)
+    return fn.app.includes(table.pack(bundle, ...))
 end
 
 function Is.notIn(...)
-    local bundles = table.pack(...)
-
-    return not Is.In(bundles)
+    return not Is.In(table.pack(...))
 end
 
 function Is.String(value)
