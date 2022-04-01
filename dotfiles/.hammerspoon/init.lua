@@ -21,6 +21,7 @@ is = fn.is
 
 cm = {
     Media = require('Commands.Media'),
+    Search = require('Commands.Search'),
     Window = require('Commands.Window'),
 }
 
@@ -36,7 +37,6 @@ Artisan = hs.loadSpoon('Artisan')
 Brackets = hs.loadSpoon('Brackets')
 
 hs.loadSpoon('Keystroke')
-hs.loadSpoon('Search')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
 

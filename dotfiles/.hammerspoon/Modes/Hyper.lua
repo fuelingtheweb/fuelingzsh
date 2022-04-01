@@ -3,8 +3,8 @@ Hyper.__index = Hyper
 
 Hyper.lookup = {
     y = 'copy',
-    u = spoon.Search.tabs,
-    i = spoon.Search.symbol,
+    u = cm.Search.tabs,
+    i = cm.Search.symbol,
     o = 'open',
     p = fn.Alfred.clipboard,
     open_bracket = 'commandPalette',
