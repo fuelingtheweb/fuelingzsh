@@ -79,7 +79,7 @@ function Open.windowHintsForCurrentApplication()
 end
 
 function Open.windowHints()
-    -- hs.hints.style = 'vimperator'
+    hs.hints.style = 'vimperator'
     hs.hints.windowHints()
 end
 
