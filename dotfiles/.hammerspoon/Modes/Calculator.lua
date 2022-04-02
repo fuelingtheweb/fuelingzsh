@@ -21,7 +21,7 @@ Calculator.lookup = {
     comma = '8',
     period = '9',
     slash = '/',
-    right_shift = ks.shiftEnter,
+    right_shift = ks.delete,
     spacebar = '.',
 }
 

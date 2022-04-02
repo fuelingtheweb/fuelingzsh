@@ -30,12 +30,16 @@ end
 function Make.lineBefore()
     if is.vimMode() then
         ks.escape().shift('o')
+    elseif is.googleSheet() then
+        ks.ctrlAlt('i').key('r').enter()
     end
 end
 
 function Make.lineAfter()
     if is.vimMode() then
         ks.escape().key('o')
+    elseif is.googleSheet() then
+        ks.ctrlAlt('i').key('r').key('b').enter()
     end
 end
 

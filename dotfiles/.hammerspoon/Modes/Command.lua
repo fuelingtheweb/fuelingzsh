@@ -35,6 +35,10 @@ end
 function Command.duplicateLine()
     if is.codeEditor() then
         ks.shiftCmd('d')
+    elseif is.googleSheet() then
+        ks.shift('space').shift('space').slow().copy().left()
+        md.Make.lineAfter()
+        ks.escape().slow().paste().left()
     end
 end
 
@@ -91,6 +95,8 @@ function Command.finish()
         fn.iTerm.launch()
     elseif is.In(sublimeMerge) then
         ks.enter()
+    elseif is.googleSheet() then
+        ks.enter().up()
     else
         ks.cmd('return')
     end

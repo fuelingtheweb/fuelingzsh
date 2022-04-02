@@ -84,6 +84,23 @@ function Tab.moveToNewWindow()
     end
 end
 
+function Tab.moveToNextWindow()
+    local app = hs.application.frontmostApplication()
+
+    if countTable(app:visibleWindows()) < 2 then
+        return
+    end
+
+    if is.chrome() then
+        fn.Chrome.copyUrl()
+        cm.Window.nextInCurrentApp()
+        cm.Tab.new()
+        ks.paste().enter()
+        cm.Window.nextInCurrentApp()
+        ks.close()
+    end
+end
+
 function Tab.new()
     if is.codeEditor() then
         ks.cmd('n')

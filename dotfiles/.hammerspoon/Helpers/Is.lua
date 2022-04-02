@@ -61,4 +61,8 @@ function Is.lua()
     return titleContains('.lua')
 end
 
+function Is.googleSheet()
+    return Is.chrome() and titleContains('Google Sheets')
+end
+
 return Is
