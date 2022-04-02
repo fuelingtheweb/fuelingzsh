@@ -26,7 +26,6 @@ UrlDispatcher:start()
 
 Shortcuts = hs.loadSpoon('Shortcuts')
 Shortcuts:addFromConfig()
-Shortcuts:listen()
 
 ProjectManager = hs.loadSpoon('ProjectManager')
 ProjectManager:addFromConfig()

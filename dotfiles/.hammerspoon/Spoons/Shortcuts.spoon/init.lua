@@ -38,7 +38,7 @@ function Shortcuts.mergeMapping(dest, source)
     return dest
 end
 
-function Shortcuts:trigger(key)
+function Shortcuts:handle(key)
     shortcut = self.all[key]
 
     if not shortcut then
@@ -82,12 +82,6 @@ end
 function Shortcuts:addFromConfig()
     require('config.shortcuts')
     require('config.custom.shortcuts')
-end
-
-function Shortcuts:listen()
-    hs.urlevent.bind('shortcut-trigger', function(eventName, params)
-        self:trigger(params.key)
-    end)
 end
 
 return Shortcuts

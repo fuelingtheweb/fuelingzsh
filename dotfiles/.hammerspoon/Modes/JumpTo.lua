@@ -6,7 +6,7 @@ JumpTo.lookup = {
     q = nil,
     w = nil,
     e = nil,
-    r = nil,
+    r = 'untilForward',
     t = 'previousBlock',
     caps_lock = ToBracket.to,
     a = nil,
@@ -67,6 +67,10 @@ function JumpTo.nextBlock()
     else
         ks.shiftCmd('right')
     end
+end
+
+function JumpTo.untilForward()
+    ks.escape().key('f')
 end
 
 return JumpTo

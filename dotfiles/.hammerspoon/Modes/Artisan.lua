@@ -16,7 +16,7 @@ Artisan.lookup = {
     semicolon = nil,
     quote = nil,
     return_or_enter = nil,
-    n = 'migrateFreshAndSeed',
+    n = cm.Artisan.migrateFreshAndSeed,
     m = nil,
     comma = nil,
     period = nil,
@@ -24,9 +24,5 @@ Artisan.lookup = {
     right_shift = nil,
     spacebar = nil,
 }
-
-function Artisan.migrateFreshAndSeed()
-    ks.type('amgfs').enter()
-end
 
 return Artisan

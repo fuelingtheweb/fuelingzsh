@@ -20,12 +20,12 @@ fn = {
 is = fn.is
 
 cm = {
+    Artisan = require('Commands.Artisan'),
     Media = require('Commands.Media'),
     Search = require('Commands.Search'),
+    Tab = require('Commands.Tab'),
     ViVisual = require('Commands.ViVisual'),
     Window = require('Commands.Window'),
-
-    Tab = require('Commands.Tab'),
 }
 
 fn.app.loadBundleVariables()
@@ -36,7 +36,6 @@ Ray = hs.loadSpoon('Ray')
 Pending = hs.loadSpoon('Pending')
 Modal = hs.loadSpoon('Modal')
 TextManipulation = hs.loadSpoon('TextManipulation')
-Artisan = hs.loadSpoon('Artisan')
 Brackets = hs.loadSpoon('Brackets')
 
 ToBracket = Modal.load('ToBracket')

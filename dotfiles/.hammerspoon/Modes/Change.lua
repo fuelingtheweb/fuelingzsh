@@ -14,7 +14,7 @@ Change.lookup = {
     d = Brackets.changeInside,
     f = Brackets.changeInside,
     g = 'toBeginningOfLine',
-    left_shift = {'below', 'above'},
+    left_shift = nil,
     z = Brackets.changeInside,
     x = 'character',
     c = Brackets.changeInside,
@@ -89,14 +89,6 @@ function Change.character()
     end
 
     ks.delete()
-end
-
-function Change.below()
-    ks.key('o')
-end
-
-function Change.above()
-    ks.shift('o')
 end
 
 function Change.untilForward()

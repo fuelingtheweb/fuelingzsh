@@ -43,7 +43,6 @@ end
 
 function General.methodChain()
     ks.type('->')
-    -- Modal.enter('CodeSnippets:callFunction')
 end
 
 function General.fallback(value)

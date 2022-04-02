@@ -21,7 +21,6 @@ Hyper.lookup = {
     comma = ks.undo,
     period = ks.redo,
     slash = 'cheatsheets',
-    -- slash = Artisan.start,
     right_shift = nil,
     spacebar = 'forceEscape',
 }

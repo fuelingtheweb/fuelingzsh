@@ -21,13 +21,6 @@ Make.lookup = {
     v = 'lineAfter',
     b = 'brackets',
     spacebar = 'space',
-
-    -- a = 'startOfVideoOrPreviousVideo',
-    -- x = 'fullscreen',
-    -- g = 'nextVideo',
-    -- v = 'focus',
-    -- comma = 'videoBack',
-    -- period = 'videoForward',
 }
 
 function Make.fallback(bracket)
@@ -45,29 +38,5 @@ function Make.lineAfter()
         ks.escape().key('o')
     end
 end
-
--- function Make.startOfVideoOrPreviousVideo()
---     md.Media.startOfVideoOrPreviousVideo()
--- end
-
--- function Make.nextVideo()
---     md.Media.nextVideo()
--- end
-
--- function Make.focus()
---     md.Media.focus()
--- end
-
--- function Make.fullscreen()
---     md.Media.fullscreen()
--- end
-
--- function Make.videoBack()
---     md.Media.videoBack()
--- end
-
--- function Make.videoForward()
---     md.Media.videoForward()
--- end
 
 return Make
