@@ -7,10 +7,10 @@ KarabinerHandler.modifier = nil
 
 KarabinerHandler.lookup = {
     tab = 'Tab',
-    q = 'Numbers',
+    q = 'Pane',
     w = nil,
     e = nil,
-    r = 'Pane',
+    r = 'Calculator',
     t = {iterm = 'Terminal', atom = 'Test', vscode = 'Test'},
     y = {iterm = 'Yarn', default = 'Yank'},
     u = 'AppShortcut',
@@ -60,7 +60,7 @@ local lookupKeys = {
     o = 'f13',
     p = '[',
     open_bracket = ']',
-    close_bracket = 'a',
+    close_bracket = 'f11',
     a = 's',
     s = 'd',
     d = 'f',

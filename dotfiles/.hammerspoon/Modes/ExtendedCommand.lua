@@ -100,7 +100,7 @@ function ExtendedCommand.jumpTo()
     if is.vscode() then
         ks.super('return')
     elseif is.In(atom) then
-        ks.shift('return')
+        ks.shiftEnter()
     elseif is.sublime() then
         ks.shiftCmd('.')
     else

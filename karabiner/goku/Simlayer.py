@@ -78,7 +78,7 @@ class Simlayer:
             'o': 'f13',
             'p': 'open_bracket',
             'open_bracket': 'close_bracket',
-            'close_bracket': 'a',
+            'close_bracket': 'f11',
             'a': 's',
             's': 'd',
             'd': 'f',
@@ -111,4 +111,3 @@ class Simlayer:
 
     def indent(self, count):
         return '    ' * count
-

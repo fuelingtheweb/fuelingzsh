@@ -11,6 +11,10 @@ function Keystroke.enter()
     return Keystroke.key('return')
 end
 
+function Keystroke.shiftEnter()
+    return Keystroke.shift('return')
+end
+
 function Keystroke.tab()
     return Keystroke.key('tab')
 end
