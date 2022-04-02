@@ -41,6 +41,13 @@ Shortcuts
         vscode = function()
             path = currentTitle():match('~%S+')
 
+            if stringContains('.hammerspoon', path) then
+                md.Hyper.open()
+                ks.type('Helpers/')
+
+                return
+            end
+
             if hs.fs.pathToAbsolute(path .. '/.env') then
                 fn.Code.open(path .. '/.env')
             elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
@@ -74,7 +81,23 @@ Shortcuts
         notion = function()
             ks.altCmd('2').shift('2')
         end,
-        iterm = 'wd d'
+        iterm = 'wd d',
+        vscode = function()
+            md.Hyper.open()
+            ks.type('Modes/')
+        end,
+    })
+    :add('C', {
+        vscode = function()
+            md.Hyper.open()
+            ks.type('Commands/')
+        end,
+    })
+    :add('A', {
+        vscode = function()
+            md.Hyper.open()
+            ks.type('Apps/')
+        end,
     })
     :add('0', {
         -- Notion: Create text

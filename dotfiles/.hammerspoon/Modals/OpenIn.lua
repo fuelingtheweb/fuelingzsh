@@ -29,6 +29,10 @@ function OpenIn.inSublimeMerge()
     else
         local path = currentTitle():match('~%S+')
 
+        if path == '~/.hammerspoon' then
+            path = '~/.fuelingzsh'
+        end
+
         if path then
             hs.execute('/usr/local/bin/smerge "' .. path .. '"')
         end

@@ -22,6 +22,7 @@ is = fn.is
 cm = {
     Media = require('Commands.Media'),
     Search = require('Commands.Search'),
+    ViVisual = require('Commands.ViVisual'),
     Window = require('Commands.Window'),
 }
 

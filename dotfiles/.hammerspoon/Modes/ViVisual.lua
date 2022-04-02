@@ -26,7 +26,7 @@ ViVisual.lookup = {
 }
 
 function ViVisual.selectToPreviousSubword()
-    md.SelectUntil.beginSelectingBackward()
+    cm.ViVisual.beginSelectingBackward()
 
     if is.vscode() then
         ks.sequence({'\\', 'b'})
@@ -36,7 +36,7 @@ function ViVisual.selectToPreviousSubword()
 end
 
 function ViVisual.selectToNextSubword()
-    md.SelectUntil.beginSelectingForward()
+    cm.ViVisual.beginSelectingForward()
 
     if is.vscode() then
         ks.sequence({'\\', 'e'})
@@ -46,17 +46,17 @@ function ViVisual.selectToNextSubword()
 end
 
 function ViVisual.selectToPreviousWholeWord()
-    md.SelectUntil.beginSelectingBackward()
+    cm.ViVisual.beginSelectingBackward()
     ks.shift('b')
 end
 
 function ViVisual.selectToEndOfWholeWord()
-    md.SelectUntil.beginSelectingForward()
+    cm.ViVisual.beginSelectingForward()
     ks.shift('e')
 end
 
 function ViVisual.selectToNextWholeWord()
-    md.SelectUntil.beginSelectingForward()
+    cm.ViVisual.beginSelectingForward()
     ks.shift('w')
 
     if is.vscode() and TextManipulation.vimEnabled then
@@ -68,7 +68,7 @@ function ViVisual.selectToTopOfPage()
     if is.finder() then
         ks.shiftAlt('up')
     elseif is.vscode() and TextManipulation.vimEnabled then
-        md.SelectUntil.beginSelectingForward()
+        cm.ViVisual.beginSelectingForward()
         ks.sequence({'g', 'g'})
     else
         ks.shiftCmd('up')
@@ -91,7 +91,7 @@ function ViVisual.selectToBottomOfPage()
     if is.finder() then
         ks.shiftAlt('down')
     elseif is.vscode() and TextManipulation.vimEnabled then
-        md.SelectUntil.beginSelectingForward()
+        cm.ViVisual.beginSelectingForward()
         ks.shift('g')
     else
         ks.shiftCmd('down')

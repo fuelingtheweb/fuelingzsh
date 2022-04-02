@@ -86,9 +86,11 @@ function Command.finish()
     elseif is.In(transmit) then
         -- Disconnect from server
         ks.cmd('e')
-    elseif is.vscode() and titleContains('.git/COMMIT_EDITMSG') then
+    elseif is.vscode() and (titleContains('.git/COMMIT_EDITMSG') or titleContains('.git/MERGE_MSG')) then
         ks.slow().save().slow().close()
         fn.iTerm.launch()
+    elseif is.In(sublimeMerge) then
+        ks.enter()
     else
         ks.cmd('return')
     end

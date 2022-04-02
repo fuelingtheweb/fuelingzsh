@@ -43,7 +43,11 @@ Modal.add({
         ['m'] = 'destroy',
     },
     callback = function(item)
-        ToBracket.actions[action]()
+        if is.String(item) then
+            ToBracket.actions[item]()
+        else
+            ToBracket.actions[item.value]()
+        end
     end,
     exited = function()
         if not ToBracket.paused then
@@ -153,8 +157,6 @@ ToBracket.actions = {
         if is.vimMode() then
             ks.key('c')
         end
-
-        Brackets.start()
     end,
 
     yank = function()
@@ -281,32 +283,12 @@ function ToBracket.beginJumpingBackward()
 end
 
 function ToBracket.beginSelectingForward()
-    if is.notVimMode() then
-        return
-    end
-
-    if is.vscode() then
-        ks.ctrl('v')
-    elseif is.In(atom) then
-        ks.super('v').key('l')
-    elseif is.sublime() then
-        ks.super('v')
-    end
-
+    cm.ViVisual.beginSelectingForward()
     ks.key('t')
 end
 
 function ToBracket.beginSelectingBackward()
-    if is.notVimMode() then
-        return
-    end
-
-    if is.vscode() then
-        ks.ctrl('v')
-    elseif is.codeEditor() then
-        ks.super('v').key('h')
-    end
-
+    cm.ViVisual.beginSelectingBackward()
     ks.shift('t')
 end
 

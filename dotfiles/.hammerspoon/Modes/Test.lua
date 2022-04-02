@@ -13,8 +13,8 @@ Test.lookup = {
     j = nil,
     k = 'class',
     l = 'all',
-    semicolon = nil,
-    quote = 'last',
+    semicolon = 'last',
+    quote = nil,
     return_or_enter = nil,
     n = nil,
     m = 'method',
@@ -27,6 +27,7 @@ Test.lookup = {
 
 function Test.before()
     md.Hyper.forceEscape()
+    ks.save();
 end
 
 function Test.class()

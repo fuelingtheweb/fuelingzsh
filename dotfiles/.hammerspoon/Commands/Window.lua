@@ -153,6 +153,8 @@ end
 function Window.destroy()
     if is.In(finder, zoom, rayapp, slack, discord, 'org.hammerspoon.Hammerspoon') then
         ks.close()
+    elseif is.In(tableplus) then
+        Window.quitApplication()
     else
         ks.shiftCmd('w')
     end
