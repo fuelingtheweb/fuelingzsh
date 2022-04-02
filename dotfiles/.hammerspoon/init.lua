@@ -24,6 +24,8 @@ cm = {
     Search = require('Commands.Search'),
     ViVisual = require('Commands.ViVisual'),
     Window = require('Commands.Window'),
+
+    Tab = require('Commands.Tab'),
 }
 
 fn.app.loadBundleVariables()

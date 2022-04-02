@@ -10,8 +10,8 @@ Hyper.lookup = {
     open_bracket = 'commandPalette',
     close_bracket = nil,
     h = 'previousPage',
-    j = 'previousTab',
-    k = 'nextTab',
+    j = cm.Tab.previous,
+    k = cm.Tab.next,
     l = 'nextPage',
     semicolon = cm.Window.nextInCurrentApp,
     quote = cm.Window.next,
@@ -159,14 +159,6 @@ function Hyper.previousPage()
     else
         ks.cmd('[')
     end
-end
-
-function Hyper.previousTab()
-    md.Tab.previous()
-end
-
-function Hyper.nextTab()
-    md.Tab.next()
 end
 
 function Hyper.nextPage()
