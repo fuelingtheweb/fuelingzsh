@@ -8,11 +8,7 @@ Modal.add({
         n = 'new ',
         m = function()
             Modal.exit()
-            if is.lua() then
-                ks.type('nil')
-            else
-                ks.type('null')
-            end
+            cm.Code.null()
         end,
         t = 'true',
         o = 'protected ',

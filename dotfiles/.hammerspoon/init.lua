@@ -21,6 +21,7 @@ is = fn.is
 
 cm = {
     Artisan = require('Commands.Artisan'),
+    Code = require('Commands.Code'),
     Media = require('Commands.Media'),
     Search = require('Commands.Search'),
     Tab = require('Commands.Tab'),

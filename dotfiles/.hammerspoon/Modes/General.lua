@@ -4,22 +4,22 @@ General.__index = General
 General.lookup = {
     y = '&',
     u = '_',
-    i = '-',
-    o = '+',
+    i = 'openBraces',
+    o = 'closeBraces',
     p = '|',
-    open_bracket = 'openParens',
-    close_bracket = 'closeParens',
+    open_bracket = '\\',
+    close_bracket = nil,
     h = '#',
-    j = '@',
-    k = '$',
+    j = 'openParens',
+    k = 'closeParens',
     l = '- ',
-    semicolon = '!',
-    quote = 'equals',
+    semicolon = '$',
+    quote = '@',
     return_or_enter = nil,
-    n = '`',
-    m = 'multiply',
-    comma = '%',
-    period = 'methodChain',
+    n = '!',
+    m = cm.Code.null,
+    comma = '`',
+    period = '->',
     slash = '~',
     right_shift = '^',
     spacebar = nil,
@@ -33,16 +33,12 @@ function General.closeParens()
     ks.shift('0')
 end
 
-function General.equals()
-    ks.key('=')
+function General.openBraces()
+    ks.shift('[')
 end
 
-function General.multiply()
-    ks.shift('8')
-end
-
-function General.methodChain()
-    ks.type('->')
+function General.closeBraces()
+    ks.shift(']')
 end
 
 function General.fallback(value)
