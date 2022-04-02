@@ -151,9 +151,9 @@ function Window.focusSidebarSourceControl()
 end
 
 function Window.destroy()
-    if is.In(finder, zoom, rayapp, slack, discord, 'org.hammerspoon.Hammerspoon', 'com.runningwithcrayons.Alfred-Preferences') then
+    if is.In(finder, zoom, rayapp, slack, 'org.hammerspoon.Hammerspoon', 'com.runningwithcrayons.Alfred-Preferences', 'com.apple.systempreferences') then
         ks.close()
-    elseif is.In(tableplus) then
+    elseif is.In(tableplus, discord) then
         Window.quitApplication()
     else
         ks.shiftCmd('w')
