@@ -18,7 +18,13 @@ function Alfred.actionFile()
 end
 
 function Alfred.sleep()
-    Alfred.search('sleep')
+    Alfred.search('cmd:sleep')
+    ks.enter()
+end
+
+function Alfred.emptyTrash()
+    Alfred.search('cmd:emptytrash')
+    ks.enter()
 end
 
 function Alfred.search(search)
