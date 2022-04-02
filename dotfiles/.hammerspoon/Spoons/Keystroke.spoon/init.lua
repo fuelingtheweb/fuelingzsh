@@ -75,6 +75,10 @@ function Keystroke.shiftCtrlAlt(key)
     return Keystroke.fire({'shift', 'ctrl', 'alt'}, key)
 end
 
+function Keystroke.shiftCtrlCmd(key)
+    return Keystroke.fire({'shift', 'ctrl', 'cmd'}, key)
+end
+
 function Keystroke.shiftAlt(key)
     return Keystroke.fire({'shift', 'alt'}, key)
 end
