@@ -37,8 +37,10 @@ function Command.duplicateLine()
         ks.shiftCmd('d')
     elseif is.googleSheet() then
         ks.shift('space').shift('space').slow().copy().left()
+        md.Vi.moveToFirstCharacterOfLine()
         md.Make.lineAfter()
         ks.escape().slow().paste().left()
+        md.Vi.moveToFirstCharacterOfLine()
     end
 end
 

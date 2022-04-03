@@ -208,16 +208,16 @@ function CodeSnippets.conditionalAnd()
 end
 
 function CodeSnippets.conditionalOr()
-    handleConditional(titleContains, insertText, {
-        {condition = '.lua', value = ' or '},
-        {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
-        -- ['fallback'] = ' || ',
-    })
-    -- if is.lua() then
-    --     ks.type(' or ')
-    -- else
-    --     ks.type(' || ')
-    -- end
+    -- handleConditional(titleContains, insertText, {
+    --     {condition = '.lua', value = ' or '},
+    --     {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
+    --     -- ['fallback'] = ' || ',
+    -- })
+    if is.lua() then
+        ks.type(' or ')
+    else
+        ks.type(' || ')
+    end
 end
 
 function CodeSnippets.concatenate()

@@ -89,6 +89,15 @@ end
 function Destroy.line()
     if is.vimMode() then
         ks.escape().sequence({'d', 'd'})
+    elseif is.googleSheet() then
+        ks.shift('space').shift('space').slow().copy()
+
+        local text = trim(hs.pasteboard.getContents())
+        if text == '' then
+            ks.shift('space')
+        end
+
+        ks.altCmd('-').left()
     else
         ks.cmd('left').shiftCmd('right').delete()
     end

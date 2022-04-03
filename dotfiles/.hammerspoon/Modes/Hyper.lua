@@ -165,7 +165,9 @@ function Hyper.nextPage()
         ks.altCmd('right')
     elseif is.iterm() then
         -- Autocomplete to the end of the line
-        ks.super(';')
+        hs.timer.doAfter(0.1, function()
+            ks.super(';')
+        end)
     elseif is.In(atom) then
         -- Atom: Cursor History: Next
         ks.ctrl('o')
