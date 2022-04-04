@@ -7,8 +7,8 @@ Google.lookup = {
     i = 'inbox',
     o = 'toggleIncognito',
     p = 'profiles',
-    open_bracket = 'groupTab',
-    close_bracket = nil,
+    open_bracket = 'openLastpass',
+    close_bracket = 'groupTab',
     h = 'history',
     j = 'nextGitConflict',
     k = 'previousGitConflict',
@@ -103,6 +103,10 @@ end
 
 function Google.previousGitConflict()
     ks.slow().shiftAltCmd('g').slow().shiftAltCmd('k')
+end
+
+function Google.openLastpass()
+    ks.shiftCmd('l')
 end
 
 return Google

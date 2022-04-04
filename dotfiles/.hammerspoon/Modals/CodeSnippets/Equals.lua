@@ -46,7 +46,7 @@ Modal.add({
             ks.type(item.text)
 
             if hasValue({' === ', ' == '}, item.text) then
-                Brackets.start()
+                Brackets.startIfPhp()
             end
         end
     end
@@ -54,7 +54,7 @@ Modal.add({
 
 function mdl.equals()
     ks.type(' = ')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function mdl.thisSnippet()
@@ -68,7 +68,7 @@ end
 
 function mdl.simpleDoubleQuote()
     ks.type('=""').slow().left()
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function mdl.paste()
@@ -81,7 +81,7 @@ function mdl.simpleNotEquals()
         ks.type(' ~= ')
     else
         ks.type(' != ')
-        Brackets.start()
+        Brackets.startIfPhp()
     end
 end
 
@@ -90,7 +90,7 @@ function mdl.strictNotEquals()
         ks.type(' ~== ')
     else
         ks.type(' !== ')
-        Brackets.start()
+        Brackets.startIfPhp()
     end
 end
 

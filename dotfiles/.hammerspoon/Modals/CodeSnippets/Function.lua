@@ -18,7 +18,7 @@ Modal.add({
             md.CodeSnippets.snippet('function-' .. item.method)
         end
 
-        Brackets.start()
+        Brackets.startIfPhp()
     end,
 })
 

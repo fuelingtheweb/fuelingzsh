@@ -98,25 +98,20 @@ end
 
 function ViVisual.selectLineUp()
     if is.vimMode() then
-        ks.shift('v')
-    end
-
-    if is.vscode() and is.vimMode() then
-        ks.key('k')
+        ks.shift('v').key('k')
     else
-        ks.up()
+        ViVisual.selectToFirstCharacterOfLine()
+        ks.shift('up')
     end
 end
 
 function ViVisual.selectLineDown()
     if is.vimMode() then
-        ks.shift('v')
-    end
-
-    if is.vscode() and is.vimMode() then
-        ks.key('j')
+        ks.shift('v').key('j')
     else
-        ks.down()
+        md.Vi.moveToFirstCharacterOfLine()
+        ViVisual.selectToEndOfLine()
+        ks.shift('down')
     end
 end
 

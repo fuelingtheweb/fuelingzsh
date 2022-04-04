@@ -27,6 +27,7 @@ KarabinerHandler.lookup = {
         atom = 'CodeSnippets',
         vscode = 'CodeSnippets',
         sublime = 'CodeSnippets',
+        default = 'DefaultSnippets',
     },
     d = 'Vi',
     f = 'General',

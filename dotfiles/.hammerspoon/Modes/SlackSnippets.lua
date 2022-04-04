@@ -14,7 +14,7 @@ SlackSnippets.lookup = {
     k = nil,
     l = 'lunch',
     semicolon = 'break',
-    quote = nil,
+    quote = 'eod',
     return_or_enter = 'back',
     n = 'ofn',
     m = nil,
@@ -31,6 +31,10 @@ function SlackSnippets.fallback(value)
     hs.timer.doAfter(.2, function()
         ks.slow().key('escape')
     end)
+end
+
+function SlackSnippets.eod()
+    ks.type(';eod')
 end
 
 return SlackSnippets

@@ -7,7 +7,7 @@ Calculator.lookup = {
     i = '2',
     o = '3',
     p = '%',
-    open_bracket = '10',
+    open_bracket = ks.delete,
     close_bracket = '100',
     h = '+',
     j = '4',
@@ -21,7 +21,7 @@ Calculator.lookup = {
     comma = '8',
     period = '9',
     slash = '/',
-    right_shift = ks.delete,
+    right_shift = nil,
     spacebar = '.',
 }
 

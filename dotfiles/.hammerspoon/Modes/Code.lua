@@ -98,7 +98,14 @@ function Code.selectNextWord()
 end
 
 function Code.multipleCursorsDown()
-    ks.shiftCtrlAlt('down')
+    if is.codeEditor() then
+        ks.shiftCtrlAlt('down')
+    elseif is.github() and titleContains('Pull Request #') then
+        ks.cmd('g')
+        md.ViVisual.selectToTopOfPage()
+        md.ViVisual.selectLineDown()
+        ks.delete().delete()
+    end
 end
 
 function Code.toggleComma()
@@ -119,7 +126,7 @@ end
 
 function Code.doubleArrow()
     ks.type(' => ')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function Code.goToMatchingPair()

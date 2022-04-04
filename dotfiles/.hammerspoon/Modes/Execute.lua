@@ -3,7 +3,7 @@ Execute.__index = Execute
 
 Execute.lookup = {
     y = nil,
-    u = nil,
+    u = 'openFactory',
     i = nil,
     o = 'openLink',
     p = nil,
@@ -16,7 +16,7 @@ Execute.lookup = {
     semicolon = nil,
     quote = nil,
     return_or_enter = nil,
-    n = nil,
+    n = 'nextOccurrence',
     m = nil,
     comma = nil,
     period = 'openPath',
@@ -26,14 +26,16 @@ Execute.lookup = {
 }
 
 function Execute.goToDefinition()
-    text = getSelectedText()
+    local text = getSelectedText()
 
     if not text then
         md.Yank.word()
-        text = hs.pasteboard.getContents()
+        hs.timer.doAfter(0.2, function()
+            text = hs.pasteboard.getContents()
+        end)
     end
 
-    hs.timer.doAfter(0.2, function()
+    hs.timer.doAfter(0.4, function()
         fn.Code.openFile(text)
     end)
 end
@@ -51,16 +53,37 @@ function Execute.openPath()
 
     ks.escape().sequence({'y', 'i', "'"})
 
-    path = hs.pasteboard.getContents()
+    hs.timer.doAfter(0.2, function()
+        path = hs.pasteboard.getContents()
 
-    if not stringContains('/', path) then
-        path = path:gsub('%.', '/')
+        if not stringContains('/', path) then
+            path = path:gsub('%.', '/')
+        end
+
+        path = path:gsub('^/', '')
+
+        hs.timer.doAfter(0.4, function()
+            fn.Code.openFile(path)
+        end)
+    end)
+end
+
+function Execute.nextOccurrence()
+    ks.escape().shift('8')
+end
+
+function Execute.openFactory()
+    local text = getSelectedText()
+
+    if not text then
+        md.Yank.word()
+        hs.timer.doAfter(0.2, function()
+            text = hs.pasteboard.getContents()
+        end)
     end
 
-    path = path:gsub('^/', '')
-
-    hs.timer.doAfter(0.2, function()
-        fn.Code.openFile(path)
+    hs.timer.doAfter(0.4, function()
+        fn.Code.openFile(text .. 'Factory')
     end)
 end
 

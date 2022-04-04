@@ -57,12 +57,20 @@ function Is.Function(value)
     return type(value) == 'function'
 end
 
+function Is.php()
+    return titleContains('.php')
+end
+
 function Is.lua()
     return titleContains('.lua')
 end
 
 function Is.googleSheet()
-    return Is.chrome() and titleContains('Google Sheets')
+    return Is.chrome() and fn.Chrome.urlContains('docs.google.com') and titleContains('Google Sheets')
+end
+
+function Is.github()
+    return Is.chrome() and fn.Chrome.urlContains('github.com')
 end
 
 return Is

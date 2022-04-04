@@ -8,7 +8,7 @@ Destroy.lookup = {
     e = 'toEndOfWord',
     r = 'untilForward',
     t = Brackets.destroyInside,
-    caps_lock = 'backward',
+    caps_lock = 'all',
     a = 'toEndOfLine',
     s = Brackets.destroyInside,
     d = Brackets.destroyInside,
@@ -20,17 +20,8 @@ Destroy.lookup = {
     c = Brackets.destroyInside,
     v = 'line',
     b = Brackets.destroyInside,
-    spacebar = 'simpleDelete',
+    spacebar = nil,
 }
-
-function Destroy.simpleDelete()
-    if is.codeEditor() then
-        Brackets.cancel()
-        Brackets.start()
-    else
-        ks.delete()
-    end
-end
 
 function Destroy.toEndOfWord()
     if is.vimMode() then
@@ -119,9 +110,11 @@ function Destroy.untilBackward()
     ks.escape().key('d').shift('t')
 end
 
-function Destroy.backward()
+function Destroy.all()
     if is.codeEditor() then
-        ks.super('v').escape().left().key('x')
+        ks.escape().cmd('a').key('c').slow().enter().up()
+    else
+        ks.cmd('a').delete()
     end
 end
 

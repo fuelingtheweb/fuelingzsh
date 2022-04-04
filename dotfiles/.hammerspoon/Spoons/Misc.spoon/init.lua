@@ -56,4 +56,10 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
     hs.notify.new({title = 'App Bundle Copied', informativeText = bundle}):send()
 end)
 
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
+    local title = currentTitle()
+    hs.alert.show(title)
+    hs.pasteboard.setContents(title)
+end)
+
 return obj

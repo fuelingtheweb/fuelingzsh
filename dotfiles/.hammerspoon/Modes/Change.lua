@@ -80,15 +80,13 @@ function Change.line()
 end
 
 function Change.character()
-    if is.vimMode() then
-        ks.ctrlAlt('a')
-
-        if is.vscode() then
-            ks.right()
-        end
+    if is.vscode() and is.vimMode() then
+        ks.escape().sequence({'x', 'i'})
+    elseif is.vimMode() then
+        ks.ctrlAlt('a').delete()
+    else
+        ks.delete()
     end
-
-    ks.delete()
 end
 
 function Change.untilForward()
@@ -114,7 +112,7 @@ Modal.add({
 
         ks.escape().sequence({'c', 'a'}).fire(keystroke.mods, keystroke.key)
 
-        if not hasValue({'s', 'd', 't'}, key) then
+        if key == 'f' or (key == 'b' and is.php()) then
             Brackets.start()
         end
     end,

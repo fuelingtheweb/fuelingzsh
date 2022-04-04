@@ -74,7 +74,7 @@ function CodeSnippets.snippet(name)
     if is.vscode() then
         ks.ctrlCmd('s').paste().slow().enter()
 
-        if hasValue({'if'}, name) then Brackets.start() end
+        if hasValue({'if'}, name) then Brackets.startIfPhp() end
     elseif is.sublime() then
         ks.type('snippet-' .. name).tab()
     else
@@ -110,12 +110,12 @@ end
 
 function CodeSnippets.dd()
     CodeSnippets.snippet('dd')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.echo()
     CodeSnippets.snippet('echo')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.equals()
@@ -124,17 +124,17 @@ end
 
 function CodeSnippets.insertColon()
     ks.type(' : ')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.insertQuestion()
     ks.type(' ? ')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.insertComma()
     ks.type(', ')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.generalSnippetsModal()
@@ -196,7 +196,7 @@ function CodeSnippets.printFunction(item, text)
 
     ks.type(')').left()
 
-    if item.extra ~= 'simple' then Brackets.start() end
+    if item.extra ~= 'simple' then Brackets.startIfPhp() end
 end
 
 function CodeSnippets.conditionalAnd()
@@ -229,7 +229,7 @@ function CodeSnippets.concatenate()
         ks.type(' + ')
     end
 
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function CodeSnippets.typeReturn()

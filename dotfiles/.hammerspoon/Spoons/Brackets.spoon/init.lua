@@ -97,10 +97,10 @@ function Brackets.print(bracket)
     -- local text = getSelectedText()
     local text = nil
 
-    Brackets.start()
+    Modal.exit()
 
-    if hasValue({'singleQuote', 'doubleQuote', 'tag'}, bracket) then
-        Modal.exit()
+    if bracket == 'parenthesis' or (bracket == 'brackets' and is.php()) then
+        Brackets.start()
     end
 
     if text then
@@ -118,6 +118,12 @@ function Brackets.print(bracket)
     ks.type(brackets[1] .. (text or '') .. brackets[2])
 
     ks.left()
+end
+
+function Brackets.startIfPhp()
+    if is.php() then
+        Modal.enter('Brackets')
+    end
 end
 
 function Brackets.start()
@@ -222,7 +228,7 @@ end
 function Brackets.functionSnippet()
     Modal.exit()
     md.CodeSnippets.snippet('function')
-    Brackets.start()
+    Brackets.startIfPhp()
 end
 
 function Brackets.thisSnippet()
@@ -243,14 +249,30 @@ function Brackets.yankInside(key)
 end
 
 function Brackets.pasteInside(key)
-    Brackets.selectInside(key)
-    md.Paste.primaryVim()
+    if is.codeEditor() then
+        Brackets.selectInside(key)
+        md.Paste.primaryVim()
+    else
+        local lookup = {
+            s = 'singleQuote',
+            d = 'doubleQuote',
+            z = 'backTick',
+            f = 'parenthesis',
+            c = 'braces',
+            b = 'brackets',
+            spacebar = 'space',
+            t = 'tag',
+        }
+        Brackets.print(lookup[key])
+        Modal.exit()
+        ks.slow().paste().right()
+    end
 end
 
 function Brackets.changeInside(key)
     Brackets.actionInside('c', key)
 
-    if not hasValue({'s', 'd', 't'}, key) then
+    if key == 'f' or (key == 'b' and is.php()) then
         Brackets.start()
     end
 end

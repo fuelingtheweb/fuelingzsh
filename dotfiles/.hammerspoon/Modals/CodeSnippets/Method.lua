@@ -31,14 +31,20 @@ Modal.add({
                 md.CaseDialog.handle('k')
             elseif is.codeEditor() then
                 md.CodeSnippets.snippet('method')
-                md.CaseDialog.handle('m')
+
+                if is.php() then
+                    md.CaseDialog.handle('m')
+                end
             end
 
             return
         end
 
         md.CodeSnippets.snippet('method-' .. item.method)
-        md.CaseDialog.handle('m')
+
+        if is.php() then
+            md.CaseDialog.handle('m')
+        end
     end,
 })
 
