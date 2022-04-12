@@ -114,7 +114,7 @@ function Destroy.all()
     if is.codeEditor() then
         ks.escape().cmd('a').key('c').slow().enter().up()
     else
-        ks.cmd('a').delete()
+        ks.slow().cmd('a').delete()
     end
 end
 

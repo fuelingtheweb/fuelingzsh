@@ -24,7 +24,7 @@ CodeSnippets.lookup = {
     h = nil,
     j = 'generalSnippetsModal',
     k = nil,
-    l = 'snippet-log',
+    l = 'log',
     semicolon = 'insertColon',
     quote = 'equals',
     return_or_enter = 'typeReturn',
@@ -234,6 +234,14 @@ end
 
 function CodeSnippets.typeReturn()
     ks.type('return')
+end
+
+function CodeSnippets.log()
+    if is.lua() then
+        ks.type('log.d()').left()
+    else
+        ks.type('console.log()').left()
+    end
 end
 
 return CodeSnippets

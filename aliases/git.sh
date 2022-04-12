@@ -71,6 +71,8 @@ alias gpsu='git:push-set-upstream'
 alias gpl='git pull'
 alias gpr='git:pull-request'
 
+alias gprc='gh pr checkout'
+
 alias gr='git:rebase'
 alias grm='git rebase $(git:master-branch)'
 alias grd='git rebase develop'

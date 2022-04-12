@@ -151,15 +151,9 @@ function Window.focusSidebarSourceControl()
 end
 
 function Window.destroy()
-    if is.In(finder, zoom, rayapp, slack, 'org.hammerspoon.Hammerspoon', 'com.runningwithcrayons.Alfred-Preferences', 'com.apple.systempreferences') then
-        ks.close()
-    elseif is.In(tableplus, discord) then
-        Window.quitApplication()
-    else
-        ks.shiftCmd('w')
-    end
-
     if is.chrome() then
+        ks.shiftCmd('w')
+
         hs.timer.doAfter(1, function()
             app = hs.application.frontmostApplication()
 
@@ -167,6 +161,12 @@ function Window.destroy()
                 app:hide()
             end
         end)
+    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor') then
+        Window.quitApplication()
+    elseif is.codeEditor() or is.In(sublimeMerge) then
+        ks.shiftCmd('w')
+    else
+        ks.close()
     end
 end
 
@@ -216,6 +216,22 @@ end
 
 function Window.moveTo(position)
     Window.HalfsAndThirds[position]()
+end
+
+function Window.jumpTo()
+    -- if is.In(atom, vscode) then
+    -- ks.shiftEnter()
+    -- ks.ctrl('space')
+    -- elseif is.sublime() then
+    -- ks.shiftCmd('.')
+    -- else
+    ks.ctrl('space')
+    -- end
+end
+
+function Window.enableScrolling()
+    -- Vimac: Enable Scroll
+    ks.super('s')
 end
 
 return Window

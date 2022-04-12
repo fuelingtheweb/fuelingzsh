@@ -100,7 +100,6 @@ function ViVisual.selectLineUp()
     if is.vimMode() then
         ks.shift('v').key('k')
     else
-        ViVisual.selectToFirstCharacterOfLine()
         ks.shift('up')
     end
 end
@@ -109,8 +108,6 @@ function ViVisual.selectLineDown()
     if is.vimMode() then
         ks.shift('v').key('j')
     else
-        md.Vi.moveToFirstCharacterOfLine()
-        ViVisual.selectToEndOfLine()
         ks.shift('down')
     end
 end

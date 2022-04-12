@@ -32,6 +32,9 @@ function Make.lineBefore()
         ks.escape().shift('o')
     elseif is.googleSheet() then
         ks.ctrlAlt('i').key('r').enter()
+    else
+        md.Vi.moveToFirstCharacterOfLine()
+        ks.enter().up()
     end
 end
 
@@ -40,6 +43,9 @@ function Make.lineAfter()
         ks.escape().key('o')
     elseif is.googleSheet() then
         ks.ctrlAlt('i').key('r').key('b').enter()
+    else
+        md.Vi.moveToEndOfLine()
+        ks.enter()
     end
 end
 

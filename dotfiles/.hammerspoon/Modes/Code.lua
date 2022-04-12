@@ -55,6 +55,23 @@ function Code.moveLineDown()
     elseif is.codeEditor() then
         -- Atom, Sublime: Move line down
         ks.ctrlCmd('down')
+    else
+        md.SelectInside.line()
+        ks.slow().copy().delete().delete()
+        ks.type('a').shift('left').shift('left')
+
+        local text = getSelectedText()
+
+        ks.right().delete().down()
+
+        if text ~= 'a' then
+            ks.down()
+        end
+
+        md.Vi.moveToFirstCharacterOfLine()
+        ks.enter()
+        md.Destroy.toBeginningOfLine()
+        ks.up().paste()
     end
 end
 
@@ -63,6 +80,13 @@ function Code.moveLineUp()
         ks.shiftCmd('up').shiftCmd('up')
     elseif is.codeEditor() then
         ks.ctrlCmd('up')
+    else
+        md.SelectInside.line()
+        ks.slow().copy().delete().delete()
+        md.Vi.moveToFirstCharacterOfLine()
+        ks.enter()
+        md.Destroy.toBeginningOfLine()
+        ks.up().paste()
     end
 end
 

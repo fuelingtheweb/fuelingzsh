@@ -36,6 +36,12 @@ function Execute.goToDefinition()
     end
 
     hs.timer.doAfter(0.4, function()
+        if is.js() or is.blade() then
+            text = text .. '.js'
+        elseif is.php() then
+            text = text .. '.php'
+        end
+
         fn.Code.openFile(text)
     end)
 end

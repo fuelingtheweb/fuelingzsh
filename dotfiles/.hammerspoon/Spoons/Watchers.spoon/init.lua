@@ -25,7 +25,7 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     end
 
     if count < 1 then
-        if hasValue({preview, sublimeMerge, slack, sublime, vscode, spotify, tableplus, zoom, rayapp}, bundle) then
+        if hasValue({preview, sublimeMerge, slack, sublime, vscode, spotify, tableplus, zoom, rayapp, transmit}, bundle) then
             app:kill()
         elseif app:isFrontmost() then
             app:hide()

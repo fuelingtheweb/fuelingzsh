@@ -5,6 +5,9 @@ hs.loadSpoon('Functions')
 fn = {
     app = require('Helpers.App'),
     is = require('Helpers.Is'),
+    misc = {
+        DismissNotifications = require('Helpers.Misc.DismissNotifications'),
+    },
     Alfred = require('Apps.Alfred'),
     Atom = require('Apps.Atom'),
     Chrome = require('Apps.Chrome'),

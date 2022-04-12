@@ -403,6 +403,10 @@ function Artisan.convertTo(converter, text)
     return trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"'))
 end
 
+function Artisan.migrateFreshAndSeed()
+    ks.type('amgfs').enter()
+end
+
 Artisan.setup()
 
 return Artisan

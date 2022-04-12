@@ -8,9 +8,8 @@ ExtendedCommand.lookup = {
     -- w = 'surroundText',
     e = nil,
     r = 'reloadSecondary',
-    t = 'enableScrolling',
-    caps_lock = 'jumpTo',
-    -- caps_lock = 'dismissNotifications',
+    t = nil,
+    caps_lock = fn.misc.DismissNotifications.run,
     a = fn.Alfred.open,
     s = 'screenshotToFilesystem',
     d = nil,
@@ -49,32 +48,6 @@ function ExtendedCommand.newWindowOrFolder()
     ks.shiftCmd('n')
 end
 
-function ExtendedCommand.dismissNotifications()
-    app = hs.application.frontmostApplication()
-
-    each({1, 2, 3}, function()
-        hs.osascript.applescript([[
-            activate application "NotificationCenter"
-            tell application "System Events"
-                tell process "Notification Center"
-                    set theWindow to group 1 of UI element 1 of scroll area 1 of window "Notification Center"
-                    click theWindow
-                    set theActions to actions of theWindow
-                    repeat with theAction in theActions
-                        if description of theAction is "Close" then
-                            tell theWindow
-                                perform theAction
-                            end tell
-                        end if
-                    end repeat
-                end tell
-            end tell
-        ]])
-    end)
-
-    app:activate()
-end
-
 function ExtendedCommand.surroundText()
     ks.copy()
     fn.Alfred.run('surround', 'com.fuelingtheweb.commands')
@@ -94,23 +67,6 @@ function ExtendedCommand.saveAndReload()
     ks.escape().slow().save()
     hs.application.get(chrome):activate()
     ks.slow().refresh()
-end
-
-function ExtendedCommand.jumpTo()
-    if is.vscode() then
-        ks.super('return')
-    elseif is.In(atom) then
-        ks.shiftEnter()
-    elseif is.sublime() then
-        ks.shiftCmd('.')
-    else
-        ks.ctrl('space')
-    end
-end
-
-function ExtendedCommand.enableScrolling()
-    -- Vimac: Enable Scroll
-    ks.super('s')
 end
 
 function ExtendedCommand.enableRunOnSave()

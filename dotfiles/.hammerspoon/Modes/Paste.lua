@@ -6,7 +6,7 @@ Paste.lookup = {
     q = 'subword',
     w = 'word',
     e = 'toEndOfWord',
-    r = nil,
+    r = 'markdownCodeBlock',
     t = Brackets.pasteInside,
     caps_lock = 'all',
     a = 'toEndOfLine',
@@ -14,7 +14,7 @@ Paste.lookup = {
     d = Brackets.pasteInside,
     f = Brackets.pasteInside,
     g = 'toBeginningOfLine',
-    left_shift = {'primaryVim', 'secondaryVim'},
+    left_shift = nil,
     z = Brackets.pasteInside,
     x = 'character',
     c = Brackets.pasteInside,
@@ -118,6 +118,10 @@ function Paste.all()
     if is.codeEditor() then
         ks.escape().sequence({'g', 'g'})
     end
+end
+
+function Paste.markdownCodeBlock()
+    ks.type(';cs')
 end
 
 return Paste

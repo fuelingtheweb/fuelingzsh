@@ -67,7 +67,7 @@ function mdl.simpleSingleQuote()
 end
 
 function mdl.simpleDoubleQuote()
-    ks.type('=""').slow().left()
+    ks.type('=""').left()
     Brackets.startIfPhp()
 end
 

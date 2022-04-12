@@ -66,7 +66,9 @@ function Yank.toEndOfLine()
 end
 
 function Yank.toBeginningOfLine()
-    if is.vimMode() then
+    if is.vscode() then
+        ks.escape().key('v').shift('6').key('y')
+    elseif is.vimMode() then
         ks.escape().right().shiftCmd('left').key('y')
     else
         ks.shiftCmd('left').slow().copy().right()
@@ -93,7 +95,7 @@ function Yank.toTopOfPage()
     if is.In(notion) then
         ks.cmd('a').copy().right()
     else
-        ks.shiftCmd('up').copy().right()
+        ks.shiftCmd('up').slow().copy().right()
     end
 end
 

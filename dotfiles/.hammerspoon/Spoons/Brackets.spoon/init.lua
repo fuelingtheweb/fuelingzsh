@@ -99,10 +99,6 @@ function Brackets.print(bracket)
 
     Modal.exit()
 
-    if bracket == 'parenthesis' or (bracket == 'brackets' and is.php()) then
-        Brackets.start()
-    end
-
     if text then
         if is.vscode() then
             ks.shiftAltCmd('delete')
@@ -111,13 +107,13 @@ function Brackets.print(bracket)
         end
     end
 
-    if text then
-        Brackets.dismiss()
-    end
-
     ks.type(brackets[1] .. (text or '') .. brackets[2])
 
     ks.left()
+
+    if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
+        Brackets.start()
+    end
 end
 
 function Brackets.startIfPhp()

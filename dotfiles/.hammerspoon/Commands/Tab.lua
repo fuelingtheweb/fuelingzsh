@@ -6,7 +6,11 @@ function Tab.first()
 end
 
 function Tab.last()
-    ks.cmd('9')
+    if is.chrome() then
+        ks.cmd('9')
+    else
+        ks.ctrl('0')
+    end
 end
 
 function Tab.pin()
@@ -183,7 +187,7 @@ function Tab.closeNext()
     Tab.next()
     Tab.closeCurrent()
 
-    if is.vscode() then
+    if is.vscode() or is.chrome() then
         Tab.previous()
     end
 end

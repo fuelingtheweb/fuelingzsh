@@ -42,7 +42,11 @@ function Google.groupTab()
 end
 
 function Google.history()
-    fn.Alfred.run('history', 'com.thomasupton.chrome-history')
+    if is.vscode() then
+        fn.Code.run('GitLens: Show File History View')
+    else
+        fn.Alfred.run('history', 'com.thomasupton.chrome-history')
+    end
 end
 
 function Google.lastpass()
@@ -54,7 +58,11 @@ function Google.tabManager()
 end
 
 function Google.dismissDownloadsBar()
-    ks.alt('w')
+    if is.vscode() then
+        fn.Code.run('Notifications: Clear All Notifications')
+    else
+        ks.alt('w')
+    end
 end
 
 function Google.newBookmark()

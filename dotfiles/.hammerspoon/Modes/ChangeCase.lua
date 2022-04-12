@@ -29,6 +29,10 @@ end
 function ChangeCase.change(to, key)
     if is.vimMode() then
         ks.super('c').ctrlAlt(key)
+
+        if is.vscode() then
+            ks.escape().key('a')
+        end
     else
         text = getSelectedText()
 

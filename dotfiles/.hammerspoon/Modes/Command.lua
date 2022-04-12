@@ -4,7 +4,7 @@ Command.__index = Command
 Command.lookup = {
     tab = 'shiftTab',
     q = nil,
-    w = nil,
+    w = cm.Window.enableScrolling,
     e = 'edit',
     r = 'reload',
     t = nil,
@@ -13,7 +13,7 @@ Command.lookup = {
     s = 'save',
     d = 'duplicate',
     f = 'finish',
-    g = nil,
+    g = cm.Window.jumpTo,
     -- g = 'atomGitPalette',
     left_shift = nil,
     z = nil,
@@ -41,6 +41,9 @@ function Command.duplicateLine()
         md.Make.lineAfter()
         ks.escape().slow().paste().left()
         md.Vi.moveToFirstCharacterOfLine()
+    else
+        md.Yank.line()
+        ks.enter().paste()
     end
 end
 

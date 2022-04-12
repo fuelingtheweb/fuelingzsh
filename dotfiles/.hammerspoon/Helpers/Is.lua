@@ -61,6 +61,14 @@ function Is.php()
     return titleContains('.php')
 end
 
+function Is.js()
+    return titleContains('.js')
+end
+
+function Is.blade()
+    return titleContains('.blade.php')
+end
+
 function Is.lua()
     return titleContains('.lua')
 end
