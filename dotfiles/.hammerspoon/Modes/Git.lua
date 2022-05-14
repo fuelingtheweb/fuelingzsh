@@ -26,7 +26,7 @@ Git.lookup = {
 }
 
 function Git.copyBranch()
-    ks.type('gbc').enter()
+    ks.typeAndEnter('gbc')
 end
 
 function Git.discardChanges()
@@ -34,52 +34,55 @@ function Git.discardChanges()
 end
 
 function Git.reset()
-    ks.type('grs').enter()
+    ks.typeAndEnter('grs')
 end
 
 function Git.checkout()
-    ks.type('git:checkout').enter()
+    ks.typeAndEnter('git:checkout')
 end
 
 function Git.checkoutIncludingAll()
-    ks.type('git:checkout.include-all').enter()
+    ks.typeAndEnter('git:checkout.include-all')
 end
 
 function Git.push()
-    ks.type('git push').enter()
+    ks.typeAndEnter('git push')
 end
 
 function Git.status()
-    ks.type('git:status').enter()
+    ks.typeAndEnter('git:status')
 end
 
 function Git.pull()
-    ks.type('git pull').enter()
+    ks.typeAndEnter('git pull')
 end
 
 function Git.merge()
-    ks.type('gmm').enter()
+    ks.typeAndEnter('gmm')
 end
 
 function Git.rebase()
-    ks.type('grm').enter()
+    ks.typeAndEnter('grm')
 end
 
 function Git.newBranch()
-    ks.type('git:branch.new ')
-    md.CaseDialog.handle('i')
+    ks.type('git:branch.new')
+
+    hs.timer.doAfter(0.1, function()
+        md.CaseDialog.handle('i')
+    end)
 end
 
 function Git.log()
-    ks.type('git:log').enter()
+    ks.typeAndEnter('git:log')
 end
 
 function Git.diff()
-    ks.type('gd').enter()
+    ks.typeAndEnter('gd')
 end
 
 function Git.stageAll()
-    ks.type('gaa').enter()
+    ks.typeAndEnter('gaa')
 end
 
 function Git.commit()
@@ -88,23 +91,23 @@ function Git.commit()
 end
 
 function Git.checkoutMaster()
-    ks.type('goml').enter()
+    ks.typeAndEnter('goml')
 end
 
 function Git.fetchMaster()
-    ks.type('gum').enter()
+    ks.typeAndEnter('gum')
 end
 
 function Git.deleteBranch()
-    ks.type('git:branch.delete').enter()
+    ks.typeAndEnter('git:branch.delete')
 end
 
 function Git.stash()
-    ks.type('gstu').enter()
+    ks.typeAndEnter('gstu')
 end
 
 function Git.stashApply()
-    ks.type('gstp').enter()
+    ks.typeAndEnter('gstp')
 end
 
 return Git

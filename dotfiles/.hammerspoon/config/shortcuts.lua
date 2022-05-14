@@ -5,7 +5,11 @@ Shortcuts
     :add('R', {
         slack = fn.Slack.react,
         vscode = function()
-            path = currentTitle():match('~%S+')
+            if is.malachor() then
+                return fn.custom.openClientTasks()
+            end
+
+            local path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
                 fn.Code.open(path .. '/routes/web.php')
@@ -21,14 +25,16 @@ Shortcuts
     })
     :add('E', {
         vscode = function()
-            path = currentTitle():match('~%S+')
-
-            if stringContains('.hammerspoon', path) then
+            if is.malachor() then
+                return fn.custom.openEod()
+            elseif is.hammerspoon() then
                 md.Hyper.open()
                 ks.type('Helpers/')
 
                 return
             end
+
+            local path = currentTitle():match('~%S+')
 
             if hs.fs.pathToAbsolute(path .. '/.env') then
                 fn.Code.open(path .. '/.env')
@@ -47,14 +53,26 @@ Shortcuts
     :add('D', {
         iterm = 'wd d',
         vscode = function()
-            md.Hyper.open()
-            ks.type('Modes/')
+            if is.malachor() then
+                return fn.custom.openDigitalCreativity()
+            elseif is.hammerspoon() then
+                md.Hyper.open()
+                ks.type('Modes/')
+            else
+                md.Hyper.open()
+                ks.type('app/Models/')
+            end
         end,
     })
     :add('C', {
         vscode = function()
-            md.Hyper.open()
-            ks.type('Commands/')
+            if is.hammerspoon() then
+                md.Hyper.open()
+                ks.type('Commands/')
+            else
+                md.Hyper.open()
+                ks.type('app/Http/Controllers/')
+            end
         end,
     })
     :add('A', {

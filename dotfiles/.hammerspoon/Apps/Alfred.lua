@@ -6,7 +6,7 @@ function Alfred.open()
 end
 
 function Alfred.clipboard()
-    ks.alt('c')
+    ks.shiftAltCmd('p')
 end
 
 function Alfred.commands()

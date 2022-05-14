@@ -14,7 +14,17 @@ Modal.add({
         o = 'protected ',
         p = 'public ',
         f = 'false',
-        v = 'private '
+        v = 'private ',
+        [';'] = function()
+            Modal.exit()
+            md.Code.comment()
+            ks.type('NTM: ')
+        end,
+        ["'"] = function()
+            Modal.exit()
+            md.Code.comment()
+            ks.type('TODO: ')
+        end,
     },
     callback = function(item)
         Modal.exit()

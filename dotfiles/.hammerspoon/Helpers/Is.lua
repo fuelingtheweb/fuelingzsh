@@ -77,4 +77,32 @@ function Is.github()
     return Is.chrome() and fn.Chrome.urlContains('github.com')
 end
 
+function Is.todoOrMarkdown()
+    return Is.todo() or Is.markdown()
+end
+
+function Is.todo()
+    return titleContains('.todo')
+end
+
+function Is.markdown()
+    return titleContains('.md')
+end
+
+function Is.gmail()
+    return Is.chrome() and titleContains('Fueling the Web Mail')
+end
+
+function Is.chat()
+    return Is.In(discord, slack)
+end
+
+function Is.malachor()
+    return stringContains('Malachor', currentTitle():match('~%S+'))
+end
+
+function Is.hammerspoon()
+    return stringContains('.hammerspoon', currentTitle():match('~%S+'))
+end
+
 return Is

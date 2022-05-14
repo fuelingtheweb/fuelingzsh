@@ -168,11 +168,15 @@ function ProjectManager.openUrlForCurrent()
     end
 end
 
+function ProjectManager.openItermForCurrent()
+    fn.iTerm.openNew('/Users/nathan/' .. ProjectManager.current().attributes.path)
+end
+
 function ProjectManager.serveCurrent()
     site = ProjectManager.current()
 
     if site.attributes.serve then
-        return ks.type(site.attributes.serve).enter()
+        return ks.typeAndEnter(site.attributes.serve)
     end
 end
 

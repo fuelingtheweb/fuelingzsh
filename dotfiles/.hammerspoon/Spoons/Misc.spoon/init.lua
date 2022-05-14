@@ -38,7 +38,6 @@ AlfredCommands:setAlfredJson()
 
 spoon.MouseCircle = hs.loadSpoon('vendor/MouseCircle')
 spoon.MouseCircle.color = {hex = '#367f71'}
-spoon.MouseCircle:bindHotkeys({show = {{'ctrl', 'alt', 'cmd'}, 'M'}})
 
 spoon.ReloadConfiguration = hs.loadSpoon('vendor/ReloadConfiguration')
 spoon.ReloadConfiguration.watch_paths = {
@@ -60,6 +59,15 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
     local title = currentTitle()
     hs.alert.show(title)
     hs.pasteboard.setContents(title)
+end)
+
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'm', function()
+    local position = hs.mouse.getAbsolutePosition()
+    local title = 'x: ' .. position.x .. ' y: ' .. position.y
+    hs.alert.show(title)
+    hs.pasteboard.setContents(title)
+
+    spoon.MouseCircle:show()
 end)
 
 return obj

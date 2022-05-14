@@ -157,7 +157,13 @@ function Keystroke.type(text)
 end
 
 function Keystroke.typeAndEnter(text)
-    return Keystroke.type(text).enter()
+    Keystroke.type(text)
+
+    hs.timer.doAfter(0.1, function()
+        ks.enter()
+    end)
+
+    return Keystroke
 end
 
 function Keystroke.slow(delay)
@@ -168,6 +174,12 @@ end
 
 function Keystroke.reset()
     Keystroke.delay = 0
+end
+
+function Keystroke.build(callable, value)
+    return function()
+        Keystroke[callable](value)
+    end
 end
 
 Keystroke.reset()

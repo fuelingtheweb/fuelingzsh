@@ -65,14 +65,12 @@ function Modal.add(meta)
                     item.shift and {'shift'} or '',
                     item.key,
                     item.name or nil,
-                    function()
-                        meta.callback(item.value)
-                    end
+                    function() meta.callback(item.value) end
                 )
             elseif is.Table(item) then
                 meta.modal:bind('', key, item.name or nil, function()
                     meta.callback(item)
-                end)
+                end, nil, meta.allowRepeating and function() meta.callback(item) end or nil)
             elseif is.String(item) then
                 meta.modal:bind('', key, item, function()
                     if item == 'exit' then

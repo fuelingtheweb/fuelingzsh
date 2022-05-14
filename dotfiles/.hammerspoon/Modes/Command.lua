@@ -1,35 +1,32 @@
 local Command = {}
 Command.__index = Command
 
+Command.lastApp = nil
+
 Command.lookup = {
     tab = 'shiftTab',
     q = nil,
     w = cm.Window.enableScrolling,
     e = 'edit',
     r = 'reload',
-    t = nil,
+    t = 'newTask',
     caps_lock = fn.Alfred.commands,
     a = fn.Alfred.actionFile,
     s = 'save',
     d = 'duplicate',
     f = 'finish',
     g = cm.Window.jumpTo,
-    -- g = 'atomGitPalette',
     left_shift = nil,
     z = nil,
     x = 'cancelOrDelete',
     c = nil,
     v = 'duplicateLine',
     b = nil,
-    spacebar = nil,
+    spacebar = 'startTask',
 }
 
 function Command.shiftTab()
     ks.shift('tab')
-end
-
-function Command.atomGitPalette()
-    ks.shiftCmd('h')
 end
 
 function Command.duplicateLine()
@@ -81,27 +78,61 @@ function Command.reload()
 end
 
 function Command.edit()
-    fn.Alfred.run('edit', 'com.sztoltz.editwith')
+    Command.lastApp = hs.application.frontmostApplication()
+
+    if is.gmail() then
+        md.Yank.toTopOfPage()
+    else
+        md.Yank.all()
+    end
+
+    fn.Code.new()
+
+    hs.timer.doAfter(0.5, function()
+        ks.paste()
+        md.Vi.moveToTopOfPage()
+        ks.escape()
+    end)
 end
 
 function Command.finish()
-    if is.sublime() then
-        if titleContains('com%.sztoltz%.editwith') then
-            fn.Alfred.run('finish', 'com.sztoltz.editwith')
-        else
-            -- Plain Tasks: Complete
-            ks.super('d')
+    if is.vscode() then
+        if is.todo() or is.markdown() then
+            ks.alt('d')
+        elseif titleContains('.git/COMMIT_EDITMSG') or titleContains('.git/MERGE_MSG') then
+            ks.slow().save().slow().close()
+            fn.iTerm.launch()
+        elseif titleContains('Untitled-') then
+            md.Yank.all()
+
+            hs.timer.doAfter(0.2, function()
+                ks.super('w')
+                Command.lastApp:activate()
+
+                hs.timer.doAfter(0.2, function()
+                    Command.lastApp = nil
+                    md.Paste.all()
+                    ks.delete()
+                end)
+            end)
         end
     elseif is.In(transmit) then
         -- Disconnect from server
         ks.cmd('e')
-    elseif is.vscode() and (titleContains('.git/COMMIT_EDITMSG') or titleContains('.git/MERGE_MSG')) then
-        ks.slow().save().slow().close()
-        fn.iTerm.launch()
     elseif is.In(sublimeMerge) then
         ks.enter()
     elseif is.googleSheet() then
         ks.enter().up()
+    elseif is.iterm() then
+        if titleContains('git:log') then
+            ks.key('q')
+        elseif titleContains('git:checkout') or titleContains('git:branch.delete') then
+            ks.escape()
+        else
+            ks.ctrl('c')
+        end
+    elseif is.chat() then
+        ks.enter()
     else
         ks.cmd('return')
     end
@@ -117,7 +148,9 @@ function Command.save()
     else
         ks.save()
 
-        if is.codeEditor() then ks.escape() end
+        if is.codeEditor() then
+            ks.escape()
+        end
     end
 end
 
@@ -132,13 +165,24 @@ function Command.cancelOrDelete()
         ks.shiftCmd('delete')
     elseif is.In(transmit, finder) then
         ks.cmd('delete')
-    elseif is.chrome() and
-        stringContains('Fueling the Web Mail', currentTitle()) then
+    elseif is.gmail() then
         ks.shift('3')
     elseif is.iterm() then
         ks.ctrl('c')
     else
         ks.delete()
+    end
+end
+
+function Command.startTask()
+    ks.alt('s')
+end
+
+function Command.newTask()
+    if is.markdown() then
+        ks.alt('return')
+    else
+        ks.cmd('return')
     end
 end
 

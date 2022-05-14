@@ -8,7 +8,7 @@ Yarn.lookup = {
     e = nil,
     r = nil,
     t = nil,
-    caps_lock = nil,
+    caps_lock = 'yi',
     a = nil,
     s = nil,
     d = 'yd',
@@ -24,7 +24,7 @@ Yarn.lookup = {
 }
 
 function Yarn.fallback(value)
-    ks.type(value).enter()
+    ks.typeAndEnter(value)
 end
 
 return Yarn

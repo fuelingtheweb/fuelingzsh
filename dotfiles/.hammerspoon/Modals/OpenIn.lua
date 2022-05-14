@@ -23,7 +23,7 @@ Modal.add({
 
 function OpenIn.inSublimeMerge()
     if is.iterm() then
-        ks.type('smerge .').enter()
+        ks.typeAndEnter('smerge .')
     else
         local path = currentTitle():match('~%S+')
 
@@ -43,21 +43,9 @@ end
 
 function OpenIn.inCode()
     if is.iterm() then
-        ks.type('code .').enter()
+        ks.typeAndEnter('code .')
     else
-        path = currentTitle():match('~%S+')
-
-        if is.In(atom) then
-            md.Yank.relativeFilePath()
-
-            hs.timer.doAfter(0.2, function()
-                filePath = hs.pasteboard.getContents()
-
-                if path and filePath then
-                    fn.Code.open(path .. '/' .. filePath)
-                end
-            end)
-        end
+        local path = currentTitle():match('~%S+')
 
         if not path then
             return
@@ -90,7 +78,7 @@ end
 
 function OpenIn.inFinder()
     if is.iterm() then
-        ks.type('o.').enter()
+        ks.typeAndEnter('o.')
     else
         path = currentTitle():match('~%S+')
 
@@ -98,17 +86,13 @@ function OpenIn.inFinder()
             return
         end
 
-        if is.In(atom) then
-            hs.execute('open ' .. path)
-        else
-            hs.execute('open -R ' .. path)
-        end
+        hs.execute('open -R ' .. path)
     end
 end
 
 function OpenIn.inTinkerwell()
     if is.iterm() then
-        return ks.type('tinkerwell .').enter()
+        return ks.typeAndEnter('tinkerwell .')
     end
 
     path = currentTitle():match('~%S+')

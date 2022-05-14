@@ -13,7 +13,7 @@ Artisan.lookup = {
     j = nil,
     k = nil,
     l = nil,
-    semicolon = nil,
+    semicolon = 'a ',
     quote = nil,
     return_or_enter = nil,
     n = cm.Artisan.migrateFreshAndSeed,
@@ -24,5 +24,9 @@ Artisan.lookup = {
     right_shift = nil,
     spacebar = nil,
 }
+
+function Artisan.fallback(value)
+    ks.type(value)
+end
 
 return Artisan

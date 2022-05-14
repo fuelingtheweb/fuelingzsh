@@ -29,8 +29,11 @@ Modal.add({
             key = 'test',
             title = 'Test',
             items = {
+                t = {name = 'assertTrue', method = 'assertTrue'},
+                f = {name = 'assertFalse', method = 'assertFalse'},
                 l = {name = 'assertCount', method = 'assertCount'},
                 ["'"] = {name = 'assertEquals', method = 'assertEquals'},
+                m = {name = 'assertNull', method = 'assertNull'},
             }
         },
         o = {

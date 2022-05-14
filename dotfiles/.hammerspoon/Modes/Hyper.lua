@@ -93,7 +93,7 @@ function Hyper.open()
         if fn.Chrome.urlContains('github.com') then
             ks.cmd('k')
         else
-            ks.shift('o')
+            ks.cmd('l')
         end
     elseif is.iterm() then
         ks.type('cd ')
@@ -129,7 +129,7 @@ function Hyper.previousPage()
     elseif is.In(discord) then
         ks.cmd('k').enter()
     elseif is.iterm() then
-        ks.type('cdp').enter()
+        ks.typeAndEnter('cdp')
     else
         ks.cmd('[')
     end

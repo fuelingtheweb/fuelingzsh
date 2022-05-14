@@ -4,10 +4,12 @@ hs.loadSpoon('Functions')
 
 fn = {
     app = require('Helpers.App'),
+    custom = require('config.custom.Helpers.Custom'),
     is = require('Helpers.Is'),
     misc = {
         DismissNotifications = require('Helpers.Misc.DismissNotifications'),
     },
+    window = require('Helpers.Window'),
     Alfred = require('Apps.Alfred'),
     Chrome = require('Apps.Chrome'),
     Code = require('Apps.Code'),

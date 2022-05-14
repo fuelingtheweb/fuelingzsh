@@ -143,11 +143,15 @@ function Window.toggleCodeFocus()
 end
 
 function Window.focusSidebarFileExplorer()
-    fn.Code.run('Focus on Files Explorer')
+    ks.shiftAltCmd('b').shiftAltCmd('x')
+end
+
+function Window.focusSidebarTodo()
+    ks.shiftAltCmd('b').shiftAltCmd('t')
 end
 
 function Window.focusSidebarSourceControl()
-    fn.Code.run('Focus on Source Control View')
+    ks.shiftAltCmd('b').shiftAltCmd('c')
 end
 
 function Window.destroy()
@@ -161,7 +165,7 @@ function Window.destroy()
                 app:hide()
             end
         end)
-    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor') then
+    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor', 'md.obsidian') then
         Window.quitApplication()
     elseif is.codeEditor() or is.In(sublimeMerge) then
         ks.shiftCmd('w')
@@ -230,6 +234,10 @@ end
 function Window.enableScrolling()
     -- Vimac: Enable Scroll
     ks.super('s')
+end
+
+function Window.windowModal()
+    Modal.enter('Window')
 end
 
 return Window

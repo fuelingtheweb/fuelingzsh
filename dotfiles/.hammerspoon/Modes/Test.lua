@@ -4,7 +4,7 @@ Test.__index = Test
 Test.lookup = {
     y = nil,
     u = nil,
-    i = nil,
+    i = 'allInIterm',
     o = nil,
     p = nil,
     open_bracket = nil,
@@ -12,7 +12,7 @@ Test.lookup = {
     h = nil,
     j = nil,
     k = 'class',
-    l = 'all',
+    l = 'allInEditor',
     semicolon = 'last',
     quote = nil,
     return_or_enter = nil,
@@ -34,7 +34,15 @@ function Test.class()
     ks.altCmd('t')
 end
 
-function Test.all()
+function Test.allInIterm()
+    ProjectManager.openItermForCurrent()
+
+    hs.timer.doAfter(0.2, function()
+        ks.typeAndEnter('t')
+    end)
+end
+
+function Test.allInEditor()
     ks.super('t')
 end
 

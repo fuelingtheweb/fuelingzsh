@@ -106,8 +106,9 @@ end
 function Tab.new()
     if is.codeEditor() then
         ks.cmd('n')
+
         hs.timer.doAfter(0.1, function()
-            ks.key('i').enter().up()
+            ks.key('i').enter().slow().escape().up().key('i')
         end)
     elseif is.finder() then
         ks.cmd('n')

@@ -15,7 +15,7 @@ CodeSnippets.lookup = {
 
     y = 'conditionalAnd',
     u = 'extraSnippetsModal',
-    i = 'snippet-if',
+    i = 'snippetIf',
     o = 'concatenate',
     p = 'conditionalOr',
     -- p = 'snippet-property',
@@ -39,7 +39,9 @@ CodeSnippets.lookup = {
 
 function CodeSnippets.handle(key)
     if is.vscode() and titleContains('EOD.md') and key == 'semicolon' then
-        ks.key('o').slow().enter().type(';dte')
+        ks.escape().shift('o').slow().enter().slow().up()
+        ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
+
         hs.timer.doAfter(0.2, function()
             ks.slow().enter().type('- ').escape()
             md.Command.save()
@@ -121,8 +123,12 @@ function CodeSnippets.equals()
 end
 
 function CodeSnippets.insertColon()
-    ks.type(' : ')
-    Brackets.startIfPhp()
+    if is.todo() then
+        ks.type('@today')
+    else
+        ks.type(' : ')
+        Brackets.startIfPhp()
+    end
 end
 
 function CodeSnippets.insertQuestion()
@@ -140,7 +146,11 @@ function CodeSnippets.generalSnippetsModal()
 end
 
 function CodeSnippets.extraSnippetsModal()
-    Modal.enter('CodeSnippets:extraSnippets')
+    if is.todo() then
+        ks.type('@high')
+    else
+        Modal.enter('CodeSnippets:extraSnippets')
+    end
 end
 
 function CodeSnippets.callFunction()
@@ -198,7 +208,9 @@ function CodeSnippets.printFunction(item, text)
 end
 
 function CodeSnippets.conditionalAnd()
-    if is.lua() then
+    if is.todo() then
+        ks.type('@critical')
+    elseif is.lua() then
         ks.type(' and ')
     else
         ks.type(' && ')
@@ -211,7 +223,9 @@ function CodeSnippets.conditionalOr()
     --     {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
     --     -- ['fallback'] = ' || ',
     -- })
-    if is.lua() then
+    if is.todo() then
+        ks.type('@pr()').left()
+    elseif is.lua() then
         ks.type(' or ')
     else
         ks.type(' || ')
@@ -219,11 +233,13 @@ function CodeSnippets.conditionalOr()
 end
 
 function CodeSnippets.concatenate()
-    if titleContains('.php') then
+    if is.todo() then
+        return ks.type('@trello()').left()
+    elseif is.php() then
         ks.type(' . ')
     elseif is.lua() then
         ks.type(' .. ')
-    elseif titleContains('.js') then
+    elseif is.js() then
         ks.type(' + ')
     end
 
@@ -239,6 +255,14 @@ function CodeSnippets.log()
         ks.type('log.d()').left()
     else
         ks.type('console.log()').left()
+    end
+end
+
+function CodeSnippets.snippetIf()
+    if is.todo() then
+        ks.type('@low')
+    else
+        CodeSnippets.snippet('if')
     end
 end
 

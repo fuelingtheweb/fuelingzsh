@@ -109,10 +109,20 @@ function Brackets.print(bracket)
 
     ks.type(brackets[1] .. (text or '') .. brackets[2])
 
-    ks.left()
+    if is.iterm() then
+        hs.timer.doAfter(0.1, function()
+            ks.left()
 
-    if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
-        Brackets.start()
+            if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
+                Brackets.start()
+            end
+        end)
+    else
+        ks.left()
+
+        if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
+            Brackets.start()
+        end
     end
 end
 

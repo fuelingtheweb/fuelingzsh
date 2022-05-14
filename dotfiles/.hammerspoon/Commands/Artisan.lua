@@ -360,8 +360,8 @@ hs.urlevent.bind('artisan-command', function(eventName, params)
         parts = hs.fnutils.map(
             hs.fnutils.split(params.name, '/'),
             function(text)
-                return Artisan.convertTo(converter, text)
-            end
+            return Artisan.convertTo(converter, text)
+        end
         )
         name = table.concat(parts, '/')
         hs.pasteboard.setContents(name)
@@ -404,7 +404,7 @@ function Artisan.convertTo(converter, text)
 end
 
 function Artisan.migrateFreshAndSeed()
-    ks.type('amgfs').enter()
+    ks.typeAndEnter('amgfs')
 end
 
 Artisan.setup()

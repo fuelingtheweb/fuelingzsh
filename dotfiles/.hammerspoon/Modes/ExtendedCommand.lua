@@ -4,15 +4,16 @@ ExtendedCommand.__index = ExtendedCommand
 ExtendedCommand.lookup = {
     tab = 'enableRunOnSave',
     q = nil,
-    w = nil,
+    w = fn.custom.openTasks,
     -- w = 'surroundText',
-    e = nil,
-    r = 'reloadSecondary',
+    e = 'espansoSearch',
+    -- r = 'reloadSecondary',
+    r = fn.custom.openClientProject,
     t = nil,
     caps_lock = fn.misc.DismissNotifications.run,
     a = fn.Alfred.open,
     s = 'screenshotToFilesystem',
-    d = nil,
+    d = fn.custom.openHammerspoonConfig,
     f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = 'disableRunOnSave',
@@ -73,8 +74,22 @@ function ExtendedCommand.enableRunOnSave()
     ks.super('f').super('e')
 end
 
+local runOnSaveDisabled = false
+
 function ExtendedCommand.disableRunOnSave()
-    ks.super('f').super('d')
+    if runOnSaveDisabled then
+        runOnSaveDisabled = false
+
+        ks.super('f').super('e')
+    else
+        runOnSaveDisabled = true
+
+        ks.super('f').super('d')
+    end
+end
+
+function ExtendedCommand.espansoSearch()
+    ks.shiftAlt('space')
 end
 
 return ExtendedCommand

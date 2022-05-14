@@ -46,8 +46,6 @@ end
 function Change.word()
     if is.vimMode() then
         ks.escape().sequence({'c', 'i', 'w'})
-    elseif is.iterm() and not fn.Alfred.visible() then
-        ks.escape().type('ciw')
     else
         ks.alt('delete')
     end
@@ -63,7 +61,7 @@ end
 
 function Change.toBeginningOfLine()
     if is.vimMode() then
-        ks.escape().shiftCmd('left').key('c')
+        ks.left().right().escape().sequence({'v', '0', 'c'})
     else
         ks.shiftCmd('left').delete()
     end
@@ -73,7 +71,7 @@ function Change.line()
     if is.vimMode() then
         ks.escape().sequence({'c', 'c'})
     elseif is.iterm() and not fn.Alfred.visible() then
-        ks.escape().type('cc')
+        ks.cmd('delete')
     else
         ks.cmd('left').shiftCmd('right').delete()
     end
@@ -81,7 +79,7 @@ end
 
 function Change.character()
     if is.vscode() and is.vimMode() then
-        ks.escape().sequence({'x', 'i'})
+        ks.escape().key('a').delete()
     elseif is.vimMode() then
         ks.ctrlAlt('a').delete()
     else

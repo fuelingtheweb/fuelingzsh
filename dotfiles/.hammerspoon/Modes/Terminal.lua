@@ -4,17 +4,17 @@ Terminal.__index = Terminal
 Terminal.lookup = {
     y = nil,
     u = nil,
-    i = nil,
+    i = 'allTests',
     o = nil,
     p = nil,
-    open_bracket = nil,
+    open_bracket = 'buildFresh',
     close_bracket = nil,
     h = 'home',
     j = 'autocompleteNextWord',
     k = nil,
     l = 'list',
     semicolon = nil,
-    quote = nil,
+    quote = 'build',
     return_or_enter = ProjectManager.serveCurrent,
     n = nil,
     m = 'clear',
@@ -26,11 +26,11 @@ Terminal.lookup = {
 }
 
 function Terminal.home()
-    ks.type('hc').enter()
+    ks.typeAndEnter('hc')
 end
 
 function Terminal.list()
-    ks.type('ll').enter()
+    ks.typeAndEnter('ll')
 end
 
 function Terminal.navigate()
@@ -38,11 +38,23 @@ function Terminal.navigate()
 end
 
 function Terminal.clear()
-    ks.type('clear').enter()
+    ks.typeAndEnter('clear')
 end
 
 function Terminal.autocompleteNextWord()
     ks.super('j')
+end
+
+function Terminal.allTests()
+    ks.typeAndEnter('t')
+end
+
+function Terminal.build()
+    ks.typeAndEnter('ci && yi && yd')
+end
+
+function Terminal.buildFresh()
+    ks.typeAndEnter('ci && yi && yd && amgfs')
 end
 
 return Terminal

@@ -48,6 +48,12 @@ end
 function Vi.moveToTopOfPage()
     if is.finder() then
         ks.alt('up')
+    elseif is.In(sublimeMerge) then
+        cm.Tab.previous()
+        cm.Tab.next()
+        hs.timer.doAfter(0.1, function()
+            ks.tab()
+        end)
     else
         ks.cmd('up')
     end

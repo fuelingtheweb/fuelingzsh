@@ -7,6 +7,10 @@ function iTerm.open(path)
     end)
 end
 
+function iTerm.openNew(path)
+    hs.execute('open -a iTerm "' .. path .. '"')
+end
+
 function iTerm.launch(callback)
     app = hs.application.get(iterm)
 
@@ -14,7 +18,9 @@ function iTerm.launch(callback)
         triggerItermShortcut(callback)
     else
         hs.application.open(iterm)
-        hs.timer.doAfter(1, function() triggerItermShortcut(callback) end)
+        hs.timer.doAfter(1, function()
+            triggerItermShortcut(callback)
+        end)
     end
 end
 

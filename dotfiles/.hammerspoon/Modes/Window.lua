@@ -1,6 +1,8 @@
 local Window = {}
 Window.__index = Window
 
+Modal.load('Window')
+
 Window.lookup = {
     tab = cm.Window.moveToCenter,
     q = cm.Window.quitApplication,
@@ -14,7 +16,7 @@ Window.lookup = {
     d = cm.Window.moveToNextDisplay,
     f = cm.Window.maximize,
     g = hs.grid.toggleShow,
-    left_shift = nil,
+    left_shift = cm.Window.focusSidebarTodo,
     z = cm.Media.toggleAudioAndVideo,
     x = cm.Window.focusSidebarFileExplorer,
     c = cm.Window.focusSidebarSourceControl,
@@ -33,7 +35,7 @@ Window.lookup = {
     k = cm.Window.topHalf,
     l = cm.Window.rightHalf,
     semicolon = cm.Window.moveMouseToOtherScreen,
-    quote = nil,
+    quote = cm.Window.windowModal,
     return_or_enter = cm.Window.reset,
     n = cm.Window.bottomLeft,
     m = nil,

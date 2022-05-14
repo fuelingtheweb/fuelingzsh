@@ -22,7 +22,7 @@ Google.lookup = {
     period = 'toggleDevToolsDocking',
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = 'addPrComment',
 }
 
 function Google.custom(key)
@@ -43,7 +43,7 @@ end
 
 function Google.history()
     if is.vscode() then
-        fn.Code.run('GitLens: Show File History View')
+        ks.shiftAltCmd('g').shiftAltCmd('h')
     else
         fn.Alfred.run('history', 'com.thomasupton.chrome-history')
     end
@@ -58,15 +58,15 @@ function Google.tabManager()
 end
 
 function Google.dismissDownloadsBar()
-    if is.vscode() then
-        fn.Code.run('Notifications: Clear All Notifications')
-    else
-        ks.alt('w')
-    end
+    ks.alt('w')
 end
 
 function Google.newBookmark()
-    ks.cmd('d')
+    if is.vscode() then
+        ks.type('```suggestion').enter().enter().type('```').up()
+    else
+        ks.cmd('d')
+    end
 end
 
 function Google.bookmarks()
@@ -115,6 +115,10 @@ end
 
 function Google.openLastpass()
     ks.shiftCmd('l')
+end
+
+function Google.addPrComment()
+    ks.shiftAltCmd('g').shiftAltCmd('space')
 end
 
 return Google
