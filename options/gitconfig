@@ -66,7 +66,6 @@ stripLeadingSymbols = true
 
 [pager]
 diff = diff-so-fancy | less --tabs=4 -F --pattern '^(Date|added|deleted|modified): '
-# diff = diff-so-fancy | less --tabs=4 -F
 show = diff-so-fancy | less --tabs=4 -F
 
 [user]

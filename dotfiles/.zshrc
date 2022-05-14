@@ -1,3 +1,6 @@
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/zshrc.pre.zsh"
+
 ZSH=$HOME/.ohmyzsh
 FUELINGZSH=$HOME/.fuelingzsh
 OPTIONS=$FUELINGZSH/options
@@ -11,7 +14,7 @@ source $OPTIONS/iterm.sh
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -42,3 +45,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
 source $OPTIONS/p10k.zsh
+
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/zshrc.post.zsh"
