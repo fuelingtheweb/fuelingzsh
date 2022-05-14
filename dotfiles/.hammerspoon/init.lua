@@ -9,14 +9,11 @@ fn = {
         DismissNotifications = require('Helpers.Misc.DismissNotifications'),
     },
     Alfred = require('Apps.Alfred'),
-    Atom = require('Apps.Atom'),
     Chrome = require('Apps.Chrome'),
     Code = require('Apps.Code'),
     Discord = require('Apps.Discord'),
     iTerm = require('Apps.iTerm'),
-    Notion = require('Apps.Notion'),
     Slack = require('Apps.Slack'),
-    Sublime = require('Apps.Sublime'),
     TablePlus = require('Apps.TablePlus'),
 }
 

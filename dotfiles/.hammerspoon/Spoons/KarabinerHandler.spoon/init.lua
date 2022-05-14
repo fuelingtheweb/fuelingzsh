@@ -11,7 +11,7 @@ KarabinerHandler.lookup = {
     w = nil,
     e = nil,
     r = 'Calculator',
-    t = {iterm = 'Terminal', atom = 'Test', vscode = 'Test'},
+    t = {iterm = 'Terminal', vscode = 'Test'},
     y = {iterm = 'Yarn', default = 'Yank'},
     u = 'AppShortcut',
     i = 'Make',
@@ -24,9 +24,7 @@ KarabinerHandler.lookup = {
     s = {
         iterm = 'TerminalSnippets',
         slack = 'SlackSnippets',
-        atom = 'CodeSnippets',
         vscode = 'CodeSnippets',
-        sublime = 'CodeSnippets',
         default = 'DefaultSnippets',
     },
     d = 'Vi',

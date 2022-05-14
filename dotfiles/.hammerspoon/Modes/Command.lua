@@ -68,7 +68,7 @@ function Command.duplicate()
 end
 
 function Command.reload()
-    if is.In(atom, vscode) then
+    if is.vscode() then
         ks.super('r')
     elseif is.In(postman) then
         ks.cmd('return')
@@ -126,8 +126,8 @@ function Command.cancelOrDelete()
 
     if text then
         ks.delete()
-    elseif is.sublime() and titleContains('.todo') then
-        ks.ctrl('c')
+    elseif is.vscode() and is.todo() then
+        ks.alt('c')
     elseif is.codeEditor() then
         ks.shiftCmd('delete')
     elseif is.In(transmit, finder) then

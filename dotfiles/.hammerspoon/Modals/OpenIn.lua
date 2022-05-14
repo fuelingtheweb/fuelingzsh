@@ -7,8 +7,6 @@ Modal.add({
     items = {
         r = {name = 'VS Code', method = 'inCode'},
         c = {name = 'Sublime Merge', method = 'inSublimeMerge'},
-        e = {name = 'Sublime', method = 'inSublime'},
-        q = {name = 'Atom', method = 'inAtom'},
         g = {name = 'Chrome', method = 'inChrome'},
         v = {name = 'TablePlus', method = 'inTablePlus'},
         x = {name = 'Finder', method = 'inFinder'},
@@ -43,40 +41,6 @@ function OpenIn.inSublimeMerge()
     end)
 end
 
-function OpenIn.inSublime()
-    if is.iterm() then
-        ks.type('st.').enter()
-    else
-        path = currentTitle():match('~%S+')
-
-        if is.In(atom, vscode) then
-            md.Yank.relativeFilePath()
-
-            hs.timer.doAfter(0.2, function()
-                filePath = hs.pasteboard.getContents()
-
-                if path and filePath then
-                    fn.Sublime.open(path .. '/' .. filePath)
-                end
-            end)
-        end
-
-        if not path then
-            return
-        end
-
-        fn.Sublime.open(path)
-    end
-end
-
-function OpenIn.inAtom()
-    if is.iterm() then
-        ks.type('atom .').enter()
-    else
-        fn.Alfred.run('projects', 'com.fuelingtheweb.commands')
-    end
-end
-
 function OpenIn.inCode()
     if is.iterm() then
         ks.type('code .').enter()
@@ -106,7 +70,7 @@ end
 function OpenIn.inChrome()
     text = getSelectedText()
 
-    if is.notIn(atom, sublime) and text then
+    if text then
         fn.Chrome.searchGoogle(text)
     elseif is.chrome() then
         fn.Chrome.copyUrl()

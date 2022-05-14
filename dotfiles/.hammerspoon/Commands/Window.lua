@@ -219,11 +219,9 @@ function Window.moveTo(position)
 end
 
 function Window.jumpTo()
-    -- if is.In(atom, vscode) then
+    -- if is.vscode() then
     -- ks.shiftEnter()
     -- ks.ctrl('space')
-    -- elseif is.sublime() then
-    -- ks.shiftCmd('.')
     -- else
     ks.ctrl('space')
     -- end

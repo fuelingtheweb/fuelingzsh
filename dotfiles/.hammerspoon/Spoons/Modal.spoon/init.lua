@@ -116,7 +116,7 @@ function Modal.add(meta)
         meta.modal:bind('', '-', 'Edit Hammerspoon', function()
             Modal.exit()
 
-            fn.Sublime.open('~/.hammerspoon')
+            fn.Code.open('~/.hammerspoon')
             hs.timer.doAfter(0.1, md.Hyper.open)
         end)
     end

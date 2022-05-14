@@ -9,7 +9,7 @@ Open.lookup = {
     tab = nil,
     r = 'vscode',
     w = 'openInModal',
-    e = 'sublime',
+    e = nil,
     q = 'spotify',
     t = 'iterm',
     caps_lock = 'windowHints',
@@ -34,7 +34,6 @@ Modal.add({
         -- q
         w = {name = 'Tinkerwell', app = 'de.beyondco.tinkerwell'},
         -- e
-        e = {name = 'Atom', app = 'Atom.app'},
         r = {name = 'Ray', app = 'Ray.app'},
         t = {name = 'Transmit', app = 'Transmit.app'},
         -- yu
@@ -51,8 +50,7 @@ Modal.add({
         k = {name = 'Kaleidoscope', app = 'Kaleidoscope.app'},
         -- l
         z = {name = 'Zoom', app = 'zoom.us.app'},
-        -- xcvb
-        n = {name = 'Notion', app = 'Notion.app'},
+        -- xcvbn
         m = {name = 'reMarkable', app = 'reMarkable.app'}
     },
     callback = function(item)
@@ -127,7 +125,7 @@ function Open.launchApp(id)
         app = hs.application.get(bundle)
 
         if not hasWindows(app) then
-            if id ~= 'atom' then hs.application.open(bundle) end
+            if id ~= 'vscode' then hs.application.open(bundle) end
         else
             app:activate()
 

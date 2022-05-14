@@ -8,10 +8,6 @@ function ViVisual.beginSelectingForward()
 
     if is.vscode() then
         ks.ctrl('v')
-    elseif is.In(atom) then
-        ks.super('v').key('l')
-    elseif is.sublime() then
-        ks.super('v')
     end
 end
 

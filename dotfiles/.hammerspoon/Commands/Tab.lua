@@ -21,8 +21,8 @@ end
 function Tab.previous()
     if is.In(tableplus) then
         ks.cmd('[')
-    elseif is.In(teams, discord) then
-        -- Teams: Move to next conversation / channel
+    elseif is.In(discord) then
+        -- Move to next conversation / channel
         ks.alt('down')
     else
         ks.shiftCmd('[')
@@ -32,8 +32,8 @@ end
 function Tab.next()
     if is.In(tableplus) then
         ks.cmd(']')
-    elseif is.In(teams, discord) then
-        -- Teams: Move to previous conversation / channel
+    elseif is.In(discord) then
+        -- Move to previous conversation / channel
         ks.alt('up')
     else
         ks.shiftCmd(']')
@@ -81,9 +81,7 @@ function Tab.restore()
 end
 
 function Tab.moveToNewWindow()
-    if is.sublime() then
-        ks.cmd('a').copy().close().key('space').shiftCmd('n').key('p')
-    elseif is.chrome() then
+    if is.chrome() then
         ks.shift('w')
     end
 end
@@ -123,12 +121,6 @@ function Tab.closeAllToLeft()
         ks.type('txh')
     elseif is.vscode() then
         ks.super('e').super('[')
-    elseif is.In(atom, sublime) then
-        ks.super('tab').sequence({'x', 'h'})
-
-        if is.sublime() then
-            ks.type('Close Tabs to Left').enter()
-        end
     end
 end
 
@@ -137,12 +129,6 @@ function Tab.closeAllToRight()
         ks.type('txl')
     elseif is.vscode() then
         ks.super('e').super(']')
-    elseif is.In(atom, sublime) then
-        ks.super('tab').sequence({'x', 'l'})
-
-        if is.sublime() then
-            ks.type('Close Tabs to Right').enter()
-        end
     end
 end
 
@@ -151,25 +137,11 @@ function Tab.closeAllOthers()
         ks.type('tx;')
     elseif is.vscode() then
         ks.super('e').super('/')
-    elseif is.In(atom, sublime) then
-        ks.super('tab').sequence({'x', ';'})
-
-        if is.sublime() then
-            ks.type('Close Other Tabs').enter()
-        end
     end
 end
 
 function Tab.closeAll()
-    if is.In(atom) then
-        ks.super('x')
-    elseif is.sublime() then
-        ks.super('tab').sequence({'x', ';'})
-
-        if is.sublime() then
-            ks.type('Close All Tabs').enter()
-        end
-    elseif is.vscode() then
+    if is.vscode() then
         ks.super('e').super("'")
     end
 end

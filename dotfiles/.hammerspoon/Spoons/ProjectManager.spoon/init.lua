@@ -235,15 +235,9 @@ end
 
 function Site:open()
     if self.attributes.path then
-        fn.Atom.open('~/' .. self.attributes.path)
+        fn.Code.open('~/' .. self.attributes.path)
         fn.Chrome.open(self.attributes.url)
         fn.iTerm.open('/Users/nathan/' .. self.attributes.path)
-    end
-end
-
-function Site:openInAtom()
-    if self.attributes.path then
-        fn.Atom.open('~/' .. self.attributes.path)
     end
 end
 

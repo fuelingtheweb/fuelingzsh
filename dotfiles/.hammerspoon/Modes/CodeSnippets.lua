@@ -38,7 +38,7 @@ CodeSnippets.lookup = {
 }
 
 function CodeSnippets.handle(key)
-    if is.sublime() and titleContains('EOD.md') and key == 'semicolon' then
+    if is.vscode() and titleContains('EOD.md') and key == 'semicolon' then
         ks.key('o').slow().enter().type(';dte')
         hs.timer.doAfter(0.2, function()
             ks.slow().enter().type('- ').escape()
@@ -75,8 +75,6 @@ function CodeSnippets.snippet(name)
         ks.ctrlCmd('s').paste().slow().enter()
 
         if hasValue({'if'}, name) then Brackets.startIfPhp() end
-    elseif is.sublime() then
-        ks.type('snippet-' .. name).tab()
     else
         ks.type('snippet-' .. name).enter()
     end
@@ -95,7 +93,7 @@ function CodeSnippets.functionSnippet()
 end
 
 function CodeSnippets.this()
-    if is.In(atom, vscode) then
+    if is.vscode() then
         ks.slow().shiftCtrl('c')
 
         if stringContains('migrations', hs.pasteboard.getContents()) then

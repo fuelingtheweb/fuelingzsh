@@ -92,11 +92,7 @@ function Yank.character()
 end
 
 function Yank.toTopOfPage()
-    if is.In(notion) then
-        ks.cmd('a').copy().right()
-    else
-        ks.shiftCmd('up').slow().copy().right()
-    end
+    ks.shiftCmd('up').slow().copy().right()
 end
 
 function Yank.untilForward()

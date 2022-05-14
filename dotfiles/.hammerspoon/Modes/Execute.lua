@@ -47,7 +47,7 @@ function Execute.goToDefinition()
 end
 
 function Execute.openLink()
-    if is.In(sublime, vscode) then
+    if is.vscode() then
         ks.altCmd('return')
     end
 end

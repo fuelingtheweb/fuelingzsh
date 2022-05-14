@@ -4,13 +4,6 @@ Shortcuts
     end})
     :add('R', {
         slack = fn.Slack.react,
-        atom = function()
-            path = currentTitle():match('~%S+')
-
-            if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
-                fn.Atom.open(path .. '/routes/web.php')
-            end
-        end,
         vscode = function()
             path = currentTitle():match('~%S+')
 
@@ -18,26 +11,15 @@ Shortcuts
                 fn.Code.open(path .. '/routes/web.php')
             end
         end,
-        sublime = function()
-            root = currentTitle():match('%S+$')
-            path = currentTitle():match('^~%S+' .. root)
-
-            if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
-                fn.Sublime.open(path .. '/routes/web.php')
-            end
-        end
     })
-    :add('T', {notion = 'tasks'})
-    :add('E', {
-        atom = function()
-            path = currentTitle():match('~%S+')
-
-            if hs.fs.pathToAbsolute(path .. '/.env') then
-                fn.Atom.open(path .. '/.env')
-            elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
-                fn.Atom.open(path .. '/wp-config.php')
+    :add('T', {
+        vscode = function()
+            if is.malachor() then
+                return fn.custom.openPlanning()
             end
         end,
+    })
+    :add('E', {
         vscode = function()
             path = currentTitle():match('~%S+')
 
@@ -54,33 +36,15 @@ Shortcuts
                 fn.Code.open(path .. '/wp-config.php')
             end
         end,
-        sublime = function()
-            root = currentTitle():match('%S+$')
-            path = currentTitle():match('^~%S+' .. root)
-
-            if hs.fs.pathToAbsolute(path .. '/.env') then
-                fn.Sublime.open(path .. '/.env')
-            elseif hs.fs.pathToAbsolute(path .. '/wp-config.php') then
-                fn.Sublime.open(path .. '/wp-config.php')
-            end
-        end
     })
     :add('S', {
-        atom = function()
-            fn.Sublime.open('/Users/nathan/Development/Atom/fueling-snippets/snippets')
-        end,
-        sublime = 'BetterSnippetManager: Edit Snippets'
+        vscode = 'Preferences: Configure User Snippets'
     })
     :add('Z', {iterm = 'wd fz'})
     :add('B', {
-        atom = 'Application: Open Your Keymap',
-        sublime = 'Preferences: Key Bindings',
         vscode = 'Preferences: Open Keyboard Shortcuts'
     })
     :add('D', {
-        notion = function()
-            ks.altCmd('2').shift('2')
-        end,
         iterm = 'wd d',
         vscode = function()
             md.Hyper.open()
@@ -95,62 +59,18 @@ Shortcuts
     })
     :add('A', {
         vscode = function()
-            md.Hyper.open()
-            ks.type('Apps/')
-        end,
-    })
-    :add('0', {
-        -- Notion: Create text
-        notion = function() ks.altCmd('0') end
-    })
-    :add('1', {
-        -- Notion: Create H1 heading
-        notion = function() ks.altCmd('1') end,
-        sublime = function() ks.escape().shift('i').type('# ') end,
-        default = function() ks.cmd('left').type('# ') end
-    })
-    :add('2', {
-        -- Notion: Create H2 heading
-        notion = function() ks.altCmd('2') end,
-        sublime = function() ks.escape().shift('i').type('## ') end,
-        default = function() ks.cmd('left').type('## ') end
-    })
-    :add('3', {
-        -- Notion: Create H3 heading
-        notion = function() ks.altCmd('3') end,
-        sublime = function() ks.escape().shift('i').type('### ') end,
-        default = function() ks.cmd('left').type('### ') end
-    })
-    :add('4', {
-        -- Notion: Create to-do checkbox
-        notion = function() ks.altCmd('4') end,
-        sublime = function()
-            if titleContains('.todo') then
-                -- Sublime: Create to-do checkbox
-                ks.cmd('i')
-            else
-                ks.escape().shift('i').type('- ')
+            if is.hammerspoon() then
+                md.Hyper.open()
+                ks.type('Apps/')
             end
         end,
-        default = function() ks.cmd('left').type('- ') end
     })
-    :add('5', {
-        -- Notion: Create bulleted list
-        notion = function() ks.altCmd('5') end,
-        sublime = function() ks.escape().shift('i').type('- ') end,
-        default = function() ks.cmd('left').type('- ') end
+    :add('V', {
+        vscode = function()
+            md.Hyper.open()
+            ks.type('resources/views/')
+        end,
     })
-    :add('6', {
-        -- Notion: Create numbered list
-        notion = function() ks.altCmd('6') end,
-        sublime = function() ks.escape().shift('i').type('1. ') end,
-        default = function() ks.cmd('left').type('1. ') end
-    })
-    :add('7', {
-        -- Notion: Create toggle list
-        notion = function() ks.altCmd('7') end
-    })
-    :add('8', {
-        -- Notion: Create code block
-        notion = function() ks.altCmd('8') end
+    :add('SPACEBAR', {
+        vscode = 'Preferences: Open Settings (JSON)'
     })

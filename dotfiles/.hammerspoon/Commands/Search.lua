@@ -29,11 +29,7 @@ function Search.default()
 end
 
 function Search.tabs()
-    if is.In(atom) then
-        ks.cmd('b')
-    elseif is.sublime() then
-        ks.shiftAlt('p')
-    elseif is.chrome() then
+    if is.chrome() then
         ks.shift('t')
     end
 end
@@ -72,12 +68,9 @@ end
 
 function Search.allWindows()
     windows = hs.window.filter.default
-        :rejectApp('Sublime Text')
-        :rejectApp('Atom')
         :rejectApp('Finder')
         :rejectApp('Google Chrome')
         :rejectApp('Sublime Merge')
-        :rejectApp('Notion')
         :rejectApp('Spotify')
         :rejectApp('Invoker')
         :rejectApp('Dash')

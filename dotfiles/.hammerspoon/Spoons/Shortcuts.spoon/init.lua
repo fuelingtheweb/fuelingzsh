@@ -2,15 +2,11 @@ local Shortcuts = {}
 Shortcuts.__index = Shortcuts
 Shortcuts.all = {}
 Shortcuts.appFunctionMapping = {
-    notion = fn.Notion.openPage,
     discord = fn.Discord.openChannel,
     slack = fn.Slack.openChannel,
     iterm = ks.typeAndEnter,
-    atom = fn.Code.run,
-    sublime = fn.Code.run,
     vscode = fn.Code.run,
     chrome = '',
-    {app = 'atom', key = 'atomFile', func = fn.Code.openFile},
 }
 
 function Shortcuts:add(key, mapping)

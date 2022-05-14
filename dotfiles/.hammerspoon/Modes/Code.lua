@@ -32,12 +32,9 @@ end
 function Code.multipleCursorsUp()
     handleApp(ks.fire, {
         [vscode] = {{'shift', 'ctrl', 'alt'}, 'up'},
-        [atom] = {{'shift', 'ctrl'}, 'up'},
-        [sublime] = {{'shift', 'ctrl', 'alt'}, 'up'},
     })
     -- handleApp({
-    --     [atom] = _(ks.fire, {'shift', 'ctrl'}, 'up'),
-    --     [sublime] = _(ks.fire, {'shift', 'ctrl', 'alt'}, 'up'),
+    --     [vscode] = _(ks.fire, {'shift', 'ctrl', 'alt'}, 'up'),
     -- })
 end
 
@@ -50,10 +47,7 @@ function Code.unfold()
 end
 
 function Code.moveLineDown()
-    if is.In(notion) then
-        ks.shiftCmd('down')
-    elseif is.codeEditor() then
-        -- Atom, Sublime: Move line down
+    if is.codeEditor() then
         ks.ctrlCmd('down')
     else
         md.SelectInside.line()
@@ -76,9 +70,7 @@ function Code.moveLineDown()
 end
 
 function Code.moveLineUp()
-    if is.In(notion) then
-        ks.shiftCmd('up').shiftCmd('up')
-    elseif is.codeEditor() then
+    if is.codeEditor() then
         ks.ctrlCmd('up')
     else
         md.SelectInside.line()
@@ -108,13 +100,6 @@ function Code.toggleSemicolon()
     else
         ks.right().type(';')
     end
-end
-
-function Code.toggleBoolean()
-    handleApp({
-        [atom] = _(ks.fire, '-'),
-        [sublime] = _(ks.fire, {'alt', 'cmd'}, 'x'),
-    })
 end
 
 function Code.selectNextWord()

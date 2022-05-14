@@ -58,17 +58,11 @@ function Vi.moveToFirstCharacterOfLine()
 end
 
 function Vi.moveToEndOfLine()
-    if is.In(atom) then
-        ks.super('4')
-    else
-        ks.cmd('right')
-    end
+    ks.cmd('right')
 end
 
 function Vi.moveAndInsertAtFirstCharacterOfLine()
-    if is.In(atom) then
-        ks.super('i')
-    elseif is.In(sublime, vscode) then
+    if is.vscode() then
         ks.escape().shift('i')
     else
         Vi.moveToFirstCharacterOfLine()
@@ -76,9 +70,7 @@ function Vi.moveAndInsertAtFirstCharacterOfLine()
 end
 
 function Vi.moveAndAppendAtEndOfLine()
-    if is.In(atom) then
-        ks.super('o')
-    elseif is.In(sublime, vscode) then
+    if is.vscode() then
         ks.escape().shift('a')
     else
         Vi.moveToEndOfLine()

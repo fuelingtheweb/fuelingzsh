@@ -78,21 +78,7 @@ end
 -- })
 
 function Hyper.open()
-    -- handleApp({
-    --     {{atom, sublime}, function()
-    --         ks.cmd('p')
-    --         TextManipulation.disableVim()
-    --     end},
-    --     {{notion, sublimeMerge, tableplus, invoker}, function()
-    --         ks.cmd('p')
-    --     end},
-    --     {{discord, slack}, _(ks.fire, {'cmd'}, 'k')},
-    --     {spotify, _(fn.Alfred.run, 'spot_mini', 'com.vdesabou.spotify.mini.player')},
-    --     {chrome, _(ks.fire, {'shift'}, 'o')},
-    --     {'fallback', _(ks.fire, {'cmd'}, 'o')},
-    -- })
-
-    if is.In(notion, atom, vscode, sublime, sublimeMerge, tableplus, invoker) then
+    if is.In(vscode, sublimeMerge, tableplus, invoker) then
         ks.cmd('p')
 
         if is.codeEditor() then
@@ -117,13 +103,7 @@ function Hyper.open()
 end
 
 function Hyper.new()
-    if is.In(atom) then
-        TextManipulation.disableVim()
-        ks.altCmd('o')
-    elseif is.sublime() then
-        TextManipulation.disableVim()
-        ks.altCmd('n')
-    elseif is.vscode() then
+    if is.vscode() then
         TextManipulation.disableVim()
         ks.altCmd('n')
     else
@@ -132,7 +112,7 @@ function Hyper.new()
 end
 
 function Hyper.commandPalette()
-    if is.In(atom, vscode, sublime, sublimeMerge) then
+    if is.In(vscode, sublimeMerge) then
         ks.shiftCmd('p')
 
         if is.codeEditor() then
@@ -148,11 +128,6 @@ function Hyper.previousPage()
         ks.altCmd('left')
     elseif is.In(discord) then
         ks.cmd('k').enter()
-    elseif is.In(atom) then
-        -- Atom: Cursor History: Previous
-        ks.shiftAlt('i')
-    elseif is.sublime() then
-        ks.ctrl('-')
     elseif is.iterm() then
         ks.type('cdp').enter()
     else
@@ -168,11 +143,6 @@ function Hyper.nextPage()
         hs.timer.doAfter(0.1, function()
             ks.super(';')
         end)
-    elseif is.In(atom) then
-        -- Atom: Cursor History: Next
-        ks.ctrl('o')
-    elseif is.sublime() then
-        ks.shiftCtrl('-')
     else
         ks.cmd(']')
     end

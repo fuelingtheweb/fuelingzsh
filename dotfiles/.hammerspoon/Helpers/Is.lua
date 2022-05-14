@@ -25,10 +25,6 @@ function Is.iterm()
     return Is.In(iterm)
 end
 
-function Is.sublime()
-    return Is.In(sublime)
-end
-
 function Is.vscode()
     return Is.In(vscode)
 end

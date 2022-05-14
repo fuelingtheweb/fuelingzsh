@@ -382,15 +382,15 @@ function Artisan.openNewFiles(callback)
 
     Artisan.watcher = hs.pathwatcher.new(Artisan.mainPath .. '/',
         function(paths)
-            each(paths, function(path)
-                if stringContains('.php', path) then
-                    hs.execute('/usr/local/bin/atom -a "' .. path .. '"')
-                end
-            end)
+        each(paths, function(path)
+            if stringContains('.php', path) then
+                fn.Code.open(path)
+            end
+        end)
 
-            hs.application.get(atom):activate()
-            ks.save()
-        end):start()
+        hs.application.get(vscode):activate()
+        ks.save()
+    end):start()
 
     callback()
 
