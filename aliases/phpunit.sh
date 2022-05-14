@@ -8,29 +8,40 @@ alias xde='xdebug:enable'
 t() {
     clear
     if [ -f artisan ]; then
-        php artisan test --parallel --stop-on-failure "$@"
+        php artisan test --parallel --exclude-group NeedsInternet --stop-on-failure "$@"
     elif [ -f vendor/bin/phpunit ]; then
-        vendor/bin/phpunit --stop-on-failure "$@"
+        vendor/bin/phpunit --exclude-group NeedsInternet --stop-on-failure "$@"
     else
-        phpunit --stop-on-failure "$@"
+        phpunit --exclude-group NeedsInternet --stop-on-failure "$@"
     fi
 }
 
 ta() {
     clear
     if [ -f artisan ]; then
-        php artisan test --parallel "$@"
+        php artisan test --parallel --exclude-group NeedsInternet "$@"
     elif [ -f vendor/bin/phpunit ]; then
-        vendor/bin/phpunit "$@"
+        vendor/bin/phpunit --exclude-group NeedsInternet "$@"
     else
-        phpunit "$@"
+        phpunit --exclude-group NeedsInternet "$@"
     fi
 }
 
-alias tv='vendor/bin/phpunit --stop-on-failure'
+taa() {
+    clear
+    if [ -f artisan ]; then
+        php artisan test --parallel --group LocalOnly,NeedsInternet,NeedsRedis,default --stop-on-failure "$@"
+    elif [ -f vendor/bin/phpunit ]; then
+        vendor/bin/phpunit --group LocalOnly,NeedsInternet,NeedsRedis,default --stop-on-failure "$@"
+    else
+        phpunit --group LocalOnly,NeedsInternet,NeedsRedis,default --stop-on-failure "$@"
+    fi
+}
+
+alias tv='vendor/bin/phpunit --exclude-group NeedsInternet --stop-on-failure'
 
 alias tp='t --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer'
-alias td='t --testdox'
+alias td='tv --testdox'
 
 alias tf='t --filter'
 alias tpf='tp --filter'

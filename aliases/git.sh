@@ -54,6 +54,9 @@ alias gmm='git merge $(git:master-branch)'
 alias gmd='git merge develop'
 alias gma='git merge --abort'
 
+alias gms='git solo'
+alias gmw='git mob'
+
 alias go='git:checkout'
 alias goh='git checkout --help'
 alias gon='git:branch.new'

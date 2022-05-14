@@ -13,9 +13,7 @@ yarnOrNpm:run() {
 }
 
 # Yarn
-y() {
-    ${$(yarnOrNpm:get)} "$@"
-}
+alias y='yarn'
 alias yv='yarn --version'
 alias yh='yarn help'
 alias yi='yarnOrNpm:run i'
@@ -73,13 +71,7 @@ alias yb='yarn build'
 alias ysu='brew upgrade yarn'
 
 # NPM
-np() {
-    if [ "$1" ]; then
-        npm "$1"
-    else
-        npm install
-    fi
-}
+alias np='npm'
 alias npv='npm --version'
 alias nph='npm -l'
 npi() {

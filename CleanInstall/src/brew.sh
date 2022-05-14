@@ -6,7 +6,6 @@ success "Installing Homebrew"
 brew tap federico-terzi/espanso
 
 formulas=(
-    espanso
     ack
     autojump
     bat
@@ -99,6 +98,7 @@ casks=(
     beardedspice
     helo
     ray
+    espanso
 )
 
 for cask in "${casks[@]}"; do

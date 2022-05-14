@@ -16,6 +16,3 @@ phpmd:run() {
 }
 alias pmd='phpmd:run'
 alias pmdo='br ./phpmd.html'
-
-alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias ipc='ip | pbcopy'

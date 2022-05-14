@@ -1,10 +1,4 @@
-c() {
-    if [ "$1" ]; then
-        composer "$1"
-    else
-        composer install
-    fi
-}
+alias c='composer'
 alias cv='composer --version'
 alias csu='composer self-update'
 alias ch='composer list'

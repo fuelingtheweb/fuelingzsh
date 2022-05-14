@@ -1,11 +1,3 @@
-artisan() {
-    if [ -f bin/artisan ]; then
-        php bin/artisan "$@"
-    else
-        php artisan "$@"
-    fi
-}
-
 alias log:empty="echo '' > storage/logs/laravel.log"
 alias elf='log:empty'
 alias cpe='cp .env.example .env'
@@ -15,8 +7,8 @@ alias ers='envoy run reseed'
 
 alias lv='laravel'
 alias lz='laravel-zero'
-alias a='artisan'
-alias art='artisan'
+alias artisan='php artisan'
+alias a='php artisan'
 
 alias ah='artisan help'
 alias av='artisan --version'
