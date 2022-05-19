@@ -4,7 +4,6 @@ Modal.__index = Modal
 spoon.ModalMgr = hs.loadSpoon('vendor/ModalMgr')
 
 Modal.timer = nil
--- Modal.menubar = hs.menubar.newWithPriority(hs.menubar.priorities['system']):setTitle(''):returnToMenuBar()
 
 function Modal.add(meta)
     spoon.ModalMgr:new(meta.key)
@@ -19,11 +18,9 @@ function Modal.add(meta)
             if type(meta.title) == 'function' then
                 spoon.ModalMgr.active_title = meta.title()
                 return
-                -- return Modal.menubar:setTitle(meta.title())
             end
 
             spoon.ModalMgr.active_title = meta.title
-            -- Modal.menubar:setTitle(meta.title)
         end
 
         if meta.showCheatsheetOnEnter then
@@ -37,11 +34,10 @@ function Modal.add(meta)
         end
 
         spoon.ModalMgr.active_title = nil
-        -- Modal.menubar:setTitle('')
     end
 
     if meta.items then
-        each(meta.items, function(item, key)
+        fn.each(meta.items, function(item, key)
             if is.Function(item) then
                 meta.modal:bind('', key, nil, item)
             elseif is.Table(item) and item.items then
@@ -82,13 +78,13 @@ function Modal.add(meta)
             end
         end)
     elseif meta.keys then
-        each(meta.keys, function(key)
+        fn.each(meta.keys, function(key)
             meta.modal:bind('', key, key, function()
                 meta.callback(key)
             end)
         end)
     elseif meta.shortcuts then
-        each(meta.shortcuts, function(callback, key)
+        fn.each(meta.shortcuts, function(callback, key)
             meta.modal:bind('', key, nil, callback)
         end)
     end
@@ -124,7 +120,7 @@ function Modal.add(meta)
             Modal.toggleCheatsheet()
         end)
 
-        each({
+        fn.each({
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
         }, function(key)

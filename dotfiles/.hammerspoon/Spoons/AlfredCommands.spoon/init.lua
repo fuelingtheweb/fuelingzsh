@@ -18,7 +18,7 @@ end
 function AlfredCommands:setAlfredJson()
     local items = {}
 
-    each(AlfredCommands.all, function(command, key)
+    fn.each(AlfredCommands.all, function(command, key)
         local iconPath = '~/Dropbox/Ftw/Alfred/Alfred.alfredpreferences/workflows/user.workflow.7CF5F8CA-70CF-4DDF-8543-642E861FCF88/'
         local icon = 'icon.png'
 

@@ -102,7 +102,7 @@ end
 function Open.fallback(value, key)
     if Open[value] then
         Open[value]()
-    elseif stringContains('.app', value) then
+    elseif str.contains('.app', value) then
         hs.execute("open -a '" .. value .. "'")
     else
         Open.launchApp(value)
@@ -124,18 +124,18 @@ function Open.launchApp(id)
     elseif not isActive then
         app = hs.application.get(bundle)
 
-        if not hasWindows(app) then
+        if not fn.app.hasWindows(app) then
             if id ~= 'vscode' then hs.application.open(bundle) end
         else
             app:activate()
 
-            if id == 'finder' and not multipleWindows(app) then
+            if id == 'finder' and not fn.app.multipleWindows(app) then
                 hs.application.open(bundle)
             end
         end
-    elseif multipleWindows(app) then
+    elseif fn.app.multipleWindows(app) then
         Open.windowHintsForCurrentApplication()
-    elseif not hasWindows(app) then
+    elseif not fn.app.hasWindows(app) then
         hs.application.open(bundle)
     end
 end

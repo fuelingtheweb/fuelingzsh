@@ -38,7 +38,7 @@ CodeSnippets.lookup = {
 }
 
 function CodeSnippets.handle(key)
-    if is.vscode() and titleContains('EOD.md') and key == 'semicolon' then
+    if fn.window.titleContains('EOD.md') and key == 'semicolon' then
         ks.escape().shift('o').slow().enter().slow().up()
         ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
 
@@ -73,19 +73,14 @@ function CodeSnippets.fallback(value)
 end
 
 function CodeSnippets.snippet(name)
-    local original = hs.pasteboard.getContents()
-    hs.pasteboard.setContents('snippet-' .. name)
+    fn.clipboard.preserve(function()
+        fn.clipboard.set('snippet-' .. name)
 
-    if is.vscode() then
         ks.ctrlCmd('s').paste().slow().enter()
 
-        if hasValue({'if'}, name) then Brackets.startIfPhp() end
-    else
-        ks.type('snippet-' .. name).enter()
-    end
-
-    hs.timer.doAfter(1, function()
-        hs.pasteboard.setContents(original)
+        if fn.table.has({'if'}, name) then
+            Brackets.startIfPhp()
+        end
     end)
 end
 
@@ -98,16 +93,10 @@ function CodeSnippets.functionSnippet()
 end
 
 function CodeSnippets.this()
-    if is.vscode() then
-        ks.slow().shiftCtrl('c')
+    ks.slow().shiftCtrl('c')
 
-        if stringContains('migrations', hs.pasteboard.getContents()) then
-            return ks.type('$table->')
-        end
-    end
-
-    if is.codeEditor() then
-        CodeSnippets.snippet('this')
+    if fn.clipboard.contains('migrations') then
+        return ks.type('$table->')
     end
 end
 
@@ -177,7 +166,6 @@ function CodeSnippets.handleCallFunction(item)
     end
 
     CodeSnippets.printFunction(item)
-    -- CodeSnippets.printFunction(item, getSelectedText())
 end
 
 function CodeSnippets.printFunction(item, text)
@@ -221,11 +209,6 @@ function CodeSnippets.conditionalAnd()
 end
 
 function CodeSnippets.conditionalOr()
-    -- handleConditional(titleContains, insertText, {
-    --     {condition = '.lua', value = ' or '},
-    --     {condition = 'fallback', value = ' || '}, -- ['.lua'] = ' or ',
-    --     -- ['fallback'] = ' || ',
-    -- })
     if is.todo() then
         ks.type('@pr()').left()
     elseif is.lua() then

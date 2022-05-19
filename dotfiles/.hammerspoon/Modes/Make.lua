@@ -37,7 +37,7 @@ function Make.lineBefore()
         ks.ctrlAlt('i').key('r').enter()
     elseif is.chat() then
         md.Vi.moveToFirstCharacterOfLine()
-        ks.shift('return').up()
+        ks.shiftEnter().up()
     else
         md.Vi.moveToFirstCharacterOfLine()
         ks.enter().up()
@@ -54,7 +54,7 @@ function Make.lineAfter()
         ks.ctrlAlt('i').key('r').key('b').enter()
     elseif is.chat() then
         md.Vi.moveToEndOfLine()
-        ks.shift('return')
+        ks.shiftEnter()
     else
         md.Vi.moveToEndOfLine()
         ks.enter()

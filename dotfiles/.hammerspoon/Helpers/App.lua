@@ -28,13 +28,36 @@ function App.is(bundle)
 end
 
 function App.includes(bundles)
-    return hasValue(bundles, hs.application.frontmostApplication():bundleID())
+    return fn.table.has(bundles, hs.application.frontmostApplication():bundleID())
 end
 
 function App.loadBundleVariables()
-    each(App.bundles, function(bundle, key)
+    fn.each(App.bundles, function(bundle, key)
         _G[key] = bundle
     end)
+end
+
+function App.hasWindows(app)
+    return App.windowCount(app) > 0
+end
+
+function App.multipleWindows(app)
+    return App.windowCount(app) > 1
+end
+
+function App.windowCount(app)
+    if app == nil then return 0 end
+
+    local count = 0
+
+    for k, v in pairs(app:visibleWindows()) do
+        if (is.In(preview) or is.finder()) and v:title() == '' then
+        else
+            count = count + 1
+        end
+    end
+
+    return count
 end
 
 return App

@@ -25,7 +25,7 @@ function OpenIn.inSublimeMerge()
     if is.iterm() then
         ks.typeAndEnter('smerge .')
     else
-        local path = currentTitle():match('~%S+')
+        local path = fn.window.path()
 
         if path == '~/.hammerspoon' then
             path = '~/.fuelingzsh'
@@ -45,7 +45,7 @@ function OpenIn.inCode()
     if is.iterm() then
         ks.typeAndEnter('code .')
     else
-        local path = currentTitle():match('~%S+')
+        local path = fn.window.path()
 
         if not path then
             return
@@ -56,13 +56,13 @@ function OpenIn.inCode()
 end
 
 function OpenIn.inChrome()
-    text = getSelectedText()
+    local text = str.selected()
 
     if text then
         fn.Chrome.searchGoogle(text)
     elseif is.chrome() then
         fn.Chrome.copyUrl()
-        fn.Chrome.open(getSelectedText())
+        fn.Chrome.open(fn.clipboard.get())
     else
         ProjectManager.openUrlForCurrent()
     end
@@ -80,7 +80,7 @@ function OpenIn.inFinder()
     if is.iterm() then
         ks.typeAndEnter('o.')
     else
-        path = currentTitle():match('~%S+')
+        local path = fn.window.path()
 
         if not path then
             return
@@ -95,10 +95,10 @@ function OpenIn.inTinkerwell()
         return ks.typeAndEnter('tinkerwell .')
     end
 
-    path = currentTitle():match('~%S+')
+    local path = fn.window.path()
 
     if path then
-        executeFromFuelingZsh('tinkerwell "' .. path .. '"')
+        fn.misc.executeFromFuelingZsh('tinkerwell "' .. path .. '"')
     end
 end
 

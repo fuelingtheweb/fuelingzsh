@@ -49,23 +49,26 @@ spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
-    app = hs.application.frontmostApplication()
-    bundle = app:bundleID()
-    hs.pasteboard.setContents(bundle)
+    local app = hs.application.frontmostApplication()
+    local bundle = app:bundleID()
+
+    fn.clipboard.set(bundle)
     hs.notify.new({title = 'App Bundle Copied', informativeText = bundle}):send()
 end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
-    local title = currentTitle()
+    local title = fn.window.title()
+
     hs.alert.show(title)
-    hs.pasteboard.setContents(title)
+    fn.clipboard.set(title)
 end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'm', function()
     local position = hs.mouse.getAbsolutePosition()
     local title = 'x: ' .. position.x .. ' y: ' .. position.y
+
     hs.alert.show(title)
-    hs.pasteboard.setContents(title)
+    fn.clipboard.set(title)
 
     spoon.MouseCircle:show()
 end)

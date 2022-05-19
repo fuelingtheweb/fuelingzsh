@@ -47,7 +47,7 @@ function Command.duplicateLine()
 end
 
 function Command.duplicate()
-    local text = getSelectedText()
+    local text = str.selected()
 
     if text then
         if is.codeEditor() then
@@ -101,10 +101,10 @@ function Command.finish()
     if is.vscode() then
         if is.todo() or is.markdown() then
             ks.alt('d')
-        elseif titleContains('.git/COMMIT_EDITMSG') or titleContains('.git/MERGE_MSG') then
+        elseif fn.window.titleContains('.git/COMMIT_EDITMSG') or fn.window.titleContains('.git/MERGE_MSG') then
             ks.slow().save().slow().close()
             fn.iTerm.launch()
-        elseif titleContains('Untitled-') then
+        elseif fn.window.titleContains('Untitled-') then
             md.Yank.all()
 
             hs.timer.doAfter(0.2, function()
@@ -125,14 +125,14 @@ function Command.finish()
     elseif is.In(transmit) then
         -- Disconnect from server
         ks.cmd('e')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         ks.enter()
     elseif is.googleSheet() then
         ks.enter().up()
     elseif is.iterm() then
-        if titleContains('git:log') then
+        if fn.window.titleContains('git:log') then
             ks.key('q')
-        elseif titleContains('git:checkout') or titleContains('git:branch.delete') then
+        elseif fn.window.titleContains('git:checkout') or fn.window.titleContains('git:branch.delete') then
             ks.escape()
         else
             ks.ctrl('c')
@@ -161,7 +161,7 @@ function Command.save()
 end
 
 function Command.cancelOrDelete()
-    text = getSelectedText()
+    local text = str.selected()
 
     if text then
         ks.delete()

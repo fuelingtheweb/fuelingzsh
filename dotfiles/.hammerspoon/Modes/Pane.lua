@@ -48,7 +48,7 @@ function Pane.toggleZoom()
 end
 
 function Pane.focusPrevious()
-    if is.chrome() and stringContains('Google Sheets', currentTitle()) then
+    if is.googleSheet() then
         ks.alt('up')
     elseif is.vscode() then
         ks.super('p').super('k')
@@ -62,7 +62,7 @@ function Pane.focusPrevious()
 end
 
 function Pane.focusNext()
-    if is.chrome() and stringContains('Google Sheets', currentTitle()) then
+    if is.googleSheet() then
         ks.alt('down')
     elseif is.vscode() then
         ks.super('p').super('j')

@@ -9,7 +9,7 @@ Shortcuts
                 return fn.custom.openClientTasks()
             end
 
-            local path = currentTitle():match('~%S+')
+            local path = fn.window.path()
 
             if hs.fs.pathToAbsolute(path .. '/routes/web.php') then
                 fn.Code.open(path .. '/routes/web.php')
@@ -34,7 +34,7 @@ Shortcuts
                 return
             end
 
-            local path = currentTitle():match('~%S+')
+            local path = fn.window.path()
 
             if hs.fs.pathToAbsolute(path .. '/.env') then
                 fn.Code.open(path .. '/.env')

@@ -83,7 +83,7 @@ function Destroy.line()
     elseif is.googleSheet() then
         ks.shift('space').shift('space').slow().copy()
 
-        local text = trim(hs.pasteboard.getContents())
+        local text = fn.clipboard.trimmed()
         if text == '' then
             ks.shift('space')
         end

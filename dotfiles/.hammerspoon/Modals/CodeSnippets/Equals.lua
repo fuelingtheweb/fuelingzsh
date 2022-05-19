@@ -45,7 +45,7 @@ Modal.add({
         elseif item.text then
             ks.type(item.text)
 
-            if hasValue({' === ', ' == '}, item.text) then
+            if fn.table.has({' === ', ' == '}, item.text) then
                 Brackets.startIfPhp()
             end
         end

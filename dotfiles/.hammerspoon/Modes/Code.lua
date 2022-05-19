@@ -30,16 +30,13 @@ function Code.addUseStatement()
 end
 
 function Code.multipleCursorsUp()
-    handleApp(ks.fire, {
-        [vscode] = {{'shift', 'ctrl', 'alt'}, 'up'},
-    })
-    -- handleApp({
-    --     [vscode] = _(ks.fire, {'shift', 'ctrl', 'alt'}, 'up'),
-    -- })
+    if is.vscode() then
+        ks.shiftCtrlAlt('up')
+    end
 end
 
 function Code.fold()
-    if is.In(sublimeMerge) then
+    if is.sublimeMerge() then
         ks.shift('delete')
     else
         ks.altCmd('[')
@@ -55,14 +52,14 @@ function Code.moveLineDown()
         ks.ctrlCmd('down')
     elseif is.iterm() then
         ks.super('j')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         ks.tab()
     else
         md.SelectInside.line()
         ks.slow().copy().delete().delete()
         ks.type('a').shift('left').shift('left')
 
-        local text = getSelectedText()
+        local text = str.selected()
 
         ks.right().delete().down()
 
@@ -80,7 +77,7 @@ end
 function Code.moveLineUp()
     if is.codeEditor() then
         ks.ctrlCmd('up')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         ks.shift('tab')
     else
         md.SelectInside.line()
@@ -103,9 +100,8 @@ function Code.toggleSemicolon()
 
     md.Vi.moveToEndOfLine()
     ks.shift('left')
-    text = getSelectedText()
 
-    if getSelectedText() == ';' then
+    if str.selected() == ';' then
         ks.delete()
     else
         ks.right().type(';')
@@ -119,9 +115,9 @@ end
 function Code.multipleCursorsDown()
     if is.codeEditor() then
         ks.shiftCtrlAlt('down')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         ks.delete()
-    elseif is.github() and titleContains('Pull Request #') then
+    elseif is.github() and fn.window.titleContains('Pull Request #') then
         ks.cmd('g')
         md.ViVisual.selectToTopOfPage()
         md.ViVisual.selectLineDown()
@@ -136,9 +132,8 @@ function Code.toggleComma()
 
     md.Vi.moveToEndOfLine()
     ks.shift('left')
-    text = getSelectedText()
 
-    if getSelectedText() == ',' then
+    if str.selected() == ',' then
         ks.delete()
     else
         ks.right().type(',')
@@ -165,8 +160,8 @@ end
 function Code.selectAll()
     if is.iterm() then
         ks.typeAndEnter('ci')
-    elseif is.In(sublimeMerge) then
-        ks.shift('return')
+    elseif is.sublimeMerge() then
+        ks.shiftEnter()
         hs.timer.doAfter(0.2, function()
             hs.eventtap.leftClick({x = 133, y = 203})
             hs.mouse.setAbsolutePosition({x = 5, y = 203})
@@ -177,7 +172,7 @@ function Code.selectAll()
 end
 
 function Code.toggleBrackets()
-    if is.In(sublimeMerge) then
+    if is.sublimeMerge() then
         ks.enter()
         hs.timer.doAfter(0.2, function()
             hs.eventtap.leftClick({x = 133, y = 203})
@@ -189,7 +184,7 @@ function Code.toggleBrackets()
 end
 
 function Code.previousMember()
-    if is.In(sublimeMerge) then
+    if is.sublimeMerge() then
         cm.Tab.previous()
         hs.timer.doAfter(0.1, function()
             ks.tab()
@@ -200,7 +195,7 @@ function Code.previousMember()
 end
 
 function Code.nextMember()
-    if is.In(sublimeMerge) then
+    if is.sublimeMerge() then
         cm.Tab.next()
         hs.timer.doAfter(0.1, function()
             ks.tab()

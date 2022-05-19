@@ -26,12 +26,12 @@ Execute.lookup = {
 }
 
 function Execute.goToDefinition()
-    local text = getSelectedText()
+    local text = str.selected()
 
     if not text then
         md.Yank.word()
         hs.timer.doAfter(0.2, function()
-            text = hs.pasteboard.getContents()
+            text = fn.clipboard.get()
         end)
     end
 
@@ -60,9 +60,9 @@ function Execute.openPath()
     ks.escape().sequence({'y', 'i', "'"})
 
     hs.timer.doAfter(0.2, function()
-        path = hs.pasteboard.getContents()
+        local path = fn.clipboard.get()
 
-        if not stringContains('/', path) then
+        if not str.contains('/', path) then
             path = path:gsub('%.', '/')
         end
 
@@ -79,12 +79,12 @@ function Execute.nextOccurrence()
 end
 
 function Execute.openFactory()
-    local text = getSelectedText()
+    local text = str.selected()
 
     if not text then
         md.Yank.word()
         hs.timer.doAfter(0.2, function()
-            text = hs.pasteboard.getContents()
+            text = fn.clipboard.get()
         end)
     end
 

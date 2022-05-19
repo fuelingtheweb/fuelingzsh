@@ -29,6 +29,10 @@ function Is.vscode()
     return Is.In(vscode)
 end
 
+function Is.sublimeMerge()
+    return Is.In(sublimeMerge)
+end
+
 function Is.In(bundle, ...)
     if Is.Table(bundle) then
         return fn.app.includes(bundle)
@@ -54,23 +58,23 @@ function Is.Function(value)
 end
 
 function Is.php()
-    return titleContains('.php')
+    return fn.window.titleContains('.php')
 end
 
 function Is.js()
-    return titleContains('.js')
+    return fn.window.titleContains('.js')
 end
 
 function Is.blade()
-    return titleContains('.blade.php')
+    return fn.window.titleContains('.blade.php')
 end
 
 function Is.lua()
-    return titleContains('.lua')
+    return fn.window.titleContains('.lua')
 end
 
 function Is.googleSheet()
-    return Is.chrome() and fn.Chrome.urlContains('docs.google.com') and titleContains('Google Sheets')
+    return Is.chrome() and fn.Chrome.urlContains('docs.google.com') and fn.window.titleContains('Google Sheets')
 end
 
 function Is.github()
@@ -82,15 +86,15 @@ function Is.todoOrMarkdown()
 end
 
 function Is.todo()
-    return titleContains('.todo')
+    return fn.window.titleContains('.todo')
 end
 
 function Is.markdown()
-    return titleContains('.md')
+    return fn.window.titleContains('.md')
 end
 
 function Is.gmail()
-    return Is.chrome() and titleContains('Fueling the Web Mail')
+    return Is.chrome() and fn.window.titleContains('Fueling the Web Mail')
 end
 
 function Is.chat()
@@ -98,11 +102,11 @@ function Is.chat()
 end
 
 function Is.malachor()
-    return stringContains('Malachor', currentTitle():match('~%S+'))
+    return fn.window.pathContains('Malachor')
 end
 
 function Is.hammerspoon()
-    return stringContains('.hammerspoon', currentTitle():match('~%S+'))
+    return fn.window.pathContains('.hammerspoon')
 end
 
 return Is

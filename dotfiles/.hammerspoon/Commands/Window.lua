@@ -45,7 +45,7 @@ function Window.next()
 
     local nextWin = windows[2]
 
-    if not nextWin or nextWin:title() == currentTitle() then
+    if not nextWin or nextWin:title() == fn.window.title() then
         nextWin = windows[1]
     end
 
@@ -73,7 +73,7 @@ function Window.nextInCurrentApp()
 
     local nextWin = windows[2]
 
-    if not nextWin or nextWin:title() == currentTitle() then
+    if not nextWin or nextWin:title() == fn.window.title() then
         nextWin = windows[1]
     end
 
@@ -107,7 +107,7 @@ end
 function Window.toggleSidebar()
     if is.finder() then
         ks.altCmd('s')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         ks.cmd('k').cmd('b')
     elseif is.In(slack) then
         ks.shiftCmd('d')
@@ -168,7 +168,7 @@ function Window.destroy()
         end)
     elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor', 'md.obsidian', 'de.beyondco.tinkerwell') then
         Window.quitApplication()
-    elseif is.codeEditor() or is.In(sublimeMerge) then
+    elseif is.codeEditor() or is.sublimeMerge() then
         ks.shiftCmd('w')
     else
         ks.close()

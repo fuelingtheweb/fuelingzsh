@@ -89,7 +89,7 @@ end
 function Tab.moveToNextWindow()
     local app = hs.application.frontmostApplication()
 
-    if countTable(app:visibleWindows()) < 2 then
+    if fn.table.count(app:visibleWindows()) < 2 then
         return
     end
 

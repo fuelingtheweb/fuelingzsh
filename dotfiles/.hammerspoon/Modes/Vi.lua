@@ -50,7 +50,7 @@ function Vi.moveToTopOfPage()
         ks.sequence({'g', 'g'})
     elseif is.finder() then
         ks.alt('up')
-    elseif is.In(sublimeMerge) then
+    elseif is.sublimeMerge() then
         cm.Tab.previous()
         cm.Tab.next()
         hs.timer.doAfter(0.1, function()

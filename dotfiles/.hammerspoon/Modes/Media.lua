@@ -8,7 +8,7 @@ Media.lookup = {
     e = nil,
     r = 'updateAudioDevice',
     t = nil,
-    caps_lock = fn.misc.DismissNotifications.run,
+    caps_lock = fn.misc.DismissNotifications,
     a = 'startOfVideoOrPreviousVideo',
     s = 'spotifyMini',
     d = 'deafen',
@@ -52,13 +52,12 @@ end
 function Media.showVideoBar()
     -- Under System Preferences: Mouse & Trackpad, Enable Mouse Keys and set the Initial Delay option to Short
     -- original = hs.mouse.getAbsolutePosition()
-    if stringContains('Prime Video', currentTitle()) then
+    if fn.window.titleContains('Prime Video') then
         hs.mouse.setAbsolutePosition({x = 1900, y = 900})
         ks.key('pad6')
         hs.mouse.setAbsolutePosition({x = 1900, y = 300})
         ks.key('pad6')
-    elseif stringContains('TV', currentTitle()) or
-        stringContains('Disney', currentTitle()) then
+    elseif fn.window.titleContains('TV') or fn.window.titleContains('Disney') then
         hs.mouse.setAbsolutePosition({x = 600, y = 900})
         ks.key('pad6')
         hs.timer.doAfter(0.8, function()
@@ -75,10 +74,9 @@ end
 
 function Media.focus()
     if is.chrome() then
-        title = currentTitle()
-        if stringContains('Funimation', title) then
+        if fn.window.titleContains('Funimation') then
             ks.type('gf')
-        elseif stringContains('Disney', title) then
+        elseif fn.window.titleContains('Disney') then
             ks.tab()
         else
             center = hs.geometry.rectMidPoint(
@@ -92,9 +90,7 @@ end
 
 function Media.fullscreen()
     if is.chrome() then
-        title = currentTitle()
-
-        if stringContains('Funimation', title) then
+        if fn.window.titleContains('Funimation') then
             ks.alt('return')
         else
             ks.key('f')
@@ -107,7 +103,7 @@ function Media.updateAudioDevice()
 end
 
 function Media.videoBack()
-    if is.chrome() and stringContains('Funimation', currentTitle()) then
+    if is.chrome() and fn.window.titleContains('Funimation') then
         ks.shift('left')
     else
         ks.left()
@@ -115,7 +111,7 @@ function Media.videoBack()
 end
 
 function Media.videoForward()
-    if is.chrome() and stringContains('Funimation', currentTitle()) then
+    if is.chrome() and fn.window.titleContains('Funimation') then
         ks.shift('right')
     else
         ks.right()

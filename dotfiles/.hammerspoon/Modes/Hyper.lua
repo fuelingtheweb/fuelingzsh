@@ -26,7 +26,8 @@ Hyper.lookup = {
 }
 
 function Hyper.copy()
-    text = getSelectedText(true)
+    md.Yank.normal()
+    local text = fn.clipboard.get()
 
     if is.In(spotify) then
         hs.osascript.applescript([[
@@ -54,36 +55,12 @@ function Hyper.copy()
     end
 end
 
--- Modal.add({
---     key = 'Hyper:open',
---     title = 'Hyper: Open',
---     items = {
---         p = {extension = '.php'},
---         b = {extension = '.blade.php'},
---         j = {extension = '.js'},
---         l = {extension = '.lua'},
---         y = {extension = '.py'},
---         v = {extension = '.vue'},
---         c = {extension = '.css'},
---         s = {extension = '.sass'},
---         t = {extension = 'Test.php'},
---     },
---     callback = function(item)
---         ks.type(item.extension)
---         for i = 1, item.extension:len() do
---             ks.left()
---         end
---         Modal.exit()
---     end,
--- })
-
 function Hyper.open()
     if is.In(vscode, sublimeMerge, tableplus, invoker) then
         ks.cmd('p')
 
         if is.codeEditor() then
             TextManipulation.disableVim()
-            -- Modal.enter('Hyper:open')
         end
     elseif is.In(discord, slack) then
         ks.cmd('k')
@@ -151,7 +128,7 @@ end
 function Hyper.paste()
     ks.paste()
 
-    if titleContains('Slack | ') then
+    if is.In(slack) or fn.window.titleContains('Slack | ') then
         ks.shiftCmd('f')
     end
 end

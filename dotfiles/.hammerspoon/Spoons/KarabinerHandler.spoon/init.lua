@@ -97,7 +97,7 @@ local availableKeys = {
 }
 
 function KarabinerHandler.loadModes(modes)
-    each(modes, function(mode, modifier)
+    fn.each(modes, function(mode, modifier)
         if not mode then
             return
         end
@@ -115,7 +115,7 @@ function KarabinerHandler.loadModes(modes)
 end
 
 function KarabinerHandler.setupMode(mode)
-    each(mode.lookup or {}, function(callable, key)
+    fn.each(mode.lookup or {}, function(callable, key)
         if not is.Table(callable) then
             return
         end
@@ -176,7 +176,7 @@ function KarabinerHandler.callback(key)
     local mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
 
     if is.Table(mode) then
-        each(mode, function(m, app)
+        fn.each(mode, function(m, app)
             if (is.Table(mode) and app == 'default') or is.In(fn.app.bundles[app]) then
                 mode = m
             end
@@ -189,7 +189,7 @@ function KarabinerHandler.callback(key)
 end
 
 function KarabinerHandler.setupKeys()
-    each(KarabinerHandler.lookup, function(mode, modifier)
+    fn.each(KarabinerHandler.lookup, function(mode, modifier)
         if not mode then
             return
         end
@@ -201,7 +201,7 @@ function KarabinerHandler.setupKeys()
         )
     end)
 
-    each(availableKeys, function(key)
+    fn.each(availableKeys, function(key)
         hs.hotkey.bind(
             {'shift', 'ctrl', 'alt', 'cmd'},
             lookupKeys[key] or key,
@@ -226,7 +226,7 @@ KarabinerHandler.setupKeys()
 function KarabinerHandler.compileJson()
     local items = {}
 
-    each(KarabinerHandler.lookup, function(mode, key)
+    fn.each(KarabinerHandler.lookup, function(mode, key)
         if is.Table(mode) then
             return
         end
@@ -236,7 +236,7 @@ function KarabinerHandler.compileJson()
         local Mode = md[mode]
 
         if Mode.lookup then
-            each(Mode.lookup, function(action, key)
+            fn.each(Mode.lookup, function(action, key)
                 if is.Table(action) then
                     return
                 end

@@ -209,7 +209,7 @@ function Artisan.setup()
         callback = function(params)
             Artisan.openNewFiles(function()
                 name = Artisan.convertTo('path', params.name)
-                hs.pasteboard.setContents(Artisan.convertTo('dot', name))
+                fn.clipboard.set(Artisan.convertTo('dot', name))
                 filePath = Artisan.mainPath .. '/resources/views/' .. name .. '.blade.php'
                 filePath = filePath:gsub('~', '/Users/nathan')
                 output = hs.execute('mkdir -p "$(dirname "' .. filePath .. '")" && touch "' .. filePath .. '"')
@@ -230,8 +230,8 @@ end
 function Artisan.loadAlfredJson()
     local items = {}
 
-    hs.fnutils.each(Artisan.commands, function(command)
-        alias = command.alias or ''
+    fn.each(Artisan.commands, function(command)
+        local alias = command.alias or ''
 
         table.insert(items, {
             uid = command.name,
@@ -251,7 +251,7 @@ function Artisan.loadAlfredJson()
 end
 
 function Artisan.start()
-    path = currentTitle():match('~%S+')
+    local path = fn.window.path()
 
     if hs.fs.attributes(path .. '/artisan') then
         Artisan.mainPath = path
@@ -265,13 +265,12 @@ end
 
 function Artisan.showNewScreen()
     Ray.newScreen('artisan ' .. Artisan.command .. ' (' .. Artisan.mainPath .. ')')
-    -- hs.execute("open -a 'Ray.app'")
 end
 
 function Artisan.setupArgs()
     args = {Artisan.path:gsub('~', '/Users/nathan'), '--no-ansi'}
 
-    each(hs.fnutils.split(Artisan.command, ' '), function(arg)
+    fn.each(hs.fnutils.split(Artisan.command, ' '), function(arg)
         table.insert(args, arg)
     end)
 
@@ -353,20 +352,20 @@ hs.urlevent.bind('artisan-command', function(eventName, params)
     Artisan.openNewFiles(function()
         converter = 'pascal'
 
-        if stringContains('migration', Artisan.command) then
+        if str.contains('migration', Artisan.command) then
             converter = 'snake'
         end
 
         parts = hs.fnutils.map(
             hs.fnutils.split(params.name, '/'),
             function(text)
-            return Artisan.convertTo(converter, text)
-        end
+                return Artisan.convertTo(converter, text)
+            end
         )
         name = table.concat(parts, '/')
-        hs.pasteboard.setContents(name)
+        fn.clipboard.set(name)
 
-        if stringContains('{$1}', Artisan.command) then
+        if str.contains('{$1}', Artisan.command) then
             Artisan.command = Artisan.command:gsub('{$1}', name)
         else
             Artisan.command = Artisan.command .. ' ' .. name
@@ -382,15 +381,15 @@ function Artisan.openNewFiles(callback)
 
     Artisan.watcher = hs.pathwatcher.new(Artisan.mainPath .. '/',
         function(paths)
-        each(paths, function(path)
-            if stringContains('.php', path) then
-                fn.Code.open(path)
-            end
-        end)
+            fn.each(paths, function(path)
+                if str.contains('.php', path) then
+                    fn.Code.open(path)
+                end
+            end)
 
-        hs.application.get(vscode):activate()
-        ks.save()
-    end):start()
+            hs.application.get(vscode):activate()
+            ks.save()
+        end):start()
 
     callback()
 
@@ -400,7 +399,7 @@ function Artisan.openNewFiles(callback)
 end
 
 function Artisan.convertTo(converter, text)
-    return trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"'))
+    return str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"'))
 end
 
 function Artisan.migrateFreshAndSeed()

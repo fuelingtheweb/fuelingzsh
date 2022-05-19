@@ -41,19 +41,19 @@ Cheatsheets.lookupApps = {
 function Cheatsheets.items()
     local items = {}
 
-    each(spoon.KarabinerHandler.lookup, function(mode, modifier)
+    fn.each(spoon.KarabinerHandler.lookup, function(mode, modifier)
         local name = mode
 
         if is.Table(mode) then
             name = ''
 
-            each(mode, function(mode, app)
+            fn.each(mode, function(mode, app)
                 name = name .. app .. ': ' .. mode .. ', '
             end)
 
             local nestedItems = {}
 
-            each(mode, function(mode, app)
+            fn.each(mode, function(mode, app)
                 nestedItems[Cheatsheets.lookupApps[app]] = {
                     name = app,
                     title = app,
@@ -89,7 +89,7 @@ end
 function Cheatsheets.nestedItems(mode)
     local items = {}
 
-    each(md[mode].lookup or {}, function(method, key)
+    fn.each(md[mode].lookup or {}, function(method, key)
         name = (
             (key == 'left_shift' and '(left_shift) ' or nil)
                 or (key == 'right_shift' and '(right_shift) ' or '')

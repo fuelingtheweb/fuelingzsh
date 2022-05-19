@@ -43,14 +43,14 @@ function Search.windowsInCurrentApp()
 end
 
 function Search.loadWindowsInAlfred(windows, minimum)
-    if not windows or countTable(windows) < minimum then
+    if not windows or fn.table.count(windows) < minimum then
         return
     end
 
     local items = {}
-    each(windows, function(window)
-        app = window:application()
-        iconPath = '~/.fuelingzsh/custom/' .. app:name() .. '.png'
+    fn.each(windows, function(window)
+        local app = window:application()
+        local iconPath = '~/.fuelingzsh/custom/' .. app:name() .. '.png'
         hs.image.imageFromAppBundle(app:bundleID()):saveToFile(iconPath)
         table.insert(items, {
             uid = window:id(),

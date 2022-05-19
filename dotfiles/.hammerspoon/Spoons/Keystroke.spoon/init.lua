@@ -132,7 +132,7 @@ function Keystroke.solo(key)
 end
 
 function Keystroke.sequence(keys)
-    each(keys, Keystroke.key)
+    fn.each(keys, Keystroke.key)
 
     return Keystroke
 end

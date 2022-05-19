@@ -34,14 +34,14 @@ function ChangeCase.change(to, key)
             ks.escape().key('a')
         end
     else
-        text = getSelectedText()
+        local text = str.selected()
 
         if not text then
             ks.shiftAlt('left')
-            text = getSelectedText()
+            text = str.selected()
         end
 
-        result = trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. to .. '" "' .. text .. '"'))
+        result = str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. to .. '" "' .. text .. '"'))
         ks.type(result)
     end
 end

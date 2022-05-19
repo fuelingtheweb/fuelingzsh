@@ -102,13 +102,12 @@ function Brackets.print(bracket)
 
     local surroundPaste = Brackets.surroundPaste
     local brackets = Brackets.lookup[bracket]
-    -- local text = getSelectedText()
     local text = nil
 
     Modal.exit()
 
     if surroundPaste then
-        text = trim(hs.pasteboard.getContents())
+        text = fn.clipboard.trimmed()
     elseif text then
         if is.vscode() then
             ks.shiftAltCmd('delete')
@@ -153,7 +152,7 @@ function Brackets.commitOrDismiss()
         return Brackets.dismiss()
     end
 
-    local text = getSelectedText()
+    local text = str.selected()
     local brackets = hs.fnutils.copy(Brackets.brackets)
 
     Brackets.dismiss()
@@ -168,7 +167,7 @@ function Brackets.commitOrDismiss()
 
     local result = ''
 
-    each(brackets, function(bracket)
+    fn.each(brackets, function(bracket)
         result = result .. Brackets.lookup[bracket][1]
     end)
 
@@ -227,7 +226,6 @@ function Brackets.continueChain()
     else
         ks.type('->')
     end
-    -- Modal.enter('CodeSnippets:callFunction')
 end
 
 function Brackets.insertVariable()

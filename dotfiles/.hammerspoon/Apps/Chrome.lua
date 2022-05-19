@@ -17,25 +17,15 @@ function Chrome.openIncognito(url)
 end
 
 function Chrome.urlContains(needle)
-    return stringContains(needle:gsub('-', '%%-'), Chrome.currentUrl())
+    return str.contains(needle:gsub('-', '%%-'), Chrome.currentUrl())
 end
 
 function Chrome.currentUrl()
-    original = hs.pasteboard.getContents()
-    hs.pasteboard.clearContents()
-
-    fn.Chrome.copyUrl()
-    url = hs.pasteboard.getContents()
-
-    hs.pasteboard.setContents(original)
-
-    return url
+    return fn.clipboard.preserve(Chrome.copyUrl)
 end
 
 function Chrome.updateUrl(needle, newUrl)
-    Chrome.copyUrl()
-
-    if stringContains(needle, hs.pasteboard.getContents()) then
+    if Chrome.urlContains(needle) then
         hs.osascript.applescript([[
             tell application "Google Chrome"
                 set URL of active tab of front window to "]] .. newUrl .. [["
@@ -61,7 +51,7 @@ function Chrome.searchGoogle(query)
 end
 
 function Chrome.getUrlForQuery(query)
-    if startsWith('http', query) then
+    if str.startsWith('http', query) then
         return query
     end
 

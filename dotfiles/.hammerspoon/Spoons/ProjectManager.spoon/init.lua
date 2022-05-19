@@ -122,7 +122,7 @@ ProjectManager.Client = Client
 function ProjectManager:setAlfredJson()
     local items = {}
 
-    each(ProjectManager.sites, function(site)
+    fn.each(ProjectManager.sites, function(site)
         local fullPath = '~/' .. site.attributes.path
         table.insert(items, {
             uid = site.attributes.path:gsub('/', '.'),
@@ -147,8 +147,8 @@ end
 function ProjectManager.current()
     current = nil
 
-    each(ProjectManager.sites, function(site)
-        if titleContains(site.attributes.path) then
+    fn.each(ProjectManager.sites, function(site)
+        if fn.window.titleContains(site.attributes.path) then
             current = site
         end
     end)
@@ -209,7 +209,7 @@ end
 
 function ProjectManager.getByPath(path)
     site = nil
-    each(ProjectManager.sites, function(s)
+    fn.each(ProjectManager.sites, function(s)
         if s.attributes.path == path then
             site = s
         end
@@ -224,7 +224,7 @@ end
 
 function ProjectManager.getByShortcutKey(key)
     site = nil
-    each(ProjectManager.sites, function(s)
+    fn.each(ProjectManager.sites, function(s)
         if s.attributes.shortcutKey == key then
             site = s
         end

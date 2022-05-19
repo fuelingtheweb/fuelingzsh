@@ -1,14 +1,13 @@
 hs.hotkey.alertDuration = 0
 
-hs.loadSpoon('Functions')
-
 fn = {
     app = require('Helpers.App'),
+    clipboard = require('Helpers.Clipboard'),
     custom = require('config.custom.Helpers.Custom'),
     is = require('Helpers.Is'),
-    misc = {
-        DismissNotifications = require('Helpers.Misc.DismissNotifications'),
-    },
+    misc = require('Helpers.Misc.Index'),
+    str = require('Helpers.String'),
+    table = require('Helpers.Table'),
     window = require('Helpers.Window'),
     Alfred = require('Apps.Alfred'),
     Chrome = require('Apps.Chrome'),
@@ -19,7 +18,9 @@ fn = {
     TablePlus = require('Apps.TablePlus'),
 }
 
+fn.each = fn.table.each
 is = fn.is
+str = fn.str
 
 cm = {
     Artisan = require('Commands.Artisan'),

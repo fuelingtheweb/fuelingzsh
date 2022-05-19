@@ -34,7 +34,8 @@ function SlackSnippets.fallback(value)
 end
 
 function SlackSnippets.eod()
-    ks.type(';eod')
+    ks.type('@EOD').shiftEnter()
+    md.Paste.trimmed()
 end
 
 return SlackSnippets

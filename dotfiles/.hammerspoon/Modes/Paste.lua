@@ -121,7 +121,11 @@ function Paste.all()
 end
 
 function Paste.markdownCodeBlock()
-    ks.type(';cs')
+    fn.clipboard.pasteTrimmedRight('```\n{clipboard}\n```')
+end
+
+function Paste.trimmed()
+    fn.clipboard.pasteTrimmed()
 end
 
 return Paste

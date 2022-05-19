@@ -19,8 +19,8 @@ function Code.open(path)
     else
         local window = nil
 
-        each(hs.window.filter.new(app:name()):getWindows(), function(w)
-            if not window and stringContains(path, w:title()) then
+        fn.each(hs.window.filter.new(app:name()):getWindows(), function(w)
+            if not window and str.contains(path, w:title()) then
                 window = w
             end
         end)

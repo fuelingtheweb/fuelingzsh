@@ -7,8 +7,8 @@ hs.screen.watcher.new(function()
     end
 end):start()
 
-wf = hs.window.filter
-allwindows = wf.new(nil)
+local wf = hs.window.filter
+local allwindows = wf.new(nil)
 allwindows:rejectApp('Hammerspoon'):rejectApp('Alfred'):rejectApp('Shortcat')
 hs.window.animationDuration = 0
 
@@ -18,14 +18,14 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     local count = 0
 
     for k, v in pairs(app:visibleWindows()) do
-        if hasValue({preview, finder}, bundle) and v:title() == '' then
+        if fn.table.has({preview, finder}, bundle) and v:title() == '' then
         else
             count = count + 1
         end
     end
 
     if count < 1 then
-        if hasValue({preview, sublimeMerge, slack, vscode, spotify, tableplus, zoom, rayapp, transmit}, bundle) then
+        if fn.table.has({preview, sublimeMerge, slack, vscode, spotify, tableplus, zoom, rayapp, transmit}, bundle) then
             app:kill()
         elseif app:isFrontmost() then
             app:hide()
@@ -33,22 +33,24 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     end
 end)
 
-gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
-    shouldRun = true
-    each(paths, function(path)
-        if stringContains('.pyc', path) then
+local gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
+    local shouldRun = true
+
+    fn.each(paths, function(path)
+        if str.contains('.pyc', path) then
             shouldRun = false
         end
     end)
 
     if shouldRun then
-        output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
+        local output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
         hs.notify.new({title = 'Goku Config', informativeText = output}):send()
     end
 end)
 
-karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
-    output = hs.execute('/usr/local/bin/goku')
+local karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
+    local output = hs.execute('/usr/local/bin/goku')
+
     hs.notify.new({title = 'Karabiner Config', informativeText = output}):send()
 end)
 

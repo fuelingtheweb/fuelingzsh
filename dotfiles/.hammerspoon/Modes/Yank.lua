@@ -111,4 +111,12 @@ function Yank.all()
     end
 end
 
+function Yank.normal()
+    if is.vscode() then
+        ks.slow().shiftAltCmd('c')
+    else
+        ks.slow().copy()
+    end
+end
+
 return Yank
