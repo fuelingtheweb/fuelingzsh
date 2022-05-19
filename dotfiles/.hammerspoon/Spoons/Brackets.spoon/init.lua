@@ -2,6 +2,7 @@ local Brackets = {}
 Brackets.__index = Brackets
 
 Brackets.multi = false
+Brackets.surroundPaste = false
 Brackets.brackets = {}
 
 Brackets.lookup = {
@@ -78,6 +79,7 @@ Modal.add({
     end,
     exited = function()
         Brackets.multi = false
+        Brackets.surroundPaste = false
         Brackets.brackets = {}
     end,
 })
@@ -87,19 +89,27 @@ function Brackets.startMulti()
     Brackets.start()
 end
 
+function Brackets.startSurroundPaste()
+    Brackets.surroundPaste = true
+    Brackets.start()
+end
+
 function Brackets.print(bracket)
     if Brackets.multi then
         table.insert(Brackets.brackets, bracket)
         return
     end
 
+    local surroundPaste = Brackets.surroundPaste
     local brackets = Brackets.lookup[bracket]
     -- local text = getSelectedText()
     local text = nil
 
     Modal.exit()
 
-    if text then
+    if surroundPaste then
+        text = trim(hs.pasteboard.getContents())
+    elseif text then
         if is.vscode() then
             ks.shiftAltCmd('delete')
         elseif is.codeEditor() then
@@ -128,7 +138,9 @@ end
 
 function Brackets.startIfPhp()
     if is.php() then
-        Modal.enter('Brackets')
+        hs.timer.doAfter(0.2, function()
+            Modal.enter('Brackets')
+        end)
     end
 end
 

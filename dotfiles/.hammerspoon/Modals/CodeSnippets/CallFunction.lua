@@ -33,6 +33,7 @@ Modal.add({
                 f = {name = 'assertFalse', method = 'assertFalse'},
                 l = {name = 'assertCount', method = 'assertCount'},
                 ["'"] = {name = 'assertEquals', method = 'assertEquals'},
+                n = {name = 'assertNotNull', method = 'assertNotNull'},
                 m = {name = 'assertNull', method = 'assertNull'},
             }
         },
@@ -116,6 +117,7 @@ Modal.add({
                 a = {name = 'all', method = 'all'},
                 f = {name = 'filter', method = 'filter'},
                 l = {name = 'count', method = 'count'},
+                x = {name = 'except', method = 'except'},
                 c = {name = 'contains', method = 'contains'},
                 v = {name = 'values', method = 'values'},
                 m = {name = 'map', method = 'map'},

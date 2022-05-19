@@ -14,7 +14,7 @@ Google.lookup = {
     k = 'previousGitConflict',
     l = 'lastpass',
     semicolon = 'tabManager',
-    quote = 'openAndReload',
+    quote = 'hardRefresh',
     return_or_enter = 'dismissDownloadsBar',
     n = 'newBookmark',
     m = 'bookmarks',
@@ -34,7 +34,11 @@ function Google.inbox()
 end
 
 function Google.profiles()
-    ks.shiftCmd('m')
+    if is.vscode() then
+        ks.super('g').super('p')
+    else
+        ks.shiftCmd('m')
+    end
 end
 
 function Google.groupTab()
@@ -119,6 +123,10 @@ end
 
 function Google.addPrComment()
     ks.shiftAltCmd('g').shiftAltCmd('space')
+end
+
+function Google.hardRefresh()
+    ks.shiftCmd('r')
 end
 
 return Google

@@ -6,6 +6,11 @@ function Chrome.open(url)
     cm.Window.maximizeAfterDelay()
 end
 
+function Chrome.openInNewWindow(url)
+    hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --profile-directory="Default" --new-window')
+    cm.Window.maximizeAfterDelay()
+end
+
 function Chrome.openIncognito(url)
     hs.execute('"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "' .. url .. '" --incognito --profile-directory="Default"')
     cm.Window.maximizeAfterDelay()

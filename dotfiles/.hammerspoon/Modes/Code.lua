@@ -6,7 +6,7 @@ Code.lookup = {
     u = 'addUseStatement',
     i = 'focusBreadcrumbs',
     o = 'goToDefinition',
-    p = nil,
+    p = 'compareActiveFileWith',
     open_bracket = 'fold',
     close_bracket = 'unfold',
     h = 'previousMember',
@@ -212,6 +212,10 @@ end
 
 function Code.focusBreadcrumbs()
     ks.shiftCmd('.')
+end
+
+function Code.compareActiveFileWith()
+    ks.super('c').super('w')
 end
 
 return Code

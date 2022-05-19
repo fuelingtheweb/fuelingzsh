@@ -113,6 +113,10 @@ function Command.finish()
                     Command.lastApp = nil
                     md.Paste.all()
                     ks.delete()
+
+                    if is.In(slack) then
+                        ks.shiftCmd('f')
+                    end
                 end)
             end)
         end

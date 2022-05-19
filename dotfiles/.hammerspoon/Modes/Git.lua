@@ -66,7 +66,7 @@ function Git.rebase()
 end
 
 function Git.newBranch()
-    ks.type('git:branch.new')
+    ks.type('git:branch.new ')
 
     hs.timer.doAfter(0.1, function()
         md.CaseDialog.handle('i')

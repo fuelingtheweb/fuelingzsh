@@ -42,9 +42,12 @@ function CodeSnippets.handle(key)
         ks.escape().shift('o').slow().enter().slow().up()
         ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
 
-        hs.timer.doAfter(0.2, function()
-            ks.slow().enter().type('- ').escape()
-            md.Command.save()
+        hs.timer.doAfter(0.4, function()
+            ks.slow().enter().type('- ')
+
+            hs.timer.doAfter(0.2, function()
+                md.Command.save()
+            end)
         end)
 
         return
