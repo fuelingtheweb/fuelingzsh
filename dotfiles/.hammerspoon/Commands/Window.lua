@@ -1,6 +1,7 @@
 local Window = {}
 Window.__index = Window
 
+Window.scrolling = false
 Window.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
 hs.grid.setGrid('12x4')
@@ -233,6 +234,7 @@ end
 
 function Window.enableScrolling()
     -- Vimac: Enable Scroll
+    Modal.enter('Scrolling')
     ks.super('s')
 end
 

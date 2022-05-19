@@ -46,7 +46,9 @@ function Vi.moveToNextWholeWord()
 end
 
 function Vi.moveToTopOfPage()
-    if is.finder() then
+    if cm.Window.scrolling then
+        ks.sequence({'g', 'g'})
+    elseif is.finder() then
         ks.alt('up')
     elseif is.In(sublimeMerge) then
         cm.Tab.previous()
@@ -84,7 +86,9 @@ function Vi.moveAndAppendAtEndOfLine()
 end
 
 function Vi.moveToBottomOfPage()
-    if is.finder() then
+    if cm.Window.scrolling then
+        ks.shift('g')
+    elseif is.finder() then
         ks.alt('down')
     else
         ks.cmd('down')

@@ -8,13 +8,13 @@ Media.lookup = {
     e = nil,
     r = 'updateAudioDevice',
     t = nil,
-    caps_lock = nil,
+    caps_lock = fn.misc.DismissNotifications.run,
     a = 'startOfVideoOrPreviousVideo',
     s = 'spotifyMini',
     d = 'deafen',
     f = 'fullscreen',
     g = 'nextVideo',
-    left_shift = nil,
+    left_shift = 'dismissAppNotifications',
     z = 'sound',
     x = nil,
     c = nil,
@@ -120,6 +120,10 @@ function Media.videoForward()
     else
         ks.right()
     end
+end
+
+function Media.dismissAppNotifications()
+    ks.alt('w')
 end
 
 return Media

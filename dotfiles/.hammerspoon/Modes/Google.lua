@@ -4,41 +4,33 @@ Google.__index = Google
 Google.lookup = {
     y = 'custom',
     u = 'viewSource',
-    i = 'inbox',
+    i = nil,
     o = 'toggleIncognito',
     p = 'profiles',
     open_bracket = 'openLastpass',
     close_bracket = 'groupTab',
     h = 'history',
-    j = 'nextGitConflict',
-    k = 'previousGitConflict',
+    j = nil,
+    k = nil,
     l = 'lastpass',
     semicolon = 'tabManager',
     quote = 'hardRefresh',
-    return_or_enter = 'dismissDownloadsBar',
+    return_or_enter = nil,
     n = 'newBookmark',
-    m = 'bookmarks',
+    m = nil,
     comma = 'toggleDevTools',
     period = 'toggleDevToolsDocking',
     slash = nil,
     right_shift = nil,
-    spacebar = 'addPrComment',
+    spacebar = nil,
 }
 
 function Google.custom(key)
     hs.execute("open -g 'hammerspoon://custom-open?key=" .. key .. "'")
 end
 
-function Google.inbox()
-    fn.Chrome.open('https://inbox.google.com')
-end
-
 function Google.profiles()
-    if is.vscode() then
-        ks.super('g').super('p')
-    else
-        ks.shiftCmd('m')
-    end
+    ks.shiftCmd('m')
 end
 
 function Google.groupTab()
@@ -46,11 +38,7 @@ function Google.groupTab()
 end
 
 function Google.history()
-    if is.vscode() then
-        ks.shiftAltCmd('g').shiftAltCmd('h')
-    else
-        fn.Alfred.run('history', 'com.thomasupton.chrome-history')
-    end
+    fn.Alfred.run('history', 'com.thomasupton.chrome-history')
 end
 
 function Google.lastpass()
@@ -61,20 +49,8 @@ function Google.tabManager()
     ks.shiftCmd('m')
 end
 
-function Google.dismissDownloadsBar()
-    ks.alt('w')
-end
-
 function Google.newBookmark()
-    if is.vscode() then
-        ks.type('```suggestion').enter().enter().type('```').up()
-    else
-        ks.cmd('d')
-    end
-end
-
-function Google.bookmarks()
-    fn.Alfred.run('bookmarks', 'com.chrome.bookmarks')
+    ks.cmd('d')
 end
 
 function Google.toggleDevTools()
@@ -109,20 +85,8 @@ function Google.viewSource()
     ks.altCmd('u')
 end
 
-function Google.nextGitConflict()
-    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('j')
-end
-
-function Google.previousGitConflict()
-    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('k')
-end
-
 function Google.openLastpass()
     ks.shiftCmd('l')
-end
-
-function Google.addPrComment()
-    ks.shiftAltCmd('g').shiftAltCmd('space')
 end
 
 function Google.hardRefresh()

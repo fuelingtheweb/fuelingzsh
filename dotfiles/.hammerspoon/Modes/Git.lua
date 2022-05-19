@@ -22,7 +22,7 @@ Git.lookup = {
     period = 'push',
     slash = 'stash',
     right_shift = 'stashApply',
-    spacebar = nil,
+    spacebar = 'addPrComment',
 }
 
 function Git.copyBranch()
@@ -34,7 +34,19 @@ function Git.discardChanges()
 end
 
 function Git.reset()
-    ks.typeAndEnter('grs')
+    if is.vscode() then
+        Git.nextGitConflict()
+    else
+        ks.typeAndEnter('grs')
+    end
+end
+
+function Git.nextGitConflict()
+    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('j')
+end
+
+function Git.previousGitConflict()
+    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('k')
 end
 
 function Git.checkout()
@@ -66,19 +78,31 @@ function Git.rebase()
 end
 
 function Git.newBranch()
-    ks.type('git:branch.new ')
+    if is.vscode() then
+        ks.type('```suggestion').enter().enter().type('```').up()
+    else
+        ks.type('git:branch.new ')
 
-    hs.timer.doAfter(0.1, function()
-        md.CaseDialog.handle('i')
-    end)
+        hs.timer.doAfter(0.1, function()
+            md.CaseDialog.handle('i')
+        end)
+    end
 end
 
 function Git.log()
-    ks.typeAndEnter('git:log')
+    if is.vscode() then
+        ks.shiftAltCmd('g').shiftAltCmd('h')
+    else
+        ks.typeAndEnter('git:log')
+    end
 end
 
 function Git.diff()
-    ks.typeAndEnter('gd')
+    if is.vscode() then
+        ks.super('g').super('p')
+    else
+        ks.typeAndEnter('gd')
+    end
 end
 
 function Git.stageAll()
@@ -86,8 +110,12 @@ function Git.stageAll()
 end
 
 function Git.commit()
-    ks.type('git:commit ')
-    Brackets.start()
+    if is.vscode() then
+        Git.nextGitConflict()
+    else
+        ks.type('git:commit ')
+        Brackets.start()
+    end
 end
 
 function Git.checkoutMaster()
@@ -108,6 +136,10 @@ end
 
 function Git.stashApply()
     ks.typeAndEnter('gstp')
+end
+
+function Git.addPrComment()
+    ks.shiftAltCmd('g').shiftAltCmd('space')
 end
 
 return Git

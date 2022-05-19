@@ -29,7 +29,7 @@ KarabinerHandler.lookup = {
     },
     d = 'Vi',
     f = 'General',
-    g = {iterm = 'Git', default = 'Google'},
+    g = {iterm = 'Git', vscode = 'Git', chrome = 'Google'},
     semicolon = 'Command',
     quote = 'ExtendedCommand',
     return_or_enter = nil,
@@ -131,7 +131,7 @@ function KarabinerHandler.setupMode(mode)
 end
 
 function KarabinerHandler.handle(mode, key)
-    if TextManipulation.vimEnabled then
+    if TextManipulation.vimEnabled and not cm.Window.scrolling then
         Modal.exit()
     end
 

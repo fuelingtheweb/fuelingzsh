@@ -34,6 +34,7 @@ Cheatsheets.lookupApps = {
     vscode = 'r',
     iterm = 't',
     slack = 's',
+    chrome = 'g',
     default = 'return',
 }
 

@@ -48,7 +48,10 @@ Shortcuts
     })
     :add('Z', {iterm = 'wd fz'})
     :add('B', {
-        vscode = 'Preferences: Open Keyboard Shortcuts'
+        vscode = function()
+            -- Preferences: Open Keyboard Shortcuts
+            ks.cmd('k').cmd('s')
+        end
     })
     :add('D', {
         iterm = 'wd d',
@@ -90,5 +93,8 @@ Shortcuts
         end,
     })
     :add('SPACEBAR', {
-        vscode = 'Preferences: Open Settings (JSON)'
+        vscode = function()
+            -- Preferences: Open Settings (JSON)
+            ks.cmd('k').cmd('p')
+        end
     })

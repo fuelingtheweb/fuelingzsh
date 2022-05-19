@@ -100,7 +100,7 @@ function Modal.add(meta)
         end)
     end
 
-    if not meta.items or not meta.items.j then
+    if not meta.disableDismissWithJ and (not meta.items or not meta.items.j) then
         meta.modal:bind('', 'j', 'Exit', function()
             if meta.beforeExit then
                 meta.beforeExit()

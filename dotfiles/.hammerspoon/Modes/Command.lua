@@ -1,6 +1,8 @@
 local Command = {}
 Command.__index = Command
 
+Modal.load('Scrolling')
+
 Command.lastApp = nil
 
 Command.lookup = {
