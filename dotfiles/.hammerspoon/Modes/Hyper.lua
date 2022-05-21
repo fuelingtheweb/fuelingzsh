@@ -26,6 +26,7 @@ Hyper.lookup = {
 }
 
 function Hyper.copy()
+    fn.clipboard.clear()
     md.Yank.normal()
     local text = fn.clipboard.get()
 
@@ -47,7 +48,7 @@ function Hyper.copy()
             set the clipboard to theString
         ]])
     elseif text then
-        -- Already in clipboard, do not reset
+        fn.clipboard.set(text)
     elseif is.chrome() then
         fn.Chrome.copyUrl()
     elseif is.codeEditor() then

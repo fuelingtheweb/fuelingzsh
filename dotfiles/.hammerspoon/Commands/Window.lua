@@ -166,7 +166,7 @@ function Window.destroy()
                 app:hide()
             end
         end)
-    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor', 'md.obsidian', 'de.beyondco.tinkerwell') then
+    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor', 'md.obsidian', 'de.beyondco.tinkerwell', 'com.flexibits.fantastical2.mac') then
         Window.quitApplication()
     elseif is.codeEditor() or is.sublimeMerge() then
         ks.shiftCmd('w')

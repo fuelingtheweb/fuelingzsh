@@ -46,7 +46,15 @@ Shortcuts
     :add('S', {
         vscode = 'Preferences: Configure User Snippets'
     })
-    :add('Z', {iterm = 'wd fz'})
+    :add('Z', {
+        iterm = 'wd fz',
+        vscode = function()
+            if is.hammerspoon() then
+                md.Hyper.open()
+                ks.type('Modals/')
+            end
+        end,
+    })
     :add('B', {
         vscode = function()
             -- Preferences: Open Keyboard Shortcuts
@@ -97,4 +105,19 @@ Shortcuts
             -- Preferences: Open Settings (JSON)
             ks.cmd('k').cmd('p')
         end
+    })
+    :add('Q', {
+        vscode = function()
+            if is.hammerspoon() then
+                md.Hyper.open()
+                ks.type('Spoons/')
+            end
+        end,
+    })
+    :add('CAPS_LOCK', {
+        vscode = function()
+            if is.hammerspoon() then
+                fn.Code.open(fn.window.path() .. '/init.lua')
+            end
+        end,
     })

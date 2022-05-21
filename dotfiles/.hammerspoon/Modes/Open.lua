@@ -2,7 +2,7 @@ local Open = {}
 Open.__index = Open
 
 Modal.loadCustom('Frequent')
-Modal.loadCustom('Bookmarks')
+Modal.loadCustom('Bookmarks.Index')
 Modal.load('OpenIn')
 
 Open.lookup = {

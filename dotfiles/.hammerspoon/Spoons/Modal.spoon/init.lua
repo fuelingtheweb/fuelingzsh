@@ -6,8 +6,10 @@ spoon.ModalMgr = hs.loadSpoon('vendor/ModalMgr')
 Modal.timer = nil
 
 function Modal.add(meta)
-    spoon.ModalMgr:new(meta.key)
-    meta.modal = spoon.ModalMgr.modal_list[meta.key]
+    local modalKey = meta.key or meta.title:gsub(' ', '')
+
+    spoon.ModalMgr:new(modalKey)
+    meta.modal = spoon.ModalMgr.modal_list[modalKey]
 
     meta.modal.entered = function()
         if meta.entered then
@@ -24,7 +26,7 @@ function Modal.add(meta)
         end
 
         if meta.showCheatsheetOnEnter then
-            Modal.toggleCheatsheet(meta.key)
+            Modal.toggleCheatsheet(modalKey)
         end
     end
 
@@ -42,7 +44,7 @@ function Modal.add(meta)
                 meta.modal:bind('', key, nil, item)
             elseif is.Table(item) and item.items then
                 if not item.callback then
-                    item.key = meta.key .. '.' .. item.key
+                    item.key = modalKey .. '.' .. (item.key or item.title:gsub(' ', ''))
                     item.callback = meta.callback
                 end
 
@@ -91,7 +93,7 @@ function Modal.add(meta)
 
     if not meta.items or not meta.items.escape then
         meta.modal:bind('', 'escape', 'Exit', function()
-            Modal.exit(meta.key)
+            Modal.exit(modalKey)
             ks.escape()
         end)
     end
@@ -102,7 +104,7 @@ function Modal.add(meta)
                 meta.beforeExit()
             end
 
-            Modal.exit(meta.key)
+            Modal.exit(modalKey)
         end)
     end
 
@@ -172,6 +174,17 @@ end
 
 function Modal.load(modal)
     return require('Modals.' .. modal)
+end
+
+function Modal.loadFactory(basePath)
+    return function(nestedPath)
+        local meta = require(basePath .. '.' .. nestedPath)
+
+        return {
+            title = nestedPath,
+            items = meta,
+        }
+    end
 end
 
 return Modal
