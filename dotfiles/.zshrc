@@ -27,7 +27,7 @@ export EDITOR=subl
 export FPP_EDITOR=subl
 export NNN_DE_FILE_MANAGER=open
 export CLICOLOR_FORCE='yes'
-export PATH=$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:$PATH
+export PATH=$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
 source $OPTIONS/misc.sh
 source $ALIASES/index.sh
 
