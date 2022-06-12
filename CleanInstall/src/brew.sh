@@ -4,6 +4,7 @@ success "Installing Homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew tap federico-terzi/espanso
+brew tap homebrew/cask-drivers
 
 formulas=(
     ack
@@ -31,13 +32,9 @@ formulas=(
     vim
     z
     mas
-    mycli
-    mysql@5.7
-    postgresql
-    pgcli
+    mysql
     redis
     sqlite
-    php@7.4 --build-from-source
     php-cs-fixer
     phpmd
     composer
@@ -63,17 +60,11 @@ echo -e "\\n\\nRunning fzf install script..."
 echo "=============================="
 /usr/local/opt/fzf/install --all --no-bash --no-fish
 
-brew services start mysql@5.7
-brew link mysql@5.7 --force
-brew services start postgresql
-createdb `whoami`
+brew services start mysql
 brew services start redis
-brew link php@7.4 --force
 
 casks=(
     iterm2
-    atom
-    sublime-text
     sublime-merge
     alfred
     appcleaner
@@ -90,7 +81,6 @@ casks=(
     bartender
     discord
     karabiner-elements
-    notion
     transmit
     tinkerwell
     spotify
@@ -99,6 +89,7 @@ casks=(
     helo
     ray
     espanso
+    elgato-stream-deck
 )
 
 for cask in "${casks[@]}"; do
