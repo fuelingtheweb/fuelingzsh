@@ -2,6 +2,7 @@ local Window = {}
 Window.__index = Window
 
 Modal.load('Window')
+Modal.load('Amethyst')
 
 Window.lookup = {
     tab = cm.Window.moveToCenter,
@@ -23,12 +24,12 @@ Window.lookup = {
     v = cm.Media.toggleVideo,
     b = cm.Window.toggleSidebar,
 
-    y = nil,
+    y = cm.Window.focusSidebar,
     u = cm.Window.topLeft,
     i = cm.Window.moveToMiddle,
     o = cm.Window.topRight,
     p = cm.Window.settings,
-    open_bracket = nil,
+    open_bracket = cm.Window.toggleFloat,
     close_bracket = cm.Window.moveTotopRightSmall,
     h = cm.Window.leftHalf,
     j = cm.Window.bottomHalf,
@@ -38,9 +39,9 @@ Window.lookup = {
     quote = cm.Window.windowModal,
     return_or_enter = cm.Window.reset,
     n = cm.Window.bottomLeft,
-    m = nil,
+    m = cm.Window.focusActiveEditor,
     comma = cm.Window.bottomRight,
-    period = nil,
+    period = cm.Window.amethystModal,
     slash = nil,
     right_shift = nil,
 }

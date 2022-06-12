@@ -98,12 +98,16 @@ function obj:toggleCheatsheet(iterList, force)
             if type(v) == 'string' then
                 -- It appears to be idList
                 for _, m in ipairs(obj.modal_list[v].keys) do
-                    table.insert(keys_pool, m.msg)
+                    if m.msg:find('.*:.*') then
+                        table.insert(keys_pool, m.msg)
+                    end
                 end
             elseif type(i) == 'string' then
                 -- It appears to be active_list
                 for _, m in pairs(v.keys) do
-                    table.insert(keys_pool, m.msg)
+                    if m.msg:find('.*:.*') then
+                        table.insert(keys_pool, m.msg)
+                    end
                 end
             end
         end

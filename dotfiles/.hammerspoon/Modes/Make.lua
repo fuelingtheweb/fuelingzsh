@@ -2,7 +2,7 @@ local Make = {}
 Make.__index = Make
 
 Make.lookup = {
-    tab = nil,
+    tab = cm.Search.allWindows,
     q = nil,
     w = cm.Search.window,
     e = cm.Search.viaAlfred,
@@ -28,9 +28,11 @@ function Make.fallback(bracket)
 end
 
 function Make.lineBefore()
-    if is.vscode() and is.todoOrMarkdown() then
+    if is.vscode() and is.todo() then
         ks.escape().slow().shift('o')
         md.Command.newTask()
+    elseif is.vscode() and is.markdown() then
+        ks.escape().slow().shift('o').type('- ')
     elseif is.vimMode() then
         ks.escape().shift('o')
     elseif is.googleSheet() then
@@ -45,9 +47,11 @@ function Make.lineBefore()
 end
 
 function Make.lineAfter()
-    if is.vscode() and is.todoOrMarkdown() then
+    if is.vscode() and is.todo() then
         ks.escape().slow().key('o')
         md.Command.newTask()
+    elseif is.vscode() and is.markdown() then
+        ks.escape().slow().key('o').type('- ')
     elseif is.vimMode() then
         ks.escape().key('o')
     elseif is.googleSheet() then

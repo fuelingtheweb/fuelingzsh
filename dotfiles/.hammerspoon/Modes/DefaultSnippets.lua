@@ -15,10 +15,10 @@ DefaultSnippets.lookup = {
     p = '||',
     open_bracket = 'echo',
     close_bracket = nil,
-    h = nil,
+    h = fn.misc.showSnippets,
     j = 'generalSnippetsModal',
     k = nil,
-    l = 'console.log()',
+    l = 'log',
     semicolon = ' : ',
     quote = 'equals',
     return_or_enter = 'return',
@@ -38,7 +38,9 @@ function DefaultSnippets.handle(key)
         local callable = lookup[key]
 
         if callable then
-            if DefaultSnippets[callable] then
+            if is.Function(callable) then
+                callable()
+            elseif DefaultSnippets[callable] then
                 DefaultSnippets[callable](key)
             elseif DefaultSnippets.fallback then
                 DefaultSnippets.fallback(callable, key)
@@ -57,6 +59,14 @@ end
 
 function DefaultSnippets.generalSnippetsModal()
     Modal.enter('CodeSnippets:generalSnippets')
+end
+
+function DefaultSnippets.log()
+    if is.In('85C27NK92C.com.flexibits.fantastical2.mac.helper') then
+        ks.type('todo - ')
+    else
+        ks.type('console.log()')
+    end
 end
 
 return DefaultSnippets

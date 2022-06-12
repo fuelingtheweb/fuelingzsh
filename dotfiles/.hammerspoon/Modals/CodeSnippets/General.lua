@@ -25,6 +25,30 @@ Modal.add({
             md.Code.comment()
             ks.type('TODO: ')
         end,
+        e = function()
+            Modal.exit()
+
+            if is.blade() then
+                ks.type('@endif')
+            elseif is.php() or is.js() then
+                ks.type('}')
+            elseif is.lua() then
+                ks.type('end')
+            end
+        end,
+        i = function()
+            Modal.exit()
+
+            if is.blade() then
+                ks.type('@elseif ()').left()
+            elseif is.php() then
+                ks.type('} elseif () {').left().left().left()
+            elseif is.js() then
+                ks.type('} else if () {').left().left().left()
+            elseif is.lua() then
+                ks.type('elseif  then').left().left().left().left().left()
+            end
+        end,
     },
     callback = function(item)
         Modal.exit()

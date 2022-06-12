@@ -7,7 +7,7 @@ hs.urlevent.bind('misc-optionPressedOnce', function()
     if is.In(spotify) then
         cm.Window.next()
     else
-        md.Media.showVideoBar()
+        fn.misc.moveMouse()
     end
 end)
 
@@ -48,7 +48,7 @@ spoon.ReloadConfiguration.watch_paths = {
 spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()
 
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'B', function()
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'b', function()
     local app = hs.application.frontmostApplication()
     local bundle = app:bundleID()
 
@@ -63,14 +63,31 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
     fn.clipboard.set(title)
 end)
 
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'm', function()
-    local position = hs.mouse.getAbsolutePosition()
-    local title = 'x: ' .. position.x .. ' y: ' .. position.y
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
+    local title = fn.window.title()
 
     hs.alert.show(title)
     fn.clipboard.set(title)
+end)
 
-    spoon.MouseCircle:show()
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'r', function()
+    fn.custom.setClientProject()
+end)
+
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 't', function()
+    fn.custom.resetClientProject()
+end)
+
+hs.urlevent.bind('window-hints', function(eventName, params)
+    md.Open.windowHints()
+end)
+
+hs.urlevent.bind('jump-to', function(eventName, params)
+    cm.Window.jumpTo()
+end)
+
+hs.urlevent.bind('enable-scrolling', function(eventName, params)
+    cm.Window.enableScrolling()
 end)
 
 return obj

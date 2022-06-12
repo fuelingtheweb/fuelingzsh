@@ -20,6 +20,9 @@ Shortcuts
         vscode = function()
             if is.malachor() then
                 return fn.custom.openPlanning()
+            else
+                md.Hyper.open()
+                ks.type('Tests/')
             end
         end,
     })
@@ -52,14 +55,11 @@ Shortcuts
             if is.hammerspoon() then
                 md.Hyper.open()
                 ks.type('Modals/')
+            else
+                md.Hyper.open()
+                ks.type('resources/')
             end
         end,
-    })
-    :add('B', {
-        vscode = function()
-            -- Preferences: Open Keyboard Shortcuts
-            ks.cmd('k').cmd('s')
-        end
     })
     :add('D', {
         iterm = 'wd d',
@@ -83,6 +83,11 @@ Shortcuts
             else
                 md.Hyper.open()
                 ks.type('app/Http/Controllers/')
+            end
+        end,
+        chrome = function()
+            if is.github() and fn.Chrome.urlContains('/files$') then
+                fn.Chrome.changeUrl(fn.Chrome.currentUrl():gsub('/files$', ''))
             end
         end,
     })
@@ -118,6 +123,13 @@ Shortcuts
         vscode = function()
             if is.hammerspoon() then
                 fn.Code.open(fn.window.path() .. '/init.lua')
+            end
+        end,
+    })
+    :add('F', {
+        chrome = function()
+            if is.github() and fn.Chrome.urlContains('/pull/') then
+                fn.Chrome.changeUrl(fn.Chrome.currentUrl() .. '/files')
             end
         end,
     })

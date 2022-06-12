@@ -37,6 +37,14 @@ Modal.add({
                 m = {name = 'assertNull', method = 'assertNull'},
             }
         },
+        i = {
+            key = 'is',
+            title = 'Is',
+            items = {
+                e = {name = 'empty', method = 'empty'},
+                a = {name = 'is_array', method = 'is_array'},
+            }
+        },
         o = {
             key = 'laravelOrWhere',
             title = 'Laravel orWhere',
@@ -45,12 +53,23 @@ Modal.add({
                 h = {name = 'orWhereHas', method = 'orWhereHas', extra = 'query'},
             }
         },
+        a = {
+            key = 'array',
+            title = 'Array',
+            items = {
+                p = {name = 'array_push', method = 'array_push'},
+                c = {name = 'in_array', method = 'in_array'},
+                m = {name = 'array_merge', method = 'array_merge'},
+            }
+        },
         s = {
             key = 'laravelStr',
             title = 'Laravel Str',
             items = {
+                r = {name = 'random', method = 'random'},
                 p = {name = 'plural', method = 'plural'},
-                ['return'] = {name = 'Str::', method = 'Str::', extra = 'start'},
+                ['return'] = {name = 'str', method = 'str'},
+                ['.'] = {name = 'str()->', method = 'str()->', extra = 'start'},
             }
         },
         d = {
@@ -84,7 +103,6 @@ Modal.add({
             title = 'General',
             items = {
                 w = {name = 'when', method = 'when'},
-                e = {name = 'empty', method = 'empty'},
                 p = {name = 'pluck', method = 'pluck'},
                 [';'] = {name = 'static', method = 'static'},
             }

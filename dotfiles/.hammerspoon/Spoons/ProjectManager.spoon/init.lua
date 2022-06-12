@@ -161,7 +161,7 @@ function ProjectManager.current()
 end
 
 function ProjectManager.openUrlForCurrent()
-    site = ProjectManager.current()
+    local site = ProjectManager.current()
 
     if site.attributes.url then
         return fn.Chrome.open(site.attributes.url)
@@ -173,7 +173,7 @@ function ProjectManager.openItermForCurrent()
 end
 
 function ProjectManager.serveCurrent()
-    site = ProjectManager.current()
+    local site = ProjectManager.current()
 
     if site.attributes.serve then
         return ks.typeAndEnter(site.attributes.serve)
@@ -181,7 +181,7 @@ function ProjectManager.serveCurrent()
 end
 
 function ProjectManager.openDatabaseForCurrent()
-    site = ProjectManager.current()
+    local site = ProjectManager.current()
 
     if site.attributes.name then
         if site.attributes.database then

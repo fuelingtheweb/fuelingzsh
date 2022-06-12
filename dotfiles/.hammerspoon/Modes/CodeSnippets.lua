@@ -6,6 +6,7 @@ Modal.load('CodeSnippets.Function')
 Modal.load('CodeSnippets.CallFunction')
 Modal.load('CodeSnippets.Extra')
 Modal.load('CodeSnippets.General')
+Modal.load('CodeSnippets.Nested')
 Modal.load('CodeSnippets.Equals')
 
 CodeSnippets.lookup = {
@@ -21,45 +22,32 @@ CodeSnippets.lookup = {
     -- p = 'snippet-property',
     open_bracket = 'echo',
     close_bracket = nil,
-    h = nil,
+    h = fn.misc.showSnippets,
     j = 'generalSnippetsModal',
-    k = nil,
+    k = 'variable',
     l = 'log',
-    semicolon = 'insertColon',
+    semicolon = 'handleSemicolon',
     quote = 'equals',
     return_or_enter = 'typeReturn',
     n = 'functionSnippet',
     m = 'method',
     comma = 'insertComma',
-    period = 'callFunction',
+    period = 'continueChain',
     slash = 'insertQuestion',
-    right_shift = nil,
-    spacebar = nil,
+    right_shift = 'nestedSnippetsModal',
+    spacebar = 'callFunction',
 }
 
 function CodeSnippets.handle(key)
-    if fn.window.titleContains('EOD.md') and key == 'semicolon' then
-        ks.escape().shift('o').slow().enter().slow().up()
-        ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
-
-        hs.timer.doAfter(0.4, function()
-            ks.slow().enter().type('- ')
-
-            hs.timer.doAfter(0.2, function()
-                md.Command.save()
-            end)
-        end)
-
-        return
-    end
-
-    lookup = CodeSnippets.lookup
+    local lookup = CodeSnippets.lookup
 
     if lookup and lookup[key] then
         local callable = lookup[key]
 
         if callable then
-            if CodeSnippets[callable] then
+            if is.Function(callable) then
+                callable()
+            elseif CodeSnippets[callable] then
                 CodeSnippets[callable](key)
             elseif CodeSnippets.fallback then
                 CodeSnippets.fallback(callable, key)
@@ -79,7 +67,7 @@ function CodeSnippets.snippet(name)
         ks.ctrlCmd('s').paste().slow().enter()
 
         if fn.table.has({'if'}, name) then
-            Brackets.startIfPhp()
+            -- Brackets.startIfPhp()
         end
     end)
 end
@@ -93,48 +81,49 @@ function CodeSnippets.functionSnippet()
 end
 
 function CodeSnippets.this()
-    ks.slow().shiftCtrl('c')
-
     if fn.clipboard.contains('migrations') then
-        return ks.type('$table->')
+        ks.type('$table->')
+    elseif is.php() then
+        ks.type('$this->')
+    else
+        ks.type('this.')
     end
 end
 
 function CodeSnippets.dd()
     CodeSnippets.snippet('dd')
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function CodeSnippets.echo()
-    CodeSnippets.snippet('echo')
-    Brackets.startIfPhp()
+    if is.todo() then
+        ks.type('@today')
+    else
+        CodeSnippets.snippet('echo')
+        -- Brackets.startIfPhp()
+    end
 end
 
 function CodeSnippets.equals()
     Modal.enter('CodeSnippets:equals')
 end
 
-function CodeSnippets.insertColon()
-    if is.todo() then
-        ks.type('@today')
-    else
-        ks.type(' : ')
-        Brackets.startIfPhp()
-    end
-end
-
 function CodeSnippets.insertQuestion()
     ks.type(' ? ')
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function CodeSnippets.insertComma()
     ks.type(', ')
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function CodeSnippets.generalSnippetsModal()
     Modal.enter('CodeSnippets:generalSnippets')
+end
+
+function CodeSnippets.nestedSnippetsModal()
+    Modal.enter('CodeSnippets:nested')
 end
 
 function CodeSnippets.extraSnippetsModal()
@@ -195,7 +184,7 @@ function CodeSnippets.printFunction(item, text)
 
     ks.type(')').left()
 
-    if item.extra ~= 'simple' then Brackets.startIfPhp() end
+    -- if item.extra ~= 'simple' then Brackets.startIfPhp() end
 end
 
 function CodeSnippets.conditionalAnd()
@@ -229,7 +218,7 @@ function CodeSnippets.concatenate()
         ks.type(' + ')
     end
 
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function CodeSnippets.typeReturn()
@@ -249,6 +238,53 @@ function CodeSnippets.snippetIf()
         ks.type('@low')
     else
         CodeSnippets.snippet('if')
+    end
+end
+
+function CodeSnippets.handleSemicolon()
+    if fn.window.titleContains('EOD.md') then
+        ks.escape().shift('o').slow().enter().slow().up()
+        ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
+
+        hs.timer.doAfter(0.4, function()
+            ks.slow().enter().type('- ')
+
+            hs.timer.doAfter(0.2, function()
+                md.Command.save()
+            end)
+        end)
+    elseif is.todo() then
+        ks.escape().shift('o')
+        ks.type(os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', '') .. ':')
+
+        hs.timer.doAfter(0.2, function()
+            md.Command.save()
+        end)
+    else
+        ks.type(' : ')
+        -- Brackets.startIfPhp()
+    end
+end
+
+function CodeSnippets.variable()
+    if is.php() then
+        ks.type('$')
+    elseif is.js() then
+        ks.type('const ')
+    elseif is.lua() then
+        ks.type('local ')
+    end
+end
+
+function CodeSnippets.continueChain()
+    if is.vscode() then
+        ks.escape().key('f').shift('0').key('a')
+
+        if is.lua() then
+            ks.type('.')
+        else
+            ks.type('->')
+        end
     end
 end
 

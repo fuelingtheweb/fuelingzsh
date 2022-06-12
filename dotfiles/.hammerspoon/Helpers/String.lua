@@ -21,7 +21,7 @@ function String.selected()
     return fn.clipboard.preserve(md.Yank.normal, function(value)
         for k, v in pairs(hs.pasteboard.contentTypes()) do
             if v == 'public.file-url' then
-                value = nil
+                return nil
             end
         end
 

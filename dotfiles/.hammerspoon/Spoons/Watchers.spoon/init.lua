@@ -33,7 +33,7 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     end
 end)
 
-local gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
+gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
     local shouldRun = true
 
     fn.each(paths, function(path)
@@ -48,7 +48,7 @@ local gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabi
     end
 end)
 
-local karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
+karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
     local output = hs.execute('/usr/local/bin/goku')
 
     hs.notify.new({title = 'Karabiner Config', informativeText = output}):send()

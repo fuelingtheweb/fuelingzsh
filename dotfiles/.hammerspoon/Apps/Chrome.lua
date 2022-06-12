@@ -36,6 +36,14 @@ function Chrome.updateUrl(needle, newUrl)
     end
 end
 
+function Chrome.changeUrl(newUrl)
+    hs.osascript.applescript([[
+        tell application "Google Chrome"
+            set URL of active tab of front window to "]] .. newUrl .. [["
+        end tell
+    ]])
+end
+
 function Chrome.copyUrl()
     hs.osascript.applescript([[
         tell application "Google Chrome"

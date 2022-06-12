@@ -17,8 +17,8 @@ KarabinerHandler.lookup = {
     i = 'Make',
     o = 'Open',
     p = 'Paste',
-    open_bracket = 'Media',
-    close_bracket = nil,
+    open_bracket = 'Secondary',
+    close_bracket = 'Tertiary',
     caps_lock = 'Hyper',
     a = {iterm = 'Artisan', default = 'ChangeCase'},
     s = {
@@ -131,9 +131,9 @@ function KarabinerHandler.setupMode(mode)
 end
 
 function KarabinerHandler.handle(mode, key)
-    if TextManipulation.vimEnabled and not cm.Window.scrolling then
-        Modal.exit()
-    end
+    -- if TextManipulation.vimEnabled and not cm.Window.scrolling then
+    --     Modal.exit()
+    -- end
 
     local Mode = md[mode]
 

@@ -29,14 +29,15 @@ Brackets.actionInsideLookup = {
 Modal.add({
     key = 'Brackets',
     title = 'Bracket Matching',
+    fillEmpty = true,
     items = {
         -- numbers
         -- tab, qwer
-        t = {action = 'thisSnippet'},
+        -- t = {action = 'thisSnippet'},
         -- yu
-        i = {action = 'onlyOpening'},
-        o = {action = 'onlyClosing'},
-        p = {action = 'paste'},
+        -- i = {action = 'onlyOpening'},
+        -- o = {action = 'onlyClosing'},
+        -- p = {action = 'paste'},
         -- ['['] = {action = 'cancel'},
         -- ]\
         -- caps, a
@@ -44,27 +45,37 @@ Modal.add({
         d = {bracket = 'doubleQuote'},
         f = {bracket = 'parenthesis'},
         -- g
-        h = {action = 'left'},
-        k = {action = 'insertVariable'},
-        l = {action = 'right'},
-        [';'] = {action = 'insertSemicolon'},
+        -- h = {action = 'left'},
+        -- k = {action = 'insertVariable'},
+        -- l = {action = 'right'},
+        -- [';'] = {action = 'insertSemicolon'},
         -- ["'"],
-        ['return'] = {action = 'newLine'},
+        -- ['return'] = {action = 'newLine'},
         -- left shift
         z = {bracket = 'backTick'},
         -- x
         c = {bracket = 'braces'},
         -- v
         b = {bracket = 'brackets'},
-        n = {action = 'functionSnippet'},
-        m = {action = 'cancel'},
-        [','] = {action = 'insertComma'},
+        -- n = {action = 'functionSnippet'},
+        -- m = {action = 'cancel'},
+        -- [','] = {action = 'insertComma'},
         ['.'] = {action = 'continueChain'},
         -- /, right shift
         space = {bracket = 'space'},
     },
-    callback = function(item)
+    callback = function(item, key)
         Brackets.start()
+
+        if not Brackets.multi
+            and not Brackets.surroundPaste
+            and item.action ~= 'continueChain'
+        then
+            Modal.exit()
+            ks.key(key)
+
+            return
+        end
 
         if item.action then
             return Brackets[item.action]()
@@ -122,16 +133,16 @@ function Brackets.print(bracket)
         hs.timer.doAfter(0.1, function()
             ks.left()
 
-            if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
-                Brackets.start()
-            end
+            -- if not text and (bracket == 'parenthesis') then
+            --     Brackets.start()
+            -- end
         end)
     else
         ks.left()
 
-        if not text and (bracket == 'parenthesis' or (bracket == 'brackets' and is.php())) then
-            Brackets.start()
-        end
+        -- if not text and (bracket == 'parenthesis') then
+        --     Brackets.start()
+        -- end
     end
 end
 
@@ -244,7 +255,7 @@ end
 function Brackets.functionSnippet()
     Modal.exit()
     md.CodeSnippets.snippet('function')
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function Brackets.thisSnippet()
@@ -288,9 +299,9 @@ end
 function Brackets.changeInside(key)
     Brackets.actionInside('c', key)
 
-    if key == 'f' or (key == 'b' and is.php()) then
-        Brackets.start()
-    end
+    -- if key == 'f' or (key == 'b' and is.php()) then
+    --     Brackets.start()
+    -- end
 end
 
 function Brackets.actionInside(action, key)

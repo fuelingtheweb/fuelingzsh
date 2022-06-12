@@ -38,9 +38,10 @@ end
 
 function Window.next()
     local windows = hs.fnutils.filter(
-        hs.window.filter.default
-        :getWindows(hs.window.filter.sortByFocusedLast),
-        function(window) return window:title() end
+        hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast),
+        function(window)
+            return window:title()
+        end
     )
 
     local nextWin = windows[2]
@@ -68,7 +69,9 @@ function Window.nextInCurrentApp()
         hs.window.filter
         .new({hs.application.frontmostApplication():name()})
         :getWindows(hs.window.filter.sortByFocusedLast),
-        function(window) return window:title() end
+        function(window)
+            return window:title()
+        end
     )
 
     local nextWin = windows[2]
@@ -155,6 +158,14 @@ function Window.focusSidebarSourceControl()
     ks.shiftAltCmd('b').shiftAltCmd('c')
 end
 
+function Window.focusActiveEditor()
+    ks.shiftAltCmd('b').shiftAltCmd('r')
+end
+
+function Window.focusSidebar()
+    ks.cmd('0')
+end
+
 function Window.destroy()
     if is.chrome() then
         ks.shiftCmd('w')
@@ -166,7 +177,8 @@ function Window.destroy()
                 app:hide()
             end
         end)
-    elseif is.In(tableplus, discord, 'com.apple.ActivityMonitor', 'md.obsidian', 'de.beyondco.tinkerwell', 'com.flexibits.fantastical2.mac') then
+    elseif is.In(tableplus, discord, tinkerwell, invoker, 'com.apple.ActivityMonitor', 'md.obsidian',
+        'com.flexibits.fantastical2.mac') then
         Window.quitApplication()
     elseif is.codeEditor() or is.sublimeMerge() then
         ks.shiftCmd('w')
@@ -233,13 +245,22 @@ function Window.jumpTo()
 end
 
 function Window.enableScrolling()
-    -- Vimac: Enable Scroll
-    Modal.enter('Scrolling')
+    if Window.scrolling then
+        Modal.exit()
+    else
+        Modal.enter('Scrolling')
+    end
+
+    -- Vimac: Scrolling
     ks.super('s')
 end
 
 function Window.windowModal()
     Modal.enter('Window')
+end
+
+function Window.amethystModal()
+    Modal.enter('Amethyst')
 end
 
 return Window

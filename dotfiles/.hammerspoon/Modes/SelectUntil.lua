@@ -18,7 +18,7 @@ SelectUntil.lookup = {
     z = 'backTick',
     x = nil,
     c = 'braces',
-    v = nil,
+    v = 'nextBlock',
     b = 'brackets',
     spacebar = nil,
 }
@@ -96,6 +96,14 @@ function SelectUntil.previousBlock()
         ks.shift('v').shift('[')
     else
         ks.shiftCmd('left')
+    end
+end
+
+function SelectUntil.nextBlock()
+    if is.vimMode() then
+        ks.shift('v').shift(']')
+    else
+        ks.shiftCmd('right')
     end
 end
 

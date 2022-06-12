@@ -22,7 +22,7 @@ Tab.lookup = {
     period = cm.Tab.closeNext,
     slash = cm.Tab.closeAllOthers,
     right_shift = cm.Tab.closeAll,
-    spacebar = cm.Tab.manage,
+    spacebar = cm.Window.destroy,
 }
 
 return Tab

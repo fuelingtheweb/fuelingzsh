@@ -24,6 +24,8 @@ function Tab.previous()
     elseif is.In(discord) then
         -- Move to next conversation / channel
         ks.alt('down')
+    elseif is.In(tinkerwell) then
+        ks.altCmd('left')
     else
         ks.shiftCmd('[')
     end
@@ -35,6 +37,8 @@ function Tab.next()
     elseif is.In(discord) then
         -- Move to previous conversation / channel
         ks.alt('up')
+    elseif is.In(tinkerwell) then
+        ks.altCmd('right')
     else
         ks.shiftCmd(']')
     end
@@ -162,12 +166,6 @@ function Tab.closeNext()
 
     if is.vscode() or is.chrome() then
         Tab.previous()
-    end
-end
-
-function Tab.manage()
-    if is.chrome() then
-        ks.shiftCmd('m')
     end
 end
 

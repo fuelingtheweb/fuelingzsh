@@ -22,7 +22,7 @@ Vi.lookup = {
     period = 'nextWord',
     slash = 'moveToPreviousSubword',
     right_shift = 'moveToNextSubword',
-    spacebar = nil,
+    spacebar = 'joinLines',
 }
 
 function Vi.moveToPreviousSubword()
@@ -96,11 +96,19 @@ function Vi.moveToBottomOfPage()
 end
 
 function Vi.pageUp()
-    ks.key('pageup')
+    if is.vscode() then
+        ks.ctrl('u')
+    else
+        ks.key('pageup')
+    end
 end
 
 function Vi.pageDown()
-    ks.key('pagedown')
+    if is.vscode() then
+        ks.ctrl('d')
+    else
+        ks.key('pagedown')
+    end
 end
 
 function Vi.previousWord()
@@ -109,6 +117,12 @@ end
 
 function Vi.nextWord()
     ks.alt('right')
+end
+
+function Vi.joinLines()
+    if is.vscode() then
+        ks.escape().shift('j').key('x')
+    end
 end
 
 return Vi

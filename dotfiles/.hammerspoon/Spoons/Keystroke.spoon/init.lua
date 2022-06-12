@@ -44,7 +44,15 @@ function Keystroke.copy()
 end
 
 function Keystroke.paste()
-    return Keystroke.cmd('v')
+    Keystroke.cmd('v')
+
+    if is.In(slack) then
+        hs.timer.doAfter(0.1, function()
+            Keystroke.shiftCmd('f')
+        end)
+    end
+
+    return Keystroke
 end
 
 function Keystroke.undo()
@@ -79,6 +87,7 @@ function Keystroke.shiftCtrlAlt(key)
     return Keystroke.fire({'shift', 'ctrl', 'alt'}, key)
 end
 
+-- Used for Karabiner
 function Keystroke.shiftCtrlCmd(key)
     return Keystroke.fire({'shift', 'ctrl', 'cmd'}, key)
 end

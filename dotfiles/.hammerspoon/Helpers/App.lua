@@ -14,13 +14,14 @@ App.bundles = {
     spotify = 'com.spotify.client',
     sublimeMerge = 'com.sublimemerge',
     tableplus = 'com.tinyapp.TablePlus',
+    tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
     vscode = 'com.microsoft.VSCode',
     zoom = 'us.zoom.xos',
 }
 
 function App.codeEditor()
-    return App.includes({vscode})
+    return App.includes({vscode, tinkerwell})
 end
 
 function App.is(bundle)

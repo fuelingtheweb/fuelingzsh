@@ -25,6 +25,10 @@ General.lookup = {
     spacebar = nil,
 }
 
+function General.before()
+    Modal.exit()
+end
+
 function General.openParens()
     ks.shift('9')
 end

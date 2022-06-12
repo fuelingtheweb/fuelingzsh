@@ -68,7 +68,7 @@ end
 
 function Command.reload()
     if is.vscode() then
-        ks.super('r')
+        ks.shiftAltCmd('r')
     elseif is.In(postman) then
         ks.cmd('return')
     elseif is.iterm() then
@@ -81,6 +81,14 @@ end
 
 function Command.edit()
     Command.lastApp = hs.application.frontmostApplication()
+
+    if is.vscode() then
+        local site = ProjectManager.current()
+
+        fn.misc.executeFromFuelingZsh('tinkerwell "' .. site.attributes.path .. '"')
+
+        return
+    end
 
     if is.gmail() then
         md.Yank.toTopOfPage()
@@ -100,7 +108,7 @@ end
 function Command.finish()
     if is.vscode() then
         if is.todo() or is.markdown() then
-            ks.alt('d')
+            ks.alt('d').slow().save()
         elseif fn.window.titleContains('.git/COMMIT_EDITMSG') or fn.window.titleContains('.git/MERGE_MSG') then
             ks.slow().save().slow().close()
             fn.iTerm.launch()
@@ -125,6 +133,8 @@ function Command.finish()
     elseif is.In(transmit) then
         -- Disconnect from server
         ks.cmd('e')
+    elseif is.In(tinkerwell) then
+        ks.cmd('r')
     elseif is.sublimeMerge() then
         ks.enter()
     elseif is.googleSheet() then
@@ -181,7 +191,7 @@ function Command.cancelOrDelete()
 end
 
 function Command.startTask()
-    ks.alt('s')
+    ks.alt('s').slow().save()
 end
 
 function Command.newTask()

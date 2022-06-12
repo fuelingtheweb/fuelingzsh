@@ -2,27 +2,25 @@ local ExtendedCommand = {}
 ExtendedCommand.__index = ExtendedCommand
 
 ExtendedCommand.lookup = {
-    tab = 'enableRunOnSave',
+    tab = 'toggleUseIgnoreFiles',
     q = nil,
-    w = fn.custom.openTasks,
-    -- w = 'surroundText',
-    e = 'espansoSearch',
-    -- r = 'reloadSecondary',
+    w = nil,
+    e = nil,
     r = fn.custom.openClientProject,
     t = nil,
-    caps_lock = fn.Alfred.open,
+    caps_lock = fn.custom.openTasks,
     a = nil,
-    s = 'screenshotToFilesystem',
+    s = nil,
     d = fn.custom.openHammerspoonConfig,
     f = 'revealInSidebar',
     g = 'saveAndReload',
-    left_shift = 'disableRunOnSave',
-    z = fn.Alfred.sleep,
-    x = fn.Alfred.emptyTrash,
+    left_shift = 'toggleRunOnSave',
+    z = nil,
+    x = 'screenshotToFilesystem',
     c = 'screenshotToClipboard',
-    v = 'toggleDockVisibility',
-    b = 'showBartender',
-    spacebar = 'newWindowOrFolder',
+    v = nil,
+    b = nil,
+    spacebar = nil,
 }
 
 function ExtendedCommand.screenshotToFilesystem()
@@ -33,35 +31,8 @@ function ExtendedCommand.revealInSidebar()
     ks.shiftCmd('\\')
 end
 
-function ExtendedCommand.toggleDockVisibility()
-    ks.altCmd('d')
-end
-
 function ExtendedCommand.screenshotToClipboard()
     ks.shiftCtrlCmd('4')
-end
-
-function ExtendedCommand.showBartender()
-    ks.shiftCtrlCmd('b')
-end
-
-function ExtendedCommand.newWindowOrFolder()
-    ks.shiftCmd('n')
-end
-
-function ExtendedCommand.surroundText()
-    ks.copy()
-    fn.Alfred.run('surround', 'com.fuelingtheweb.commands')
-end
-
-function ExtendedCommand.reloadSecondary()
-    if is.chrome() then
-        -- Hard refresh
-        ks.shiftCmd('r')
-    elseif is.iterm() then
-        -- Reload running command
-        ks.ctrl('c').up().enter()
-    end
 end
 
 function ExtendedCommand.saveAndReload()
@@ -70,13 +41,9 @@ function ExtendedCommand.saveAndReload()
     ks.slow().refresh()
 end
 
-function ExtendedCommand.enableRunOnSave()
-    ks.super('f').super('e')
-end
-
 local runOnSaveDisabled = false
 
-function ExtendedCommand.disableRunOnSave()
+function ExtendedCommand.toggleRunOnSave()
     if runOnSaveDisabled then
         runOnSaveDisabled = false
 
@@ -86,10 +53,23 @@ function ExtendedCommand.disableRunOnSave()
 
         ks.super('f').super('d')
     end
+
+    hs.notify.new({
+        title = runOnSaveDisabled and 'Disabled' or 'Enabled',
+        informativeText = 'Run on Save'
+    }):send()
 end
 
-function ExtendedCommand.espansoSearch()
-    ks.shiftAlt('space')
+local useIgnoreFilesEnabled = true
+
+function ExtendedCommand.toggleUseIgnoreFiles()
+    ks.shiftCtrl('t')
+    useIgnoreFilesEnabled = not useIgnoreFilesEnabled
+
+    hs.notify.new({
+        title = useIgnoreFilesEnabled and 'Enabled' or 'Disabled',
+        informativeText = 'Search: Use Ignore Files'
+    }):send()
 end
 
 return ExtendedCommand

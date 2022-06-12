@@ -6,11 +6,11 @@ Modal.loadCustom('Bookmarks.Index')
 Modal.load('OpenIn')
 
 Open.lookup = {
-    tab = nil,
+    tab = 'invoker',
     r = 'vscode',
     w = 'openInModal',
-    e = nil,
-    q = 'spotify',
+    e = 'tinkerwell',
+    q = 'Ray.app',
     t = 'iterm',
     caps_lock = 'windowHints',
     a = 'openAppModal',
@@ -24,33 +24,25 @@ Open.lookup = {
     c = 'sublimeMerge',
     v = 'tableplus',
     b = 'openBookmarksModal',
-    spacebar = {'open', 'bringAllWindowsToFront'},
+    spacebar = cm.Search.allWindows,
 }
 
 Modal.add({
     key = 'OpenApp',
     title = 'Open App',
     items = {
-        -- q
-        w = {name = 'Tinkerwell', app = 'de.beyondco.tinkerwell'},
-        -- e
-        r = {name = 'Ray', app = 'Ray.app'},
+        -- qwer
         t = {name = 'Transmit', app = 'Transmit.app'},
-        -- yu
-        i = {name = 'Invoker', app = 'de.beyondco.invoker'},
-        -- o
+        -- yuio
         p = {name = 'System Preferences', app = 'System Preferences.app'},
         a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
         s = {name = 'Spotify', app = 'spotify'},
         d = {name = 'Dash', app = 'Dash.app'},
-        f = {name = 'Fantastical', app = 'fantastical'},
-        -- g
+        -- fg
         h = {name = 'Helo', app = 'de.beyondco.helo'},
         -- j
         k = {name = 'Kaleidoscope', app = 'Kaleidoscope.app'},
-        -- l
-        z = {name = 'Zoom', app = 'zoom.us.app'},
-        -- xcvbn
+        -- lzxcvbn
         m = {name = 'reMarkable', app = 'reMarkable.app'}
     },
     callback = function(item)
@@ -59,7 +51,7 @@ Modal.add({
     end,
 })
 
-hs.hints.titleMaxSize = 20
+-- hs.hints.titleMaxSize = 20
 hs.hints.showTitleThresh = 20
 hs.hints.fontSize = 20
 hs.hints.iconAlpha = 1
@@ -133,7 +125,7 @@ function Open.launchApp(id)
                 hs.application.open(bundle)
             end
         end
-    elseif fn.app.multipleWindows(app) then
+    elseif fn.app.multipleWindows(app) or isActive then
         Open.windowHintsForCurrentApplication()
     elseif not fn.app.hasWindows(app) then
         hs.application.open(bundle)

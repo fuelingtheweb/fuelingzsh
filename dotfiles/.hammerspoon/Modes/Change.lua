@@ -111,7 +111,7 @@ Modal.add({
         ks.escape().sequence({'c', 'a'}).fire(keystroke.mods, keystroke.key)
 
         if key == 'f' or (key == 'b' and is.php()) then
-            Brackets.start()
+            -- Brackets.start()
         end
     end,
 })

@@ -9,7 +9,7 @@ SlackSnippets.lookup = {
     p = nil,
     open_bracket = nil,
     close_bracket = nil,
-    h = nil,
+    h = fn.misc.showSnippets,
     j = nil,
     k = nil,
     l = 'lunch',
@@ -34,7 +34,7 @@ function SlackSnippets.fallback(value)
 end
 
 function SlackSnippets.eod()
-    ks.type('@EOD').shiftEnter()
+    ks.type('@EOD').slow().shiftEnter()
     md.Paste.trimmed()
 end
 

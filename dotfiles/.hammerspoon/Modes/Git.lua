@@ -114,12 +114,15 @@ function Git.commit()
         Git.nextGitConflict()
     else
         ks.type('git:commit ')
-        Brackets.start()
     end
 end
 
 function Git.checkoutMaster()
-    ks.typeAndEnter('goml')
+    if is.vscode() then
+        -- ks.super('j').super("'")
+    elseif is.iterm() then
+        ks.typeAndEnter('goml')
+    end
 end
 
 function Git.fetchMaster()

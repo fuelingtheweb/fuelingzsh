@@ -28,12 +28,6 @@ function Search.default()
     end
 end
 
-function Search.tabs()
-    if is.chrome() then
-        ks.shift('t')
-    end
-end
-
 function Search.windowsInCurrentApp()
     windows = hs.window.filter
         .new({hs.application.frontmostApplication():name()})
@@ -67,14 +61,7 @@ function Search.loadWindowsInAlfred(windows, minimum)
 end
 
 function Search.allWindows()
-    windows = hs.window.filter.default
-        :rejectApp('Finder')
-        :rejectApp('Google Chrome')
-        :rejectApp('Sublime Merge')
-        :rejectApp('Spotify')
-        :rejectApp('Invoker')
-        :rejectApp('Dash')
-        :getWindows(hs.window.filter.sortByFocusedLast)
+    local windows = hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast)
 
     Search.loadWindowsInAlfred(windows, 1)
 end

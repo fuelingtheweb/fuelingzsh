@@ -16,16 +16,11 @@ function Window.path()
 end
 
 function Window.title()
-    local app = hs.application.frontmostApplication()
-    local title = ''
+    return Window.focused():title()
+end
 
-    for k, v in pairs(app:visibleWindows()) do
-        if title == '' then
-            title = v:title()
-        end
-    end
-
-    return title
+function Window.focused()
+    return hs.window.frontmostWindow()
 end
 
 function Window.openWithCache(name, callback)

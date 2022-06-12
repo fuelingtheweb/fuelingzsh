@@ -2,7 +2,7 @@ local Code = {}
 Code.__index = Code
 
 Code.lookup = {
-    y = 'multipleCursorsUp',
+    y = 'codeInfo',
     u = 'addUseStatement',
     i = 'focusBreadcrumbs',
     o = 'goToDefinition',
@@ -109,7 +109,12 @@ function Code.toggleSemicolon()
 end
 
 function Code.selectNextWord()
-    ks.cmd('d')
+    if is.github() and fn.window.titleContains('Pull Request #') then
+        ks.cmd('g')
+        md.Command.edit()
+    else
+        ks.cmd('d')
+    end
 end
 
 function Code.multipleCursorsDown()
@@ -142,7 +147,7 @@ end
 
 function Code.doubleArrow()
     ks.type(' => ')
-    Brackets.startIfPhp()
+    -- Brackets.startIfPhp()
 end
 
 function Code.goToMatchingPair()
@@ -211,6 +216,10 @@ end
 
 function Code.compareActiveFileWith()
     ks.super('c').super('w')
+end
+
+function Code.codeInfo()
+    ks.cmd('k').cmd('i')
 end
 
 return Code

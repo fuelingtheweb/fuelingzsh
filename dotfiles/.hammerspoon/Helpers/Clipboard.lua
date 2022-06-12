@@ -57,11 +57,13 @@ function Clipboard.preserve(callback, cleanupCallback)
 
     local value = Clipboard.get()
 
-    hs.timer.doAfter(1, function()
-        Clipboard.set(original)
-    end)
+    if cleanupCallback then
+        value = cleanupCallback(value)
+    end
 
-    return cleanupCallback and cleanupCallback(value) or value
+    Clipboard.set(original)
+
+    return value
 end
 
 return Clipboard

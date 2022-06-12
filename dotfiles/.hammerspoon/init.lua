@@ -44,6 +44,8 @@ Brackets = hs.loadSpoon('Brackets')
 
 ToBracket = Modal.load('ToBracket')
 
+Modal.load('MiscSnippets')
+
 hs.loadSpoon('Keystroke')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')

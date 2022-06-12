@@ -3,23 +3,23 @@ Hyper.__index = Hyper
 
 Hyper.lookup = {
     y = 'copy',
-    u = cm.Search.tabs,
-    i = cm.Search.symbol,
-    o = 'open',
+    u = 'u',
+    i = 'i',
+    o = 'o',
     p = fn.Alfred.clipboard,
     open_bracket = 'commandPalette',
     close_bracket = nil,
     h = 'previousPage',
-    j = cm.Tab.previous,
-    k = cm.Tab.next,
-    l = 'nextPage',
+    j = 'j',
+    k = 'k',
+    l = 'l',
     semicolon = cm.Window.nextInCurrentApp,
     quote = cm.Window.next,
     return_or_enter = function() hs.hid.capslock.set(true) end,
     n = 'new',
-    m = cm.Window.destroy,
-    comma = ks.undo,
-    period = ks.redo,
+    m = 'm',
+    comma = 'comma',
+    period = 'period',
     slash = 'cheatsheets',
     right_shift = nil,
     spacebar = 'forceEscape',
@@ -68,8 +68,13 @@ function Hyper.open()
     elseif is.In(spotify) then
         fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
     elseif is.chrome() then
-        if fn.Chrome.urlContains('github.com') then
+        if fn.Chrome.urlContains('github.com')
+            or fn.Chrome.urlContains('tailwindcss.com/docs')
+            or fn.Chrome.urlContains('laravel.com/docs')
+        then
             ks.cmd('k')
+        elseif fn.Chrome.urlContains('laravel-livewire.com/docs') then
+            ks.key('/')
         else
             ks.cmd('l')
         end
@@ -145,6 +150,94 @@ end
 
 function Hyper.cheatsheets()
     Modal.enter('Cheatsheets')
+end
+
+function Hyper.undo()
+    -- if is.vimMode() then
+    --     ks.escape().key('u')
+    -- else
+    ks.undo()
+    -- end
+end
+
+function Hyper.redo()
+    -- if is.vimMode() then
+    --     ks.escape().ctrl('r')
+    -- else
+    ks.redo()
+    -- end
+end
+
+function Hyper.u()
+    if fn.Alfred.visible() then
+        ks.enter()
+    else
+        fn.Alfred.open()
+    end
+end
+
+function Hyper.i()
+    if fn.Alfred.visible() then
+        ks.cmd('2')
+    else
+        cm.Search.symbol()
+    end
+end
+
+function Hyper.o()
+    if fn.Alfred.visible() then
+        ks.cmd('3')
+    else
+        Hyper.open()
+    end
+end
+
+function Hyper.j()
+    if fn.Alfred.visible() then
+        ks.cmd('4')
+    else
+        cm.Tab.previous()
+    end
+end
+
+function Hyper.k()
+    if fn.Alfred.visible() then
+        ks.cmd('5')
+    else
+        cm.Tab.next()
+    end
+end
+
+function Hyper.l()
+    if fn.Alfred.visible() then
+        ks.cmd('6')
+    else
+        Hyper.nextPage()
+    end
+end
+
+function Hyper.m()
+    if fn.Alfred.visible() then
+        ks.cmd('7')
+    else
+        cm.Window.destroy()
+    end
+end
+
+function Hyper.comma()
+    if fn.Alfred.visible() then
+        ks.cmd('8')
+    else
+        Hyper.undo()
+    end
+end
+
+function Hyper.period()
+    if fn.Alfred.visible() then
+        ks.cmd('9')
+    else
+        Hyper.redo()
+    end
 end
 
 return Hyper

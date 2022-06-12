@@ -14,15 +14,15 @@ Google.lookup = {
     k = nil,
     l = 'lastpass',
     semicolon = 'tabManager',
-    quote = 'hardRefresh',
+    quote = nil,
     return_or_enter = nil,
     n = 'newBookmark',
-    m = nil,
+    m = 'manageTabs',
     comma = 'toggleDevTools',
     period = 'toggleDevToolsDocking',
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = 'toggleDarkReader',
 }
 
 function Google.custom(key)
@@ -89,8 +89,12 @@ function Google.openLastpass()
     ks.shiftCmd('l')
 end
 
-function Google.hardRefresh()
-    ks.shiftCmd('r')
+function Google.toggleDarkReader()
+    ks.shiftAlt('a')
+end
+
+function Google.manageTabs()
+    ks.shiftCmd('m')
 end
 
 return Google
