@@ -66,7 +66,7 @@ class Simlayer:
 
     def newKey(self, key):
         keys = {
-            'tab': 'q',
+            'tab': 'f9',
             'q': 'w',
             'w': 'f17',
             'e': 'r',
@@ -89,7 +89,7 @@ class Simlayer:
             'k': 'l',
             'l': 'semicolon',
             'semicolon': 'quote',
-            'quote': 'return_or_enter',
+            'quote': 'f10',
             'return_or_enter': 'z',
             'caps_lock': 'f16',
             'left_shift': 'f15',

@@ -47,7 +47,7 @@ KarabinerHandler.lookup = {
 }
 
 local lookupKeys = {
-    tab = 'q',
+    tab = 'f9',
     q = 'w',
     w = 'f17',
     e = 'r',
@@ -70,7 +70,7 @@ local lookupKeys = {
     k = 'l',
     l = ';',
     semicolon = "'",
-    quote = 'return',
+    quote = 'f10',
     return_or_enter = 'z',
     caps_lock = 'f16',
     left_shift = 'f15',
