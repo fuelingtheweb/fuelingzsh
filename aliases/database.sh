@@ -2,7 +2,15 @@ function db:create () { mysql -uroot -e "create database $1" }
 function pg:create () { createdb $1 }
 function db:drop () { mysql -uroot -e "drop database $1" }
 function db:export () { mysqldump -u root $1 > ~/Downloads/$1.sql }
-function db:import () { mysql -u root $1 < ~/Downloads/$1.sql }
+function db:import () {
+    local file=~/Downloads/$1.sql
+
+    if [ "$2" ]; then
+        file=$2
+    fi
+
+    mysql -u root $1 < $file
+}
 function db:import:dump () { mysql -u root $1 < ~/Downloads/$1.dump }
 function pg:import () { psql -f ~/Downloads/$1.sql $1 -U nathan -h localhost -W }
 function db:dump-all () {

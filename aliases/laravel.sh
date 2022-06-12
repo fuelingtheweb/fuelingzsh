@@ -71,6 +71,7 @@ alias amt='artisan make:test'
 alias amtu='artisan make:test --unit'
 
 alias amv='artisan make:view'
+alias amw='artisan make:livewire'
 
 # From Packages
 alias adbbc='artisan debugbar:clear'

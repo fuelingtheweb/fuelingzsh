@@ -249,7 +249,7 @@ function git:pull-request() {
         git:copy-commits
         githubUrl=`git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
         prUrl="$githubUrl/compare/$(git:master-branch)...$(git:branch.current)?expand=1"
-        open $prUrl;
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "$prUrl" --profile-directory="Default"
     else
         echo 'failed to push commits and open a pull request.';
     fi
