@@ -17,6 +17,7 @@ App.bundles = {
     tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
     vscode = 'com.microsoft.VSCode',
+    youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
     zoom = 'us.zoom.xos',
 }
 

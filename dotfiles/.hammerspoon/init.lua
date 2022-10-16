@@ -1,5 +1,7 @@
 hs.hotkey.alertDuration = 0
 
+Modal = hs.loadSpoon('Modal')
+
 fn = {
     app = require('Helpers.App'),
     clipboard = require('Helpers.Clipboard'),
@@ -38,7 +40,6 @@ hs.loadSpoon('Watchers')
 
 Ray = hs.loadSpoon('Ray')
 Pending = hs.loadSpoon('Pending')
-Modal = hs.loadSpoon('Modal')
 TextManipulation = hs.loadSpoon('TextManipulation')
 Brackets = hs.loadSpoon('Brackets')
 

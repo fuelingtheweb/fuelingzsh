@@ -42,11 +42,11 @@ function Git.reset()
 end
 
 function Git.nextGitConflict()
-    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('j')
+    ks.super('g').super('j')
 end
 
 function Git.previousGitConflict()
-    ks.slow().shiftAltCmd('g').slow().shiftAltCmd('k')
+    ks.shiftAltCmd('g').shiftAltCmd('k')
 end
 
 function Git.checkout()
@@ -113,7 +113,9 @@ function Git.commit()
     if is.vscode() then
         Git.nextGitConflict()
     else
-        ks.type('git:commit ')
+        ks.type("git:commit ''")
+
+        hs.timer.doAfter(0.1, ks.left)
     end
 end
 

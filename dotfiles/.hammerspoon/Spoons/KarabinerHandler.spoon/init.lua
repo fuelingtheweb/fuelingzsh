@@ -25,6 +25,7 @@ KarabinerHandler.lookup = {
         iterm = 'TerminalSnippets',
         slack = 'SlackSnippets',
         vscode = 'CodeSnippets',
+        tinkerwell = 'CodeSnippets',
         default = 'DefaultSnippets',
     },
     d = 'Vi',

@@ -61,14 +61,16 @@ function CodeSnippets.fallback(value)
 end
 
 function CodeSnippets.snippet(name)
-    fn.clipboard.preserve(function()
-        fn.clipboard.set('snippet-' .. name)
+    fn.Code.ensureInitializedSnippets(function()
+        fn.clipboard.preserve(function()
+            fn.clipboard.set('snippet-' .. name)
 
-        ks.ctrlCmd('s').paste().slow().enter()
+            ks.ctrlCmd('s').paste().slow().enter()
 
-        if fn.table.has({'if'}, name) then
-            -- Brackets.startIfPhp()
-        end
+            if fn.table.has({'if'}, name) then
+                -- Brackets.startIfPhp()
+            end
+        end)
     end)
 end
 
@@ -279,12 +281,14 @@ end
 function CodeSnippets.continueChain()
     if is.vscode() then
         ks.escape().key('f').shift('0').key('a')
+    else
+        ks.right()
+    end
 
-        if is.lua() then
-            ks.type('.')
-        else
-            ks.type('->')
-        end
+    if is.lua() then
+        ks.type('.')
+    else
+        ks.type('->')
     end
 end
 

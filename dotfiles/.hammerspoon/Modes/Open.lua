@@ -6,7 +6,7 @@ Modal.loadCustom('Bookmarks.Index')
 Modal.load('OpenIn')
 
 Open.lookup = {
-    tab = 'invoker',
+    tab = 'music',
     r = 'vscode',
     w = 'openInModal',
     e = 'tinkerwell',
@@ -24,7 +24,7 @@ Open.lookup = {
     c = 'sublimeMerge',
     v = 'tableplus',
     b = 'openBookmarksModal',
-    spacebar = cm.Search.allWindows,
+    spacebar = nil,
 }
 
 Modal.add({
@@ -33,7 +33,9 @@ Modal.add({
     items = {
         -- qwer
         t = {name = 'Transmit', app = 'Transmit.app'},
-        -- yuio
+        -- yu
+        i = {name = 'Invoker', app = 'invoker'},
+        -- o
         p = {name = 'System Preferences', app = 'System Preferences.app'},
         a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
         s = {name = 'Spotify', app = 'spotify'},
@@ -102,27 +104,35 @@ function Open.fallback(value, key)
 end
 
 function Open.launchApp(id)
-    bundle = fn.app.bundles[id]
+    local bundle = fn.app.bundles[id]
 
     if not bundle then
         return hs.application.open(id)
     end
 
-    app = hs.application.frontmostApplication()
-    isActive = app:bundleID() == bundle
+    local app = hs.application.frontmostApplication()
+    local isActive = app:bundleID() == bundle
 
     if id == 'iterm' then
         fn.iTerm.launch()
     elseif not isActive then
-        app = hs.application.get(bundle)
+        local app = hs.application.get(bundle)
 
         if not fn.app.hasWindows(app) then
-            if id ~= 'vscode' then hs.application.open(bundle) end
-        else
+            hs.application.open(bundle)
             app:activate()
+        else
+            if fn.app.multipleWindows(app) then
+                cm.Window.focusFirst(
+                    cm.Window.filtered(cm.Window.currentScreen(), app),
+                    app
+                )
+            else
+                app:activate()
 
-            if id == 'finder' and not fn.app.multipleWindows(app) then
-                hs.application.open(bundle)
+                if id == 'finder' and not fn.app.multipleWindows(app) then
+                    hs.application.open(bundle)
+                end
             end
         end
     elseif fn.app.multipleWindows(app) or isActive then
@@ -132,11 +142,17 @@ function Open.launchApp(id)
     end
 end
 
-function triggerItermShortcut(callback)
-    ks.key('`')
+function Open.music()
+    Open.youtubeMusic()
+end
 
-    if callback then
-        callback()
+function Open.youtubeMusic()
+    local app = hs.application.get(youtubeMusic)
+
+    if not fn.app.hasWindows(app) then
+        hs.application.open(youtubeMusic)
+    else
+        app:activate()
     end
 end
 

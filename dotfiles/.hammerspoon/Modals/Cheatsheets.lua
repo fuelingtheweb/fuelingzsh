@@ -31,6 +31,7 @@ Cheatsheets.lookupKeys = {
 }
 
 Cheatsheets.lookupApps = {
+    tinkerwell = 'e',
     vscode = 'r',
     iterm = 't',
     slack = 's',
@@ -54,7 +55,7 @@ function Cheatsheets.items()
             local nestedItems = {}
 
             fn.each(mode, function(mode, app)
-                nestedItems[Cheatsheets.lookupApps[app]] = {
+                nestedItems[ Cheatsheets.lookupApps[app] ] = {
                     name = app,
                     title = app,
                     key = app,

@@ -6,7 +6,7 @@ Shortcuts
         slack = fn.Slack.react,
         vscode = function()
             if is.malachor() then
-                return fn.custom.openClientTasks()
+                return fn.custom.openPrimary()
             end
 
             local path = fn.window.path()
@@ -19,7 +19,7 @@ Shortcuts
     :add('T', {
         vscode = function()
             if is.malachor() then
-                return fn.custom.openPlanning()
+                fn.custom.openInternalTasks()
             else
                 md.Hyper.open()
                 ks.type('Tests/')
@@ -77,7 +77,9 @@ Shortcuts
     })
     :add('C', {
         vscode = function()
-            if is.hammerspoon() then
+            if is.malachor() then
+                fn.custom.openClientTasks()
+            elseif is.hammerspoon() then
                 md.Hyper.open()
                 ks.type('Commands/')
             else

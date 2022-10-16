@@ -17,13 +17,13 @@ DefaultSnippets.lookup = {
     close_bracket = nil,
     h = fn.misc.showSnippets,
     j = 'generalSnippetsModal',
-    k = nil,
+    k = 'k',
     l = 'log',
     semicolon = ' : ',
     quote = 'equals',
     return_or_enter = 'return',
     n = nil,
-    m = nil,
+    m = 'm',
     comma = ', ',
     period = nil,
     slash = ' ? ',
@@ -61,9 +61,33 @@ function DefaultSnippets.generalSnippetsModal()
     Modal.enter('CodeSnippets:generalSnippets')
 end
 
+function DefaultSnippets.k()
+    if is.In('85C27NK92C.com.flexibits.fantastical2.mac.helper') then
+        ks.type('/Todo ')
+        ks.sequence({',', ',', 't', 'd'})
+        hs.timer.doAfter(0.1, function()
+            ks.type(' ')
+        end)
+    end
+end
+
+function DefaultSnippets.m()
+    if is.In('85C27NK92C.com.flexibits.fantastical2.mac.helper') then
+        ks.type('/Deliveries ')
+        ks.sequence({',', ',', 'p', 'h'})
+        hs.timer.doAfter(0.1, function()
+            ks.type(' ')
+        end)
+    end
+end
+
 function DefaultSnippets.log()
     if is.In('85C27NK92C.com.flexibits.fantastical2.mac.helper') then
-        ks.type('todo - ')
+        ks.type('/Deliveries ')
+        ks.sequence({',', ',', 'p', 'p'})
+        hs.timer.doAfter(0.1, function()
+            ks.type(' ')
+        end)
     else
         ks.type('console.log()')
     end

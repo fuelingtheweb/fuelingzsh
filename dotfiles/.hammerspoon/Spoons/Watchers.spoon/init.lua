@@ -31,6 +31,10 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
             app:hide()
         end
     end
+
+    cm.Window.focusFirst(
+        cm.Window.filtered(cm.Window.currentScreen())
+    )
 end)
 
 gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)

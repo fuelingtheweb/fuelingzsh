@@ -12,15 +12,23 @@ function iTerm.openNew(path)
 end
 
 function iTerm.launch(callback)
-    app = hs.application.get(iterm)
+    local app = hs.application.get(iterm)
 
     if app and app:isRunning() then
-        triggerItermShortcut(callback)
+        iTerm.triggerShortcut(callback)
     else
         hs.application.open(iterm)
         hs.timer.doAfter(1, function()
-            triggerItermShortcut(callback)
+            iTerm.triggerShortcut(callback)
         end)
+    end
+end
+
+function iTerm.triggerShortcut(callback)
+    ks.key('`')
+
+    if callback then
+        callback()
     end
 end
 

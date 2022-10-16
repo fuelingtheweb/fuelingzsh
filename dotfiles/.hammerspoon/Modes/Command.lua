@@ -21,7 +21,7 @@ Command.lookup = {
     left_shift = nil,
     z = nil,
     x = 'cancelOrDelete',
-    c = nil,
+    c = 'renameFile',
     v = 'duplicateLine',
     b = nil,
     spacebar = 'startTask',
@@ -71,6 +71,9 @@ function Command.reload()
         ks.shiftAltCmd('r')
     elseif is.In(postman) then
         ks.cmd('return')
+    elseif is.In(tinkerwell) then
+        ks.ctrl('l')
+        ks.refresh()
     elseif is.iterm() then
         -- Run last command
         ks.up().enter()
@@ -140,10 +143,10 @@ function Command.finish()
     elseif is.googleSheet() then
         ks.enter().up()
     elseif is.iterm() then
-        if fn.window.titleContains('git:log') then
-            ks.key('q')
-        elseif fn.window.titleContains('git:checkout') or fn.window.titleContains('git:branch.delete') then
+        if fn.window.titleContains('git:checkout') or fn.window.titleContains('git:branch.delete') then
             ks.escape()
+        elseif fn.window.titleContains('. git:') or fn.window.titleContains('. git ') then
+            ks.key('q')
         else
             ks.ctrl('c')
         end
@@ -161,6 +164,8 @@ function Command.save()
     elseif is.iterm() then
         -- Save from Vim
         ks.shift(';').key('x').enter()
+    elseif is.In(youtubeMusic) then
+        ks.shift('=')
     else
         ks.save()
 
@@ -185,6 +190,8 @@ function Command.cancelOrDelete()
         ks.shift('3')
     elseif is.iterm() then
         ks.ctrl('c')
+    elseif is.In(youtubeMusic) then
+        ks.shift('-')
     else
         ks.delete()
     end
@@ -199,6 +206,14 @@ function Command.newTask()
         ks.alt('return')
     else
         ks.cmd('return')
+    end
+end
+
+function Command.renameFile()
+    if is.vscode() then
+        TextManipulation.disableVim()
+        fn.Code.run('File Utils: Rename')
+        hs.timer.doAfter(0.4, TextManipulation.disableVim)
     end
 end
 

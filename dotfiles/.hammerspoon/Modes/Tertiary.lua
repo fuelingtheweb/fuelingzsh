@@ -6,11 +6,11 @@ Tertiary.lookup = {
     q = nil,
     w = nil,
     e = nil,
-    r = nil,
+    r = 'restart',
     t = nil,
     caps_lock = nil,
     a = nil,
-    s = nil,
+    s = 'shutdown',
     d = nil,
     f = nil,
     g = nil,
@@ -25,6 +25,14 @@ Tertiary.lookup = {
 
 function Tertiary.vscodeExtensions()
     ks.shiftCmd('x')
+end
+
+function Tertiary.restart()
+    fn.Alfred.search('restart')
+end
+
+function Tertiary.shutdown()
+    fn.Alfred.search('shutdown')
 end
 
 return Tertiary

@@ -1,6 +1,9 @@
 local Window = {}
 Window.__index = Window
 
+Modal.load('Window')
+Modal.load('Amethyst')
+
 Window.scrolling = false
 Window.HalfsAndThirds = hs.loadSpoon('vendor/WindowHalfsAndThirds')
 
@@ -28,8 +31,12 @@ function Window.moveToCenter()
 end
 
 function Window.moveToNextDisplay()
-    hs.grid.set(hs.window.focusedWindow(), '0,0 12x4')
-    hs.window.focusedWindow():moveToScreen(hs.screen.mainScreen():next())
+    local window = Window.current()
+
+    hs.grid.set(window, '0,0 12x4')
+    window:moveToScreen(Window.nextScreen())
+
+    Window.centerMouseOnScreen(window:screen())
 end
 
 function Window.reset()
@@ -61,34 +68,71 @@ function Window.next()
     end
 end
 
-function Window.nextInCurrentApp()
-    md.Open.windowHintsForCurrentApplication()
-    ks.key('b')
+function Window.nextScreen()
+    return Window.currentScreen():next()
+end
 
-    local windows = hs.fnutils.filter(
-        hs.window.filter
-        .new({hs.application.frontmostApplication():name()})
-        :getWindows(hs.window.filter.sortByFocusedLast),
+function Window.currentScreen()
+    return hs.mouse.getCurrentScreen()
+end
+
+function Window.currentApp()
+    return hs.application.frontmostApplication()
+end
+
+function Window.current()
+    return hs.window.focusedWindow()
+end
+
+function Window.filtered(screen, app, exceptWindow)
+    return hs.fnutils.filter(
+        hs.window.orderedWindows(),
         function(window)
-            return window:title()
+            if screen and window:screen():id() ~= screen:id() then
+                return false;
+            end
+
+            if app and window:application() ~= app then
+                return false;
+            end
+
+            if exceptWindow and window:id() == exceptWindow:id() then
+                return false;
+            end
+
+            return true
         end
     )
+end
 
-    local nextWin = windows[2]
+function Window.centerMouseOnScreen(screen)
+    hs.mouse.setAbsolutePosition(
+        hs.geometry.rectMidPoint(
+            screen:fullFrame()
+        )
+    )
+end
 
-    if not nextWin or nextWin:title() == fn.window.title() then
-        nextWin = windows[1]
+function Window.focusFirst(windows, app)
+    local fallbackWindow = app and app:mainWindow() or nil
+    local window = #windows > 0 and windows[1] or fallbackWindow
+
+    if window then
+        window:becomeMain()
+        window:application():activate()
+
+        Window.centerMouseOnScreen(window:screen())
     end
 
-    if not nextWin then
-        return
+    if app then
+        app:activate()
     end
+end
 
-    if nextWin:isMinimized() then
-        nextWin:unminimize()
-    else
-        nextWin:focus()
-    end
+function Window.nextInCurrentApp()
+    Window.focusFirst(
+        Window.filtered(Window.currentScreen(), Window.currentApp(), Window.current())
+    )
 end
 
 function Window.settings()
@@ -100,10 +144,8 @@ function Window.settings()
 end
 
 function Window.moveMouseToOtherScreen()
-    hs.mouse.setAbsolutePosition(
-        hs.geometry.rectMidPoint(
-            hs.mouse.getCurrentScreen():next():fullFrame()
-        )
+    Window.focusFirst(
+        Window.filtered(Window.nextScreen())
     )
 end
 
@@ -177,8 +219,16 @@ function Window.destroy()
                 app:hide()
             end
         end)
-    elseif is.In(tableplus, discord, tinkerwell, invoker, 'com.apple.ActivityMonitor', 'md.obsidian',
-        'com.flexibits.fantastical2.mac') then
+    elseif is.In({
+        tableplus,
+        discord,
+        tinkerwell,
+        invoker,
+        youtubeMusic,
+        'com.apple.ActivityMonitor',
+        'md.obsidian',
+        'com.flexibits.fantastical2.mac',
+    }) then
         Window.quitApplication()
     elseif is.codeEditor() or is.sublimeMerge() then
         ks.shiftCmd('w')
@@ -261,6 +311,10 @@ end
 
 function Window.amethystModal()
     Modal.enter('Amethyst')
+end
+
+function Window.new()
+    ks.shiftCmd('n')
 end
 
 return Window

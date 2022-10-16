@@ -35,15 +35,15 @@ function Test.class()
 end
 
 function Test.allInIterm()
-    ProjectManager.openItermForCurrent()
-
-    hs.timer.doAfter(0.2, function()
-        ks.typeAndEnter('t')
+    fn.iTerm.launch(function()
+        hs.timer.doAfter(0.1, function()
+            ks.typeAndEnter('t')
+        end)
     end)
 end
 
 function Test.allInEditor()
-    ks.super('t')
+    ks.ctrlAlt('l')
 end
 
 function Test.last()

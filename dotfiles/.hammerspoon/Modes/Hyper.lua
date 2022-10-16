@@ -79,7 +79,7 @@ function Hyper.open()
             ks.cmd('l')
         end
     elseif is.iterm() then
-        ks.type('cd ')
+        ks.type('wd ')
     else
         ks.cmd('o')
     end
@@ -144,8 +144,17 @@ function Hyper.pasteStrip()
 end
 
 function Hyper.forceEscape()
-    md.Test.hideOutput()
-    ks.escape().escape()
+    if cm.Window.scrolling then
+        ks.escape()
+
+        hs.timer.doAfter(0.2, function()
+            md.Test.hideOutput()
+            ks.escape().escape()
+        end)
+    else
+        md.Test.hideOutput()
+        ks.escape().escape()
+    end
 end
 
 function Hyper.cheatsheets()
@@ -179,6 +188,8 @@ end
 function Hyper.i()
     if fn.Alfred.visible() then
         ks.cmd('2')
+    elseif is.iterm() then
+        ks.type('cd ')
     else
         cm.Search.symbol()
     end

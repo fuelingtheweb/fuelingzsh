@@ -6,20 +6,20 @@ ExtendedCommand.lookup = {
     q = nil,
     w = nil,
     e = nil,
-    r = fn.custom.openClientProject,
+    r = nil,
     t = nil,
     caps_lock = fn.custom.openTasks,
-    a = nil,
-    s = nil,
+    a = cm.Window.amethystModal,
+    s = 'cleanshot',
     d = fn.custom.openHammerspoonConfig,
     f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = 'toggleRunOnSave',
     z = nil,
     x = 'screenshotToFilesystem',
-    c = 'screenshotToClipboard',
+    c = fn.custom.openClientProject,
     v = nil,
-    b = nil,
+    b = 'screenshotToClipboard',
     spacebar = nil,
 }
 
@@ -70,6 +70,10 @@ function ExtendedCommand.toggleUseIgnoreFiles()
         title = useIgnoreFilesEnabled and 'Enabled' or 'Disabled',
         informativeText = 'Search: Use Ignore Files'
     }):send()
+end
+
+function ExtendedCommand.cleanshot()
+    ks.shiftCmd('5')
 end
 
 return ExtendedCommand

@@ -1,9 +1,6 @@
 local Window = {}
 Window.__index = Window
 
-Modal.load('Window')
-Modal.load('Amethyst')
-
 Window.lookup = {
     tab = cm.Window.moveToCenter,
     q = cm.Window.quitApplication,
@@ -41,7 +38,7 @@ Window.lookup = {
     n = cm.Window.bottomLeft,
     m = cm.Window.focusActiveEditor,
     comma = cm.Window.bottomRight,
-    period = cm.Window.amethystModal,
+    period = cm.Window.new,
     slash = nil,
     right_shift = nil,
 }

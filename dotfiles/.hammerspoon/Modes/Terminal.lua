@@ -5,7 +5,7 @@ Terminal.lookup = {
     y = nil,
     u = nil,
     i = 'allTests',
-    o = nil,
+    o = 'jumpToFolder',
     p = nil,
     open_bracket = 'buildFresh',
     close_bracket = nil,
@@ -20,7 +20,7 @@ Terminal.lookup = {
     m = 'clear',
     comma = nil,
     period = nil,
-    slash = 'navigate',
+    slash = nil,
     right_shift = nil,
     spacebar = nil,
 }
@@ -31,10 +31,6 @@ end
 
 function Terminal.list()
     ks.typeAndEnter('ll')
-end
-
-function Terminal.navigate()
-    ks.type('cd ')
 end
 
 function Terminal.clear()

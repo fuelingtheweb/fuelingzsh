@@ -41,11 +41,23 @@ function mdl.tallLayout()
 end
 
 function mdl.focusSpace1()
+    Modal.exit()
+
     ks.ctrl('1')
+
+    hs.timer.doAfter(0.2, function()
+        Modal.enter('Amethyst')
+    end)
 end
 
 function mdl.focusSpace2()
+    Modal.exit()
+
     ks.ctrl('2')
+
+    hs.timer.doAfter(0.2, function()
+        Modal.enter('Amethyst')
+    end)
 end
 
 function mdl.fullscreenLayout()
@@ -93,7 +105,7 @@ function mdl.close()
 end
 
 function mdl.destroy()
-    spoon.Hyper.destroy()
+    cm.Window.destroy()
 end
 
 function mdl.swapFocusedWindowCounterClockwise()

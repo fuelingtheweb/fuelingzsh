@@ -104,7 +104,9 @@ function Yank.untilBackward()
 end
 
 function Yank.all()
-    if is.codeEditor() then
+    if is.chrome() then
+        ks.cmd('a').slow().copy().escape().sequence({'g', 'g'})
+    elseif is.codeEditor() then
         ks.cmd('a').copy().escape().sequence({'g', 'g'})
     else
         ks.cmd('a').slow().copy().right()
