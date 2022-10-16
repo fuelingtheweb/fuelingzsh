@@ -16,6 +16,7 @@ alias gc='git:commit'
 alias gch='git commit --help'
 alias gcm='git commit --amend --no-edit'
 alias gcme='git commit --amend'
+alias gcnv='git commit --no-verify -m'
 
 alias gcp='git cherry-pick'
 alias gcph='git cherry-pick --help'
@@ -56,6 +57,9 @@ alias gma='git merge --abort'
 
 alias gms='git solo'
 alias gmw='git mob'
+alias gml='git mob --list'
+alias gmeco='code ~/.git-coauthors'
+alias gmsco='git suggest-coauthors'
 
 alias go='git:checkout'
 alias goh='git checkout --help'
@@ -132,10 +136,10 @@ function git:is-in-repo() {
 
 function git:checkout() {
   if [ "$1" ]; then
-    git checkout "$1"
+    git checkout "$@"
   else
     local branches branch
-    branches=$(git branch --no-color | grep -v HEAD) &&
+    branches=$(git branch --no-color | grep -v HEAD | grep -v '^* ' | grep -v '^  main' | grep -v '^  master' | grep -v '^  develop') &&
     branch=$(echo "$branches" |
              fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
@@ -184,14 +188,14 @@ function git:branch.rename() {
 
 function git:branch.delete() {
   local branches branch
-  branches=$(git branch -vv --no-color) &&
+  branches=$(git branch -vv --no-color | grep -v '^* ' | grep -v '^  main' | grep -v '^  master' | grep -v '^  develop') &&
   branch=$(echo "$branches" | fzf +m) &&
   git branch -d $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
 function git:branch.force-delete() {
   local branches branch
-  branches=$(git branch -vv --no-color) &&
+  branches=$(git branch -vv --no-color | grep -v '^* ' | grep -v '^  main' | grep -v '^  master' | grep -v '^  develop') &&
   branch=$(echo "$branches" | fzf +m) &&
   git branch -D $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }

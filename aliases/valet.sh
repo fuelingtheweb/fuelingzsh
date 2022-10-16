@@ -6,6 +6,7 @@ alias vl='valet links'
 alias vrm='valet unlink'
 
 alias vs='valet secure'
+alias vus='valet unsecure'
 alias vr='valet restart'
 alias vo='valet open'
 alias vo='valet open'

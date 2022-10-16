@@ -1,6 +1,7 @@
 source $ALIASES/misc.sh
 source $ALIASES/files-folders.sh
 source $ALIASES/file-editing.sh
+source $ALIASES/cd.sh
 
 source $ALIASES/misc-dev.sh
 source $ALIASES/composer.sh

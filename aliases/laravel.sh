@@ -54,9 +54,9 @@ ammam() {
     artisan make:mail "$1" --markdown "$2"
 }
 alias ammi='artisan make:middleware'
-alias ammg='artisan make:migration'
+alias ammg='artisan make:migration --fullpath'
 ammgc() {
-    artisan make:migration "create_$1_table" --create "$1"
+    ammg "create_$1_table" --create "$1"
 }
 alias ammd='artisan make:model'
 alias amn='artisan make:notification'

@@ -16,3 +16,9 @@ phpmd:run() {
 }
 alias pmd='phpmd:run'
 alias pmdo='br ./phpmd.html'
+
+alias csf='php-cs-fixer fix --verbose --diff'
+alias csfi='php-cs-fixer fix --verbose'
+alias csd='php-cs-fixer fix --verbose --diff --dry-run'
+alias csdi='php-cs-fixer fix --verbose --dry-run'
+alias cssu='php-cs-fixer self-update'
