@@ -2,7 +2,7 @@ function db:create () { mysql -uroot -e "create database $1" }
 function db:create:57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "create database $1" }
 function pg:create () { createdb $1 }
 function db:drop () { mysql -uroot -e "drop database $1" }
-function db:create:57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "drop database $1" }
+function db:drop:57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "drop database $1" }
 function db:export () { mysqldump -u root $1 > ~/Downloads/$1.sql }
 function db:export:57 () { mysqldump -uroot --host=127.0.0.1 --port=33067 $1 > ~/Downloads/$1.sql }
 function db:refresh () {
