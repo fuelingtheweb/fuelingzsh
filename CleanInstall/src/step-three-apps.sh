@@ -149,4 +149,5 @@ pause
 info 'Open Chrome.'
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "https://google.com" --profile-directory="Default"
 info '- Hide extensions in Chrome menu.'
+info '- Make sure the YouTube Music app is installed and allow javascript from apple events. https://github.com/beardedspice/beardedspice/issues/818'
 pause
