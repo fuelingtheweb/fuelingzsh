@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python "$HOME/.fuelingzsh/karabiner/goku/compile.py" > $HOME/.fuelingzsh/karabiner/karabiner.edn
+python3 "$HOME/.fuelingzsh/karabiner/goku/compile.py" > $HOME/.fuelingzsh/karabiner/karabiner.edn
 
 echo 'Success!'
