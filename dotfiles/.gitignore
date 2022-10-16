@@ -1,3 +1,6 @@
+__resources
+
+.obsidian
 .editor-settings
 .vscode
 
@@ -35,5 +38,3 @@ Session.vim
 # SASS
 # ----------------------------------------------------------------------------------------------
 .sass-cache
-
-.obsidian
