@@ -74,7 +74,7 @@ function Command.reload()
     elseif is.In(tinkerwell) then
         ks.ctrl('l')
         ks.refresh()
-    elseif is.iterm() then
+    elseif is.terminal() then
         -- Run last command
         ks.up().enter()
     else
@@ -114,7 +114,7 @@ function Command.finish()
             ks.alt('d').slow().save()
         elseif fn.window.titleContains('.git/COMMIT_EDITMSG') or fn.window.titleContains('.git/MERGE_MSG') then
             ks.slow().save().slow().close()
-            fn.iTerm.launch()
+            -- hs.application.launchOrFocusByBundleID(warp)
         elseif fn.window.titleContains('Untitled-') then
             md.Yank.all()
 
@@ -142,10 +142,10 @@ function Command.finish()
         ks.enter()
     elseif is.googleSheet() then
         ks.enter().up()
-    elseif is.iterm() then
+    elseif is.terminal() then
         if fn.window.titleContains('git:checkout') or fn.window.titleContains('git:branch.delete') then
             ks.escape()
-        elseif fn.window.titleContains('. git:') or fn.window.titleContains('. git ') then
+        elseif fn.window.titleContains('git:') or fn.window.titleContains('. git ') then
             ks.key('q')
         else
             ks.ctrl('c')
@@ -159,9 +159,12 @@ end
 
 function Command.save()
     if is.chrome() then
-        -- Save to Raindrop
+        -- Save to Reader
         ks.shiftCmd('s')
-    elseif is.iterm() then
+    elseif is.In(sigma) then
+        -- Save to Reader
+        ks.key('e').key('1')
+    elseif is.terminal() then
         -- Save from Vim
         ks.shift(';').key('x').enter()
     elseif is.In(youtubeMusic) then
@@ -178,7 +181,9 @@ end
 function Command.cancelOrDelete()
     local text = str.selected()
 
-    if text then
+    if is.In(anybox) then
+        ks.cmd('delete')
+    elseif text then
         ks.delete()
     elseif is.vscode() and is.todo() then
         ks.alt('c')
@@ -188,7 +193,7 @@ function Command.cancelOrDelete()
         ks.cmd('delete')
     elseif is.gmail() then
         ks.shift('3')
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.ctrl('c')
     elseif is.In(youtubeMusic) then
         ks.shift('-')

@@ -36,6 +36,8 @@ Cheatsheets.lookupApps = {
     iterm = 't',
     slack = 's',
     chrome = 'g',
+    sigma = 'g',
+    warp = 't',
     default = 'return',
 }
 
@@ -55,7 +57,7 @@ function Cheatsheets.items()
             local nestedItems = {}
 
             fn.each(mode, function(mode, app)
-                nestedItems[ Cheatsheets.lookupApps[app] ] = {
+                nestedItems[Cheatsheets.lookupApps[app]] = {
                     name = app,
                     title = app,
                     key = app,
@@ -93,9 +95,14 @@ function Cheatsheets.nestedItems(mode)
     fn.each(md[mode].lookup or {}, function(method, key)
         name = (
             (key == 'left_shift' and '(left_shift) ' or nil)
-                or (key == 'right_shift' and '(right_shift) ' or '')
-            ) .. (is.String(method) and method or '')
-        items[Cheatsheets.lookupKeys[key] or key] = {name = name, mode = mode, actionKey = key}
+            or (key == 'right_shift' and '(right_shift) ' or '')
+        ) .. (is.String(method) and method or '')
+
+        items[Cheatsheets.lookupKeys[key] or key] = {
+            name = name,
+            mode = mode,
+            actionKey = key,
+        }
     end)
 
     return items

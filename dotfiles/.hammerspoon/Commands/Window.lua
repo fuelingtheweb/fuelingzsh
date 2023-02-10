@@ -121,7 +121,9 @@ function Window.focusFirst(windows, app)
         window:becomeMain()
         window:application():activate()
 
-        Window.centerMouseOnScreen(window:screen())
+        if hs.mouse.getCurrentScreen():id() ~= window:screen():id() then
+            Window.centerMouseOnScreen(window:screen())
+        end
     end
 
     if app then
@@ -152,6 +154,10 @@ end
 function Window.toggleSidebar()
     if is.finder() then
         ks.altCmd('s')
+    elseif is.In(sigma) then
+        ks.cmd('left')
+    elseif is.In(anybox) then
+        ks.ctrlCmd('s')
     elseif is.sublimeMerge() then
         ks.cmd('k').cmd('b')
     elseif is.In(slack) then
@@ -315,6 +321,14 @@ end
 
 function Window.new()
     ks.shiftCmd('n')
+end
+
+function Window.focusActivePullRequest()
+    ks.shiftCtrlCmd('r').shiftCtrlCmd('a')
+end
+
+function Window.focusAllPullRequests()
+    ks.shiftCtrlCmd('r').shiftCtrlCmd('r')
 end
 
 return Window

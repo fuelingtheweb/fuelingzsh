@@ -57,21 +57,7 @@ function Execute.openPath()
         return
     end
 
-    ks.escape().sequence({'y', 'i', "'"})
-
-    hs.timer.doAfter(0.2, function()
-        local path = fn.clipboard.get()
-
-        if not str.contains('/', path) then
-            path = path:gsub('%.', '/')
-        end
-
-        path = path:gsub('^/', '')
-
-        hs.timer.doAfter(0.4, function()
-            fn.Code.openFile(path)
-        end)
-    end)
+    ks.alt('p')
 end
 
 function Execute.nextOccurrence()

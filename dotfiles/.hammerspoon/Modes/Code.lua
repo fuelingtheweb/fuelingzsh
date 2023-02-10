@@ -163,7 +163,7 @@ function Code.comment()
 end
 
 function Code.selectAll()
-    if is.iterm() then
+    if is.terminal() then
         ks.typeAndEnter('ci')
     elseif is.sublimeMerge() then
         ks.shiftEnter()

@@ -28,13 +28,13 @@ Modal.add({
         if item.method == 'primary' then
             if is.vscode() and fn.window.titleContains('Test.php') then
                 md.CodeSnippets.snippet('method-test')
-                md.CaseDialog.handle('k')
+                -- md.CaseDialog.handle('k')
             elseif is.codeEditor() then
                 md.CodeSnippets.snippet('method')
 
-                if is.php() then
-                    md.CaseDialog.handle('m')
-                end
+                -- if is.php() then
+                --     md.CaseDialog.handle('m')
+                -- end
             end
 
             return
@@ -42,9 +42,9 @@ Modal.add({
 
         md.CodeSnippets.snippet('method-' .. item.method)
 
-        if is.php() then
-            md.CaseDialog.handle('m')
-        end
+        -- if is.php() then
+        --     md.CaseDialog.handle('m')
+        -- end
     end,
 })
 

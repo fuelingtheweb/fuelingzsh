@@ -2,6 +2,8 @@ local Calculator = {}
 Calculator.__index = Calculator
 
 Calculator.lookup = {
+    b = ',',
+
     y = ks.build('shift', '8'), -- *
     u = '1',
     i = '2',

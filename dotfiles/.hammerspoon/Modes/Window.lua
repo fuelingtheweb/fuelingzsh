@@ -39,8 +39,8 @@ Window.lookup = {
     m = cm.Window.focusActiveEditor,
     comma = cm.Window.bottomRight,
     period = cm.Window.new,
-    slash = nil,
-    right_shift = nil,
+    slash = cm.Window.focusActivePullRequest,
+    right_shift = cm.Window.focusAllPullRequests,
 }
 
 return Window

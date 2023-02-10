@@ -4,7 +4,7 @@ Test.__index = Test
 Test.lookup = {
     y = nil,
     u = nil,
-    i = 'allInIterm',
+    i = 'allInTerminal',
     o = nil,
     p = nil,
     open_bracket = nil,
@@ -34,11 +34,11 @@ function Test.class()
     ks.altCmd('t')
 end
 
-function Test.allInIterm()
-    fn.iTerm.launch(function()
-        hs.timer.doAfter(0.1, function()
-            ks.typeAndEnter('t')
-        end)
+function Test.allInTerminal()
+    hs.application.launchOrFocusByBundleID(warp)
+
+    hs.timer.doAfter(0.1, function()
+        ks.typeAndEnter('t')
     end)
 end
 

@@ -22,7 +22,7 @@ Modal.add({
 })
 
 function OpenIn.inSublimeMerge()
-    if is.iterm() then
+    if is.terminal() then
         ks.typeAndEnter('smerge .')
     else
         local path = fn.window.path()
@@ -42,7 +42,7 @@ function OpenIn.inSublimeMerge()
 end
 
 function OpenIn.inCode()
-    if is.iterm() then
+    if is.terminal() then
         ks.typeAndEnter('code .')
     else
         local path = fn.window.path()
@@ -77,7 +77,7 @@ function OpenIn.inTablePlus()
 end
 
 function OpenIn.inFinder()
-    if is.iterm() then
+    if is.terminal() then
         ks.typeAndEnter('o.')
     else
         local path = fn.window.path()
@@ -91,7 +91,7 @@ function OpenIn.inFinder()
 end
 
 function OpenIn.inTinkerwell()
-    if is.iterm() then
+    if is.terminal() then
         return ks.typeAndEnter('tinkerwell .')
     end
 

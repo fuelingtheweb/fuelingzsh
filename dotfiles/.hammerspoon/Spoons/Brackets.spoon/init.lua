@@ -138,7 +138,10 @@ function Brackets.print(bracket)
             -- end
         end)
     else
-        ks.left()
+        hs.timer.doAfter(0.01, function()
+            ks.left()
+        end)
+        -- ks.left()
 
         -- if not text and (bracket == 'parenthesis') then
         --     Brackets.start()

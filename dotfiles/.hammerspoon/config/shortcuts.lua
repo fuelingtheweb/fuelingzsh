@@ -1,7 +1,9 @@
 Shortcuts
-    :add('W', {slack = function()
-        fn.Slack.react(':wave:')
-    end})
+    :add('W', {
+        slack = function()
+            fn.Slack.react(':wave:')
+        end
+    })
     :add('R', {
         slack = fn.Slack.react,
         vscode = function()
@@ -51,6 +53,7 @@ Shortcuts
     })
     :add('Z', {
         iterm = 'wd fz',
+        warp = 'wd fz',
         vscode = function()
             if is.hammerspoon() then
                 md.Hyper.open()
@@ -63,6 +66,7 @@ Shortcuts
     })
     :add('D', {
         iterm = 'wd d',
+        warp = 'wd d',
         vscode = function()
             if is.malachor() then
                 return fn.custom.openDigitalCreativity()

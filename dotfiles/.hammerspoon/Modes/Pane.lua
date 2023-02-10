@@ -28,7 +28,7 @@ Pane.lookup = {
 function Pane.destroy()
     if is.vscode() then
         ks.super('p').super('d')
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.close()
     end
 end
@@ -36,7 +36,7 @@ end
 function Pane.splitRight()
     if is.vscode() then
         ks.super('p').super('l')
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.cmd('d')
     end
 end

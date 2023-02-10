@@ -4,14 +4,14 @@ Yarn.__index = Yarn
 Yarn.lookup = {
     tab = nil,
     q = nil,
-    w = 'yw',
+    w = 'ynw',
     e = nil,
     r = nil,
     t = nil,
-    caps_lock = 'yi',
+    caps_lock = 'yni',
     a = nil,
     s = nil,
-    d = 'yd',
+    d = 'ynd',
     f = nil,
     g = nil,
     left_shift = nil,
@@ -19,7 +19,7 @@ Yarn.lookup = {
     x = nil,
     c = nil,
     v = nil,
-    b = 'yp',
+    b = 'ynp',
     spacebar = nil,
 }
 

@@ -75,6 +75,13 @@ function Search.window()
     end
 end
 
+function Search.tabs()
+    if is.codeEditor() then
+        ks.shiftAltCmd('tab')
+        TextManipulation.disableVim()
+    end
+end
+
 hs.urlevent.bind('window-focus', function(eventName, params)
     hs.window(tonumber(params.id)):focus()
 end)

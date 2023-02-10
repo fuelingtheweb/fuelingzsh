@@ -6,12 +6,13 @@ Modal.loadCustom('Bookmarks.Index')
 Modal.load('OpenIn')
 
 Open.lookup = {
-    tab = 'music',
+    tab = 'iterm',
     r = 'vscode',
     w = 'openInModal',
     e = 'tinkerwell',
-    q = 'Ray.app',
-    t = 'iterm',
+    -- q = 'Ray.app',
+    q = 'sigma',
+    t = 'warp',
     caps_lock = 'windowHints',
     a = 'openAppModal',
     s = 'slack',
@@ -35,7 +36,7 @@ Modal.add({
         t = {name = 'Transmit', app = 'Transmit.app'},
         -- yu
         i = {name = 'Invoker', app = 'invoker'},
-        -- o
+        o = {name = 'Pop', app = 'Pop.app'},
         p = {name = 'System Preferences', app = 'System Preferences.app'},
         a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
         s = {name = 'Spotify', app = 'spotify'},
@@ -45,7 +46,8 @@ Modal.add({
         -- j
         k = {name = 'Kaleidoscope', app = 'Kaleidoscope.app'},
         -- lzxcvbn
-        m = {name = 'reMarkable', app = 'reMarkable.app'}
+        b = {name = 'Anybox', app = 'Anybox.app'},
+        m = {name = 'reMarkable', app = 'reMarkable.app'},
     },
     callback = function(item)
         Modal.exit()

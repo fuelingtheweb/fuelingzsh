@@ -4,6 +4,16 @@ Window.__index = Window
 local windows = {}
 
 function Window.titleContains(needle)
+    -- if is.In(sigma) then
+    --     url = fn.clipboard.preserve(function()
+    --             ks.cmd('l')
+    --         end)
+
+    --     -- hs.timer.doAfter(1, function()
+    --     return str.contains(needle:gsub('-', '%%-'), url)
+    --     -- end)
+    -- end
+
     return str.contains(needle:gsub('-', '%%-'), Window.title())
 end
 

@@ -34,7 +34,11 @@ function Terminal.list()
 end
 
 function Terminal.clear()
-    ks.typeAndEnter('clear')
+    if is.In(warp) then
+        ks.cmd('k')
+    else
+        ks.typeAndEnter('clear')
+    end
 end
 
 function Terminal.autocompleteNextWord()

@@ -2,14 +2,17 @@ local App = {}
 App.__index = App
 
 App.bundles = {
+    anybox = 'cc.anybox.Anybox',
     chrome = 'com.google.Chrome',
     discord = 'com.hnc.Discord',
     finder = 'com.apple.finder',
     invoker = 'de.beyondco.invoker',
     iterm = 'com.googlecode.iterm2',
+    pop = 'com.pop.pop.app',
     postman = 'com.postmanlabs.mac',
     preview = 'com.apple.Preview',
     rayapp = 'be.spatie.ray',
+    sigma = 'com.sigmaos.sigmaos.macos',
     slack = 'com.tinyspeck.slackmacgap',
     spotify = 'com.spotify.client',
     sublimeMerge = 'com.sublimemerge',
@@ -17,6 +20,7 @@ App.bundles = {
     tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
     vscode = 'com.microsoft.VSCode',
+    warp = 'dev.warp.Warp-Stable',
     youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
     zoom = 'us.zoom.xos',
 }

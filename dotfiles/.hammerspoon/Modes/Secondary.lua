@@ -2,7 +2,7 @@ local Secondary = {}
 Secondary.__index = Secondary
 
 Secondary.lookup = {
-    tab = nil,
+    tab = cm.Search.tabs,
     q = 'toggleAppKeybindWindow',
     w = nil,
     e = 'espansoSearch',
@@ -47,7 +47,7 @@ function Secondary.reloadSecondary()
     if is.chrome() then
         -- Hard refresh
         ks.shiftCmd('r')
-    elseif is.iterm() then
+    elseif is.terminal() then
         -- Reload running command
         ks.ctrl('c').up().enter()
     end

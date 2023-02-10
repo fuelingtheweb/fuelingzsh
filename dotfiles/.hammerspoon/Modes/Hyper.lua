@@ -51,6 +51,8 @@ function Hyper.copy()
         fn.clipboard.set(text)
     elseif is.chrome() then
         fn.Chrome.copyUrl()
+    elseif is.In(sigma) then
+        ks.cmd('l')
     elseif is.codeEditor() then
         md.Yank.relativeFilePath()
     end
@@ -63,6 +65,8 @@ function Hyper.open()
         if is.codeEditor() then
             TextManipulation.disableVim()
         end
+    elseif is.In(anybox) then
+        ks.cmd('p')
     elseif is.In(discord, slack) then
         ks.cmd('k')
     elseif is.In(spotify) then
@@ -78,7 +82,7 @@ function Hyper.open()
         else
             ks.cmd('l')
         end
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.type('wd ')
     else
         ks.cmd('o')
@@ -101,6 +105,10 @@ function Hyper.commandPalette()
         if is.codeEditor() then
             TextManipulation.disableVim()
         end
+    elseif is.In(warp) then
+        ks.cmd('p')
+    elseif is.In(anybox) then
+        ks.cmd('k')
     else
         fn.Alfred.run('search', 'com.tedwise.menubarsearch')
     end
@@ -111,7 +119,7 @@ function Hyper.previousPage()
         ks.altCmd('left')
     elseif is.In(discord) then
         ks.cmd('k').enter()
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.typeAndEnter('cdp')
     else
         ks.cmd('[')
@@ -126,6 +134,9 @@ function Hyper.nextPage()
         hs.timer.doAfter(0.1, function()
             ks.super(';')
         end)
+    elseif is.warp() then
+        -- Autocomplete to the end of the line
+        ks.ctrl('f')
     else
         ks.cmd(']')
     end
@@ -144,7 +155,9 @@ function Hyper.pasteStrip()
 end
 
 function Hyper.forceEscape()
-    if cm.Window.scrolling then
+    if is.In(warp) then
+        ks.ctrl('r')
+    elseif cm.Window.scrolling then
         ks.escape()
 
         hs.timer.doAfter(0.2, function()
@@ -188,7 +201,7 @@ end
 function Hyper.i()
     if fn.Alfred.visible() then
         ks.cmd('2')
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.type('cd ')
     else
         cm.Search.symbol()

@@ -35,7 +35,7 @@ end
 
 function Git.reset()
     if is.vscode() then
-        Git.nextGitConflict()
+        Git.nextChange()
     else
         ks.typeAndEnter('grs')
     end
@@ -49,6 +49,22 @@ function Git.previousGitConflict()
     ks.shiftAltCmd('g').shiftAltCmd('k')
 end
 
+function Git.nextChange()
+    ks.super('g').altCmd('j')
+end
+
+function Git.previousChange()
+    ks.super('g').altCmd('k')
+end
+
+function Git.markFileAsViewed()
+    ks.super('g').altCmd(']')
+end
+
+function Git.markFileAsNotViewed()
+    ks.super('g').altCmd('[')
+end
+
 function Git.checkout()
     ks.typeAndEnter('git:checkout')
 end
@@ -58,7 +74,11 @@ function Git.checkoutIncludingAll()
 end
 
 function Git.push()
-    ks.typeAndEnter('git push')
+    if is.vscode() then
+        Git.nextGitConflict()
+    else
+        ks.typeAndEnter('git push')
+    end
 end
 
 function Git.status()
@@ -70,7 +90,11 @@ function Git.pull()
 end
 
 function Git.merge()
-    ks.typeAndEnter('gmm')
+    if is.vscode() then
+        Git.markFileAsNotViewed()
+    else
+        ks.typeAndEnter('gmm')
+    end
 end
 
 function Git.rebase()
@@ -83,9 +107,9 @@ function Git.newBranch()
     else
         ks.type('git:branch.new ')
 
-        hs.timer.doAfter(0.1, function()
-            md.CaseDialog.handle('i')
-        end)
+        -- hs.timer.doAfter(0.1, function()
+        --     md.CaseDialog.handle('i')
+        -- end)
     end
 end
 
@@ -106,12 +130,16 @@ function Git.diff()
 end
 
 function Git.stageAll()
-    ks.typeAndEnter('gaa')
+    if is.vscode() then
+        Git.markFileAsViewed()
+    else
+        ks.typeAndEnter('gaa')
+    end
 end
 
 function Git.commit()
     if is.vscode() then
-        Git.nextGitConflict()
+        Git.previousChange()
     else
         ks.type("git:commit ''")
 
@@ -122,7 +150,7 @@ end
 function Git.checkoutMaster()
     if is.vscode() then
         -- ks.super('j').super("'")
-    elseif is.iterm() then
+    elseif is.terminal() then
         ks.typeAndEnter('goml')
     end
 end
@@ -132,11 +160,17 @@ function Git.fetchMaster()
 end
 
 function Git.deleteBranch()
-    ks.typeAndEnter('git:branch.delete')
+    if is.vscode() then
+        ks.super('g').super('m')
+    else
+        ks.typeAndEnter('git:branch.delete')
+    end
 end
 
 function Git.stash()
-    ks.typeAndEnter('gstu')
+    ks.type("git stash -u -m ''")
+
+    hs.timer.doAfter(0.1, ks.left)
 end
 
 function Git.stashApply()

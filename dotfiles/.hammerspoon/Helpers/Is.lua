@@ -25,6 +25,18 @@ function Is.iterm()
     return Is.In(iterm)
 end
 
+function Is.warp()
+    return Is.In(warp)
+end
+
+function Is.terminal()
+    return Is.In(iterm, warp)
+end
+
+function Is.pop()
+    return Is.In(pop)
+end
+
 function Is.vscode()
     return Is.In(vscode)
 end
@@ -94,7 +106,7 @@ function Is.markdown()
 end
 
 function Is.gmail()
-    return Is.chrome() and fn.window.titleContains('Fueling the Web Mail')
+    return (Is.chrome() or Is.In(sigma)) and fn.window.titleContains('Fueling the Web Mail')
 end
 
 function Is.chat()

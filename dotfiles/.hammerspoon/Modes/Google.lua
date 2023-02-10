@@ -50,7 +50,7 @@ function Google.tabManager()
 end
 
 function Google.newBookmark()
-    ks.cmd('d')
+    hs.urlevent.openURL('anybox://quick-save')
 end
 
 function Google.toggleDevTools()
