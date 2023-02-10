@@ -204,6 +204,21 @@
         {
             :des "Modifier: R"
             :rules [:rModifier
+                [:1 [:!STCt :!!1]]
+                [:2 [:!STCt :!!2]]
+                [:3 [:!STCt :!!3]]
+                [:4 [:!STCt :!!4]]
+                [:5 [:!STCt :!!5]]
+                [:6 [:!STCt :!!6]]
+                [:7 [:!STCt :!!7]]
+                [:8 [:!STCt :!!8]]
+                [:9 [:!STCt :!!9]]
+                [:0 [:!STCt :!!0]]
+                [:tab [:!STCt :!!f9]]
+                [:q [:!STCt :!!w]]
+                [:w [:!STCt :!!f17]]
+                [:e [:!STCt :!!r]]
+                [:t [:!STCt :!!y]]
                 [:y [:!STCt :!!u]]
                 [:u [:!STCt :!!i]]
                 [:i [:!STCt :!!o]]
@@ -211,6 +226,12 @@
                 [:p [:!STCt :!!open_bracket]]
                 [:open_bracket [:!STCt :!!close_bracket]]
                 [:close_bracket [:!STCt :!!f11]]
+                [:caps_lock [:!STCt :!!f16]]
+                [:a [:!STCt :!!s]]
+                [:s [:!STCt :!!d]]
+                [:d [:!STCt :!!f]]
+                [:f [:!STCt :!!g]]
+                [:g [:!STCt :!!h]]
                 [:h [:!STCt :!!j]]
                 [:j [:!STCt :!!k]]
                 [:k [:!STCt :!!l]]
@@ -218,6 +239,11 @@
                 [:semicolon [:!STCt :!!quote]]
                 [:quote [:!STCt :!!f10]]
                 [:return_or_enter [:!STCt :!!z]]
+                [:left_shift [:!STCt :!!f15]]
+                [:z [:!STCt :!!x]]
+                [:x [:!STCt :!!c]]
+                [:c [:!STCt :!!v]]
+                [:v [:!STCt :!!b]]
                 [:b [:!STCt :!!n]]
                 [:n [:!STCt :!!f14]]
                 [:m [:!STCt :!!spacebar]]
@@ -997,4 +1023,3 @@
         }
     ]
 }
-

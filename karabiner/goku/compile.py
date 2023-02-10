@@ -9,7 +9,7 @@ simlayers.new('Modifier: tab', 'tabModifier', 'tab', 'all-right')
 simlayers.new('Modifier: Q', 'qModifier', 'q', 'all-right')
 simlayers.available('w')
 simlayers.available('e')
-simlayers.new('Modifier: R', 'rModifier', 'r', 'all-right')
+simlayers.new('Modifier: R', 'rModifier', 'r', 'all')
 simlayers.new('Modifier: T', 'tModifier', 't', 'all-right')
 
 simlayers.new('Modifier: Y', 'yModifier', 'y', 'all-left')
