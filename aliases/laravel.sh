@@ -5,6 +5,8 @@ alias er='envoy run'
 alias edy='envoy run deploy'
 alias ers='envoy run reseed'
 
+alias lsu='ci && cpe && akg && yi && yd'
+
 alias lv='laravel'
 alias lz='laravel-zero'
 alias artisan='php artisan'
@@ -35,9 +37,11 @@ alias amgfs='artisan migrate:fresh --seed'
 alias adbs='artisan db:seed'
 
 # Make
+alias am='artisan make'
 alias amcmd='artisan make:command'
 alias amcom='artisan make:component'
 alias amc='artisan make:controller'
+alias amca='artisan make:cast'
 alias amen='artisan make:enum'
 alias ame='artisan make:event'
 alias amexc='artisan make:exception'

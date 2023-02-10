@@ -12,7 +12,11 @@ alias vo='valet open'
 alias vo='valet open'
 alias vsh='valet share'
 
-alias vl7='valet use php@7.4 --force'
-alias vl8='valet use php@8.0 --force'
+alias vup74='valet use php@7.4 --force'
+alias vup80='valet use php@8.0'
+alias vup81='valet use php@8.1'
+alias vup82='valet use php@8.2'
 
 alias vsu='composer global update laravel/valet && valet install'
+
+alias vpa='valet php artisan'

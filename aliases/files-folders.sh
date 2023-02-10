@@ -35,3 +35,14 @@ cdr() {
 
 alias organize='ll | fpp -ko -ai'
 alias mvf='mv $F'
+
+alias d="wd"
+alias da="wd add"
+alias daf="wd add --force"
+alias drm='wd rm'
+alias ds='wd show'
+alias dl='wd list'
+alias dls='wd ls'
+alias dp='wd path'
+alias dc='wd clean'
+alias dcf='wd clean --force'

@@ -1,57 +1,46 @@
 function yarnOrNpm:get() {
     if [[ -f "package-lock.json" ]]; then
-        echo 'np'
+        echo 'n'
     else
-        echo 'yy'
+        echo 'y'
     fi
 }
 
 yarnOrNpm:run() {
     command="$(yarnOrNpm:get)$1"
     shift
+    echo "Running $command $@"
     $command "$@"
 }
 
-# Yarn
-alias y='yarn'
-alias yv='yarn --version'
-alias yh='yarn help'
-alias yi='yarnOrNpm:run i'
-alias ya='yarnOrNpm:run a'
-alias yad='yarnOrNpm:run ad'
-alias yl='yarnOrNpm:run l'
-alias yu='yarnOrNpm:run u'
-alias yrm='yarnOrNpm:run rm'
-alias yf='yarnOrNpm:run f'
-alias yod='yarnOrNpm:run od'
+# Yarn or NPM
+alias yn='yarnOrNpm:run'
+alias ynv='yarnOrNpm:run v'
+alias ynh='yarnOrNpm:run h'
+alias yni='yarnOrNpm:run i'
+alias yna='yarnOrNpm:run a'
+alias ynad='yarnOrNpm:run ad'
+alias ynl='yarnOrNpm:run l'
+alias ynu='yarnOrNpm:run u'
+alias ynrm='yarnOrNpm:run rm'
+alias ynf='yarnOrNpm:run f'
+alias ynod='yarnOrNpm:run od'
+alias ynr='yarnOrNpm:run r'
+alias ynw='yarnOrNpm:run w'
+alias ynp='yarnOrNpm:run p'
+alias ynd='yarnOrNpm:run d'
 
-yy() {
-    yarn
-}
-yyi() {
-    yarn install
-}
-yya() {
-    yarn add "$@"
-}
-yyad() {
-    yarn add --dev "$@"
-}
-yyl() {
-    yarn list
-}
-yyu() {
-    yarn upgrade "$@"
-}
-yyrm() {
-    yarn remove "$@"
-}
-yyf() {
-    yarn search "$@"
-}
-yyod() {
-    yarn outdated
-}
+# Yarn
+y() {yarn "$@"}
+yv() {yarn --version "$@"}
+yi() {yarn install "$@"}
+ya() {yarn add "$@"}
+yad() {yarn add --dev "$@"}
+yl() {yarn list "$@"}
+yu() {yarn upgrade "$@"}
+yrm() {yarn remove "$@"}
+yf() {yarn search "$@"}
+yod() {yarn outdated "$@"}
 
 alias yga='yarn global add'
 alias ygu='yarn global upgrade'
@@ -60,60 +49,53 @@ alias ygrm='yarn global remove'
 alias yui='yarn upgrade-interactive'
 alias yuil='yui --latest'
 
-alias yr='yarn run'
-alias yp='yarn run prod'
-alias yd='yarn run dev'
-alias yw='yarn run watch'
+yr() {yarn run "$@"}
+yp() {yarn run prod "$@"}
+yd() {yarn run dev "$@"}
+yw() {yarn run watch "$@"}
 alias yt='yarn run test'
 alias ytw='yarn run test:watch'
 alias ys='yarn serve'
 alias yb='yarn build'
-alias ysu='brew upgrade yarn'
+# alias ysu='brew upgrade yarn'
 
 # NPM
-alias np='npm'
-alias npv='npm --version'
-alias nph='npm -l'
-npi() {
-    npm install
-}
-npa() {
-    npm install --save "$@"
-}
-npad() {
-    npm install --save-dev "$@"
-}
-npl() {
-    npm list
-}
-npu() {
-    npm update "$@"
-}
-nprm() {
-    npm uninstall "$@"
-}
-npf() {
-    npm search "$@"
-}
-npod() {
-    npm outdated
-}
+n() {npm --openssl-legacy-provider "$@"}
+nv() {npm --version "$@"}
+nh() {npm -l "$@"}
+ni() {npm --openssl-legacy-provider install "$@"}
+na() {npm --openssl-legacy-provider install --save "$@"}
+nad() {npm --openssl-legacy-provider install --save-dev "$@"}
+nl() {npm list "$@"}
+nu() {npm --openssl-legacy-provider update "$@"}
+nrm() {npm --openssl-legacy-provider uninstall "$@"}
+nf() {npm search "$@"}
+nod() {npm outdated "$@"}
 
-alias npga='npm install -g'
-alias npgu='npm update -g'
-alias npgrm='npm uninstall -g'
+alias nga='npm --openssl-legacy-provider install -g'
+alias ngu='npm --openssl-legacy-provider update -g'
+alias ngrm='npm --openssl-legacy-provider uninstall -g'
 
-# NVM
-alias nv='nvm'
-alias nvv='nvm --version'
-alias nvh='nvm --help'
-alias nva='nvm install'
-alias nvl='nvm ls'
-alias nvrm='nvm uninstall'
+nr() {npm run "$@"}
+np() {npm run prod "$@"}
+nd() {npm run dev "$@"}
+nw() {npm run watch "$@"}
+alias nt='npm run test'
+alias ntw='npm run test:watch'
+alias ns='npm serve'
+alias nb='npm build'
+# alias nsu='brew upgrade yarn'
 
-alias nvc='nvm current'
-alias nval='nvm alias'
-alias nvu='nvm use'
+# Volta
+alias vt='volta'
+alias vtv='volta --version'
+alias vth='volta --help'
+alias vta='volta install'
+alias vtl='volta list'
+alias vtlc='volta list --current'
+alias vtld='volta list --default'
+alias vtrm='volta uninstall'
+alias vtp='volta pin'
 
 # Gulp
 alias gp='gulp'

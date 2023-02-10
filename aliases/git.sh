@@ -103,11 +103,12 @@ alias gsmi='git submodule init'
 alias gsmu='git submodule update'
 
 alias gst='git stash'
+alias gstm='git stash -m'
 alias gstu='git stash -u'
-alias gstl='git stash list'
+alias gstum='git stash -u -m'
+alias gstsm='git stash --staged -m'
+alias gstl='git:stash.list'
 alias gstc='git stash clear'
-alias gstsv='git stash save'
-alias gstsvu='git stash save -u'
 alias gstp='git:stash.pop'
 alias gsta='git:stash.apply'
 alias gsts='git:stash.show'
@@ -290,6 +291,10 @@ function git:status.fuzzy() {
     }
 }
 
+function git:stash.list() {
+    git stash list --stat --format='%n%C(yellow)%gd%Creset %C(blue)(%ch):%Creset %C(magenta)%gs%Creset'
+}
+
 function git:stash.pop() {
     if [ "$1" ]; then
         git stash pop stash@{"$1"}
@@ -308,9 +313,9 @@ function git:stash.apply() {
 
 function git:stash.show() {
     if [ "$1" ]; then
-        git stash show stash@{$1}
+        git stash show -u stash@{$1}
     else
-        git stash show
+        git stash show -u
     fi
 }
 

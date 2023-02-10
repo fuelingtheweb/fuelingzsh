@@ -34,10 +34,10 @@ alias k9='kill -9'
 alias kp='kill -9'
 alias pwdc="pwd | tr -d '\n' | pbcopy && echo 'pwd copied to clipboard'"
 # alias duc='du -hc -d=1 *'
+
 alias o='open'
 alias o.='open .'
-alias wdl='wd list'
-alias wda="wd add"
+
 alias rm='trash'
 alias pls='sudo $(fc -ln -1)'
 alias files:hide='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
@@ -50,3 +50,15 @@ alias cleaninstall="$FUELINGZSH/CleanInstall/start.sh"
 alias pdf:combine="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=merged.pdf"
 alias pdf:compress="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/screen -sOutputFile=small.pdf" # ebook | screen
 alias php:memory="php -r \"echo ini_get('memory_limit').PHP_EOL;\""
+
+tidy() {
+    date=$(date +%Y-%m-%d)
+    folder=~/Documents/Tidy/$date
+
+    mkdir -p $folder
+
+    mv ~/Downloads/* $folder
+
+    open ~/Downloads
+    open $folder
+}

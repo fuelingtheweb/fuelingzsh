@@ -16,6 +16,14 @@ function db:refresh () {
     db:create $1
     db:import $1 $file
 }
+function db:refresh:dump () {
+    folder=${PWD##*/}
+    name=$(echo "$folder" | awk '{print tolower($0)}')
+
+    db:drop $name
+    db:create $name
+    db:import $name ./__resources/db/$name.dump
+}
 function db:import () {
     local file=~/Downloads/$1.sql
 
@@ -34,7 +42,7 @@ function db:refresh:57 () {
 
     db:drop:57 $1
     db:create:57 $1
-    db:import:57 $1 $file
+    db:import:dump:57 $1 $file
 }
 function db:import:57 () {
     local file=~/Downloads/$1.sql

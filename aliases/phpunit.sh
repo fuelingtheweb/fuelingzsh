@@ -8,7 +8,7 @@ alias t='ts'
 
 alias ts='td --stop-on-failure'
 alias ta='td'
-alias tf='td --filter --stop-on-failure'
+alias tf='td --stop-on-failure --filter'
 alias tfa='td --filter'
 
 alias td='phpunit:run --testdox'
