@@ -3,6 +3,8 @@ __resources
 .obsidian
 .editor-settings
 .vscode
+.yarn
+.yarnrc.yml
 
 # OSX       taken from: https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 # ----------------------------------------------------------------------------------------------

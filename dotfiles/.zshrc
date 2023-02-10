@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 ZSH=$HOME/.ohmyzsh
 FUELINGZSH=$HOME/.fuelingzsh
 OPTIONS=$FUELINGZSH/options
@@ -16,17 +14,31 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(copypath copyfile history urltools autojump sublime vi-mode git-flow wd web-search macos laravel5 history-substring-search npm zsh-autosuggestions z fast-syntax-highlighting)
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    ZSH_THEME="powerlevel10k/powerlevel10k"
+else
+    ZSH_THEME="ftw-agnoster"
+fi
+
+plugins=(
+    fast-syntax-highlighting
+    history-substring-search
+    urltools
+    vi-mode
+    wd
+    zsh-autosuggestions
+)
 source $ZSH/oh-my-zsh.sh
 
+# https://volta.sh/
+export VOLTA_HOME=$HOME/.volta
 export KEYTIMEOUT=1
 export VISUAL=subl
 export EDITOR=subl
 export FPP_EDITOR=subl
 export NNN_DE_FILE_MANAGER=open
 export CLICOLOR_FORCE='yes'
-export PATH=$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
+export PATH=$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
 source $OPTIONS/misc.sh
 source $ALIASES/index.sh
 
@@ -36,14 +48,18 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# export NODE_OPTIONS=--openssl-legacy-provider
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-# To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
-source $OPTIONS/p10k.zsh
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    # To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
+    source $OPTIONS/p10k.zsh
+
+    source ~/.iterm2_shell_integration.zsh
+fi
