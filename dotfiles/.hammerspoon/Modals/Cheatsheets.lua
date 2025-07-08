@@ -32,12 +32,16 @@ Cheatsheets.lookupKeys = {
 
 Cheatsheets.lookupApps = {
     tinkerwell = 'e',
+    obsidian = 'r',
     vscode = 'r',
     iterm = 't',
     slack = 's',
     chrome = 'g',
     sigma = 'g',
+    arc = 'g',
+    brave = 'g',
     warp = 't',
+    tableplus = 'v',
     default = 'return',
 }
 

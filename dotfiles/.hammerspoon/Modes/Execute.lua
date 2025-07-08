@@ -2,27 +2,27 @@ local Execute = {}
 Execute.__index = Execute
 
 Execute.lookup = {
-    y = nil,
-    u = 'openFactory',
+    y = 'openFactory',
+    -- u
     i = nil,
     o = 'openLink',
     p = nil,
     open_bracket = nil,
     close_bracket = nil,
     h = nil,
-    j = nil,
-    k = nil,
+    j = 'scrollDown',
+    k = 'scrollUp',
     l = 'goToDefinition',
-    semicolon = nil,
-    quote = nil,
+    semicolon = 'openHerdDumps',
+    quote = 'openHerdLogs',
     return_or_enter = nil,
     n = 'nextOccurrence',
-    m = nil,
+    m = 'openHerdMail',
     comma = nil,
     period = 'openPath',
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = 'openLink',
 }
 
 function Execute.goToDefinition()
@@ -77,6 +77,26 @@ function Execute.openFactory()
     hs.timer.doAfter(0.4, function()
         fn.Code.openFile(text .. 'Factory')
     end)
+end
+
+function Execute.scrollDown()
+    ks.shiftCtrlAlt('j')
+end
+
+function Execute.scrollUp()
+    ks.shiftCtrlAlt('k')
+end
+
+function Execute.openHerdDumps()
+    ks.super('d')
+end
+
+function Execute.openHerdLogs()
+    ks.super('l')
+end
+
+function Execute.openHerdMail()
+    ks.super('m')
 end
 
 return Execute

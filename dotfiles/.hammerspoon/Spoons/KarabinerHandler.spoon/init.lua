@@ -14,6 +14,7 @@ KarabinerHandler.lookup = {
     t = {
         iterm = 'Terminal',
         warp = 'Terminal',
+        obsidian = 'Test',
         vscode = 'Test',
     },
     y = {iterm = 'Yarn', warp = 'Yarn', default = 'Yank'},
@@ -35,6 +36,7 @@ KarabinerHandler.lookup = {
         slack = 'SlackSnippets',
         vscode = 'CodeSnippets',
         tinkerwell = 'CodeSnippets',
+        tableplus = 'DatabaseSnippets',
         default = 'DefaultSnippets',
     },
     d = 'Vi',
@@ -45,6 +47,8 @@ KarabinerHandler.lookup = {
         vscode = 'Git',
         chrome = 'Google',
         sigma = 'Google',
+        arc = 'Google',
+        brave = 'Google',
     },
     semicolon = 'Command',
     quote = 'ExtendedCommand',
@@ -213,7 +217,10 @@ function KarabinerHandler.setupKeys()
         hs.hotkey.bind(
             {'shift', 'ctrl', 'cmd'},
             lookupKeys[modifier] or modifier,
-            function() KarabinerHandler.modifier = modifier end
+            function()
+                -- hs.alert.show('a')
+                KarabinerHandler.modifier = modifier
+            end
         )
     end)
 
@@ -222,8 +229,12 @@ function KarabinerHandler.setupKeys()
             {'shift', 'ctrl', 'alt', 'cmd'},
             lookupKeys[key] or key,
             '',
-            function() KarabinerHandler.callback(key) end,
             function()
+                -- hs.alert.show('b')
+                KarabinerHandler.callback(key)
+            end,
+            function()
+                -- hs.alert.show('c')
                 KarabinerHandler.modifier = nil
                 KarabinerHandler.currentKey = nil
             end,

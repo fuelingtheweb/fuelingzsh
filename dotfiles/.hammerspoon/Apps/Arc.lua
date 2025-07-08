@@ -28,30 +28,52 @@ function Arc.getSpaceIndex(name)
     return 1
 end
 
+function Arc._chooseSpace()
+    return function(url)
+        ArcModal.open(url)
+    end
+end
+
 function Arc._openIn(spaceName)
     return function(url)
         Arc.openIn(url, spaceName)
     end
 end
 
+function Arc.open(url)
+    Arc.openIn(url, 'Misc')
+end
+
 function Arc.openIn(url, spaceName)
-    local spaceIndex = Arc.getSpaceIndex(spaceName)
-
-    if not spaceIndex or not url then
-        return
-    end
-
-    hs.osascript.applescript([[
-        tell application "Arc"
-            tell front window
-                tell space ]] .. spaceIndex .. "\n" .. [[
+    if spaceName == 'Current' then
+        hs.osascript.applescript([[
+            tell application "Arc"
+                tell front window
                     make new tab with properties {URL:"]] .. url .. [["}
                 end tell
-            end tell
 
-            activate
-        end tell
-    ]])
+                activate
+            end tell
+        ]])
+    else
+        local spaceIndex = Arc.getSpaceIndex(spaceName)
+
+        if not spaceIndex or not url then
+            return
+        end
+
+        hs.osascript.applescript([[
+            tell application "Arc"
+                tell front window
+                    tell space ]] .. spaceIndex .. "\n" .. [[
+                        make new tab with properties {URL:"]] .. url .. [["}
+                    end tell
+                end tell
+
+                activate
+            end tell
+        ]])
+    end
 end
 
 function Arc.urlContains(needle)
@@ -59,11 +81,28 @@ function Arc.urlContains(needle)
 end
 
 function Arc.currentUrl()
-    return fn.clipboard.preserve(Arc.copyUrl)
+    return fn.clipboard.preserve(function ()
+        hs.osascript.applescript([[
+            tell application "Arc"
+                set currentURL to URL of active tab of window 1
+                set the clipboard to currentUrl
+            end tell
+        ]])
+        -- set currentURL to URL of active tab of window 1
+        -- set currentTitle to title of active tab of window 1
+    end)
 end
 
 function Arc.copyUrl()
     ks.shiftCmd('c')
+end
+
+function Arc.copyMarkdownUrl()
+    if is.github() then
+        ks.shiftAltCmd('c')
+    else
+        Arc.copyUrl()
+    end
 end
 
 return Arc

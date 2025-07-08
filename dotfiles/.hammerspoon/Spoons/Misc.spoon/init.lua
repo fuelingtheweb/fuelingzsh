@@ -19,10 +19,10 @@ hs.urlevent.bind('misc-optionPressedTwice', function()
     end
 end)
 
--- UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
--- UrlDispatcher.default_handler = chrome
--- UrlDispatcher.url_patterns = require('config.custom.routing')
--- UrlDispatcher:start()
+UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
+UrlDispatcher.default_handler = brave
+UrlDispatcher.url_patterns = require('config.custom.routing')
+UrlDispatcher:start()
 
 Shortcuts = hs.loadSpoon('Shortcuts')
 Shortcuts:addFromConfig()
@@ -39,13 +39,13 @@ AlfredCommands:setAlfredJson()
 spoon.MouseCircle = hs.loadSpoon('vendor/MouseCircle')
 spoon.MouseCircle.color = {hex = '#367f71'}
 
-spoon.ReloadConfiguration = hs.loadSpoon('vendor/ReloadConfiguration')
-spoon.ReloadConfiguration.watch_paths = {
-    hs.configdir,
-    hs.configdir .. '/Spoons/Custom.spoon',
-    hs.configdir .. '/config/custom',
-}
-spoon.ReloadConfiguration:start()
+-- spoon.ReloadConfiguration = hs.loadSpoon('vendor/ReloadConfiguration')
+-- spoon.ReloadConfiguration.watch_paths = {
+--     hs.configdir,
+--     hs.configdir .. '/Spoons/Custom.spoon',
+--     hs.configdir .. '/config/custom',
+-- }
+-- spoon.ReloadConfiguration:start()
 hs.notify.new({title = 'Hammerspoon', informativeText = 'Config loaded'}):send()
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'b', function()
@@ -54,13 +54,6 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'b', function()
 
     fn.clipboard.set(bundle)
     hs.notify.new({title = 'App Bundle Copied', informativeText = bundle}):send()
-end)
-
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
-    local title = fn.window.title()
-
-    hs.alert.show(title)
-    fn.clipboard.set(title)
 end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
@@ -89,5 +82,46 @@ end)
 hs.urlevent.bind('enable-scrolling', function(eventName, params)
     cm.Window.enableScrolling()
 end)
+
+function openAnybox()
+    local app = hs.application.get(anybox)
+
+    if not app then
+        fn.each(hs.application.open(anybox, 2, true):allWindows(), function(window)
+            window:close()
+        end)
+    end
+end
+
+-- openAnybox()
+
+local espansoSnippets = {
+    gm = 'Good morning',
+    lgtm = 'Looks good to me',
+    nm = 'Nevermind',
+    np = 'No problem',
+    sg = 'Sounds good',
+    st = 'Sure thing',
+    th = 'Thanks',
+    ty = 'Thank you',
+    yw = 'You\'re welcome',
+    hb = 'Happy Birthday',
+}
+
+local generatedAbbreviations = 'matches:'
+
+fn.each(espansoSnippets, function (snippet, trigger)
+    generatedAbbreviations = generatedAbbreviations .. "\n" .. '  - trigger: ",' .. trigger .. '"' .. "\n" .. '    replace: "' .. snippet .. '"'
+
+    fn.each({'!', '?', '.'}, function (punctuation)
+        generatedAbbreviations = generatedAbbreviations .. "\n" .. '  - trigger: "' .. punctuation .. ' ,' .. trigger .. '"' .. "\n" .. '    replace: "' .. punctuation .. ' ' .. snippet .. '"'
+    end)
+
+    generatedAbbreviations = generatedAbbreviations .. "\n" .. '  - trigger: " ,' .. trigger .. '"' .. "\n" .. '    replace: " ' .. string.lower(snippet) .. '"'
+end)
+
+io.open('/Users/nathan/.fuelingzsh/custom/espanso/match/generated-abbreviations.yml', 'w')
+    :write(generatedAbbreviations)
+    :close()
 
 return obj

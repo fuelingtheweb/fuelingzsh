@@ -1,15 +1,8 @@
-local obj = {}
-obj.__index = obj
-
-hs.screen.watcher.new(function()
-    if hs.screen.primaryScreen():name() == 'LG ULTRAWIDE' then
-        hs.audiodevice.findOutputByName('Built-in Output'):setDefaultOutputDevice()
-    end
-end):start()
+local Watchers = {}
+Watchers.__index = Watchers
 
 local wf = hs.window.filter
 local allwindows = wf.new(nil)
-allwindows:rejectApp('Hammerspoon'):rejectApp('Alfred'):rejectApp('Shortcat')
 hs.window.animationDuration = 0
 
 allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
@@ -25,7 +18,7 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     end
 
     if count < 1 then
-        if fn.table.has({preview, sublimeMerge, slack, vscode, spotify, tableplus, zoom, rayapp, transmit}, bundle) then
+        if fn.table.has({preview, sublimeMerge, slack, spotify, zoom, rayapp, transmit}, bundle) then
             app:kill()
         elseif app:isFrontmost() then
             app:hide()
@@ -37,28 +30,42 @@ allwindows:subscribe(wf.windowDestroyed, function(window, appName, reason)
     )
 end)
 
-gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku/', function(paths)
-    local shouldRun = true
+function Watchers.handleHammerspoonChanges(paths)
+    local shouldRun = false
 
     fn.each(paths, function(path)
-        if str.contains('.pyc', path) then
-            shouldRun = false
+        if str.contains('.lua', path) then
+            shouldRun = true
         end
     end)
 
     if shouldRun then
-        local output = hs.execute(os.getenv('HOME') .. '/.fuelingzsh/karabiner/goku.sh')
-        hs.notify.new({title = 'Goku Config', informativeText = output}):send()
+        hs.reload()
     end
-end)
+end
 
-karabinerWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/', function()
-    local output = hs.execute('/usr/local/bin/goku')
+pathWatchers = {
+    hs.pathwatcher.new(
+        os.getenv('HOME') .. '/.hammerspoon/',
+        Watchers.handleHammerspoonChanges
+    ),
+    hs.pathwatcher.new(
+        os.getenv('HOME') .. '/.hammerspoon/config/custom/',
+        Watchers.handleHammerspoonChanges
+    )
+}
 
-    hs.notify.new({title = 'Karabiner Config', informativeText = output}):send()
-end)
+function Watchers.start()
+    fn.each(pathWatchers, function(watcher)
+        watcher:start()
+    end)
+end
 
-gokuWatcher:start()
-karabinerWatcher:start()
+hs.console.darkMode(true)
 
-return obj
+-- hs.logger:d('testing')
+hs.logger.new('ftw-log', 'debug').e("Config loaded")
+
+Watchers.start()
+
+return Watchers

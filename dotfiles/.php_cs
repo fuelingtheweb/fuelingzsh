@@ -1,6 +1,7 @@
 <?php
 
 $rules = [
+    '@PHP82Migration' => true,
     '@Symfony' => true,
     'binary_operator_spaces' => ['align_double_arrow' => false],
     'array_syntax' => ['syntax' => 'short'],

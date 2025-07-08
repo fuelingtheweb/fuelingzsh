@@ -14,7 +14,8 @@ Code.lookup = {
     k = 'moveLineUp',
     l = 'nextMember',
     semicolon = 'toggleSemicolon',
-    quote = 'toggleBrackets',
+    quote = 'triggerCopilot',
+    -- quote = 'toggleBrackets',
     return_or_enter = 'selectAll',
     n = 'selectNextWord',
     m = 'multipleCursorsDown',
@@ -48,7 +49,7 @@ function Code.unfold()
 end
 
 function Code.moveLineDown()
-    if is.codeEditor() then
+    if is.codeEditor() or is.obsidian() then
         ks.ctrlCmd('down')
     elseif is.iterm() then
         ks.super('j')
@@ -75,7 +76,7 @@ function Code.moveLineDown()
 end
 
 function Code.moveLineUp()
-    if is.codeEditor() then
+    if is.codeEditor() or is.obsidian() then
         ks.ctrlCmd('up')
     elseif is.sublimeMerge() then
         ks.shift('tab')
@@ -169,7 +170,7 @@ function Code.selectAll()
         ks.shiftEnter()
         hs.timer.doAfter(0.2, function()
             hs.eventtap.leftClick({x = 133, y = 203})
-            hs.mouse.setAbsolutePosition({x = 5, y = 203})
+            hs.mouse.absolutePosition({x = 5, y = 203})
         end)
     else
         ks.ctrlCmd('g')
@@ -181,7 +182,7 @@ function Code.toggleBrackets()
         ks.enter()
         hs.timer.doAfter(0.2, function()
             hs.eventtap.leftClick({x = 133, y = 203})
-            hs.mouse.setAbsolutePosition({x = 5, y = 203})
+            hs.mouse.absolutePosition({x = 5, y = 203})
         end)
     else
         ks.shiftCmd("'")
@@ -220,6 +221,18 @@ end
 
 function Code.codeInfo()
     ks.cmd('k').cmd('i')
+end
+
+function Code.triggerCopilot()
+    if is.sublimeMerge() then
+        ks.enter()
+        hs.timer.doAfter(0.2, function()
+            hs.eventtap.leftClick({x = 133, y = 203})
+            hs.mouse.absolutePosition({x = 5, y = 203})
+        end)
+    else
+        ks.alt('\\')
+    end
 end
 
 return Code

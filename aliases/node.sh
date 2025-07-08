@@ -31,50 +31,52 @@ alias ynp='yarnOrNpm:run p'
 alias ynd='yarnOrNpm:run d'
 
 # Yarn
-y() {yarn "$@"}
-yv() {yarn --version "$@"}
-yi() {yarn install "$@"}
-ya() {yarn add "$@"}
-yad() {yarn add --dev "$@"}
-yl() {yarn list "$@"}
-yu() {yarn upgrade "$@"}
-yrm() {yarn remove "$@"}
-yf() {yarn search "$@"}
-yod() {yarn outdated "$@"}
+alias yrn='export NODE_OPTIONS= && yarn'
+y() {yrn "$@"}
+yv() {yrn --version "$@"}
+yi() {yrn install "$@"}
+ya() {yrn add "$@"}
+yad() {yrn add --dev "$@"}
+yl() {yrn list "$@"}
+yu() {yrn upgrade "$@"}
+yrm() {yrn remove "$@"}
+yf() {yrn search "$@"}
+yod() {yrn outdated "$@"}
 
-alias yga='yarn global add'
-alias ygu='yarn global upgrade'
-alias ygrm='yarn global remove'
+alias yga='yrn global add'
+alias ygu='yrn global upgrade'
+alias ygrm='yrn global remove'
 
-alias yui='yarn upgrade-interactive'
+alias yui='yrn upgrade-interactive'
 alias yuil='yui --latest'
 
-yr() {yarn run "$@"}
-yp() {yarn run prod "$@"}
-yd() {yarn run dev "$@"}
-yw() {yarn run watch "$@"}
-alias yt='yarn run test'
-alias ytw='yarn run test:watch'
-alias ys='yarn serve'
-alias yb='yarn build'
+yr() {yrn run "$@"}
+yp() {yrn run prod "$@"}
+yd() {yrn run dev "$@"}
+yw() {yrn run watch "$@"}
+alias yt='yrn run test'
+alias ytw='yrn run test:watch'
+alias ys='yrn serve'
+alias yb='yrn build'
 # alias ysu='brew upgrade yarn'
 
 # NPM
-n() {npm --openssl-legacy-provider "$@"}
+# --openssl-legacy-provider
+n() {npm "$@"}
 nv() {npm --version "$@"}
 nh() {npm -l "$@"}
-ni() {npm --openssl-legacy-provider install "$@"}
-na() {npm --openssl-legacy-provider install --save "$@"}
-nad() {npm --openssl-legacy-provider install --save-dev "$@"}
+ni() {npm install "$@"}
+na() {npm install --save "$@"}
+nad() {npm install --save-dev "$@"}
 nl() {npm list "$@"}
-nu() {npm --openssl-legacy-provider update "$@"}
-nrm() {npm --openssl-legacy-provider uninstall "$@"}
+nu() {npm update "$@"}
+nrm() {npm uninstall "$@"}
 nf() {npm search "$@"}
 nod() {npm outdated "$@"}
 
-alias nga='npm --openssl-legacy-provider install -g'
-alias ngu='npm --openssl-legacy-provider update -g'
-alias ngrm='npm --openssl-legacy-provider uninstall -g'
+alias nga='npm install -g'
+alias ngu='npm update -g'
+alias ngrm='npm uninstall -g'
 
 nr() {npm run "$@"}
 np() {npm run prod "$@"}
@@ -83,7 +85,7 @@ nw() {npm run watch "$@"}
 alias nt='npm run test'
 alias ntw='npm run test:watch'
 alias ns='npm serve'
-alias nb='npm build'
+alias nb='npm run build'
 # alias nsu='brew upgrade yarn'
 
 # Volta

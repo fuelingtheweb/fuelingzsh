@@ -11,3 +11,5 @@ function ftw_init_cd_liases() {
 }
 
 ftw_init_cd_liases 10
+
+alias ..='cd ..'

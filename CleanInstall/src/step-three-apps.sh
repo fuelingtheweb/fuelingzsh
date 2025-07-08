@@ -37,16 +37,6 @@ pause
 
 source $custom/step-three-apps.sh
 
-success 'Cloning custom Atom packages: PHPUnit and Autocomplete PHP.'
-mkdir -p $HOME/Development/Atom
-git clone git@github.com:fuelingtheweb/atom-phpunit.git $HOME/Development/Atom/phpunit
-cd $HOME/Development/Atom/phpunit
-git checkout develop
-git clone git@github.com:fuelingtheweb/atom-autocomplete-php.git $HOME/Development/Atom/autocomplete-php
-cd $HOME/Development/Atom/autocomplete-php
-git checkout develop
-npm install
-
 success 'Running Mackup Restore.'
 mackup restore
 
@@ -61,8 +51,8 @@ info 'Open Cursorcerer'
 open '/Users/nathan/Library/PreferencePanes/Cursorcerer.prefPane'
 pause
 
-info 'Open Atom.'
-open -a 'Atom.app'
+info 'Open Code.'
+open -a 'Visual Studio Code.app'
 pause
 
 info 'Open Sublime.'

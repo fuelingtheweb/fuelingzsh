@@ -1,5 +1,6 @@
 hs.hotkey.alertDuration = 0
 
+-- test
 Modal = hs.loadSpoon('Modal')
 
 fn = {
@@ -12,15 +13,20 @@ fn = {
     table = require('Helpers.Table'),
     window = require('Helpers.Window'),
     Alfred = require('Apps.Alfred'),
+    Arc = require('Apps.Arc'),
+    Brave = require('Apps.Brave'),
     Chrome = require('Apps.Chrome'),
     Code = require('Apps.Code'),
     Discord = require('Apps.Discord'),
     iTerm = require('Apps.iTerm'),
+    Raycast = require('Apps.Raycast'),
+    SideNotes = require('Apps.SideNotes'),
     Slack = require('Apps.Slack'),
     TablePlus = require('Apps.TablePlus'),
 }
 
 fn.each = fn.table.each
+fn.open = fn.misc.open
 is = fn.is
 str = fn.str
 
@@ -44,6 +50,7 @@ TextManipulation = hs.loadSpoon('TextManipulation')
 Brackets = hs.loadSpoon('Brackets')
 
 ToBracket = Modal.load('ToBracket')
+ArcModal = Modal.load('Arc')
 
 Modal.load('MiscSnippets')
 

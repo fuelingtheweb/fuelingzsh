@@ -63,11 +63,11 @@ function mdl.thisSnippet()
 end
 
 function mdl.simpleSingleQuote()
-    ks.type("=''").left()
+    ks.type("=''").leftAfter(0.3)
 end
 
 function mdl.simpleDoubleQuote()
-    ks.type('=""').left()
+    ks.type('=""').leftAfter(0.3)
     -- Brackets.startIfPhp()
 end
 

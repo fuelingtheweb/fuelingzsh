@@ -3,6 +3,7 @@
 # alias ll='ls -FGlAhp'
 alias ls='exa -1F'
 alias lsa='exa -a1F'
+alias l='exa -alF --time-style iso --color=always'
 alias ll='exa -alF --time-style iso --color=always'
 alias lll='exa -alghHF --git --time-style long-iso --color=always'
 alias lm='ll --sort modified --reverse --git-ignore'
@@ -22,6 +23,7 @@ mkcd() {
 alias mdc='mkcd'
 alias tch='touch'
 alias cdc='cd $_'
+alias d='cd'
 
 cdr() {
     control=$(find-up node_modules)
@@ -35,14 +37,3 @@ cdr() {
 
 alias organize='ll | fpp -ko -ai'
 alias mvf='mv $F'
-
-alias d="wd"
-alias da="wd add"
-alias daf="wd add --force"
-alias drm='wd rm'
-alias ds='wd show'
-alias dl='wd list'
-alias dls='wd ls'
-alias dp='wd path'
-alias dc='wd clean'
-alias dcf='wd clean --force'

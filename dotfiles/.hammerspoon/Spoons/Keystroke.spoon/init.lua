@@ -35,6 +35,16 @@ function Keystroke.left()
     return Keystroke.key('left')
 end
 
+function Keystroke.leftAfter(delay)
+    if delay then
+        hs.timer.doAfter(delay, function()
+            Keystroke.key('left')
+        end)
+    else
+        return Keystroke.key('left')
+    end
+end
+
 function Keystroke.right()
     return Keystroke.key('right')
 end
@@ -160,7 +170,11 @@ function Keystroke.fire(modifiers, key)
 end
 
 function Keystroke.type(text)
-    hs.eventtap.keyStrokes(text)
+    -- if is.codeEditor() then
+    --     fn.clipboard.pasteTransient(text)
+    -- else
+        hs.eventtap.keyStrokes(text)
+    -- end
 
     return Keystroke
 end

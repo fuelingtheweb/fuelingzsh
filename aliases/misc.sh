@@ -11,8 +11,10 @@ alias sdi='sed -i ""'
 alias cvl='csvlook'
 alias _='sudo'
 alias w='which'
-alias h='cd ~/'
-alias hc='cd ~/ && clear'
+alias m='cd ~/ && /bin/cat ~/.fuelingzsh/custom/ascii/welcome.honk.txt'
+alias dld='cd ~/Downloads'
+alias dcs='cd ~/Documents'
+alias dv='cd ~/Development'
 alias bc="bc -l -q" # Run Calculator
 alias hi="history | less +G"
 alias vf="vifm"
@@ -26,7 +28,7 @@ alias psg="ps aux | grep "
 alias psr='ps aux | grep ruby'
 alias less='less -r'
 alias tlf='tail -f'
-alias l='less'
+# alias l='less'
 alias screen='TERM=screen screen'
 alias gz='tar -zcvf' # Zippin
 alias ka9='killall -9'
@@ -62,3 +64,56 @@ tidy() {
     open ~/Downloads
     open $folder
 }
+
+catc() {
+    cat $1 | pbcopy
+}
+
+alias ipc='dig +short myip.opendns.com @resolver1.opendns.com | pbcopy'
+
+webpc() {
+    if [ -f "$1" ]; then
+        webp:convert "$@"
+    else
+        webp:convert-all "$@"
+    fi
+}
+
+webp:convert-all() {
+    for file in *.(gif|jpg|jpeg|png|webp); do
+        webp:convert "$file" "$@"
+    done
+}
+
+webp:convert() {
+    outputPath=~/Downloads/webp
+
+    if ! [[ -d "$outputPath" ]]; then
+        md "$outputPath"
+    fi
+
+    file=$1
+    width=$2
+    height=$3
+
+    if ! [ "$height" ]; then
+        height="0"
+    fi
+
+
+    filename="${file%.*}"
+    input="$file"
+    output="$outputPath/$filename.webp"
+
+    echo "Converting $input to $output"
+
+    if [ "$width" ]; then
+        cwebp -pass 1 -m 6 -mt -q 100 -resize "$width" "$height" -progress "$input" -o "$output"
+    else
+        cwebp -pass 1 -m 6 -mt -q 100 -progress "$input" -o "$output"
+    fi
+
+        # cwebp -pass 1 -m 6 -mt -q 90 -resize "$width" "$height" -progress "$input" -o "$output"
+}
+
+alias wpc='webpc'

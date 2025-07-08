@@ -5,7 +5,7 @@ source $cleanInstall/src/variables.sh
 
 runStepIf 'one-initial' 'Proceed with step one (Chrome, Dropbox, SSH)?'
 runStepIf 'two-fuelingzsh' 'Proceed with step two (FuelingZsh)?'
-runStepIf 'three-apps' 'Proceed with step three (Mac Apps, Alfred, Sublime, Atom, Mackup)?'
+runStepIf 'three-apps' 'Proceed with step three (Mac Apps, Alfred, Sublime, Code, Mackup)?'
 runStepIf 'four-xdebug' 'Proceed with step four (Xdebug)?'
 runStepIf 'five-node-valet' 'Proceed with step five (Node, Laravel, Valet)?'
 runStepIf 'six-pianobar' 'Proceed with step six (Pianobar)?'

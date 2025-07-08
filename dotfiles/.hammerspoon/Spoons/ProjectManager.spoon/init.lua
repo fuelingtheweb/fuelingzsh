@@ -262,7 +262,7 @@ end
 
 function Site:openInChrome()
     if self.attributes.path then
-        fn.Chrome.open(self.attributes.url)
+        fn.Arc.openIn(self.attributes.url, 'Primary')
     end
 end
 

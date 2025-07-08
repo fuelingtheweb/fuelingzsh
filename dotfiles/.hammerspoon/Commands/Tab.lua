@@ -14,8 +14,13 @@ function Tab.last()
 end
 
 function Tab.pin()
+    if is.obsidian() then
+        ks.super('p')
+    elseif is.vscode() then
+        ks.cmd('k').enter()
+    end
     -- Chrome: Pin Tab
-    ks.sequence({'t', 'p'})
+    -- ks.sequence({'t', 'p'})
 end
 
 function Tab.previous()
@@ -26,6 +31,8 @@ function Tab.previous()
         ks.alt('down')
     elseif is.In(tinkerwell) then
         ks.altCmd('left')
+    elseif is.In(arc) then
+        ks.shiftCmd(']')
     else
         ks.shiftCmd('[')
     end
@@ -39,6 +46,8 @@ function Tab.next()
         ks.alt('up')
     elseif is.In(tinkerwell) then
         ks.altCmd('right')
+    elseif is.In(arc) then
+        ks.shiftCmd('[')
     else
         ks.shiftCmd(']')
     end

@@ -82,7 +82,7 @@ function Git.push()
 end
 
 function Git.status()
-    ks.typeAndEnter('git:status')
+    ks.typeAndEnter('git:status.with-summary')
 end
 
 function Git.pull()
@@ -105,7 +105,8 @@ function Git.newBranch()
     if is.vscode() then
         ks.type('```suggestion').enter().enter().type('```').up()
     else
-        ks.type('git:branch.new ')
+        ks.type("git:branch.new ''")
+        hs.timer.doAfter(0.1, ks.left)
 
         -- hs.timer.doAfter(0.1, function()
         --     md.CaseDialog.handle('i')

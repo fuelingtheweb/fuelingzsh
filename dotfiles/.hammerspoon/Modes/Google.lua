@@ -62,23 +62,38 @@ function Google.toggleDevToolsDocking()
 end
 
 function Google.openAndReload()
-    hs.application.get(chrome):activate()
+    hs.application.get(arc):activate()
     ks.refresh()
 end
 
 function Google.toggleIncognito()
-    hs.osascript.applescript([[
-        tell application "Google Chrome"
-            set theUrl to URL of active tab of front window
-            set theMode to Mode of front window
-        end tell
+    if is.brave() then
+        hs.osascript.applescript([[
+            tell application "Brave Browser"
+                set theUrl to URL of active tab of front window
+                set theMode to Mode of front window
+            end tell
 
-        if theMode is equal to "normal" then
-            do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --incognito --profile-directory='Default' " & quoted form of theUrl
-        else
-            do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
-        end if
-    ]])
+            if theMode is equal to "normal" then
+                do shell script "'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser' --incognito --profile-directory='Default' " & quoted form of theUrl
+            else
+                do shell script "'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser' --profile-directory='Default' " & quoted form of theUrl
+            end if
+        ]])
+    else
+        hs.osascript.applescript([[
+            tell application "Google Chrome"
+                set theUrl to URL of active tab of front window
+                set theMode to Mode of front window
+            end tell
+
+            if theMode is equal to "normal" then
+                do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --incognito --profile-directory='Default' " & quoted form of theUrl
+            else
+                do shell script "'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --profile-directory='Default' " & quoted form of theUrl
+            end if
+        ]])
+    end
 end
 
 function Google.viewSource()

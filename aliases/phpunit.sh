@@ -6,21 +6,39 @@ alias xde='xdebug:enable'
 
 alias t='ts'
 
-alias ts='td --stop-on-failure'
+alias ts='td --stop-on-defect'
 alias ta='td'
-alias tf='td --stop-on-failure --filter'
+alias tf='td --stop-on-defect --filter'
 alias tfa='td --filter'
 
 alias td='phpunit:run --testdox'
-alias ti='phpunit:run --stop-on-failure'
+alias ti='phpunit:run --stop-on-defect'
 alias tia='phpunit:run'
 
 alias tcc='rm .phpunit.result.cache'
 
+tm() {
+    i=0
+
+    while true; do
+        i=$((i+1))
+
+        echo "Running test $i"
+
+        t "$@" || break;
+    done;
+}
+
 tfm() {
-    for i in {1..50}; do
-        tf "$@"
-    done
+    i=0
+
+    while true; do
+        i=$((i+1))
+
+        echo "Running test $i"
+
+        tf "$@" || break;
+    done;
 }
 
 alias tge='t --exclude-group'
@@ -50,13 +68,14 @@ tdc() {
 alias tco='br ./tests/coverage/index.html'
 
 phpunit:run() {
-    suffix=(--cache-result --order-by=defects $@)
+    suffix=(--dont-report-useless-tests --order-by=defects $@)
+    # suffix=(--cache-result --order-by=defects $@)
 
-    clear
+    # clear
 
     if [ -f vendor/bin/phpunit ]; then
-        vendor/bin/phpunit ${suffix[@]}
+        vendor/bin/phpunit $@
     else
-        phpunit ${suffix[@]}
+        phpunit $@
     fi
 }

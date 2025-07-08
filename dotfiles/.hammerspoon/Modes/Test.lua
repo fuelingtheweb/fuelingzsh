@@ -10,7 +10,7 @@ Test.lookup = {
     open_bracket = nil,
     close_bracket = nil,
     h = nil,
-    j = nil,
+    j = 'toggleZenMode',
     k = 'class',
     l = 'allInEditor',
     semicolon = 'last',
@@ -22,7 +22,7 @@ Test.lookup = {
     period = nil,
     slash = nil,
     right_shift = nil,
-    spacebar = nil,
+    spacebar = 'toggleVscodeTerminal',
 }
 
 function Test.before()
@@ -56,6 +56,14 @@ end
 
 function Test.hideOutput()
     ks.super(']')
+end
+
+function Test.toggleVscodeTerminal()
+    ks.ctrl('`')
+end
+
+function Test.toggleZenMode()
+    ks.super('z')
 end
 
 return Test

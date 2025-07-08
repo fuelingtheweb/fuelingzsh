@@ -421,7 +421,8 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 # Prevent auto boot when opening lid
-sudo nvram AutoBoot=%00
+# sudo nvram AutoBoot=%00 # Disable
+# sudo nvram AutoBoot=%03 # Enable
 
 ###############################################################################
 # Kill affected applications                                                  #

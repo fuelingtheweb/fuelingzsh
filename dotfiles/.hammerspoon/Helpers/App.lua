@@ -3,30 +3,46 @@ App.__index = App
 
 App.bundles = {
     anybox = 'cc.anybox.Anybox',
+    arc = 'company.thebrowser.Browser',
+    brave = 'com.brave.Browser',
+    calendar = 'com.busymac.busycal-setapp',
     chrome = 'com.google.Chrome',
+    dash = 'com.kapeli.dashdoc',
     discord = 'com.hnc.Discord',
     finder = 'com.apple.finder',
+    gitfox = 'com.bytieful.Gitfox-setapp',
+    gitkraken = 'com.axosoft.gitkraken',
     invoker = 'de.beyondco.invoker',
     iterm = 'com.googlecode.iterm2',
+    mail = 'com.mimestream.Mimestream',
+    obsidian = 'md.obsidian',
     pop = 'com.pop.pop.app',
     postman = 'com.postmanlabs.mac',
     preview = 'com.apple.Preview',
     rayapp = 'be.spatie.ray',
+    sideNotes = 'com.apptorium.SideNotes-setapp',
     sigma = 'com.sigmaos.sigmaos.macos',
     slack = 'com.tinyspeck.slackmacgap',
     spotify = 'com.spotify.client',
     sublimeMerge = 'com.sublimemerge',
-    tableplus = 'com.tinyapp.TablePlus',
+    tableplus = 'com.tinyapp.TablePlus-setapp',
     tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
     vscode = 'com.microsoft.VSCode',
     warp = 'dev.warp.Warp-Stable',
+    windsurf = 'com.exafunction.windsurf',
     youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
     zoom = 'us.zoom.xos',
 }
 
+App.browsers = {
+    App.bundles.arc,
+    App.bundles.brave,
+    App.bundles.chrome,
+}
+
 function App.codeEditor()
-    return App.includes({vscode, tinkerwell})
+    return App.includes({vscode, tinkerwell, windsurf})
 end
 
 function App.is(bundle)

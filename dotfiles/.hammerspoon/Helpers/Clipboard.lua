@@ -49,6 +49,21 @@ function Clipboard.pasteTrimmedRight(value)
     ks.paste()
 end
 
+function Clipboard.pasteTransient(value)
+    local original = Clipboard.get()
+    Clipboard.clear()
+
+    Clipboard.set(value)
+
+    hs.timer.doAfter(0.2, function ()
+        ks.paste()
+
+        hs.timer.doAfter(0.1, function ()
+            Clipboard.set(original)
+        end)
+    end)
+end
+
 function Clipboard.preserve(callback, cleanupCallback)
     local original = Clipboard.get()
     Clipboard.clear()
@@ -61,9 +76,15 @@ function Clipboard.preserve(callback, cleanupCallback)
         value = cleanupCallback(value)
     end
 
-    Clipboard.set(original)
+    -- hs.timer.doAfter(0.1, function ()
+        Clipboard.set(original)
+    -- end)
 
     return value
+end
+
+function Clipboard.pasteType()
+    hs.eventtap.keyStrokes(Clipboard.get())
 end
 
 return Clipboard

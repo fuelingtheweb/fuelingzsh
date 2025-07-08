@@ -598,8 +598,8 @@
                 [:open_bracket [:!STCf :!!close_bracket]]
                 [:close_bracket [:!STCf :!!f11]]
                 [:h [:!STCf :!!j]]
-                [:j [:down_arrow]]
-                [:k [:up_arrow]]
+                [:j [:!STCf :!!k]]
+                [:k [:!STCf :!!l]]
                 [:l [:!STCf :!!semicolon]]
                 [:semicolon [:!STCf :!!quote]]
                 [:quote [:!STCf :!!f10]]
@@ -1023,3 +1023,4 @@
         }
     ]
 }
+

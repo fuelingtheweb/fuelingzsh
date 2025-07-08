@@ -1,9 +1,4 @@
 Shortcuts
-    :add('W', {
-        slack = function()
-            fn.Slack.react(':wave:')
-        end
-    })
     :add('R', {
         slack = fn.Slack.react,
         vscode = function()
@@ -49,6 +44,10 @@ Shortcuts
         end,
     })
     :add('S', {
+        mail = function()
+            -- Starred
+            ks.cmd('2')
+        end,
         vscode = 'Preferences: Configure User Snippets'
     })
     :add('Z', {
@@ -98,6 +97,10 @@ Shortcuts
         end,
     })
     :add('A', {
+        mail = function()
+            -- Spam
+            ks.cmd('6')
+        end,
         vscode = function()
             if is.hammerspoon() then
                 md.Hyper.open()
@@ -137,5 +140,9 @@ Shortcuts
             if is.github() and fn.Chrome.urlContains('/pull/') then
                 fn.Chrome.changeUrl(fn.Chrome.currentUrl() .. '/files')
             end
+        end,
+        mail = function()
+            -- Inbox
+            ks.cmd('1')
         end,
     })

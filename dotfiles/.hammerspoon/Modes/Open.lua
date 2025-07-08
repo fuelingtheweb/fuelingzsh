@@ -6,26 +6,25 @@ Modal.loadCustom('Bookmarks.Index')
 Modal.load('OpenIn')
 
 Open.lookup = {
-    tab = 'iterm',
+    tab = 'Ray.app',
     r = 'vscode',
     w = 'openInModal',
-    e = 'tinkerwell',
-    -- q = 'Ray.app',
-    q = 'sigma',
+    e = 'mail',
+    q = 'tinkerwell',
     t = 'warp',
-    caps_lock = 'windowHints',
+    -- caps_lock = 'windowHints',
     a = 'openAppModal',
     s = 'slack',
     d = 'discord',
     f = 'openFrequentModal',
-    g = 'chrome',
-    left_shift = 'fantastical',
+    g = 'arc',
+    left_shift = 'chrome',
     z = 'zoom',
     x = 'finder',
-    c = 'sublimeMerge',
+    c = 'calendar',
     v = 'tableplus',
     b = 'openBookmarksModal',
-    spacebar = nil,
+    spacebar = 'miniCalendar',
 }
 
 Modal.add({
@@ -63,7 +62,12 @@ hs.hints.style = nil
 
 function Open.windowHintsForCurrentApplication()
     hs.hints.style = nil
-    hs.hints.windowHints(hs.window.focusedWindow():application():allWindows())
+    hs.hints.windowHints(
+        hs.window.focusedWindow():application():allWindows(),
+        function(window)
+            cm.Window.centerMouseOnScreen(window:screen())
+        end
+    )
 end
 
 function Open.windowHints()
@@ -71,8 +75,8 @@ function Open.windowHints()
     hs.hints.windowHints()
 end
 
-function Open.fantastical()
-    ks.altCmd('c')
+function Open.miniCalendar()
+    ks.ctrlCmd('b')
 end
 
 function Open.alfredPreferences()
@@ -103,6 +107,8 @@ function Open.fallback(value, key)
     else
         Open.launchApp(value)
     end
+
+    cm.Window.centerMouseOnScreen(cm.Window.current():screen())
 end
 
 function Open.launchApp(id)
@@ -121,8 +127,11 @@ function Open.launchApp(id)
         local app = hs.application.get(bundle)
 
         if not fn.app.hasWindows(app) then
-            hs.application.open(bundle)
-            app:activate()
+            app = hs.application.open(bundle)
+
+            if app then
+                app:activate()
+            end
         else
             if fn.app.multipleWindows(app) then
                 cm.Window.focusFirst(
@@ -142,6 +151,8 @@ function Open.launchApp(id)
     elseif not fn.app.hasWindows(app) then
         hs.application.open(bundle)
     end
+
+    cm.Window.centerMouseOnScreen(cm.Window.current():screen())
 end
 
 function Open.music()
@@ -156,6 +167,8 @@ function Open.youtubeMusic()
     else
         app:activate()
     end
+
+    cm.Window.centerMouseOnScreen(cm.Window.current():screen())
 end
 
 function Open.spotify()
@@ -170,6 +183,8 @@ function Open.spotify()
     else
         hs.execute('open -a "Spotify.app" https://open.spotify.com/playlist/40NEwyReWKPx4QaMNmZ6HS?si=ee74d9e6ccfd44dd')
     end
+
+    cm.Window.centerMouseOnScreen(cm.Window.current():screen())
 end
 
 function Open.openAppModal()

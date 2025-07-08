@@ -4,11 +4,12 @@ ExtendedCommand.__index = ExtendedCommand
 ExtendedCommand.lookup = {
     tab = 'toggleUseIgnoreFiles',
     q = nil,
-    w = nil,
+    w = 'pasteType',
     e = nil,
-    r = nil,
-    t = nil,
-    caps_lock = fn.custom.openTasks,
+    r = 'githubDesktop',
+    t = 'appendToDailyNote',
+    caps_lock = 'obsidian',
+    -- caps_lock = fn.custom.openTasks,
     a = cm.Window.amethystModal,
     s = 'cleanshot',
     d = fn.custom.openHammerspoonConfig,
@@ -74,6 +75,22 @@ end
 
 function ExtendedCommand.cleanshot()
     ks.shiftCmd('5')
+end
+
+function ExtendedCommand.obsidian()
+    hs.application.launchOrFocusByBundleID(obsidian)
+end
+
+function ExtendedCommand.githubDesktop()
+    hs.application.launchOrFocusByBundleID('com.github.GitHubClient')
+end
+
+function ExtendedCommand.appendToDailyNote()
+    fn.Alfred.run('append', 'me.npearce.oblog')
+end
+
+function ExtendedCommand.pasteType()
+    fn.clipboard.pasteType()
 end
 
 return ExtendedCommand

@@ -6,7 +6,7 @@ Modal.add({
     title = 'Open In',
     items = {
         r = {name = 'VS Code', method = 'inCode'},
-        c = {name = 'Sublime Merge', method = 'inSublimeMerge'},
+        c = {name = 'Git Gui', method = 'inGitGui'},
         g = {name = 'Chrome', method = 'inChrome'},
         v = {name = 'TablePlus', method = 'inTablePlus'},
         x = {name = 'Finder', method = 'inFinder'},
@@ -18,12 +18,16 @@ Modal.add({
         OpenIn[item.method]()
 
         cm.Window.maximizeAfterDelay(is.iterm() and 2 or 0.5)
+
+        hs.timer.doAfter(1, function()
+            cm.Window.centerMouseOnScreen(cm.Window.current():screen())
+        end)
     end,
 })
 
-function OpenIn.inSublimeMerge()
+function OpenIn.inGitGui()
     if is.terminal() then
-        ks.typeAndEnter('smerge .')
+        ks.typeAndEnter('gitfox .')
     else
         local path = fn.window.path()
 
@@ -32,12 +36,12 @@ function OpenIn.inSublimeMerge()
         end
 
         if path then
-            hs.execute('/usr/local/bin/smerge "' .. path .. '"')
+            hs.execute('/usr/local/bin/gitfox "' .. path .. '"')
         end
     end
 
     hs.timer.doAfter(0.5, function()
-        hs.application.open(sublimeMerge)
+        hs.application.open(gitfox)
     end)
 end
 

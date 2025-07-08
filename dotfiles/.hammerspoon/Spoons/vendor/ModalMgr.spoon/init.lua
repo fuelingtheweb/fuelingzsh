@@ -30,20 +30,20 @@ function obj:init()
     obj.modal_tray = hs.canvas.new({x = 0, y = 0, w = 0, h = 0})
     obj.modal_tray:level(hs.canvas.windowLevels.tornOffMenu)
     obj.modal_tray[1] = {
-        type = 'circle',
+        type = 'rectangle',
         action = 'fill',
-        fillColor = {hex = '#377f71', alpha = 0.7},
+        fillColor = {hex = '#1A1C1E', alpha = 1},
     }
     obj.modal_tray[2] = {
         type = 'text',
         text = nil,
         textFont = 'Fira Code Bold',
         textSize = 18,
-        textColor = {hex = '#377f71', alpha = 1},
+        textColor = {hex = '#1A1C1E', alpha = 1},
         textAlignment = 'center',
-        padding = 20,
+        padding = 4,
         frame = {
-            x = '1%',
+            x = '0',
             y = '0',
             w = '100%',
             h = '100%',
@@ -54,7 +54,7 @@ function obj:init()
     obj.which_key[1] = {
         type = 'rectangle',
         action = 'fill',
-        fillColor = {hex = '#1d262a', alpha = 0.80},
+        fillColor = {hex = '#1A1C1E', alpha = 1},
         -- fillColor = {hex = "#000", alpha = 0.80},
         roundedRectRadii = {xRadius = 10, yRadius = 10},
     }
@@ -125,7 +125,7 @@ function obj:toggleCheatsheet(iterList, force)
                 text = obj.active_title,
                 textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = '#fed032', alpha = 1},
+                textColor = {hex = '#50CFFF', alpha = 1},
                 textAlignment = 'center',
                 padding = 20,
                 frame = {
@@ -140,7 +140,7 @@ function obj:toggleCheatsheet(iterList, force)
                 text = leftList,
                 textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = '#377f71', alpha = 1},
+                textColor = {hex = '#57AA93', alpha = 1},
                 textAlignment = 'left',
                 padding = 20,
                 frame = {
@@ -155,7 +155,7 @@ function obj:toggleCheatsheet(iterList, force)
                 text = rightList,
                 textFont = 'Fira Code Bold',
                 textSize = 22,
-                textColor = {hex = '#377f71'},
+                textColor = {hex = '#57AA93'},
                 textAlignment = 'right',
                 padding = 20,
                 frame = {
@@ -189,18 +189,24 @@ function obj:activate(idList, trayColor, showKeys)
         local cscreen = hs.screen.mainScreen()
         local cres = cscreen:fullFrame()
         obj.modal_tray:frame({
-            x = cres.w - math.ceil(cres.w / 2) - math.ceil(cres.w / 3 / 2 / 2),
-            y = cres.h - math.ceil(cres.w / 25),
+            -- x = cres.w - math.ceil(cres.w / 2) - math.ceil(cres.w / 3 / 2 / 2),
+            -- y = cres.h - math.ceil(cres.w / 25),
             -- x = cres.w - math.ceil(cres.w / 32);
             -- y = cres.h - math.ceil(cres.w / 32);
-            w = math.ceil(cres.w / 3 / 2),
-            h = math.ceil(cres.w / 3 / 2)
+            -- w = math.ceil(cres.w / 3 / 2),
+            -- h = math.ceil(cres.w / 3 / 2)
+            x = 0,
+            -- x = cres.w - math.ceil(cres.w / 2) - math.ceil(cres.w / 3 / 2 / 2),
+            y = cres.h - 40,
+            w = cres.w,
+            -- w = math.ceil(cres.w / 3 / 2),
+            h = 40
         })
-        obj.modal_tray[1].fillColor = {hex = trayColor, alpha = 0.7}
-        if trayColor ~= '#212d33' then
+        obj.modal_tray[1].fillColor = {hex = trayColor, alpha = 1}
+        -- if trayColor ~= '#212d33' then
             obj.modal_tray[2].text = obj.active_title
-            obj.modal_tray[2].textColor = {hex = '#fed032', alpha = 1}
-        end
+            obj.modal_tray[2].textColor = {hex = '#57AA93', alpha = 1}
+        -- end
         obj.modal_tray:show()
     end
     if showKeys then

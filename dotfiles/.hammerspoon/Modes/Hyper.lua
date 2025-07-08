@@ -14,9 +14,10 @@ Hyper.lookup = {
     k = 'k',
     l = 'l',
     semicolon = cm.Window.nextInCurrentApp,
-    quote = cm.Window.next,
+    quote = 'quote',
     return_or_enter = function() hs.hid.capslock.set(true) end,
-    n = 'new',
+    -- Change new to be a command shortcut
+    n = 'sideNotes',
     m = 'm',
     comma = 'comma',
     period = 'period',
@@ -51,6 +52,10 @@ function Hyper.copy()
         fn.clipboard.set(text)
     elseif is.chrome() then
         fn.Chrome.copyUrl()
+    elseif is.brave() then
+        fn.Brave.copyUrl()
+    elseif is.arc() then
+        fn.Arc.copyUrl()
     elseif is.In(sigma) then
         ks.cmd('l')
     elseif is.codeEditor() then
@@ -65,19 +70,24 @@ function Hyper.open()
         if is.codeEditor() then
             TextManipulation.disableVim()
         end
+    elseif is.In(arc) then
+        fn.open('raycast://extensions/the-browser-company/arc/search-spaces')
+        -- ks.cmd('t')
+    elseif is.In(mail) then
+        ks.shiftCmd('o')
     elseif is.In(anybox) then
         ks.cmd('p')
     elseif is.In(discord, slack) then
         ks.cmd('k')
     elseif is.In(spotify) then
         fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
-    elseif is.chrome() then
-        if fn.Chrome.urlContains('github.com')
-            or fn.Chrome.urlContains('tailwindcss.com/docs')
-            or fn.Chrome.urlContains('laravel.com/docs')
+    elseif is.arc() then
+        if fn.Arc.urlContains('github.com')
+            or fn.Arc.urlContains('tailwindcss.com/docs')
+            or fn.Arc.urlContains('laravel.com/docs')
         then
             ks.cmd('k')
-        elseif fn.Chrome.urlContains('laravel-livewire.com/docs') then
+        elseif fn.Arc.urlContains('laravel-livewire.com/docs') then
             ks.key('/')
         else
             ks.cmd('l')
@@ -105,10 +115,12 @@ function Hyper.commandPalette()
         if is.codeEditor() then
             TextManipulation.disableVim()
         end
-    elseif is.In(warp) then
+    elseif is.In(warp, obsidian, gitfox) then
         ks.cmd('p')
     elseif is.In(anybox) then
         ks.cmd('k')
+    elseif is.In(arc) then
+        ks.cmd('t')
     else
         fn.Alfred.run('search', 'com.tedwise.menubarsearch')
     end
@@ -121,6 +133,8 @@ function Hyper.previousPage()
         ks.cmd('k').enter()
     elseif is.terminal() then
         ks.typeAndEnter('cdp')
+    elseif fn.Raycast.visible() then
+        ks.key('escape')
     else
         ks.cmd('[')
     end
@@ -157,6 +171,8 @@ end
 function Hyper.forceEscape()
     if is.In(warp) then
         ks.ctrl('r')
+    elseif fn.Raycast.visible() then
+        ks.close()
     elseif cm.Window.scrolling then
         ks.escape()
 
@@ -191,49 +207,63 @@ function Hyper.redo()
 end
 
 function Hyper.u()
-    if fn.Alfred.visible() then
-        ks.enter()
+    if is.quickFind() then
+        ks.cmd('1')
     else
-        fn.Alfred.open()
+        fn.Raycast.open()
     end
 end
 
 function Hyper.i()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('2')
+    -- elseif fn.SideNotes.isVisible() then
+    --     fn.SideNotes.new()
     elseif is.terminal() then
         ks.type('cd ')
+    elseif is.arc() then
+        fn.Alfred.run('open tab', 'com.hellovietduc.alfred.arc-control')
     else
         cm.Search.symbol()
     end
 end
 
 function Hyper.o()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('3')
+    -- elseif fn.SideNotes.isVisible() then
+    --     fn.SideNotes.search()
     else
         Hyper.open()
     end
 end
 
 function Hyper.j()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('4')
+    -- elseif fn.SideNotes.isVisible() then
+    --     fn.SideNotes.next()
+    elseif is.In(dash) then
+        ks.alt('down')
     else
         cm.Tab.previous()
     end
 end
 
 function Hyper.k()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('5')
+    -- elseif fn.SideNotes.isVisible() then
+    --     fn.SideNotes.previous()
+    elseif is.In(dash) then
+        ks.alt('up')
     else
         cm.Tab.next()
     end
 end
 
 function Hyper.l()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('6')
     else
         Hyper.nextPage()
@@ -241,15 +271,17 @@ function Hyper.l()
 end
 
 function Hyper.m()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('7')
+    -- elseif fn.SideNotes.isVisible() then
+    --     fn.SideNotes.delete()
     else
         cm.Window.destroy()
     end
 end
 
 function Hyper.comma()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('8')
     else
         Hyper.undo()
@@ -257,10 +289,26 @@ function Hyper.comma()
 end
 
 function Hyper.period()
-    if fn.Alfred.visible() then
+    if is.quickFind() then
         ks.cmd('9')
     else
         Hyper.redo()
+    end
+end
+
+function Hyper.sideNotes()
+    if fn.Raycast.visible() then
+        ks.cmd('escape')
+    else
+        fn.SideNotes.toggle()
+    end
+end
+
+function Hyper.quote()
+    if fn.Raycast.visible() then
+        ks.cmd('k')
+    else
+        cm.Window.next()
     end
 end
 

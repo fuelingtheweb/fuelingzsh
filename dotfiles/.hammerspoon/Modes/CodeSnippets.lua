@@ -93,7 +93,7 @@ function CodeSnippets.this()
 end
 
 function CodeSnippets.dd()
-    CodeSnippets.snippet('dd')
+    ks.type('dd();').left().left()
     -- Brackets.startIfPhp()
 end
 

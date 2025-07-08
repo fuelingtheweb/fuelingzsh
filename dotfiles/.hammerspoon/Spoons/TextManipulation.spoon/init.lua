@@ -5,7 +5,7 @@ TextManipulation.vimEnabled = true
 
 Modal.add({
     key = 'TextManipulation:vimDisabled',
-    title = 'Vim Text Manipulation Disabled',
+    title = 'Vi Mode Disabled',
     defaults = false,
     items = {
         ['return'] = function()
@@ -22,7 +22,7 @@ function TextManipulation.canManipulateWithVim()
         return false
     end
 
-    if is.codeEditor() then
+    if is.codeEditor() or is.obsidian() then
         return true
     end
 

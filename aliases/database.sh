@@ -1,22 +1,19 @@
 function db:create () { mysql -uroot -e "create database $1" }
-function db:create:57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "create database $1" }
+function db:create.57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "create database $1" }
 function pg:create () { createdb $1 }
 function db:drop () { mysql -uroot -e "drop database $1" }
-function db:drop:57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "drop database $1" }
+function db:drop.57 () { mysql -uroot --host=127.0.0.1 --port=33067 -e "drop database $1" }
 function db:export () { mysqldump -u root $1 > ~/Downloads/$1.sql }
-function db:export:57 () { mysqldump -uroot --host=127.0.0.1 --port=33067 $1 > ~/Downloads/$1.sql }
+function db:export.57 () { mysqldump -uroot --host=127.0.0.1 --port=33067 $1 > ~/Downloads/$1.sql }
 function db:refresh () {
-    local file=~/Downloads/$1.sql
+    folder=${PWD##*/}
+    name=$(echo "$folder" | awk '{print tolower($0)}')
 
-    if [ "$2" ]; then
-        file=$2
-    fi
-
-    db:drop $1
-    db:create $1
-    db:import $1 $file
+    db:drop $name
+    db:create $name
+    db:import $name ./__resources/db/$name.sql
 }
-function db:refresh:dump () {
+function db:refresh.dump () {
     folder=${PWD##*/}
     name=$(echo "$folder" | awk '{print tolower($0)}')
 
@@ -33,7 +30,7 @@ function db:import () {
 
     mysql -u root $1 < $file
 }
-function db:refresh:57 () {
+function db:refresh.57 () {
     local file=~/Downloads/$1.sql
 
     if [ "$2" ]; then
@@ -44,7 +41,7 @@ function db:refresh:57 () {
     db:create:57 $1
     db:import:dump:57 $1 $file
 }
-function db:import:57 () {
+function db:import.57 () {
     local file=~/Downloads/$1.sql
 
     if [ "$2" ]; then
@@ -53,8 +50,8 @@ function db:import:57 () {
 
     mysql -uroot --host=127.0.0.1 --port=33067 $1 < $file
 }
-function db:import:dump () { mysql -u root $1 < ~/Downloads/$1.dump }
-function db:import:dump:57 () { mysql -uroot --host=127.0.0.1 --port=33067 $1 < ~/Downloads/$1.dump }
+function db:import.dump () { mysql -u root $1 < ~/Downloads/$1.dump }
+function db:import.dump.57 () { mysql -uroot --host=127.0.0.1 --port=33067 $1 < ~/Downloads/$1.dump }
 function pg:import () { psql -f ~/Downloads/$1.sql $1 -U nathan -h localhost -W }
 function db:dump-all () {
     cd ~/Downloads

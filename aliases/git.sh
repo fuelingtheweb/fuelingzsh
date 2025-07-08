@@ -1,8 +1,13 @@
 alias g='git'
 
+alias ghh='gh dash --config /Users/nathan/.fuelingzsh/options/gh-dash.yml'
+
+alias gg='lazygit'
+
 alias ga='git add'
 alias gah='git add --help'
 alias gaa='git add -A'
+alias gap='git add -p'
 
 alias gb='git:branch.list'
 alias gbh='git branch --help'
@@ -21,10 +26,12 @@ alias gcnv='git commit --no-verify -m'
 alias gcp='git cherry-pick'
 alias gcph='git cherry-pick --help'
 alias gcpn='git cherry-pick -n'
+alias gcpc='git cherry-pick --continue'
 
 alias gcl='git clone --recurse-submodules'
 alias gci='git check-ignore -v'
 alias gcc='git:copy-commits'
+alias gccf='git:copy-commits-full'
 
 alias gd='git diff'
 alias gdh='git diff --help'
@@ -53,6 +60,7 @@ alias gl='git:log'
 alias gm='git:merge'
 alias gmm='git merge $(git:master-branch)'
 alias gmd='git merge develop'
+alias gmc='git merge --continue'
 alias gma='git merge --abort'
 
 alias gms='git solo'
@@ -76,9 +84,12 @@ alias gpsn='git push --no-verify'
 alias gpst='git push origin --tags'
 alias gpsu='git:push-set-upstream'
 alias gpl='git pull'
+
 alias gpr='git:pull-request'
 
-alias gprc='gh pr checkout'
+alias pr='gh pr'
+alias prc='gh pr checkout'
+alias pro='gh pr view --web'
 
 alias gr='git:rebase'
 alias grm='git rebase $(git:master-branch)'
@@ -97,6 +108,8 @@ alias grmsu='git remote set-url'
 alias gs='git:status'
 alias gsf='git:status.fuzzy'
 alias gsh='git show'
+alias gshs='git:show.summary'
+alias gss='git:status.stats'
 
 alias gsm='git submodule'
 alias gsmi='git submodule init'
@@ -175,7 +188,7 @@ function git:branch.list() {
 }
 
 function git:branch.new() {
-    git checkout -b $1
+    git checkout -b $(echo "$1" | tr " " "-")
 }
 
 function git:branch.rename() {
@@ -217,6 +230,10 @@ function git:copy-commits() {
     git log --no-merges --reverse --pretty=format:'- %s' $(git:master-branch).. | pbcopy
 }
 
+function git:copy-commits-full() {
+    git log --no-merges --reverse --pretty=format:'%h - %s - %cn' $(git:master-branch).. | pbcopy
+}
+
 function git:log() {
     git log --graph --date=short
 }
@@ -252,9 +269,10 @@ function git:pull-request() {
 
     if [ $? -eq 0 ]; then
         git:copy-commits
-        githubUrl=`git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
-        prUrl="$githubUrl/compare/$(git:master-branch)...$(git:branch.current)?expand=1"
-        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "$prUrl" --profile-directory="Default"
+        gh pr create --web
+        # githubUrl=`git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
+        # prUrl="$githubUrl/compare/$(git:master-branch)...$(git:branch.current)?expand=1"
+        # "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "$prUrl" --profile-directory="Default"
     else
         echo 'failed to push commits and open a pull request.';
     fi
@@ -276,8 +294,32 @@ function git:rebase() {
   fi
 }
 
+function git:status.with-summary() {
+    git:status
+    echo ""
+    git:show.summary
+}
+
 function git:status() {
     git status -sb
+    git:status.stats
+}
+
+function git:status.stats() {
+    modifiedStats=$(git --no-pager diff --shortstat)
+    stagedStats=$(git --no-pager diff --shortstat --staged)
+
+    echo "\e[31mModified $modifiedStats\e[0m"
+    echo "\e[33mStaged   $stagedStats\e[0m"
+}
+
+function git:show.summary() {
+    Red='\033[0;31m'; Colour_Off='\033[0m'; Cyan='\033[0;36m';
+    git show --pretty="format:%C(blue)%ah %C(bold magenta)%s%Creset%n%C(yellow)%h %C(blue)%an%C(yellow)%d%Creset" --date=relative --no-patch
+    stats=$(git show --format="" --shortstat)
+    echo "\e[32m$stats\e[0m"
+    # git diff $BRANCH --name-status|awk "{print \"$Red\" \$1 \"\t\" \"$Cyan\" \$2 \"$Colour_Off\"}"
+
 }
 
 function git:status.fuzzy() {
@@ -287,7 +329,7 @@ function git:status.fuzzy() {
     local cmd="${FZF_CTRL_T_COMMAND:-"command git status --porcelain"}"
 
     eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf -m "$@" | while (read -r item) {
-        atom $(printf '%q ' "$item" | cut -d " " -f 2)
+        code $(printf '%q ' "$item" | cut -d " " -f 2)
     }
 }
 
@@ -343,7 +385,7 @@ function git:update-master() {
 }
 
 function git:uncommit() {
-    git reset --soft HEAD^
+    git reset --soft HEAD\^
 }
 
 function git:unstage() {

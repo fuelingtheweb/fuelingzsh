@@ -6,11 +6,13 @@ function Search.symbol()
 end
 
 function Search.files()
-    fn.Alfred.search('open ')
+    fn.open('raycast://extensions/GastroGeek/folder-search/search')
+    -- fn.Alfred.search('open ')
 end
 
 function Search.google()
-    fn.Alfred.run('google', 'com.akikoz.alfred.websearchsuggest')
+    fn.open('raycast://extensions/mblode/google-search/index')
+    -- fn.Alfred.run('google', 'com.akikoz.alfred.websearchsuggest')
 end
 
 function Search.amazon()
@@ -61,9 +63,11 @@ function Search.loadWindowsInAlfred(windows, minimum)
 end
 
 function Search.allWindows()
-    local windows = hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast)
+    -- Search windows in Raycast
+    ks.alt('tab')
+    -- local windows = hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast)
 
-    Search.loadWindowsInAlfred(windows, 1)
+    -- Search.loadWindowsInAlfred(windows, 1)
 end
 
 function Search.window()

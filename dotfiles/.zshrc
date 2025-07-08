@@ -4,8 +4,9 @@ OPTIONS=$FUELINGZSH/options
 ALIASES=$FUELINGZSH/aliases
 CUSTOM=$FUELINGZSH/custom
 ZSH_DISABLE_COMPFIX="true"
+DISABLE_AUTO_UPDATE="true"
 
-source $OPTIONS/iterm.sh
+# source $OPTIONS/iterm.sh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -14,18 +15,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    ZSH_THEME="powerlevel10k/powerlevel10k"
-else
+# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+#     ZSH_THEME="powerlevel10k/powerlevel10k"
+# else
     ZSH_THEME="ftw-agnoster"
-fi
+# fi
 
 plugins=(
     fast-syntax-highlighting
     history-substring-search
     urltools
-    vi-mode
-    wd
     zsh-autosuggestions
 )
 source $ZSH/oh-my-zsh.sh
@@ -33,12 +32,13 @@ source $ZSH/oh-my-zsh.sh
 # https://volta.sh/
 export VOLTA_HOME=$HOME/.volta
 export KEYTIMEOUT=1
-export VISUAL=subl
-export EDITOR=subl
-export FPP_EDITOR=subl
+export VISUAL=code
+export EDITOR=code
+export FPP_EDITOR=code
 export NNN_DE_FILE_MANAGER=open
 export CLICOLOR_FORCE='yes'
-export PATH=$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
+export PATH=/Applications/Docker.app/Contents/Resources/bin:$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:$PATH
+# export PATH=$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
 source $OPTIONS/misc.sh
 source $ALIASES/index.sh
 
@@ -54,12 +54,29 @@ fi
 
 # export NODE_OPTIONS=--openssl-legacy-provider
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    # To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
-    source $OPTIONS/p10k.zsh
+# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+#     # To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
+#     source $OPTIONS/p10k.zsh
 
-    source ~/.iterm2_shell_integration.zsh
-fi
+#     source ~/.iterm2_shell_integration.zsh
+# fi
+
+PROMPT="${PROMPT}"$'\n'
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/nathan/Library/Application Support/Herd/config/php/82/"
+
+# Herd injected PHP binary.
+export PATH="/Users/nathan/Library/Application Support/Herd/bin/":$PATH
+
+# Herd injected PHP 8.1 configuration.
+export HERD_PHP_81_INI_SCAN_DIR="/Users/nathan/Library/Application Support/Herd/config/php/81/"
+
+# Herd injected PHP 8.3 configuration.
+export HERD_PHP_83_INI_SCAN_DIR="/Users/nathan/Library/Application Support/Herd/config/php/83/"
+
+# Added by Windsurf
+export PATH="/Users/nathan/.codeium/windsurf/bin:$PATH"

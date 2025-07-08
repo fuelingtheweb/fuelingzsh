@@ -1,0 +1,15 @@
+prSections:
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: My Pull Requests
+    filters: is:open author:@me
+    layout:
+      author:
+        hidden: true
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+defaults:
+  preview:
+    open: false # wether to have the preview pane open by default
+repoPaths: # configure where to locate repos when checking out PRs
+  theboutiquehub/hubventory: ~/Development/Hub/Hubventory

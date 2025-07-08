@@ -8,11 +8,12 @@ Shortcuts.appFunctionMapping = {
     warp = ks.typeAndEnter,
     vscode = fn.Code.run,
     chrome = '',
+    mail = '',
 }
 
 function Shortcuts:add(key, mapping)
     if self.all[key] then
-        mapping = Shortcuts.mergeMapping(self.all[key], mapping)
+        mapping = self:mergeMapping(key, mapping)
     end
 
     self.all[key] = mapping
@@ -20,13 +21,14 @@ function Shortcuts:add(key, mapping)
     return self
 end
 
-function Shortcuts.mergeMapping(dest, source)
+function Shortcuts:mergeMapping(key, source)
+    local dest = self.all[key]
+
     for k, v in pairs(source) do
         if dest[k] then
-            hs.alert.show('Shortcut conflict for: ', k)
-            hs.notify.new({title = 'Shortcut conflict for: ' .. k}):send()
-
-            mapping = mergeMapping(self.all[key], mapping)
+            local message = 'Shortcut conflict for: ' .. key .. ' > ' .. k
+            hs.alert.show(message)
+            hs.notify.new({title = message}):send()
         end
 
         dest[k] = v

@@ -19,13 +19,23 @@ alias dsk='artisan dusk'
 alias tnk='artisan tinker'
 alias as='artisan serve'
 
-# General
-alias acc='artisan cache:clear'
-alias avc='artisan view:clear'
-alias akg='artisan key:generate'
+# Operations
+alias aom='artisan operations:make'
+alias aos='artisan operations:show'
+alias aop='artisan operations:process'
+
+# Horizon
+alias ahz='artisan horizon'
+alias ahc='artisan horizon:clear'
+
+# Queue
+alias aqc='artisan queue:clear'
 alias aqw='artisan queue:work'
-alias arla='artisan route:list'
-alias arl='artisan route:list --columns=method,uri,name,action'
+
+# General
+alias ac='artisan optimize:clear && composer dump-autoload'
+alias akg='artisan key:generate'
+alias arl='artisan route:list'
 alias avp='artisan vendor:publish'
 alias aeg='artisan event:generate'
 
@@ -76,6 +86,14 @@ alias amtu='artisan make:test --unit'
 
 alias amv='artisan make:view'
 alias amw='artisan make:livewire'
+
+aee() {
+    artisan env:encrypt --env=production --force --key="$1"
+}
+
+aed() {
+    artisan env:decrypt --env=production --force --key="$1"
+}
 
 # From Packages
 alias adbbc='artisan debugbar:clear'

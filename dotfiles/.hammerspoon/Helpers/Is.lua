@@ -13,8 +13,20 @@ function Is.notVimMode()
     return not Is.vimMode()
 end
 
+function Is.browser()
+    return Is.In(fn.app.browsers)
+end
+
 function Is.chrome()
     return Is.In(chrome)
+end
+
+function Is.brave()
+    return Is.In(brave)
+end
+
+function Is.arc()
+    return Is.In(arc)
 end
 
 function Is.finder()
@@ -43,6 +55,10 @@ end
 
 function Is.sublimeMerge()
     return Is.In(sublimeMerge)
+end
+
+function Is.obsidian()
+    return Is.In(obsidian)
 end
 
 function Is.In(bundle, ...)
@@ -86,11 +102,11 @@ function Is.lua()
 end
 
 function Is.googleSheet()
-    return Is.chrome() and fn.Chrome.urlContains('docs.google.com') and fn.window.titleContains('Google Sheets')
+    return Is.browser() and fn.Arc.urlContains('docs.google.com') and fn.window.titleContains('Google Sheets')
 end
 
 function Is.github()
-    return Is.chrome() and fn.Chrome.urlContains('github.com')
+    return Is.browser() and fn.Arc.urlContains('github.com')
 end
 
 function Is.todoOrMarkdown()
@@ -106,7 +122,7 @@ function Is.markdown()
 end
 
 function Is.gmail()
-    return (Is.chrome() or Is.In(sigma)) and fn.window.titleContains('Fueling the Web Mail')
+    return Is.browser() and (fn.window.titleContains('Fueling the Web Mail') or fn.window.titleContains('Gmail'))
 end
 
 function Is.chat()
@@ -119,6 +135,14 @@ end
 
 function Is.hammerspoon()
     return fn.window.pathContains('.hammerspoon')
+end
+
+function Is.quickFind()
+    return fn.Raycast.visible() or fn.Alfred.visible()
+end
+
+function Is.obsidian()
+    return Is.In(obsidian)
 end
 
 return Is

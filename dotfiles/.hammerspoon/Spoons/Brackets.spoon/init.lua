@@ -127,26 +127,14 @@ function Brackets.print(bracket)
         end
     end
 
-    ks.type(brackets[1] .. (text or '') .. brackets[2])
-
-    if is.iterm() then
-        hs.timer.doAfter(0.1, function()
-            ks.left()
-
-            -- if not text and (bracket == 'parenthesis') then
-            --     Brackets.start()
-            -- end
-        end)
-    else
-        hs.timer.doAfter(0.01, function()
-            ks.left()
-        end)
-        -- ks.left()
-
-        -- if not text and (bracket == 'parenthesis') then
-        --     Brackets.start()
-        -- end
-    end
+    -- if is.codeEditor() then
+    --     fn.clipboard.pasteTransient(brackets[1] .. (text or '') .. brackets[2])
+    --     ks.leftAfter(0.3)
+    -- else
+        ks
+            .type(brackets[1] .. (text or '') .. brackets[2])
+            .leftAfter(0.01)
+    -- end
 end
 
 function Brackets.startIfPhp()

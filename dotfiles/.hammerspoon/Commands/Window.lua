@@ -106,7 +106,7 @@ function Window.filtered(screen, app, exceptWindow)
 end
 
 function Window.centerMouseOnScreen(screen)
-    hs.mouse.setAbsolutePosition(
+    hs.mouse.absolutePosition(
         hs.geometry.rectMidPoint(
             screen:fullFrame()
         )
@@ -154,8 +154,12 @@ end
 function Window.toggleSidebar()
     if is.finder() then
         ks.altCmd('s')
+    elseif is.In(mail) then
+        ks.ctrlCmd('s')
     elseif is.In(sigma) then
         ks.cmd('left')
+    elseif is.In(arc) then
+        ks.shiftCtrl('\\')
     elseif is.In(anybox) then
         ks.ctrlCmd('s')
     elseif is.sublimeMerge() then
@@ -215,7 +219,7 @@ function Window.focusSidebar()
 end
 
 function Window.destroy()
-    if is.chrome() then
+    if is.chrome() or is.In(brave, arc) then
         ks.shiftCmd('w')
 
         hs.timer.doAfter(1, function()
@@ -296,16 +300,19 @@ function Window.jumpTo()
     -- ks.shiftEnter()
     -- ks.ctrl('space')
     -- else
-    ks.ctrl('space')
+        -- Vimac
+        -- ks.ctrl('space')
     -- end
+    -- Homerow
+    ks.shiftCmd('space')
 end
 
 function Window.enableScrolling()
-    if Window.scrolling then
-        Modal.exit()
-    else
-        Modal.enter('Scrolling')
-    end
+    -- if Window.scrolling then
+    --     Modal.exit()
+    -- else
+    --     Modal.enter('Scrolling')
+    -- end
 
     -- Vimac: Scrolling
     ks.super('s')

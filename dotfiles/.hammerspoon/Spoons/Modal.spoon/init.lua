@@ -160,11 +160,11 @@ function Modal.add(meta)
 end
 
 function Modal.enter(key, exitAfter)
-    if key == 'TextManipulation:vimDisabled' then
-        spoon.ModalMgr:activate({key}, '#212d33', false)
-    else
-        spoon.ModalMgr:activate({key}, '#377f71', false)
-    end
+    -- if key == 'TextManipulation:vimDisabled' then
+    --     spoon.ModalMgr:activate({key}, '#212d33', false)
+    -- else
+        spoon.ModalMgr:activate({key}, '#1A1C1E', false)
+    -- end
 
     if Modal.timer and Modal.timer:running() then
         Modal.timer:stop()

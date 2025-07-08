@@ -114,7 +114,7 @@ function Command.finish()
             ks.alt('d').slow().save()
         elseif fn.window.titleContains('.git/COMMIT_EDITMSG') or fn.window.titleContains('.git/MERGE_MSG') then
             ks.slow().save().slow().close()
-            -- hs.application.launchOrFocusByBundleID(warp)
+            hs.application.launchOrFocusByBundleID(warp)
         elseif fn.window.titleContains('Untitled-') then
             md.Yank.all()
 
@@ -145,7 +145,16 @@ function Command.finish()
     elseif is.terminal() then
         if fn.window.titleContains('git:checkout') or fn.window.titleContains('git:branch.delete') then
             ks.escape()
-        elseif fn.window.titleContains('git:') or fn.window.titleContains('. git ') then
+        elseif
+            fn.window.title() == 'git'
+            or fn.window.title() == 'g'
+            or fn.window.title() == 'gd'
+            or fn.window.title() == 'gds'
+            or fn.window.title() == 'gl'
+            or fn.window.title() == 'man'
+            or fn.window.titleContains('git:')
+            or fn.window.titleContains('. git ')
+        then
             ks.key('q')
         else
             ks.ctrl('c')
@@ -158,9 +167,12 @@ function Command.finish()
 end
 
 function Command.save()
-    if is.chrome() then
+    if is.chrome() or is.brave() then
         -- Save to Reader
         ks.shiftCmd('s')
+    elseif is.arc() then
+        -- Save to Reader
+        ks.alt('r')
     elseif is.In(sigma) then
         -- Save to Reader
         ks.key('e').key('1')
@@ -183,6 +195,8 @@ function Command.cancelOrDelete()
 
     if is.In(anybox) then
         ks.cmd('delete')
+    elseif is.obsidian() then
+        ks.shiftCmd('delete')
     elseif text then
         ks.delete()
     elseif is.vscode() and is.todo() then
@@ -191,6 +205,8 @@ function Command.cancelOrDelete()
         ks.shiftCmd('delete')
     elseif is.In(transmit, finder) then
         ks.cmd('delete')
+    elseif is.In(arc) then
+        ks.shift('3')
     elseif is.gmail() then
         ks.shift('3')
     elseif is.terminal() then
@@ -209,6 +225,8 @@ end
 function Command.newTask()
     if is.markdown() then
         ks.alt('return')
+    elseif is.In(obsidian) then
+        ks.shiftCmd('t')
     else
         ks.cmd('return')
     end

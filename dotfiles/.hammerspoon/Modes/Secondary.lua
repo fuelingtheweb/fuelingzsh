@@ -11,6 +11,7 @@ Secondary.lookup = {
     caps_lock = fn.misc.DismissNotifications,
     a = nil,
     s = 'spotifyMini',
+    -- d = 'dash',
     d = 'toggleDockVisibility',
     f = nil,
     g = nil,
@@ -66,6 +67,10 @@ function Secondary.toggleAppKeybindWindow()
     elseif is.chat() then
         ks.cmd('/')
     end
+end
+
+function Secondary.dash()
+    hs.application.launchOrFocusByBundleID(dash)
 end
 
 return Secondary
