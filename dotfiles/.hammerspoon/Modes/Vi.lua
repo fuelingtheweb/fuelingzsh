@@ -51,8 +51,8 @@ function Vi.moveToTopOfPage()
     elseif is.finder() then
         ks.alt('up')
     elseif is.sublimeMerge() then
-        cm.Tab.previous()
-        cm.Tab.next()
+        md.Tab.previous()
+        md.Tab.next()
         hs.timer.doAfter(0.1, function()
             ks.tab()
         end)
@@ -134,5 +134,8 @@ function Vi.joinLines()
         ks.escape().shift('j').key('x')
     end
 end
+
+hs.urlevent.bind('vi.moveToTopOfPage', Vi.moveToTopOfPage)
+hs.urlevent.bind('vi.moveToBottomOfPage', Vi.moveToBottomOfPage)
 
 return Vi

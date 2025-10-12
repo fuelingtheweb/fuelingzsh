@@ -25,7 +25,6 @@ end
 
 function Search.default()
     if is.codeEditor() then
-        TextManipulation.disableVim()
         ks.key('/')
     end
 end
@@ -73,7 +72,6 @@ end
 function Search.window()
     if is.codeEditor() then
         ks.shiftCmd('f')
-        TextManipulation.disableVim()
     else
         ks.cmd('f')
     end
@@ -82,7 +80,6 @@ end
 function Search.tabs()
     if is.codeEditor() then
         ks.shiftAltCmd('tab')
-        TextManipulation.disableVim()
     end
 end
 

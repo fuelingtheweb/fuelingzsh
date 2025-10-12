@@ -17,13 +17,14 @@ Open.lookup = {
     s = 'slack',
     d = 'discord',
     f = 'openFrequentModal',
-    g = 'arc',
+    g = 'vivaldi',
     left_shift = 'chrome',
     z = 'zoom',
     x = 'finder',
     c = 'calendar',
     v = 'tableplus',
-    b = 'openBookmarksModal',
+    -- b = 'openBookmarksModal',
+    b = 'arc',
     spacebar = 'miniCalendar',
 }
 
@@ -152,7 +153,11 @@ function Open.launchApp(id)
         hs.application.open(bundle)
     end
 
-    cm.Window.centerMouseOnScreen(cm.Window.current():screen())
+    currentWindow = cm.Window.current()
+
+    if (currentWindow) then
+        cm.Window.centerMouseOnScreen(currentWindow:screen())
+    end
 end
 
 function Open.music()

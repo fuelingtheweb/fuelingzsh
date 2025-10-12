@@ -3,14 +3,11 @@ KarabinerHandler.__index = KarabinerHandler
 
 md = {}
 
-KarabinerHandler.modifier = nil
-
 KarabinerHandler.lookup = {
     tab = 'Tab',
     q = 'Pane',
     w = nil,
     e = nil,
-    r = 'Calculator',
     t = {
         iterm = 'Terminal',
         warp = 'Terminal',
@@ -40,16 +37,6 @@ KarabinerHandler.lookup = {
         default = 'DefaultSnippets',
     },
     d = 'Vi',
-    f = 'General',
-    g = {
-        iterm = 'Git',
-        warp = 'Git',
-        vscode = 'Git',
-        chrome = 'Google',
-        sigma = 'Google',
-        arc = 'Google',
-        brave = 'Google',
-    },
     semicolon = 'Command',
     quote = 'ExtendedCommand',
     return_or_enter = nil,
@@ -64,56 +51,6 @@ KarabinerHandler.lookup = {
     period = 'SelectUntil',
     slash = 'JumpTo',
     spacebar = 'Window',
-}
-
-local lookupKeys = {
-    tab = 'f9',
-    q = 'w',
-    w = 'f17',
-    e = 'r',
-    r = 't',
-    t = 'y',
-    y = 'u',
-    u = 'i',
-    i = 'o',
-    o = 'f13',
-    p = '[',
-    open_bracket = ']',
-    close_bracket = 'f11',
-    a = 's',
-    s = 'd',
-    d = 'f',
-    f = 'g',
-    g = 'h',
-    h = 'j',
-    j = 'k',
-    k = 'l',
-    l = ';',
-    semicolon = "'",
-    quote = 'f10',
-    return_or_enter = 'z',
-    caps_lock = 'f16',
-    left_shift = 'f15',
-    z = 'x',
-    x = 'c',
-    c = 'v',
-    v = 'b',
-    b = 'n',
-    n = 'f14',
-    m = 'space',
-    comma = 'f18',
-    period = 'f19',
-    slash = 'f20',
-    right_shift = 'f12',
-    spacebar = 'tab',
-}
-
-local availableKeys = {
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'tab', 'q', 'w', 'e', 'r',
-    't', 'y', 'u', 'i', 'o', 'p', 'open_bracket', 'close_bracket', 'caps_lock',
-    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'semicolon', 'quote',
-    'return_or_enter', 'left_shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'comma',
-    'period', 'slash', 'right_shift', 'spacebar',
 }
 
 function KarabinerHandler.loadModes(modes)
@@ -186,98 +123,10 @@ function KarabinerHandler.handle(mode, key)
     end
 end
 
-function KarabinerHandler.callback(key)
-    KarabinerHandler.currentKey = key
-
-    if not KarabinerHandler.modifier then
-        return
-    end
-
-    local mode = KarabinerHandler.lookup[KarabinerHandler.modifier]
-
-    if is.Table(mode) then
-        fn.each(mode, function(m, app)
-            if (is.Table(mode) and app == 'default') or is.In(fn.app.bundles[app]) then
-                mode = m
-            end
-        end)
-    end
-
-    if is.String(mode) then
-        KarabinerHandler.handle(mode, key)
-    end
-end
-
-function KarabinerHandler.setupKeys()
-    fn.each(KarabinerHandler.lookup, function(mode, modifier)
-        if not mode then
-            return
-        end
-
-        hs.hotkey.bind(
-            {'shift', 'ctrl', 'cmd'},
-            lookupKeys[modifier] or modifier,
-            function()
-                -- hs.alert.show('a')
-                KarabinerHandler.modifier = modifier
-            end
-        )
-    end)
-
-    fn.each(availableKeys, function(key)
-        hs.hotkey.bind(
-            {'shift', 'ctrl', 'alt', 'cmd'},
-            lookupKeys[key] or key,
-            '',
-            function()
-                -- hs.alert.show('b')
-                KarabinerHandler.callback(key)
-            end,
-            function()
-                -- hs.alert.show('c')
-                KarabinerHandler.modifier = nil
-                KarabinerHandler.currentKey = nil
-            end,
-            function() KarabinerHandler.callback(key) end
-        )
-    end)
-end
-
 hs.urlevent.bind('handle-karabiner', function(eventName, params)
-    KarabinerHandler.handle(params.layer, params.key)
+    KarabinerHandler.handle(params.mode, params.key)
 end)
 
 KarabinerHandler.loadModes(KarabinerHandler.lookup)
-KarabinerHandler.setupKeys()
-
-function KarabinerHandler.compileJson()
-    local items = {}
-
-    fn.each(KarabinerHandler.lookup, function(mode, key)
-        if is.Table(mode) then
-            return
-        end
-
-        local item = {mode = mode, key = key, actions = {}}
-
-        local Mode = md[mode]
-
-        if Mode.lookup then
-            fn.each(Mode.lookup, function(action, key)
-                if is.Table(action) then
-                    return
-                end
-
-                table.insert(item.actions, {name = action, key = key})
-            end)
-        end
-
-        table.insert(items, item)
-    end)
-
-    hs.json.write({items = items}, '/Users/nathan/keymappings.json', false, true)
-end
-
--- KarabinerHandler.compileJson()
 
 return KarabinerHandler

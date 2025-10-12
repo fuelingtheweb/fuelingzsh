@@ -6,14 +6,9 @@ ExtendedCommand.lookup = {
     q = nil,
     w = 'pasteType',
     e = nil,
-    r = 'githubDesktop',
     t = 'appendToDailyNote',
-    caps_lock = 'obsidian',
-    -- caps_lock = fn.custom.openTasks,
     a = cm.Window.amethystModal,
-    s = 'cleanshot',
     d = fn.custom.openHammerspoonConfig,
-    f = 'revealInSidebar',
     g = 'saveAndReload',
     left_shift = 'toggleRunOnSave',
     z = nil,
@@ -26,10 +21,6 @@ ExtendedCommand.lookup = {
 
 function ExtendedCommand.screenshotToFilesystem()
     ks.shiftCmd('4')
-end
-
-function ExtendedCommand.revealInSidebar()
-    ks.shiftCmd('\\')
 end
 
 function ExtendedCommand.screenshotToClipboard()

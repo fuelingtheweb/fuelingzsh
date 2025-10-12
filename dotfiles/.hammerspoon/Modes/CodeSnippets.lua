@@ -244,28 +244,7 @@ function CodeSnippets.snippetIf()
 end
 
 function CodeSnippets.handleSemicolon()
-    if fn.window.titleContains('EOD.md') then
-        ks.escape().shift('o').slow().enter().slow().up()
-        ks.type('## ' .. os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', ''))
-
-        hs.timer.doAfter(0.4, function()
-            ks.slow().enter().type('- ')
-
-            hs.timer.doAfter(0.2, function()
-                md.Command.save()
-            end)
-        end)
-    elseif is.todo() then
-        ks.escape().shift('o')
-        ks.type(os.date('%A, %b') .. ' ' .. os.date('%d'):gsub('^0', '') .. ':')
-
-        hs.timer.doAfter(0.2, function()
-            md.Command.save()
-        end)
-    else
-        ks.type(' : ')
-        -- Brackets.startIfPhp()
-    end
+    ks.type(' : ')
 end
 
 function CodeSnippets.variable()
@@ -291,5 +270,15 @@ function CodeSnippets.continueChain()
         ks.type('->')
     end
 end
+
+function CodeSnippets.null()
+    if is.lua() then
+        ks.type('nil')
+    else
+        ks.type('null')
+    end
+end
+
+hs.urlevent.bind('CodeSnippets.null', CodeSnippets.null)
 
 return CodeSnippets

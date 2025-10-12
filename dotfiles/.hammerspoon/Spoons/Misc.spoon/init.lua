@@ -63,26 +63,6 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'space', function()
     fn.clipboard.set(title)
 end)
 
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'r', function()
-    fn.custom.setClientProject()
-end)
-
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 't', function()
-    fn.custom.resetClientProject()
-end)
-
-hs.urlevent.bind('window-hints', function(eventName, params)
-    md.Open.windowHints()
-end)
-
-hs.urlevent.bind('jump-to', function(eventName, params)
-    cm.Window.jumpTo()
-end)
-
-hs.urlevent.bind('enable-scrolling', function(eventName, params)
-    cm.Window.enableScrolling()
-end)
-
 function openAnybox()
     local app = hs.application.get(anybox)
 

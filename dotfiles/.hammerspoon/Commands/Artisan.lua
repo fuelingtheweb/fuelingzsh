@@ -35,7 +35,7 @@ function Artisan.setup()
             file:close()
             hs.execute(table.concat({
                 '/usr/local/bin/php',
-                '/Users/nathan/Development/FuelingTheWeb/cli/cli',
+                '/Users/nathan/Dev/TidyPoint/cli/cli',
                 'output:routes'
             }, ' '))
         end,

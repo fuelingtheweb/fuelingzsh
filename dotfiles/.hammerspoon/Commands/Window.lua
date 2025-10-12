@@ -106,11 +106,13 @@ function Window.filtered(screen, app, exceptWindow)
 end
 
 function Window.centerMouseOnScreen(screen)
-    hs.mouse.absolutePosition(
-        hs.geometry.rectMidPoint(
-            screen:fullFrame()
+    if screen then
+        hs.mouse.absolutePosition(
+            hs.geometry.rectMidPoint(
+                screen:fullFrame()
+            )
         )
-    )
+    end
 end
 
 function Window.focusFirst(windows, app)
@@ -219,7 +221,7 @@ function Window.focusSidebar()
 end
 
 function Window.destroy()
-    if is.chrome() or is.In(brave, arc) then
+    if is.chrome() or is.In(brave, arc, vivaldi) then
         ks.shiftCmd('w')
 
         hs.timer.doAfter(1, function()
@@ -230,7 +232,6 @@ function Window.destroy()
             end
         end)
     elseif is.In({
-        tableplus,
         discord,
         tinkerwell,
         invoker,
@@ -242,6 +243,8 @@ function Window.destroy()
         Window.quitApplication()
     elseif is.codeEditor() or is.sublimeMerge() then
         ks.shiftCmd('w')
+    elseif is.In(tableplus) then
+        fn.TablePlus.closeWindow()
     else
         ks.close()
     end

@@ -28,10 +28,12 @@ App.bundles = {
     tableplus = 'com.tinyapp.TablePlus-setapp',
     tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
+    vivaldi = 'com.vivaldi.Vivaldi',
     vscode = 'com.microsoft.VSCode',
     warp = 'dev.warp.Warp-Stable',
     windsurf = 'com.exafunction.windsurf',
     youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
+    zen = 'app.zen-browser.zen',
     zoom = 'us.zoom.xos',
 }
 

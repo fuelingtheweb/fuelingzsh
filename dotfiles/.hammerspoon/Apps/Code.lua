@@ -36,7 +36,7 @@ function Code.open(path)
 end
 
 function Code.openAndMaximize(path)
-    hs.execute('export PATH=/Users/nathan/.nvm/versions/node/v17.0.1/bin:/Users/nathan/Development/FuelingTheWeb/bin:/Users/nathan/.fuelingzsh/bin:/Users/nathan/.composer/vendor/bin:/Users/nathan/.yarn/bin:/Users/nathan/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/nathan/.fig/bin:/Users/nathan/.local/bin:/usr/local/opt/fzf/bin; /usr/local/bin/code "'
+    hs.execute('export PATH=/Users/nathan/.nvm/versions/node/v17.0.1/bin:/Users/nathan/Dev/TidyPoint/bin:/Users/nathan/.fuelingzsh/bin:/Users/nathan/.composer/vendor/bin:/Users/nathan/.yarn/bin:/Users/nathan/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/nathan/.fig/bin:/Users/nathan/.local/bin:/usr/local/opt/fzf/bin; /usr/local/bin/code "'
         .. path:gsub('~', '/Users/nathan') .. '"')
     cm.Window.maximizeAfterDelay()
 end
@@ -65,7 +65,7 @@ function Code.new()
     hs.application.launchOrFocusByBundleID(vscode)
 
     hs.timer.doAfter(0.2, function()
-        cm.Tab.new()
+        -- cm.Tab.new()
     end)
 end
 

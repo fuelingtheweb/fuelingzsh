@@ -8,7 +8,7 @@ Modal.add({
         n = 'new ',
         m = function()
             Modal.exit()
-            cm.Code.null()
+            md.CodeSnippets.null()
         end,
         t = 'true',
         o = 'protected ',

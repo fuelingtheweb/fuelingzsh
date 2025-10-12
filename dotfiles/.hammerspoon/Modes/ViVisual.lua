@@ -170,4 +170,6 @@ function ViVisual.selectNextWord()
     end
 end
 
+hs.urlevent.bind('ViVisual.selectToFirstCharacterOfLine', ViVisual.selectToFirstCharacterOfLine)
+
 return ViVisual

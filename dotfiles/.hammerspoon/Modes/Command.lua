@@ -6,81 +6,54 @@ Modal.load('Scrolling')
 Command.lastApp = nil
 
 Command.lookup = {
-    tab = 'shiftTab',
-    q = nil,
     w = cm.Window.enableScrolling,
     e = 'edit',
-    r = 'reload',
     t = 'newTask',
-    caps_lock = fn.Alfred.commands,
-    a = fn.Alfred.actionFile,
-    s = 'save',
-    d = 'duplicate',
+
+    d = function ()
+        local text = str.selected()
+
+        if text then
+            if is.codeEditor() then
+                ks.super('d')
+            else
+                ks.right().type(text)
+            end
+        elseif is.finder() then
+            ks.cmd('d')
+        elseif is.chrome() then
+            -- Vimium
+            ks.escape().type('yt')
+        elseif is.codeEditor() then
+            ks.shiftAltCmd('d')
+        end
+    end,
+
     f = 'finish',
     g = cm.Window.jumpTo,
-    left_shift = nil,
-    z = nil,
-    x = 'cancelOrDelete',
     c = 'renameFile',
-    v = 'duplicateLine',
-    b = nil,
-    spacebar = 'startTask',
-}
 
-function Command.shiftTab()
-    ks.shift('tab')
-end
-
-function Command.duplicateLine()
-    if is.codeEditor() then
-        ks.shiftCmd('d')
-    elseif is.googleSheet() then
-        ks.shift('space').shift('space').slow().copy().left()
-        md.Vi.moveToFirstCharacterOfLine()
-        md.Make.lineAfter()
-        ks.escape().slow().paste().left()
-        md.Vi.moveToFirstCharacterOfLine()
-    else
-        md.Yank.line()
-        ks.enter().paste()
-    end
-end
-
-function Command.duplicate()
-    local text = str.selected()
-
-    if text then
-        if is.codeEditor() then
-            ks.super('d')
+    v = function ()
+        if is.In(zen) then
+            ks.slow().cmd('a').delete()
+            ks.shiftAltCmd('p');
+            hs.timer.doAfter(0.2, function ()
+                ks.cmd('2');
+            end)
+        elseif is.codeEditor() then
+            ks.shiftCmd('d')
+        elseif is.googleSheet() then
+            ks.shift('space').shift('space').slow().copy().left()
+            md.Vi.moveToFirstCharacterOfLine()
+            md.Make.lineAfter()
+            ks.escape().slow().paste().left()
+            md.Vi.moveToFirstCharacterOfLine()
         else
-            ks.right().type(text)
+            md.Yank.line()
+            ks.enter().paste()
         end
-    elseif is.finder() then
-        ks.cmd('d')
-    elseif is.chrome() then
-        -- Vimium
-        ks.escape().type('yt')
-    elseif is.codeEditor() then
-        ks.shiftAltCmd('d')
-        TextManipulation.disableVim()
-    end
-end
-
-function Command.reload()
-    if is.vscode() then
-        ks.shiftAltCmd('r')
-    elseif is.In(postman) then
-        ks.cmd('return')
-    elseif is.In(tinkerwell) then
-        ks.ctrl('l')
-        ks.refresh()
-    elseif is.terminal() then
-        -- Run last command
-        ks.up().enter()
-    else
-        ks.refresh()
-    end
-end
+    end,
+}
 
 function Command.edit()
     Command.lastApp = hs.application.frontmostApplication()
@@ -166,62 +139,6 @@ function Command.finish()
     end
 end
 
-function Command.save()
-    if is.chrome() or is.brave() then
-        -- Save to Reader
-        ks.shiftCmd('s')
-    elseif is.arc() then
-        -- Save to Reader
-        ks.alt('r')
-    elseif is.In(sigma) then
-        -- Save to Reader
-        ks.key('e').key('1')
-    elseif is.terminal() then
-        -- Save from Vim
-        ks.shift(';').key('x').enter()
-    elseif is.In(youtubeMusic) then
-        ks.shift('=')
-    else
-        ks.save()
-
-        if is.codeEditor() then
-            ks.escape()
-        end
-    end
-end
-
-function Command.cancelOrDelete()
-    local text = str.selected()
-
-    if is.In(anybox) then
-        ks.cmd('delete')
-    elseif is.obsidian() then
-        ks.shiftCmd('delete')
-    elseif text then
-        ks.delete()
-    elseif is.vscode() and is.todo() then
-        ks.alt('c')
-    elseif is.codeEditor() then
-        ks.shiftCmd('delete')
-    elseif is.In(transmit, finder) then
-        ks.cmd('delete')
-    elseif is.In(arc) then
-        ks.shift('3')
-    elseif is.gmail() then
-        ks.shift('3')
-    elseif is.terminal() then
-        ks.ctrl('c')
-    elseif is.In(youtubeMusic) then
-        ks.shift('-')
-    else
-        ks.delete()
-    end
-end
-
-function Command.startTask()
-    ks.alt('s').slow().save()
-end
-
 function Command.newTask()
     if is.markdown() then
         ks.alt('return')
@@ -234,9 +151,7 @@ end
 
 function Command.renameFile()
     if is.vscode() then
-        TextManipulation.disableVim()
         fn.Code.run('File Utils: Rename')
-        hs.timer.doAfter(0.4, TextManipulation.disableVim)
     end
 end
 

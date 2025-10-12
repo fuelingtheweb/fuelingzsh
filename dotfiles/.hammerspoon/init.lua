@@ -14,6 +14,7 @@ fn = {
     window = require('Helpers.Window'),
     Alfred = require('Apps.Alfred'),
     Arc = require('Apps.Arc'),
+    Vivaldi = require('Apps.Vivaldi'),
     Brave = require('Apps.Brave'),
     Chrome = require('Apps.Chrome'),
     Code = require('Apps.Code'),
@@ -32,10 +33,8 @@ str = fn.str
 
 cm = {
     Artisan = require('Commands.Artisan'),
-    Code = require('Commands.Code'),
     Media = require('Commands.Media'),
     Search = require('Commands.Search'),
-    Tab = require('Commands.Tab'),
     ViVisual = require('Commands.ViVisual'),
     Window = require('Commands.Window'),
 }
@@ -57,5 +56,3 @@ Modal.load('MiscSnippets')
 hs.loadSpoon('Keystroke')
 hs.loadSpoon('Misc')
 hs.loadSpoon('KarabinerHandler')
-
-Modal.load('Cheatsheets')

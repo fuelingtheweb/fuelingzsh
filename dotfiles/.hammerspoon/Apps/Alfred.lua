@@ -5,18 +5,6 @@ function Alfred.open()
     ks.alt('z')
 end
 
-function Alfred.clipboard()
-    ks.shiftAltCmd('p')
-end
-
-function Alfred.commands()
-    Alfred.run('commands', 'com.fuelingtheweb.commands')
-end
-
-function Alfred.actionFile()
-    ks.altCmd('\\')
-end
-
 function Alfred.sleep()
     Alfred.search('cmd:sleep')
     ks.enter()

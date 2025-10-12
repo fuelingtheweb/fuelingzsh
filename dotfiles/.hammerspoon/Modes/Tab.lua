@@ -2,27 +2,71 @@ local Tab = {}
 Tab.__index = Tab
 
 Tab.lookup = {
-    y = nil,
-    u = nil,
-    i = cm.Tab.first,
-    o = cm.Tab.last,
-    p = cm.Tab.pin,
-    open_bracket = cm.Tab.closeAllToLeft,
-    close_bracket = cm.Tab.closeAllToRight,
-    h = cm.Tab.moveLeft,
-    j = cm.Tab.previous,
-    k = cm.Tab.next,
-    l = cm.Tab.moveRight,
-    semicolon = cm.Tab.moveToNextWindow,
-    quote = cm.Tab.moveToNewWindow,
-    return_or_enter = cm.Tab.restore,
-    n = cm.Tab.new,
-    m = cm.Tab.closeCurrent,
-    comma = cm.Tab.closePrevious,
-    period = cm.Tab.closeNext,
-    slash = cm.Tab.closeAllOthers,
-    right_shift = cm.Tab.closeAll,
-    spacebar = cm.Tab.pin,
+    j = 'previous',
+    k = 'next',
+    m = 'closeCurrent',
+
+    comma = function ()
+        md.Tab.previous()
+        md.Tab.closeCurrent()
+
+        if is.notIn(vscode) then
+            md.Tab.next()
+        end
+    end,
+
+    period = function ()
+        md.Tab.next()
+        md.Tab.closeCurrent()
+
+        if is.vscode() or is.chrome() then
+            md.Tab.previous()
+        end
+    end,
 }
+
+function Tab.previous()
+    if is.In(tableplus) then
+        ks.cmd('[')
+    elseif is.In(discord) then
+        -- Move to next conversation / channel
+        ks.alt('down')
+    elseif is.In(tinkerwell) then
+        ks.altCmd('left')
+    elseif is.In(arc, vivaldi, zen) then
+        ks.shiftCmd(']')
+    else
+        ks.shiftCmd('[')
+    end
+end
+
+function Tab.next()
+    if is.In(tableplus) then
+        ks.cmd(']')
+    elseif is.In(discord) then
+        -- Move to previous conversation / channel
+        ks.alt('up')
+    elseif is.In(tinkerwell) then
+        ks.altCmd('right')
+    elseif is.In(arc, vivaldi, zen) then
+        ks.shiftCmd('[')
+    else
+        ks.shiftCmd(']')
+    end
+end
+
+function Tab.closeCurrent()
+    ks.close()
+
+    if is.chrome() then
+        hs.timer.doAfter(1, function()
+            app = hs.application.frontmostApplication()
+
+            if next(app:visibleWindows()) == nil then
+                app:hide()
+            end
+        end)
+    end
+end
 
 return Tab

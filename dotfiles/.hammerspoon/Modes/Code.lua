@@ -191,7 +191,7 @@ end
 
 function Code.previousMember()
     if is.sublimeMerge() then
-        cm.Tab.previous()
+        md.Tab.previous()
         hs.timer.doAfter(0.1, function()
             ks.tab()
         end)
@@ -202,7 +202,7 @@ end
 
 function Code.nextMember()
     if is.sublimeMerge() then
-        cm.Tab.next()
+        md.Tab.next()
         hs.timer.doAfter(0.1, function()
             ks.tab()
         end)

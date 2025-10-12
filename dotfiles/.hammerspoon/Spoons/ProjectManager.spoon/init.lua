@@ -28,7 +28,7 @@ function Site:name(name, project)
 end
 
 function Site:path(path)
-    self.attributes.path = 'Development/' .. path
+    self.attributes.path = 'Dev/' .. path
 
     return self
 end
@@ -96,7 +96,7 @@ function Client:name(name)
     setmetatable(o, self)
     self.__index = self
 
-    self.attributes = {name = name, path = 'Development/' .. name}
+    self.attributes = {name = name, path = 'Dev/' .. name}
 
     return o
 end
@@ -126,7 +126,7 @@ function ProjectManager:setAlfredJson()
         local fullPath = '~/' .. site.attributes.path
         table.insert(items, {
             uid = site.attributes.path:gsub('/', '.'),
-            title = site.attributes.path:gsub('Development/', ''):gsub('/', ' > '):gsub('-', ' '),
+            title = site.attributes.path:gsub('Dev/', ''):gsub('/', ' > '):gsub('-', ' '),
             subtitle = fullPath,
             arg = site.attributes.path,
             autocomplete = site.attributes.path:gsub('/', ' > '),
@@ -186,22 +186,22 @@ function ProjectManager.openDatabaseForCurrent()
     if site.attributes.name then
         -- if str.contains('://root', site.attributes.database) then
         --     if type(site.attributes.database) == 'table' then
-        --         name = site.attributes.path:gsub('Development/', '')
+        --         name = site.attributes.path:gsub('Dev/', '')
         --         fn.TablePlus.open('mysql://root@127.0.0.1/' .. site.attributes.database.name .. '?statusColor=686B6F&enviroment=local&name=' .. name)
         --     else
         --         fn.TablePlus.open(site.attributes.database)
         --     end
         if site.attributes.database then
             if type(site.attributes.database) == 'table' then
-                name = site.attributes.path:gsub('Development/', '')
+                name = site.attributes.path:gsub('Dev/', '')
                 fn.TablePlus.open('mysql://root@127.0.0.1/' ..
                     site.attributes.database.name .. '?statusColor=686B6F&enviroment=local&name=' .. name)
             else
                 fn.TablePlus.open(site.attributes.database)
             end
         else
-            database = site.attributes.path:gsub('Development/', ''):gsub('/', '_'):lower()
-            name = site.attributes.path:gsub('Development/', '')
+            database = site.attributes.path:gsub('Dev/', ''):gsub('/', '_'):lower()
+            name = site.attributes.path:gsub('Dev/', '')
             fn.TablePlus.open('mysql://root@127.0.0.1/' ..
                 database .. '?statusColor=686B6F&enviroment=local&name=' .. name)
         end
@@ -211,7 +211,7 @@ function ProjectManager.openDatabaseForCurrent()
 end
 
 function ProjectManager.getByShortPath(path)
-    site = ProjectManager.getByPath('Development/' .. path)
+    site = ProjectManager.getByPath('Dev/' .. path)
 
     return site.attributes.path and site or Site:new()
 end
