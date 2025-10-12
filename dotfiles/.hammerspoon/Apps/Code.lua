@@ -36,8 +36,7 @@ function Code.open(path)
 end
 
 function Code.openAndMaximize(path)
-    hs.execute('export PATH=/Users/nathan/.nvm/versions/node/v17.0.1/bin:/Users/nathan/Dev/TidyPoint/bin:/Users/nathan/.fuelingzsh/bin:/Users/nathan/.composer/vendor/bin:/Users/nathan/.yarn/bin:/Users/nathan/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/nathan/.fig/bin:/Users/nathan/.local/bin:/usr/local/opt/fzf/bin; /usr/local/bin/code "'
-        .. path:gsub('~', '/Users/nathan') .. '"')
+    hs.execute('/usr/local/bin/code "' .. path .. '"')
     cm.Window.maximizeAfterDelay()
 end
 
@@ -45,8 +44,7 @@ function Code.ensureInitializedSnippets(callback)
     local window = hs.window.focusedWindow()
 
     if not is.vscode()
-        or hs.fnutils.contains(Code.windowsWithSnippetsInitialized, window:id())
-    then
+        or hs.fnutils.contains(Code.windowsWithSnippetsInitialized, window:id()) then
         return callback()
     end
 

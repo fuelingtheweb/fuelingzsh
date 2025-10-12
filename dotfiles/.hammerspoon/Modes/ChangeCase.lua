@@ -41,7 +41,7 @@ function ChangeCase.change(to, key)
             text = str.selected()
         end
 
-        result = str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. to .. '" "' .. text .. '"'))
+        result = str.trim(hs.execute('~/.nvm/versions/node/v12.4.0/bin/node ~/.fuelingzsh/bin/change-case/bin/index.js "' .. to .. '" "' .. text .. '"')):gsub('~', home_path)
         ks.type(result)
     end
 end

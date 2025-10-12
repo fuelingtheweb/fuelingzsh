@@ -30,12 +30,12 @@ function Artisan.setup()
         description = 'List all registered routes',
         callback = function()
             output = hs.execute(table.concat({'/usr/local/bin/php', Artisan.path, Artisan.command, '--json'}, ' '))
-            file = io.open('/Users/nathan/.fuelingzsh/custom/artisan-output.log', 'w')
+            file = io.open(home_path .. '/.fuelingzsh/custom/artisan-output.log', 'w')
             file:write(output)
             file:close()
             hs.execute(table.concat({
                 '/usr/local/bin/php',
-                '/Users/nathan/Dev/TidyPoint/cli/cli',
+                home_path .. '/Dev/TidyPoint/cli/cli',
                 'output:routes'
             }, ' '))
         end,
@@ -211,7 +211,7 @@ function Artisan.setup()
                 name = Artisan.convertTo('path', params.name)
                 fn.clipboard.set(Artisan.convertTo('dot', name))
                 filePath = Artisan.mainPath .. '/resources/views/' .. name .. '.blade.php'
-                filePath = filePath:gsub('~', '/Users/nathan')
+                filePath = filePath:gsub('~', home_path)
                 output = hs.execute('mkdir -p "$(dirname "' .. filePath .. '")" && touch "' .. filePath .. '"')
             end)
         end,
@@ -244,7 +244,7 @@ function Artisan.loadAlfredJson()
 
     hs.json.write(
         {items = items},
-        '/Users/nathan/.fuelingzsh/custom/artisan.json',
+        home_path .. '/.fuelingzsh/custom/artisan.json',
         false,
         true
     )
@@ -268,7 +268,7 @@ function Artisan.showNewScreen()
 end
 
 function Artisan.setupArgs()
-    args = {Artisan.path:gsub('~', '/Users/nathan'), '--no-ansi'}
+    args = {Artisan.path:gsub('~', home_path), '--no-ansi'}
 
     fn.each(hs.fnutils.split(Artisan.command, ' '), function(arg)
         table.insert(args, arg)
@@ -399,7 +399,7 @@ function Artisan.openNewFiles(callback)
 end
 
 function Artisan.convertTo(converter, text)
-    return str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"'))
+    return str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"')):gsub('/Users/nathan', home_path)
 end
 
 function Artisan.migrateFreshAndSeed()

@@ -40,7 +40,7 @@ success 'Linking custom dotfiles.'
 ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
 
 info 'Open Cursorcerer'
-open '/Users/nathan/Library/PreferencePanes/Cursorcerer.prefPane'
+open $HOME/Library/PreferencePanes/Cursorcerer.prefPane
 pause
 
 info 'Open Code.'

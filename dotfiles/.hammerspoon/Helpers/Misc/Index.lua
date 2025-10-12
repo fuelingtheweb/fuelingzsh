@@ -8,7 +8,7 @@ function Misc.DismissNotifications()
 end
 
 function Misc.executeFromFuelingZsh(command)
-    return hs.execute('~/.fuelingzsh/bin/' .. command)
+    return hs.execute(home_path .. '/.fuelingzsh/bin/' .. command)
 end
 
 function Misc.showSnippets()

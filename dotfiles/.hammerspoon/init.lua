@@ -1,5 +1,7 @@
 hs.hotkey.alertDuration = 0
 
+home_path = os.getenv('HOME')
+
 -- test
 Modal = hs.loadSpoon('Modal')
 

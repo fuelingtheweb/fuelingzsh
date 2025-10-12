@@ -141,7 +141,7 @@ function ProjectManager:setAlfredJson()
         })
     end)
 
-    hs.json.write({items = items}, '/Users/nathan/.fuelingzsh/custom/projects.json', false, true)
+    hs.json.write({items = items}, home_path .. '/.fuelingzsh/custom/projects.json', false, true)
 end
 
 function ProjectManager.current()
@@ -169,7 +169,7 @@ function ProjectManager.openUrlForCurrent()
 end
 
 function ProjectManager.openItermForCurrent()
-    fn.iTerm.openNew('/Users/nathan/' .. ProjectManager.current().attributes.path)
+    fn.iTerm.openNew(home_path .. '/' .. ProjectManager.current().attributes.path)
 end
 
 function ProjectManager.serveCurrent()
@@ -250,7 +250,7 @@ function Site:open()
     if self.attributes.path then
         fn.Code.open('~/' .. self.attributes.path)
         fn.Chrome.open(self.attributes.url)
-        fn.iTerm.open('/Users/nathan/' .. self.attributes.path)
+        fn.iTerm.open(home_path .. '/' .. self.attributes.path)
     end
 end
 

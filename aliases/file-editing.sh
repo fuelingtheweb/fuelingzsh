@@ -12,8 +12,5 @@ alias fze='st $HOME/.fuelingzsh'
 alias ze='st $HOME/.zshrc'
 alias zr='source $HOME/.zshrc'
 
-alias ehosts='sudo subl /etc/hosts'
-alias edns='st /etc/apache2/users/nathan.conf'
-
 alias emd='st $HOME/.phpmd.xml'
 alias ecs='st $HOME/.phpcs.xml'

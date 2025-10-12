@@ -1,6 +1,6 @@
 alias g='git'
 
-alias ghh='gh dash --config /Users/nathan/.fuelingzsh/options/gh-dash.yml'
+alias ghh='gh dash --config $HOME/.fuelingzsh/options/gh-dash.yml'
 
 alias gg='lazygit'
 

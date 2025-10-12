@@ -2,7 +2,7 @@ local Ray = {}
 Ray.__index = Ray
 
 Ray.updatedPath = 'PATH=/usr/local/bin:$PATH;'
-Ray.command = '/Users/nathan/.composer/vendor/bin/ray'
+Ray.command = home_path .. '/.composer/vendor/bin/ray'
 
 function ray(value)
     if not value then

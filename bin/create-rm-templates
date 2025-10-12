@@ -17,7 +17,7 @@
 # $ ssh root@remarkable
 # $ systemctl restart xochitl
 
-remarkablePath=/Users/nathan/Documents/reMarkable
+remarkablePath=$HOME/Documents/reMarkable
 toolsPath=$remarkablePath/Tools
 convertedPath=$toolsPath/Converted
 finalPath=$toolsPath/Final
