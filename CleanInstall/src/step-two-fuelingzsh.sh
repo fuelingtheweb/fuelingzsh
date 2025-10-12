@@ -16,13 +16,11 @@ dotfiles=(
     .gitignore
     .zshrc
     .my.cnf
-    .myclirc
     .npmrc
     .phpmd.xml
     .php_cs
     .bash_profile
     .hammerspoon
-    .lambo
     .ctags
     .mackup
     .mackup.cfg
@@ -48,8 +46,6 @@ ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
 ln -s $FUELINGZSH/custom/espanso $HOME/Library/Preferences/espanso
 cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 touch $HOME/.hushlogin
-
-ln -s $HOME/Dropbox/Ftw/Mackup/Library/Preferences/com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
 
 espanso register
 espanso start

@@ -18,7 +18,6 @@ formulas=(
     fpp
     fzf
     git
-    git-flow
     highlight
     httpie
     hub
@@ -32,18 +31,13 @@ formulas=(
     vim
     z
     mas
-    mysql
-    redis
-    sqlite
     php-cs-fixer
     phpmd
     composer
-    yarn
     yqrashawn/goku/goku
     mackup
-    nvm
+    volta
     zsh
-    wp-cli
 )
 
 for formula in "${formulas[@]}"; do
@@ -60,36 +54,23 @@ echo -e "\\n\\nRunning fzf install script..."
 echo "=============================="
 /usr/local/opt/fzf/install --all --no-bash --no-fish
 
-brew services start mysql
-brew services start redis
-
 casks=(
-    iterm2
-    sublime-merge
     alfred
     appcleaner
-    tableplus
     betterzip
-    quicklook-json
-    quicklook-csv
-    qlimagesize
-    qlvideo
     cursorcerer
     hammerspoon
-    kaleidoscope
     vlc
     bartender
     discord
     karabiner-elements
-    transmit
     tinkerwell
     spotify
-    dash
     beardedspice
-    helo
     ray
+    raycast
     espanso
-    elgato-stream-deck
+    warp
 )
 
 for cask in "${casks[@]}"; do

@@ -7,7 +7,10 @@ info '- Add Google Internet account.'
 info '- Remove iCloud syncing.'
 pause
 
-info 'Install Mac Apps: Fantastical, Marked 2, Amphetamine, Gemini 2, White Noise.'
+info 'Install and setup Setapp.'
+pause
+
+info 'Install Mac Apps.'
 info 'Sign into the app store to attempt automatic install.'
 open -a 'App Store.app'
 pause
@@ -28,13 +31,6 @@ info '- Features -> Snippets: Automatically expand snippets by keyword'
 info '- Appearance: Select FTW Material Dark'
 pause
 
-copyLicenseNoTrim 'sublime-text'
-open https://packagecontrol.io/installation
-open -a 'Sublime Text.app'
-info 'Open Sublime Text, register, and install Package Control. License copied.'
-info 'Quit Sublime Text when finished.'
-pause
-
 source $custom/step-three-apps.sh
 
 success 'Running Mackup Restore.'
@@ -42,10 +38,6 @@ mackup restore
 
 success 'Linking custom dotfiles.'
 ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
-
-info 'Open Fantastical'
-open -a 'Fantastical.app'
-pause
 
 info 'Open Cursorcerer'
 open '/Users/nathan/Library/PreferencePanes/Cursorcerer.prefPane'
@@ -55,20 +47,12 @@ info 'Open Code.'
 open -a 'Visual Studio Code.app'
 pause
 
-info 'Open Sublime.'
-open -a 'Sublime Text.app'
-info '- Hide minimap.'
-echo '"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",' | pbcopy
-info '- Update color scheme (copied):'
-info '"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",'
+info 'Install Homerow: https://homerow.app/'
+open https://homerow.com/
 pause
 
-info 'Install Vimac: https://vimacapp.com/'
-open https://vimacapp.com/
-pause
-
-info 'Open Vimac'
-open -a 'Vimac.app'
+info 'Open Homerow'
+open -a 'Homerow.app'
 pause
 
 info 'Update Preferences: System.'
@@ -96,20 +80,10 @@ pause
 
 info 'Open Bartender'
 open -a 'Bartender 4.app'
-info '- Always show: Wi-Fi, Battery, Clock, Fantastical'
+info '- Always show: Wi-Fi, Battery, Clock, Busycal'
 info '- Show: Location Menu'
 info '- Always hide: Notification Center, Spotlight'
-info '- Hide: Amphetamine, Time Machine, Vimac, Dropbox'
-pause
-
-copyLicenseNoTrim 'sublime-merge'
-open -a 'Sublime Merge.app'
-info 'Register Sublime Merge. License copied.'
-pause
-
-copyLicense 'tableplus'
-open -a 'TablePlus.app'
-info 'Register TablePlus. License copied.'
+info '- Hide: Time Machine, Homerow, Dropbox'
 pause
 
 copyLicense 'tinkerwell'
@@ -117,27 +91,13 @@ open -a 'Tinkerwell.app'
 info 'Register Tinkerwell. License copied.'
 pause
 
-copyLicense 'invoker'
-open https://beyondco.de/licenses/invoker
-info 'Install Invoker: https://beyondco.de/licenses/invoker'
-info 'Register Invoker. License copied.'
-pause
-
-copyLicense 'helo'
-open -a 'HELO.app'
-info 'Register Helo. License copied.'
-pause
-
 copyLicense 'ray'
 open -a 'Ray.app'
 info 'Register Ray. License copied.'
 pause
 
-info 'Add other licenses: Dash.'
+info 'Add other licenses.'
 pause
 
-info 'Open Chrome.'
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "https://google.com" --profile-directory="Default"
-info '- Hide extensions in Chrome menu.'
-info '- Make sure the YouTube Music app is installed and allow javascript from apple events. https://github.com/beardedspice/beardedspice/issues/818'
+info 'Open Vivaldi and update settings.'
 pause

@@ -4,7 +4,7 @@
 
 # Mac App Store apps to install
 apps=(
-    "Fantastical:975937182"
+    # "Fantastical:975937182"
 )
 
 for app in "${apps[@]}"; do

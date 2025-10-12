@@ -1,9 +1,9 @@
-open https://chrome.google.com
-info 'Install Google Chrome.'
+open https://vivaldi.com
+info 'Install Vivaldi.'
 pause
 
-info 'Setup Google Chrome.'
-open -a 'Google Chrome.app'
+info 'Setup Vivaldi.'
+open -a 'Vivaldi.app'
 pause
 
 info 'Move Backups to Documents.'
@@ -21,13 +21,13 @@ success 'Updating git remote url.'
 cd $FUELINGZSH
 git remote set-url origin git@github.com:fuelingtheweb/fuelingzsh.git
 
-success 'Creating Development folder.'
-mkdir $HOME/Development
+success 'Creating Dev folder.'
+mkdir $HOME/Dev
 
 info 'Wait for Dropbox to sync Ftw folder.'
 info 'Update Dropbox preferences to sync remaining folders.'
 info 'Quit Dropbox until all settings have synced and symlinked.'
 info 'Transfer backed up folders while installing FuelingZsh then remove Backups folder.'
-open $HOME/Development
+open $HOME/Dev
 open $backups
 pause
