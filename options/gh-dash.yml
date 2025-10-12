@@ -12,4 +12,4 @@ defaults:
   preview:
     open: false # wether to have the preview pane open by default
 repoPaths: # configure where to locate repos when checking out PRs
-  theboutiquehub/hubventory: ~/Development/Hub/Hubventory
+  theboutiquehub/hubventory: ~/Dev/Hub/Hubventory

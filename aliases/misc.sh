@@ -14,7 +14,7 @@ alias w='which'
 alias m='cd ~/ && /bin/cat ~/.fuelingzsh/custom/ascii/welcome.honk.txt'
 alias dld='cd ~/Downloads'
 alias dcs='cd ~/Documents'
-alias dv='cd ~/Development'
+alias dv='cd ~/Dev'
 alias bc="bc -l -q" # Run Calculator
 alias hi="history | less +G"
 alias vf="vifm"
@@ -46,7 +46,7 @@ alias files:hide='defaults write com.apple.finder AppleShowAllFiles NO; killall 
 alias files:show='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias ydl='youtube-dl'
 alias ke='st ~/.config/karabiner.edn'
-alias kc='goku'
+alias kc='php ~/Dev/TidyPoint/kc/artisan kc:compile && goku'
 alias kcw='gokuw'
 alias cleaninstall="$FUELINGZSH/CleanInstall/start.sh"
 alias pdf:combine="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=merged.pdf"
