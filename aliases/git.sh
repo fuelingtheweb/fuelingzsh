@@ -53,7 +53,7 @@ alias gfrs='git flow release start'
 alias gfrf='git flow release finish'
 
 alias gin='git init'
-alias gig='st .gitignore'
+alias gig='code .gitignore'
 
 alias gl='git:log'
 

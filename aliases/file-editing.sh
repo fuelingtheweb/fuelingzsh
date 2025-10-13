@@ -1,16 +1,17 @@
 # Alias Editing
-alias ae='st $ALIASES'
+alias ae='code $ALIASES'
 alias ar='source $ALIASES/index.sh'
 
 # vimrc editing
-alias ve='st $HOME/.vimrc'
+alias ve='code $HOME/.vimrc'
 
 # fuelingzsh editing
-alias fze='st $HOME/.fuelingzsh'
+alias fze='code $HOME/.fuelingzsh'
+alias fz='cd $HOME/.fuelingzsh'
 
 # zshrc editing
-alias ze='st $HOME/.zshrc'
+alias ze='code $HOME/.zshrc'
 alias zr='source $HOME/.zshrc'
 
-alias emd='st $HOME/.phpmd.xml'
-alias ecs='st $HOME/.phpcs.xml'
+alias emd='code $HOME/.phpmd.xml'
+alias ecs='code $HOME/.phpcs.xml'
