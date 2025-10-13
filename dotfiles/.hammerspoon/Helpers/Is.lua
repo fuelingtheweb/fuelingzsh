@@ -138,7 +138,7 @@ function Is.hammerspoon()
 end
 
 function Is.quickFind()
-    return fn.Raycast.visible() or fn.Alfred.visible()
+    return fn.Raycast.visible()
 end
 
 function Is.obsidian()

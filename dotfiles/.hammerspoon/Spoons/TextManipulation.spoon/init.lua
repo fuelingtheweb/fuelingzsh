@@ -18,7 +18,7 @@ Modal.add({
 })
 
 function TextManipulation.canManipulateWithVim()
-    if not TextManipulation.vimEnabled or fn.Alfred.visible() then
+    if not TextManipulation.vimEnabled or is.quickFind() then
         return false
     end
 

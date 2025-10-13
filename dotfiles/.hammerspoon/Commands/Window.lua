@@ -140,11 +140,7 @@ function Window.nextInCurrentApp()
 end
 
 function Window.settings()
-    if fn.Alfred.visible() then
-        hs.application.open('com.runningwithcrayons.Alfred-Preferences')
-    else
-        ks.cmd(',')
-    end
+    ks.cmd(',')
 end
 
 function Window.moveMouseToOtherScreen()
