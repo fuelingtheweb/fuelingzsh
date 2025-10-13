@@ -20,7 +20,7 @@ hs.urlevent.bind('misc-optionPressedTwice', function()
 end)
 
 UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
-UrlDispatcher.default_handler = brave
+UrlDispatcher.default_handler = vivaldi
 UrlDispatcher.url_patterns = require('config.custom.routing')
 UrlDispatcher:start()
 
