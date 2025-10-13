@@ -8,19 +8,24 @@ git clone git@github.com:zdharma/fast-syntax-highlighting.git $OHMYZSH/custom/pl
 git clone git@github.com:zsh-users/zsh-autosuggestions.git $OHMYZSH/custom/plugins/zsh-autosuggestions
 git clone git@github.com:zsh-users/zsh-syntax-highlighting.git $OHMYZSH/custom/plugins/zsh-syntax-highlighting
 
+# Install and setup lazygit
+# brew install lazygit
+# ln -s ~/.fuelingzsh/options/lazygit.yml ~/Library/Application\ Support/lazygit/config.yml
+
+# Download from github and install ttf fonts
 git clone git@github.com:tonsky/FiraCode.git $HOME/FiraCode
 cp $HOME/FiraCode/distr/ttf/* $HOME/Library/Fonts/
 rm -rf $HOME/FiraCode
 
 dotfiles=(
     .gitignore
-    .zshrc
+    .zshrc # *
     .my.cnf
     .npmrc
     .phpmd.xml
     .php_cs
     .bash_profile
-    .hammerspoon
+    .hammerspoon # *
     .ctags
     .mackup
     .mackup.cfg
@@ -39,8 +44,8 @@ ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/custom $FUELINGZSH/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/aliases/custom $FUELINGZSH/aliases/custom
 ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/config/custom $FUELINGZSH/dotfiles/.hammerspoon/config/custom
 trash $HOME/.config/karabiner.edn
-mkdir $HOME/.config
-ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn
+mkdir $HOME/.config # *
+ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn # *
 trash $HOME/.warprc
 ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
 ln -s $FUELINGZSH/custom/espanso $HOME/Library/Preferences/espanso
@@ -50,6 +55,7 @@ touch $HOME/.hushlogin
 espanso register
 espanso start
 
+# needs to happen after opening karabiner elements and ensuring "Default" profile is available
 goku
 
 info 'Open Karabiner.'
@@ -67,5 +73,5 @@ pause
 source $src/osx.sh
 
 success 'Changing default shell to zsh. Restart computer, open iTerm, and run cleaninstall.'
-sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+sudo dscl . -create /Users/$USER UserShell `which zsh`
 chsh -s `which zsh`

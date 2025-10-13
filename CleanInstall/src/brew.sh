@@ -12,7 +12,7 @@ formulas=(
     bat
     csvkit
     diff-so-fancy
-    exa
+    eza # *
     fasd
     fd
     fpp
@@ -27,17 +27,17 @@ formulas=(
     terminal-notifier
     tesseract
     tldr
-    trash
+    trash # *
     vim
     z
     mas
     php-cs-fixer
     phpmd
-    composer
-    yqrashawn/goku/goku
+    composer # *
+    yqrashawn/goku/goku # *
     mackup
-    volta
-    zsh
+    volta # *
+    zsh # *
 )
 
 for formula in "${formulas[@]}"; do
@@ -59,18 +59,18 @@ casks=(
     appcleaner
     betterzip
     cursorcerer
-    hammerspoon
+    hammerspoon # *
     vlc
     bartender
     discord
-    karabiner-elements
+    karabiner-elements # *
     tinkerwell
     spotify
     beardedspice
     ray
-    raycast
-    espanso
-    warp
+    raycast # *
+    espanso # *
+    warp # *
 )
 
 for cask in "${casks[@]}"; do

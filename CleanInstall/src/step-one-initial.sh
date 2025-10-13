@@ -2,6 +2,13 @@ open https://vivaldi.com
 info 'Install Vivaldi.'
 pause
 
+# Install Vivaldi
+# Set up ssh key and add to GitHub
+# Download .fuelingzsh
+# Install Homebrew
+# Install goku
+# Install Karabiner Elements and Hammerspoon
+
 info 'Setup Vivaldi.'
 open -a 'Vivaldi.app'
 pause
