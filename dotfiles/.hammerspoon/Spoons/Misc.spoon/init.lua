@@ -19,10 +19,10 @@ hs.urlevent.bind('misc-optionPressedTwice', function()
     end
 end)
 
-UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
-UrlDispatcher.default_handler = vivaldi
-UrlDispatcher.url_patterns = require('config.custom.routing')
-UrlDispatcher:start()
+-- UrlDispatcher = hs.loadSpoon('vendor/URLDispatcher')
+-- UrlDispatcher.default_handler = vivaldi
+-- UrlDispatcher.url_patterns = require('config.custom.routing')
+-- UrlDispatcher:start()
 
 Shortcuts = hs.loadSpoon('Shortcuts')
 Shortcuts:addFromConfig()
