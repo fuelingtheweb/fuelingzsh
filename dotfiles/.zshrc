@@ -6,8 +6,6 @@ CUSTOM=$FUELINGZSH/custom
 ZSH_DISABLE_COMPFIX="true"
 DISABLE_AUTO_UPDATE="true"
 
-# source $OPTIONS/iterm.sh
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -15,17 +13,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-#     ZSH_THEME="powerlevel10k/powerlevel10k"
-# else
-    ZSH_THEME="ftw-agnoster"
-# fi
+ZSH_THEME="ftw-agnoster"
 
 plugins=(
-    fast-syntax-highlighting
     history-substring-search
     urltools
-    zsh-autosuggestions
 )
 source $ZSH/oh-my-zsh.sh
 
