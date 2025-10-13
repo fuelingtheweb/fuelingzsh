@@ -32,7 +32,9 @@ function Alfred.run(trigger, workflow, argument)
 end
 
 function Alfred.visible()
-    return hs.application.find('com.runningwithcrayons.Alfred'):isFrontmost()
+    app = hs.application.find('com.runningwithcrayons.Alfred')
+
+    return app and app:isFrontmost()
 end
 
 return Alfred
