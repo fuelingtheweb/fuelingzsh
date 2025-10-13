@@ -10,7 +10,8 @@ git clone git@github.com:zsh-users/zsh-syntax-highlighting.git $OHMYZSH/custom/p
 
 # Install and setup lazygit
 # brew install lazygit
-# ln -s ~/.fuelingzsh/options/lazygit.yml ~/Library/Application\ Support/lazygit/config.yml
+# Open lazygit
+# ln -sf ~/.fuelingzsh/options/lazygit.yml ~/Library/Application\ Support/lazygit/config.yml
 
 # Download from github and install ttf fonts
 git clone git@github.com:tonsky/FiraCode.git $HOME/FiraCode
