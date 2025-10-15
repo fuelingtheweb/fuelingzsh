@@ -35,6 +35,8 @@ App.bundles = {
     youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
     zen = 'app.zen-browser.zen',
     zoom = 'us.zoom.xos',
+    teams = 'com.microsoft.teams2',
+    outlook = 'com.microsoft.Outlook',
 }
 
 App.browsers = {

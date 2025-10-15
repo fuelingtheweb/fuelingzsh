@@ -160,6 +160,8 @@ function Hyper.open()
         ks.cmd('k')
     elseif is.In(spotify) then
         fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
+    elseif is.In(vivaldi) then
+        ks.cmd('e')
     elseif is.arc() then
         if fn.Arc.urlContains('github.com')
             or fn.Arc.urlContains('tailwindcss.com/docs')

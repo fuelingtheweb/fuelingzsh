@@ -67,6 +67,7 @@
         :app "open -b '%s'"
         :hs "open -g 'hammerspoon://%s'"
         :hsk "open -g 'hammerspoon://handle-karabiner?mode=%s&key=%s'"
+        :menu "osascript -e 'tell application \"System Events\" to tell process \"%s\" to click menu item \"%s\" of menu \"%s\" of menu bar 1'"
     }
     :applications {
         :alfred ["com.runningwithcrayons.Alfred"]
@@ -91,6 +92,8 @@
         :warp ["dev.warp.Warp-Stable"]
         :zen ["app.zen-browser.zen"]
         :zoom ["us.zoom.xos"]
+        :teams ["com.microsoft.teams2"]
+        :outlook ["com.microsoft.Outlook"]
         :calendar ["com.busymac.busycal-setapp"]
         :code ["com.microsoft.VSCode"]
         :mail ["com.mimestream.Mimestream"]
@@ -987,6 +990,7 @@
                 [:b [:!C0] [:tableplus]]
                 [:b [:!TCs] [:vivaldi]]
                 [:b [:!OCc] [:zen]]
+                [:b [:menu "Microsoft Outlook" "Sidebar" "View"] [:outlook]]
                 [:b [:!Cbackslash] []]
                 [:y [:hsk "Window" "y"]]
                 [:u [:hsk "Window" "u"]]

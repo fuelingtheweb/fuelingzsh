@@ -19,12 +19,12 @@ Open.lookup = {
     f = 'openFrequentModal',
     g = 'vivaldi',
     left_shift = 'chrome',
-    z = 'zoom',
+    z = 'teams',
     x = 'finder',
     c = 'calendar',
     v = 'tableplus',
     -- b = 'openBookmarksModal',
-    b = 'arc',
+    b = 'outlook',
     spacebar = 'miniCalendar',
 }
 
