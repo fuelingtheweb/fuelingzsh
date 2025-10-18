@@ -1,3 +1,10 @@
+/vendor
+/.idea
+/.vscode
+/.vagrant
+.phpunit.result.cache
+.env
+
 custom
 aliases/custom
 CleanInstall/custom

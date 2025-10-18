@@ -1,0 +1,518 @@
+'caps : Hyper':
+    y:
+    u:
+    i:
+    o:
+    p: 'soc.p' # Alfred clipboard
+    '[': # Command Palette
+        anybox: 'c.k'
+        arc: 'c.t'
+        ide: 'sc.p'
+        obsidian: 'c.p'
+        warp: 'c.p'
+        default: 'alfred: search, com.tedwise.menubarsearch'
+    ']': '' # tell me this key is open
+    h: # Previous Page
+        discord: 'c.k rtn'
+        raycast: 'esc'
+        spotify: 'oc.lt'
+        terminal: '"cdp" ++ rtn'
+        default: 'c.['
+    j:
+    k:
+    l:
+    ';':
+    qt:
+    rtn:
+    b:
+    n:
+        ide: 'oc.n'
+        default: 'sc.n'
+    m:
+    ',':
+    prd:
+    '/':
+    rtS:
+    sb:
+
+'tab : Tab':
+    y:
+    u:
+    i: # First tab
+        default: 'c.1'
+    o: # Last Tab
+        chrome: 'c.9'
+        default: 't.0'
+    p: # Pin Tab
+        ide: 'c.k rtn'
+        obsidian: 'toc.p'
+        vivaldi: 'toc.p'
+    '[': # Close all tabs to the left
+        chrome: 't x h'
+        ide: 'toc.e toc.['
+    ']': # Close all tabs to the right
+        chrome: 't x l'
+        ide: 'toc.e toc.]'
+    h: # Move tab left
+        chrome: 'esc t h'
+        ide: 'soc.lt'
+        vivaldi: 'oc.lt'
+    j:
+    k:
+    l: # Move tab right
+        chrome: 'esc t l'
+        ide: 'soc.rt'
+        vivaldi: 'oc.rt'
+    ';':
+    qt:
+    rtn: # Restore tab
+        default: 'sc.t'
+    b:
+    n: # New tab
+        finder: 'c.n'
+        ide: 'c.n s.o'
+        default: 'c.t'
+    m:
+    ',':
+    prd:
+    '/': # Close all other tabs
+        chrome: 't x ;'
+        ide: 'toc.e toc./'
+    rtS: # Close all tabs
+        ide: 'toc.e toc.qt'
+    sb: # Pin tab
+        ide: 'c.k rtn'
+        obsidian: 'toc.p'
+
+'q : Pane':
+    - all-right
+
+'w':
+
+'e':
+
+'r : Calculator':
+    b: ','
+    y: '*'
+    u: '1'
+    i: '2'
+    o: '3'
+    p: '%'
+    '[': 'dlt'
+    ']': 'cln'
+    h: '+'
+    j: '4'
+    k: '5'
+    l: '6'
+    ';': '0'
+    qt: '='
+    rtn: 'rtn'
+    n: '-'
+    m: '7'
+    ',': '8'
+    prd: '9'
+    '/': '/'
+    rtS: 'tab'
+    sb: 'prd'
+
+'t : Test':
+    - all-right
+
+'y : Yank':
+    - all-left
+
+'u : AppShortcut':
+    - all
+
+'i : Make':
+    - all-left
+
+'o : Open':
+    - all
+
+'p : Paste':
+    - all-left
+
+'[ : Secondary':
+    - all-left
+
+'] : Tertiary':
+    - all-left
+
+'a : ChangeCase':
+    - all-right
+
+'s : DefaultSnippets':
+    d: '"dd();" ++ lt lt'
+    e: '"elseif"'
+    t: '"$this->"'
+    y: '" && "'
+    u:
+    i: '"if () {}" ++ lt'
+    o: '" + "'
+    p: '" || "'
+    '[': '"echo"'
+    ']':
+    h:
+    j:
+    k:
+    l: '"console.log()" ++ lt'
+    ';': '" : "'
+    qt: '='
+    rtn: '"return"'
+    n:
+    m:
+    ',': '", "'
+    prd:
+    '/': '" ? "'
+    rtS:
+    sb:
+
+'d : Vi':
+    y: # 'moveToTopOfPage',
+        default: 'hs: vi.moveToTopOfPage'
+    u: # 'pageUp',
+        ide: 't.u'
+        default: 'page_up'
+    i: # 'moveToFirstCharacterOfLine',
+        default: 'c.lt'
+    o: # 'moveToEndOfLine',
+        default: 'c.rt'
+    p: # nil,
+    '[': # 'moveAndInsertAtFirstCharacterOfLine',
+        ide: 'esc s.i'
+        default: 'c.lt'
+    ']': # 'moveAndAppendAtEndOfLine',
+        ide: 'esc s.a'
+        default: 'c.rt'
+    h: 'lt'
+    j: 'dn'
+    k: 'up'
+    l: 'rt'
+    ';': # 'moveToPreviousWholeWord',
+        default: 'esc s.b'
+    qt: # 'moveToEndOfWholeWord',
+        default: 'esc s.e'
+    rtn: # 'moveToNextWholeWord',
+        default: 'esc s.w'
+    n: # 'moveToBottomOfPage',
+        default: 'hs: vi.moveToBottomOfPage'
+    m: # 'pageDown',
+        ide: 't.d'
+        default: 'page_down'
+    ',': # 'previousWord',
+        default: 'o.lt'
+    prd: # 'nextWord',
+        default: 'o.rt'
+    '/': # 'moveToPreviousSubword',
+    rtS: # 'moveToNextSubword',
+    sb: # 'joinLines',
+        ide: 'esc s.j x'
+
+'f : General':
+    y: '&'
+    u: '_'
+    i: '-'
+    o: '" - "'
+    p: '|'
+    '[': '{'
+    ']': '}'
+    h: '#'
+    j: '@'
+    k: '$'
+    l: '"- "'
+    ';': '('
+    qt: ')'
+    rtn:
+    n: '!'
+    m: 'hs: CodeSnippets.null'
+    ',': '`'
+    prd: '"->"'
+    '/': '~'
+    rtS: '^'
+    sb:
+
+'g : Git':
+    y:
+        terminal: '"gbc" ++ rtn'
+    u:
+        browser: 'oc.u'
+        terminal: '"nah"'
+    i:
+        terminal: '"git:checkout.include-all" ++ rtn'
+    o:
+        terminal: '"git:checkout" ++ rtn'
+    p:
+        ide: 'toc.g toc.p'
+        terminal: '"gd" ++ rtn'
+    '[':
+        code: 'toc.g oc.['
+        terminal: '"gmm" ++ rtn'
+    ']':
+        terminal: '"grm" ++ rtn'
+    h:
+        terminal: '"git:status.with-summary" ++ rtn'
+    j:
+        code: 'toc.g oc.j'
+        terminal: '"grs" ++ rtn'
+    k:
+        code: 'toc.g oc.k'
+        terminal: '"git:commit ''''" ++ lt'
+    l:
+        ide: 'soc.g soc.h'
+        terminal: '"git:log" ++ rtn'
+        vivaldi: 'sc.l'
+    ';':
+        terminal: '"gum" ++ rtn'
+    qt:
+        terminal: '"goml" ++ rtn'
+    rtn:
+        code: 'toc.g oc.]'
+        terminal: '"gaa" ++ rtn'
+    n:
+        code: '"```suggestion" ++ rtn rtn ++ "```" ++ up'
+        terminal: '"git:branch.new ''''" ++ lt'
+    m:
+        ide: 'toc.g toc.m'
+        terminal: '"git:branch.delete" ++ rtn'
+    ',':
+        browser: 'oc.i'
+        terminal: '"git pull" ++ rtn'
+    prd:
+        code: 'toc.g toc.j'
+        terminal: '"git push" ++ rtn'
+    '/':
+        terminal: '"git stash -u -m ''''" ++ lt'
+    rtS:
+        terminal: '"gstp" ++ rtn'
+    sb:
+        ide: 'soc.g soc.sb'
+
+'; : Command':
+    tab: # Shift Tab
+        default: 's.tab'
+    q:
+    w:
+    e:
+    r: # Reload
+        ide: 'soc.r'
+        terminal: 'up rtn' # Run last command
+        tinkerwell: 't.l c.r'
+        default: 'c.r'
+    t:
+    caps: 'alfred: commands, com.fuelingtheweb.commands'
+    a: 'oc.\' # Alfred: Action file
+    s: # Save
+        arc: 'o.r' # Save to reader
+        ide: 'c.s esc'
+        terminal: 'cln x rtn' # Save from vim
+        default: 'c.s'
+    d:
+    f:
+    g:
+    ltS:
+    z:
+    x: # Cancel or delete
+        arc: '#'
+        anybox: 'c.dlt'
+        finder: 'c.dlt'
+        ide: 'sc.dlt'
+        obsidian: 'sc.dlt'
+        terminal: 't.c'
+        default: 'dlt'
+    c:
+    v:
+    b:
+    sb:
+
+'qt : ExtendedCommand':
+    tab:
+    q:
+    w:
+    e:
+    r:
+    t:
+    caps: # Open Obsidian
+        default: 'app: obsidian'
+    a:
+    s: # Cleanshot
+        default: 'sc.5'
+    d:
+    f: # Reveal in sidebar
+        default: 'sc.\'
+    g:
+    ltS:
+    z:
+    x:
+    c:
+    v:
+    b:
+    sb:
+
+'z : CaseDialog':
+    - all-right
+
+'x : Execute':
+    - all-right
+
+'c : Code':
+    y: # Code info
+        default: 'c.k c.i'
+    u: # Add use statement
+        default: 'to.i'
+    i: # Focus breadcrumbs
+        default: 'sc.prd'
+    o: # Go to definition
+        default: 'oc.dn'
+    p: # Compare active file with
+        default: 'toc.c toc.w'
+    '[': # Fold
+        default: 'oc.['
+    ']': # Unfold
+        default: 'oc.]'
+    h: # Previous member
+        default: 'soc.up'
+    j: # Move line down
+        default: 'tc.dn'
+    k: # Move line up
+        default: 'tc.up'
+    l: # Next member
+        default: 'soc.dn'
+    ';': # Toggle semicolon
+        default: 'o.;'
+    qt: # Trigger Copilot
+        default: 'o.\'
+    rtn: # Select all
+        default: 'tc.g'
+    n: # Select next word
+        default: 'c.d'
+    m: # Multiple cursors down
+        default: 'sto.dn'
+    ',': # Toggle comma
+        default: 'o.,'
+    prd: # Double arrow
+        default: '" => "'
+    '/': # Go to matching pair
+        default: 'soc.m'
+    rtS: # Go to matching bracket
+        default: 't.m'
+    sb: # Toggle comment
+        default: 'c./'
+
+'v : ViVisual':
+    y: # 'selectToTopOfPage',
+        code: 'esc s.v g g'
+        finder: 'so.up'
+        default: 'sc.up'
+    u: # 'selectLineUp',
+        code: 's.v k'
+        default: 's.up'
+    i: # 'selectToFirstCharacterOfLine',
+        default: 'hs: ViVisual.selectToFirstCharacterOfLine'
+    o: # 'selectToEndOfLine',
+        code: 't.v s.4 lt'
+        default: 'sc.rt'
+    p: # nil,
+    '[': # nil,
+    ']': # nil,
+    h: # 'selectLeft',
+        code: 't.v lt'
+        default: 's.lt'
+    j: # 'selectDown',
+        code: 't.v t.dn'
+        default: 's.dn'
+    k: # 'selectUp',
+        code: 't.v t.up'
+        default: 's.up'
+    l: # 'selectRight',
+        code: 't.v rt'
+        default: 's.rt'
+    ';': # 'selectToPreviousWholeWord',
+        code: 't.v s.b'
+    qt: # 'selectToEndOfWholeWord',
+        code: 't.v s.e'
+    rtn: # 'selectToNextWholeWord',
+        code: 't.v l s.w h'
+    n: # 'selectToBottomOfPage',
+        code: 'esc s.v s.g'
+        finder: 'so.dn'
+        default: 'sc.dn'
+    m: # 'selectLineDown',
+        code: 's.v j'
+        default: 's.dn'
+    ',': # 'selectPreviousWord',
+        # code: 's.v b'
+        default: 'so.lt'
+    prd: # 'selectNextWord',
+        # code: 's.v e'
+        default: 'so.rt'
+    '/': # 'selectToPreviousSubword',
+    rtS: # 'selectToNextSubword',
+    sb: # nil,
+
+'b':
+
+'n : Change':
+    - all-left
+
+'m : Destroy':
+    - all-left
+
+', : SelectInside':
+    - all-left
+
+'prd : SelectUntil':
+    - all-left
+
+'/ : JumpTo':
+    - all-left
+
+'sb : Window':
+    tab:
+    q:
+    w:
+    e:
+    r:
+    t:
+    caps:
+    a:
+    s:
+    d:
+    f:
+    g:
+    ltS:
+    z:
+    x:
+    c:
+    v:
+    b:
+        anybox: tc.s
+        arc: st.\
+        finder: oc.s
+        mail: tc.s
+        slack: sc.d
+        tableplus: c.0
+        vivaldi: tc.s
+        zen: oc.c
+        outlook: 'menu: Microsoft Outlook, Sidebar, View'
+        default: c.\
+    y:
+    u:
+    i:
+    o:
+    p:
+    open_bracket:
+    close_bracket:
+    h:
+    j:
+    k:
+    l:
+    semicolon:
+    qt:
+    rtn:
+    n:
+    m:
+    comma:
+    prd:
+    slash:
+    rtS:

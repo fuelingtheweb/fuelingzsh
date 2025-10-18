@@ -1,7 +1,7 @@
-Fueling Zsh
+Anvil
 ==========
 
-Zsh Customizations and Useful Packages
+Compiler for Karabiner.edn (used by Goku) plus Zsh Customizations and Useful Packages
 
 I'm using Oh My ZSH (https://github.com/robbyrussell/oh-my-zsh) along with my own customizations.
 
@@ -15,4 +15,4 @@ Note that the install script is highly customized for my setup.
 
 ### Install via curl
 
-curl -L https://raw.github.com/fuelingtheweb/fuelingzsh/master/CleanInstall/install.sh | sh
+curl -L https://raw.github.com/fuelingtheweb/anvil/main/CleanInstall/install.sh | sh
