@@ -46,8 +46,8 @@ alias files:hide='defaults write com.apple.finder AppleShowAllFiles NO; killall 
 alias files:show='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias ydl='youtube-dl'
 alias ke='code ~/.config/karabiner.edn'
-alias kc='php ~/Dev/Anvil/artisan kc:compile && goku'
-alias kcw='gokuw'
+alias kb='php ~/Dev/Anvil/artisan build:karabiner && goku'
+alias kbw='gokuw'
 alias cleaninstall="$ANVIL/CleanInstall/start.sh"
 alias pdf:combine="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=merged.pdf"
 alias pdf:compress="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/screen -sOutputFile=small.pdf" # ebook | screen
