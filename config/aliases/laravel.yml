@@ -1,0 +1,113 @@
+lv: laravel
+lz: laravel-zero
+artisan: php artisan
+a: php artisan
+log:empty: echo '' > storage/logs/laravel.log
+elf: log:empty
+cpe: cp .env.example .env
+ac:
+    - artisan optimize:clear
+    - composer dump-autoload
+
+# Laravel Envoy
+er: envoy run
+edy: envoy run deploy
+ers: envoy run reseed
+
+lsu:
+    - ci
+    - cpe
+    - akg
+    - ni
+    - nd
+
+group.artisan:
+    ah: help
+    av: --version
+    lds: dump-server
+    dsk: dusk
+    tnk: tinker
+    as: serve
+
+    # Operations
+    aom: operations:make
+    aos: operations:show
+    aop: operations:process
+
+    # Horizon
+    ahz: horizon
+    ahc: horizon:clear
+
+    # Queue
+    aqc: queue:clear
+    aqw: queue:work
+
+    # General
+    akg: key:generate
+    arl: route:list
+    avp: vendor:publish
+    aeg: event:generate
+
+    # Database
+    amg: migrate
+    amgfr: migrate:fresh
+    amgrb: migrate:rollback
+    amgfs: migrate:fresh --seed
+    adbs: db:seed
+
+    # From Packages
+    adbbc: debugbar:clear
+    asv: scrap:view
+    ad: dusk
+    adm: dusk:make
+    atp: test --parallel --stop-on-failure
+
+    # Custom
+    aac: assets:compile
+    aar: assets:release
+    arcc: responsecache:clear
+
+    aee:
+        - env:encrypt --env=production --force --key="$1"
+    aed:
+        - env:decrypt --env=production --force --key="$1"
+    am: make
+
+group.artisan make::
+    amcmd: command
+    amcom: component
+    amc: controller
+    amca: cast
+    amen: enum
+    ame: event
+    amexc: exception
+    amexp: export
+    ami: import
+    amj: job
+    aml: listener
+    amma: mail
+    ammi: middleware
+    ammg: migration --fullpath
+    ammd: model
+    amn: notification
+    amo: observer
+    ampo: policy
+    ampr: provider
+    amrq: request
+    amrs: resource
+    amrl: rule
+    ams: seeder
+    amt: test
+    amtu: test --unit
+    amv: view
+    amw: livewire
+
+amf:
+    - NAME="${1}Factory"
+    - artisan make:factory --model="$1" $NAME
+
+ammam:
+    - artisan make:mail "$1" --markdown "$2"
+
+ammgc:
+    - ammg "create_$1_table" --create "$1"

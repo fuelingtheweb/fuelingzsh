@@ -1,6 +1,6 @@
 <?php
 
-function indent($count)
+function indent($count = 1)
 {
     return str_repeat('    ', $count);
 }
@@ -12,5 +12,9 @@ function template_path($path)
 
 function anvil_config($key)
 {
-    return base_path("config/{$key}.yml");
+    $path = str($key)
+        ->replace('.', '/')
+        ->value();
+
+    return base_path("config/{$path}.yml");
 }
