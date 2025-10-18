@@ -3,28 +3,19 @@ App.__index = App
 
 App.bundles = {
     anybox = 'cc.anybox.Anybox',
-    arc = 'company.thebrowser.Browser',
-    brave = 'com.brave.Browser',
     calendar = 'com.busymac.busycal-setapp',
     chrome = 'com.google.Chrome',
     dash = 'com.kapeli.dashdoc',
     discord = 'com.hnc.Discord',
     finder = 'com.apple.finder',
-    gitfox = 'com.bytieful.Gitfox-setapp',
-    gitkraken = 'com.axosoft.gitkraken',
-    invoker = 'de.beyondco.invoker',
-    iterm = 'com.googlecode.iterm2',
-    mail = 'com.mimestream.Mimestream',
+    mimestream = 'com.mimestream.Mimestream',
     obsidian = 'md.obsidian',
-    pop = 'com.pop.pop.app',
     postman = 'com.postmanlabs.mac',
     preview = 'com.apple.Preview',
     rayapp = 'be.spatie.ray',
     sideNotes = 'com.apptorium.SideNotes-setapp',
-    sigma = 'com.sigmaos.sigmaos.macos',
     slack = 'com.tinyspeck.slackmacgap',
     spotify = 'com.spotify.client',
-    sublimeMerge = 'com.sublimemerge',
     tableplus = 'com.tinyapp.TablePlus-setapp',
     tinkerwell = 'de.beyondco.tinkerwell',
     transmit = 'com.panic.Transmit',
@@ -33,17 +24,36 @@ App.bundles = {
     warp = 'dev.warp.Warp-Stable',
     windsurf = 'com.exafunction.windsurf',
     youtubeMusic = 'com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod',
-    zen = 'app.zen-browser.zen',
     zoom = 'us.zoom.xos',
     teams = 'com.microsoft.teams2',
     outlook = 'com.microsoft.Outlook',
+    mail = {
+        'mimestream',
+        'outlook',
+    },
+    browsers = {
+        'chrome',
+        'vivaldi',
+    },
+    teamMessaging = {
+        'teams',
+    },
 }
 
-App.browsers = {
-    App.bundles.arc,
-    App.bundles.brave,
-    App.bundles.chrome,
-}
+App.fromAlias = function(alias)
+    local bundles = alias
+
+    if is.String(alias) then
+        bundles = App.bundles[alias]
+    end
+
+    return hs.fnutils.map(
+        bundles,
+        function(bundle)
+            return App.bundles[bundle] or bundle
+        end
+    )
+end
 
 function App.codeEditor()
     return App.includes({vscode, tinkerwell, windsurf})

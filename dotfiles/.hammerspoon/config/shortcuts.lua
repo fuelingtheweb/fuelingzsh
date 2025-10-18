@@ -51,7 +51,6 @@ Shortcuts
         vscode = 'Preferences: Configure User Snippets'
     })
     :add('Z', {
-        iterm = 'wd fz',
         warp = 'wd fz',
         vscode = function()
             if is.hammerspoon() then
@@ -64,7 +63,6 @@ Shortcuts
         end,
     })
     :add('D', {
-        iterm = 'wd d',
         warp = 'wd d',
         vscode = function()
             if is.malachor() then

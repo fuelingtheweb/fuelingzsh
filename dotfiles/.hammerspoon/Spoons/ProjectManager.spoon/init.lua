@@ -168,8 +168,8 @@ function ProjectManager.openUrlForCurrent()
     end
 end
 
-function ProjectManager.openItermForCurrent()
-    fn.iTerm.openNew(home_path .. '/' .. ProjectManager.current().attributes.path)
+function ProjectManager.openTerminalForCurrent()
+    -- fn.Terminal.openNew(home_path .. '/' .. ProjectManager.current().attributes.path)
 end
 
 function ProjectManager.serveCurrent()
@@ -250,7 +250,7 @@ function Site:open()
     if self.attributes.path then
         fn.Code.open('~/' .. self.attributes.path)
         fn.Chrome.open(self.attributes.url)
-        fn.iTerm.open(home_path .. '/' .. self.attributes.path)
+        -- fn.Terminal.open(home_path .. '/' .. self.attributes.path)
     end
 end
 
@@ -262,7 +262,7 @@ end
 
 function Site:openInChrome()
     if self.attributes.path then
-        fn.Arc.openIn(self.attributes.url, 'Primary')
+        fn.Vivaldi.open(self.attributes.url)
     end
 end
 

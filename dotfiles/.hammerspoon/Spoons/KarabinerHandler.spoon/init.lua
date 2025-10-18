@@ -9,12 +9,11 @@ KarabinerHandler.lookup = {
     w = nil,
     e = nil,
     t = {
-        iterm = 'Terminal',
         warp = 'Terminal',
         obsidian = 'Test',
         vscode = 'Test',
     },
-    y = {iterm = 'Yarn', warp = 'Yarn', default = 'Yank'},
+    y = {warp = 'Yarn', default = 'Yank'},
     u = 'AppShortcut',
     i = 'Make',
     o = 'Open',
@@ -23,12 +22,10 @@ KarabinerHandler.lookup = {
     close_bracket = 'Tertiary',
     caps_lock = 'Hyper',
     a = {
-        iterm = 'Artisan',
         warp = 'Artisan',
         default = 'ChangeCase',
     },
     s = {
-        iterm = 'TerminalSnippets',
         warp = 'TerminalSnippets',
         slack = 'SlackSnippets',
         vscode = 'CodeSnippets',

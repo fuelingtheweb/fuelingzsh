@@ -4,7 +4,6 @@ Shortcuts.all = {}
 Shortcuts.appFunctionMapping = {
     discord = fn.Discord.openChannel,
     slack = fn.Slack.openChannel,
-    iterm = ks.typeAndEnter,
     warp = ks.typeAndEnter,
     vscode = fn.Code.run,
     chrome = '',

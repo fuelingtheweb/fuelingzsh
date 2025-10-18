@@ -28,12 +28,8 @@ Hyper.lookup = {
             fn.clipboard.set(text)
         elseif is.chrome() then
             fn.Chrome.copyUrl()
-        elseif is.brave() then
-            fn.Brave.copyUrl()
-        elseif is.arc() then
-            fn.Arc.copyUrl()
-        elseif is.In(sigma) then
-            ks.cmd('l')
+        elseif is.vivaldi() then
+            fn.Vivaldi.copyUrl()
         elseif is.codeEditor() then
             md.Yank.relativeFilePath()
         end
@@ -52,10 +48,8 @@ Hyper.lookup = {
             ks.cmd('2')
         elseif is.terminal() then
             ks.type('cd ')
-        elseif is.In(vivaldi) then
+        elseif is.vivaldi() then
             ks.cmd('e')
-        elseif is.arc() then
-            fn.Alfred.run('open tab', 'com.hellovietduc.alfred.arc-control')
         else
             cm.Search.symbol()
         end
@@ -92,11 +86,6 @@ Hyper.lookup = {
             ks.cmd('6')
         elseif is.In(spotify) then
             ks.altCmd('right')
-        elseif is.iterm() then
-            -- Autocomplete to the end of the line
-            hs.timer.doAfter(0.1, function()
-                ks.super(';')
-            end)
         elseif is.warp() then
             -- Autocomplete to the end of the line
             ks.ctrl('f')
@@ -147,11 +136,8 @@ Hyper.lookup = {
 }
 
 function Hyper.open()
-    if is.In(vscode, sublimeMerge, tableplus, invoker) then
+    if is.In(vscode, tableplus, invoker) then
         ks.cmd('p')
-    elseif is.In(arc) then
-        fn.open('raycast://extensions/the-browser-company/arc/search-spaces')
-        -- ks.cmd('t')
     elseif is.In(mail) then
         ks.shiftCmd('o')
     elseif is.In(anybox) then
@@ -160,15 +146,15 @@ function Hyper.open()
         ks.cmd('k')
     elseif is.In(spotify) then
         fn.Alfred.run('spot_mini', 'com.vdesabou.spotify.mini.player')
-    elseif is.In(vivaldi) then
+    elseif is.vivaldi() then
         ks.cmd('e')
-    elseif is.arc() then
-        if fn.Arc.urlContains('github.com')
-            or fn.Arc.urlContains('tailwindcss.com/docs')
-            or fn.Arc.urlContains('laravel.com/docs')
+    elseif is.vivaldi() then
+        if fn.Vivaldi.urlContains('github.com')
+            or fn.Vivaldi.urlContains('tailwindcss.com/docs')
+            or fn.Vivaldi.urlContains('laravel.com/docs')
         then
             ks.cmd('k')
-        elseif fn.Arc.urlContains('laravel-livewire.com/docs') then
+        elseif fn.Vivaldi.urlContains('laravel-livewire.com/docs') then
             ks.key('/')
         else
             ks.cmd('l')

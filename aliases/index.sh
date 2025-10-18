@@ -20,6 +20,7 @@ source $ALIASES/brew.sh
 source $ALIASES/fzf.sh
 source $ALIASES/rails.sh
 source $ALIASES/wordpress.sh
+source $ALIASES/docker.sh
 
 if [[ -a $ALIASES/custom/index.sh ]]; then
     source $ALIASES/custom/index.sh

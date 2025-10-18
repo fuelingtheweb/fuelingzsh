@@ -15,13 +15,10 @@ fn = {
     table = require('Helpers.Table'),
     window = require('Helpers.Window'),
     Alfred = require('Apps.Alfred'),
-    Arc = require('Apps.Arc'),
     Vivaldi = require('Apps.Vivaldi'),
-    Brave = require('Apps.Brave'),
     Chrome = require('Apps.Chrome'),
     Code = require('Apps.Code'),
     Discord = require('Apps.Discord'),
-    iTerm = require('Apps.iTerm'),
     Raycast = require('Apps.Raycast'),
     SideNotes = require('Apps.SideNotes'),
     Slack = require('Apps.Slack'),
@@ -51,7 +48,6 @@ TextManipulation = hs.loadSpoon('TextManipulation')
 Brackets = hs.loadSpoon('Brackets')
 
 ToBracket = Modal.load('ToBracket')
-ArcModal = Modal.load('Arc')
 
 Modal.load('MiscSnippets')
 

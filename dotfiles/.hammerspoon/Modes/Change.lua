@@ -70,8 +70,6 @@ end
 function Change.line()
     if is.vimMode() then
         ks.escape().sequence({'c', 'c'})
-    elseif is.iterm() and not is.quickFind() then
-        ks.cmd('delete')
     else
         ks.cmd('left').shiftCmd('right').delete()
     end

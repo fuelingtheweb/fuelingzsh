@@ -14,12 +14,12 @@ Open.lookup = {
     t = 'warp',
     -- caps_lock = 'windowHints',
     a = 'openAppModal',
-    s = 'slack',
+    s = 'teamMessaging',
     d = 'discord',
     f = 'openFrequentModal',
     g = 'vivaldi',
     left_shift = 'chrome',
-    z = 'teams',
+    z = 'zoom',
     x = 'finder',
     c = 'calendar',
     v = 'tableplus',
@@ -36,7 +36,7 @@ Modal.add({
         t = {name = 'Transmit', app = 'Transmit.app'},
         -- yu
         i = {name = 'Invoker', app = 'invoker'},
-        o = {name = 'Pop', app = 'Pop.app'},
+        -- o
         p = {name = 'System Preferences', app = 'System Preferences.app'},
         a = {name = 'Alfred Preferences', app = 'alfredPreferences'},
         s = {name = 'Spotify', app = 'spotify'},
@@ -116,15 +116,36 @@ function Open.launchApp(id)
     local bundle = fn.app.bundles[id]
 
     if not bundle then
-        return hs.application.open(id)
+        bundle = id
+        -- return hs.application.open(id)
     end
 
     local app = hs.application.frontmostApplication()
+
+    if is.Table(bundle) then
+        local isActive = false
+        local opened = false
+
+        fn.each(fn.app.fromAlias(bundle), function(b)
+            if isActive then
+                opened = true
+
+                return Open.launchApp(b)
+            elseif app:bundleID() == b then
+                isActive = true
+            end
+        end)
+
+        if not opened then
+            Open.launchApp(bundle[1])
+        end
+
+        return
+    end
+
     local isActive = app:bundleID() == bundle
 
-    if id == 'iterm' then
-        fn.iTerm.launch()
-    elseif not isActive then
+    if not isActive then
         local app = hs.application.get(bundle)
 
         if not fn.app.hasWindows(app) then

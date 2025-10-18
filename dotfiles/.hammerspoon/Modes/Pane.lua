@@ -42,9 +42,6 @@ function Pane.splitRight()
 end
 
 function Pane.toggleZoom()
-    if is.iterm() then
-        ks.shiftCmd('return')
-    end
 end
 
 function Pane.focusPrevious()

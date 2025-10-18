@@ -10,6 +10,7 @@ alias dpsa='docker ps -a'
 alias dc='docker-compose'
 alias dcu='docker-compose up'
 alias dcd='docker-compose down'
+alias dt='docker-compose run --rm test'
 
 # docker-machine
 alias dm='docker-machine'

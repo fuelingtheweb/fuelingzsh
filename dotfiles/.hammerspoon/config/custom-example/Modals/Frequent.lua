@@ -20,7 +20,7 @@ Modal.add({
         if item.callback then
             item.callback()
         elseif item.url then
-            fn.Arc.openIn(item.url, 'Primary')
+            fn.Vivaldi.open(item.url)
         elseif item.incognito then
             fn.Chrome.openIncognito(item.incognito)
         elseif item.code then

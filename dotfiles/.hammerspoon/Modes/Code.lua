@@ -37,11 +37,7 @@ function Code.multipleCursorsUp()
 end
 
 function Code.fold()
-    if is.sublimeMerge() then
-        ks.shift('delete')
-    else
-        ks.altCmd('[')
-    end
+    ks.altCmd('[')
 end
 
 function Code.unfold()
@@ -51,10 +47,6 @@ end
 function Code.moveLineDown()
     if is.codeEditor() or is.obsidian() then
         ks.ctrlCmd('down')
-    elseif is.iterm() then
-        ks.super('j')
-    elseif is.sublimeMerge() then
-        ks.tab()
     else
         md.SelectInside.line()
         ks.slow().copy().delete().delete()
@@ -78,8 +70,6 @@ end
 function Code.moveLineUp()
     if is.codeEditor() or is.obsidian() then
         ks.ctrlCmd('up')
-    elseif is.sublimeMerge() then
-        ks.shift('tab')
     else
         md.SelectInside.line()
         ks.slow().copy().delete().delete()
@@ -121,8 +111,6 @@ end
 function Code.multipleCursorsDown()
     if is.codeEditor() then
         ks.shiftCtrlAlt('down')
-    elseif is.sublimeMerge() then
-        ks.delete()
     elseif is.github() and fn.window.titleContains('Pull Request #') then
         ks.cmd('g')
         md.ViVisual.selectToTopOfPage()
@@ -166,49 +154,21 @@ end
 function Code.selectAll()
     if is.terminal() then
         ks.typeAndEnter('ci')
-    elseif is.sublimeMerge() then
-        ks.shiftEnter()
-        hs.timer.doAfter(0.2, function()
-            hs.eventtap.leftClick({x = 133, y = 203})
-            hs.mouse.absolutePosition({x = 5, y = 203})
-        end)
     else
         ks.ctrlCmd('g')
     end
 end
 
 function Code.toggleBrackets()
-    if is.sublimeMerge() then
-        ks.enter()
-        hs.timer.doAfter(0.2, function()
-            hs.eventtap.leftClick({x = 133, y = 203})
-            hs.mouse.absolutePosition({x = 5, y = 203})
-        end)
-    else
-        ks.shiftCmd("'")
-    end
+    ks.shiftCmd("'")
 end
 
 function Code.previousMember()
-    if is.sublimeMerge() then
-        md.Tab.previous()
-        hs.timer.doAfter(0.1, function()
-            ks.tab()
-        end)
-    else
-        ks.shiftAltCmd('up')
-    end
+    ks.shiftAltCmd('up')
 end
 
 function Code.nextMember()
-    if is.sublimeMerge() then
-        md.Tab.next()
-        hs.timer.doAfter(0.1, function()
-            ks.tab()
-        end)
-    else
-        ks.shiftAltCmd('down')
-    end
+    ks.shiftAltCmd('down')
 end
 
 function Code.focusBreadcrumbs()
@@ -224,15 +184,7 @@ function Code.codeInfo()
 end
 
 function Code.triggerCopilot()
-    if is.sublimeMerge() then
-        ks.enter()
-        hs.timer.doAfter(0.2, function()
-            hs.eventtap.leftClick({x = 133, y = 203})
-            hs.mouse.absolutePosition({x = 5, y = 203})
-        end)
-    else
-        ks.alt('\\')
-    end
+    ks.alt('\\')
 end
 
 return Code

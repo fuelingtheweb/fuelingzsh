@@ -33,7 +33,7 @@ function Tab.previous()
         ks.alt('down')
     elseif is.In(tinkerwell) then
         ks.altCmd('left')
-    elseif is.In(arc, vivaldi, zen) then
+    elseif is.vivaldi() then
         ks.shiftCmd(']')
     else
         ks.shiftCmd('[')
@@ -48,7 +48,7 @@ function Tab.next()
         ks.alt('up')
     elseif is.In(tinkerwell) then
         ks.altCmd('right')
-    elseif is.In(arc, vivaldi, zen) then
+    elseif is.vivaldi() then
         ks.shiftCmd('[')
     else
         ks.shiftCmd(']')

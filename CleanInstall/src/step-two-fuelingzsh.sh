@@ -73,6 +73,6 @@ pause
 
 source $src/osx.sh
 
-success 'Changing default shell to zsh. Restart computer, open iTerm, and run cleaninstall.'
+success 'Changing default shell to zsh. Restart computer, open Warp, and run cleaninstall.'
 sudo dscl . -create /Users/$USER UserShell `which zsh`
 chsh -s `which zsh`

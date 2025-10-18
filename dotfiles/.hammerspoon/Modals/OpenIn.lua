@@ -17,7 +17,7 @@ Modal.add({
 
         OpenIn[item.method]()
 
-        cm.Window.maximizeAfterDelay(is.iterm() and 2 or 0.5)
+        cm.Window.maximizeAfterDelay(0.5)
 
         hs.timer.doAfter(1, function()
             cm.Window.centerMouseOnScreen(cm.Window.current():screen())

@@ -41,14 +41,6 @@ fi
 
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-
-# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-#     # To customize prompt, run `p10k configure` or edit $OPTIONS/p10k.zsh.
-#     source $OPTIONS/p10k.zsh
-
-#     source ~/.iterm2_shell_integration.zsh
-# fi
-
 PROMPT="${PROMPT}"$'\n'
 
 # Herd injected PHP 8.2 configuration.

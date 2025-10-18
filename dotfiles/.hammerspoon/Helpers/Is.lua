@@ -14,27 +14,19 @@ function Is.notVimMode()
 end
 
 function Is.browser()
-    return Is.In(fn.app.browsers)
+    return Is.In(fn.app.fromAlias('browsers'))
 end
 
 function Is.chrome()
     return Is.In(chrome)
 end
 
-function Is.brave()
-    return Is.In(brave)
-end
-
-function Is.arc()
-    return Is.In(arc)
+function Is.vivaldi()
+    return Is.In(vivaldi)
 end
 
 function Is.finder()
     return Is.In(finder)
-end
-
-function Is.iterm()
-    return Is.In(iterm)
 end
 
 function Is.warp()
@@ -42,19 +34,11 @@ function Is.warp()
 end
 
 function Is.terminal()
-    return Is.In(iterm, warp)
-end
-
-function Is.pop()
-    return Is.In(pop)
+    return Is.In(warp)
 end
 
 function Is.vscode()
     return Is.In(vscode)
-end
-
-function Is.sublimeMerge()
-    return Is.In(sublimeMerge)
 end
 
 function Is.obsidian()
@@ -102,11 +86,11 @@ function Is.lua()
 end
 
 function Is.googleSheet()
-    return Is.browser() and fn.Arc.urlContains('docs.google.com') and fn.window.titleContains('Google Sheets')
+    return Is.browser() and fn.Vivaldi.urlContains('docs.google.com') and fn.window.titleContains('Google Sheets')
 end
 
 function Is.github()
-    return Is.browser() and fn.Arc.urlContains('github.com')
+    return Is.browser() and fn.Vivaldi.urlContains('github.com')
 end
 
 function Is.todoOrMarkdown()

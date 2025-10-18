@@ -46,8 +46,6 @@ end
 function Destroy.word()
     if is.vimMode() then
         ks.escape().sequence({'d', 'i', 'w'})
-    elseif is.iterm() then
-        ks.ctrl('w')
     else
         ks.alt('delete')
     end

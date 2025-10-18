@@ -34,13 +34,7 @@ Command.lookup = {
     c = 'renameFile',
 
     v = function ()
-        if is.In(zen) then
-            ks.slow().cmd('a').delete()
-            ks.shiftAltCmd('p');
-            hs.timer.doAfter(0.2, function ()
-                ks.cmd('2');
-            end)
-        elseif is.codeEditor() then
+        if is.codeEditor() then
             ks.shiftCmd('d')
         elseif is.googleSheet() then
             ks.shift('space').shift('space').slow().copy().left()
@@ -111,8 +105,6 @@ function Command.finish()
         ks.cmd('e')
     elseif is.In(tinkerwell) then
         ks.cmd('r')
-    elseif is.sublimeMerge() then
-        ks.enter()
     elseif is.googleSheet() then
         ks.enter().up()
     elseif is.terminal() then

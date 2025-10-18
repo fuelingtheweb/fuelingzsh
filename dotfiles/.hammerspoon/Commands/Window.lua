@@ -154,14 +154,8 @@ function Window.toggleSidebar()
         ks.altCmd('s')
     elseif is.In(mail) then
         ks.ctrlCmd('s')
-    elseif is.In(sigma) then
-        ks.cmd('left')
-    elseif is.In(arc) then
-        ks.shiftCtrl('\\')
     elseif is.In(anybox) then
         ks.ctrlCmd('s')
-    elseif is.sublimeMerge() then
-        ks.cmd('k').cmd('b')
     elseif is.In(slack) then
         ks.shiftCmd('d')
     elseif is.In(tableplus) then
@@ -217,7 +211,7 @@ function Window.focusSidebar()
 end
 
 function Window.destroy()
-    if is.chrome() or is.In(brave, arc, vivaldi) then
+    if is.In(chrome, vivaldi) then
         ks.shiftCmd('w')
 
         hs.timer.doAfter(1, function()
@@ -234,10 +228,9 @@ function Window.destroy()
         youtubeMusic,
         'com.apple.ActivityMonitor',
         'md.obsidian',
-        'com.flexibits.fantastical2.mac',
     }) then
         Window.quitApplication()
-    elseif is.codeEditor() or is.sublimeMerge() then
+    elseif is.codeEditor() then
         ks.shiftCmd('w')
     elseif is.In(tableplus) then
         fn.TablePlus.closeWindow()

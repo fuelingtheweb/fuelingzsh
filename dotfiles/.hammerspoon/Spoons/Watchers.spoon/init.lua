@@ -18,7 +18,7 @@ hs.window.animationDuration = 0
 --     end
 
 --     if count < 1 then
---         if fn.table.has({preview, sublimeMerge, slack, spotify, zoom, rayapp, transmit}, bundle) then
+--         if fn.table.has({preview, slack, spotify, zoom, rayapp, transmit}, bundle) then
 --             app:kill()
 --         elseif app:isFrontmost() then
 --             app:hide()
