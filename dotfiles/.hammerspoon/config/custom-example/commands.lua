@@ -3,7 +3,7 @@ AlfredCommands
         if is.finder() then
             ks.shiftCmd('.')
         else
-            local output = fn.misc.executeFromFuelingZsh('toggle-hidden-files.sh')
+            local output = fn.misc.executeFromAnvil('toggle-hidden-files.sh')
 
             hs.notify
                 .new({title = 'Hidden Files Toggled', informativeText = output}):send()

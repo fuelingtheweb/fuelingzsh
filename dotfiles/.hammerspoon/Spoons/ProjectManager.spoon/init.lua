@@ -141,7 +141,7 @@ function ProjectManager:setAlfredJson()
         })
     end)
 
-    hs.json.write({items = items}, home_path .. '/.fuelingzsh/custom/projects.json', false, true)
+    hs.json.write({items = items}, home_path .. '/Dev/Anvil/custom/projects.json', false, true)
 end
 
 function ProjectManager.current()

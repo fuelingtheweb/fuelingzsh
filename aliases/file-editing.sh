@@ -5,9 +5,9 @@ alias ar='source $ALIASES/index.sh'
 # vimrc editing
 alias ve='code $HOME/.vimrc'
 
-# fuelingzsh editing
-alias fze='code $HOME/.fuelingzsh'
-alias fz='cd $HOME/.fuelingzsh'
+# Anvil editing
+alias ane='code $HOME/Dev/Anvil'
+alias an='cd $HOME/Dev/Anvil'
 
 # zshrc editing
 alias ze='code $HOME/.zshrc'

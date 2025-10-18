@@ -32,7 +32,7 @@ function OpenIn.inGitGui()
         local path = fn.window.path()
 
         if path == '~/.hammerspoon' then
-            path = '~/.fuelingzsh'
+            path = '~/Dev/Anvil'
         end
 
         if path then
@@ -102,7 +102,7 @@ function OpenIn.inTinkerwell()
     local path = fn.window.path()
 
     if path then
-        fn.misc.executeFromFuelingZsh('tinkerwell "' .. path .. '"')
+        fn.misc.executeFromAnvil('tinkerwell "' .. path .. '"')
     end
 end
 

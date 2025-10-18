@@ -55,7 +55,7 @@ function Command.edit()
     if is.vscode() then
         local site = ProjectManager.current()
 
-        fn.misc.executeFromFuelingZsh('tinkerwell "' .. site.attributes.path .. '"')
+        fn.misc.executeFromAnvil('tinkerwell "' .. site.attributes.path .. '"')
 
         return
     end

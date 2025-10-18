@@ -30,7 +30,7 @@ function Artisan.setup()
         description = 'List all registered routes',
         callback = function()
             output = hs.execute(table.concat({'/usr/local/bin/php', Artisan.path, Artisan.command, '--json'}, ' '))
-            file = io.open(home_path .. '/.fuelingzsh/custom/artisan-output.log', 'w')
+            file = io.open(home_path .. '/Dev/Anvil/custom/artisan-output.log', 'w')
             file:write(output)
             file:close()
             hs.execute(table.concat({
@@ -244,7 +244,7 @@ function Artisan.loadAlfredJson()
 
     hs.json.write(
         {items = items},
-        home_path .. '/.fuelingzsh/custom/artisan.json',
+        home_path .. '/Dev/Anvil/custom/artisan.json',
         false,
         true
     )
@@ -399,7 +399,7 @@ function Artisan.openNewFiles(callback)
 end
 
 function Artisan.convertTo(converter, text)
-    return str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/.fuelingzsh/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"')):gsub('/Users/nathan', home_path)
+    return str.trim(hs.execute('/Users/nathan/.nvm/versions/node/v12.4.0/bin/node /Users/nathan/Dev/Anvil/bin/change-case/bin/index.js "' .. converter .. '" "' .. text .. '"')):gsub('/Users/nathan', home_path)
 end
 
 function Artisan.migrateFreshAndSeed()

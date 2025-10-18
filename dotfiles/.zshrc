@@ -1,8 +1,8 @@
 ZSH=$HOME/.ohmyzsh
-FUELINGZSH=$HOME/.fuelingzsh
-OPTIONS=$FUELINGZSH/options
-ALIASES=$FUELINGZSH/aliases
-CUSTOM=$FUELINGZSH/custom
+ANVIL=$HOME/Dev/Anvil
+OPTIONS=$ANVIL/options
+ALIASES=$ANVIL/aliases
+CUSTOM=$ANVIL/custom
 ZSH_DISABLE_COMPFIX="true"
 DISABLE_AUTO_UPDATE="true"
 
@@ -22,8 +22,8 @@ export EDITOR=code
 export FPP_EDITOR=code
 export NNN_DE_FILE_MANAGER=open
 export CLICOLOR_FORCE='yes'
-export PATH=/Applications/Docker.app/Contents/Resources/bin:$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:$PATH
-# export PATH=$VOLTA_HOME/bin:$FUELINGZSH/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
+export PATH=/Applications/Docker.app/Contents/Resources/bin:$VOLTA_HOME/bin:$ANVIL/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:$PATH
+# export PATH=$VOLTA_HOME/bin:$ANVIL/bin:$HOME/.composer/vendor/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/sbin:$PATH
 source $OPTIONS/misc.sh
 source $ALIASES/index.sh
 

@@ -1,6 +1,6 @@
 alias g='git'
 
-alias ghh='gh dash --config $HOME/.fuelingzsh/options/gh-dash.yml'
+alias ghh='gh dash --config $HOME/Dev/Anvil/options/gh-dash.yml'
 
 alias gg='lazygit'
 
@@ -393,6 +393,6 @@ function git:unstage() {
 }
 
 function lint:tlint() {
-    git status --porcelain | grep '??' | cut -f2 -d' ' | xargs -L1 ~/.fuelingzsh/bin/tlint-run.sh
-    git status --porcelain | grep ' M ' | cut -f3 -d' ' | xargs -L1 ~/.fuelingzsh/bin/tlint-run.sh
+    git status --porcelain | grep '??' | cut -f2 -d' ' | xargs -L1 ~/Dev/Anvil/bin/tlint-run.sh
+    git status --porcelain | grep ' M ' | cut -f3 -d' ' | xargs -L1 ~/Dev/Anvil/bin/tlint-run.sh
 }

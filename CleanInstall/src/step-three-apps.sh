@@ -37,7 +37,7 @@ success 'Running Mackup Restore.'
 mackup restore
 
 success 'Linking custom dotfiles.'
-ln -s $FUELINGZSH/custom/gitconfig $HOME/.gitconfig
+ln -s $ANVIL/custom/gitconfig $HOME/.gitconfig
 
 info 'Open Cursorcerer'
 open $HOME/Library/PreferencePanes/Cursorcerer.prefPane

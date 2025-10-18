@@ -45,7 +45,7 @@ function Search.loadWindowsInAlfred(windows, minimum)
     local items = {}
     fn.each(windows, function(window)
         local app = window:application()
-        local iconPath = home_path .. '/.fuelingzsh/custom/' .. app:name() .. '.png'
+        local iconPath = home_path .. '/Dev/Anvil/custom/' .. app:name() .. '.png'
         hs.image.imageFromAppBundle(app:bundleID()):saveToFile(iconPath)
         table.insert(items, {
             uid = window:id(),
@@ -56,7 +56,7 @@ function Search.loadWindowsInAlfred(windows, minimum)
         })
     end)
 
-    hs.json.write({items = items}, home_path .. '/.fuelingzsh/custom/windows.json', false, true)
+    hs.json.write({items = items}, home_path .. '/Dev/Anvil/custom/windows.json', false, true)
 
     fn.Alfred.run('windows', 'com.fuelingtheweb.commands')
 end

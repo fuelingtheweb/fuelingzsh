@@ -100,7 +100,7 @@ fn.each(espansoSnippets, function (snippet, trigger)
     generatedAbbreviations = generatedAbbreviations .. "\n" .. '  - trigger: " ,' .. trigger .. '"' .. "\n" .. '    replace: " ' .. string.lower(snippet) .. '"'
 end)
 
-io.open(home_path .. '/.fuelingzsh/custom/espanso/match/generated-abbreviations.yml', 'w')
+io.open(home_path .. '/Dev/Anvil/custom/espanso/match/generated-abbreviations.yml', 'w')
     :write(generatedAbbreviations)
     :close()
 

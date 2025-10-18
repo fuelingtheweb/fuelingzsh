@@ -1,4 +1,4 @@
-success 'Installing FuelingZsh.'
+success 'Installing Anvil.'
 
 source $src/brew.sh
 
@@ -11,7 +11,7 @@ git clone git@github.com:zsh-users/zsh-syntax-highlighting.git $OHMYZSH/custom/p
 # Install and setup lazygit
 # brew install lazygit
 # Open lazygit
-# ln -sf ~/.fuelingzsh/options/lazygit.yml ~/Library/Application\ Support/lazygit/config.yml
+# ln -sf ~/Dev/Anvil/options/lazygit.yml ~/Library/Application\ Support/lazygit/config.yml
 
 # Download from github and install ttf fonts
 git clone git@github.com:tonsky/FiraCode.git $HOME/FiraCode
@@ -35,22 +35,22 @@ dotfiles=(
 
 for file in "${dotfiles[@]}"; do
     trash "$HOME/$file"
-    ln -s "$FUELINGZSH/dotfiles/$file" "$HOME/$file"
+    ln -s "$ANVIL/dotfiles/$file" "$HOME/$file"
 done
 
-trash $FUELINGZSH/custom
-trash $FUELINGZSH/aliases/custom
-trash $FUELINGZSH/dotfiles/.hammerspoon/config/custom
-ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/custom $FUELINGZSH/custom
-ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/aliases/custom $FUELINGZSH/aliases/custom
-ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/config/custom $FUELINGZSH/dotfiles/.hammerspoon/config/custom
+trash $ANVIL/custom
+trash $ANVIL/aliases/custom
+trash $ANVIL/dotfiles/.hammerspoon/config/custom
+ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/custom $ANVIL/custom
+ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/aliases/custom $ANVIL/aliases/custom
+ln -s $HOME/Dropbox/Ftw/fuelingzsh-custom/dotfiles/.hammerspoon/config/custom $ANVIL/dotfiles/.hammerspoon/config/custom
 trash $HOME/.config/karabiner.edn
 mkdir $HOME/.config # *
-ln -s $FUELINGZSH/karabiner/karabiner.edn $HOME/.config/karabiner.edn # *
+ln -s $ANVIL/karabiner/karabiner.edn $HOME/.config/karabiner.edn # *
 trash $HOME/.warprc
-ln -s $FUELINGZSH/custom/dotfiles/.warprc $HOME/.warprc
-ln -s $FUELINGZSH/custom/espanso $HOME/Library/Preferences/espanso
-cp $FUELINGZSH/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
+ln -s $ANVIL/custom/dotfiles/.warprc $HOME/.warprc
+ln -s $ANVIL/custom/espanso $HOME/Library/Preferences/espanso
+cp $ANVIL/options/fonts/Droid+Sans+Mono+Awesome.ttf $HOME/Library/Fonts/Droid+Sans+Mono+Awesome.ttf
 touch $HOME/.hushlogin
 
 espanso register

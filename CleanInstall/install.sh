@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-FUELINGZSH=$HOME/.fuelingzsh
+ANVIL=$HOME/Dev/Anvil
 
-if [ ! -d $FUELINGZSH ]
+if [ ! -d $ANVIL ]
 then
-    git clone https://github.com/fuelingtheweb/fuelingzsh.git $FUELINGZSH
+    git clone https://github.com/fuelingtheweb/anvil.git $ANVIL
 fi
 
-$FUELINGZSH/CleanInstall/start.sh
+$ANVIL/CleanInstall/start.sh

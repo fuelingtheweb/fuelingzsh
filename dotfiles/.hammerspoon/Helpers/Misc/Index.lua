@@ -7,8 +7,8 @@ function Misc.DismissNotifications()
     DismissNotifications.run()
 end
 
-function Misc.executeFromFuelingZsh(command)
-    return hs.execute(home_path .. '/.fuelingzsh/bin/' .. command)
+function Misc.executeFromAnvil(command)
+    return hs.execute(home_path .. '/Dev/Anvil/bin/' .. command)
 end
 
 function Misc.showSnippets()

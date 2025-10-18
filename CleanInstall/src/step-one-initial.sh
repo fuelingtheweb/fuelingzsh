@@ -4,7 +4,7 @@ pause
 
 # Install Vivaldi
 # Set up ssh key and add to GitHub
-# Download .fuelingzsh
+# Download Anvil
 # Install Homebrew
 # Install goku
 # Install Karabiner Elements and Hammerspoon
@@ -25,8 +25,8 @@ success 'Restoring .ssh folder.'
 cp -r $backups/.ssh $HOME/.ssh
 
 success 'Updating git remote url.'
-cd $FUELINGZSH
-git remote set-url origin git@github.com:fuelingtheweb/fuelingzsh.git
+cd $ANVIL
+git remote set-url origin git@github.com:fuelingtheweb/anvil.git
 
 success 'Creating Dev folder.'
 mkdir $HOME/Dev
@@ -34,7 +34,7 @@ mkdir $HOME/Dev
 info 'Wait for Dropbox to sync Ftw folder.'
 info 'Update Dropbox preferences to sync remaining folders.'
 info 'Quit Dropbox until all settings have synced and symlinked.'
-info 'Transfer backed up folders while installing FuelingZsh then remove Backups folder.'
+info 'Transfer backed up folders while installing Anvil then remove Backups folder.'
 open $HOME/Dev
 open $backups
 pause

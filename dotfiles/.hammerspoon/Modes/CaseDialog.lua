@@ -27,7 +27,7 @@ function CaseDialog.handle(key)
 end
 
 hs.urlevent.bind('case-changeFromAlfred', function(eventName, params)
-    result = str.trim(hs.execute('~/.nvm/versions/node/v12.4.0/bin/node ~/.fuelingzsh/bin/change-case/bin/index.js "' .. params.to .. '" "' .. params.text .. '"'))
+    result = str.trim(hs.execute('~/.nvm/versions/node/v12.4.0/bin/node ~/Dev/Anvil/bin/change-case/bin/index.js "' .. params.to .. '" "' .. params.text .. '"'))
     fn.clipboard.set(result)
     ks.type(result)
 end)

@@ -11,7 +11,7 @@ alias sdi='sed -i ""'
 alias cvl='csvlook'
 alias _='sudo'
 alias w='which'
-alias m='cd ~/ && /bin/cat ~/.fuelingzsh/custom/ascii/welcome.honk.txt'
+alias m='cd ~/ && /bin/cat ~/Dev/Anvil/custom/ascii/welcome.honk.txt'
 alias dld='cd ~/Downloads'
 alias dcs='cd ~/Documents'
 alias dv='cd ~/Dev'
@@ -46,9 +46,9 @@ alias files:hide='defaults write com.apple.finder AppleShowAllFiles NO; killall 
 alias files:show='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias ydl='youtube-dl'
 alias ke='code ~/.config/karabiner.edn'
-alias kc='php ~/Dev/TidyPoint/kc/artisan kc:compile && goku'
+alias kc='php ~/Dev/Anvil/artisan kc:compile && goku'
 alias kcw='gokuw'
-alias cleaninstall="$FUELINGZSH/CleanInstall/start.sh"
+alias cleaninstall="$ANVIL/CleanInstall/start.sh"
 alias pdf:combine="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=merged.pdf"
 alias pdf:compress="/usr/local/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/screen -sOutputFile=small.pdf" # ebook | screen
 alias php:memory="php -r \"echo ini_get('memory_limit').PHP_EOL;\""

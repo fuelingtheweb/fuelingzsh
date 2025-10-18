@@ -37,7 +37,7 @@ function AlfredCommands:setAlfredJson()
 
     hs.json.write(
         {items = items},
-        home_path .. '/.fuelingzsh/custom/alfred-commands.json',
+        home_path .. '/Dev/Anvil/custom/alfred-commands.json',
         false,
         true
     )

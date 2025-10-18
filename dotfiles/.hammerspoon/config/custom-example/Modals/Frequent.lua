@@ -5,14 +5,14 @@ Modal.add({
     key = 'OpenFrequent',
     title = 'Open Frequent',
     items = {
-        a = {name = 'Aliases', code = '~/.fuelingzsh/aliases'},
-        s = {name = 'Snippets', code = '~/.fuelingzsh/custom/espanso'},
+        a = {name = 'Aliases', code = '~/Dev/Anvil/aliases'},
+        s = {name = 'Snippets', code = '~/Dev/Anvil/custom/espanso'},
         h = {name = 'Hammerspoon', code = '~/.hammerspoon'},
         d = {
             name = 'Downloads',
             callback = function() hs.execute('open ~/Downloads') end
         },
-        z = {name = 'Fuelingzsh', code = '~/.fuelingzsh'},
+        z = {name = 'Anvil', code = '~/Dev/Anvil'},
     },
     callback = function(item)
         Modal.exit()

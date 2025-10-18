@@ -1,7 +1,7 @@
-FUELINGZSH=$HOME/.fuelingzsh
+ANVIL=$HOME/Dev/Anvil
 OHMYZSH=$HOME/.ohmyzsh
 src=$cleanInstall/src
-custom=$FUELINGZSH/custom
+custom=$ANVIL/custom
 backups=$HOME/Documents/Backups
 
 GREEN='\033[0;32m'
@@ -31,11 +31,11 @@ infoWithBreaks() {
 }
 
 copyLicense() {
-    echo -n $(cat $FUELINGZSH/custom/licenses/$1.txt) | pbcopy
+    echo -n $(cat $ANVIL/custom/licenses/$1.txt) | pbcopy
 }
 
 copyLicenseNoTrim() {
-    cat $FUELINGZSH/custom/licenses/$1.txt | pbcopy
+    cat $ANVIL/custom/licenses/$1.txt | pbcopy
 }
 
 runStepIf() {
