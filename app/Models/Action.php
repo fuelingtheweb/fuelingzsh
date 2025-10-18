@@ -8,6 +8,7 @@ class Action
         'alfred' => <<<'EDN'
             osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'
         EDN,
+        'open' => "open '%s'",
         'app' => "open -b '%s'",
         'hs' => "open -g 'hammerspoon://%s'",
         'hsk' => "open -g 'hammerspoon://handle-karabiner?mode=%s&key=%s'",

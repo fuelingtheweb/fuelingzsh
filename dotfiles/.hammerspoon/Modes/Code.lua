@@ -111,11 +111,6 @@ end
 function Code.multipleCursorsDown()
     if is.codeEditor() then
         ks.shiftCtrlAlt('down')
-    elseif is.github() and fn.window.titleContains('Pull Request #') then
-        ks.cmd('g')
-        md.ViVisual.selectToTopOfPage()
-        md.ViVisual.selectLineDown()
-        ks.delete().delete()
     end
 end
 

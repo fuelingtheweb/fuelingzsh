@@ -23,8 +23,7 @@
     l:
     ';':
     qt:
-    rtn:
-    b:
+    rtn: caps
     n:
         ide: 'oc.n'
         default: 'sc.n'
@@ -57,8 +56,8 @@
         chrome: 'esc t h'
         ide: 'soc.lt'
         vivaldi: 'oc.lt'
-    j:
-    k:
+    j: 'hs: Tab.previous'
+    k: 'hs: Tab.next'
     l: # Move tab right
         chrome: 'esc t l'
         ide: 'soc.rt'
@@ -72,9 +71,9 @@
         finder: 'c.n'
         ide: 'c.n s.o'
         default: 'c.t'
-    m:
-    ',':
-    prd:
+    m: 'hs: Tab.closeCurrent'
+    ',': 'hs: Tab.closePrevious'
+    prd: 'hs: Tab.closeNext'
     '/': # Close all other tabs
         chrome: 't x ;'
         ide: 'toc.e toc./'
@@ -137,7 +136,26 @@
     - all-left
 
 '] : Tertiary':
-    - all-left
+    tab: null
+    q: null
+    w: null
+    e: null
+    r: 'raycast://extensions/raycast/system/restart'
+    t: null
+    caps: null
+    a: null
+    s: 'raycast://extensions/raycast/system/shut-down'
+    d: null
+    f: null
+    g: null
+    ltS: null
+    z: null
+    x: # VSCode Extensions
+        ide: 'sc.x'
+    c: null
+    v: null
+    b: null
+    sb: null
 
 'a : ChangeCase':
     - all-right
@@ -169,44 +187,46 @@
     sb:
 
 'd : Vi':
-    y: # 'moveToTopOfPage',
+    y: # 'moveToTopOfPage'
         default: 'hs: vi.moveToTopOfPage'
-    u: # 'pageUp',
+    u: # 'pageUp'
         ide: 't.u'
         default: 'page_up'
-    i: # 'moveToFirstCharacterOfLine',
+    i: # 'moveToFirstCharacterOfLine'
         default: 'c.lt'
-    o: # 'moveToEndOfLine',
+    o: # 'moveToEndOfLine'
         default: 'c.rt'
-    p: # nil,
-    '[': # 'moveAndInsertAtFirstCharacterOfLine',
+    p: null
+    '[': # 'moveAndInsertAtFirstCharacterOfLine'
         ide: 'esc s.i'
         default: 'c.lt'
-    ']': # 'moveAndAppendAtEndOfLine',
+    ']': # 'moveAndAppendAtEndOfLine'
         ide: 'esc s.a'
         default: 'c.rt'
     h: 'lt'
     j: 'dn'
     k: 'up'
     l: 'rt'
-    ';': # 'moveToPreviousWholeWord',
+    ';': # 'moveToPreviousWholeWord'
         default: 'esc s.b'
-    qt: # 'moveToEndOfWholeWord',
+    qt: # 'moveToEndOfWholeWord'
         default: 'esc s.e'
-    rtn: # 'moveToNextWholeWord',
+    rtn: # 'moveToNextWholeWord'
         default: 'esc s.w'
-    n: # 'moveToBottomOfPage',
+    n: # 'moveToBottomOfPage'
         default: 'hs: vi.moveToBottomOfPage'
-    m: # 'pageDown',
+    m: # 'pageDown'
         ide: 't.d'
         default: 'page_down'
-    ',': # 'previousWord',
+    ',': # 'previousWord'
         default: 'o.lt'
-    prd: # 'nextWord',
+    prd: # 'nextWord'
         default: 'o.rt'
-    '/': # 'moveToPreviousSubword',
-    rtS: # 'moveToNextSubword',
-    sb: # 'joinLines',
+    '/': # 'moveToPreviousSubword'
+        default: 's.q'
+    rtS: # 'moveToNextSubword'
+        default: 'q'
+    sb: # 'joinLines'
         ide: 'esc s.j x'
 
 'f : General':
@@ -400,55 +420,55 @@
         default: 'c./'
 
 'v : ViVisual':
-    y: # 'selectToTopOfPage',
+    y: # 'selectToTopOfPage'
         code: 'esc s.v g g'
         finder: 'so.up'
         default: 'sc.up'
-    u: # 'selectLineUp',
+    u: # 'selectLineUp'
         code: 's.v k'
         default: 's.up'
-    i: # 'selectToFirstCharacterOfLine',
-        default: 'hs: ViVisual.selectToFirstCharacterOfLine'
-    o: # 'selectToEndOfLine',
+    i: # 'selectToFirstCharacterOfLine'
+        default: 'hs: SelectUntil.beginningOfLine'
+    o: # 'selectToEndOfLine'
         code: 't.v s.4 lt'
         default: 'sc.rt'
-    p: # nil,
-    '[': # nil,
-    ']': # nil,
-    h: # 'selectLeft',
+    p: null
+    '[': null
+    ']': null
+    h: # 'selectLeft'
         code: 't.v lt'
         default: 's.lt'
-    j: # 'selectDown',
+    j: # 'selectDown'
         code: 't.v t.dn'
         default: 's.dn'
-    k: # 'selectUp',
+    k: # 'selectUp'
         code: 't.v t.up'
         default: 's.up'
-    l: # 'selectRight',
+    l: # 'selectRight'
         code: 't.v rt'
         default: 's.rt'
-    ';': # 'selectToPreviousWholeWord',
+    ';': # 'selectToPreviousWholeWord'
         code: 't.v s.b'
-    qt: # 'selectToEndOfWholeWord',
+    qt: # 'selectToEndOfWholeWord'
         code: 't.v s.e'
-    rtn: # 'selectToNextWholeWord',
+    rtn: # 'selectToNextWholeWord'
         code: 't.v l s.w h'
-    n: # 'selectToBottomOfPage',
+    n: # 'selectToBottomOfPage'
         code: 'esc s.v s.g'
         finder: 'so.dn'
         default: 'sc.dn'
-    m: # 'selectLineDown',
+    m: # 'selectLineDown'
         code: 's.v j'
         default: 's.dn'
-    ',': # 'selectPreviousWord',
+    ',': # 'selectPreviousWord'
         # code: 's.v b'
         default: 'so.lt'
-    prd: # 'selectNextWord',
+    prd: # 'selectNextWord'
         # code: 's.v e'
         default: 'so.rt'
-    '/': # 'selectToPreviousSubword',
-    rtS: # 'selectToNextSubword',
-    sb: # nil,
+    '/': null
+    rtS: null
+    sb: null
 
 'b':
 

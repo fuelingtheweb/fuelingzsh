@@ -2,7 +2,6 @@ hs.hotkey.alertDuration = 0
 
 home_path = os.getenv('HOME')
 
--- test
 Modal = hs.loadSpoon('Modal')
 
 fn = {
@@ -34,6 +33,8 @@ cm = {
     Artisan = require('Commands.Artisan'),
     Media = require('Commands.Media'),
     Search = require('Commands.Search'),
+    Tab = require('Commands.Tab'),
+    Vi = require('Commands.Vi'),
     ViVisual = require('Commands.ViVisual'),
     Window = require('Commands.Window'),
 }

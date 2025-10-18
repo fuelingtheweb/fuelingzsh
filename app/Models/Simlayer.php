@@ -194,6 +194,10 @@ class Simlayer
     {
         $action = str($action);
 
+        if ($action->test('/^[a-zA-Z]+:\/\/.+$/')) {
+            return ':open "' . $action->value() . '"';
+        }
+
         if ($action->contains(' ++ ')) {
             return $action
                 ->explode(' ++ ')

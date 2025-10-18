@@ -67,7 +67,7 @@ Hyper.lookup = {
         if is.quickFind() then
             ks.cmd('4')
         else
-            md.Tab.previous()
+            cm.Tab.previous()
         end
     end,
 
@@ -77,7 +77,7 @@ Hyper.lookup = {
         elseif is.In(dash) then
             ks.alt('up')
         else
-            md.Tab.next()
+            cm.Tab.next()
         end
     end,
 
@@ -102,10 +102,6 @@ Hyper.lookup = {
         else
             cm.Window.next()
         end
-    end,
-
-    return_or_enter = function()
-        hs.hid.capslock.set(true)
     end,
 
     m = function ()

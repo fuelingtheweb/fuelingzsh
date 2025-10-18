@@ -1,30 +1,6 @@
 local Tab = {}
 Tab.__index = Tab
 
-Tab.lookup = {
-    j = 'previous',
-    k = 'next',
-    m = 'closeCurrent',
-
-    comma = function ()
-        md.Tab.previous()
-        md.Tab.closeCurrent()
-
-        if is.notIn(vscode) then
-            md.Tab.next()
-        end
-    end,
-
-    period = function ()
-        md.Tab.next()
-        md.Tab.closeCurrent()
-
-        if is.vscode() or is.chrome() then
-            md.Tab.previous()
-        end
-    end,
-}
-
 function Tab.previous()
     if is.In(tableplus) then
         ks.cmd('[')
@@ -68,5 +44,29 @@ function Tab.closeCurrent()
         end)
     end
 end
+
+function Tab.closePrevious()
+    Tab.previous()
+    Tab.closeCurrent()
+
+    if is.notIn(vscode) then
+        Tab.next()
+    end
+end
+
+function Tab.closeNext()
+    Tab.next()
+    Tab.closeCurrent()
+
+    if is.vscode() or is.chrome() then
+        Tab.previous()
+    end
+end
+
+hs.urlevent.bind('Tab.previous', Tab.previous)
+hs.urlevent.bind('Tab.next', Tab.next)
+hs.urlevent.bind('Tab.closeCurrent', Tab.closeCurrent)
+hs.urlevent.bind('Tab.closePrevious', Tab.closePrevious)
+hs.urlevent.bind('Tab.closeNext', Tab.closeNext)
 
 return Tab
